@@ -1,0 +1,48 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  formtastic:
+    titles:
+      user_details: "User account"
+    labels:
+      user:
+        username: "Username"
+        email: "E-mail address"
+        password: "Password"
+        password_confirmation: "Confirm password"
+      user_session:
+        username: "Username"
+        password: "Password"
+    hints:
+      user:
+        email: "Main e-mail address for contact purposes"
+        password: "At least 4 characters long"
+    actions:
+      signup: "Register new account"
+
+  # Custom messages
+  title:
+    signup: "Sign up"
+    untitled: "Untitled"
+  
+  header:
+    welcome: "Welcome {{username}}! Not you?"
+    signup: "sign up"
+  
+  flash:
+    user:
+      create:
+        success: "Thank you for signing up! You are now logged in."
+      login:
+        required: "You must first log in or sign up before accessing this page."
+      logout:
+        required: "This page is only available when you're logged out."
+    user_session:
+      create:
+        success: "Logged in successfully."
+      destroy:
+        success: "You have been logged out."
+  
+  generic:
+    or: "or"

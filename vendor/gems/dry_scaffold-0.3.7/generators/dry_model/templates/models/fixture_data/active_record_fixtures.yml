@@ -1,0 +1,6 @@
+<% unless attributes.empty? -%>
+basic:
+<% attributes.each do |attribute| -%>
+  <%= attribute.name %>: <%= attribute.default_for_fixture %>
+<% end -%>
+<% end -%>

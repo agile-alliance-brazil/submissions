@@ -1,0 +1,10 @@
+- title t('title.signup')
+
+- semantic_form_for @user do |f|
+  - f.inputs do
+    = f.input :username
+    = f.input :email
+    = f.input :password
+    = f.input :password_confirmation
+  - f.buttons do
+    = f.commit_button :signup

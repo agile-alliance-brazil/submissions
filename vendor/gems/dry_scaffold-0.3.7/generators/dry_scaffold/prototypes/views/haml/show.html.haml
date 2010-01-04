@@ -1,0 +1,13 @@
+%h1.heading
+  = "Duck %s" % @duck.id
+  
+- content_tag_for(:dl, @duck) do
+  %dt.label= 'Title'
+  %dd.title= h @duck.try(:title)
+  %dt.label= 'Description'
+  %dd.description= h @duck.try(:description)
+  
+%p.actions
+  = link_to 'Edit', edit_duck_url(@duck)
+  |
+  = link_to 'Index', ducks_url

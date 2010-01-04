@@ -1,0 +1,71 @@
+--- !ruby/object:Gem::Specification 
+name: responders
+version: !ruby/object:Gem::Version 
+  version: "0.4"
+platform: ruby
+authors: 
+- "Jos\xC3\xA9 Valim"
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-12-21 00:00:00 +00:00
+default_executable: 
+dependencies: []
+
+description: A set of Rails 3 responders to dry up your application
+email: contact@plataformatec.com.br
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README.rdoc
+files: 
+- CHANGELOG.rdoc
+- MIT-LICENSE
+- README.rdoc
+- Rakefile
+- lib/generators/USAGE
+- lib/generators/responders_controller_generator.rb
+- lib/generators/responders_install_generator.rb
+- lib/generators/templates/controller.rb
+- lib/responders.rb
+- lib/responders/flash_responder.rb
+- lib/responders/http_cache_responder.rb
+- lib/responders/version.rb
+- test/flash_responder_test.rb
+- test/http_cache_responder_test.rb
+- test/test_helper.rb
+has_rdoc: true
+homepage: http://github.com/plataformatec/responders
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 3
+summary: A set of Rails 3 responders to dry up your application
+test_files: 
+- test/flash_responder_test.rb
+- test/http_cache_responder_test.rb
+- test/test_helper.rb

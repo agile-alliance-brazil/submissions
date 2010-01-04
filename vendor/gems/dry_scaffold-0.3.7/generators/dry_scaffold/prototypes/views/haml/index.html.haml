@@ -1,0 +1,17 @@
+%h1.heading
+  = 'Ducks'
+  
+%p.actions
+  = link_to 'New duck', new_duck_url
+  
+%table
+  %thead.header
+    %tr
+      %th.title= 'Title'
+      %th.description= 'Description'
+      %th.actions= 'Actions'
+  %tbody.items.resources
+    - @ducks.each do |duck|
+      = render 'item', :duck => duck
+      
+= will_paginate(@ducks)

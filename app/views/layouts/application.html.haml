@@ -1,0 +1,30 @@
+!!! Strict
+%html{html_attrs}
+  
+  %head
+    %title
+      = (yield(:title) || t('title.untitled'))
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'formtastic'
+    = stylesheet_link_tag 'formtastic_changes'
+    = yield(:head)
+  
+  %body
+    #header
+      - if logged_in?
+        = t('header.welcome', :username => current_user.username)
+        = link_to "Logout", logout_path
+      - else
+        = link_to "Login", login_path
+        = t('generic.or')
+        = link_to t('header.signup'), signup_path
+    
+    #container
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      
+      - if show_title?
+        %h1= yield(:title)
+      
+      = yield

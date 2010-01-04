@@ -1,0 +1,30 @@
+== Agile Brazil 2010 Submission System
+
+Run rake gems to list the libraries being used to build this app.
+
+TODO:
+
+ * Capistrano deploy recipes (staging & prod)
+ * Create database (UTF-8 encoding)
+ * Add attributes to user (mini-bio)
+ * Resource: Submission
+ * Reference data: Track (engineering, management, experience report, general interest)
+ * Reference data: SessionLevel (beginner, practitioner, experienced)
+ * Reference data: SessionType (tutorial, talk, workshop)
+ * Reference data: SessionDuration (45 / 90 minutes)
+ * Authorization model (can-can gem)
+ * Tagging
+ * Search submissions
+ * Improve Layout (CSS)
+ * Cucumber features
+ 
+IN PROGRESS:
+
+ * [task] -- [person]
+ 
+DONE:
+
+ * Setup Rails project (gems/plugins) -- Danilo
+ * Simple Authentication (create user/login/logout) -- Danilo
+ * I18N support (available in :en and :pt, :pt default) -- Danilo
+ * Homepage -- Danilo

@@ -1,0 +1,61 @@
+h1. 0.3.7 (2010-01-02)
+
+* Feature: override DryScaffold templates seamlessly: Auto-detect and use app-specific custom templates with mapping: RAILS_ROOT/lib/scaffold_templates/**/* <=> GEM_ROOT/generators/{dry_scaffold,dry_model}/templates/**/*.
+
+h1. 0.3.6 (2009-12-31)
+
+* Gemcutter as gem source.
+* Bugfix: Use InheritedResources (if loaded) URL helpers.
+* Bugfix: Use specified test framework, test-unit was used all the time.
+
+h1. 0.3.4 (2009-09-16)
+
+* Fixed bug: Make it possible to require rake tasks (In Rakefile: require 'dry_scaffold/tasks')
+
+h1. 0.3.2/0.3.3 (2009-09-14)
+
+* Fixed bug: Rspec tests issues
+
+h1. 0.3.1 (2009-09-09)
+
+* Feature: Added Rspec tests generation
+
+h1. 0.3.0 (2009-07-23)
+
+* Major refactoring of the code.
+* Test/Fixture-stuff re-written from the ground, now tested thoroughly and considered stable - was not before. Plenty sloppy bugs squashed.
+* Added Shoulda tests generation.
+
+h1. 0.2.5 (2009-06-12)
+
+* Fixed typo: Gem configuration instructions in README.
+* Fixed bug: Re-generated gemspec - missing files. (cjheath)
+
+h1. 0.2.4 (2009-05-19)
+
+* Fixed bug: Causing generator to fail if test/unit/helpers path don't exist. 
+
+h1. 0.2.3 (2009-05-12)
+
+* Fixed bug: Missing executables in gemspec.
+
+h1. 0.2.2 (2009-05-06)
+
+* Feature: Specifying actions new+ instead of new, then actions new/create. Same applies to edit+, i.e. edit/update.
+* Feature: For respond_to-formats ATOM/RSS; builders will be generated unless --skip-builders flag is specified
+* Feature: If route is already declared in 'config/routes.rb', then don't generate the route again.
+* Refactor: New template directory structure and naming conventions - more generic. Preparing for optional test frameworks.
+* Refactor: Cleaned up views with generator helpers.
+* Fixed bug: Options for factory_girl vs. machinist got in-versed, i.e. typo.
+* Fixed bug: Options got ignored because of a typo. Grrr....
+
+h1. 0.2.1 (2009-05-03)
+
+* New feature: Possible to set generator default args in a config file (config/scaffold.yml), or rely on defaults.
+* Fixed issue: Rails default_options don't seem to work at all; replacing it with own solution.
+* Fixed bug: Typo in formats arg parser.
+* Refactor: Gem requires less hardcoded.
+
+h1. 0.2.0 (2009-05-01)
+
+* New dry model generator: Extends Rails default model generator with features such as generation of factory_girl/machinis/object_daddy-factories if available and requested (or fixtures), and specifying database column indexes upon generation in a very convenient way.

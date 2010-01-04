@@ -1,0 +1,33 @@
+---
+dry_scaffold:
+  args:
+    actions: index,show,new,edit,create,update,destroy
+    formats: html,js,xml,json
+  options:
+    formtastic: true
+    resourceful: true
+    pagination: true
+    layout: false
+    views: true
+    helpers: true
+    tests: true
+    controller_tests: true
+    test_unit: true
+    shoulda: false
+    rspec: false
+    fixtures: true
+    fgirl: false
+    machinist: false
+    object_daddy: false
+dry_model:
+  options:
+    migration: true
+    timestamps: true
+    tests: true
+    test_unit: true
+    shoulda: false
+    rspec: false
+    fixtures: true
+    fgirl: false
+    machinist: false
+    object_daddy: false

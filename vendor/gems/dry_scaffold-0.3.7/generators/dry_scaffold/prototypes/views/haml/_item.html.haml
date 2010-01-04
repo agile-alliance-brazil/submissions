@@ -1,0 +1,9 @@
+- content_tag_for(:tr, duck) do
+  %td.title= h duck.try(:title)
+  %td.description= h duck.try(:description)
+  %td.actions
+    = link_to 'Show', duck_url(duck)
+    |
+    = link_to 'Edit', edit_duck_url(duck)
+    |
+    = link_to 'Destroy', duck_url(duck), :confirm => 'Are you sure?', :method => :delete
