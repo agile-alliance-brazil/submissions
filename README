@@ -4,9 +4,9 @@ Run rake gems to list the libraries being used to build this app.
 
 TODO:
 
- * Capistrano deploy recipes (staging & prod)
- * Create database (UTF-8 encoding)
+ * Configure production environment
  * Add attributes to user (mini-bio)
+ * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Resource: Submission
  * Reference data: Track (engineering, management, experience report, general interest)
  * Reference data: SessionLevel (beginner, practitioner, experienced)
@@ -20,11 +20,14 @@ TODO:
  
 IN PROGRESS:
 
+ * Capistrano deploy recipes (staging) -- Danilo
  * [task] -- [person]
  
 DONE:
 
+ * Create database (UTF-8 encoding) -- Danilo
  * Setup Rails project (gems/plugins) -- Danilo
  * Simple Authentication (create user/login/logout) -- Danilo
  * I18N support (available in :en and :pt, :pt default) -- Danilo
  * Homepage -- Danilo
+ * Github project -- Frank
