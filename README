@@ -2,10 +2,11 @@
 
 Run rake gems to list the libraries being used to build this app.
 
+For project progress and stories: http://www.pivotaltracker.com/projects/48585
+
 TODO:
 
  * Configure production environment
- * Add attributes to user (mini-bio)
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Resource: Submission
  * Reference data: Track (engineering, management, experience report, general interest)
@@ -21,6 +22,7 @@ TODO:
 IN PROGRESS:
 
  * Capistrano deploy recipes (staging) -- Danilo
+ * Add attributes to user (mini-bio, etc...) -- Danilo
  * [task] -- [person]
  
 DONE:

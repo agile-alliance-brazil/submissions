@@ -1,0 +1,106 @@
+--- !ruby/object:Gem::Specification 
+name: remarkable_activerecord
+version: !ruby/object:Gem::Version 
+  version: 3.1.11
+platform: ruby
+authors: 
+- Carlos Brando
+- "Jos\xC3\xA9 Valim"
+- Diego Carrion
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-10-01 00:00:00 +01:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: remarkable
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 3.1.11
+    version: 
+description: "Remarkable ActiveRecord: collection of matchers and macros with I18n for ActiveRecord"
+email: 
+- eduardobrando@gmail.com
+- jose.valim@gmail.com
+- dc.rec1@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+- LICENSE
+- CHANGELOG
+files: 
+- README
+- LICENSE
+- CHANGELOG
+- lib/remarkable_activerecord/base.rb
+- lib/remarkable_activerecord/describe.rb
+- lib/remarkable_activerecord/human_names.rb
+- lib/remarkable_activerecord/matchers/accept_nested_attributes_for_matcher.rb
+- lib/remarkable_activerecord/matchers/allow_mass_assignment_of_matcher.rb
+- lib/remarkable_activerecord/matchers/allow_values_for_matcher.rb
+- lib/remarkable_activerecord/matchers/association_matcher.rb
+- lib/remarkable_activerecord/matchers/have_column_matcher.rb
+- lib/remarkable_activerecord/matchers/have_default_scope_matcher.rb
+- lib/remarkable_activerecord/matchers/have_index_matcher.rb
+- lib/remarkable_activerecord/matchers/have_readonly_attributes_matcher.rb
+- lib/remarkable_activerecord/matchers/have_scope_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_acceptance_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_associated_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_confirmation_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_exclusion_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_inclusion_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_length_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_numericality_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_presence_of_matcher.rb
+- lib/remarkable_activerecord/matchers/validate_uniqueness_of_matcher.rb
+- lib/remarkable_activerecord.rb
+- locale/en.yml
+has_rdoc: true
+homepage: http://github.com/carlosbrando/remarkable
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: remarkable
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 3
+summary: "Remarkable ActiveRecord: collection of matchers and macros with I18n for ActiveRecord"
+test_files: []
+

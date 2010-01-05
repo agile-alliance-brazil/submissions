@@ -168,13 +168,22 @@ pt:
   # Formtastic
   formtastic:
     titles:
-      user_details: "Usuário"
+      user_login: "Informações de Login"
+      user_personal: "Informações Pessoais"
     labels:
       user:
+        first_name: "Nome"
+        last_name: "Sobrenome"
         username: "Nome de usuário"
         email: "Email"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
+        phone: "Telefone para contato"
+        state: "Estado"
+        city: "Cidade"
+        organization: "Organização"
+        website_url: "Website"
+        bio: "Mini-currículo"
       user_session:
         username: "Nome de usuário"
         password: "Senha"
@@ -182,6 +191,11 @@ pt:
       user:
         email: "Principal email de contato"
         password: "Pelo menos 4 caracteres"
+        phone: "De preferência um celular"
+        state: "Cidade e estado de residência, para fins estatísticos"
+        organization: "Nome da empresa ou organização que representa, para fins estatísticos"
+        website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta"
+        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta"
     actions:
       signup: "Criar novo usuário"
   

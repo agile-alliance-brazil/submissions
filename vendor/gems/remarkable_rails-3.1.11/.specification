@@ -1,0 +1,118 @@
+--- !ruby/object:Gem::Specification 
+name: remarkable_rails
+version: !ruby/object:Gem::Version 
+  version: 3.1.11
+platform: ruby
+authors: 
+- Carlos Brando
+- "Jos\xC3\xA9 Valim"
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-10-01 00:00:00 +01:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rspec-rails
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: remarkable
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 3.1.11
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: remarkable_activerecord
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 3.1.11
+    version: 
+description: "Remarkable Rails: collection of matchers and macros with I18n for Rails"
+email: 
+- eduardobrando@gmail.com
+- jose.valim@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README
+- LICENSE
+- CHANGELOG
+files: 
+- README
+- LICENSE
+- CHANGELOG
+- lib/remarkable_rails/action_controller/base.rb
+- lib/remarkable_rails/action_controller/macro_stubs.rb
+- lib/remarkable_rails/action_controller/matchers/assign_to_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/filter_params_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/redirect_to_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/render_template_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/respond_with_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/route_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/set_cookies_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/set_session_matcher.rb
+- lib/remarkable_rails/action_controller/matchers/set_the_flash_matcher.rb
+- lib/remarkable_rails/action_controller.rb
+- lib/remarkable_rails/action_view/base.rb
+- lib/remarkable_rails/action_view.rb
+- lib/remarkable_rails/active_orm.rb
+- lib/remarkable_rails.rb
+- locale/en.yml
+has_rdoc: true
+homepage: http://github.com/carlosbrando/remarkable
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: remarkable
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 3
+summary: "Remarkable Rails: collection of matchers and macros with I18n for Rails"
+test_files: []
+

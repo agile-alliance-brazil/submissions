@@ -8,3 +8,10 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+begin
+  vendored_seed_fu_dir = Dir["#{RAILS_ROOT}/vendor/gems/seed-fu*"].first
+  load "#{vendored_seed_fu_dir}/tasks/seed_fu_tasks.rake"
+rescue LoadError
+  # seed-fu gem is not installed
+end

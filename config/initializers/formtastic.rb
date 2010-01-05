@@ -3,7 +3,7 @@
 
 # Should all fields be considered "required" by default?
 # Defaults to true, see ValidationReflection notes below.
-# Formtastic::SemanticFormBuilder.all_fields_required_by_default = true
+Formtastic::SemanticFormBuilder.all_fields_required_by_default = false
 
 # Should select fields have a blank option/prompt by default?
 # Defaults to true.
@@ -22,7 +22,7 @@
 
 # Set the way inline errors will be displayed.
 # Defaults to :sentence, valid options are :sentence, :list and :none
-# Formtastic::SemanticFormBuilder.inline_errors = :sentence
+Formtastic::SemanticFormBuilder.inline_errors = :list
 
 # Set the method to call on label text to transform or format it for human-friendly
 # reading when formtastic is user without object. Defaults to :humanize.
@@ -39,7 +39,7 @@
 # errors messages. Sometimes you want the hints to be rendered first than
 # the input, in the following order: hints, input and errors. You can
 # customize it doing just as below:
-# Formtastic::SemanticFormBuilder.inline_order = [:input, :hints, :errors]
+Formtastic::SemanticFormBuilder.inline_order = [:hints, :input, :errors]
 
 # Specifies if labels/hints for input fields automatically be looked up using I18n.
 # Default value: false. Overridden for specific fields by setting value to true,

@@ -1,10 +1,19 @@
 - title t('title.signup')
 
 - semantic_form_for @user do |f|
-  - f.inputs do
-    = f.input :username
-    = f.input :email
-    = f.input :password
-    = f.input :password_confirmation
+  - f.inputs :user_login do
+    = f.input :first_name, :required => true
+    = f.input :last_name, :required => true
+    = f.input :username, :required => true
+    = f.input :email, :required => true
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
+  - f.inputs :user_personal do
+    = f.input :phone, :required => true
+    = f.input :state, :required => true, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS
+    = f.input :city, :required => true
+    = f.input :organization
+    = f.input :website_url
+    = f.input :bio, :required => true
   - f.buttons do
     = f.commit_button :signup
