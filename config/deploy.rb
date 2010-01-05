@@ -10,7 +10,7 @@ namespace :passenger do
   desc "Restart Application"
   task :restart, :roles => :app do
     run <<-CMD
-      touch #{release_path}/tmp/restart.txt
+      touch #{current_path}/tmp/restart.txt
     CMD
   end
 end
