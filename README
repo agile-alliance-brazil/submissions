@@ -16,17 +16,19 @@ TODO:
  * Authorization model (can-can gem)
  * Tagging
  * Search submissions
+ * Add comments
+ * User profile page
  * Improve Layout (CSS)
  * Cucumber features
  
 IN PROGRESS:
 
- * Capistrano deploy recipes (staging) -- Danilo
- * Add attributes to user (mini-bio, etc...) -- Danilo
  * [task] -- [person]
  
 DONE:
 
+ * Capistrano deploy recipes (staging) -- Danilo
+ * Add attributes to user (mini-bio, etc...) -- Danilo
  * Create database (UTF-8 encoding) -- Danilo
  * Setup Rails project (gems/plugins) -- Danilo
  * Simple Authentication (create user/login/logout) -- Danilo
