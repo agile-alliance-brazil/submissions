@@ -26,9 +26,11 @@ en:
     signup: "Sign up"
     untitled: "Untitled"
   
-  header:
-    welcome: "Welcome {{username}}! Not you?"
-    signup: "sign up"
+  actions:
+    submit_session: "Submit a session"
+    browse_sessions: "Browse sessions"
+    profile: "My account profile"
+    signup: "Register new account"
   
   flash:
     user:

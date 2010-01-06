@@ -8,3 +8,69 @@ For example, to make the inline hint paragraphs a little darker in color than th
 form.formtastic fieldset ol li p.inline-hints { color:#333; }
 
 --------------------------------------------------------------------------------------------------*/
+form.formtastic legend {
+  color: #666666;
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+form.formtastic fieldset ol li label {
+  width: 100%;
+  font-weight: bold;
+}
+
+form.formtastic fieldset ol li.string input {
+  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  padding: 2px;
+}
+
+form.formtastic fieldset ol li.password input {
+  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  padding: 2px;
+}
+
+form.formtastic fieldset ol li.text textarea {
+  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  padding: 2px;
+}
+
+form.formtastic fieldset ol li.error input, form.formtastic fieldset ol li.error textarea {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+
+form.formtastic abbr, form.formtastic acronym {
+  color: #d20000;
+}
+
+form.formtastic abbr::before, form.formtastic acronym::before {
+  content: ' ';
+}
+
+form.formtastic fieldset ol li p.inline-hints {
+  color: #999999;
+  font-style: italic;
+  width: 74%;
+}
+
+form.formtastic fieldset ol li ul.errors {
+  background: url('/images/error_bg.png') no-repeat;
+  color: #d20000;
+  float: right;
+  width: 23%;
+  list-style: none;
+  margin: 0;
+  padding-left: 20px;
+}
+
+form.formtastic fieldset ol li ul.errors li {
+  margin: 0;
+}
+
+form.formtastic fieldset.buttons {
+  padding: 0;
+}

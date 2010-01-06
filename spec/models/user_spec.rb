@@ -39,4 +39,9 @@ describe User do
     
     should_validate_confirmation_of :password
   end
+  
+  it "should provide full name" do
+    user = User.new(:first_name => "Danilo", :last_name => "Sato")
+    user.full_name.should == "Danilo Sato"
+  end
 end

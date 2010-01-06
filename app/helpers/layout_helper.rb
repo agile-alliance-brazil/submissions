@@ -12,6 +12,14 @@ module LayoutHelper
     @show_title
   end
   
+  def show_actions!
+    @show_actions = true
+  end
+  
+  def show_actions?
+    @show_actions
+  end
+  
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args) }
   end

@@ -10,21 +10,28 @@
     = stylesheet_link_tag 'formtastic_changes'
     = yield(:head)
   
-  %body
-    #header
-      - if logged_in?
-        = t('header.welcome', :username => current_user.username)
-        = link_to "Logout", logout_path
-      - else
-        = link_to "Login", login_path
-        = t('generic.or')
-        = link_to t('header.signup'), signup_path
-    
+  %body    
     #container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
+      #header
+        = link_to image_tag('logo.png'), root_path
+        .logo
+          %h1 Agile Brazil 2010
+          %strong Porto Alegre RS - 22 a 25 de Junho de 2010
+        %ul
+          %li= link_to "Português", "?locale=pt"
+          %li= link_to "English", "?locale=en"
+    
+      - if show_actions?
+        #actions.grid_3
+          = render :partial => 'layouts/actions'
+    
+      #content{ :class => show_actions? ? 'grid_9' : 'grid_12' }
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :id => "flash_#{name}"
       
-      - if show_title?
-        %h1= yield(:title)
+        - if show_title?
+          %h1= yield(:title)
       
-      = yield
+        = yield
+
+      #footer Copyleft - Agile Brazil 2010

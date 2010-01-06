@@ -1,67 +1,78 @@
-!primary_color = #4B7399
+@import reset.sass
+@import text.sass
+@import grid.sass
+@import helper.sass
 
-body
-  :background-color = !primary_color
-  :font
-    :family Verdana, Helvetica, Arial
-    :size 14px
+!color1 = #d20000
+!color2 = #b8a16b
+!color3 = #d2c89c
+!color4 = #ffffe0
+!color5 = #878268
+
+html
+  :background               #ffffff url('/images/bg.png') repeat-x center top
+  :color                    #333333
+
+#header
+  +grid(12)
+  :height                   90px
+  :color                    #ff9b00
+  img
+    :float                  left
+    :padding-right          5px
+  .logo
+    :float                  left
+  ul
+    :float                  right
+    :overflow               hidden
+    li
+      :float                left
+      :list-style           none
+    li + li::before
+      :content              "\00a0|\00a0"
+    a
+      :color                    = !color3
+      :text-decoration          none
+    a:hover
+      :color                    = !color3 - #222
+      :text-decoration          underline
 
 a
-  :color #0000FF
-  img
-    :border none
+  :color                    = !color5
+a:hover
+  :color                    = !color5 + #333
 
-.clear
-  :clear both
-  :height 0
-  :overflow hidden
+#footer
+  +grid(12)
+  :color                    #999999
+  :text-align               center
 
 #container
-  :width 75%
-  :margin 0 auto
-  :background #fff
-  :padding 20px 40px
-  :border solid 1px black
-  :margin-top 20px
+  +grid-system(12)
+  
+#actions
+  ul
+    :list-style-type        circle
+  
+#content
+  p
+    :margin                 5px 0
+  h1
+    :color                  = !color5
+    :border-bottom          = 1px solid !color5
+    :margin-bottom          10px
 
-#flash_notice,
-#flash_error
-  :padding 5px 8px
-  :margin 10px 0
+#flash_notice, #flash_error
+  :padding                  5px 8px
+  :margin                   10px 0
 
 #flash_notice
-  :background-color #CFC
-  :border solid 1px #6C6
+  :background-color         #ccffcc
+  :border                   solid 1px #66cc66
 
 #flash_error
-  :background-color #FCC
-  :border solid 1px #C66
+  :background-color         #ffcccc
+  :border solid             1px #cc6666
 
 .fieldWithErrors
-  :display inline
-
-#errorExplanation
-  :width 400px
-  :border 2px solid #CF0000
-  :padding 0
-  :padding-bottom 12px
-  :margin-bottom 20px
-  :background-color #f0f0f0
-  h2
-    :text-align left
-    :padding 5px 5px 5px 15px
-    :margin 0
-    :font
-      :weight bold
-      :size 12px
-    :background-color #c00
-    :color #fff
-  p
-    :color #333
-    :margin-bottom 0
-    :padding 8px
-  ul
-    :margin 2px 24px
-    li
-      :font-size 12px
-      :list-style disc
+  :display                  inline

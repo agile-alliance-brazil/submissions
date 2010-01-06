@@ -204,9 +204,11 @@ pt:
     signup: "Novo usuário"
     untitled: "Sem título"
   
-  header:
-    signup: "crie um novo usuário"
-    welcome: "Bem vindo {{username}}! Não é você?"
+  actions:
+    submit_session: "Envie uma proposta"
+    browse_sessions: "Propostas submetidas"
+    profile: "Meu perfil"
+    signup: "Crie um novo usuário"
   
   flash:
     user:
