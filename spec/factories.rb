@@ -4,6 +4,7 @@ Factory.define :user do |u|
   u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
   u.email { |a| "#{a.username}@example.com" }
   u.password "secret"
+  u.password_confirmation "secret"
   u.phone "(11) 3322-1234"
   u.state "SP"
   u.city "São Paulo"

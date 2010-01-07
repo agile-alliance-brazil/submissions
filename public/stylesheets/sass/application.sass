@@ -13,6 +13,18 @@ html
   :background               #ffffff url('/images/bg.png') repeat-x center top
   :color                    #333333
 
+a
+  :color                    = !color5
+a:hover
+  :color                    = !color5 + #333
+
+dt
+  :font-weight              bold
+  :margin                   5px 0
+
+dd
+  :margin-bottom            5px
+
 #header
   +grid(12)
   :height                   90px
@@ -36,11 +48,6 @@ html
     a:hover
       :color                    = !color3 - #222
       :text-decoration          underline
-
-a
-  :color                    = !color5
-a:hover
-  :color                    = !color5 + #333
 
 #footer
   +grid(12)

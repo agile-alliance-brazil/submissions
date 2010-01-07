@@ -67,6 +67,19 @@ html {
   background: #ffffff url('/images/bg.png') repeat-x center top;
   color: #333333; }
 
+a {
+  color: #878268; }
+
+a:hover {
+  color: #bab59b; }
+
+dt {
+  font-weight: bold;
+  margin: 5px 0; }
+
+dd {
+  margin-bottom: 5px; }
+
 #header {
   display: inline;
   float: left;
@@ -94,12 +107,6 @@ html {
     #header ul a:hover {
       color: #b0a67a;
       text-decoration: underline; }
-
-a {
-  color: #878268; }
-
-a:hover {
-  color: #bab59b; }
 
 #footer {
   display: inline;

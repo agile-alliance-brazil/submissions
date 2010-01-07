@@ -1,7 +1,7 @@
 class UsersController < InheritedResources::Base
   before_filter :logout_required, :only => [:new, :create]
   
-  actions :new, :create
+  actions :new, :create, :show
   
   def create
     create! do |success, failure|

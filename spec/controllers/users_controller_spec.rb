@@ -5,6 +5,10 @@ describe UsersController do
   
   it_should_require_logout_for_actions :new, :create
   
+  before(:each) do
+    Factory(:user)
+  end
+  
   it "new action should render new template" do
     get :new
     response.should render_template(:new)
@@ -22,6 +26,11 @@ describe UsersController do
     User.any_instance.stubs(:valid?).returns(true)
     post :create
     response.should redirect_to(root_url)
+  end
+  
+  it "show action should render show template" do
+    get :show, :id => User.first
+    response.should render_template(:show)
   end
 
 end
