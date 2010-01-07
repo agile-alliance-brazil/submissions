@@ -1,0 +1,18 @@
+- title @user.full_name
+- show_actions!
+
+%dl
+  %dt= t('formtastic.labels.user.username')
+  %dd= @user.username
+  
+  %dt= t('formtastic.labels.user.organization')
+  %dd= @user.organization
+  
+  %dt= t('formtastic.labels.user.website_url')
+  %dd
+    - if @user.website_url
+      = link_to(prepend_http(@user.website_url), prepend_http(@user.website_url), :target => '_blank')
+  
+  %dt= t('formtastic.labels.user.bio')
+  %dd= @user.bio
+  
