@@ -202,7 +202,7 @@ pt:
   # Mensagens customizadas
   title:
     signup: "Novo usuário"
-    untitled: "Sem título"
+    tracks: "Trilhas"
   
   actions:
     submit_session: "Envie uma proposta"

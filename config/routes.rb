@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_sessions, :only => [:new, :create, :destroy]
   map.resources :users, :only => [:new, :create]
+  map.resources :tracks, :only => [:index]
 
   map.root :controller => 'user_sessions', :action => 'new'
 end

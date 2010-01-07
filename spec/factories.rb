@@ -11,3 +11,8 @@ Factory.define :user do |u|
   u.website_url "www.dtsato.com"
   u.bio "Some text about me..."
 end
+
+Factory.define :track do |t|
+  t.title "Engineering"
+  t.description "Best track eva!"
+end
