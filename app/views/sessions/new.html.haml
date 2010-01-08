@@ -5,6 +5,7 @@
   - form.inputs do
     = form.input :author_id, :as => :hidden
     = form.input :title, :required => true
+    = form.input :track_id, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }
     = form.input :target_audience, :required => true
     = form.input :audience_limit
     = form.input :summary, :required => true, :input_html => {:rows => 10}

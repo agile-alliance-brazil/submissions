@@ -189,6 +189,7 @@ pt:
         password: "Senha"
       session:
         title: "Título da sessão"
+        track_id: "Trilha de interesse"
         target_audience: "Público alvo"
         audience_limit: "Limite de participantes"
         summary: "Resumo"
@@ -208,6 +209,7 @@ pt:
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta"
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta"
       session:
+        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks'>aqui</a>"
         audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes"
         summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta"
         description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta"

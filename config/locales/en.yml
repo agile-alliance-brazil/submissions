@@ -22,6 +22,7 @@ en:
         bio: "Bio"
       session:
         title: "Session title"
+        track_id: "Track"
         target_audience: "Target audience"
         audience_limit: "Limit number of participants"
         summary: "Summary"
@@ -40,6 +41,7 @@ en:
         website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session"
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session"
       session:
+        track_id: "A detailed description of each track can be found <a href='/tracks'>here</a>"
         audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants"
         summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session"
         description: "Complete description of your session. This field will be used to evaluate your session"

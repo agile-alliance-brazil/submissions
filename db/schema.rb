@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100107220008) do
+ActiveRecord::Schema.define(:version => 20100108014350) do
 
   create_table "sessions", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20100107220008) do
     t.text     "experience"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "track_id"
   end
 
   create_table "tracks", :force => true do |t|
