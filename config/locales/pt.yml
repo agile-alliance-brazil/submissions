@@ -224,6 +224,7 @@ pt:
     untitled: "Sem título"
     sessions: "Sessões submetidas"
     new_session: "Proposta de sessão"
+    tracks: "Trilhas de Interesse"
   
   actions:
     submit_session: "Envie uma proposta"
@@ -247,7 +248,21 @@ pt:
     session:
       create:
         success: "Sessão submetida com sucesso."
-        
+  
+  tracks:
+    general_interest:
+      title: "Interesse Geral"
+      description: "Esta trilha incluirá sessões dedicada àqueles que querem entender os princípios e práticas das metodologias ágeis. Você vai encontrar tutoriais, workshops e palestras selecionadas para guiar seus primeiros passos em direção à cultura ágil."
+    management:
+      title: "Gestão"
+      description: "Sessões orientadas a profissionais que trabalham com metodologias ágeis intencionados a discutir novos conceitos e práticas relacionadas a mudanças organizacionais e gestão de produtos, processos ou projetos."
+    engineering:
+      title: "Engenharia"
+      description: "Dedicada a profissionais que trabalham com metodologias ágeis ou estão interessados na qualidade técnica dos produtos de software. Você vai achar tutoriais, workshops e lições endereçando tópicos como programação, integração contínua, automação de testes e o uso de ferramentas eletrônicas para apoiar o desenvolvimento ágil."
+    experience_reports:
+      title: "Relatos de Experiência"
+      description: "Um relato de experiência capta a história de um projeto ágil real, sumarizando os acontecimentos do projeto e aprendizados importantes. Estes relatos permitem que praticantes compartilhem dicas práticas que podem inspirar outros times."
+
   generic:
     or: "ou"
     ago: "atrás"

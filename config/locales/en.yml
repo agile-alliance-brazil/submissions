@@ -56,6 +56,7 @@ en:
     untitled: "Untitled"
     sessions: "Session proposals"
     new_session: "Propose a session"
+    tracks: "Session Tracks"
   
   actions:
     submit_session: "Submit a session"
@@ -80,6 +81,20 @@ en:
       create:
         success: "Session submited successfully"
   
+  tracks:
+    general_interest:
+      title: "General Interest"
+      description: "Dedicated to those who want to understand the principles and practices of agile methodologies. You will find tutorials, workshops and conferences, selected to guide your first steps towards agile culture."
+    management:
+      title: "Management"
+      description: "Dedicated to professionals working with agile methodologies that want to discuss new concepts and practices related organizational change and management of products, process and projects."
+    engineering:
+      title: "Engenharia"
+      description: "Dedicated to professionals working with agile methodologies or are interested in the technical quality of software products. You will find tutorials, workshops and lectures addressing programming, continuous integration and automated testing topics and the use of electronic tools to support agile development."
+    experience_reports:
+      title: "Relatos de Experiência"
+      description: "An experience report captures the story of a real agile project, summarizing what happened on the project and the key learning points. These reports allow practitioners to share their practical advice and guidance with other teams."
+
   generic:
     or: "or"
     ago: "ago"

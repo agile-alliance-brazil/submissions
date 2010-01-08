@@ -13,6 +13,11 @@ Factory.define :user do |u|
   u.bio "Some text about me..."
 end
 
+Factory.define :track do |t|
+  t.title "track.engineering.title"
+  t.description "track.engineering.description"
+end
+
 Factory.define :session do |s|
   s.title "Fake title"
   s.summary "Summary details of session"
