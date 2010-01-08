@@ -1,7 +1,7 @@
 - title @user.full_name
 - show_actions!
 
-%dl
+- content_tag_for(:dl, @user) do
   %dt= t('formtastic.labels.user.username')
   %dd= @user.username
   
@@ -15,4 +15,3 @@
   
   %dt= t('formtastic.labels.user.bio')
   %dd= @user.bio
-  

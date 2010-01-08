@@ -1,0 +1,16 @@
+- title t('title.new_session')
+- show_actions!
+  
+- semantic_form_for(@session) do |form|
+  - form.inputs do
+    = form.input :author_id, :as => :hidden
+    = form.input :title, :required => true
+    = form.input :target_audience, :required => true
+    = form.input :audience_limit
+    = form.input :summary, :required => true, :input_html => {:rows => 10}
+    = form.input :description, :required => true
+    = form.input :mechanics
+    = form.input :benefits, :required => true, :input_html => {:rows => 10}
+    = form.input :experience, :required => true, :input_html => {:rows => 10}
+  - form.buttons do
+    = form.commit_button :submit_session

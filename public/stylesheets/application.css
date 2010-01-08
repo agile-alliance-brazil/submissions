@@ -73,13 +73,6 @@ a {
 a:hover {
   color: #bab59b; }
 
-dt {
-  font-weight: bold;
-  margin: 5px 0; }
-
-dd {
-  margin-bottom: 5px; }
-
 #header {
   display: inline;
   float: left;
@@ -256,6 +249,30 @@ dd {
   color: #878268;
   border-bottom: 1px solid #878268;
   margin-bottom: 10px; }
+#content dl dt {
+  font-weight: bold;
+  margin: 5px 0; }
+#content dl dd {
+  margin-bottom: 5px; }
+#content table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 25px 0; }
+  #content table th {
+    font-size: 1.2em;
+    font-weight: normal;
+    color: #d20000;
+    padding: 10px 8px;
+    border-bottom: 2px solid #d20000; }
+  #content table td {
+    border-bottom: 1px solid #878268;
+    padding: 6px 8px; }
+
+table.sessions th.title {
+  width: 50%; }
+table.sessions th.author {
+  width: 20%; }
 
 #flash_notice, #flash_error {
   padding: 5px 8px;

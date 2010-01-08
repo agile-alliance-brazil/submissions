@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
                   :password_confirmation, :phone, :state, :city,
                   :organization, :website_url, :bio
   
+  has_many :sessions, :foreign_key => 'author_id'
+  
   validates_presence_of :first_name, :last_name, :phone, :state, :city, :bio
   
   acts_as_authentic

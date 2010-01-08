@@ -187,6 +187,17 @@ pt:
       user_session:
         username: "Nome de usuário"
         password: "Senha"
+      session:
+        title: "Título da sessão"
+        target_audience: "Público alvo"
+        audience_limit: "Limite de participantes"
+        summary: "Resumo"
+        description: "Descrição completa"
+        mechanics: "Mecânica/Processo"
+        benefits: "Benefícios"
+        experience: "Experiência com o assunto"
+        author_id: "Autor"
+        updated_at: "Última atualização"
     hints:
       user:
         email: "Principal email de contato"
@@ -196,17 +207,27 @@ pt:
         organization: "Nome da empresa ou organização que representa, para fins estatísticos"
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta"
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta"
+      session:
+        audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes"
+        summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta"
+        description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta"
+        mechanics: "Obrigatório para workshops. Descreve como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta"
+        benefits: "Escreva aqui quais serão os benefícios trazidos para o público de sua palestra. O que poderão utilizar, o que aprenderão, o que experimentarão, qual o diferencial do que você irá trazer, qual a relevância para a comunidade, etc. Este campo será usado para avaliar sua proposta"
+        experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta"
     actions:
       signup: "Criar novo usuário"
+      submit_session: "Submeter sessão"
   
   # Mensagens customizadas
   title:
     signup: "Novo usuário"
     untitled: "Sem título"
+    sessions: "Sessões submetidas"
+    new_session: "Proposta de sessão"
   
   actions:
     submit_session: "Envie uma proposta"
-    browse_sessions: "Propostas submetidas"
+    browse_sessions: "Propostas de sessão submetidas"
     profile: "Meu perfil"
     signup: "Crie um novo usuário"
   
@@ -223,6 +244,10 @@ pt:
         success: "Login efetuado com sucesso."
       destroy:
         success: "Logout efetuado."
+    session:
+      create:
+        success: "Sessão submetida com sucesso."
         
   generic:
     or: "ou"
+    ago: "atrás"

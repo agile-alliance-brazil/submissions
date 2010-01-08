@@ -10,8 +10,8 @@
 
 %ul
   - if logged_in?
-    %li= t('actions.submit_session')
-    %li= t('actions.browse_sessions')
+    %li= link_to t('actions.submit_session'), new_session_path
+    %li= link_to t('actions.browse_sessions'), sessions_path
     %li= link_to t('actions.profile'), user_path(current_user)
     %li= link_to "Logout", logout_path
   - else

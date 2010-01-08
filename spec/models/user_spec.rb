@@ -40,6 +40,10 @@ describe User do
     should_validate_confirmation_of :password
   end
   
+  context "associations" do
+    should_have_many :sessions, :foreign_key => 'author_id'
+  end
+  
   it "should provide full name" do
     user = User.new(:first_name => "Danilo", :last_name => "Sato")
     user.full_name.should == "Danilo Sato"

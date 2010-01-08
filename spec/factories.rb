@@ -12,3 +12,14 @@ Factory.define :user do |u|
   u.website_url "www.dtsato.com"
   u.bio "Some text about me..."
 end
+
+Factory.define :session do |s|
+  s.title "Fake title"
+  s.summary "Summary details of session"
+  s.description "Full details of session"
+  s.mechanics "Process/Mechanics"
+  s.benefits "Benefits for audience"
+  s.target_audience "Managers, developers, testers"
+  s.association :author, :factory => :user
+  s.experience "Description of author's experience on subject"
+end
