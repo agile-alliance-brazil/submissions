@@ -13,5 +13,11 @@ describe ApplicationHelper do
     it "should ignore case when fixing" do
       helper.prepend_http('HTTP://dtsato.com/some/path-01').should == 'HTTP://dtsato.com/some/path-01'
     end
+    
+    it "should not prepend on empty string" do
+      helper.prepend_http('').should == ''
+      helper.prepend_http(nil).should be_nil
+      helper.prepend_http('   ').should == '   '
+    end
   end
 end

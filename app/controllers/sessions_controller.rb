@@ -18,11 +18,12 @@ class SessionsController < InheritedResources::Base
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 20)
+    paginate_options[:order] ||= 'created_at DESC'
     @sessions ||= end_of_association_chain.paginate(paginate_options)
   end
   
   def begin_of_association_chain
-    current_user
+    action_name == 'new' ? current_user : nil
   end
         
 end

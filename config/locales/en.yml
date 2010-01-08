@@ -91,10 +91,10 @@ en:
       title: "Management"
       description: "Dedicated to professionals working with agile methodologies that want to discuss new concepts and practices related organizational change and management of products, process and projects."
     engineering:
-      title: "Engenharia"
+      title: "Engineering"
       description: "Dedicated to professionals working with agile methodologies or are interested in the technical quality of software products. You will find tutorials, workshops and lectures addressing programming, continuous integration and automated testing topics and the use of electronic tools to support agile development."
     experience_reports:
-      title: "Relatos de Experiência"
+      title: "Experience Reports"
       description: "An experience report captures the story of a real agile project, summarizing what happened on the project and the key learning points. These reports allow practitioners to share their practical advice and guidance with other teams."
 
   generic:
