@@ -27,6 +27,11 @@ describe UsersController do
     post :create
     response.should redirect_to(root_url)
   end
+
+  it "create action should login new user" do
+    UserSession.should_receive(:create).with(an_instance_of(User))
+    post :create
+  end
   
   it "show action should render show template" do
     get :show, :id => User.first

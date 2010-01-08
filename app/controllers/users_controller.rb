@@ -6,6 +6,7 @@ class UsersController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
+        UserSession.create(@user)
         flash[:notice] = t('flash.user.create.success')
         redirect_to root_url
       end
