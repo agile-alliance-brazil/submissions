@@ -5,8 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.login 'login', :controller => 'user_sessions', :action => 'new'
 
-  map.resources :user_sessions, :only => [:new, :create, :destroy]
   map.resources :tracks, :only => [:index]
+  map.resources :user_sessions, :only => [:new, :create, :destroy]
   map.resources :users, :only => [:new, :create, :show]
 
   map.root :controller => 'user_sessions', :action => 'new'
