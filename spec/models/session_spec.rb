@@ -33,6 +33,15 @@ describe Session do
     should_validate_presence_of :track_id
     should_validate_presence_of :session_type_id
     should_validate_presence_of :experience
+    should_validate_presence_of :mechanics, :if => :workshop?
+  end
+  
+  it "should determine if it's workshop" do
+    workshop = SessionType.find_by_title('session_types.workshop.title')
+    session = Factory(:session)
+    session.should_not be_workshop
+    session.session_type = workshop
+    session.should be_workshop
   end
   
 end

@@ -10,4 +10,10 @@ class Session < ActiveRecord::Base
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
                         :author_id, :track_id, :session_type_id, :experience
   
+  validates_presence_of :mechanics, :if => :workshop?
+  
+  private
+  def workshop?
+    self.session_type == SessionType.find_by_title('session_types.workshop.title')
+  end
 end

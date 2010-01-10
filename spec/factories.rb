@@ -24,6 +24,8 @@ Factory.define :track do |t|
 end
 
 Factory.define :session do |s|
+  s.association :track
+  s.association :session_type
   s.title "Fake title"
   s.summary "Summary details of session"
   s.description "Full details of session"
