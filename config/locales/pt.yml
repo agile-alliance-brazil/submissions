@@ -190,6 +190,7 @@ pt:
       session:
         title: "Título da sessão"
         track_id: "Trilha de interesse"
+        session_type_id: "Tipo de sessão"
         target_audience: "Público alvo"
         audience_limit: "Limite de participantes"
         summary: "Resumo"
@@ -210,6 +211,7 @@ pt:
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta"
       session:
         track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks'>aqui</a>"
+        session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types'>aqui</a>"
         audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes"
         summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta"
         description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta"
@@ -227,6 +229,7 @@ pt:
     sessions: "Sessões submetidas"
     new_session: "Proposta de sessão"
     tracks: "Trilhas de Interesse"
+    session_types: "Tipos de Sessão"
   
   actions:
     submit_session: "Envie uma proposta"
@@ -251,6 +254,17 @@ pt:
       create:
         success: "Sessão submetida com sucesso."
   
+  session_types:
+    tutorial:
+      title: "Tutorial"
+      description: "Este tipo de sessão contempla atividades endereçadas especialmente a pessoas que estão apenas começando ou procurando por um apoio em Métodos Ágeis. Tutoriais são aulas de 90 minutos guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos Ágeis. Tutoriais têm objetivos claros de aprendizado que focam no ensino de habilidades ou técnicas específicas."
+    workshop:
+      title: "Workshop"
+      description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop tem a duração de 90 minutos e é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para fazer um brainstorm de idéia para a próxima \"novidade\"."
+    talk:
+      title: "Palestra"
+      description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil. Terão duração de 45 minutos."
+
   tracks:
     general_interest:
       title: "Interesse Geral"

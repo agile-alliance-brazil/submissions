@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe Track do
+describe SessionType do
   
   context "validations" do
     should_validate_presence_of :title
@@ -10,5 +10,5 @@ describe Track do
   context "associations" do
     should_have_many :sessions
   end
-
+  
 end

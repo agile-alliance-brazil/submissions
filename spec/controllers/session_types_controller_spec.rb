@@ -1,11 +1,11 @@
 require 'spec/spec_helper'
  
-describe TracksController do
+describe SessionTypesController do
   fixtures :all
   integrate_views
 
   before(:each) do
-    Factory(:track)
+    Factory(:session_type)
   end
 
   it "index action should render index template" do

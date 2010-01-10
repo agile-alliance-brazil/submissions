@@ -23,6 +23,7 @@ en:
       session:
         title: "Session title"
         track_id: "Track"
+        session_type_id: "Session Type"
         target_audience: "Target audience"
         audience_limit: "Limit number of participants"
         summary: "Summary"
@@ -42,6 +43,7 @@ en:
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session"
       session:
         track_id: "A detailed description of each track can be found <a href='/tracks'>here</a>"
+        session_type_id: "A detailed description of session types can be found <a href='/session_types'>here</a>"
         audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants"
         summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session"
         description: "Complete description of your session. This field will be used to evaluate your session"
@@ -59,6 +61,7 @@ en:
     sessions: "Session proposals"
     new_session: "Propose a session"
     tracks: "Session Tracks"
+    session_types: "Session Types"
   
   actions:
     submit_session: "Submit a session"
@@ -83,6 +86,17 @@ en:
       create:
         success: "Session submited successfully"
   
+  session_types:
+    tutorial:
+      title: "Tutorial"
+      description: "This type includes sessions specially targeted for people who are just beginning or looking for a foothold in Agile methods. Tutorials are instructor-led interactive 90 minute classes designed to provide participants with practical knowledge they can use right away on Agile projects. Tutorials have clear learning objectives that focus on teaching specific skills or techniques."
+    workshop:
+      title: "Workshop"
+      description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or brainstorm ideas for the next new \"thing\". Workshops are 90 minutes long."
+    talk:
+      title: "Talk"
+      description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community. Talks are 45 minutes long."
+    
   tracks:
     general_interest:
       title: "General Interest"

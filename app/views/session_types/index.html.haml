@@ -1,0 +1,9 @@
+- title t('title.session_types')
+- show_actions!
+
+%ul.session_types
+  - @session_types.each do |session_type|
+    %li
+      %strong= t(session_type.title)
+      \:
+      = t(session_type.description)

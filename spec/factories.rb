@@ -13,6 +13,11 @@ Factory.define :user do |u|
   u.bio "Some text about me..."
 end
 
+Factory.define :session_type do |t|
+  t.title "session_types.tutorial.title"
+  t.description "session_types.tutorial.description"
+end
+
 Factory.define :track do |t|
   t.title "track.engineering.title"
   t.description "track.engineering.description"

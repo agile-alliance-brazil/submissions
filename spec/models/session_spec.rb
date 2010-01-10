@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec/spec_helper'
 
 describe Session do
   context "protect from mass assignment" do
@@ -11,6 +11,7 @@ describe Session do
     should_allow_mass_assignment_of :audience_limit
     should_allow_mass_assignment_of :author_id
     should_allow_mass_assignment_of :track_id
+    should_allow_mass_assignment_of :session_type_id
     should_allow_mass_assignment_of :experience
   
     should_not_allow_mass_assignment_of :evil_attr
@@ -19,6 +20,7 @@ describe Session do
   context "associations" do
     should_belong_to :author, :class_name => 'User'
     should_belong_to :track
+    should_belong_to :session_type
   end
   
   context "validations" do
@@ -29,6 +31,7 @@ describe Session do
     should_validate_presence_of :target_audience
     should_validate_presence_of :author_id
     should_validate_presence_of :track_id
+    should_validate_presence_of :session_type_id
     should_validate_presence_of :experience
   end
   
