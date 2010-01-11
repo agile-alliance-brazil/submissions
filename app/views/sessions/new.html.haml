@@ -7,6 +7,7 @@
     = form.input :title, :required => true
     = form.input :track_id, :required => true, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }
     = form.input :session_type_id, :required => true, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }
+    = form.input :duration_mins, :required => true, :as => :select, :collection => [[t('durations.45min'), 45], [t('durations.90min'), 90]]
     = form.input :target_audience, :required => true
     = form.input :audience_limit
     = form.input :summary, :required => true, :input_html => {:rows => 10}

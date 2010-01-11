@@ -8,10 +8,6 @@ TODO:
 
  * Configure production environment
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
- * Reference data: Track (engineering, management, experience report, general interest)
- * Reference data: SessionLevel (beginner, practitioner, experienced)
- * Reference data: SessionType (tutorial, talk, workshop)
- * Reference data: SessionDuration (45 / 90 minutes)
  * Authorization model (can-can gem)
  * Tagging
  * Search submissions
@@ -22,11 +18,15 @@ TODO:
  
 IN PROGRESS:
 
- * Resource: Session -- Danilo
+ * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo
+ * Reference data: SessionDuration (45 / 90 minutes) -- Danilo
  * [task] -- [person]
  
 DONE:
 
+ * Reference data: SessionType (tutorial, talk, workshop) -- Danilo
+ * Reference data: Track (engineering, management, experience report, general interest) -- Frank/Danilo
+ * Resource: Session -- Danilo
  * Capistrano deploy recipes (staging) -- Danilo
  * Add attributes to user (mini-bio, etc...) -- Danilo
  * Create database (UTF-8 encoding) -- Danilo

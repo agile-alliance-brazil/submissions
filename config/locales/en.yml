@@ -24,6 +24,7 @@ en:
         title: "Session title"
         track_id: "Track"
         session_type_id: "Session Type"
+        duration_mins: "Duration"
         target_audience: "Target audience"
         audience_limit: "Limit number of participants"
         summary: "Summary"
@@ -44,6 +45,7 @@ en:
       session:
         track_id: "A detailed description of each track can be found <a href='/tracks'>here</a>"
         session_type_id: "A detailed description of session types can be found <a href='/session_types'>here</a>"
+        duration_mins: "If you are proposing a talk, please indicate its duration. For tutorials and workshops we recommend a duration of 90 minutes"
         audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants"
         summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session"
         description: "Complete description of your session. This field will be used to evaluate your session"
@@ -110,6 +112,10 @@ en:
     experience_reports:
       title: "Experience Reports"
       description: "An experience report captures the story of a real agile project, summarizing what happened on the project and the key learning points. These reports allow practitioners to share their practical advice and guidance with other teams."
+
+  durations:
+    45min: "45 minutes"
+    90min: "90 minutes"
 
   generic:
     or: "or"

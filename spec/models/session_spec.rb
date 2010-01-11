@@ -12,6 +12,7 @@ describe Session do
     should_allow_mass_assignment_of :author_id
     should_allow_mass_assignment_of :track_id
     should_allow_mass_assignment_of :session_type_id
+    should_allow_mass_assignment_of :duration_mins
     should_allow_mass_assignment_of :experience
   
     should_not_allow_mass_assignment_of :evil_attr
@@ -34,6 +35,8 @@ describe Session do
     should_validate_presence_of :session_type_id
     should_validate_presence_of :experience
     should_validate_presence_of :mechanics, :if => :workshop?
+    should_validate_presence_of :duration_mins
+    should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
   end
   
   it "should determine if it's workshop" do
