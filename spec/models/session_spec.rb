@@ -12,6 +12,7 @@ describe Session do
     should_allow_mass_assignment_of :author_id
     should_allow_mass_assignment_of :track_id
     should_allow_mass_assignment_of :session_type_id
+    should_allow_mass_assignment_of :audience_level_id
     should_allow_mass_assignment_of :duration_mins
     should_allow_mass_assignment_of :experience
   
@@ -22,6 +23,7 @@ describe Session do
     should_belong_to :author, :class_name => 'User'
     should_belong_to :track
     should_belong_to :session_type
+    should_belong_to :audience_level
   end
   
   context "validations" do
@@ -33,6 +35,7 @@ describe Session do
     should_validate_presence_of :author_id
     should_validate_presence_of :track_id
     should_validate_presence_of :session_type_id
+    should_validate_presence_of :audience_level_id
     should_validate_presence_of :experience
     should_validate_presence_of :mechanics, :if => :workshop?
     should_validate_presence_of :duration_mins

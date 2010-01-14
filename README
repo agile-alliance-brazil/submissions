@@ -7,26 +7,31 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  * Configure production environment
+ * Second author
+ * Keywords
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Authorization model (can-can gem)
  * Tagging
  * Search submissions
  * Add comments
- * User profile page
+ * Edit user profile
+ * Edit session
+ * Limit edit by deadlines
  * Improve Layout (CSS)
  * Cucumber features
  
 IN PROGRESS:
 
- * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo
- * Reference data: SessionDuration (45 / 90 minutes) -- Danilo
  * [task] -- [person]
  
 DONE:
 
+ * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo
+ * Reference data: SessionDuration (45 / 90 minutes) -- Danilo
  * Reference data: SessionType (tutorial, talk, workshop) -- Danilo
  * Reference data: Track (engineering, management, experience report, general interest) -- Frank/Danilo
  * Resource: Session -- Danilo
+ * User profile page -- Danilo
  * Capistrano deploy recipes (staging) -- Danilo
  * Add attributes to user (mini-bio, etc...) -- Danilo
  * Create database (UTF-8 encoding) -- Danilo

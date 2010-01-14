@@ -1,0 +1,9 @@
+- title t('title.audience_levels')
+- show_actions!
+
+%ul.audience_levels
+  - @audience_levels.each do |audience_level|
+    %li
+      %strong= t(audience_level.title)
+      \:
+      = t(audience_level.description)

@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100111024402) do
+ActiveRecord::Schema.define(:version => 20100111033153) do
+
+  create_table "audience_levels", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "session_types", :force => true do |t|
     t.string   "title"
@@ -33,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20100111024402) do
     t.integer  "track_id"
     t.integer  "session_type_id"
     t.integer  "duration_mins"
+    t.integer  "audience_level_id"
   end
 
   create_table "tracks", :force => true do |t|

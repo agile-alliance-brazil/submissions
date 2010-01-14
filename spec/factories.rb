@@ -19,13 +19,19 @@ Factory.define :session_type do |t|
 end
 
 Factory.define :track do |t|
-  t.title "track.engineering.title"
-  t.description "track.engineering.description"
+  t.title "tracks.engineering.title"
+  t.description "tracks.engineering.description"
+end
+
+Factory.define :audience_level do |t|
+  t.title "audience_levels.beginner.title"
+  t.description "audience_levels.beginner.description"
 end
 
 Factory.define :session do |s|
   s.association :track
   s.association :session_type
+  s.association :audience_level
   s.duration_mins 45
   s.title "Fake title"
   s.summary "Summary details of session"
