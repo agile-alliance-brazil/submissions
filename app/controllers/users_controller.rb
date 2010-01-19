@@ -1,7 +1,10 @@
 class UsersController < InheritedResources::Base
   before_filter :logout_required, :only => [:new, :create]
+  has_scope :search, :only => :index
   
-  actions :new, :create, :show
+  actions :index, :new, :create, :show
+  respond_to :js, :only => :index
+  respond_to :html, :except => :index
   
   def create
     create! do |success, failure|
@@ -12,4 +15,5 @@ class UsersController < InheritedResources::Base
       end
     end
   end
+  
 end

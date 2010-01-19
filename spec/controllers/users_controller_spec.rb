@@ -8,6 +8,11 @@ describe UsersController do
   before(:each) do
     Factory(:user)
   end
+
+  it "index action should render index template" do
+    get :index
+    response.should render_template(:index)
+  end
   
   it "new action should render new template" do
     get :new

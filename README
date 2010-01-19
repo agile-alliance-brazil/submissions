@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  * Configure production environment
- * Second author
  * Keywords
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Authorization model (can-can gem)
@@ -19,6 +18,7 @@ TODO:
  * Limit edit by deadlines
  * Improve Layout (CSS)
  * Cucumber features
+ * Spinner while autocomplete is loading
  
 IN PROGRESS:
 
@@ -26,6 +26,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Second author -- Danilo
  * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo
  * Reference data: SessionDuration (45 / 90 minutes) -- Danilo
  * Reference data: SessionType (tutorial, talk, workshop) -- Danilo

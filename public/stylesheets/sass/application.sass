@@ -90,7 +90,15 @@ table.sessions
   th.title
     :width                  50%
   th.author
-    :width                  20%
+    :width                  15%
+
+ul.authors
+  :overflow                 hidden
+  li
+    :float                  left
+    :list-style             none
+  li + li::before
+    :content                "\00a0|\00a0"
   
 #flash_notice, #flash_error
   :padding                  5px 8px

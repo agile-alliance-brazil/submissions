@@ -6,12 +6,16 @@
     %tr
       %th.title= t('formtastic.labels.session.title')
       %th.author= t('formtastic.labels.session.author_id')
+      %th.author= t('formtastic.labels.session.second_author_id')
       %th.updated_at= t('formtastic.labels.session.updated_at')
   %tbody
     - @sessions.each do |session|
       - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
         %td.title= link_to session.try(:title), session_path(session)
-        %td.author= link_to session.author.full_name, user_path(session.try(:author_id))
+        %td.author= link_to session.author.full_name, user_path(session.author_id)
+        %td.author
+          - if session.second_author
+            = link_to session.second_author.full_name, user_path(session.second_author_id)
         %td.updated_at
           = time_ago_in_words(session.updated_at)
           = t('generic.ago')

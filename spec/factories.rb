@@ -1,6 +1,6 @@
 Factory.define :user do |u|
-  u.first_name "Danilo"
-  u.last_name "Sato"
+  u.first_name "User"
+  u.sequence(:last_name) {|n| "Name#{n}"}
   u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
   u.email { |a| "#{a.username}@example.com" }
   u.password "secret"

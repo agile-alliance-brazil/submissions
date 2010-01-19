@@ -4,7 +4,9 @@
 - semantic_form_for(@session) do |form|
   - form.inputs do
     = form.input :author_id, :as => :hidden
+    = form.input :second_author_id, :as => :hidden
     = form.input :title, :required => true
+    = form.input :second_author_username, :as => :autocomplete, :url => users_path(:format => :js), :method => :get, :param_name => 'search'
     = form.input :track_id, :required => true, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }
     = form.input :session_type_id, :required => true, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }
     = form.input :duration_mins, :required => true, :as => :select, :collection => [["45 #{t('generic.minutes')}", 45], ["90 #{t('generic.minutes')}", 90]]

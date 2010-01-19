@@ -1,7 +1,10 @@
 - title @session.title
 - show_actions!
 
-.author= link_to @session.author.full_name, user_path(@session.author)
+%ul.authors
+  %li= link_to @session.author.full_name, user_path(@session.author)
+  - if @session.second_author
+    %li= link_to @session.second_author.full_name, user_path(@session.second_author)
 
 - content_tag_for(:dl, @session) do
   %dt= t('formtastic.labels.session.track_id')

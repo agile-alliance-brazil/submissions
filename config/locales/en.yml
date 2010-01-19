@@ -2,6 +2,14 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+
+  # ActiveRecord
+  activerecord:
+    errors:
+      messages:
+        existence: "does not exist"
+        same_author: "can't be the same as author"
+
   formtastic:
     titles:
       user_login: "Login details"
@@ -34,6 +42,8 @@ en:
         benefits: "Benefits"
         experience: "Experience in the subject"
         author_id: "Author"
+        second_author_id: "Second author"
+        second_author_username: "Second author's username"
         updated_at: "Updated"
     hints:
       user:
@@ -54,6 +64,7 @@ en:
         mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session"
         benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session"
         experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session"
+        second_author_username: "Please provide the second author's username on this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>"
     actions:
       signup: "Register new account"
       submit_session: "Submit session"

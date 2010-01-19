@@ -142,6 +142,8 @@ pt:
         odd: "deve ser ímpar"
         even: "deve ser par"
         record_invalid: "A validação falhou: {{errors}}"
+        existence: "não existe"
+        same_author: "não pode ser o mesmo autor"
 
   authlogic:
     error_messages:
@@ -201,6 +203,8 @@ pt:
         benefits: "Benefícios"
         experience: "Experiência com o assunto"
         author_id: "Autor"
+        second_author_id: "Segundo autor"
+        second_author_username: "Segundo autor (username)"
         updated_at: "Última atualização"
     hints:
       user:
@@ -222,6 +226,7 @@ pt:
         mechanics: "Obrigatório para workshops. Descreve como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta"
         benefits: "Escreva aqui quais serão os benefícios trazidos para o público de sua palestra. O que poderão utilizar, o que aprenderão, o que experimentarão, qual o diferencial do que você irá trazer, qual a relevância para a comunidade, etc. Este campo será usado para avaliar sua proposta"
         experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta"
+        second_author_username: "Digite o username do segundo palestrante neste campo. O segundo palestrante também precisa ser um <a href='/users/new?locale=pt'>usuário registrado</a>"
     actions:
       signup: "Criar novo usuário"
       submit_session: "Submeter sessão"
