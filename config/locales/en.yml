@@ -37,23 +37,23 @@ en:
         updated_at: "Updated"
     hints:
       user:
-        email: "Main e-mail address for contact purposes"
-        password: "At least 4 characters long"
-        state: "State and city of residence, collected for statistics purpose"
-        organization: "Name of company or organization that you will represent, collected for statistics purpose"
-        website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session"
-        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session"
+        email: "Main e-mail address for contact purposes."
+        password: "At least 4 characters long."
+        state: "State and city of residence, collected for statistics purpose."
+        organization: "Name of company or organization that you will represent, collected for statistics purpose."
+        website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session."
+        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session."
       session:
-        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en'>here</a>"
-        session_type_id: "A detailed description of session types can be found <a href='/session_types?locale=en'>here</a>"
-        duration_mins: "If you are proposing a talk, please indicate its duration. For tutorials and workshops we recommend a duration of 90 minutes"
-        audience_level_id: "Indicate the expected level of the audience. A description of each level can be found <a href='/audience_levels?locale=en'>here</a>"
-        audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants"
-        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session"
-        description: "Complete description of your session. This field will be used to evaluate your session"
-        mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session"
-        benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session"
-        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session"
+        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en'>here</a>. For Experience Reports, only Talks of 45 minutes long will be accepted."
+        session_type_id: "A detailed description of session types can be found <a href='/session_types?locale=en'>here</a>."
+        duration_mins: "If you are proposing a talk, please indicate its duration. For tutorials and workshops we recommend a duration of 90 minutes."
+        audience_level_id: "Indicate the expected level of the audience. A description of each level can be found <a href='/audience_levels?locale=en'>here</a>."
+        audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants."
+        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session."
+        description: "Complete description of your session. This field will be used to evaluate your session."
+        mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session."
+        benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session."
+        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session."
     actions:
       signup: "Register new account"
       submit_session: "Submit session"
@@ -94,13 +94,13 @@ en:
   session_types:
     tutorial:
       title: "Tutorial"
-      description: "This type includes sessions specially targeted for people who are just beginning or looking for a foothold in Agile methods. Tutorials are instructor-led interactive 90 minute classes designed to provide participants with practical knowledge they can use right away on Agile projects. Tutorials have clear learning objectives that focus on teaching specific skills or techniques."
+      description: "This type includes sessions specially targeted for people who are just beginning or looking for a foothold in Agile methods. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects. Tutorials have clear learning objectives that focus on teaching specific skills or techniques."
     workshop:
       title: "Workshop"
-      description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or brainstorm ideas for the next new \"thing\". Workshops are 90 minutes long."
+      description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or brainstorm ideas for the next new \"thing\"."
     talk:
       title: "Talk"
-      description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community. Talks are 45 minutes long."
+      description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community."
     
   tracks:
     general_interest:
