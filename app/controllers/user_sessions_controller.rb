@@ -9,6 +9,10 @@ class UserSessionsController < InheritedResources::Base
         flash[:notice] = t('flash.user_session.create.success')
         redirect_to_target_or_default(root_url)
       end
+      failure.html do        
+        flash[:error] = @user_session.errors.on(:base) unless @user_session.errors.on(:base).blank?
+        render :new
+      end
     end
   end
   
