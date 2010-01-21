@@ -17,6 +17,7 @@ describe Session do
     should_allow_mass_assignment_of :audience_level_id
     should_allow_mass_assignment_of :duration_mins
     should_allow_mass_assignment_of :experience
+    should_allow_mass_assignment_of :keyword_list
   
     should_not_allow_mass_assignment_of :evil_attr
   end
@@ -74,6 +75,7 @@ describe Session do
     should_validate_presence_of :audience_level_id
     should_validate_presence_of :experience
     should_validate_presence_of :duration_mins
+    should_validate_presence_of :keyword_list
     should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
     
     context "workshop" do
@@ -124,7 +126,7 @@ describe Session do
         @session.session_type = SessionType.find_by_title('session_types.workshop.title')
         @session.should_not be_valid
       end
-    end
+    end    
   end
   
   it "should determine if it's workshop" do

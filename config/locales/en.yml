@@ -46,6 +46,7 @@ en:
         author_id: "Author"
         second_author_id: "Second author"
         second_author_username: "Second author's username"
+        keyword_list: "Keywords"
         updated_at: "Updated"
     hints:
       user:
@@ -67,6 +68,7 @@ en:
         benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session."
         experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session."
         second_author_username: "Please provide the second author's username on this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>."
+        keyword_list: "Separate keywords with commas."
     actions:
       signup: "Register new account"
       submit_session: "Submit session"

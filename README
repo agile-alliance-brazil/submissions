@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  * Configure production environment
- * Keywords
  * My submissions
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
@@ -30,6 +29,7 @@ TODO:
  
 IN PROGRESS:
 
+ * Keywords -- Danilo
  * [task] -- [person]
  
 DONE:

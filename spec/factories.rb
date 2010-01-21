@@ -37,6 +37,7 @@ Factory.define :session do |s|
   s.summary "Summary details of session"
   s.description "Full details of session"
   s.mechanics "Process/Mechanics"
+  s.keyword_list "fake, tag"
   s.benefits "Benefits for audience"
   s.target_audience "Managers, developers, testers"
   s.association :author, :factory => :user

@@ -2,7 +2,10 @@ class Session < ActiveRecord::Base
   attr_accessible :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :audience_level_id, :audience_limit,
                   :author_id, :second_author_id, :second_author_username,
-                  :track_id, :session_type_id, :duration_mins, :experience
+                  :track_id, :session_type_id, :duration_mins, :experience,
+                  :keyword_list
+  
+  acts_as_taggable_on :keywords
 
   belongs_to :author, :class_name => 'User'
   belongs_to :second_author, :class_name => 'User'
@@ -12,7 +15,7 @@ class Session < ActiveRecord::Base
   
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
                         :audience_level_id, :author_id, :track_id, :session_type_id,
-                        :experience, :duration_mins
+                        :experience, :duration_mins, :keyword_list
   
   validates_presence_of :mechanics, :if => :workshop?
   validates_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true

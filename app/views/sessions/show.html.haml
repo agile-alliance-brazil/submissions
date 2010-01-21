@@ -17,16 +17,20 @@
   %dd
     = @session.try(:duration_mins)
     = t('generic.minutes')
-  %dt= t('formtastic.labels.session.audience_limit')
-  %dd= @session.try(:audience_limit)
+  - unless @session.audience_limit.blank?
+    %dt= t('formtastic.labels.session.audience_limit')
+    %dd= @session.audience_limit
+  %dt= t('formtastic.labels.session.keyword_list')
+  %dd= (@session.keyword_list || []).join(", ")
   %dt= t('formtastic.labels.session.target_audience')
   %dd= @session.try(:target_audience)
   %dt= t('formtastic.labels.session.summary')
   %dd= @session.try(:summary)
   %dt= t('formtastic.labels.session.description')
   %dd= @session.try(:description)
-  %dt= t('formtastic.labels.session.mechanics')
-  %dd= @session.try(:mechanics)
+  - unless @session.mechanics.blank?
+    %dt= t('formtastic.labels.session.mechanics')
+    %dd= @session.mechanics
   %dt= t('formtastic.labels.session.benefits')
   %dd= @session.try(:benefits)
   %dt= t('formtastic.labels.session.experience')
