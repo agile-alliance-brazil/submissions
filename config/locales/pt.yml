@@ -210,25 +210,25 @@ pt:
         updated_at: "Última atualização"
     hints:
       user:
-        email: "Principal email de contato"
-        password: "Pelo menos 4 caracteres"
-        phone: "De preferência um celular"
-        state: "Cidade e estado de residência, para fins estatísticos"
-        organization: "Nome da empresa ou organização que representa, para fins estatísticos"
-        website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta"
-        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta"
+        email: "Principal email de contato."
+        password: "Pelo menos 4 caracteres."
+        phone: "De preferência um celular."
+        state: "Cidade e estado de residência, para fins estatísticos."
+        organization: "Nome da empresa ou organização que representa, para fins estatísticos."
+        website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta."
+        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta."
       session:
-        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt'>aqui</a>"
-        session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt'>aqui</a>"
-        duration_mins: "Se a sua sessão for uma palestra, indique a duração adequada para ela. Para tutoriais e workshops recomendamos uma duração de 90 minutos"
-        audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='/audience_levels?locale=pt'>aqui</a>"
-        audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes"
-        summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta"
-        description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta"
-        mechanics: "Obrigatório para workshops. Descreve como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta"
-        benefits: "Escreva aqui quais serão os benefícios trazidos para o público de sua palestra. O que poderão utilizar, o que aprenderão, o que experimentarão, qual o diferencial do que você irá trazer, qual a relevância para a comunidade, etc. Este campo será usado para avaliar sua proposta"
-        experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta"
-        second_author_username: "Digite o username do segundo palestrante neste campo. O segundo palestrante também precisa ser um <a href='/users/new?locale=pt'>usuário registrado</a>"
+        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 45 minutos de duração."
+        session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt'>aqui</a>."
+        duration_mins: "Se a sua sessão for uma palestra, indique a duração adequada para ela. Para tutoriais e workshops recomendamos uma duração de 90 minutos."
+        audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='/audience_levels?locale=pt'>aqui</a>."
+        audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes."
+        summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta."
+        description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta."
+        mechanics: "Obrigatório para workshops. Descreva como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta."
+        benefits: "Escreva aqui quais serão os benefícios trazidos para o público de sua palestra. O que poderão utilizar, o que aprenderão, o que experimentarão, qual o diferencial do que você irá trazer, qual a relevância para a comunidade, etc. Este campo será usado para avaliar sua proposta."
+        experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta."
+        second_author_username: "Digite o username do segundo palestrante neste campo. O segundo palestrante também precisa ser um <a href='/users/new?locale=pt'>usuário registrado</a>."
     actions:
       signup: "Criar novo usuário"
       submit_session: "Submeter sessão"
@@ -269,13 +269,13 @@ pt:
   session_types:
     tutorial:
       title: "Tutorial"
-      description: "Este tipo de sessão contempla atividades endereçadas especialmente a pessoas que estão apenas começando ou procurando por um apoio em Métodos Ágeis. Tutoriais são aulas de 90 minutos guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos Ágeis. Tutoriais têm objetivos claros de aprendizado que focam no ensino de habilidades ou técnicas específicas."
+      description: "Este tipo de sessão contempla atividades endereçadas especialmente a pessoas que estão apenas começando ou procurando por um apoio em Métodos Ágeis. Tutoriais são aulas guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos Ágeis. Tutoriais têm objetivos claros de aprendizado que focam no ensino de habilidades ou técnicas específicas."
     workshop:
       title: "Workshop"
-      description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop tem a duração de 90 minutos e é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para fazer um brainstorm de idéia para a próxima \"novidade\"."
+      description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para fazer um brainstorm de idéia para a próxima \"novidade\"."
     talk:
       title: "Palestra"
-      description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil. Terão duração de 45 minutos."
+      description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil."
 
   tracks:
     general_interest:
