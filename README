@@ -21,7 +21,6 @@ TODO:
  * Review session
  - Improve Layout (CSS)
  * Cucumber features
- - Spinner while autocomplete is loading
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
  - Wiki-like syntax on long text fields
@@ -35,6 +34,7 @@ IN PROGRESS:
  
 DONE:
 
+ - Spinner while autocomplete is loading -- Danilo
  * Second author -- Danilo
  * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo
  * Reference data: SessionDuration (45 / 90 minutes) -- Danilo

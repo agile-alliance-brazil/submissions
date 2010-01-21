@@ -11,7 +11,7 @@
     = form.input :duration_mins, :required => true, :as => :select, :collection => [["45 #{t('generic.minutes')}", 45], ["90 #{t('generic.minutes')}", 90]]
     = form.input :audience_limit
     = form.input :title, :required => true
-    = form.input :second_author_username, :as => :autocomplete, :url => users_path(:format => :js), :method => :get, :param_name => 'search'
+    = form.input :second_author_username
     = form.input :target_audience, :required => true
     = form.input :summary, :required => true, :input_html => {:rows => 10}
     = form.input :description, :required => true
@@ -20,3 +20,8 @@
     = form.input :experience, :required => true, :input_html => {:rows => 10}
   - form.buttons do
     = form.commit_button :submit_session
+
+:javascript
+  $(document).ready(function() {
+    $("#session_second_author_username").autocomplete("#{users_path(:format => :js)}");
+  })

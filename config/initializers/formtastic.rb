@@ -48,4 +48,4 @@ Formtastic::SemanticFormBuilder.i18n_lookups_by_default = true
 
 # You can add custom inputs or override parts of Formtastic by subclassing SemanticFormBuilder and
 # specifying that class here.  Defaults to SemanticFormBuilder.
-Formtastic::SemanticFormHelper.builder = AutocompleteFormBuilder
+# Formtastic::SemanticFormHelper.builder = AutocompleteFormBuilder

@@ -1,1 +1,1 @@
-= auto_complete_result @users, :username
+= render :text => @users.map(&:username).join("\n")

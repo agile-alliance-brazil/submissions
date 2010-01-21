@@ -1,6 +1,6 @@
 class UsersController < InheritedResources::Base
   before_filter :logout_required, :only => [:new, :create]
-  has_scope :search, :only => :index
+  has_scope :search, :only => :index, :as => 'q'
   
   actions :index, :new, :create, :show
   respond_to :js, :only => :index
