@@ -22,6 +22,7 @@ TODO:
  - Improve Layout (CSS)
  * Cucumber features
  - Spinner while autocomplete is loading
+ - Validate foreign_key references
  - Wiki-like syntax on long text fields
  - O campo de mini-cv deveria ter um número mínimo de caracteres
  - Outra coisa estranha é o estado e cidade, debaixo de "estado" tem um texto explicativo que se aplica aos dois, quem sabe daria para colocá-los lado a lado.
