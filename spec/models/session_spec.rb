@@ -73,9 +73,18 @@ describe Session do
     should_validate_presence_of :session_type_id
     should_validate_presence_of :audience_level_id
     should_validate_presence_of :experience
-    should_validate_presence_of :mechanics, :if => :workshop?
     should_validate_presence_of :duration_mins
     should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
+    
+    context "workshop" do
+      it "should validate presence of mechanics" do
+        session = Factory(:session)
+        session.mechanics = nil
+        session.should be_valid
+        session.session_type = SessionType.find_by_title('session_types.workshop.title')
+        session.should_not be_valid
+      end
+    end
     
     context "second author" do
       before(:each) do
@@ -94,6 +103,28 @@ describe Session do
         @session.errors.on(:second_author_username).should == "não pode ser o mesmo autor"
       end
     end
+    
+    context "experience report" do
+      before(:each) do
+        experience_report = Track.find_by_title('tracks.experience_reports.title')
+        @talk = SessionType.find_by_title('session_types.talk.title')
+        @session = Factory(:session, :track => experience_report, :session_type => @talk)
+      end
+      
+      it "should only have duration of 45 minutes" do
+        @session.duration_mins = 45
+        @session.should be_valid
+        @session.duration_mins = 90
+        @session.should_not be_valid
+      end
+
+      it "should only be talk" do
+        @session.session_type = @talk
+        @session.should be_valid
+        @session.session_type = SessionType.find_by_title('session_types.workshop.title')
+        @session.should_not be_valid
+      end
+    end
   end
   
   it "should determine if it's workshop" do
@@ -102,6 +133,14 @@ describe Session do
     session.should_not be_workshop
     session.session_type = workshop
     session.should be_workshop
+  end
+
+  it "should determine if it's experience_report" do
+    experience_report = Track.find_by_title('tracks.experience_reports.title')
+    session = Factory(:session)
+    session.should_not be_experience_report
+    session.track = experience_report
+    session.should be_experience_report
   end
   
 end

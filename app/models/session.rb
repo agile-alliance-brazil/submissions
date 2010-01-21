@@ -17,8 +17,14 @@ class Session < ActiveRecord::Base
   validates_presence_of :mechanics, :if => :workshop?
   validates_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
   validates_each :second_author_username, :allow_blank => true do |record, attr, value|
-    record.errors.add(:second_author_username, :existence) if record.second_author.nil?
-    record.errors.add(:second_author_username, :same_author) if record.second_author == record.author
+    record.errors.add(attr, :existence) if record.second_author.nil?
+    record.errors.add(attr, :same_author) if record.second_author == record.author
+  end
+  validates_each :duration_mins, :if => :experience_report? do |record, attr, value|
+    record.errors.add(attr, :experience_report_duration) if value != 45
+  end
+  validates_each :session_type_id, :if => :experience_report? do |record, attr, value|
+    record.errors.add(attr, :experience_report_session_type) if record.session_type != SessionType.find_by_title('session_types.talk.title')
   end
   
   def second_author_username
@@ -37,5 +43,9 @@ class Session < ActiveRecord::Base
   private
   def workshop?
     self.session_type == SessionType.find_by_title('session_types.workshop.title')
+  end
+
+  def experience_report?
+    self.track == Track.find_by_title('tracks.experience_reports.title')
   end
 end
