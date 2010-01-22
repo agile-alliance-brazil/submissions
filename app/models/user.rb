@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
   
   validates_presence_of :first_name, :last_name, :phone, :state, :city, :bio
   
-  acts_as_authentic
+  acts_as_authentic do |config|
+    config.merge_validates_format_of_email_field_options(:message => :email_format)
+    config.merge_validates_format_of_login_field_options(:message => :username_format)
+  end
 
   named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "#{q}%"]} }
 

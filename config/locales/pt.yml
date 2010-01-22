@@ -146,6 +146,8 @@ pt:
         same_author: "não pode ser o mesmo autor"
         experience_report_duration: "só pode ser 45 minutos"
         experience_report_session_type: "só pode ser uma Palestra"
+        email_format: "deve ter um formato de e-mail válido"
+        username_format: "deve usar apenas letras, números, espaços e .-_@"
 
   authlogic:
     error_messages:
