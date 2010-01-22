@@ -2,7 +2,7 @@ Factory.define :user do |u|
   u.first_name "User"
   u.sequence(:last_name) {|n| "Name#{n}"}
   u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
-  u.email { |a| "#{a.username}@example.com" }
+  u.email { |a| "#{a.username.parameterize}@example.com" }
   u.password "secret"
   u.password_confirmation "secret"
   u.phone "(11) 3322-1234"

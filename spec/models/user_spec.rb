@@ -52,4 +52,12 @@ describe User do
     user = User.new(:first_name => "Danilo", :last_name => "Sato")
     user.full_name.should == "Danilo Sato"
   end
+  
+  it "should overide to_param with username" do
+    user = Factory(:user, :username => 'danilo.sato 1990@2')
+    user.to_param.ends_with?("-danilo-sato-1990-2").should be_true
+    
+    user.username = nil
+    user.to_param.ends_with?("-danilo-sato-1990-2").should be_false
+  end
 end

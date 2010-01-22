@@ -42,6 +42,10 @@ class Session < ActiveRecord::Base
       end
     end
   end
+  
+  def to_param
+    title.blank? ? super : "#{id}-#{title.parameterize}"
+  end
 
   private
   def workshop?

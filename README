@@ -7,11 +7,11 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  * Configure production environment
+ - Campo: limite de participantes
  * My submissions
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Authorization model (can-can gem)
- * Tagging
  * Search submissions
  * Add comments
  * Edit user profile
@@ -24,16 +24,17 @@ TODO:
  - auto-select duration/session type if track is experience reports
  - Wiki-like syntax on long text fields
  - O campo de mini-cv deveria ter um número mínimo de caracteres
- - Outra coisa estranha é o estado e cidade, debaixo de "estado" tem um texto explicativo que se aplica aos dois, quem sabe daria para colocá-los lado a lado.
  - Dá pra colocar que eu moro em RJ, São Paulo
  
 IN PROGRESS:
 
- * Keywords -- Danilo
  * [task] -- [person]
  
 DONE:
 
+ - Improving URLs (permalink) -- Danilo
+ * Keywords -- Danilo
+ * Tagging -- Danilo
  - Spinner while autocomplete is loading -- Danilo
  * Second author -- Danilo
  * Reference data: SessionLevel (beginner, practitioner, experienced) -- Danilo

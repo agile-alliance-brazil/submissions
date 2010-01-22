@@ -145,4 +145,12 @@ describe Session do
     session.should be_experience_report
   end
   
+  it "should overide to_param with session title" do
+    session = Factory(:session, :title => "refatoração e código limpo: na prática.")
+    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_true
+    
+    session.title = nil
+    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_false
+  end
+  
 end
