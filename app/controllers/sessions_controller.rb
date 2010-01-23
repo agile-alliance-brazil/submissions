@@ -2,6 +2,7 @@ class SessionsController < InheritedResources::Base
   before_filter :login_required
   
   actions :index, :show, :new, :create
+  has_scope :for_user, :only => :index, :as => 'user_id'
   
   def create
     create! do |success, failure|

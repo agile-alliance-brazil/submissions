@@ -8,7 +8,6 @@ TODO:
 
  * Configure production environment
  - Campo: limite de participantes
- * My submissions
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Authorization model (can-can gem)
@@ -32,6 +31,7 @@ IN PROGRESS:
  
 DONE:
 
+ * My submissions -- Danilo
  - Improving URLs (permalink) -- Danilo
  * Keywords -- Danilo
  * Tagging -- Danilo

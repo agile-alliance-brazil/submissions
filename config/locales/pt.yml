@@ -252,6 +252,7 @@ pt:
     browse_sessions: "Propostas de sessão submetidas"
     profile: "Meu perfil"
     signup: "Crie um novo usuário"
+    my_sessions: "Minhas propostas"
   
   flash:
     user:

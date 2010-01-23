@@ -129,6 +129,10 @@ describe Session do
     end    
   end
   
+  context "named scopes" do
+    should_have_scope :for_user, :conditions => ['author_id = ? OR second_author_id = ?', 3, 3], :with => '3'
+  end
+  
   it "should determine if it's workshop" do
     workshop = SessionType.find_by_title('session_types.workshop.title')
     session = Factory(:session)

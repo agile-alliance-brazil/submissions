@@ -30,6 +30,8 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :experience_report_session_type) if record.session_type != SessionType.find_by_title('session_types.talk.title')
   end
   
+  named_scope :for_user, lambda { |u| {:conditions => ['author_id = ? OR second_author_id = ?', u.to_i, u.to_i]}}
+  
   def second_author_username
     @second_author_username || second_author.try(:username)
   end

@@ -13,6 +13,7 @@
     %li= link_to t('actions.submit_session'), new_session_path
     %li= link_to t('actions.browse_sessions'), sessions_path
     %li= link_to t('actions.profile'), user_path(current_user)
+    %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
     %li= link_to "Logout", logout_path
   - else
     %li= link_to t('actions.signup'), signup_path

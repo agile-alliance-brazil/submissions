@@ -90,6 +90,7 @@ en:
     browse_sessions: "Browse sessions"
     profile: "My account profile"
     signup: "Register new account"
+    my_sessions: "My session submissions"
   
   flash:
     user:
