@@ -6,6 +6,10 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
+ * Edit user profile
+ * Edit session
+ * Limit edit by deadlines
+ - Wiki-like syntax on long text fields
  * Configure production environment
  - Campo: limite de participantes
  * E-mail when session is submitted
@@ -13,15 +17,11 @@ TODO:
  * Authorization model (can-can gem)
  * Search submissions
  * Add comments
- * Edit user profile
- * Edit session
- * Limit edit by deadlines
  * Review session
  - Improve Layout (CSS)
  * Cucumber features
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
- - Wiki-like syntax on long text fields
  - O campo de mini-cv deveria ter um número mínimo de caracteres
  - Dá pra colocar que eu moro em RJ, São Paulo
  
