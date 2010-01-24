@@ -9,9 +9,14 @@ describe UsersController do
     Factory(:user)
   end
 
-  it "index action should render index template" do
-    get :index
+  it "index action should render index template for JS format" do
+    get :index, :format => :js
     response.should render_template(:index)
+  end
+  
+  it "index action should render index template for HTML format" do
+    get :index
+    response.should redirect_to(new_user_path)
   end
   
   it "new action should render new template" do

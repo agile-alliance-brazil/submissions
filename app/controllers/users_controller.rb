@@ -3,8 +3,13 @@ class UsersController < InheritedResources::Base
   has_scope :search, :only => :index, :as => 'q'
   
   actions :index, :new, :create, :show
-  respond_to :js, :only => :index
-  respond_to :html, :except => :index
+  
+  def index
+    index! do |format|
+      format.html { redirect_to new_user_path }
+      format.js
+    end
+  end
   
   def create
     create! do |success, failure|
