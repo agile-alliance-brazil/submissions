@@ -190,6 +190,7 @@ pt:
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
+        roles: "Permissões"
       user_session:
         username: "Nome de usuário"
         password: "Senha"

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Authorization
+  
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :state, :city,
                   :organization, :website_url, :bio
@@ -13,6 +15,8 @@ class User < ActiveRecord::Base
   end
 
   named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "#{q}%"]} }
+  
+  before_create :assign_default_role
 
   def full_name
     [self.first_name, self.last_name].join(' ')
@@ -20,5 +24,10 @@ class User < ActiveRecord::Base
   
   def to_param
     username.blank? ? super : "#{id}-#{username.parameterize}"
+  end
+  
+  private
+  def assign_default_role
+    self.add_role 'author'
   end
 end

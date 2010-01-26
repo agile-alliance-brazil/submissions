@@ -31,18 +31,14 @@ form.formtastic fieldset ol li.password input {
   padding: 2px;
 }
 
-form.formtastic fieldset ol li.autocomplete input { width:74%; }
-
-form.formtastic fieldset ol li.autocomplete input {
+form.formtastic fieldset ol li.text textarea {
   background-color: #ffffff;
   border: 1px solid #bbbbbb;
   padding: 2px;
 }
 
-form.formtastic fieldset ol li.text textarea {
-  background-color: #ffffff;
-  border: 1px solid #bbbbbb;
-  padding: 2px;
+form.formtastic fieldset ol li.check_boxes fieldset ol {
+  padding: 15px;
 }
 
 form.formtastic fieldset ol li.error input, form.formtastic fieldset ol li.error textarea {

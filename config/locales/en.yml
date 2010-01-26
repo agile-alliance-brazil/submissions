@@ -32,6 +32,7 @@ en:
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
+        roles: "Roles"
       session:
         title: "Session title"
         track_id: "Track"

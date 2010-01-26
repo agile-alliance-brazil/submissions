@@ -10,11 +10,11 @@ TODO:
  * Edit session
  * Limit edit by deadlines
  - Wiki-like syntax on long text fields
+ * Authorization model (can-can gem)
  * Configure production environment
  - Campo: limite de participantes
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
- * Authorization model (can-can gem)
  * Search submissions
  * Add comments
  * Review session
@@ -31,6 +31,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Add role to user -- Danilo
  * My submissions -- Danilo
  - Improving URLs (permalink) -- Danilo
  * Keywords -- Danilo

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100121180835) do
+ActiveRecord::Schema.define(:version => 20100125234418) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20100121180835) do
     t.string   "organization"
     t.string   "website_url"
     t.text     "bio"
+    t.integer  "roles_mask"
   end
 
 end

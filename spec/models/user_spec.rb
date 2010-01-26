@@ -48,6 +48,13 @@ describe User do
     should_have_scope :search, :conditions => ['username LIKE ?', "danilo%"], :with => 'danilo'
   end
   
+  context "authorization" do
+    it "should have default role of author when created" do
+      User.new.should_not be_author
+      Factory(:user).should be_author
+    end
+  end
+  
   it "should provide full name" do
     user = User.new(:first_name => "Danilo", :last_name => "Sato")
     user.full_name.should == "Danilo Sato"
