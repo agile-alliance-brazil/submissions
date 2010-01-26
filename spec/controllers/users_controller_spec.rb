@@ -4,9 +4,10 @@ describe UsersController do
   integrate_views
   
   it_should_require_logout_for_actions :new, :create
+  it_should_require_login_for_actions :edit, :update
   
   before(:each) do
-    Factory(:user)
+    @user = Factory(:user)
   end
 
   it "index action should render index template for JS format" do
@@ -47,5 +48,31 @@ describe UsersController do
     get :show, :id => User.first
     response.should render_template(:show)
   end
+  
+  context "logged in" do
+    before(:each) do
+      activate_authlogic
+      UserSession.create(@user)
+    end
+    
+    it "edit action should render edit template" do
+      get :edit, :id => @user
+      response.should render_template(:edit)
+    end
+  
+    it "update action should render edit template when model is invalid" do
+      # +stubs(:valid?).returns(false)+ doesn't work here because
+      # inherited_resources does +obj.errors.empty?+ to determine
+      # if validation failed
+      put :update, :id => @user, :user => {}
+      response.should render_template(:edit)
+    end
+
+    it "update action should redirect when model is valid" do
+      User.any_instance.stubs(:valid?).returns(true)
+      put :update, :id => @user
+      response.should redirect_to(user_path(assigns[:user]))
+    end
+  end  
 
 end

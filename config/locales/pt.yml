@@ -148,6 +148,7 @@ pt:
         experience_report_session_type: "só pode ser uma Palestra"
         email_format: "deve ter um formato de e-mail válido"
         username_format: "deve usar apenas letras, números, espaços e .-_@"
+        constant: "não pode mudar"
 
   authlogic:
     error_messages:
@@ -237,6 +238,7 @@ pt:
     actions:
       signup: "Criar novo usuário"
       submit_session: "Submeter sessão"
+      edit_profile: "Atualizar perfil"
   
   # Mensagens customizadas
   title:
@@ -247,13 +249,16 @@ pt:
     tracks: "Trilhas de interesse"
     session_types: "Tipos de sessão"
     audience_levels: "Perfis do público"
+    edit_profile: "Atualizar perfil de {{user}}"
   
   actions:
     submit_session: "Envie uma proposta"
     browse_sessions: "Propostas de sessão submetidas"
     profile: "Meu perfil"
+    edit_profile: "Editar meu perfil"
     signup: "Crie um novo usuário"
     my_sessions: "Minhas propostas"
+    edit: "Editar"
   
   flash:
     user:

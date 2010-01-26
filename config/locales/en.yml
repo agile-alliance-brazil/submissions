@@ -13,6 +13,7 @@ en:
         experience_report_session_type: "can only be a Talk"
         email_format: "should look like an email address"
         username_format: "should use only letters, numbers, spaces, and .-_@ please"
+        constant: "can't be changed"
 
   formtastic:
     titles:
@@ -75,6 +76,7 @@ en:
     actions:
       signup: "Register new account"
       submit_session: "Submit session"
+      edit_profile: "Update profile"
 
   # Custom messages
   title:
@@ -85,13 +87,16 @@ en:
     tracks: "Session Tracks"
     session_types: "Session Types"
     audience_levels: "Audience Levels"
+    edit_profile: "Edit profile for {{user}}"
   
   actions:
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"
     profile: "My account profile"
+    edit_profile: "Edit my account profile"
     signup: "Register new account"
     my_sessions: "My session submissions"
+    edit: "Edit"
   
   flash:
     user:

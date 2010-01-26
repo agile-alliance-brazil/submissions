@@ -274,12 +274,12 @@ table.sessions th.title {
 table.sessions th.author {
   width: 15%; }
 
-ul.authors {
+ul.piped {
   overflow: hidden; }
-  ul.authors li {
+  ul.piped li {
     float: left;
     list-style: none; }
-  ul.authors li + li::before {
+  ul.piped li + li::before {
     content: "\00a0|\00a0"; }
 
 #flash_notice, #flash_error {

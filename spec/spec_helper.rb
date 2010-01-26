@@ -24,6 +24,12 @@ Spec::Runner.configure do |config|
 
   config.include(ControllerMacros, :type => :controller)
 
+  config.before(:each, :type => :controller) do
+    def controller.current_ability
+      @current_ability ||= TestAbility.new
+    end
+  end
+
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:

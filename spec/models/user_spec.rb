@@ -38,6 +38,13 @@ describe User do
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
     
     should_validate_confirmation_of :password
+    
+    it "should validate that username doesn't change" do
+      user = Factory(:user)
+      user.username = 'new_username'
+      user.should_not be_valid
+      user.errors.on(:username).should == "não pode mudar"
+    end
   end
   
   context "associations" do

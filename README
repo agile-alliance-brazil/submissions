@@ -6,12 +6,11 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Edit user profile
  * Edit session
  * Limit edit by deadlines
  - Wiki-like syntax on long text fields
- * Configure production environment
  - Campo: limite de participantes
+ * Configure production environment
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Search submissions
@@ -19,6 +18,7 @@ TODO:
  * Review session
  - Improve Layout (CSS)
  * Cucumber features
+ * Manage Roles (admin only)
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
  - O campo de mini-cv deveria ter um número mínimo de caracteres
@@ -30,6 +30,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Edit user profile -- Danilo
  * Authorization model (can-can gem) -- Danilo
  * Add role to user -- Danilo
  * My submissions -- Danilo

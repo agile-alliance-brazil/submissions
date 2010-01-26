@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :only => [:index]
   map.resources :tracks, :only => [:index]
   map.resources :user_sessions, :only => [:new, :create, :destroy]
-  map.resources :users, :only => [:index, :new, :create, :show] do |user|
+  map.resources :users, :except => [:destroy] do |user|
     user.my_sessions 'my_sessions', :controller => 'sessions', :action => 'index'
   end
 

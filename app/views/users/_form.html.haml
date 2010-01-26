@@ -1,0 +1,14 @@
+- form.inputs :user_login do
+  = form.input :first_name, :required => true
+  = form.input :last_name, :required => true
+  = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?}
+  = form.input :email, :required => true
+  = form.input :password, :required => @user.new_record?
+  = form.input :password_confirmation, :required => @user.new_record?
+- form.inputs :user_personal do
+  = form.input :phone, :required => true
+  = form.input :state, :required => true, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS
+  = form.input :city, :required => true
+  = form.input :organization
+  = form.input :website_url
+  = form.input :bio, :required => true

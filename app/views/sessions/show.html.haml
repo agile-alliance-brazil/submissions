@@ -1,7 +1,7 @@
 - title @session.title
 - show_actions!
 
-%ul.authors
+%ul.piped
   %li= link_to @session.author.full_name, user_path(@session.author)
   - if @session.second_author
     %li= link_to @session.second_author.full_name, user_path(@session.second_author)
