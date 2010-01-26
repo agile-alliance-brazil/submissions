@@ -271,6 +271,7 @@ pt:
     session:
       create:
         success: "Sessão submetida com sucesso."
+    unauthorised: "Você não está autorizado a acessar esta página"
   
   session_types:
     tutorial:

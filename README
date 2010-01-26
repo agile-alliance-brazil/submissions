@@ -10,7 +10,6 @@ TODO:
  * Edit session
  * Limit edit by deadlines
  - Wiki-like syntax on long text fields
- * Authorization model (can-can gem)
  * Configure production environment
  - Campo: limite de participantes
  * E-mail when session is submitted
@@ -31,6 +30,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Authorization model (can-can gem) -- Danilo
  * Add role to user -- Danilo
  * My submissions -- Danilo
  - Improving URLs (permalink) -- Danilo

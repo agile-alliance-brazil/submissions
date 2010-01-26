@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_timezone
+  before_filter :authorize_action
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = t('flash.unauthorised')
+    redirect_to :back rescue redirect_to root_path
+  end
   
   def default_url_options(options={})
     # Keep locale when navigating links if locale is specified
@@ -20,5 +26,9 @@ class ApplicationController < ActionController::Base
   def set_timezone
     # current_user.time_zone #=> 'London'
     Time.zone = params[:time_zone]
+  end
+  
+  def authorize_action
+    unauthorized! if cannot?(params[:action].to_sym, resource_class)
   end
 end

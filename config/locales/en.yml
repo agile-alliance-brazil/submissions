@@ -109,6 +109,7 @@ en:
     session:
       create:
         success: "Session submited successfully"
+    unauthorised: "You are not authorized to access this page"
   
   session_types:
     tutorial:

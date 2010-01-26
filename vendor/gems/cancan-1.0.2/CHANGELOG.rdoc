@@ -1,0 +1,54 @@
+1.0.2 (Dec 30, 2009)
+
+* Adding clear_aliased_actions to Ability which removes previously defined actions including defaults - see issue #20
+
+* Append aliased actions (don't overwrite them) - see issue #20
+
+* Adding custom message argument to unauthorized! method (thanks tjwallace) - see issue #18
+
+
+1.0.1 (Dec 14, 2009)
+
+* Adding :class option to load_resource so one can customize which class to use for the model - see issue #17
+
+* Don't fetch parent of nested resource if *_id parameter is missing so it works with shallow nested routes - see issue #14
+
+
+1.0.0 (Dec 13, 2009)
+
+* Don't set resource instance variable if it has been set already - see issue #13
+
+* Allowing :nested option to accept an array for deep nesting
+
+* Adding :nested option to load resource method - see issue #10
+
+* Pass :only and :except options to before filters for load/authorize resource methods.
+
+* Adding :collection and :new options to load_resource method so we can specify behavior of additional actions if needed.
+
+* BACKWARDS INCOMPATIBLE: turning load and authorize resource methods into class methods which set up the before filter so they can accept additional arguments.
+
+
+0.2.1 (Nov 26, 2009)
+
+* many internal refactorings - see issues #11 and #12
+
+* adding "cannot" method to define which abilities cannot be done - see issue #7
+
+* support custom objects (usually symbols) in can definition - see issue #8
+
+
+0.2.0 (Nov 17, 2009)
+
+* fix behavior of load_and_authorize_resource for namespaced controllers - see issue #3
+
+* support arrays being passed to "can" to specify multiple actions or classes - see issue #2
+
+* adding "cannot?" method to ability, controller, and view which is inverse of "can?" - see issue #1
+
+* BACKWARDS INCOMPATIBLE: use Ability#initialize instead of 'prepare' to set up abilities - see issue #4
+
+
+0.1.0 (Nov 16, 2009)
+
+* initial release
