@@ -239,6 +239,7 @@ pt:
       signup: "Criar novo usuário"
       submit_session: "Submeter sessão"
       edit_profile: "Atualizar perfil"
+      edit_session: "Atualizar sessão"
   
   # Mensagens customizadas
   title:
@@ -250,6 +251,7 @@ pt:
     session_types: "Tipos de sessão"
     audience_levels: "Perfis do público"
     edit_profile: "Atualizar perfil de {{user}}"
+    edit_session: "Atualizar sessão submetida"
   
   actions:
     submit_session: "Envie uma proposta"
@@ -318,3 +320,5 @@ pt:
     or: "ou"
     ago: "atrás"
     minutes: "minutos"
+    previous: "&laquo; Anterior"
+    next: "Próxima &raquo;"

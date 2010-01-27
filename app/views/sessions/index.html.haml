@@ -19,5 +19,6 @@
         %td.updated_at
           = time_ago_in_words(session.updated_at)
           = t('generic.ago')
-      
-= will_paginate(@sessions)
+
+- if @sessions.total_pages > 1
+  #pagination= will_paginate(@sessions)

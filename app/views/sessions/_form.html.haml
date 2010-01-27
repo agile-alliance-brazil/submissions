@@ -1,0 +1,24 @@
+- form.inputs do
+  = form.input :author_id, :as => :hidden
+  = form.input :track_id, :required => true, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }
+  = form.input :audience_level_id, :required => true, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }
+  = form.input :session_type_id, :required => true, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }
+  = form.input :duration_mins, :required => true, :as => :select, :collection => [["45 #{t('generic.minutes')}", 45], ["90 #{t('generic.minutes')}", 90]]
+  = form.input :audience_limit
+  = form.input :title, :required => true
+  = form.input :keyword_list, :required => true
+  = form.input :second_author_username
+  = form.input :target_audience, :required => true
+  = form.input :summary, :required => true, :input_html => {:rows => 10}
+  = form.input :description, :required => true
+  = form.input :mechanics
+  = form.input :benefits, :required => true, :input_html => {:rows => 10}
+  = form.input :experience, :required => true, :input_html => {:rows => 10}
+
+:javascript
+  $(document).ready(function() {
+    $("#session_second_author_username").autocomplete("#{users_path(:format => :js)}");
+    $("#session_keyword_list").autocomplete("#{tags_path(:format => :js)}", {
+      multiple: true
+    });
+  })

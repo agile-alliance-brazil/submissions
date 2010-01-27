@@ -77,6 +77,7 @@ en:
       signup: "Register new account"
       submit_session: "Submit session"
       edit_profile: "Update profile"
+      edit_session: "Update session"
 
   # Custom messages
   title:
@@ -88,6 +89,7 @@ en:
     session_types: "Session Types"
     audience_levels: "Audience Levels"
     edit_profile: "Edit profile for {{user}}"
+    edit_session: "Edit session"
   
   actions:
     submit_session: "Submit a session"
@@ -156,3 +158,5 @@ en:
     or: "or"
     ago: "ago"
     minutes: "minutes"
+    previous: "&laquo; Previous"
+    next: "Next &raquo;"

@@ -14,12 +14,12 @@
       %li= link_to t('actions.submit_session'), new_session_path
     - if can? :read, Session
       %li= link_to t('actions.browse_sessions'), sessions_path
+    - if can? :read, Session
+      %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
     - if can? :read, User
       %li= link_to t('actions.profile'), user_path(current_user)
     - if can? :update, current_user
       %li= link_to t('actions.edit_profile'), edit_user_path(current_user)
-    - if can? :read, Session
-      %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
     - if can? :destroy, UserSession
       %li= link_to "Logout", logout_path
   - else

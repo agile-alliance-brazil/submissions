@@ -1,7 +1,7 @@
 class SessionsController < InheritedResources::Base
   before_filter :login_required
   
-  actions :index, :show, :new, :create
+  actions :all, :except => [:destroy]
   has_scope :for_user, :only => :index, :as => 'user_id'
   
   def create
@@ -18,7 +18,7 @@ class SessionsController < InheritedResources::Base
   def collection
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 20)
+    paginate_options[:per_page] ||= (params[:per_page] || 15)
     paginate_options[:order] ||= 'created_at DESC'
     @sessions ||= end_of_association_chain.paginate(paginate_options)
   end

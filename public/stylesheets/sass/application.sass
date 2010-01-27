@@ -99,6 +99,54 @@ ul.piped
     :list-style             none
   li + li::before
     :content                "\00a0|\00a0"
+
+#pagination
+  :width                    100%
+  :text-align               center
+  
+  .pagination
+    :font-size              11px
+    :display                inline-block
+                            
+    span                    
+      :border               0
+      :margin               0
+      :padding              0
+      :margin-right         2px
+                            
+    a                       
+      :border               = solid 1px !color5
+      :margin-right         2px
+                            
+    .disabled               
+      :border               solid 1px #DEDEDE
+      :color                #888888
+      :display              block
+      :float                left
+      :font-weight          bold
+      :margin-right         2px
+      :padding              3px 4px
+                            
+    .next_page, .prev_page  
+      :font-weight          bold
+                            
+    .current                
+      :background           = !color2
+      :color                #FFFFFF
+      :font-weight          bold
+      :display              block
+      :float                left
+      :padding              4px 6px
+                            
+    a:link, a:visited       
+      :color                = !color2
+      :display              block
+      :float                left
+      :padding              3px 6px
+      :text-decoration      none
+                            
+    a:hover                 
+      :border               = solid 1px !color2
   
 #flash_notice, #flash_error
   :padding                  5px 8px

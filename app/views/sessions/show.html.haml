@@ -5,6 +5,8 @@
   %li= link_to @session.author.full_name, user_path(@session.author)
   - if @session.second_author
     %li= link_to @session.second_author.full_name, user_path(@session.second_author)
+  - if can? :update, @session
+    %li= link_to t('actions.edit'), edit_session_path(@session)
 
 - content_tag_for(:dl, @session) do
   %dt= t('formtastic.labels.session.track_id')

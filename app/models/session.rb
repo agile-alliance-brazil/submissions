@@ -1,8 +1,8 @@
 class Session < ActiveRecord::Base
   attr_accessible :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :audience_level_id, :audience_limit,
-                  :author_id, :second_author_id, :second_author_username,
-                  :track_id, :session_type_id, :duration_mins, :experience,
+                  :author_id, :second_author_username, :track_id,
+                  :session_type_id, :duration_mins, :experience,
                   :keyword_list
   
   acts_as_taggable_on :keywords
@@ -29,6 +29,9 @@ class Session < ActiveRecord::Base
   validates_each :session_type_id, :if => :experience_report? do |record, attr, value|
     record.errors.add(attr, :experience_report_session_type) if record.session_type != SessionType.find_by_title('session_types.talk.title')
   end
+  validates_each :author_id, :on => :update do |record, attr, value|
+    record.errors.add(attr, :constant) if record.author_id_changed?
+  end
   
   named_scope :for_user, lambda { |u| {:conditions => ['author_id = ? OR second_author_id = ?', u.to_i, u.to_i]}}
   
@@ -39,7 +42,9 @@ class Session < ActiveRecord::Base
   def second_author_username=(username)
     @second_author_username = username
     returning @second_author_username do
-      unless @second_author_username.blank?
+      if @second_author_username.blank?
+        self.second_author = nil
+      else
         self.second_author = User.find_by_username(@second_author_username)
       end
     end

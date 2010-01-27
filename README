@@ -6,7 +6,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Edit session
  * Limit edit by deadlines
  - Wiki-like syntax on long text fields
  - Campo: limite de participantes
@@ -30,6 +29,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Edit session -- Danilo
+ - Styling and i18n for pagination -- Danilo
  * Edit user profile -- Danilo
  * Authorization model (can-can gem) -- Danilo
  * Add role to user -- Danilo

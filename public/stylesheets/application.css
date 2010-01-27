@@ -282,6 +282,46 @@ ul.piped {
   ul.piped li + li::before {
     content: "\00a0|\00a0"; }
 
+#pagination {
+  width: 100%;
+  text-align: center; }
+  #pagination .pagination {
+    font-size: 11px;
+    display: inline-block; }
+    #pagination .pagination span {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      margin-right: 2px; }
+    #pagination .pagination a {
+      border: solid 1px #878268;
+      margin-right: 2px; }
+    #pagination .pagination .disabled {
+      border: solid 1px #DEDEDE;
+      color: #888888;
+      display: block;
+      float: left;
+      font-weight: bold;
+      margin-right: 2px;
+      padding: 3px 4px; }
+    #pagination .pagination .next_page, #pagination .pagination .prev_page {
+      font-weight: bold; }
+    #pagination .pagination .current {
+      background: #b8a16b;
+      color: #FFFFFF;
+      font-weight: bold;
+      display: block;
+      float: left;
+      padding: 4px 6px; }
+    #pagination .pagination a:link, #pagination .pagination a:visited {
+      color: #b8a16b;
+      display: block;
+      float: left;
+      padding: 3px 6px;
+      text-decoration: none; }
+    #pagination .pagination a:hover {
+      border: solid 1px #b8a16b; }
+
 #flash_notice, #flash_error {
   padding: 5px 8px;
   margin: 10px 0; }

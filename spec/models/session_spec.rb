@@ -10,7 +10,6 @@ describe Session do
     should_allow_mass_assignment_of :target_audience
     should_allow_mass_assignment_of :audience_limit
     should_allow_mass_assignment_of :author_id
-    should_allow_mass_assignment_of :second_author_id
     should_allow_mass_assignment_of :second_author_username
     should_allow_mass_assignment_of :track_id
     should_allow_mass_assignment_of :session_type_id
@@ -126,7 +125,14 @@ describe Session do
         @session.session_type = SessionType.find_by_title('session_types.workshop.title')
         @session.should_not be_valid
       end
-    end    
+    end
+    
+    it "should validate that author doesn't change" do
+      session = Factory(:session)
+      session.author_id = 99
+      session.should_not be_valid
+      session.errors.on(:author_id).should == "não pode mudar"
+    end
   end
   
   context "named scopes" do

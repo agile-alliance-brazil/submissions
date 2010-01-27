@@ -3,12 +3,12 @@ require 'spec/spec_helper'
 describe SessionsController do
   integrate_views
 
-  it_should_require_login_for_actions :index, :show, :new, :create
+  it_should_require_login_for_actions :index, :show, :new, :create, :edit, :update
 
   before(:each) do
-    session = Factory(:session)
+    @session = Factory(:session)
     activate_authlogic
-    UserSession.create(session.author)
+    UserSession.create(@session.author)
   end
 
   it "index action should render index template" do
@@ -39,5 +39,24 @@ describe SessionsController do
     post :create
     response.should redirect_to(session_url(assigns[:session]))
   end
-    
+  
+  it "edit action should render edit template" do
+    get :edit, :id => Session.first
+    response.should render_template(:edit)
+  end
+
+  it "update action should render edit template when model is invalid" do
+    # +stubs(:valid?).returns(false)+ doesn't work here because
+    # inherited_resources does +obj.errors.empty?+ to determine
+    # if validation failed
+    put :update, :id => Session.first, :session => {}
+    response.should render_template(:edit)
+  end
+
+  it "update action should redirect when model is valid" do
+    Session.any_instance.stubs(:valid?).returns(true)
+    put :update, :id => Session.first
+    response.should redirect_to(session_path(assigns[:session]))
+  end
+  
 end
