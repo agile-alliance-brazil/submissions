@@ -49,7 +49,7 @@ module Authentication
   def logout_required
     if logged_in?
       flash[:error] = t('flash.user.logout.required')
-      redirect_to :back
+      redirect_to :back rescue redirect_to root_path
     end
   end
   
