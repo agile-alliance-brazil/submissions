@@ -81,6 +81,16 @@ describe Session do
     should_validate_presence_of :keyword_list
     should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
     
+    should_validate_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
+    
+    should_validate_length_of :title, :maximum => 100
+    should_validate_length_of :target_audience, :maximum => 200
+    should_validate_length_of :summary, :maximum => 800
+    should_validate_length_of :description, :maximum => 2400
+    should_validate_length_of :mechanics, :maximum => 2400, :allow_blank => true
+    should_validate_length_of :benefits, :maximum => 400
+    should_validate_length_of :experience, :maximum => 400
+    
     context "workshop" do
       it "should validate presence of mechanics" do
         session = Factory(:session)

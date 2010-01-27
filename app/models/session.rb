@@ -21,6 +21,15 @@ class Session < ActiveRecord::Base
   
   validates_presence_of :mechanics, :if => :workshop?
   validates_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
+  validates_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
+  
+  validates_length_of :title, :maximum => 100
+  validates_length_of :target_audience, :maximum => 200
+  validates_length_of [:benefits, :experience], :maximum => 400
+  validates_length_of :summary, :maximum => 800
+  validates_length_of :description, :maximum => 2400
+  validates_length_of :mechanics, :maximum => 2400, :allow_blank => true
+
   validates_each :second_author_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.second_author.nil?
     record.errors.add(attr, :same_author) if record.second_author == record.author

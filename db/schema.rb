@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100125234418) do
+ActiveRecord::Schema.define(:version => 20100127223701) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20100125234418) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.string   "audience_limit"
+    t.integer  "audience_limit",    :limit => 255
     t.integer  "author_id"
     t.text     "experience"
     t.datetime "created_at"

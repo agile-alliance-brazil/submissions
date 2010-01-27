@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  - Wiki-like syntax on long text fields
- - Campo: limite de participantes (somente numérico? obrigatório pra qual tipo de sessão?)
  * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD)
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
@@ -29,6 +28,7 @@ IN PROGRESS:
  
 DONE:
 
+ - Campo: limite de participantes (somente numérico? obrigatório pra qual tipo de sessão?) -- Danilo
  * Limit edit by deadlines -- Danilo
  * Edit session -- Danilo
  - Styling and i18n for pagination -- Danilo
@@ -58,7 +58,6 @@ DONE:
 
 BUGS:
 
-* If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field?
 * Should max number of character for username be 100?  Is this feasible?
 * I should not be able to enter letters in Phone field.
 * I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
@@ -74,6 +73,7 @@ BUGS:
 * Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example.
 
 FIXED:
+* If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
 * How to submit a session > "Create a user" link on the main page and "Register new
 account" link on the left hand column.  They point to the same link but used different words.  Should we use the same words?  i.e. stick to one. [fixed]
 * Register new account button does not go anywhere [fixed]
