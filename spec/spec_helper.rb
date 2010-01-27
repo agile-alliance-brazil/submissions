@@ -23,6 +23,7 @@ Spec::Runner.configure do |config|
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
   config.include(ControllerMacros, :type => :controller)
+  config.include(TrimmerMacros)
 
   config.before(:each, :type => :controller) do
     def controller.current_ability

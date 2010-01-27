@@ -4,6 +4,8 @@ class Session < ActiveRecord::Base
                   :author_id, :second_author_username, :track_id,
                   :session_type_id, :duration_mins, :experience,
                   :keyword_list
+  attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
+                  :target_audience, :audience_limit, :experience
   
   acts_as_taggable_on :keywords
 
@@ -27,7 +29,7 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :experience_report_duration) if value != 45
   end
   validates_each :session_type_id, :if => :experience_report? do |record, attr, value|
-    record.errors.add(attr, :experience_report_session_type) if record.session_type != SessionType.find_by_title('session_types.talk.title')
+    record.errors.add(attr, :experience_report_session_type) if record.session_type.try(:title) != 'session_types.talk.title'
   end
   validates_each :author_id, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.author_id_changed?
@@ -40,7 +42,7 @@ class Session < ActiveRecord::Base
   end
   
   def second_author_username=(username)
-    @second_author_username = username
+    @second_author_username = username.try(:strip)
     returning @second_author_username do
       if @second_author_username.blank?
         self.second_author = nil
@@ -56,10 +58,10 @@ class Session < ActiveRecord::Base
 
   private
   def workshop?
-    self.session_type == SessionType.find_by_title('session_types.workshop.title')
+    self.session_type.try(:title) == 'session_types.workshop.title'
   end
 
   def experience_report?
-    self.track == Track.find_by_title('tracks.experience_reports.title')
+    self.track.try(:title) == 'tracks.experience_reports.title'
   end
 end

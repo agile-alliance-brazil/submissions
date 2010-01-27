@@ -60,7 +60,6 @@ BUGS:
 
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field?
 * Should max number of character for username be 100?  Is this feasible?
-* Should we trim leading & trailing spaces in all text fields? For example:  "     Jenny     " is valid
 * I should not be able to enter letters in Phone field.
 * I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
 * State field should not be a mandatory field.  What if I am travelling from out of Brazil?
@@ -70,7 +69,6 @@ BUGS:
 * Wrap text? [See AgileBrazilQA-01.tiff]
 * Also, remove the space before colon
 ? After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out.
-* Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space)
 * Should not allow !@£$%^&*() characters in First name and Last name fields
 * When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
 * Should not allow <tags> to be entered / rendered on submit proposals form.
@@ -95,3 +93,5 @@ account" link on the left hand column.  They point to the same link but used dif
 * Links on the left hand side: Should we rename "account profile" to profile?  My account profile and Edit my account profile sounds too long winded? My profile & Edit my profile seem shorter & neater? [fixed]
 * After I have logged in, I then change my password, when I click on update, I am logged out.... But I should not see session proposals link on the page (because I would get this error message too "You must first log in or sign up before accessing this page.") [fixed]
 * When I have logged in, I can click on the create a user link, but then I an error message "This page is only available when you're logged out.".  Perhaps I shouldn't even see this link in the first place? [fixed]
+* Should we trim leading & trailing spaces in all text fields? For example:  "     Jenny     " is valid [fixed]
+* Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space) [fixed]

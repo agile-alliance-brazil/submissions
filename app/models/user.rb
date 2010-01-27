@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :state, :city,
                   :organization, :website_url, :bio
+  attr_trimmed    :first_name, :last_name, :username, :email,
+                  :phone, :state, :city, :organization, :website_url, :bio
   
   has_many :sessions, :foreign_key => 'author_id'
   

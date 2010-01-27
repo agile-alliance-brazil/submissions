@@ -21,6 +21,10 @@ describe Session do
     should_not_allow_mass_assignment_of :evil_attr
   end
   
+  it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
+                                     :target_audience, :audience_limit, :second_author_username,
+                                     :experience
+  
   context "associations" do
     should_belong_to :author, :class_name => 'User'
     should_belong_to :second_author, :class_name => 'User'
@@ -82,7 +86,7 @@ describe Session do
         session = Factory(:session)
         session.mechanics = nil
         session.should be_valid
-        session.session_type = SessionType.find_by_title('session_types.workshop.title')
+        session.session_type = SessionType.new(:title => 'session_types.workshop.title')
         session.should_not be_valid
       end
     end
@@ -107,9 +111,10 @@ describe Session do
     
     context "experience report" do
       before(:each) do
-        experience_report = Track.find_by_title('tracks.experience_reports.title')
-        @talk = SessionType.find_by_title('session_types.talk.title')
-        @session = Factory(:session, :track => experience_report, :session_type => @talk)
+        @talk = SessionType.new(:title => 'session_types.talk.title')
+        @session = Factory(:session)
+        @session.track = Track.new(:title => 'tracks.experience_reports.title')
+        @session.session_type = @talk
       end
       
       it "should only have duration of 45 minutes" do
@@ -122,7 +127,7 @@ describe Session do
       it "should only be talk" do
         @session.session_type = @talk
         @session.should be_valid
-        @session.session_type = SessionType.find_by_title('session_types.workshop.title')
+        @session.session_type = SessionType.new(:title => 'session_types.workshop.title')
         @session.should_not be_valid
       end
     end
@@ -140,7 +145,7 @@ describe Session do
   end
   
   it "should determine if it's workshop" do
-    workshop = SessionType.find_by_title('session_types.workshop.title')
+    workshop = SessionType.new(:title => 'session_types.workshop.title')
     session = Factory(:session)
     session.should_not be_workshop
     session.session_type = workshop
@@ -148,7 +153,7 @@ describe Session do
   end
 
   it "should determine if it's experience_report" do
-    experience_report = Track.find_by_title('tracks.experience_reports.title')
+    experience_report = Track.new(:title => 'tracks.experience_reports.title')
     session = Factory(:session)
     session.should_not be_experience_report
     session.track = experience_report

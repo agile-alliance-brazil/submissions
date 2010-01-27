@@ -17,6 +17,10 @@ describe User do
   
     should_not_allow_mass_assignment_of :evil_attr
   end
+  
+  it_should_trim_attributes User, :first_name, :last_name, :username,
+                                  :email, :phone, :state, :city, :organization,
+                                  :website_url, :bio
 
   context "validations" do
     should_validate_presence_of :first_name
