@@ -30,6 +30,10 @@ class Session < ActiveRecord::Base
   validates_length_of :description, :maximum => 2400
   validates_length_of :mechanics, :maximum => 2400, :allow_blank => true
 
+  validates_each :keyword_list do |record, attr, value|
+    record.errors.add(attr, :too_long, :count => 10) if record.keyword_list.size > 10
+  end
+
   validates_each :second_author_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.second_author.nil?
     record.errors.add(attr, :same_author) if record.second_author == record.author

@@ -149,6 +149,11 @@ pt:
         email_format: "deve ter um formato de e-mail válido"
         username_format: "deve usar apenas letras, números, espaços e .-_@"
         constant: "não pode mudar"
+      models:
+        session:
+          attributes:
+            keyword_list:
+              too_long: "não pode ter mais que {{count}} palavras-chave"
 
   authlogic:
     error_messages:

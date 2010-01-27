@@ -19,6 +19,10 @@ en:
           attributes:
             password:
               confirmation: "passwords do not match"
+        session:
+          attributes:
+            keyword_list:
+              too_long: "can't have more than {{count}} keywords"
 
   formtastic:
     titles:
