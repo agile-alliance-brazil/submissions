@@ -8,23 +8,26 @@
     - f.buttons do
       = f.commit_button "Log in"
 
-%ul
-  - if logged_in?
+- if logged_in?
+  %h4= t('actions.section.session')
+  %ul
     - if can? :create, Session
       %li= link_to t('actions.submit_session'), new_session_path
     - if can? :read, Session
       %li= link_to t('actions.browse_sessions'), sessions_path
     - if can? :read, Session
       %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
+        
+  %h4= t('actions.section.user')
+  %ul
     - if can? :read, User
       %li= link_to t('actions.profile'), user_path(current_user)
     - if can? :update, current_user
       %li= link_to t('actions.edit_profile'), edit_user_path(current_user)
     - if can? :destroy, UserSession
       %li= link_to "Logout", logout_path
-  - else
+        
+- else
+  %ul
     - if can? :create, User
       %li= link_to t('actions.signup'), signup_path
-  %li= link_to t('title.tracks'), tracks_path
-  %li= link_to t('title.session_types'), session_types_path
-  %li= link_to t('title.audience_levels'), audience_levels_path

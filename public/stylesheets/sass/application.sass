@@ -22,25 +22,56 @@ a:hover
   +grid(12)
   :height                   90px
   :color                    #ff9b00
+  :position                 relative
+  
   img
     :float                  left
     :padding-right          5px
   .logo
     :float                  left
-  ul
+  ul#languages
     :float                  right
     :overflow               hidden
     li
       :float                left
       :list-style           none
+      
     li + li::before
       :content              "\00a0|\00a0"
     a
-      :color                    = !color3
-      :text-decoration          none
+      :color                = !color3
+      :text-decoration      none
     a:hover
-      :color                    = !color3 - #222
-      :text-decoration          underline
+      :color                = !color3 - #222
+      :text-decoration      underline
+
+  ul#menu
+    :overflow               hidden
+    :display                block
+    :position               absolute
+    :right                  0
+    :bottom                 0
+    :margin-bottom          6px
+    
+    li
+      :float                left
+      :list-style           none
+      :background-color     = !color5
+      :margin               2px
+      :border               2px solid #afa57c
+      &.selected
+        :background-color   = !color5 - #333
+        a
+          :color            = !color3
+      
+    a
+      :color                #fff
+      :padding              10px
+      :line-height          25px
+      :text-decoration      none
+    a:hover
+      :color                = !color3
+      :text-decoration      underline
 
 #footer
   +grid(12)
@@ -53,6 +84,9 @@ a:hover
 #actions
   ul
     :list-style-type        circle
+  h4
+    :font-size              15px
+    :margin                 6px 0
   
 #content
   p

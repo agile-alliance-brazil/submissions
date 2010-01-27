@@ -4,4 +4,10 @@ module ApplicationHelper
     return url if url.blank?
     !!( url !~ /\A(?:http:\/\/)/i ) ? "http://#{url}" : url
   end
+  
+  def link_to_menu_item(tag, name, url)
+    content_tag(tag, :class => (current_page?(url) ? "selected" : "")) do
+      link_to name, url
+    end
+  end
 end

@@ -243,6 +243,7 @@ pt:
   
   # Mensagens customizadas
   title:
+    home: "Home"
     signup: "Novo usuário"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
@@ -261,6 +262,9 @@ pt:
     signup: "Crie um novo usuário"
     my_sessions: "Minhas propostas"
     edit: "Editar"
+    section:
+      session: "Sessões"
+      user: "Perfil"
   
   flash:
     user:

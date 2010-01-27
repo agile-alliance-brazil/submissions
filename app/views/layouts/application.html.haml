@@ -20,10 +20,12 @@
         .logo
           %h1 Agile Brazil 2010
           %strong Porto Alegre RS, 22-25 Jun/2010
-        %ul
+        %ul#languages
           %li= link_to "Português", "?locale=pt"
           %li= link_to "English", "?locale=en"
-    
+        
+        = render :partial => 'layouts/menu'
+        
       - if show_actions?
         #actions.grid_3
           = render :partial => 'layouts/actions'

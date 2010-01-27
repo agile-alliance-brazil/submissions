@@ -80,25 +80,51 @@ a:hover {
   margin-right: 10px;
   width: 940px;
   height: 90px;
-  color: #ff9b00; }
+  color: #ff9b00;
+  position: relative; }
   #header img {
     float: left;
     padding-right: 5px; }
   #header .logo {
     float: left; }
-  #header ul {
+  #header ul#languages {
     float: right;
     overflow: hidden; }
-    #header ul li {
+    #header ul#languages li {
       float: left;
       list-style: none; }
-    #header ul li + li::before {
+    #header ul#languages li + li::before {
       content: "\00a0|\00a0"; }
-    #header ul a {
+    #header ul#languages a {
       color: #d2c89c;
       text-decoration: none; }
-    #header ul a:hover {
+    #header ul#languages a:hover {
       color: #b0a67a;
+      text-decoration: underline; }
+  #header ul#menu {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 6px; }
+    #header ul#menu li {
+      float: left;
+      list-style: none;
+      background-color: #878268;
+      margin: 2px;
+      border: 2px solid #afa57c; }
+      #header ul#menu li.selected {
+        background-color: #544f35; }
+        #header ul#menu li.selected a {
+          color: #d2c89c; }
+    #header ul#menu a {
+      color: #fff;
+      padding: 10px;
+      line-height: 25px;
+      text-decoration: none; }
+    #header ul#menu a:hover {
+      color: #d2c89c;
       text-decoration: underline; }
 
 #footer {
@@ -242,6 +268,9 @@ a:hover {
 
 #actions ul {
   list-style-type: circle; }
+#actions h4 {
+  font-size: 15px;
+  margin: 6px 0; }
 
 #content p {
   margin: 5px 0; }

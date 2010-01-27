@@ -55,3 +55,43 @@ DONE:
  * I18N support (available in :en and :pt, :pt default) -- Danilo
  * Homepage -- Danilo
  * Github project -- Frank
+
+BUGS:
+
+* If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field?
+* Should max number of character for username be 100?  Is this feasible?
+* Should we trim leading & trailing spaces in all text fields? For example:  "     Jenny     " is valid
+* I should not be able to enter letters in Phone field.
+* I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
+* State field should not be a mandatory field.  What if I am travelling from out of Brazil?
+* Should not allow numerical characters in City field.
+* Should not allow numerical characters in First name and Last name fields.
+* Should not allow tags, for example, <h1>, to be inserted in any field.
+* Wrap text? [See AgileBrazilQA-01.tiff]
+* Also, remove the space before colon
+* When I have logged in, I can click on the create a user link, but then I an error message "This page is only available when you're logged out.".  Perhaps I shouldn't even see this link in the first place?
+* After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out.
+* After I have logged in, I then change my password, when I click on update, I am logged out.... But I should not see session proposals link on the page (because I would get this error message too "You must first log in or sign up before accessing this page.")
+* Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space)
+* Should not allow !@£$%^&*() characters in First name and Last name fields
+* When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
+* Should not allow <tags> to be entered / rendered on submit proposals form.
+* Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example.
+
+FIXED:
+* How to submit a session > "Create a user" link on the main page and "Register new
+account" link on the left hand column.  They point to the same link but used different words.  Should we use the same words?  i.e. stick to one. [fixed]
+* Register new account button does not go anywhere [fixed]
+* When I press log in without entering any username or password, I get the error message "You did not provide any details for authentication".  I then click on register new account link (or create a user link), I go to a different page, but the error message is still there.  I should not see this error message. [fixed]
+* Error message for Username
+"should use only letters, numbers, spaces, and .-_@ please" needs to change to
+"please use only letters, numbers, spaces and . - _ @" [fixed]
+* Error message for password field
+"doesn't match confirmation" change to
+"passwords do not match" [fixed]
+* When I update my profile, I see the message "User was successfully updated." this needs to say "Profile was successfully updated". [fixed]
+* After I have logged in, "Propose a session" needs to be an active link, and not just plain text [fixed]
+* Second author's username, description: "Please provide the second author's username on this field." change to "Please provide the second author's username in this field." [fixed]
+* The log out link is not very visible, at the moment it is buried between the links on the left hand column. [fixed]
+* More spacing in Session Track, Session Types and Audience Levels pages?  It was slightly difficult to read the 4 bullet points when they are all squashed together [fixed]
+* Links on the left hand side: Should we rename "account profile" to profile?  My account profile and Edit my account profile sounds too long winded? My profile & Edit my profile seem shorter & neater? [fixed]

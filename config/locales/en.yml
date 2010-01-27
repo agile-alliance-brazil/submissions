@@ -76,7 +76,7 @@ en:
         mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session."
         benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session."
         experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session."
-        second_author_username: "Please provide the second author's username on this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>."
+        second_author_username: "Please provide the second author's username in this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>."
         keyword_list: "Separate keywords with commas."
     actions:
       signup: "Register new account"
@@ -86,6 +86,7 @@ en:
 
   # Custom messages
   title:
+    home: "Home"
     signup: "Sign up"
     untitled: "Untitled"
     sessions: "Session proposals"
@@ -99,11 +100,14 @@ en:
   actions:
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"
-    profile: "My account profile"
-    edit_profile: "Edit my account profile"
+    profile: "My profile"
+    edit_profile: "Edit my profile"
     signup: "Register new account"
     my_sessions: "My session submissions"
     edit: "Edit"
+    section:
+      session: "Sessions"
+      user: "Profile"
   
   flash:
     user:
