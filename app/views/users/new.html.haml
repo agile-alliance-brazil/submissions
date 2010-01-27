@@ -1,6 +1,6 @@
 - title t('title.signup')
 
 - semantic_form_for @user do |form|
-  = render :form => form
+  = render 'form', :form => form
   - form.buttons do
     = form.commit_button :signup
