@@ -4,5 +4,5 @@
 %p A Agile Brazil 2010 está aceitando submissões de trabalho para compor o programa da conferência, que acontece em Porto Alegre RS, de 22 a 25 de Junho 2010. Para submeter um trabalho:
 
 %ul
-  %li Crie um #{link_to "usuário", signup_path}
-  %li Proponha uma #{link_to "sessão", new_session_path}
+  %li Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)}
+  %li Proponha uma #{logged_in? ? link_to("sessão", new_session_path) : "sessão"}
