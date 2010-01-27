@@ -67,7 +67,6 @@ BUGS:
 * Should not allow numerical characters in First name and Last name fields.
 * Should not allow tags, for example, <h1>, to be inserted in any field.
 * Wrap text? [See AgileBrazilQA-01.tiff]
-* Also, remove the space before colon
 ? After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out.
 * Should not allow !@£$%^&*() characters in First name and Last name fields
 * When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
@@ -95,3 +94,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * When I have logged in, I can click on the create a user link, but then I an error message "This page is only available when you're logged out.".  Perhaps I shouldn't even see this link in the first place? [fixed]
 * Should we trim leading & trailing spaces in all text fields? For example:  "     Jenny     " is valid [fixed]
 * Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space) [fixed]
+* Also, remove the space before colon [fixed]

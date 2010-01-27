@@ -4,6 +4,5 @@
 %ul.tracks
   - @tracks.each do |track|
     %li
-      %strong= t(track.title)
-      \:
+      %strong #{t(track.title)}:
       = t(track.description)
