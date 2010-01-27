@@ -6,7 +6,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Limit edit by deadlines
  - Wiki-like syntax on long text fields
  - Campo: limite de participantes
  * Configure production environment
@@ -18,6 +17,7 @@ TODO:
  - Improve Layout (CSS)
  * Cucumber features
  * Manage Roles (admin only)
+ - Error page for 404/500
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
  - O campo de mini-cv deveria ter um número mínimo de caracteres
@@ -29,6 +29,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Limit edit by deadlines -- Danilo
  * Edit session -- Danilo
  - Styling and i18n for pagination -- Danilo
  * Edit user profile -- Danilo

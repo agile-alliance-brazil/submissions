@@ -14,7 +14,8 @@ class Ability
     elsif user.author?
       can :create, Session
       can :update, Session do |session|
-        session.try(:author) == user || session.try(:second_author) == user
+        is_author = session.try(:author) == user || session.try(:second_author) == user
+        is_author && Time.zone.now <= Time.zone.local(2010, 2, 28, 23, 59, 59)
       end
     end
   end
