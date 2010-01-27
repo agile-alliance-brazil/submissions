@@ -1,5 +1,5 @@
 - if logged_in?
-  %h3= current_user.full_name
+  %h3&= current_user.full_name
 - else
   - semantic_form_for @user_session do |f|
     - f.inputs do

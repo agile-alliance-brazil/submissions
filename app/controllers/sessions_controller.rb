@@ -13,6 +13,15 @@ class SessionsController < InheritedResources::Base
     end
   end
   
+  def update
+    update! do |success, failure|
+      success.html do
+        flash[:notice] = t('flash.session.update.success')
+        redirect_to session_path(@session)
+      end
+    end
+  end  
+  
   protected
     
   def collection

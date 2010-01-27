@@ -11,11 +11,11 @@
   %tbody
     - @sessions.each do |session|
       - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
-        %td.title= link_to session.try(:title), session_path(session)
-        %td.author= link_to session.author.full_name, user_path(session.author)
+        %td.title= link_to h(session.try(:title)), session_path(session)
+        %td.author= link_to h(session.author.full_name), user_path(session.author)
         %td.author
           - if session.second_author
-            = link_to session.second_author.full_name, user_path(session.second_author)
+            = link_to h(session.second_author.full_name), user_path(session.second_author)
         %td.updated_at
           = time_ago_in_words(session.updated_at)
           = t('generic.ago')

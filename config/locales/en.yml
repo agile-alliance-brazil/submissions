@@ -12,8 +12,13 @@ en:
         experience_report_duration: "can only be 45 minutes"
         experience_report_session_type: "can only be a Talk"
         email_format: "should look like an email address"
-        username_format: "should use only letters, numbers, spaces, and .-_@ please"
+        username_format: "please use only letters, numbers, spaces, and .-_@"
         constant: "can't be changed"
+      models:
+        user:
+          attributes:
+            password:
+              confirmation: "passwords do not match"
 
   formtastic:
     titles:
@@ -102,6 +107,8 @@ en:
   
   flash:
     user:
+      update:
+        success: "Profile was successfully updated!"
       create:
         success: "Thank you for signing up! You are now logged in."
       login:
@@ -114,6 +121,8 @@ en:
       destroy:
         success: "You have been logged out."
     session:
+      update:
+        success: "Session was successfully updated!"
       create:
         success: "Session submited successfully"
     unauthorised: "You are not authorized to access this page"

@@ -266,6 +266,8 @@ pt:
     user:
       create:
         success: "Usuário criado com sucesso! Login efetuado com sucesso."
+      update:
+        success: "Perfil atualizado com sucesso!"
       login:
         required: "Você precisa estar logado para acessar esta página."
       logout:
@@ -276,6 +278,8 @@ pt:
       destroy:
         success: "Logout efetuado."
     session:
+      update:
+        success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
     unauthorised: "Você não está autorizado a acessar esta página"

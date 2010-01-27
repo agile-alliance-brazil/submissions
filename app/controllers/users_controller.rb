@@ -21,5 +21,13 @@ class UsersController < InheritedResources::Base
       end
     end
   end
-  
+
+  def update
+    update! do |success, failure|
+      success.html do
+        flash[:notice] = t('flash.user.update.success')
+        redirect_to user_path(@user)
+      end
+    end
+  end  
 end
