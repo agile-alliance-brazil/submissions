@@ -31,10 +31,17 @@ describe User do
     should_validate_presence_of :city
     should_validate_presence_of :bio
     
-    should_validate_length_of :username, :minimum => 3
+    should_validate_length_of :username, :minimum => 3, :maximum => 100
     should_validate_length_of :password, :minimum => 4
     should_validate_length_of :password_confirmation, :minimum => 4
-    should_validate_length_of :email, :minimum => 6
+    should_validate_length_of :email, :minimum => 6, :maximum => 100
+    should_validate_length_of :first_name, :maximum => 100
+    should_validate_length_of :last_name, :maximum => 100
+    should_validate_length_of :city, :maximum => 100
+    should_validate_length_of :organization, :maximum => 100
+    should_validate_length_of :website_url, :maximum => 100
+    should_validate_length_of :phone, :maximum => 100
+    should_validate_length_of :bio, :maximum => 1600
     
     should_allow_values_for :username, "dtsato", "123", "a b c", "danilo.sato", "dt-sato@dt_sato.com"
     should_not_allow_values_for :username, "dt$at0", "<>/?", ")(*&^%$@!", "[=+]"

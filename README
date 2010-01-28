@@ -64,7 +64,6 @@ DONE:
 
 BUGS:
 
-* Should max number of character for username be 100?  Is this feasible?
 * I should not be able to enter letters in Phone field.
 * I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
 * Should not allow numerical characters in City field.
@@ -101,3 +100,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * State field should not be a mandatory field.  What if I am travelling from out of Brazil? [fixed]
 * Should not allow <tags> to be entered / rendered on submit proposals form. [fixed]
 * Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example. [fixed]
+* Should max number of character for username be 100?  Is this feasible? [fixed]
