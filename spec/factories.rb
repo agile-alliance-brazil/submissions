@@ -6,6 +6,7 @@ Factory.define :user do |u|
   u.password "secret"
   u.password_confirmation "secret"
   u.phone "(11) 3322-1234"
+  u.country "BR"
   u.state "SP"
   u.city "São Paulo"
   u.organization "ThoughtWorks"

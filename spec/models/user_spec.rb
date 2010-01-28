@@ -9,6 +9,7 @@ describe User do
     should_allow_mass_assignment_of :password
     should_allow_mass_assignment_of :password_confirmation
     should_allow_mass_assignment_of :phone
+    should_allow_mass_assignment_of :country
     should_allow_mass_assignment_of :state
     should_allow_mass_assignment_of :city
     should_allow_mass_assignment_of :organization
@@ -26,7 +27,7 @@ describe User do
     should_validate_presence_of :first_name
     should_validate_presence_of :last_name
     should_validate_presence_of :phone
-    should_validate_presence_of :state
+    should_validate_presence_of :country
     should_validate_presence_of :city
     should_validate_presence_of :bio
     
@@ -49,6 +50,14 @@ describe User do
       user.should_not be_valid
       user.errors.on(:username).should == "não pode mudar"
     end
+    
+    it "should validate presence of state if in Brazil" do
+      user = Factory(:user, :country => 'US', :state => nil)
+      user.should be_valid
+      user.country = "BR"
+      user.should_not be_valid
+      user.errors.on(:state).should == "não pode ficar em branco"
+    end
   end
   
   context "associations" do
@@ -69,6 +78,13 @@ describe User do
   it "should provide full name" do
     user = User.new(:first_name => "Danilo", :last_name => "Sato")
     user.full_name.should == "Danilo Sato"
+  end
+  
+  it "should provide in_brazil?" do
+    user = User.new
+    user.should_not be_in_brazil
+    user.country = "BR"
+    user.should be_in_brazil
   end
   
   it "should overide to_param with username" do

@@ -28,6 +28,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Add country to user (Brazil default) so state becomes optional if not brazil -- Danilo
  - Campo: limite de participantes (somente numérico? obrigatório pra qual tipo de sessão?) -- Danilo
  * Limit edit by deadlines -- Danilo
  * Edit session -- Danilo
@@ -61,7 +62,6 @@ BUGS:
 * Should max number of character for username be 100?  Is this feasible?
 * I should not be able to enter letters in Phone field.
 * I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
-* State field should not be a mandatory field.  What if I am travelling from out of Brazil?
 * Should not allow numerical characters in City field.
 * Should not allow numerical characters in First name and Last name fields.
 * Should not allow tags, for example, <h1>, to be inserted in any field.
@@ -95,3 +95,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * Should we trim leading & trailing spaces in all text fields? For example:  "     Jenny     " is valid [fixed]
 * Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space) [fixed]
 * Also, remove the space before colon [fixed]
+* State field should not be a mandatory field.  What if I am travelling from out of Brazil? [fixed]
