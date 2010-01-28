@@ -167,13 +167,13 @@ en:
   audience_levels:
     beginner:
       title: "Beginner"
-      description: "a person who has just started to do or learn something about Agile; a novice!"
+      description: "A person who has just started to do or learn something about Agile; a novice!"
     practitioner:
       title: "Practitioner"
-      description: "a person who has practiced Agile, believes in Agile and has benefited from it."
+      description: "A person who has practiced Agile, believes in Agile and has benefited from it."
     experienced:
       title: "Experienced"
-      description: "a person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
+      description: "A person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
   
   session:
     parameters: "General information"

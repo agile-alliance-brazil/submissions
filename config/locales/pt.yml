@@ -325,13 +325,13 @@ pt:
   audience_levels:
     beginner:
       title: "Iniciante"
-      description: "alguém que está começando ou acabou de aprender sobre Métodos Ágeis; um aprendiz!"
+      description: "Alguém que está começando ou acabou de aprender sobre Métodos Ágeis; um aprendiz!"
     practitioner:
       title: "Praticante"
-      description: "alguém que pratica Métodos Ágeis, acredita nos seus valores e já se beneficiou com isso."
+      description: "Alguém que pratica Métodos Ágeis, acredita nos seus valores e já se beneficiou com isso."
     experienced:
       title: "Experiente"
-      description: "alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
+      description: "Alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
   
   session:
     parameters: "Informações gerais"
