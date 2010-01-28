@@ -98,12 +98,24 @@ a:hover
 
   dl
     dt
-      :font-weight              bold
-      :margin                   5px 0
-
+      :font-weight          bold
+      :font-size            1.3em
+      :margin               5px 0
+      :padding-top          10px
     dd
-      :margin-bottom            5px
-  
+      :margin-bottom        5px
+      h1
+        :font-size          1.2em
+        :border             0
+      h2
+        :font-size          1.1em
+      h3
+        :font-size          1.0em
+      ul
+        :padding-left       2em
+      ol
+        :padding-left       2em
+
   table
     :width                  100%
     :border-collapse        collapse
@@ -128,9 +140,11 @@ table.sessions
 
 ul.piped
   :overflow                 hidden
+  :margin-bottom            10px
   li
     :float                  left
     :list-style             none
+    :font-size              11px
   li + li::before
     :content                "\00a0|\00a0"
 
@@ -196,3 +210,28 @@ ul.piped
 
 .fieldWithErrors
   :display                  inline
+
+#date
+  :overflow                 hidden
+  :display                  block
+  :right                    0
+  :bottom                   0
+  :color                    #fff
+  :background-color         = !color5
+  :border                   2px solid #afa57c
+  :text-align               center
+  :font-size                14px
+  :margin-bottom            6px
+  p
+    :margin                 2px
+    :padding                4px
+
+ul.spaced
+  :overflow                 hidden
+  li
+    :float                  left
+    :margin-left            20px
+    :list-style             none
+  li.first
+    :margin-left            0px
+    :font-weight            bold

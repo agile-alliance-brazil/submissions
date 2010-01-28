@@ -1,3 +1,7 @@
+#date
+  %p= t('actions.submission_date')
+  %p= l(Date.strptime '2010-02-28')
+
 - if logged_in?
   %h3&= current_user.full_name
 - else

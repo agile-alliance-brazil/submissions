@@ -19,4 +19,4 @@
     %dd= link_to(h(prepend_http(@user.website_url)), h(prepend_http(@user.website_url)), :target => '_blank')
   
   %dt= t('formtastic.labels.user.bio')
-  %dd&= @user.bio
+  %dd= RedCloth.new(@user.bio).to_html

@@ -68,18 +68,18 @@ en:
         state: "State and city of residence, collected for statistics purpose."
         organization: "Name of company or organization that you will represent, collected for statistics purpose."
         website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session."
-        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session."
+        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
       session:
         track_id: "A detailed description of each track can be found <a href='/tracks?locale=en'>here</a>. For Experience Reports, only Talks of 45 minutes long will be accepted."
         session_type_id: "A detailed description of session types can be found <a href='/session_types?locale=en'>here</a>."
         duration_mins: "If you are proposing a talk, please indicate its duration. For tutorials and workshops we recommend a duration of 90 minutes."
         audience_level_id: "Indicate the expected level of the audience. A description of each level can be found <a href='/audience_levels?locale=en'>here</a>."
         audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants."
-        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session."
-        description: "Complete description of your session. This field will be used to evaluate your session."
-        mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session."
-        benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session."
-        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session."
+        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
+        description: "Complete description of your session. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
+        mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
+        benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
+        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here<a/>."
         second_author_username: "Please provide the second author's username in this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>."
         keyword_list: "Separate keywords with commas."
     actions:
@@ -102,6 +102,7 @@ en:
     edit_session: "Edit session"
   
   actions:
+    submission_date: "Submission deadline"
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"
     profile: "My profile"
@@ -170,6 +171,9 @@ en:
     experienced:
       title: "Experienced"
       description: "a person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
+  
+  session:
+    parameters: "General information:"
   
   generic:
     or: "or"
