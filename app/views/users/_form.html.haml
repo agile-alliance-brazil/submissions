@@ -7,6 +7,7 @@
   = form.input :password_confirmation, :required => @user.new_record?
 - form.inputs :user_personal do
   = form.input :phone, :required => true
+  = form.input :country, :required => true, :as => :country, :priority_countries => [:BR]
   = form.input :state, :required => true, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS
   = form.input :city, :required => true
   = form.input :organization

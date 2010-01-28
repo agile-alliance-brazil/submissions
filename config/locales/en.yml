@@ -37,6 +37,7 @@ en:
         password: "Password"
         password_confirmation: "Confirm password"
         phone: "Phone"
+        country: "Country"
         state: "State"
         city: "City"
         organization: "Organization"
@@ -65,7 +66,9 @@ en:
       user:
         email: "Main e-mail address for contact purposes."
         password: "At least 4 characters long."
-        state: "State and city of residence, collected for statistics purpose."
+        country: "Country of residence, collected for statistics purpose."
+        state: "State of residence, collected for statistics purpose. Leave blank if not brazilian."
+        city: "City of residence, collected for statistics purpose."
         organization: "Name of company or organization that you will represent, collected for statistics purpose."
         website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session."

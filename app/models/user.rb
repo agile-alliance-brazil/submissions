@@ -2,14 +2,15 @@ class User < ActiveRecord::Base
   include Authorization
   
   attr_accessible :first_name, :last_name, :username, :email, :password,
-                  :password_confirmation, :phone, :state, :city,
+                  :password_confirmation, :phone, :country, :state, :city,
                   :organization, :website_url, :bio
   attr_trimmed    :first_name, :last_name, :username, :email,
                   :phone, :state, :city, :organization, :website_url, :bio
   
   has_many :sessions, :foreign_key => 'author_id'
   
-  validates_presence_of :first_name, :last_name, :phone, :state, :city, :bio
+  validates_presence_of :first_name, :last_name, :phone, :country, :city, :bio
+  validates_presence_of :state, :if => :in_brazil?
   
   validates_each :username, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.username_changed?
@@ -30,6 +31,10 @@ class User < ActiveRecord::Base
   
   def to_param
     username.blank? ? super : "#{id}-#{username.parameterize}"
+  end
+  
+  def in_brazil?
+    self.country == "BR"
   end
   
   private
