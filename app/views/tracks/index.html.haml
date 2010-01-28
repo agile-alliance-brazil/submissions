@@ -1,8 +1,7 @@
 - title t('title.tracks')
 - show_actions!
 
-%ul.tracks
+%dl
   - @tracks.each do |track|
-    %li
-      %strong #{t(track.title)}:
-      = t(track.description)
+    %dt= t(track.title)
+    %dd= t(track.description)

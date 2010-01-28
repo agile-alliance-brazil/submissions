@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |config|
     config.merge_validates_format_of_email_field_options(:message => :email_format)
     config.merge_validates_format_of_login_field_options(:message => :username_format)
+    config.merge_validates_length_of_login_field_options(:within => 3..30)
   end
 
   named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "#{q}%"]} }

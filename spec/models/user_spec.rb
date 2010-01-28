@@ -31,7 +31,7 @@ describe User do
     should_validate_presence_of :city
     should_validate_presence_of :bio
     
-    should_validate_length_of :username, :minimum => 3, :maximum => 100
+    should_validate_length_of :username, :minimum => 3, :maximum => 30
     should_validate_length_of :password, :minimum => 4
     should_validate_length_of :password_confirmation, :minimum => 4
     should_validate_length_of :email, :minimum => 6, :maximum => 100

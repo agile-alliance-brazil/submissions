@@ -90,7 +90,6 @@ account" link on the left hand column.  They point to the same link but used dif
 * After I have logged in, "Propose a session" needs to be an active link, and not just plain text [fixed]
 * Second author's username, description: "Please provide the second author's username on this field." change to "Please provide the second author's username in this field." [fixed]
 * The log out link is not very visible, at the moment it is buried between the links on the left hand column. [fixed]
-* More spacing in Session Track, Session Types and Audience Levels pages?  It was slightly difficult to read the 4 bullet points when they are all squashed together [fixed]
 * Links on the left hand side: Should we rename "account profile" to profile?  My account profile and Edit my account profile sounds too long winded? My profile & Edit my profile seem shorter & neater? [fixed]
 * After I have logged in, I then change my password, when I click on update, I am logged out.... But I should not see session proposals link on the page (because I would get this error message too "You must first log in or sign up before accessing this page.") [fixed]
 * When I have logged in, I can click on the create a user link, but then I an error message "This page is only available when you're logged out.".  Perhaps I shouldn't even see this link in the first place? [fixed]
@@ -101,3 +100,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * Should not allow <tags> to be entered / rendered on submit proposals form. [fixed]
 * Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example. [fixed]
 * Should max number of character for username be 100?  Is this feasible? [fixed]
+* More spacing in Session Track, Session Types and Audience Levels pages?  It was slightly difficult to read the 4 bullet points when they are all squashed together [fixed]
