@@ -334,11 +334,12 @@ pt:
       description: "alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
   
   session:
-    parameters: "Informações gerais:"
+    parameters: "Informações gerais"
 
   generic:
     or: "ou"
     ago: "atrás"
     minutes: "minutos"
+    participants: "participantes"
     previous: "&laquo; Anterior"
     next: "Próxima &raquo;"

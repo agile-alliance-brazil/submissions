@@ -7,35 +7,47 @@
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
   - if can? :update, @session
     %li= link_to t('actions.edit'), edit_session_path(@session)
-  %li= t('formtastic.labels.session.updated_at') ...
+  %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
 
 %ul.spaced
-  %li.first= t('session.parameters')
-  %li= t(@session.track.title)
-  %li= t(@session.audience_level.title)
-  %li= t(@session.session_type.title)
+  %li.first #{t('session.parameters')}:
+  %li= link_to t(@session.track.title), tracks_path
+  %li= link_to t(@session.audience_level.title), audience_levels_path
+  %li= link_to t(@session.session_type.title), session_types_path
   %li
     &= @session.try(:duration_mins)
     = t('generic.minutes')
   - unless @session.audience_limit.blank?
-    %li&= @session.audience_limit
+    %li
+      &= @session.audience_limit
+      = t('generic.participants')
 
 %ul.spaced
-  %li.first= t('formtastic.labels.session.keyword_list')+':'
+  %li.first #{t('formtastic.labels.session.keyword_list')}:
   - @session.keyword_list.each do |keyword|
-    %li= keyword
+    %li&= keyword
 
 - content_tag_for(:dl, @session) do
   %dt= t('formtastic.labels.session.target_audience')
   %dd&= @session.try(:target_audience)
   %dt= t('formtastic.labels.session.summary')
-  %dd= RedCloth.new(@session.try(:summary)).to_html
+  %dd
+    :textile
+      #{@session.try(:summary)}
   %dt= t('formtastic.labels.session.description')
-  %dd= RedCloth.new(@session.try(:description)).to_html
+  %dd
+    :textile
+      #{@session.try(:description)}
   - unless @session.mechanics.blank?
     %dt= t('formtastic.labels.session.mechanics')
-    %dd= RedCloth.new(@session.mechanics).to_html
+    %dd
+      :textile
+        #{@session.mechanics}
   %dt= t('formtastic.labels.session.benefits')
-  %dd= RedCloth.new(@session.try(:benefits)).to_html
+  %dd
+    :textile
+      #{@session.try(:benefits)}
   %dt= t('formtastic.labels.session.experience')
-  %dd= RedCloth.new(@session.try(:experience)).to_html
+  %dd
+    :textile
+      #{@session.try(:experience)}

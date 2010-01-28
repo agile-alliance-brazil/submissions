@@ -176,11 +176,12 @@ en:
       description: "a person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
   
   session:
-    parameters: "General information:"
+    parameters: "General information"
   
   generic:
     or: "or"
     ago: "ago"
     minutes: "minutes"
+    participants: "participants"
     previous: "&laquo; Previous"
     next: "Next &raquo;"

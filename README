@@ -6,14 +6,12 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- - Wiki-like syntax on long text fields
  * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD)
  * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  * Search submissions
  * Add comments
  * Review session (epic, needs discussion)
- - Improve Layout (CSS, I'm not an expert on design, but I think the markup is pretty decent)
  * Cucumber features
  * Manage Roles (admin only)
  - Error page for 404/500
@@ -21,6 +19,8 @@ TODO:
  - auto-select duration/session type if track is experience reports
  - O campo de mini-cv deveria ter um número mínimo de caracteres (quantos? e os outros campos longos?)
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
+ - link keywords to search on submissions
+ - mini-help with wiki-syntax example
  
 IN PROGRESS:
 
@@ -28,6 +28,10 @@ IN PROGRESS:
  
 DONE:
 
+ - Improve Layout (CSS, I'm not an expert on design, but I think the markup is pretty decent) -- Mari/Hugo
+ - Added next important deadline to layout -- Mari/Hugo
+ - Improved text on home-page -- Mari/Hugo
+ - Wiki-like syntax on long text fields -- Hugo
  * Add country to user (Brazil default) so state becomes optional if not brazil -- Danilo
  - Campo: limite de participantes (somente numérico? obrigatório pra qual tipo de sessão?) -- Danilo
  * Limit edit by deadlines -- Danilo
@@ -69,8 +73,6 @@ BUGS:
 ? After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out.
 * Should not allow !@£$%^&*() characters in First name and Last name fields
 * When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
-* Should not allow <tags> to be entered / rendered on submit proposals form.
-* Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example.
 
 FIXED:
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
@@ -96,3 +98,5 @@ account" link on the left hand column.  They point to the same link but used dif
 * Given I have created a user "user1", I should not be able to create another user "user1 " with a space behind it. (Usernames should not have a trailing space) [fixed]
 * Also, remove the space before colon [fixed]
 * State field should not be a mandatory field.  What if I am travelling from out of Brazil? [fixed]
+* Should not allow <tags> to be entered / rendered on submit proposals form. [fixed]
+* Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example. [fixed]

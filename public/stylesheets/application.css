@@ -280,9 +280,22 @@ a:hover {
   margin-bottom: 10px; }
 #content dl dt {
   font-weight: bold;
-  margin: 5px 0; }
+  font-size: 1.3em;
+  margin: 5px 0;
+  padding-top: 10px; }
 #content dl dd {
   margin-bottom: 5px; }
+  #content dl dd h1 {
+    font-size: 1.2em;
+    border: 0; }
+  #content dl dd h2 {
+    font-size: 1.1em; }
+  #content dl dd h3 {
+    font-size: 1.0em; }
+  #content dl dd ul {
+    padding-left: 2em; }
+  #content dl dd ol {
+    padding-left: 2em; }
 #content table {
   width: 100%;
   border-collapse: collapse;
@@ -304,10 +317,12 @@ table.sessions th.author {
   width: 15%; }
 
 ul.piped {
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 10px; }
   ul.piped li {
     float: left;
-    list-style: none; }
+    list-style: none;
+    font-size: 11px; }
   ul.piped li + li::before {
     content: "\00a0|\00a0"; }
 
@@ -365,3 +380,28 @@ ul.piped {
 
 .fieldWithErrors {
   display: inline; }
+
+#date {
+  overflow: hidden;
+  display: block;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  background-color: #878268;
+  border: 2px solid #afa57c;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 6px; }
+  #date p {
+    margin: 2px;
+    padding: 4px; }
+
+ul.spaced {
+  overflow: hidden; }
+  ul.spaced li {
+    float: left;
+    margin-left: 20px;
+    list-style: none; }
+  ul.spaced li.first {
+    margin-left: 0px;
+    font-weight: bold; }
