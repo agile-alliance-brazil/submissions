@@ -9,14 +9,15 @@
 
 %p The organization committee is pleased to invate you to join as a speaker of this great event. Tell Brazil about your experiences, present your research and share your products and learnings! Keep alert to #{link_to("the rules", "link quebrado")} and to the important dates and submit your proposal:</p>
 
-%ul
+%ol
   %li Register a #{logged_in? ? "new account" : link_to("new account", signup_path)}
   %li Propose a #{logged_in? ? link_to("session", new_session_path) : "session"}
 
 %h3 Important dates
 
 %ul
-  %li 31/01/2010: Proposal submission form release
-  %li <strong>28/02/2010: Submission deadline</strong>
-  %li 16/04/2010: Acceptance notification
-  %li 30/04/2010: Inscription deadline to selected authors
+  %li #{l(Date.strptime '2010-01-31')}: Proposal submission form release
+  %li
+    %strong #{l(Date.strptime '2010-02-28')}: Submission deadline
+  %li #{l(Date.strptime '2010-04-16')}: Acceptance notification
+  %li #{l(Date.strptime '2010-04-30')}: Inscription deadline to selected authors

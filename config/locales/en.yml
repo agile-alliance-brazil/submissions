@@ -17,6 +17,8 @@ en:
       models:
         user:
           attributes:
+            email:
+              taken: "another user has an account with the same e-mail address. Please enter another"            
             password:
               confirmation: "passwords do not match"
         session:
@@ -83,7 +85,7 @@ en:
         mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here</a>."
         benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here</a>."
         experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session.<br/>On this field, you can use <a href='http://en.wikipedia.org/wiki/Textile_%28markup_language%29'>Textile</a>'s syntax. Check <a href='http://redcloth.org/hobix.com/textile/quick.html' target='_blank'>the reference guide here</a>."
-        second_author_username: "Please provide the second author's username in this field. The second author must also be a <a href='/users/new?locale=en'>registered user</a>."
+        second_author_username: "Please provide the second author's username in this field. The second author must also be a registered user."
         keyword_list: "Separate keywords with commas."
     actions:
       signup: "Register new account"

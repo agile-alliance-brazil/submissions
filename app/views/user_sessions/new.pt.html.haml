@@ -7,14 +7,15 @@
 
 %p A comissão organizadora gostaria de convidá-lo para participar como palestrante deste grande evento. Conte para o Brasil suas experiências, apresente suas pesquisas e compartilhe seus produtos e aprendizados! Fique atento às #{link_to("regras", "link quebrado")} e às datas importantes e submeta sua proposta:</p>
 
-%ul
+%ol
   %li Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)}
   %li Proponha uma #{logged_in? ? link_to("sessão", new_session_path) : "sessão"}
 
 %h3 Datas importantes
 
 %ul
-  %li 31/01/2010: Abertura do formulário de submissão de propostas
-  %li <strong>28/02/2010: Submissão de propostas</strong>
-  %li 16/04/2010: Notificação aos autores selecionados
-  %li 30/04/2010: Limite para inscrição no evento dos autores selecionados
+  %li #{l(Date.strptime '2010-01-31')}: Abertura do formulário de submissão de propostas
+  %li
+    %strong #{l(Date.strptime '2010-02-28')}: Submissão de propostas
+  %li #{l(Date.strptime '2010-04-16')}: Notificação aos autores selecionados
+  %li #{l(Date.strptime '2010-04-30')}: Limite para inscrição no evento dos autores selecionados

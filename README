@@ -70,9 +70,15 @@ BUGS:
 * Should not allow numerical characters in First name and Last name fields.
 * Should not allow tags, for example, <h1>, to be inserted in any field.
 * Wrap text? [See AgileBrazilQA-01.tiff]
-? After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out.
 * Should not allow !@£$%^&*() characters in First name and Last name fields
 * When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
+* Edit profile page: should not be able to insert <H1> / <H2> tags in Bio field.
+
+* After I have logged in, I should not see "Register a new account" on the main text, How to submit a session to Agile Brazil 2010.  The registered user should not be asked to register again, in other words.
+* State field on the create user form: still does not have a "Not applicable" value in the drop down.
+* Need to verify rules: if it is Experience reports, the user can only put "Talk", and can last 45 minutes only.  Entering any other rules will lead to error messages, for example, "can only be a Talk", "can't be blank", "can only be 45 minutes" ----> An enhancement would be to not let users to choose options in the drop down.  If they have chosen Experience reports, disable the dropdown UIs, and make the value be fixed to Talk and 45 minutes.
+* When you are viewing a particular proposal, Should general information and keyword be smaller, in terms of font-size?
+
 
 FIXED:
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
@@ -101,3 +107,9 @@ account" link on the left hand column.  They point to the same link but used dif
 * Should we allow links to be in the submit proposals form? That are not website forms?  I could link to google.com, for example. [fixed]
 * Should max number of character for username be 100?  Is this feasible? [fixed]
 * More spacing in Session Track, Session Types and Audience Levels pages?  It was slightly difficult to read the 4 bullet points when they are all squashed together [fixed]
+? After I have edited my profile (changed password), when I click on Update profile, I should not be logged out.  But if I have only changed, say, Bio section and updated, it does not log me out. [fixed]
+* There needs to be more white space before the Copyleft / footer statement.  Ideally the copyleft should always align at the bottom of the page, and not at the end of the text. [fixed]
+* Need more spacing on the "How to submit a session to Agile Brazil 2010" page between paragraphs [fixed]
+* The date formats expressed on the site do not follow the same rule.  At the top-left corner, it is YYYY-MM-DD, but in body text, it is DD/MM/YYYY. [fixed]
+* Create a session proposal: When I click on the link under the second author's field, http://agilebrazil2010.dtsato.com/users/new?locale=en, I get an error message "This page is only available when you're logged out."  This should not happen and I should see all registered users without having to log out.  At least I think this is the intended use for this link. [fixed]
+* When I create a new user, and I enter an email address of an existing user, the error message should not be "has already been taken".  It should be "Another user has an account with the same email address.  Please enter another." .... or some sort. [fixed]

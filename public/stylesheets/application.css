@@ -272,44 +272,46 @@ a:hover {
   font-size: 15px;
   margin: 6px 0; }
 
-#content p {
-  margin: 5px 0; }
-#content h1 {
-  color: #878268;
-  border-bottom: 1px solid #878268;
-  margin-bottom: 10px; }
-#content dl dt {
-  font-weight: bold;
-  font-size: 1.3em;
-  margin: 5px 0;
-  padding-top: 10px; }
-#content dl dd {
-  margin-bottom: 5px; }
-  #content dl dd h1 {
-    font-size: 1.2em;
-    border: 0; }
-  #content dl dd h2 {
-    font-size: 1.1em; }
-  #content dl dd h3 {
-    font-size: 1.0em; }
-  #content dl dd ul {
-    padding-left: 2em; }
-  #content dl dd ol {
-    padding-left: 2em; }
-#content table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  margin: 25px 0; }
-  #content table th {
-    font-size: 1.2em;
-    font-weight: normal;
-    color: #d20000;
-    padding: 10px 8px;
-    border-bottom: 2px solid #d20000; }
-  #content table td {
+#content {
+  min-height: 590px; }
+  #content p {
+    margin: 15px 0; }
+  #content h1 {
+    color: #878268;
     border-bottom: 1px solid #878268;
-    padding: 6px 8px; }
+    margin-bottom: 10px; }
+  #content dl dt {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin: 5px 0;
+    padding-top: 10px; }
+  #content dl dd {
+    margin-bottom: 5px; }
+    #content dl dd h1 {
+      font-size: 1.2em;
+      border: 0; }
+    #content dl dd h2 {
+      font-size: 1.1em; }
+    #content dl dd h3 {
+      font-size: 1.0em; }
+    #content dl dd ul {
+      padding-left: 2em; }
+    #content dl dd ol {
+      padding-left: 2em; }
+  #content table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 25px 0; }
+    #content table th {
+      font-size: 1.2em;
+      font-weight: normal;
+      color: #d20000;
+      padding: 10px 8px;
+      border-bottom: 2px solid #d20000; }
+    #content table td {
+      border-bottom: 1px solid #878268;
+      padding: 6px 8px; }
 
 table.sessions th.title {
   width: 50%; }
