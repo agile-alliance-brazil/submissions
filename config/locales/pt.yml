@@ -251,7 +251,7 @@ pt:
   
   # Mensagens customizadas
   title:
-    home: "Home"
+    home: "Página inicial"
     signup: "Novo usuário"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
