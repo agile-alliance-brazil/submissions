@@ -96,6 +96,7 @@ en:
   # Custom messages
   title:
     home: "Home"
+    guidelines: "Guidelines"
     signup: "Sign up"
     untitled: "Untitled"
     sessions: "Session proposals"

@@ -256,6 +256,7 @@ pt:
   # Mensagens customizadas
   title:
     home: "Página inicial"
+    guidelines: "Regras de Submissão"
     signup: "Novo usuário"
     untitled: "Sem título"
     sessions: "Sessões submetidas"

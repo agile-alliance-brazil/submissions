@@ -30,6 +30,6 @@ class ApplicationController < ActionController::Base
   
   def authorize_action
     obj = resource rescue nil
-    unauthorized! if cannot?(params[:action].to_sym, (obj || resource_class))
+    unauthorized! if cannot?(params[:action].to_sym, (obj || resource_class)) rescue nil
   end
 end

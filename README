@@ -17,18 +17,20 @@ TODO:
  - Error page for 404/500
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
- - O campo de mini-cv deveria ter um número mínimo de caracteres (quantos? e os outros campos longos?)
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
  - link keywords to search on submissions
- - mini-help with wiki-syntax example
- - link to rules page is broken (link to call for papers page?)
  
 IN PROGRESS:
 
+ - Contact email address on footer -- Danilo
+ - mini-help with wiki-syntax example -- Mari/Danilo
  * [task] -- [person]
  
 DONE:
 
+ - link to rules page is broken (link to call for papers page?) -- Danilo
+ - Guidelines static-page -- Mari/Danilo
+ - O campo de mini-cv deveria ter um número mínimo de caracteres (quantos? e os outros campos longos?) -- Danilo
  - Improve Layout (CSS, I'm not an expert on design, but I think the markup is pretty decent) -- Mari/Hugo
  - Added next important deadline to layout -- Mari/Hugo
  - Improved text on home-page -- Mari/Hugo
