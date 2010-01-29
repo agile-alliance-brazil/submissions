@@ -279,6 +279,9 @@ pt:
     section:
       session: "Sessões"
       user: "Perfil"
+
+  footer:
+    help: "Se tem dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
   
   flash:
     user:

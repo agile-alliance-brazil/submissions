@@ -134,7 +134,8 @@ a:hover {
   margin-right: 10px;
   width: 940px;
   color: #999999;
-  text-align: center; }
+  text-align: center;
+  font-size: 8pt; }
 
 #container {
   margin-left: auto;
