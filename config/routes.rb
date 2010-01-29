@@ -13,6 +13,6 @@ ActionController::Routing::Routes.draw do |map|
     user.my_sessions 'my_sessions', :controller => 'sessions', :action => 'index'
   end
 
-  map.static_page ':page', :controller => 'static_pages', :action => 'show', :page => /guidelines/  
+  map.static_page ':page', :controller => 'static_pages', :action => 'show', :page => /guidelines|syntax_help/  
   map.root :controller => 'user_sessions', :action => 'new'
 end

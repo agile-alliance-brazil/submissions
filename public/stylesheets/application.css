@@ -280,6 +280,8 @@ a:hover {
     color: #878268;
     border-bottom: 1px solid #878268;
     margin-bottom: 10px; }
+  #content h5 {
+    margin: 10px 0; }
   #content dl dt {
     font-weight: bold;
     font-size: 1.3em;
@@ -407,3 +409,46 @@ ul.spaced {
   ul.spaced li.first {
     margin-left: 0px;
     font-weight: bold; }
+
+#textile_help .example {
+  display: inline;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 700px; }
+  #textile_help .example .raw {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 300px;
+    border: 1px dashed #666;
+    padding: 10px;
+    min-height: 200px; }
+  #textile_help .example .space {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 60px; }
+  #textile_help .example .preview {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 300px;
+    border: 1px dashed #666;
+    padding: 10px;
+    min-height: 200px; }
+    #textile_help .example .preview:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden; }
+    #textile_help .example .preview p {
+      margin: 0px; }
+    #textile_help .example .preview ul {
+      padding-left: 10px; }
+    #textile_help .example .preview ol {
+      padding-left: 10px; }

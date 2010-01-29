@@ -6,7 +6,7 @@ describe StaticPagesController do
   end
 
   it "should render template from page param" do
-    get :show, :page => 'guidelines'
-    response.should render_template('static_pages/guidelines')
+    get :show, :page => 'syntax_help'
+    response.should render_template('static_pages/syntax_help')
   end
 end

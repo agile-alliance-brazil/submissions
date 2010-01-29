@@ -96,6 +96,9 @@ a:hover
     :color                  = !color5
     :border-bottom          = 1px solid !color5
     :margin-bottom          10px
+  
+  h5
+    :margin                 10px 0
 
   dl
     dt
@@ -236,3 +239,27 @@ ul.spaced
   li.first
     :margin-left            0px
     :font-weight            bold
+
+#textile_help
+  .example
+    +grid(9)
+  
+    .raw
+      +grid(4)
+      :border               1px dashed #666
+      :padding              10px
+      :min-height           200px
+    .space
+      +grid(1)
+    .preview
+      +grid(4)
+      +clearfix
+      :border               1px dashed #666
+      :padding              10px
+      :min-height           200px
+      p
+        :margin             0px
+      ul
+        :padding-left       10px
+      ol
+        :padding-left       10px

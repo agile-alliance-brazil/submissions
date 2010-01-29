@@ -1,0 +1,38 @@
+- title "Wiki Syntax Help"
+- show_actions!
+
+%p Some fields of your submission accept a Textile syntax for adding simple markup. These are some basic examples of markup:
+
+- sample_stiles = "_italics_\n*bold*\n@fixed-width@\n-striked-\n+underlined+"
+
+- sample_lists = "# Ordered 1\n## Sub-item 1\n## Sub-item 2\n# Ordered 2\n# Ordered 3\n\n* Unordered\n* Unordered\n** Sub-item\n* Unordered"
+
+- sample_links = "Link to \"Google\":http://google.com"
+
+%h5 Styles
+
+.textile_help
+  .raw
+    %pre~ sample_stiles
+  .preview
+    :textile
+      #{sample_stiles}
+    
+%h5 Lists
+
+.textile_help
+  .raw
+    %pre~ sample_lists
+  .preview
+    :textile
+      #{sample_lists}
+
+%h5 Links
+.textile_help
+  .raw
+    %pre~ sample_links
+  .preview
+    :textile
+      #{sample_links}
+
+%p For more details about the markup syntax, check the #{link_to "Textile reference", "http://redcloth.org/hobix.com/textile/"}.

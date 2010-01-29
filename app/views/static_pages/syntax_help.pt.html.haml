@@ -1,0 +1,39 @@
+- title "Ajuda para Sintaxe Wiki"
+- show_actions!
+
+%p Alguns campos do formulário de submissão aceitam uma sintaxe Textile para adicionar formatação simples. Alguns exemplos que podem ser usados nesses campos:
+
+- sample_stiles = "_itálico_\n*negrito*\n@monoespaçado@\n-riscado-\n+sublinhado+"
+
+- sample_lists = "# Numerada 1\n## Sub lista 1\n## Sub lista 2\n# Numerada 2\n# Numerada 3\n\n* Não numerada\n* Não numerada\n** Sub lista não numerada\n* Não numerada"
+
+- sample_links = "Link pro \"Google\":http://google.com"
+
+#textile_help
+  %h5 Estilos
+
+  .example
+    .raw
+      %pre~ sample_stiles
+    .preview
+      :textile
+        #{sample_stiles}
+    
+  %h5 Listas
+
+  .example
+    .raw
+      %pre~ sample_lists
+    .preview
+      :textile
+        #{sample_lists}
+
+  %h5 Links
+  .example
+    .raw
+      %pre~ sample_links
+    .preview
+      :textile
+        #{sample_links}
+
+%p Para mais detalhes da sintaxe de marcação, consulte o #{link_to "guia de referência Textile", "http://redcloth.org/hobix.com/textile/"}.
