@@ -72,7 +72,7 @@ describe User do
   end
   
   context "named scopes" do
-    should_have_scope :search, :conditions => ['username LIKE ?', "danilo%"], :with => 'danilo'
+    should_have_scope :search, :conditions => ['username LIKE ?', "%danilo%"], :with => 'danilo'
   end
   
   context "authorization" do

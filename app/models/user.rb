@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     config.merge_validates_length_of_login_field_options(:within => 3..30)
   end
 
-  named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "#{q}%"]} }
+  named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "%#{q}%"]} }
   
   before_create :assign_default_role
 
