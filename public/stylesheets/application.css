@@ -425,7 +425,7 @@ ul.spaced {
     width: 300px;
     border: 1px dashed #666;
     padding: 10px;
-    min-height: 200px; }
+    min-height: 150px; }
   #textile_help .example .space {
     display: inline;
     float: left;
@@ -440,7 +440,7 @@ ul.spaced {
     width: 300px;
     border: 1px dashed #666;
     padding: 10px;
-    min-height: 200px; }
+    min-height: 150px; }
     #textile_help .example .preview:after {
       content: " ";
       display: block;
