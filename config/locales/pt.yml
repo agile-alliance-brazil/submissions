@@ -152,8 +152,10 @@ pt:
       models:
         user:
           attributes:
+            phone:
+              invalid: "deve usar apenas números, espaços e .-+()"
             email:
-              taken: "outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail"            
+              taken: "outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail"
         session:
           attributes:
             keyword_list:
@@ -280,6 +282,10 @@ pt:
       session: "Sessões"
       user: "Perfil"
 
+  text:
+    for_user: "Mostrando sessões do usuário: <strong>{{name}}</strong>"
+    tagged_with: "Mostrando sessões com a palavra-chave: <strong>{{tag}}</strong>"
+    
   footer:
     help: "Se tem dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
   

@@ -18,7 +18,7 @@ TODO:
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
- - link keywords to search on submissions
+ * Upload picture to profile
  
 IN PROGRESS:
 
@@ -26,6 +26,7 @@ IN PROGRESS:
  
 DONE:
 
+ - link keywords to search on submissions -- Danilo
  - Contact email address on footer -- Danilo
  - mini-help with wiki-syntax example -- Mari/Danilo
  - link on help text opens in a new window to avoid losing form data -- Danilo
@@ -67,8 +68,6 @@ DONE:
 
 BUGS:
 
-* I should not be able to enter letters in Phone field.
-* I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable.
 * Should not allow numerical characters in City field.
 * Should not allow numerical characters in First name and Last name fields.
 * Should not allow tags, for example, <h1>, to be inserted in any field.
@@ -80,7 +79,6 @@ BUGS:
 * After I have logged in, I should not see "Register a new account" on the main text, How to submit a session to Agile Brazil 2010.  The registered user should not be asked to register again, in other words.
 * State field on the create user form: still does not have a "Not applicable" value in the drop down.
 * Need to verify rules: if it is Experience reports, the user can only put "Talk", and can last 45 minutes only.  Entering any other rules will lead to error messages, for example, "can only be a Talk", "can't be blank", "can only be 45 minutes" ----> An enhancement would be to not let users to choose options in the drop down.  If they have chosen Experience reports, disable the dropdown UIs, and make the value be fixed to Talk and 45 minutes.
-* When you are viewing a particular proposal, Should general information and keyword be smaller, in terms of font-size?
 
 
 FIXED:
@@ -116,3 +114,6 @@ account" link on the left hand column.  They point to the same link but used dif
 * The date formats expressed on the site do not follow the same rule.  At the top-left corner, it is YYYY-MM-DD, but in body text, it is DD/MM/YYYY. [fixed]
 * Create a session proposal: When I click on the link under the second author's field, http://agilebrazil2010.dtsato.com/users/new?locale=en, I get an error message "This page is only available when you're logged out."  This should not happen and I should see all registered users without having to log out.  At least I think this is the intended use for this link. [fixed]
 * When I create a new user, and I enter an email address of an existing user, the error message should not be "has already been taken".  It should be "Another user has an account with the same email address.  Please enter another." .... or some sort. [fixed]
+* I should not be able to enter letters in Phone field. [fixed]
+* I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable. [fixed]
+* When you are viewing a particular proposal, Should general information and keyword be smaller, in terms of font-size? [fixed]

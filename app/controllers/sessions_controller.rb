@@ -3,6 +3,8 @@ class SessionsController < InheritedResources::Base
   
   actions :all, :except => [:destroy]
   has_scope :for_user, :only => :index, :as => 'user_id'
+  before_filter :load_user
+  has_scope :tagged_with, :only => :index
   
   def create
     create! do |success, failure|
@@ -23,12 +25,16 @@ class SessionsController < InheritedResources::Base
   end  
   
   protected
+  
+  def load_user
+    @user = User.find(params[:user_id]) if params[:user_id]
+  end
     
   def collection
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 15)
-    paginate_options[:order] ||= 'created_at DESC'
+    paginate_options[:order] ||= 'sessions.created_at DESC'
     @sessions ||= end_of_association_chain.paginate(paginate_options)
   end
   

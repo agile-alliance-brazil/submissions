@@ -49,6 +49,9 @@ describe User do
     should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
     
+    should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
+    should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+    
     should_validate_confirmation_of :password
     
     it "should validate that username doesn't change" do

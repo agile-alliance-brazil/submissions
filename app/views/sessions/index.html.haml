@@ -1,6 +1,12 @@
 - title t('title.sessions')
 - show_actions!
 
+%ul
+  - if params[:tagged_with]
+    %li= t('text.tagged_with', :tag => h(params[:tagged_with]))
+  - if params[:user_id]
+    %li= t('text.for_user', :name => h(@user.try(:full_name)))
+
 %table.sessions
   %thead
     %tr

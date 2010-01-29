@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   validates_length_of :phone, :maximum => 100
   validates_length_of :bio, :maximum => 1600
   
+  validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i
+  
   validates_each :username, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.username_changed?
   end

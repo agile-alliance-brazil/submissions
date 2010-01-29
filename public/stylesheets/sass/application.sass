@@ -125,7 +125,7 @@ a:hover
     :width                  100%
     :border-collapse        collapse
     :text-align             left
-    :margin                 25px 0
+    :margin                 5px 0
 
     th
       :font-size            1.2em
@@ -152,6 +152,17 @@ ul.piped
     :font-size              11px
   li + li::before
     :content                "\00a0|\00a0"
+
+ul.spaced
+  :overflow                 hidden
+  li
+    :float                  left
+    :margin-left            20px
+    :list-style             none
+    :font-size              12px
+  li.first
+    :margin-left            0px
+    :font-weight            bold
 
 #pagination
   :width                    100%
@@ -230,16 +241,6 @@ ul.piped
   p
     :margin                 2px
     :padding                4px
-
-ul.spaced
-  :overflow                 hidden
-  li
-    :float                  left
-    :margin-left            20px
-    :list-style             none
-  li.first
-    :margin-left            0px
-    :font-weight            bold
 
 #textile_help
   .example
