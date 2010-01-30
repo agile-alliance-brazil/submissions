@@ -12,3 +12,14 @@
   %li Adequação da proposta no que diz respeito à #{link_to "trilha escolhida", tracks_path}, #{link_to "tipo de sessão", session_types_path} proposto, #{link_to "nível e perfil", audience_levels_path} do público;
   %li Relevância para o evento;
   %li Clareza e qualidade do material enviado.
+
+%p Os autores que tiverem sessões selecionadas para entrar no programa serão notificados por email após o período de avaliação. A partir da notificação, o autor principal terá um prazo para se inscrever na conferência. Caso o autor principal não se inscreva dentro do prazo, sua sessão será removida do programa.
+
+%p Confira abaixo as datas importantes:
+
+%ul
+  %li #{l(Date.strptime '2010-01-31')}: Abertura do formulário de submissão de propostas
+  %li
+    %strong #{l(Date.strptime '2010-02-28')}: Submissão de propostas
+  %li #{l(Date.strptime '2010-04-16')}: Notificação aos autores selecionados
+  %li #{l(Date.strptime '2010-04-30')}: Limite para inscrição no evento dos autores selecionados
