@@ -316,6 +316,8 @@ a:hover {
       border-bottom: 1px solid #878268;
       padding: 6px 8px; }
 
+table.sessions th.session_id {
+  width: 5%; }
 table.sessions th.title {
   width: 50%; }
 table.sessions th.author {

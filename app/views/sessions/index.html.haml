@@ -10,6 +10,7 @@
 %table.sessions
   %thead
     %tr
+      %th.session_id ID
       %th.title= t('formtastic.labels.session.title')
       %th.author= t('formtastic.labels.session.author_id')
       %th.author= t('formtastic.labels.session.second_author_id')
@@ -17,6 +18,7 @@
   %tbody
     - @sessions.each do |session|
       - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+        %td.session_id= session.id
         %td.title= link_to h(session.try(:title)), session_path(session)
         %td.author= link_to h(session.author.full_name), user_path(session.author)
         %td.author
