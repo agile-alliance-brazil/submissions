@@ -26,6 +26,21 @@ describe EmailNotifications do
     end
   end
 
+  context "password reset" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
+    it "should include link with perishable_token" do
+      @user.reset_perishable_token!
+      mail = EmailNotifications.deliver_password_reset_instructions(@user)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@user.email]
+      mail.content_type.should == "text/html"
+  	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
+    end
+  end
+
   context "session submission" do
     it "should be sent to first author"
     it "should be sent to second author, if available"

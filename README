@@ -6,7 +6,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
  - Error page for 404/500
  * E-mail when session is submitted
@@ -27,6 +26,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Password reset -- Danilo
  - Add error summary (or flash message) when validation fails (to avoid scrolling and missing error) -- Danilo
  - Translate homepage to english -- Danilo
  * Sending e-mail when user registers -- Danilo

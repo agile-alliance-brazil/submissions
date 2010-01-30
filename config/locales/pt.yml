@@ -194,8 +194,6 @@ pt:
         last_name: "Sobrenome"
         username: "Nome de usuário"
         email: "Email"
-        password: "Senha"
-        password_confirmation: "Confirmação de senha"
         phone: "Telefone para contato"
         country: "País"
         state: "Estado"
@@ -204,6 +202,12 @@ pt:
         website_url: "Website"
         bio: "Mini-currículo"
         roles: "Permissões"
+        new:
+          password: "Senha"
+          password_confirmation: "Confirmação de senha"
+        edit:
+          password: "Trocar senha"
+          password_confirmation: "Confirmação da nova senha"
       user_session:
         username: "Nome de usuário"
         password: "Senha"
@@ -251,6 +255,8 @@ pt:
         keyword_list: "Digite as palavras-chave separadas por vírgula."
     actions:
       signup: "Criar novo usuário"
+      reset_password: "Recuperar meus dados de acesso"
+      change_password: "Atualizar senha"
       submit_session: "Submeter sessão"
       edit_profile: "Atualizar perfil"
       edit_session: "Atualizar sessão"
@@ -260,6 +266,8 @@ pt:
     home: "Página inicial"
     guidelines: "Regras de Submissão"
     signup: "Novo usuário"
+    lost_password: "Esqueceu seu nome de usuário ou senha?"
+    change_password: "Escolha uma nova senha"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
     new_session: "Proposta de sessão"
@@ -285,6 +293,8 @@ pt:
   text:
     for_user: "Mostrando sessões do usuário: <strong>{{name}}</strong>"
     tagged_with: "Mostrando sessões com a palavra-chave: <strong>{{tag}}</strong>"
+    lost_password:
+      instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
     
   footer:
     help: "Se tem dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
@@ -299,6 +309,14 @@ pt:
         required: "Você precisa estar logado para acessar esta página."
       logout:
         required: "Página disponível apenas quando você não está logado."
+    password_reset:
+      create:
+        success: "Instruções para recuperar seus dados de acesso foram enviadas. Por favor verifique seu e-mail."
+        failure: "Nenhum usuário foi encontrado com esse endereço de email."
+      update:
+        success: "Senha alterada com sucesso!"
+        failure: "Erro! Por favor escolha uma nova senha"
+      invalid_token: "Desculpe-nos mas não conseguimos localizar seu usuário. Se você está tendo problemas para recuperar seus dados de acesso tente copiar e colar a URL fornecida por email no navegador ou reinicie o processo de recuperação de senha."
     user_session:
       create:
         success: "Login efetuado com sucesso."
@@ -354,6 +372,8 @@ pt:
   email:
     welcome:
       subject: "Cadastro realizado com sucesso"
+    password_reset:
+      subject: "Recuperação de senha"
 
   generic:
     or: "ou"

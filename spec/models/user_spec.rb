@@ -104,4 +104,12 @@ describe User do
     user.username = nil
     user.to_param.ends_with?("-danilo-sato-1990-2").should be_false
   end
+  
+  it "should allow reset password" do
+    user = Factory(:user)
+    old_token = user.perishable_token
+    
+    EmailNotifications.should_receive(:deliver_password_reset_instructions).with(user)
+    user.deliver_password_reset_instructions!
+  end
 end

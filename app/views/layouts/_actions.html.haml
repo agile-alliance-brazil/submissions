@@ -35,3 +35,4 @@
   %ul
     - if can? :create, User
       %li= link_to t('actions.signup'), signup_path
+    %li= link_to t('title.lost_password'), new_password_reset_path

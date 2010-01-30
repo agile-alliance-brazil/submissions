@@ -44,6 +44,11 @@ class User < ActiveRecord::Base
     self.country == "BR"
   end
   
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    EmailNotifications.deliver_password_reset_instructions(self)
+  end
+  
   private
   def assign_default_role
     self.add_role 'author'

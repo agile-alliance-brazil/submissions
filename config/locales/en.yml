@@ -38,8 +38,6 @@ en:
         last_name: "Last name"
         username: "Username"
         email: "E-mail address"
-        password: "Password"
-        password_confirmation: "Confirm password"
         phone: "Phone"
         country: "Country"
         state: "State"
@@ -48,6 +46,12 @@ en:
         website_url: "Website"
         bio: "Bio"
         roles: "Roles"
+        new:
+          password: "Password"
+          password_confirmation: "Confirm password"
+        edit:
+          password: "Change password"
+          password_confirmation: "Confirm new password"
       session:
         title: "Session title"
         track_id: "Track"
@@ -91,6 +95,8 @@ en:
         keyword_list: "Separate keywords with commas."
     actions:
       signup: "Register new account"
+      reset_password: "Reset password"
+      change_password: "Update my password"
       submit_session: "Submit session"
       edit_profile: "Update profile"
       edit_session: "Update session"
@@ -100,6 +106,8 @@ en:
     home: "Home"
     guidelines: "Guidelines"
     signup: "Sign up"
+    lost_password: "Forgot your username or password?"
+    change_password: "Choose new password"
     untitled: "Untitled"
     sessions: "Session proposals"
     new_session: "Propose a session"
@@ -116,7 +124,7 @@ en:
     profile: "My profile"
     edit_profile: "Edit my profile"
     signup: "Register new account"
-    my_sessions: "My session submissions"
+    my_sessions: "My session proposals"
     edit: "Edit"
     section:
       session: "Sessions"
@@ -125,6 +133,8 @@ en:
   text:
     for_user: "Showing sessions for user: <strong>{{name}}</strong>"
     tagged_with: "Showing sessions tagged with: <strong>{{tag}}</strong>"
+    lost_password:
+      instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
   
   footer:
     help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
@@ -139,6 +149,14 @@ en:
         required: "You must first log in or sign up before accessing this page."
       logout:
         required: "This page is only available when you're logged out."
+    password_reset:
+      create:
+        success: "Instructions to reset your password have been sent. Please check your e-mail."
+        failure: "No user was found with that e-mail address."
+      update:
+        success: "Password successfully updated!"
+        failure: "Error! Please provide a new password"
+      invalid_token: "We're sorry, but we could not locate your profile. If you are having issues try copying and pasting the URL from your email into your browser or restarting the reset password process."
     user_session:
       create:
         success: "Logged in successfully."
@@ -148,7 +166,7 @@ en:
       update:
         success: "Session was successfully updated!"
       create:
-        success: "Session submited successfully"
+        success: "Session submited successfully."
     failure: "Error! Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
   
@@ -194,6 +212,8 @@ en:
   email:
     welcome:
       subject: "Account registration"
+    password_reset:
+      subject: "Password reset"
 
   generic:
     or: "or"
