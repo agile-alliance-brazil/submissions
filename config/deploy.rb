@@ -30,7 +30,8 @@ namespace :deploy do
   task :symlink_configs, :roles => :app, :except => {:no_release => true} do
     run <<-CMD
       cd #{release_path} &&
-      ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml
+      ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
+      ln -nfs #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml
     CMD
   end
 end

@@ -27,6 +27,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Sending e-mail when user registers -- Danilo
  * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD) -- Hugo/Danilo
  - link keywords to search on submissions -- Danilo
  - Contact email address on footer -- Danilo

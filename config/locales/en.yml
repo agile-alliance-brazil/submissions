@@ -190,6 +190,10 @@ en:
   session:
     parameters: "General information"
   
+  email:
+    welcome:
+      subject: "Account registration"
+
   generic:
     or: "or"
     ago: "ago"

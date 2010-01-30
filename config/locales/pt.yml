@@ -350,6 +350,10 @@ pt:
   session:
     parameters: "Informações gerais"
 
+  email:
+    welcome:
+      subject: "Cadastro realizado com sucesso"
+
   generic:
     or: "ou"
     ago: "atrás"
