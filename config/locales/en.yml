@@ -149,6 +149,7 @@ en:
         success: "Session was successfully updated!"
       create:
         success: "Session submited successfully"
+    failure: "Error! Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
   
   session_types:

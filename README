@@ -6,7 +6,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- - Translate homepage to english
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
  - Error page for 404/500
@@ -19,6 +18,7 @@ TODO:
  * Manage Roles (admin only)
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
+ - send emails on background job (delayed_job?)
  * Upload picture to profile
  
 IN PROGRESS:
@@ -27,6 +27,8 @@ IN PROGRESS:
  
 DONE:
 
+ - Add error summary (or flash message) when validation fails (to avoid scrolling and missing error) -- Danilo
+ - Translate homepage to english -- Danilo
  * Sending e-mail when user registers -- Danilo
  * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD) -- Hugo/Danilo
  - link keywords to search on submissions -- Danilo

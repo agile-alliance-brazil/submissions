@@ -309,6 +309,7 @@ pt:
         success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
+    failure: "Erro! Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
   
   session_types:

@@ -12,6 +12,10 @@ class SessionsController < InheritedResources::Base
         flash[:notice] = t('flash.session.create.success')
         redirect_to session_path(@session)
       end
+      failure.html do
+        flash.now[:error] = t('flash.failure')
+        render :new
+      end
     end
   end
   
@@ -20,6 +24,10 @@ class SessionsController < InheritedResources::Base
       success.html do
         flash[:notice] = t('flash.session.update.success')
         redirect_to session_path(@session)
+      end
+      failure.html do
+        flash.now[:error] = t('flash.failure')
+        render :edit
       end
     end
   end  
