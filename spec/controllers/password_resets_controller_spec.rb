@@ -12,7 +12,7 @@ describe PasswordResetsController do
 
   it "index action should redirect to new" do
     get :index
-    response.should redirect_to(new_password_reset_path)
+    response.should render_template(:new)
   end
 
 

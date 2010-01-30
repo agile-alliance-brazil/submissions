@@ -3,7 +3,7 @@ class PasswordResetsController < ApplicationController
   before_filter :logout_required
 
   def index
-    redirect_to :action => :new
+    render :new
   end
   
   def new
@@ -47,7 +47,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_using_perishable_token(params[:id])
     unless @user
       flash[:notice] = t('flash.password_reset.invalid_token')
-      redirect_to :action => :new
+      redirect_to root_url
       return false
     end
   end
