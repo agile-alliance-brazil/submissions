@@ -6,6 +6,7 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
+ - Translate homepage to english
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
  - Error page for 404/500
