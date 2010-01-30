@@ -73,25 +73,26 @@ en:
     hints:
       user:
         email: "Main e-mail address for contact purposes."
-        password: "At least 4 characters long."
-        country: "Country of residence, collected for statistics purpose."
-        state: "State of residence, collected for statistics purpose. Leave blank if not brazilian."
-        city: "City of residence, collected for statistics purpose."
-        organization: "Name of company or organization that you will represent, collected for statistics purpose."
-        website_url: "Personal or organization's website to be used as reference by the program commitee. This website might be visited when evaluating your session."
-        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusin on Agile. This will be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        password: "At least 4 characters."
+        country: "Country of residence, collected for statistical purpose."
+        state: "State of residence, collected for statistical purpose. Leave blank if not Brazilian."
+        city: "City of residence, collected for statistical purpose."
+        organization: "Name of company or organization that you will represent, collected for statistical purpose."
+        website_url: "Personal or organization's website to be used as reference by the program committee. This website might be visited when evaluating your session."
+        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
       session:
-        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks of 45 minutes long will be accepted."
+        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 45 minutes will be accepted."
         session_type_id: "A detailed description of session types can be found <a href='/session_types?locale=en' target='_blank'>here</a>."
-        duration_mins: "If you are proposing a talk, please indicate its duration. For tutorials and workshops we recommend a duration of 90 minutes."
-        audience_level_id: "Indicate the expected level of the audience. A description of each level can be found <a href='/audience_levels?locale=en' target='_blank'>here</a>."
-        audience_limit: "If your session is a tutorial or workshop, indicate if it has a maximum number of participants."
-        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        description: "Complete description of your session. This field will be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        mechanics: "Required for workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        benefits: "These are the benefits and learning outcomes that the participants will take from your session. This field will be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session.<br/>On this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        second_author_username: "Please provide the second author's username in this field. The second author must also be a registered user."
+        duration_mins: "If you are proposing a Talk, please indicate its duration. For Tutorials and Workshops we recommend a duration of 90 minutes."
+        audience_level_id: "Indicate the appropriate experience level of your audience. A description of each level can be found <a href='/audience_levels?locale=en' target='_blank'>here</a>."
+        audience_limit: "If your session is a Tutorial or Workshop, indicate if it has a maximum number of participants."
+        target_audience: "Indicate your target audience, for example: developers, new to Agile, analysts, architects, QAs, project managers, executives."
+        summary: "Summary of your session to be displayed in the program. It should match the complete description of this activity. This field will not be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        description: "Complete description of your session. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        mechanics: "Required for Workshops. Describe how you will run your session with the audience. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        benefits: "These are the benefits and learning outcomes that the participants will take from attending your session. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        second_author_username: "Please provide the second author's username in this field. The second author must also be a registered user. If you don't know the second author's username or he/she is not registered yet, leave it blank and edit your session proposal before the submission deadline."
         keyword_list: "Separate keywords with commas."
     actions:
       signup: "Register new account"
@@ -155,7 +156,7 @@ en:
         failure: "No user was found with that e-mail address."
       update:
         success: "Password successfully updated!"
-        failure: "Error! Please provide a new password"
+        failure: "Please provide a new password"
       invalid_token: "We're sorry, but we could not locate your profile. If you are having issues try copying and pasting the URL from your email into your browser or restarting the reset password process."
     user_session:
       create:
@@ -167,7 +168,7 @@ en:
         success: "Session was successfully updated!"
       create:
         success: "Session submited successfully."
-    failure: "Error! Please check the highlighted fields"
+    failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
   
   session_types:

@@ -243,15 +243,16 @@ pt:
       session:
         track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 45 minutos de duração."
         session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt' target='_blank'>aqui</a>."
-        duration_mins: "Se a sua sessão for uma palestra, indique a duração adequada para ela. Para tutoriais e workshops recomendamos uma duração de 90 minutos."
+        duration_mins: "Se a sua sessão for uma Palestra, indique a duração adequada para ela. Para Tutoriais e Workshops recomendamos uma duração de 90 minutos."
         audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='/audience_levels?locale=pt' target='_blank'>aqui</a>."
-        audience_limit: "Se a sua sessão for um tutorial ou workshop, indique se ela tem um número máximo de participantes."
+        audience_limit: "Se a sua sessão for um Tutorial ou Workshop, indique se ela tem um número máximo de participantes."
+        target_audience: "Descreva um pouco sobre o público-alvo, por exemplo: desenvolvedores, iniciantes em Métodos Ágeis, analistas, arquitetos, QAs, gerentes de projeto, executivos."
         summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         description: "Descreva o conteúdo completo de sua sessão. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        mechanics: "Obrigatório para workshops. Descreva como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        mechanics: "Obrigatório para Workshops. Descreva como você pretende realizar a sessão junto ao público. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         benefits: "Escreva aqui quais serão os benefícios trazidos para o público de sua palestra. O que poderão utilizar, o que aprenderão, o que experimentarão, qual o diferencial do que você irá trazer, qual a relevância para a comunidade, etc. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        second_author_username: "Digite o username do segundo palestrante neste campo. O segundo palestrante também precisa ser um usuário registrado."
+        second_author_username: "Digite o nome de usuário do segundo palestrante neste campo. O segundo palestrante também precisa ser um usuário registrado. Se você não sabe o nome de usuário do segundo palestrante ou ele(a) ainda não se cadastrou, deixe este campo em branco e edite sua proposta antes do prazo de submissão."
         keyword_list: "Digite as palavras-chave separadas por vírgula."
     actions:
       signup: "Criar novo usuário"
@@ -315,7 +316,7 @@ pt:
         failure: "Nenhum usuário foi encontrado com esse endereço de email."
       update:
         success: "Senha alterada com sucesso!"
-        failure: "Erro! Por favor escolha uma nova senha"
+        failure: "Por favor escolha uma nova senha"
       invalid_token: "Desculpe-nos mas não conseguimos localizar seu usuário. Se você está tendo problemas para recuperar seus dados de acesso tente copiar e colar a URL fornecida por email no navegador ou reinicie o processo de recuperação de senha."
     user_session:
       create:
@@ -327,7 +328,7 @@ pt:
         success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
-    failure: "Erro! Por favor verifique os campos em destaque"
+    failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
   
   session_types:

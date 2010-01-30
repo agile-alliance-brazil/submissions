@@ -19,7 +19,7 @@ TODO:
  - auto-select duration/session type if track is experience reports
  - send emails on background job (delayed_job?)
  * Upload picture to profile
- 
+
 IN PROGRESS:
 
  * [task] -- [person]
@@ -73,18 +73,13 @@ DONE:
 
 BUGS:
 
-* Should not allow numerical characters in City field.
-* Should not allow numerical characters in First name and Last name fields.
-* Should not allow tags, for example, <h1>, to be inserted in any field.
-* Wrap text? [See AgileBrazilQA-01.tiff]
-* Should not allow !@£$%^&*() characters in First name and Last name fields
-* When creating a session proposal, should there be some help / description in Target audience field?  Should allow / not allow numbers and characters in this field?
-* Edit profile page: should not be able to insert <H1> / <H2> tags in Bio field.
-
-* After I have logged in, I should not see "Register a new account" on the main text, How to submit a session to Agile Brazil 2010.  The registered user should not be asked to register again, in other words.
-* State field on the create user form: still does not have a "Not applicable" value in the drop down.
-* Need to verify rules: if it is Experience reports, the user can only put "Talk", and can last 45 minutes only.  Entering any other rules will lead to error messages, for example, "can only be a Talk", "can't be blank", "can only be 45 minutes" ----> An enhancement would be to not let users to choose options in the drop down.  If they have chosen Experience reports, disable the dropdown UIs, and make the value be fixed to Talk and 45 minutes.
-
+* After I have logged in, I should not see "Register a new account" on the main text, How to submit a session to Agile Brazil 2010.  The registered user should not be asked to register again, in other words. [won't fix]
+* Should not allow numerical characters in City field. [won't fix]
+* Should not allow numerical characters in First name and Last name fields. [won't fix]
+* Should not allow tags, for example, <h1>, to be inserted in any field. [won't fix]
+* Should not allow !@£$%^&*() characters in First name and Last name fields [won't fix]
+* Edit profile page: should not be able to insert <H1> / <H2> tags in Bio field. [won't fix]
+* Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 FIXED:
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
@@ -122,3 +117,6 @@ account" link on the left hand column.  They point to the same link but used dif
 * I should not be able to enter letters in Phone field. [fixed]
 * I should not be able to enter non-letter and non-numerical characters in Phone field.  i.e. !@£$%^&*?/<>\|'"`~§±€ BUT + () and . is acceptable. [fixed]
 * When you are viewing a particular proposal, Should general information and keyword be smaller, in terms of font-size? [fixed]
+* Wrap text? [See AgileBrazilQA-01.tiff] [fixed]
+* State field on the create user form: still does not have a "Not applicable" value in the drop down. [fixed]
+* When creating a session proposal, should there be some help / description in Target audience field? [fixed]
