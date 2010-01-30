@@ -6,18 +6,18 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD)
- * E-mail when session is submitted
  * Password reset (http://www.binarylogic.com/2008/11/16/tutorial-reset-passwords-with-authlogic/)
+ - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
+ - Error page for 404/500
+ * E-mail when session is submitted
+ * Link session description items (types, audience levels, tracks) to filter session by that type
  * Search submissions
  * Add comments
  * Review session (epic, needs discussion)
  * Cucumber features
  * Manage Roles (admin only)
- - Error page for 404/500
  - Validate foreign_key references
  - auto-select duration/session type if track is experience reports
- - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
  * Upload picture to profile
  
 IN PROGRESS:
@@ -26,6 +26,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Configure production environment (preciso da ajuda do Hugo pra configurar o Dreamhost e criar o BD) -- Hugo/Danilo
  - link keywords to search on submissions -- Danilo
  - Contact email address on footer -- Danilo
  - mini-help with wiki-syntax example -- Mari/Danilo
