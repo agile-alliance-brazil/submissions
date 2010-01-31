@@ -7,7 +7,7 @@
 
 - sample_lists = "# Ordered 1\n## Sub-item 1\n# Ordered 2\n# Ordered 3\n\n* Unordered\n* Unordered\n** Sub-item"
 
-- sample_links = "Link to \"Google\":http://google.com"
+- sample_others = "Link to \"Google\":http://google.com\nAnd an image\n!/images/logo.png!"
 
 #textile_help
   %h5 Styles
@@ -31,8 +31,8 @@
   %h5 Links
   .example
     .raw
-      %pre~ sample_links
+      %pre~ sample_others
     .preview
       :textile
-        #{sample_links}
+        #{sample_others}
 
