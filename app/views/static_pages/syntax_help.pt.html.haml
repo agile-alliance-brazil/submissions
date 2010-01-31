@@ -7,7 +7,7 @@
 
 - sample_lists = "# Numerada 1\n## Sub lista 1\n# Numerada 2\n# Numerada 3\n\n* Não numerada\n* Não numerada\n** Sub lista não numerada"
 
-- sample_links = "Link pro \"Google\":http://google.com"
+- sample_others = "Link pro \"Google\":http://google.com\nE uma imagem\n!/images/logo.png!"
 
 #textile_help
   %h5 Estilos
@@ -28,11 +28,11 @@
       :textile
         #{sample_lists}
 
-  %h5 Links
+  %h5 Outros
   .example
     .raw
-      %pre~ sample_links
+      %pre~ sample_others
     .preview
       :textile
-        #{sample_links}
+        #{sample_others}
 
