@@ -5,7 +5,7 @@ class Session < ActiveRecord::Base
                   :session_type_id, :duration_mins, :experience,
                   :keyword_list
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
-                  :target_audience, :audience_limit, :experience
+                  :target_audience, :experience
   
   acts_as_taggable_on :keywords
 
@@ -67,6 +67,10 @@ class Session < ActiveRecord::Base
   
   def to_param
     title.blank? ? super : "#{id}-#{title.parameterize}"
+  end
+  
+  def authors
+    [author, second_author].compact
   end
 
   private

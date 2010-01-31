@@ -375,6 +375,8 @@ pt:
       subject: "Cadastro realizado com sucesso"
     password_reset:
       subject: "Recuperação de senha"
+    session_submitted:
+      subject: "Proposta de sessão submetida para Agile Brazil 2010"
 
   generic:
     or: "ou"

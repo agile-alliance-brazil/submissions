@@ -215,6 +215,8 @@ en:
       subject: "Account registration"
     password_reset:
       subject: "Password reset"
+    session_submitted:
+      subject: "Agile Brazil 2010 session proposal submitted"
 
   generic:
     or: "or"

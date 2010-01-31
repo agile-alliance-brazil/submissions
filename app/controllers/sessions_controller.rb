@@ -9,6 +9,7 @@ class SessionsController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
+        EmailNotifications.deliver_session_submitted(@session)
         flash[:notice] = t('flash.session.create.success')
         redirect_to session_path(@session)
       end
@@ -41,7 +42,7 @@ class SessionsController < InheritedResources::Base
   def collection
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 15)
+    paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= 'sessions.created_at DESC'
     @sessions ||= end_of_association_chain.paginate(paginate_options)
   end

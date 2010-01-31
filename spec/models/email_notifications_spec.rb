@@ -42,7 +42,31 @@ describe EmailNotifications do
   end
 
   context "session submission" do
-    it "should be sent to first author"
-    it "should be sent to second author, if available"
+    before(:each) do
+      @session = Factory(:session)
+    end
+    
+    it "should be sent to first author" do
+      mail = EmailNotifications.deliver_session_submitted(@session)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email]
+      mail.content_type.should == "text/html"
+  	  mail.body.should =~ /Olá #{@session.author.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+    end
+    
+    it "should be sent to second author, if available" do
+      user = Factory(:user)
+      @session.second_author = user
+      
+      mail = EmailNotifications.deliver_session_submitted(@session)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email, user.email]
+      mail.content_type.should == "text/html"
+  	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+    end
   end
 end

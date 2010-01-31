@@ -22,8 +22,7 @@ describe Session do
   end
   
   it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
-                                     :target_audience, :audience_limit, :second_author_username,
-                                     :experience
+                                     :target_audience, :second_author_username, :experience
   
   context "associations" do
     should_belong_to :author, :class_name => 'User'
@@ -176,6 +175,25 @@ describe Session do
     
     session.title = nil
     session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_false
+  end
+  
+  context "authors" do
+    it "should provide main author" do
+      session = Factory(:session)
+      session.authors.should == [session.author]
+    end
+    
+    it "should provide second author if available" do
+      user = Factory(:user)
+      session = Factory(:session, :second_author => user)
+      session.authors.should == [session.author, user]      
+    end
+    
+    it "should be empty if no authors" do
+      session = Factory(:session)
+      session.author = nil
+      session.authors.should be_empty
+    end
   end
   
 end
