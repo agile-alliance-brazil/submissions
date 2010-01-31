@@ -1,4 +1,4 @@
-%h3 Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
 
 %p Thank you for submitting the session proposal <strong>'#{h(@session.title)}'</strong> to the Agile Brazil 2010 conference. You can access and amend the proposal until the session submission deadline on 28th Feb 2010 by accessing the link:
 
