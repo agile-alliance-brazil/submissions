@@ -1,0 +1,16 @@
+Dear #{@session.authors.map(&:full_name).join(" & ")},
+
+
+Thank you for submitting the session proposal '#{@session.title}' to the Agile Brazil 2010 conference. You can access and amend the proposal until the session submission deadline on 28th Feb 2010 by accessing the link:
+
+
+= session_url(@session, :locale => 'en')
+
+
+Regards,
+
+
+Program Committee of Agile Brazil 2010 Conference
+
+
+[Please do not reply to this e-mail. It was sent from an unmonitored email address]

@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
- - Error page for 404/500
  * Link session description items (types, audience levels, tracks) to filter session by that type
  * Search submissions
  * Add comments
@@ -18,6 +17,7 @@ TODO:
  - auto-select duration/session type if track is experience reports
  - send emails on background job (delayed_job?)
  - auto-focus on form field
+ - allow resizing of long text fields
  * Upload picture to profile
 
 IN PROGRESS:
@@ -26,6 +26,8 @@ IN PROGRESS:
  
 DONE:
 
+ - Error page for 404/500 -- Danilo
+ - Sending email as multipart (content-type) with html and plain txt version -- Danilo
  * E-mail when session is submitted -- Danilo
  * Password reset -- Danilo
  - Add error summary (or flash message) when validation fails (to avoid scrolling and missing error) -- Danilo

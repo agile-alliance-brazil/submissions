@@ -20,9 +20,8 @@ describe EmailNotifications do
       mail = EmailNotifications.deliver_welcome(@user)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "text/html"
+      mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /Nome de usuário.*#{@user.username}/
-  	  mail.body.should =~ /Senha/
     end
   end
 
@@ -36,7 +35,7 @@ describe EmailNotifications do
       mail = EmailNotifications.deliver_password_reset_instructions(@user)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "text/html"
+      mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
     end
   end
@@ -50,7 +49,7 @@ describe EmailNotifications do
       mail = EmailNotifications.deliver_session_submitted(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "text/html"
+      mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /Olá #{@session.author.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
@@ -63,7 +62,7 @@ describe EmailNotifications do
       mail = EmailNotifications.deliver_session_submitted(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "text/html"
+      mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
