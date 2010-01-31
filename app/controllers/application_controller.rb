@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
     params[:locale] ? { :locale => params[:locale] } : {}
   end
   
+  protected
+  def render_optional_error_file(status_code)
+    set_locale
+    status = interpret_status(status_code)
+    template = self.view_paths.find_template("errors/#{status[0,3]}", :html)
+
+    render :template => template, :status => status, :content_type => Mime::HTML
+  rescue
+    super
+  end
+  
   private
   def set_locale
     # if params[:locale] is nil then I18n.default_locale will be used

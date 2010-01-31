@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha)
- - Error page for 404/500
  * Link session description items (types, audience levels, tracks) to filter session by that type
  * Search submissions
  * Add comments
@@ -27,6 +26,7 @@ IN PROGRESS:
  
 DONE:
 
+ - Error page for 404/500 -- Danilo
  - Sending email as multipart (content-type) with html and plain txt version -- Danilo
  * E-mail when session is submitted -- Danilo
  * Password reset -- Danilo
