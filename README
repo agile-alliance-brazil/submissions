@@ -18,6 +18,7 @@ TODO:
  - auto-select duration/session type if track is experience reports
  - send emails on background job (delayed_job?)
  - auto-focus on form field
+ - allow resizing of long text fields
  * Upload picture to profile
 
 IN PROGRESS:
