@@ -27,6 +27,7 @@ IN PROGRESS:
  
 DONE:
 
+ - Sending email as multipart (content-type) with html and plain txt version -- Danilo
  * E-mail when session is submitted -- Danilo
  * Password reset -- Danilo
  - Add error summary (or flash message) when validation fails (to avoid scrolling and missing error) -- Danilo
