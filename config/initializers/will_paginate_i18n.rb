@@ -1,2 +1,2 @@
-WillPaginate::ViewHelpers.pagination_options[:prev_label]=I18n.t("generic.previous", :default => "Previous")
-WillPaginate::ViewHelpers.pagination_options[:next_label]=I18n.t("generic.next", :default => "Next")
+WillPaginate::ViewHelpers.pagination_options[:prev_label]="generic.previous"
+WillPaginate::ViewHelpers.pagination_options[:next_label]="generic.next"
