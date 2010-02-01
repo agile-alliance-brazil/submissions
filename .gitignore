@@ -4,4 +4,4 @@ log/*.log
 tmp/**/*
 coverage
 **/*~
-config/mailer*.yml
+config/config*.yml

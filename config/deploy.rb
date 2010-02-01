@@ -31,7 +31,7 @@ namespace :deploy do
     run <<-CMD
       cd #{release_path} &&
       ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-      ln -nfs #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml
+      ln -nfs #{shared_path}/config/config.yml #{release_path}/config/config.yml
     CMD
   end
 end

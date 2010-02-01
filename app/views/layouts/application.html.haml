@@ -41,11 +41,12 @@
 
       #footer Copyleft - Agile Brazil 2010 - #{t('footer.help')}
 
-    :javascript
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    :javascript
-      try{
-        var pageTracker = _gat._getTracker("UA-12763469-1");
-        pageTracker._trackPageview();
-      } catch(err) {}
+    - unless AppConfig[:tracker_id].nil?
+      :javascript
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      :javascript
+        try{
+          var pageTracker = _gat._getTracker("UA-#{AppConfig[:tracker_id]}");
+          pageTracker._trackPageview();
+        } catch(err) {}
