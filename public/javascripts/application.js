@@ -1,2 +1,15 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+function disableOptionsExcept(selectSelector, optionValue) {
+  $(selectSelector).find('option').each(function() {
+    if ($(this).val() === optionValue) {
+      $(this).removeAttr('disabled').attr('selected', 'selected');
+    } else {
+      $(this).attr('disabled', 'disabled').removeAttr('selected');
+    }
+  });
+}
+
+function enableOptions(selectSelector) {
+  $(selectSelector).find('option').each(function() {
+    $(this).removeAttr('disabled')
+  })
+}
