@@ -11,7 +11,7 @@
   = form.input :target_audience, :required => true, :input_html => {:tabindex => autotab}
   = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
   = form.input :description, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :mechanics, :input_html => {:tabindex => autotab}
+  = form.input :mechanics, :required => true, :input_html => {:tabindex => autotab}
   = form.input :benefits, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
   = form.input :experience, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
 
@@ -21,4 +21,38 @@
     $("#session_keyword_list").autocomplete("#{tags_path(:format => :js)}", {
       multiple: true
     });
+    
+    $("#session_track_id").change(sessionTrackActions);
+    $("#session_track_id").keyup(sessionTrackActions);
+    sessionTrackActions();
+    
+    $("#session_session_type_id").change(sessionTypeActions);
+    $("#session_session_type_id").keyup(sessionTypeActions);
   })
+  
+  function sessionTrackActions() {
+    if ($("#session_track_id").val() === "4") {
+      disableOptionsExcept('#session_session_type_id', '3');
+      disableOptionsExcept('#session_duration_mins', '45');
+    } else {
+      enableOptions('#session_session_type_id');
+      enableOptions('#session_duration_mins');
+    }
+    sessionTypeActions();
+  }
+  
+  function sessionTypeActions() {
+    // Workshops or Tutorials
+    if ($("#session_session_type_id").val() === "2" || $("#session_session_type_id").val() === "1") {
+      $("#session_audience_limit_input").show();
+      // Only Workshop
+      if ($("#session_session_type_id").val() === "2") {
+        $('#session_mechanics_input').find('label abbr').show();
+      } else {
+        $('#session_mechanics_input').find('label abbr').hide();
+      }
+    } else {
+      $("#session_audience_limit_input").hide();
+      $("#session_audience_limit").val("");
+    }
+  }
