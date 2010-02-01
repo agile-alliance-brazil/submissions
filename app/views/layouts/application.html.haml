@@ -10,7 +10,7 @@
     = stylesheet_link_tag 'formtastic'
     = stylesheet_link_tag 'formtastic_changes'
     = stylesheet_link_tag 'jquery.autocomplete'
-    = javascript_include_tag 'jquery-1.4.min', 'jquery.autocomplete.min', :cache => true
+    = javascript_include_tag 'jquery-1.4.min', 'jquery.autocomplete.min', 'jquery.textarearesizer', :cache => true
     = yield(:head)
   
   %body    
@@ -50,3 +50,13 @@
           var pageTracker = _gat._getTracker("UA-#{AppConfig[:tracker_id]}");
           pageTracker._trackPageview();
         } catch(err) {}
+    :javascript
+      $(document).ready(function() {
+        var errorInput = $('li.error :input:visible:enabled:first');
+        if (errorInput.size() > 0) {
+          errorInput.focus();
+        } else {
+          $(':input:visible:enabled:first').focus();
+        }
+        $('textarea').TextAreaResizer();
+      })

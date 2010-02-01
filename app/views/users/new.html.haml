@@ -3,4 +3,4 @@
 - semantic_form_for @user do |form|
   = render 'form', :form => form
   - form.buttons do
-    = form.commit_button :signup
+    = form.commit_button :signup, :button_html => {:tabindex => autotab}

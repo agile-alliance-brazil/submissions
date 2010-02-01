@@ -19,19 +19,7 @@ form.formtastic fieldset ol li label {
   font-weight: bold;
 }
 
-form.formtastic fieldset ol li.string input {
-  background-color: #ffffff;
-  border: 1px solid #bbbbbb;
-  padding: 2px;
-}
-
-form.formtastic fieldset ol li.password input {
-  background-color: #ffffff;
-  border: 1px solid #bbbbbb;
-  padding: 2px;
-}
-
-form.formtastic fieldset ol li.text textarea {
+form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.password input, form.formtastic fieldset ol li.text textarea,form.formtastic fieldset ol li.numeric input {
   background-color: #ffffff;
   border: 1px solid #bbbbbb;
   padding: 2px;

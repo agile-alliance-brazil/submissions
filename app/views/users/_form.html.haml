@@ -1,15 +1,15 @@
 - form.inputs :user_login do
-  = form.input :first_name, :required => true
-  = form.input :last_name, :required => true
-  = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?}
-  = form.input :email, :required => true
-  = form.input :password, :required => @user.new_record?
-  = form.input :password_confirmation, :required => @user.new_record?
+  = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}
+  = form.input :email, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :password, :required => @user.new_record?, :input_html => {:tabindex => autotab}
+  = form.input :password_confirmation, :required => @user.new_record?, :input_html => {:tabindex => autotab}
 - form.inputs :user_personal do
-  = form.input :phone, :required => true
-  = form.input :country, :required => true, :as => :country, :priority_countries => [:BR]
-  = form.input :state, :required => true, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS
-  = form.input :city, :required => true
-  = form.input :organization
-  = form.input :website_url
-  = form.input :bio, :required => true
+  = form.input :phone, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :country, :required => true, :as => :country, :priority_countries => [:BR], :input_html => {:tabindex => autotab}
+  = form.input :state, :required => true, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
+  = form.input :city, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :organization, :input_html => {:tabindex => autotab}
+  = form.input :website_url, :input_html => {:tabindex => autotab}
+  = form.input :bio, :required => true, :input_html => {:tabindex => autotab}

@@ -4,4 +4,4 @@
 - semantic_form_for(@session) do |form|
   = render 'form', :form => form
   - form.buttons do
-    = form.commit_button :submit_session
+    = form.commit_button :submit_session, :button_html => {:tabindex => autotab}

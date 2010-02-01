@@ -7,10 +7,10 @@
 - else
   - semantic_form_for @user_session do |f|
     - f.inputs do
-      = f.input :username, :required => true
-      = f.input :password, :required => true
+      = f.input :username, :required => true, :input_html => {:tabindex => autotab}
+      = f.input :password, :required => true, :input_html => {:tabindex => autotab}
     - f.buttons do
-      = f.commit_button "Log in"
+      = f.commit_button "Log in", :button_html => {:tabindex => autotab}
 
 - if logged_in?
   %h4= t('actions.section.session')
