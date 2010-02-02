@@ -337,11 +337,11 @@ ul.spaced {
   overflow: hidden; }
   ul.spaced li {
     float: left;
-    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
     list-style: none;
     font-size: 12px; }
   ul.spaced li.first {
-    margin-left: 0px;
     font-weight: bold; }
 
 #pagination {

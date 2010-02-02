@@ -75,7 +75,7 @@ en:
         email: "Main e-mail address for contact purposes."
         password: "At least 4 characters."
         country: "Country of residence, collected for statistical purpose."
-        state: "State of residence, collected for statistical purpose. Leave blank if not Brazilian."
+        state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. This website might be visited when evaluating your session."
@@ -208,7 +208,8 @@ en:
       description: "A person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
   
   session:
-    parameters: "General information"
+    parameters: "About this session"
+    audience_limit: "Limit: {{limit}} participants"
   
   email:
     welcome:
@@ -222,6 +223,5 @@ en:
     or: "or"
     ago: "ago"
     minutes: "minutes"
-    participants: "participants"
     previous: "&laquo; Previous"
     next: "Next &raquo;"

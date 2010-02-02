@@ -235,7 +235,7 @@ pt:
         password: "Pelo menos 4 caracteres."
         phone: "De preferência um celular."
         country: "País de residência, para fins estatísticos."
-        state: "Estado de residência, para fins estatísticos. Somente para brasileiros."
+        state: "Estado de residência, para fins estatísticos."
         city: "Cidade de residência, para fins estatísticos."
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta."
@@ -368,7 +368,8 @@ pt:
       description: "Alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
   
   session:
-    parameters: "Informações gerais"
+    parameters: "Sobre esta sessão"
+    audience_limit: "Limite: {{limit}} participantes"
 
   email:
     welcome:
@@ -382,6 +383,5 @@ pt:
     or: "ou"
     ago: "atrás"
     minutes: "minutos"
-    participants: "participantes"
     previous: "&laquo; Anterior"
     next: "Próxima &raquo;"

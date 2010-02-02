@@ -18,9 +18,7 @@
     &= @session.try(:duration_mins)
     = t('generic.minutes')
   - unless @session.audience_limit.blank?
-    %li
-      &= @session.audience_limit
-      = t('generic.participants')
+    %li= t('session.audience_limit', :limit => @session.audience_limit)
 
 %ul.spaced
   %li.first #{t('formtastic.labels.session.keyword_list')}:
