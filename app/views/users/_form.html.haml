@@ -16,18 +16,15 @@
 
 :javascript
   $(document).ready(function() {
-    $("#user_country").change(countryStateDropdowns);
-    $("#user_country").keyup(countryStateDropdowns);
-    countryStateDropdowns();
+    $("#user_country").bind('updated', countryStateDropdowns);  
+    $("#user_country").bindSelectUpdated().trigger('updated');
   })
   
   function countryStateDropdowns() {
-    if ($("#user_country").val() != "BR") {
-      disableOptionsExcept('#user_state', '');
-      $('#user_state').attr('disabled', 'disabled');
+    if ($(this).val() != "BR") {
+      $('#user_state').val('').attr('disabled', 'disabled');
       $('#user_state_input').find('label abbr').hide();
     } else {
-      enableOptions('#user_state');
       $('#user_state').removeAttr('disabled');
       $('#user_state_input').find('label abbr').show();
     }

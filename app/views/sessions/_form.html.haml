@@ -22,31 +22,27 @@
       multiple: true
     });
     
-    $("#session_track_id").change(sessionTrackActions);
-    $("#session_track_id").keyup(sessionTrackActions);
-    sessionTrackActions();
+    $("#session_session_type_id").filterOn("#session_track_id", {
+      "4": ["", "1", "2"]
+    })
+    $("#session_duration_mins").filterOn("#session_track_id", {
+      "4": ["", "90"]
+    })
+    $("#session_track_id").bindSelectUpdated();
     
-    $("#session_session_type_id").change(sessionTypeActions);
-    $("#session_session_type_id").keyup(sessionTypeActions);
+    $("#session_session_type_id").bind('updated', sessionTypeActions);
+    $("#session_session_type_id").bindSelectUpdated();
+    
+    
+    $("#session_session_type_id, #session_track_id").trigger('updated');
   })
-  
-  function sessionTrackActions() {
-    if ($("#session_track_id").val() === "4") {
-      disableOptionsExcept('#session_session_type_id', '3');
-      disableOptionsExcept('#session_duration_mins', '45');
-    } else {
-      enableOptions('#session_session_type_id');
-      enableOptions('#session_duration_mins');
-    }
-    sessionTypeActions();
-  }
   
   function sessionTypeActions() {
     // Workshops or Tutorials
-    if ($("#session_session_type_id").val() === "2" || $("#session_session_type_id").val() === "1") {
+    if ($(this).val() === "2" || $(this).val() === "1") {
       $("#session_audience_limit_input").show();
       // Only Workshop
-      if ($("#session_session_type_id").val() === "2") {
+      if ($(this).val() === "2") {
         $('#session_mechanics_input').find('label abbr').show();
       } else {
         $('#session_mechanics_input').find('label abbr').hide();

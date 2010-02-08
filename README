@@ -6,9 +6,9 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Link session description items (types, audience levels, tracks) to filter session by that type
- * Search submissions
  * Add comments
+ * Logo voting
+ * Search submissions
  * Review session (epic, needs discussion)
  * Cucumber features
  * Manage Roles (admin only)
