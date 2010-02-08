@@ -8,6 +8,7 @@ class Session < ActiveRecord::Base
                   :target_audience, :experience
   
   acts_as_taggable_on :keywords
+  acts_as_commentable
 
   belongs_to :author, :class_name => 'User'
   belongs_to :second_author, :class_name => 'User'

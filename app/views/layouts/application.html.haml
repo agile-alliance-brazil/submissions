@@ -52,11 +52,11 @@
         } catch(err) {}
     :javascript
       $(document).ready(function() {
+        $('textarea').TextAreaResizer();
         var errorInput = $('li.error :input:visible:enabled:first');
-        if (errorInput.size() > 0) {
+        if (errorInput.length > 0) {
           errorInput.focus();
-        } else {
+        } else if ($('.auto_focus').length > 0) {
           $(':input:visible:enabled:first').focus();
         }
-        $('textarea').TextAreaResizer();
       })

@@ -1,0 +1,21 @@
+%h2= t('title.comments')
+
+- for comment in @session.comments
+  .commentBlock
+    .commentDate= l(comment.updated_at, :format => :short)
+    %cite
+      = link_to h(comment.user.full_name), user_path(comment.user)
+    #{t('generic.says')}:
+    %ul.piped
+      - if can? :update, comment
+        %li= link_to t('actions.edit'), edit_session_comment_path(@session, comment)
+      - if can? :destroy, comment
+        %li= link_to t('actions.destroy'), session_comment_path(@session, comment), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy_comment'))
+    :textile
+      #{comment.comment}
+
+- if can? :create, Comment
+  - semantic_form_for(@comment, :url => session_comments_path(@session)) do |form|
+    = render 'comments/form', :form => form
+    - form.buttons do
+      = form.commit_button :add_comment, :button_html => {:tabindex => autotab}

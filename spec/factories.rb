@@ -44,3 +44,9 @@ Factory.define :session do |s|
   s.association :author, :factory => :user
   s.experience "Description of author's experience on subject"
 end
+
+Factory.define :comment do |c|
+  c.association :commentable, :factory => :session
+  c.association :user
+  c.comment "Fake comment body..."
+end

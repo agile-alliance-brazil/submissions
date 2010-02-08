@@ -1,0 +1,10 @@
+- title t('title.edit_comment')
+- show_actions!
+.auto_focus
+
+- semantic_form_for(@comment, :url => session_comment_path(@session, @comment), :method => :put) do |form|
+  = render 'form', :form => form
+  - form.buttons do
+    = form.commit_button :edit_comment, :button_html => {:tabindex => autotab}
+    = t('generic.or')
+    = link_to t('actions.cancel'), session_path(@session)

@@ -19,6 +19,8 @@ describe SessionsController do
   it "show action should render show template" do
     get :show, :id => Session.first
     response.should render_template(:show)
+    assigns[:comment].user.should == @session.author
+    assigns[:comment].commentable_id.should == Session.first.id
   end
   
   it "new action should render new template" do

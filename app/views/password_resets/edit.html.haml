@@ -1,4 +1,5 @@
 - title t('title.change_password')
+.auto_focus
 
 - semantic_form_for @user, :url => password_reset_path, :method => :put do |form|
   - form.inputs do

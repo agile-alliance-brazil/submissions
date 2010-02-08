@@ -5,7 +5,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :audience_levels, :only => [:index]
   map.resources :password_resets, :except => [:destroy]
-  map.resources :sessions, :except => [:destroy]
+  map.resources :sessions, :except => [:destroy] do |session|
+    session.resources :comments, :except => [:new]
+  end
   map.resources :session_types, :only => [:index]
   map.resources :tags, :only => [:index]
   map.resources :tracks, :only => [:index]

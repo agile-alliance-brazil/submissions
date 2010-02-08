@@ -70,6 +70,8 @@ en:
         second_author_username: "Second author's username"
         keyword_list: "Keywords"
         updated_at: "Updated"
+      comment:
+        comment: "Your comment"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -94,6 +96,8 @@ en:
         experience: "Describe your experience on the subject of this session. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         second_author_username: "Please provide the second author's username in this field. The second author must also be a registered user. If you don't know the second author's username or he/she is not registered yet, leave it blank and edit your session proposal before the submission deadline."
         keyword_list: "Separate keywords with commas."
+      comment:
+        comment: "In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -101,6 +105,8 @@ en:
       submit_session: "Submit session"
       edit_profile: "Update profile"
       edit_session: "Update session"
+      add_comment: "Add comment"
+      edit_comment: "Update comment"
 
   # Custom messages
   title:
@@ -117,6 +123,8 @@ en:
     audience_levels: "Audience Levels"
     edit_profile: "Edit profile for {{user}}"
     edit_session: "Edit session"
+    comments: "Comments"
+    edit_comment: "Edit comment"
   
   actions:
     submission_date: "Submission deadline"
@@ -127,6 +135,9 @@ en:
     signup: "Register new account"
     my_sessions: "My session proposals"
     edit: "Edit"
+    destroy: "Remove"
+    destroy_comment: "remove comment"
+    cancel: "Cancel"
     section:
       session: "Sessions"
       user: "Profile"
@@ -225,3 +236,5 @@ en:
     minutes: "minutes"
     previous: "&laquo; Previous"
     next: "Next &raquo;"
+    says: "says"
+    are_you_sure: "Are you sure you want to {{action}}?"

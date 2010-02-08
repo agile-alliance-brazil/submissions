@@ -1,5 +1,6 @@
 - title "Chamada de trabalhos para a Agile Brazil 2010"
 - show_actions!
+.auto_focus
 
 %p A Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{link_to("Agile Brazil 2010", "http://www.agilebrazil.com")} – é uma conferência nacional sem fins lucrativos organizada por representantes das principais comunidades ágeis brasileiras. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes visando à disseminação coordenada da cultura Ágil por todo o país.
 
@@ -14,11 +15,11 @@
 %h3 Datas importantes
 
 %ul
-  %li #{l(Date.strptime '2010-01-31')}: Abertura do formulário de submissão de propostas
+  %li #{l(Date.new(2010, 1, 31))}: Abertura do formulário de submissão de propostas
   %li
-    %strong #{l(Date.strptime '2010-02-28')}: Submissão de propostas
-  %li #{l(Date.strptime '2010-04-16')}: Notificação aos autores selecionados
-  %li #{l(Date.strptime '2010-04-30')}: Limite para inscrição no evento dos autores selecionados
+    %strong #{l(Date.new(2010, 2, 28))}: Submissão de propostas
+  %li #{l(Date.new(2010, 4, 16))}: Notificação aos autores selecionados
+  %li #{l(Date.new(2010, 4, 30))}: Limite para inscrição no evento dos autores selecionados
   
 %p
   <strong>Realização</strong>: Faculdade de Informática (FACIN) - PUCRS

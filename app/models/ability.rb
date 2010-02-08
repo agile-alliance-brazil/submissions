@@ -4,10 +4,14 @@ class Ability
   def initialize(user)
     user ||= User.new # guest
     
+    alias_action :update, :destroy, :to => :modify
+    
     can :read, :all
     can(:manage, UserSession)
     can(:create, User)
     can(:update, User) { |u| u == user }
+    can(:create, Comment)
+    can(:modify, Comment) { |c| c.user == user }
     
     if user.admin?
       can :manage, :all

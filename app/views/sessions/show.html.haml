@@ -1,6 +1,8 @@
 - title @session.title
 - show_actions!
 
+.commentAnchor= link_to "#{@session.comments.size} #{t('title.comments')}", "#comments"
+
 %ul.piped
   %li= link_to h(@session.author.full_name), user_path(@session.author)
   - if @session.second_author
@@ -49,3 +51,8 @@
   %dd
     :textile
       #{@session.try(:experience)}
+
+%hr
+
+%a{:name => 'comments'}
+= render 'comments/new'

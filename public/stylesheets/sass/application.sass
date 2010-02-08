@@ -18,6 +18,9 @@ a
 a:hover
   :color                    = !color5 + #333
 
+.auto_focus
+  :display                  none
+
 #header
   +grid(12)
   :height                   90px
@@ -144,6 +147,39 @@ table.sessions
     :width                  50%
   th.author
     :width                  15%
+
+.commentCount    
+  :font-size                8px
+  :font-weight              bold
+  :padding                  1px 5px 0
+  :background               url('/images/icon-comments.png') left top no-repeat
+  :position                 relative
+  :overflow                 hidden
+  :display                  inline
+  :color                    #666666
+
+.commentAnchor
+  :float                    right
+
+.commentBlock
+  :border-radius            5px
+  :-moz-border-radius       5px
+  :-webkit-border-radius    5px
+  :border-bottom            1px solid #999
+  :border-right             1px solid #999
+  :border-left              1px solid #ccc
+  :border-top               1px solid #ccc
+  :padding                  5px
+  :margin                   10px 0
+  
+  cite
+    :font-weight            bold
+    :clear                  both
+
+  .commentDate
+    :float                  right
+    :color                  #999
+    :font-size              12px
 
 ul.piped
   :overflow                 hidden

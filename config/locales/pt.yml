@@ -229,6 +229,8 @@ pt:
         second_author_username: "Segundo autor (username)"
         keyword_list: "Palavras-chave"
         updated_at: "Última atualização"
+      comment:
+        comment: "Seu comentário"
     hints:
       user:
         email: "Principal email de contato."
@@ -254,6 +256,8 @@ pt:
         experience: "Descreva sua experiência com o assunto sobre o qual pretende apresentar. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         second_author_username: "Digite o nome de usuário do segundo palestrante neste campo. O segundo palestrante também precisa ser um usuário registrado. Se você não sabe o nome de usuário do segundo palestrante ou ele(a) ainda não se cadastrou, deixe este campo em branco e edite sua proposta antes do prazo de submissão."
         keyword_list: "Digite as palavras-chave separadas por vírgula."
+      comment:
+        comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -261,6 +265,8 @@ pt:
       submit_session: "Submeter sessão"
       edit_profile: "Atualizar perfil"
       edit_session: "Atualizar sessão"
+      add_comment: "Enviar comentário"
+      edit_comment: "Atualizar comentário"
   
   # Mensagens customizadas
   title:
@@ -277,6 +283,8 @@ pt:
     audience_levels: "Perfis do público"
     edit_profile: "Atualizar perfil de {{user}}"
     edit_session: "Atualizar sessão submetida"
+    comments: "Comentários"
+    edit_comment: "Editar comentário"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -287,6 +295,9 @@ pt:
     signup: "Crie um novo usuário"
     my_sessions: "Minhas propostas"
     edit: "Editar"
+    destroy: "Remover"
+    destroy_comment: "remover comentário"
+    cancel: "Cancelar"
     section:
       session: "Sessões"
       user: "Perfil"
@@ -385,3 +396,5 @@ pt:
     minutes: "minutos"
     previous: "&laquo; Anterior"
     next: "Próxima &raquo;"
+    says: "diz"
+    are_you_sure: "Você tem certeza que quer {{action}}?"

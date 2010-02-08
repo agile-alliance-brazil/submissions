@@ -4,12 +4,8 @@ describe Ability do
   before(:each) do
     @user = Factory.build(:user)
   end
-
-  context "- all users (guests)" do
-    before(:each) do
-      @ability = Ability.new(@user)
-    end
-    
+  
+  shared_examples_for "all users" do
     it "can read all" do
       @ability.should be_can(:read, :all)
     end
@@ -27,6 +23,32 @@ describe Ability do
       @ability.should be_can(:update, @user)
       @ability.should be_cannot(:update, User.new)
     end
+
+    it "can create comments" do
+      @ability.should be_can(:create, Comment)
+    end
+    
+    it "can update their comments" do
+      comment = Comment.new
+      @ability.should be_cannot(:update, comment)
+      comment.user = @user
+      @ability.should be_can(:update, comment)
+    end
+
+    it "can destroy their comments" do
+      comment = Comment.new
+      @ability.should be_cannot(:destroy, comment)
+      comment.user = @user
+      @ability.should be_can(:destroy, comment)
+    end
+  end
+
+  context "- all users (guests)" do
+    before(:each) do
+      @ability = Ability.new(@user)
+    end
+
+    it_should_behave_like "all users"
   end
   
   context "- admin" do
@@ -34,7 +56,7 @@ describe Ability do
       @user.add_role "admin"
       @ability = Ability.new(@user)
     end
-    
+
     it "can manage all" do
       @ability.should be_can(:manage, :all)
     end
@@ -45,6 +67,8 @@ describe Ability do
       @user.add_role "author"
       @ability = Ability.new(@user)
     end
+
+    it_should_behave_like "all users"
     
     it "can create sessions" do
       @ability.should be_can(:create, Session)

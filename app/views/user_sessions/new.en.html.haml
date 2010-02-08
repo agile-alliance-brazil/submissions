@@ -1,5 +1,6 @@
 - title "How to submit a session to Agile Brazil 2010"
 - show_actions!
+.auto_focus
 
 %p The Brazilian Conference about Agile Methods – #{link_to("Agile Brazil 2010", "http://www.agilebrazil.com")} – is a non-profitable national conference organized by representatives of the main Brazilian agile communities. The event's goal is to promote communication and collaboration among its attendees aiming to disseminate the Agile culture in the whole country.
 
@@ -14,11 +15,11 @@
 %h3 Important dates
 
 %ul
-  %li #{l(Date.strptime '2010-01-31')}: Release of proposal submission form
+  %li #{l(Date.new(2010, 1, 31))}: Release of proposal submission form
   %li
-    %strong #{l(Date.strptime '2010-02-28')}: Submission deadline
-  %li #{l(Date.strptime '2010-04-16')}: Acceptance notification
-  %li #{l(Date.strptime '2010-04-30')}: Inscription deadline to selected authors
+    %strong #{l(Date.new(2010, 2, 28))}: Submission deadline
+  %li #{l(Date.new(2010, 4, 16))}: Acceptance notification
+  %li #{l(Date.new(2010, 4, 30))}: Inscription deadline to selected authors
 
 %p
   <strong>Supported by</strong>: Faculdade de Informática (FACIN) - PUCRS

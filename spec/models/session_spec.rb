@@ -31,6 +31,8 @@ describe Session do
     should_belong_to :session_type
     should_belong_to :audience_level
     
+    should_have_many :comments, :as => :commentable, :dependent => :destroy
+    
     context "second author association by username" do
       before(:each) do
         @session = Factory(:session)

@@ -7,9 +7,7 @@ module ControllerMacros
     def it_should_require_login_for_actions(*actions)
       actions.each do |action|
         it "should require login for action #{action}" do
-          controller.should_receive(:logged_in?).and_return(false)
-          get action, :id => '1'
-          response.should redirect_to(login_url)
+          controller.class.before_filters.should include(:login_required)
         end
       end
       
@@ -18,11 +16,7 @@ module ControllerMacros
     def it_should_require_logout_for_actions(*actions)
       actions.each do |action|
         it "should require logout for action #{action}" do
-          controller.should_receive(:logged_in?).and_return(true)
-          request.env["HTTP_REFERER"] = '/some/url'
-          get action, :id => '1'
-          flash[:error].should_not be_empty
-          response.should redirect_to('/some/url')
+          controller.class.before_filters.should include(:logout_required)
         end
       end
     end

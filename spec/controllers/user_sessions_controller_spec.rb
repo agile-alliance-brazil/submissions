@@ -5,6 +5,7 @@ describe UserSessionsController do
   integrate_views
   
   it_should_require_login_for_actions :destroy
+  it_should_require_logout_for_actions :create
   
   it "new action should render new template" do
     get :new

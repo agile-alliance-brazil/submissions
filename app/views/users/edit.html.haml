@@ -1,5 +1,6 @@
 - title t('title.edit_profile', :user => @user.username)
 - show_actions!
+.auto_focus
 
 - semantic_form_for @user do |form|
   = render 'form', :form => form
