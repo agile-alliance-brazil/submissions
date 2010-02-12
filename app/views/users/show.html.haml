@@ -18,7 +18,8 @@
     %dt= t('formtastic.labels.user.website_url')
     %dd= link_to(h(prepend_http(@user.website_url)), h(prepend_http(@user.website_url)), :target => '_blank')
   
-  %dt= t('formtastic.labels.user.bio')
-  %dd
-    :textile
-      #{@user.bio}
+  - unless @user.bio.blank?
+    %dt= t('formtastic.labels.user.bio')
+    %dd
+      :textile
+        #{@user.bio}
