@@ -28,6 +28,10 @@ module Authorization
     end
   end
   
+  def guest?
+    (roles_mask || 0) == 0
+  end
+  
   private
   def role_index(role)
     2**ROLES.index(role) rescue 0

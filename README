@@ -6,7 +6,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Simplified registration for voters
  * Logo voting
  * Search submissions
  * Review session (epic, needs discussion)
@@ -22,6 +21,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Simplified registration for voters -- Danilo
  * Add comments -- Danilo
  - auto-select duration/session type if track is experience reports -- Danilo
  - Melhorias de usabilidade com javascript (por exemplo, desabilitando campos desnecessários ou escolhendo valores padrão quando não tem escolha) -- Danilo

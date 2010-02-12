@@ -108,17 +108,19 @@ describe Authorization do
     
     it "- multiple" do
       @user.roles = ["admin", "reviewer"]
+      @user.should_not be_guest
       @user.should be_admin
       @user.should_not be_author
       @user.should be_reviewer
     end
     
-    it "- none" do
+    it "- none (guest)" do
       @user.roles = []
+      @user.should be_guest
       @user.should_not be_admin
       @user.should_not be_author
       @user.should_not be_reviewer
-    end
+    end    
   end
   
   context "adding a role" do

@@ -19,6 +19,11 @@ form.formtastic fieldset ol li label {
   font-weight: bold;
 }
 
+form.formtastic fieldset ol li.boolean label {
+  width: 100%;
+  padding: 0;
+}
+
 form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.password input, form.formtastic fieldset ol li.text textarea,form.formtastic fieldset ol li.numeric input {
   background-color: #ffffff;
   border: 1px solid #bbbbbb;

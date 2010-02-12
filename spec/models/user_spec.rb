@@ -15,6 +15,7 @@ describe User do
     should_allow_mass_assignment_of :organization
     should_allow_mass_assignment_of :website_url
     should_allow_mass_assignment_of :bio
+    should_allow_mass_assignment_of :wants_to_submit
   
     should_not_allow_mass_assignment_of :evil_attr
   end
@@ -26,32 +27,46 @@ describe User do
   context "validations" do
     should_validate_presence_of :first_name
     should_validate_presence_of :last_name
-    should_validate_presence_of :phone
-    should_validate_presence_of :country
-    should_validate_presence_of :city
-    should_validate_presence_of :bio
+    
+    context "brazilians" do
+      subject { Factory.build(:user, :country => "BR") }
+      should_not_validate_presence_of :state
+    end
+    
+    context "non guest" do
+      subject { u = Factory.build(:user); u.add_role("author"); u }
+      should_validate_presence_of :phone
+      should_validate_presence_of :country
+      should_validate_presence_of :city
+      should_validate_presence_of :bio
+      
+      should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
+      should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+
+      context "brazilians" do
+        subject { u = Factory.build(:user, :country => "BR"); u.add_role("author"); u }
+        should_validate_presence_of :state
+      end
+    end
     
     should_validate_length_of :username, :minimum => 3, :maximum => 30
     should_validate_length_of :password, :minimum => 4
     should_validate_length_of :password_confirmation, :minimum => 4
     should_validate_length_of :email, :minimum => 6, :maximum => 100
-    should_validate_length_of :first_name, :maximum => 100
-    should_validate_length_of :last_name, :maximum => 100
-    should_validate_length_of :city, :maximum => 100
-    should_validate_length_of :organization, :maximum => 100
-    should_validate_length_of :website_url, :maximum => 100
-    should_validate_length_of :phone, :maximum => 100
-    should_validate_length_of :bio, :maximum => 1600
+    should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
+    should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
+    should_validate_length_of :city, :maximum => 100, :allow_blank => true
+    should_validate_length_of :organization, :maximum => 100, :allow_blank => true
+    should_validate_length_of :website_url, :maximum => 100, :allow_blank => true
+    should_validate_length_of :phone, :maximum => 100, :allow_blank => true
+    should_validate_length_of :bio, :maximum => 1600, :allow_blank => true
     
     should_allow_values_for :username, "dtsato", "123", "a b c", "danilo.sato", "dt-sato@dt_sato.com"
     should_not_allow_values_for :username, "dt$at0", "<>/?", ")(*&^%$@!", "[=+]"
     
     should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
-    
-    should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
-    should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
-    
+        
     should_validate_confirmation_of :password
     
     it "should validate that username doesn't change" do
@@ -59,14 +74,6 @@ describe User do
       user.username = 'new_username'
       user.should_not be_valid
       user.errors.on(:username).should == "não pode mudar"
-    end
-    
-    it "should validate presence of state if in Brazil" do
-      user = Factory(:user, :country => 'US', :state => nil)
-      user.should be_valid
-      user.country = "BR"
-      user.should_not be_valid
-      user.errors.on(:state).should == "não pode ficar em branco"
     end
   end
   
@@ -79,9 +86,9 @@ describe User do
   end
   
   context "authorization" do
-    it "should have default role of author when created" do
-      User.new.should_not be_author
-      Factory(:user).should be_author
+    it "should have role of author when wants to submit" do
+      User.new(:wants_to_submit => '0').should_not be_author
+      User.new(:wants_to_submit => '1').should be_author
     end
   end
   

@@ -3,20 +3,20 @@ class User < ActiveRecord::Base
   
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :country, :state, :city,
-                  :organization, :website_url, :bio
+                  :organization, :website_url, :bio, :wants_to_submit
   attr_trimmed    :first_name, :last_name, :username, :email,
                   :phone, :state, :city, :organization, :website_url, :bio
   
   has_many :sessions, :foreign_key => 'author_id'
   
-  validates_presence_of :first_name, :last_name, :phone, :country, :city, :bio
-  validates_presence_of :state, :if => :in_brazil?
+  validates_presence_of :first_name, :last_name
+  validates_presence_of [:phone, :country, :city, :bio], :unless => :guest?
+  validates_presence_of :state, :if => Proc.new {|u| !u.guest? && u.in_brazil?}
   
-  validates_length_of [:first_name, :last_name, :city, :organization, :website_url], :maximum => 100
-  validates_length_of :phone, :maximum => 100
-  validates_length_of :bio, :maximum => 1600
+  validates_length_of [:first_name, :last_name, :phone, :city, :organization, :website_url], :maximum => 100, :allow_blank => true
+  validates_length_of :bio, :maximum => 1600, :allow_blank => true
   
-  validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i
+  validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i, :unless => :guest?, :allow_blank => true
   
   validates_each :username, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.username_changed?
@@ -30,8 +30,6 @@ class User < ActiveRecord::Base
 
   named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "%#{q}%"]} }
   
-  before_create :assign_default_role
-
   def full_name
     [self.first_name, self.last_name].join(' ')
   end
@@ -49,8 +47,11 @@ class User < ActiveRecord::Base
     EmailNotifications.deliver_password_reset_instructions(self)
   end
   
-  private
-  def assign_default_role
-    self.add_role 'author'
+  def wants_to_submit
+    author?
+  end
+  
+  def wants_to_submit=(wants_to_submit)
+    self.add_role('author') if wants_to_submit == '1'
   end
 end

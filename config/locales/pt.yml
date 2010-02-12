@@ -202,6 +202,7 @@ pt:
         website_url: "Website"
         bio: "Mini-currículo"
         roles: "Permissões"
+        wants_to_submit: "Pretendo submeter palestras para a conferência"
         new:
           password: "Senha"
           password_confirmation: "Confirmação de senha"
@@ -242,6 +243,7 @@ pt:
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        wants_to_submit: "Deixe este campo desmarcado caso você queira apenas votar ou deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
       session:
         track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 45 minutos de duração."
         session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt' target='_blank'>aqui</a>."
