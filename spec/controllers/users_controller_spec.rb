@@ -40,7 +40,8 @@ describe UsersController do
   end
 
   it "create action should login new user" do
-    UserSession.should_receive(:create).with(an_instance_of(User))
+    User.any_instance.stubs(:valid?).returns(true)
+    UserSession.expects(:create).with(instance_of(User))
     post :create
   end
   
@@ -64,12 +65,11 @@ describe UsersController do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
       # if validation failed
-      put :update, :id => @user, :user => {}
+      put :update, :id => @user, :user => {:username => nil}
       response.should render_template(:edit)
     end
 
     it "update action should redirect when model is valid" do
-      User.any_instance.stubs(:valid?).returns(true)
       put :update, :id => @user
       response.should redirect_to(user_path(assigns[:user]))
     end

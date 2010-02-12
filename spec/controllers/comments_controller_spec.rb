@@ -44,13 +44,12 @@ describe CommentsController do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
-    put :update, :id => Comment.first, :session_id => @comment.commentable, :comment => {}
+    put :update, :id => Comment.first, :session_id => @comment.commentable, :comment => {:comment => nil}
     assigns[:session].should == @comment.commentable
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    Comment.any_instance.stubs(:valid?).returns(true)
     put :update, :id => Comment.first, :session_id => @comment.commentable
     response.should redirect_to(session_path(@comment.commentable, :anchor => 'comments'))
   end

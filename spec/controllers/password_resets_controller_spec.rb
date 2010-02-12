@@ -7,7 +7,7 @@ describe PasswordResetsController do
   
   before(:each) do
     @user = Factory(:user)
-    User.stub!(:find_using_perishable_token).and_return(@user)
+    User.stubs(:find_using_perishable_token).returns(@user)
   end
 
   it "index action should redirect to new" do

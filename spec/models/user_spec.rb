@@ -116,7 +116,7 @@ describe User do
     user = Factory(:user)
     old_token = user.perishable_token
     
-    EmailNotifications.should_receive(:deliver_password_reset_instructions).with(user)
+    EmailNotifications.expects(:deliver_password_reset_instructions).with(user)
     user.deliver_password_reset_instructions!
   end
 end

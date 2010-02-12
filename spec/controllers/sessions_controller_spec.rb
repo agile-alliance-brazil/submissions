@@ -51,12 +51,11 @@ describe SessionsController do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
-    put :update, :id => Session.first, :session => {}
+    put :update, :id => Session.first, :session => {:title => nil}
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    Session.any_instance.stubs(:valid?).returns(true)
     put :update, :id => Session.first
     response.should redirect_to(session_path(assigns[:session]))
   end

@@ -77,7 +77,7 @@ describe Ability do
     describe "can update session if:" do
       before(:each) do
         @session = Factory(:session)
-        Time.zone.stub!(:now).and_return(Time.zone.local(2010, 1, 1))
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
       end
       
       it "- user is first author" do
@@ -94,13 +94,13 @@ describe Ability do
       
       it "- before deadline of 28/2/2010" do
         @session.author = @user
-        Time.zone.should_receive(:now).and_return(Time.zone.local(2010, 2, 28, 23, 59, 59))
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 2, 28, 23, 59, 59))
         @ability.should be_can(:update, @session)
       end
       
       it "- after deadline author can't update" do
         @session.author = @user
-        Time.zone.should_receive(:now).and_return(Time.zone.local(2010, 3, 1, 0, 0, 0))
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 1, 0, 0, 0))
         @ability.should be_cannot(:update, @session)
       end
     end
