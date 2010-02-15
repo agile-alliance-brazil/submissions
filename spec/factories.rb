@@ -50,3 +50,7 @@ Factory.define :comment do |c|
   c.association :user
   c.comment "Fake comment body..."
 end
+
+Factory.define :logo do |l|
+  l.format "jpg"
+end
