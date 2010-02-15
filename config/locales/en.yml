@@ -81,7 +81,7 @@ en:
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
-        website_url: "Personal or organization's website to be used as reference by the program committee. This website might be visited when evaluating your session."
+        website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         wants_to_submit: "Leave this blank if you only want to vote or leave comments on other users' sessions. You can change your mind later, by editing your profile."
       session:

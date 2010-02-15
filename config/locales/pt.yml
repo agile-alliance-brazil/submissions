@@ -241,7 +241,7 @@ pt:
         state: "Estado de residência, para fins estatísticos."
         city: "Cidade de residência, para fins estatísticos."
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
-        website_url: "Pessoal ou da empresa para referência da comissão de programa. Este website pode ser consultado para avaliar sua proposta."
+        website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas votar ou deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
       session:

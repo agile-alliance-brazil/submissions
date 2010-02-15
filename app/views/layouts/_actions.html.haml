@@ -19,7 +19,7 @@
       %li= link_to t('actions.submit_session'), new_session_path
     - if can? :read, Session
       %li= link_to t('actions.browse_sessions'), sessions_path
-    - if can? :read, Session
+    - if can? :create, Session
       %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
         
   %h4= t('actions.section.user')
