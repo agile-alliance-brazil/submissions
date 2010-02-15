@@ -9,6 +9,7 @@ en:
       messages:
         existence: "does not exist"
         same_author: "can't be the same as author"
+        incomplete: "has incomplete author profile"
         experience_report_duration: "can only be 45 minutes"
         experience_report_session_type: "can only be a Talk"
         email_format: "should look like an email address"

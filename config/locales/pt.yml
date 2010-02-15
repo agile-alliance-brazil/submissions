@@ -144,6 +144,7 @@ pt:
         record_invalid: "A validação falhou: {{errors}}"
         existence: "não existe"
         same_author: "não pode ser o mesmo autor"
+        incomplete: "perfil de autor incompleto"
         experience_report_duration: "só pode ser 45 minutos"
         experience_report_session_type: "só pode ser uma Palestra"
         email_format: "deve ter um formato de e-mail válido"

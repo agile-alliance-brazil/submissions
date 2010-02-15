@@ -110,13 +110,20 @@ describe Session do
       it "should be a valid user" do
         @session.second_author_username = 'invalid_username'
         @session.should_not be_valid
-        @session.errors.on(:second_author_username).should == "não existe"
+        @session.errors.on(:second_author_username).should include("não existe")
       end
       
       it "should not be the same as first author" do
         @session.second_author_username = @session.author.username
         @session.should_not be_valid
-        @session.errors.on(:second_author_username).should == "não pode ser o mesmo autor"
+        @session.errors.on(:second_author_username).should include("não pode ser o mesmo autor")
+      end
+      
+      it "should be author" do
+        guest = Factory(:user)
+        @session.second_author_username = guest.username
+        @session.should_not be_valid
+        @session.errors.on(:second_author_username).should include("perfil de autor incompleto")
       end
     end
     
@@ -187,6 +194,7 @@ describe Session do
     
     it "should provide second author if available" do
       user = Factory(:user)
+      user.add_role(:author)
       session = Factory(:session, :second_author => user)
       session.authors.should == [session.author, user]      
     end
