@@ -405,7 +405,8 @@ pt:
       subject: "Proposta de sessão submetida para Agile Brazil 2010"
 
   vote:
-    description: "A Agile Brazil 2010 está convidando os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto. Basta escolher seu logotipo preferido:"
+    description: "A Agile Brazil 2010 está convidando os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto (cada usuário só pode votar uma vez). Basta escolher seu logotipo preferido:"
+    confirmation: "Você tem certeza que quer votar no logo $LOGO? Você só pode votar uma vez."
   
   generic:
     or: "ou"

@@ -344,6 +344,12 @@ li#vote_logo_id_input
       label
         :position           relative
         :margin-left        10px
+        span.logo_number
+          :position         absolute
+          :top              5px
+          :left             5px
+          :font-size        20px
+          :color            #999
         a[rel*=facebox]
           :position         absolute
           :bottom           5px
@@ -354,7 +360,10 @@ li#vote_logo_id_input
         img.bw
           :border           1px solid #999
         img.highlighted
-          :border           2px solid green
+          :border           3px solid green
+          :border-radius    2px
+          :-moz-border-radius 2px
+          :-webkit-border-radius 2px
   ul.errors
     :float                  left
     :width                  100%

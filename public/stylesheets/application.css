@@ -527,6 +527,12 @@ li#vote_logo_id_input ol {
     li#vote_logo_id_input ol li label {
       position: relative;
       margin-left: 10px; }
+      li#vote_logo_id_input ol li label span.logo_number {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 20px;
+        color: #999; }
       li#vote_logo_id_input ol li label a[rel*=facebox] {
         position: absolute;
         bottom: 5px;
@@ -537,7 +543,10 @@ li#vote_logo_id_input ol {
       li#vote_logo_id_input ol li label img.bw {
         border: 1px solid #999; }
       li#vote_logo_id_input ol li label img.highlighted {
-        border: 2px solid green; }
+        border: 3px solid green;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
 li#vote_logo_id_input ul.errors {
   float: left;
   width: 100%; }
