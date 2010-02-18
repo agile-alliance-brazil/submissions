@@ -19,16 +19,23 @@
     $(document).ready(function() {
       $('#vote_logo_id_input label').hover(
         function() {
+          if ($(this).children(':radio:checked').length > 0) { return }
           $(this).children('img.bw').hide().end().children('img.color').show();
         },
         function() {
+          if ($(this).children(':radio:checked').length > 0) { return }
           $(this).children('img.bw').show().end().children('img.color').hide();
         }
       )
 
       $(':radio').change(function() {
         $(':radio ~ img').removeClass('highlighted');
-        $(':radio:checked ~ img').addClass('highlighted')
+        $(':radio ~ img.color').hide();
+        $(':radio ~ img.bw').show();
+        
+        $(':radio:checked ~ img').addClass('highlighted');
+        $(':radio:checked ~ img.bw').hide();
+        $(':radio:checked ~ img.color').show();
       }).change();
       
       $('a[rel*=facebox]').facebox()
