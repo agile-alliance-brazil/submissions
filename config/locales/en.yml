@@ -244,6 +244,9 @@ en:
     session_submitted:
       subject: "Agile Brazil 2010 session proposal submitted"
 
+  vote:
+    description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th, by choosing the one you like the most:"
+    
   generic:
     or: "or"
     ago: "ago"

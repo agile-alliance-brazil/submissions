@@ -2,7 +2,9 @@
 - show_actions!
 - content_for(:head) do
   = javascript_include_tag
-  
+
+%p= t('vote.description')
+
 - semantic_form_for(@previous_vote || @vote) do |form|
   - form.inputs do
     = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :input_html => {:tabindex => autotab, :disabled => !!@previous_vote}, :label_method => lambda { |l|            |
