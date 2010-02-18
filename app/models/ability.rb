@@ -12,7 +12,10 @@ class Ability
     can(:update, User) { |u| u == user }
     can(:create, Comment)
     can(:modify, Comment) { |c| c.user == user }
-    can(:create, Vote) { Vote.for_user(user.id).count == 0 }
+    can(:create, Vote) do
+      first_vote = Vote.for_user(user.id).count == 0
+      first_vote && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+    end
     can(:new, Vote)
     
     if user.admin?

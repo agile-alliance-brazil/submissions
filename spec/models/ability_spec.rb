@@ -47,10 +47,26 @@ describe Ability do
       @ability.should be_can(:read, vote)
     end
     
-    it "can vote once" do
-      @ability.should be_can(:create, Vote)
-      Factory(:vote, :user => @user)
-      @ability.should be_cannot(:create, Vote)
+    describe "can vote if:" do
+      before(:each) do
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
+      end
+      
+      it "- haven't voted yet" do
+        @ability.should be_can(:create, Vote)
+        Factory(:vote, :user => @user)
+        @ability.should be_cannot(:create, Vote)
+      end
+      
+      it "- before deadline of 7/3/2010" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
+        @ability.should be_can(:create, Vote)
+      end
+      
+      it "- after deadline can't vote" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
+        @ability.should be_cannot(:create, Vote)
+      end
     end
     
     it "can new vote after voting" do
