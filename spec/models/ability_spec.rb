@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe Ability do
   before(:each) do
-    @user = Factory.build(:user)
+    @user = Factory(:user)
   end
   
   shared_examples_for "all users" do
@@ -40,6 +40,23 @@ describe Ability do
       @ability.should be_cannot(:destroy, comment)
       comment.user = @user
       @ability.should be_can(:destroy, comment)
+    end
+    
+    it "can read votes" do
+      vote = Vote.new
+      @ability.should be_can(:read, vote)
+    end
+    
+    it "can vote once" do
+      @ability.should be_can(:create, Vote)
+      Factory(:vote, :user => @user)
+      @ability.should be_cannot(:create, Vote)
+    end
+    
+    it "can new vote after voting" do
+      @ability.should be_can(:new, Vote)
+      Factory(:vote, :user => @user)
+      @ability.should be_can(:new, Vote)
     end
   end
 

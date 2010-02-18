@@ -10,5 +10,5 @@ end
 
 Logo.seed do |logo|
   logo.id = 3
-  logo.format = 'gif'
+  logo.format = 'png'
 end

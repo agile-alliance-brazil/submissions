@@ -1,0 +1,35 @@
+- title t('title.vote')
+- show_actions!
+- content_for(:head) do
+  = javascript_include_tag
+  
+- semantic_form_for(@vote) do |form|
+  - form.inputs do
+    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :input_html => {:tabindex => autotab, :disabled => !!@previous_vote}, :label_method => lambda { |l|            |
+      image_tag(l.to_filename(:size => :small, :color => false), :class => 'bw') +     |
+      image_tag(l.to_filename(:size => :small), :class => 'color') +                   |
+      link_to(image_tag('enlarge.png'), image_path(l.to_filename), :rel => 'facebox')  |
+    }                                                                                  |
+  - if !@previous_vote
+    - form.buttons do
+      = form.commit_button :add_vote, :button_html => {:tabindex => autotab}
+
+- javascript_tag do
+  :plain
+    $(document).ready(function() {
+      $('#vote_logo_id_input label').hover(
+        function() {
+          $(this).children('img.bw').hide().end().children('img.color').show();
+        },
+        function() {
+          $(this).children('img.bw').show().end().children('img.color').hide();
+        }
+      )
+
+      $(':radio').change(function() {
+        $(':radio ~ img').removeClass('highlighted');
+        $(':radio:checked ~ img').addClass('highlighted')
+      }).change();
+      
+      $('a[rel*=facebox]').facebox()
+    })

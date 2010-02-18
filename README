@@ -6,7 +6,7 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
 TODO:
 
- * Logo voting
+ * Voting results
  * Search submissions
  * Review session (epic, needs discussion)
  * Cucumber features
@@ -21,6 +21,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Logo voting -- Danilo
  * Simplified registration for voters -- Danilo
  * Add comments -- Danilo
  - auto-select duration/session type if track is experience reports -- Danilo

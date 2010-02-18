@@ -21,6 +21,11 @@
       %li= link_to t('actions.browse_sessions'), sessions_path
     - if can? :create, Session
       %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
+
+  %h4= t('actions.section.vote')
+  %ul
+    - if can? :new, Vote
+      %li= link_to t('actions.vote'), new_vote_path
         
   %h4= t('actions.section.user')
   %ul

@@ -515,3 +515,23 @@ li#user_wants_to_submit_input {
   border: 1px dashed #1c8c1c;
   padding: 10px;
   width: 74%; }
+
+li#vote_logo_id_input ol {
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%; }
+  li#vote_logo_id_input ol li {
+    float: left; }
+    li#vote_logo_id_input ol li label {
+      position: relative; }
+      li#vote_logo_id_input ol li label a[rel*=facebox] {
+        position: absolute;
+        bottom: 5px;
+        right: 5px; }
+      li#vote_logo_id_input ol li label img.color {
+        border: 1px solid #999;
+        display: none; }
+      li#vote_logo_id_input ol li label img.bw {
+        border: 1px solid #999; }
+      li#vote_logo_id_input ol li label img.highlighted {
+        border: 2px solid green; }

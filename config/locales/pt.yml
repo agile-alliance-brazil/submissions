@@ -270,6 +270,7 @@ pt:
       edit_session: "Atualizar sessão"
       add_comment: "Enviar comentário"
       edit_comment: "Atualizar comentário"
+      add_vote: "Votar"
   
   # Mensagens customizadas
   title:
@@ -288,6 +289,7 @@ pt:
     edit_session: "Atualizar sessão submetida"
     comments: "Comentários"
     edit_comment: "Editar comentário"
+    vote: "Vote no seu logo favorito"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -301,8 +303,10 @@ pt:
     destroy: "Remover"
     destroy_comment: "remover comentário"
     cancel: "Cancelar"
+    vote: "Dê o seu voto!"
     section:
       session: "Sessões"
+      vote: "Concurso logo"
       user: "Perfil"
 
   text:
@@ -342,6 +346,9 @@ pt:
         success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
+    vote:
+      create:
+        success: "Obrigado por votar no concurso para escolher nosso logotipo!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
   

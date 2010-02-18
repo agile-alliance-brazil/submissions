@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100215112826) do
+ActiveRecord::Schema.define(:version => 20100216003431) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -114,5 +114,13 @@ ActiveRecord::Schema.define(:version => 20100215112826) do
   end
 
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "logo_id"
+    t.string   "user_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

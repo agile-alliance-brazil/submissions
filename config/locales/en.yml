@@ -110,6 +110,7 @@ en:
       edit_session: "Update session"
       add_comment: "Add comment"
       edit_comment: "Update comment"
+      add_vote: "Vote"
 
   # Custom messages
   title:
@@ -128,6 +129,7 @@ en:
     edit_session: "Edit session"
     comments: "Comments"
     edit_comment: "Edit comment"
+    vote: "Vote for your favorite logo"
   
   actions:
     submission_date: "Submission deadline"
@@ -141,8 +143,10 @@ en:
     destroy: "Remove"
     destroy_comment: "remove comment"
     cancel: "Cancel"
+    vote: "Vote now!"
     section:
       session: "Sessions"
+      vote: "Logo Contest"
       user: "Profile"
   
   text:
@@ -182,6 +186,9 @@ en:
         success: "Session was successfully updated!"
       create:
         success: "Session submited successfully."
+    vote:
+      create:
+        success: "Thank you for voting on our logo contest!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
   
