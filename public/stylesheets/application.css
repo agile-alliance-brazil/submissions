@@ -522,12 +522,15 @@ li#vote_logo_id_input ol {
   width: 100%; }
   li#vote_logo_id_input ol li {
     float: left; }
+    li#vote_logo_id_input ol li input[type=radio] {
+      display: none; }
     li#vote_logo_id_input ol li label {
-      position: relative; }
+      position: relative;
+      margin-left: 10px; }
       li#vote_logo_id_input ol li label a[rel*=facebox] {
         position: absolute;
         bottom: 5px;
-        right: 5px; }
+        right: 15px; }
       li#vote_logo_id_input ol li label img.color {
         border: 1px solid #999;
         display: none; }
@@ -535,3 +538,6 @@ li#vote_logo_id_input ol {
         border: 1px solid #999; }
       li#vote_logo_id_input ol li label img.highlighted {
         border: 2px solid green; }
+li#vote_logo_id_input ul.errors {
+  float: left;
+  width: 100%; }

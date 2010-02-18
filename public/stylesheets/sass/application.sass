@@ -339,12 +339,15 @@ li#vote_logo_id_input
     :width                  100%
     li
       :float                left
+      input[type=radio]
+        :display            none
       label
         :position           relative
+        :margin-left        10px
         a[rel*=facebox]
           :position         absolute
           :bottom           5px
-          :right            5px
+          :right            15px
         img.color
           :border           1px solid #999
           :display          none
@@ -352,3 +355,6 @@ li#vote_logo_id_input
           :border           1px solid #999
         img.highlighted
           :border           2px solid green
+  ul.errors
+    :float                  left
+    :width                  100%

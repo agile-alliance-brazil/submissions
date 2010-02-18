@@ -161,6 +161,10 @@ pt:
           attributes:
             keyword_list:
               too_long: "não pode ter mais que {{count}} palavras-chave"
+        vote:
+          attributes:
+            logo_id:
+              blank: "por favor escolha um logo para votar"
 
   authlogic:
     error_messages:

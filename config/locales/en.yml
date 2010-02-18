@@ -28,6 +28,10 @@ en:
           attributes:
             keyword_list:
               too_long: "can't have more than {{count}} keywords"
+        vote:
+          attributes:
+            logo_id:
+              blank: "please choose a logo to vote"
 
   formtastic:
     titles:
