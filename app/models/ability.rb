@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new # guest
     
-    alias_action :update, :destroy, :to => :modify
+    alias_action :edit, :update, :destroy, :to => :modify
     
     can(:read, :all)
     can(:manage, UserSession)

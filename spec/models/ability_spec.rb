@@ -28,6 +28,13 @@ describe Ability do
       @ability.should be_can(:create, Comment)
     end
     
+    it "can edit their comments" do
+      comment = Comment.new
+      @ability.should be_cannot(:edit, comment)
+      comment.user = @user
+      @ability.should be_can(:edit, comment)
+    end
+    
     it "can update their comments" do
       comment = Comment.new
       @ability.should be_cannot(:update, comment)
