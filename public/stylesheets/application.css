@@ -522,11 +522,9 @@ li#vote_logo_id_input ol {
   width: 100%; }
   li#vote_logo_id_input ol li {
     float: left; }
-    li#vote_logo_id_input ol li input[type=radio] {
-      display: none; }
     li#vote_logo_id_input ol li label {
       position: relative;
-      margin-left: 10px; }
+      margin-right: 10px; }
       li#vote_logo_id_input ol li label span.logo_number {
         position: absolute;
         top: 5px;

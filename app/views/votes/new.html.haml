@@ -29,8 +29,15 @@
           if ($(this).children(':radio:checked').length > 0) { return }
           $(this).children('img.bw').show().end().children('img.color').hide();
         }
-      )
-
+      ).click(function() { /* IE hack for labels with images */
+        if ($(this).children(':radio:enabled').length > 0) {
+          $(':radio').attr('checked', false);
+          $(this).children(':radio').attr('checked', 'checked').change();
+        }
+      })
+      
+      $(':radio').hide();
+      
       $(':radio').change(function() {
         $(':radio ~ img').removeClass('highlighted');
         $(':radio ~ img.color').hide();
