@@ -7,18 +7,15 @@
 
 - semantic_form_for(@vote) do |form|
   - form.inputs do
-    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
+    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :hint => (@vote.new_record? ? :new_vote : :edit_vote), :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
       content_tag(:span, l.id, :class => 'logo_number') +                              |
       image_tag(l.to_filename(:size => :small, :color => false), :class => 'bw') +     |
       image_tag(l.to_filename(:size => :small), :class => 'color') +                   |
       link_to(image_tag('enlarge.png'), image_path(l.to_filename), :rel => 'facebox')  |
     }                                                                                  |
-  - if @vote.new_record?
-    - form.buttons do
-      = form.commit_button :add_vote, :button_html => {:tabindex => autotab, :onclick => 'return confirmVote()'}
-  - else
-    - form.buttons do
-      = form.commit_button :change_vote, :button_html => {:tabindex => autotab, :onclick => 'return confirmChange()'}
+  - form.buttons do
+    - button_type = @vote.new_record? ? :add_vote : :change_vote
+    = form.commit_button button_type, :button_html => {:tabindex => autotab, :onclick => 'return confirmVote()'}
 
 - javascript_tag do
   :plain

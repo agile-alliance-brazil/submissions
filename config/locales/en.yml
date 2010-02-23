@@ -105,6 +105,8 @@ en:
         keyword_list: "Separate keywords with commas."
       comment:
         comment: "In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+      new_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. Click on the desired logo to select it (and keep it colorful) and confirm your vote by clicking on the \"Vote\" button."
+      edit_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. To change your vote, just click on another logo to select it (and keep it colorful) and confirm your vote change by clicking on the \"Change vote\" button."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -246,7 +248,7 @@ en:
       subject: "Agile Brazil 2010 session proposal submitted"
 
   vote:
-    description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th (each user can only vote once). To vote, just choose the logo you like the most among the ones presented below. Once you voted, you can still change your vote until the vote deadline.<br/>To see the logos in color version, just move your mouse overt the logo. Click on the desired logo to select it (and keep it colorful) and confirm your vote. To change your vote, just choose another logo and change your vote by clicking on the button.<br/>Remember that the logo will be presented on the event's material (printed both in colors and in black and white) and projected on screens or used on videos."
+    description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th (each user can only vote once). To vote, just choose the logo you like the most among the ones presented below. Once you voted, you can still change your vote before the deadline. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
     confirmation: "Are you sure you want to vote for logo $LOGO? You are only allowed to vote once."
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"
