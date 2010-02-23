@@ -284,6 +284,8 @@ a:hover {
     color: #878268;
     border-bottom: 1px solid #878268;
     margin-bottom: 10px; }
+  #content h3 {
+    margin-top: 15px; }
   #content h5 {
     margin: 10px 0; }
   #content dl dt {
