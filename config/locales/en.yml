@@ -251,7 +251,7 @@ en:
 
   vote:
     description: "Agile Brazil 2010 is inviting members of the community to help us choose the logo for our event. You can cast your vote until March 7th. To vote, just choose the logo you like the most among the ones presented below. Once you have voted, you can still change your vote before the deadline, but your vote will only be counted once. Only the most recent vote will count. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
-    confirmation: "Are you sure you want to vote for logo $LOGO? You are only allowed to vote once."
+    confirmation: "Are you sure you want to vote for logo $LOGO? Only your most recent vote will count."
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"
     current_vote: "Thank you for voting! Your current vote is for logo {{logo}}."
