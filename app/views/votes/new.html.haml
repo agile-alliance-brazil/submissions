@@ -5,6 +5,9 @@
 
 %p= t('vote.description')
 
+- unless @vote.new_record?
+  %p.current_vote= t('vote.current_vote', :logo => @vote.logo_id)
+
 - semantic_form_for(@vote) do |form|
   - form.inputs do
     = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :hint => (@vote.new_record? ? :new_vote : :edit_vote), :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
@@ -60,8 +63,18 @@
     }
 
     function showConfirmation(msg) {
-      if (!confirm(msg.replace("$LOGO", $(':radio:checked').val())))
+      var chosen_logo = $(':radio:checked').val();
+      if (chosen_logo == null)
+        return true;
+      if (!confirm(msg.replace("$LOGO", chosen_logo))) {
+        $(':radio').attr('checked', false);
+        var previous_vote = $(':radio[value=#{@vote.logo_id}]');
+        if (previous_vote.length > 0)
+          previous_vote.attr('checked', 'checked').change();
+        else
+          $(':radio').change();
         return false;
+      }
       return true;
     }
 

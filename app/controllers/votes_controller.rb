@@ -11,6 +11,7 @@ class VotesController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
+        flash[:notice] = t('flash.vote.create.success') unless @vote.new_record?
         redirect_to new_vote_path
       end
       failure.html do
@@ -23,6 +24,7 @@ class VotesController < InheritedResources::Base
   def update
     update! do |success, failure|
       success.html do
+        flash[:notice] = t('flash.vote.create.success') unless @vote.new_record?
         redirect_to new_vote_path
       end
       failure.html do
@@ -34,7 +36,6 @@ class VotesController < InheritedResources::Base
   
   def new
     @vote = Vote.for_user(current_user.id).first || Vote.new
-    flash.now[:notice] = t('flash.vote.create.success') unless @vote.new_record?
     new!
   end
 

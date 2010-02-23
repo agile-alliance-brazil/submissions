@@ -8,7 +8,7 @@
   - if @session.second_author
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
   - if can? :update, @session
-    %li= link_to t('actions.edit'), edit_session_path(@session)
+    %li= link_to t('title.edit_session'), edit_session_path(@session)
   %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
 
 %ul.spaced

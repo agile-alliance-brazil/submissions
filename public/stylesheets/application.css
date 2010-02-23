@@ -518,6 +518,9 @@ li#user_wants_to_submit_input {
   padding: 10px;
   width: 74%; }
 
+p.current_vote {
+  font-weight: bold; }
+
 li#vote_logo_id_input p.inline-hints {
   width: 100%; }
 li#vote_logo_id_input ol {

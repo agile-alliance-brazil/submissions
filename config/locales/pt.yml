@@ -293,7 +293,7 @@ pt:
     session_types: "Tipos de sessão"
     audience_levels: "Perfis do público"
     edit_profile: "Atualizar perfil de {{user}}"
-    edit_session: "Atualizar sessão submetida"
+    edit_session: "Editar sessão"
     comments: "Comentários"
     edit_comment: "Editar comentário"
     vote: "Vote no seu logo favorito"
@@ -408,10 +408,11 @@ pt:
       subject: "Proposta de sessão submetida para Agile Brazil 2010"
 
   vote:
-    description: "A Agile Brazil 2010 convida os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto (cada usuário só pode votar uma vez). Para votar, basta escolher seu logotipo preferido dentre os apresentados abaixo. Ainda é possível alterar seu voto até a data limite de votação. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
+    description: "A Agile Brazil 2010 convida os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto. Para votar, basta escolher seu logotipo preferido dentre os apresentados abaixo. Ainda é possível alterar seu voto até a data limite de votação, mas o seu voto será contado apenas uma vez. Apenas o seu voto mais recente será considerado. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
     confirmation: "Você tem certeza que quer votar no logo $LOGO? Você só pode votar uma vez."
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
+    current_vote: Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
   
   generic:
     or: "ou"

@@ -4,9 +4,9 @@
 
 %h1 Vote for the Logo of Agile Brazil 2010!
 
-%p The Brazilian Agile community has participated in the logo contest submitting 14 logo proposals. We selected the top 3 submissions according to the #{link_to("evalutation criteria", "http://www.agilebrazil.com/2010/criterios.html")} (Portuguese). Now it's your turn! Register a #{logged_in? ? "new account" : link_to("new account", signup_path)} and #{logged_in? ? link_to("vote", new_vote_path) : "vote"} for your favorite logo. Voting will be open until <strong>#{l(Date.new(2010, 3, 7))}</strong>.
+%p The Brazilian Agile community has participated in the logo contest submitting 14 logo proposals. We selected the top 3 submissions according to the #{link_to("evaluation criteria", "http://www.agilebrazil.com/2010/criterios.html")} (Portuguese). Now it's your turn! Register a #{logged_in? ? "new account" : link_to("new account", signup_path)} and #{logged_in? ? link_to("vote", new_vote_path) : "vote"} for your favorite logo. Voting will be open until <strong>#{l(Date.new(2010, 3, 7))}</strong>.
 
-%p Participate even more by #{logged_in? ? link_to("proposing your own session", new_session_path) : "proposing your own session"} or providing your feedback by adding comments to #{logged_in? ? link_to("the already proposed sessions", sessions_path) : "the already proposed sessions"}.
+%p Participate even more by #{logged_in? ? link_to("proposing your own session", new_session_path) : "proposing your own session"} or providing your feedback by adding comments to #{logged_in? ? link_to("the proposed sessions", sessions_path) : "the proposed sessions"}.
 
 %h1 How to submit a session to Agile Brazil 2010
 
