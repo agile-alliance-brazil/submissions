@@ -248,7 +248,7 @@ en:
       subject: "Agile Brazil 2010 session proposal submitted"
 
   vote:
-    description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th (each user can only vote once). To vote, just choose the logo you like the most among the ones presented below. Once you voted, you can still change your vote before the deadline. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white.)"
+    description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th (each user can only vote once). To vote, just choose the logo you like the most among the ones presented below. Once you voted, you can still change your vote before the deadline. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
     confirmation: "Are you sure you want to vote for logo $LOGO? You are only allowed to vote once."
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"
