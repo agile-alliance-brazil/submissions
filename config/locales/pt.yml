@@ -358,6 +358,8 @@ pt:
         success: "Obrigado por votar no concurso para escolher nosso logotipo!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
+    news:
+      vote: "Novidades: Participe do <a href='#news_contest'>concurso do logo</a> e dê o seu feedback nas propostas submetidas!"
   
   session_types:
     tutorial:
@@ -412,7 +414,7 @@ pt:
     confirmation: "Você tem certeza que quer votar no logo $LOGO? Você só pode votar uma vez."
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
-    current_vote: Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
+    current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
   
   generic:
     or: "ou"

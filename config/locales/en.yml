@@ -198,6 +198,8 @@ en:
         success: "Thank you for voting on our logo contest!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
+    news:
+      vote: "News: Vote in our <a href='#news_contest'>logo contest</a> and provide feedback to session proposals!"
   
   session_types:
     tutorial:

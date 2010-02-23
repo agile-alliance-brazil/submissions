@@ -420,7 +420,7 @@ ul.spaced {
     #pagination .pagination a:hover {
       border: solid 1px #b8a16b; }
 
-#flash_notice, #flash_error {
+#flash_notice, #flash_error, #flash_news {
   padding: 5px 8px;
   margin: 10px 0; }
 
@@ -430,7 +430,11 @@ ul.spaced {
 
 #flash_error {
   background-color: #ffcccc;
-  border: solid             1px #cc6666; }
+  border: solid 1px #cc6666; }
+
+#flash_news {
+  background-color: #FFF6BF;
+  border: solid 1px #FFD324; }
 
 .fieldWithErrors {
   display: inline; }

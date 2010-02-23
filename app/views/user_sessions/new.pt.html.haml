@@ -1,14 +1,6 @@
-- title "Chamada de trabalhos para a Agile Brazil 2010", false
+- title "Chamada de trabalhos para a Agile Brazil 2010"
 - show_actions!
 .auto_focus
-
-%h1 Participe do Concurso do Logo - Dê o seu Voto!
-
-%p A comunidade participou do concurso de logo enviando 14 propostas. Destas, nós selecionamos as 3 melhores de acordo com os #{link_to("critérios de avaliação", "http://www.agilebrazil.com/2010/criterios.html")}. Agora é sua vez! Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)} no sistema da conferência e #{logged_in? ? link_to("vote", new_vote_path) : "vote"} no seu logo preferido. A votação ficará aberta até <strong>#{l(Date.new(2010, 3, 7))}</strong>.
-
-%p Aproveite o acesso ao sistema e #{logged_in? ? link_to("submeta uma proposta", new_session_path) : "submeta uma proposta"} ou dê o seu feedback adicionando comentários nas #{logged_in? ? link_to("propostas submetidas", sessions_path) : "propostas submetidas"}.
-
-%h1 Chamada de trabalhos para a Agile Brazil 2010
 
 %p A Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{link_to("Agile Brazil 2010", "http://www.agilebrazil.com")} – é uma conferência nacional sem fins lucrativos organizada por representantes das principais comunidades ágeis brasileiras. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes visando à disseminação coordenada da cultura Ágil por todo o país.
 
@@ -33,5 +25,12 @@
   <strong>Realização</strong>: Faculdade de Informática (FACIN) - PUCRS
   %br
   <strong>Promoção</strong>: Sucesu-RS, através do GUMA (Grupo de Usuários de Métodos Ágeis)
+
+%a{:name => 'news_contest'}
+%h1 Participe do Concurso do Logo - Dê o seu Voto!
+
+%p A comunidade participou do concurso de logo enviando 14 propostas. Destas, nós selecionamos as 3 melhores de acordo com os #{link_to("critérios de avaliação", "http://www.agilebrazil.com/2010/criterios.html")}. Agora é sua vez! Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)} no sistema da conferência e #{logged_in? ? link_to("vote", new_vote_path) : "vote"} no seu logo preferido. A votação ficará aberta até <strong>#{l(Date.new(2010, 3, 7))}</strong>.
+
+%p Aproveite o acesso ao sistema e #{logged_in? ? link_to("submeta uma proposta", new_session_path) : "submeta uma proposta"} ou dê o seu feedback adicionando comentários nas #{logged_in? ? link_to("propostas submetidas", sessions_path) : "propostas submetidas"}.
 
 
