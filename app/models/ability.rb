@@ -16,6 +16,10 @@ class Ability
       first_vote = Vote.for_user(user.id).count == 0
       first_vote && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
     end
+    can(:update, Vote) do |vote|
+      is_voter = vote.try(:user) == user
+      is_voter && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+    end
     can(:new, Vote)
     
     if user.admin?

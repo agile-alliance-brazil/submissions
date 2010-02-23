@@ -5,17 +5,20 @@
 
 %p= t('vote.description')
 
-- semantic_form_for(@previous_vote || @vote) do |form|
+- semantic_form_for(@vote) do |form|
   - form.inputs do
-    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :input_html => {:tabindex => autotab, :disabled => !!@previous_vote}, :label_method => lambda { |l| |
+    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
       content_tag(:span, l.id, :class => 'logo_number') +                              |
       image_tag(l.to_filename(:size => :small, :color => false), :class => 'bw') +     |
       image_tag(l.to_filename(:size => :small), :class => 'color') +                   |
       link_to(image_tag('enlarge.png'), image_path(l.to_filename), :rel => 'facebox')  |
     }                                                                                  |
-  - if !@previous_vote
+  - if @vote.new_record?
     - form.buttons do
       = form.commit_button :add_vote, :button_html => {:tabindex => autotab, :onclick => 'return confirmVote()'}
+  - else
+    - form.buttons do
+      = form.commit_button :change_vote, :button_html => {:tabindex => autotab, :onclick => 'return confirmChange()'}
 
 - javascript_tag do
   :plain
@@ -52,8 +55,16 @@
     })
     
     function confirmVote() {
-      var msg = "#{t('vote.confirmation')}";
+      showConfirmation("#{t('vote.confirmation')}");
+    }
+    
+    function confirmChange() {
+      showConfirmation("#{t('vote.change.confirmation')}");
+    }
+
+    function showConfirmation(msg) {
       if (!confirm(msg.replace("$LOGO", $(':radio:checked').val())))
         return false;
       return true;
     }
+

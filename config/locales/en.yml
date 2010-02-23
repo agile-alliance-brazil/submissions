@@ -115,6 +115,7 @@ en:
       add_comment: "Add comment"
       edit_comment: "Update comment"
       add_vote: "Vote"
+      change_vote: "Change vote"
 
   # Custom messages
   title:
@@ -247,6 +248,8 @@ en:
   vote:
     description: "Agile Brazil 2010 is inviting the members of the community to help us choose the logo for our event. You can give your vote until March 7th (each user can only vote once), by choosing the one you like the most:"
     confirmation: "Are you sure you want to vote for logo $LOGO? You are only allowed to vote once."
+    change:
+      confirmation: "Are you sure you want to change your vote for logo $LOGO?"
     
   generic:
     or: "or"

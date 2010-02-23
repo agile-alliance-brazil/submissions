@@ -26,7 +26,7 @@ describe VotesController do
     assigns[:previous_vote].should be_nil
     vote = Factory(:vote, :user_id => @user.id)
     get :new
-    assigns[:previous_vote].should == vote
+    assigns[:vote].should == vote
   end
 
   it "create action should render new template when model is invalid" do
@@ -42,5 +42,19 @@ describe VotesController do
     post :create
     response.should redirect_to(new_vote_url)
   end
-
+  
+  it "update action should render new template when model is invalid" do
+    # +stubs(:valid?).returns(false)+ doesn't work here because
+    # inherited_resources does +obj.errors.empty?+ to determine
+    # if validation failed
+    vote = Factory(:vote, :user_id => @user.id)
+    post :update, :id => vote.id, :vote => { :logo_id => 89923982}
+    response.should render_template(:new)
+  end
+  
+  it "update action should redirect when model is valid" do
+    Factory(:vote, :user_id => @user.id)
+    post :update, :id => 1
+    response.should redirect_to(new_vote_url)
+  end
 end

@@ -54,6 +54,12 @@ describe Ability do
       @ability.should be_can(:read, vote)
     end
     
+    it "cannot update votes" do
+      @ability.should be_cannot(:update, Vote)
+      vote = Vote.new
+      @ability.should be_cannot(:update, vote)
+    end
+    
     describe "can vote if:" do
       before(:each) do
         Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
@@ -73,6 +79,33 @@ describe Ability do
       it "- after deadline can't vote" do
         Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
         @ability.should be_cannot(:create, Vote)
+      end
+    end
+
+    describe "can change vote if:" do
+      before(:each) do
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
+        @vote = Factory(:vote, :user => @user)
+      end
+      
+      it "- has already voted" do
+        @ability.should be_can(:update, @vote)
+      end
+
+      it "- vote belongs to user" do
+        another_vote = Factory(:vote)
+        @ability.should be_can(:update, @vote)
+        @ability.should be_cannot(:update, another_vote)
+      end
+      
+      it "- before deadline of 7/3/2010" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
+        @ability.should be_can(:update, @vote)
+      end
+      
+      it "- after deadline can't vote" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
+        @ability.should be_cannot(:update, @vote)
       end
     end
     
