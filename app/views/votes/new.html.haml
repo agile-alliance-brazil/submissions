@@ -55,11 +55,11 @@
     })
     
     function confirmVote() {
-      showConfirmation("#{t('vote.confirmation')}");
+      return showConfirmation("#{t('vote.confirmation')}");
     }
     
     function confirmChange() {
-      showConfirmation("#{t('vote.change.confirmation')}");
+      return showConfirmation("#{t('vote.change.confirmation')}");
     }
 
     function showConfirmation(msg) {
