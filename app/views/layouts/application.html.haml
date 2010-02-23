@@ -6,8 +6,10 @@
       Agile Brazil 2010 -
       = (yield(:title) || t('title.untitled'))
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %link{"rel" => "shortcut icon", "href" => "/favicon.ico"}/
     = stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes', 'jquery.autocomplete', '/facebox/facebox', :cache => true
     = javascript_include_tag 'jquery-1.4.min', 'application', 'jquery.autocomplete.min', 'jquery.textarearesizer', '/facebox/facebox', :cache => true
+    
     = yield(:head)
   
   %body    
