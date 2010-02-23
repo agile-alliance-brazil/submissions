@@ -406,7 +406,7 @@ pt:
       subject: "Proposta de sessão submetida para Agile Brazil 2010"
 
   vote:
-    description: "A Agile Brazil 2010 convida os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto (cada usuário só pode votar uma vez). Basta escolher seu logotipo preferido:"
+    description: "A Agile Brazil 2010 convida os membros da comunidade para nos ajudar a escolher o logotipo do evento. Você tem até o dia 7 de Março para dar seu voto (cada usuário só pode votar uma vez). Para votar, basta escolher seu logotipo preferido dentro os apresentados abaixo. Ainda é possível alterar seu voto até a data limite de votação.<br/>Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo. Clique no logotipo desejado para selecioná-lo (e deixá-lo colorido sempre) e confirme seu voto no botão disponível. Para alterar seu voto, basta escolher outro logotipo e alterar seu voto clicando no botão.<br/>Lembre-se que o logotipo será apresentado no material do evento (impresso em cores e em preto e branco) e projetado ou usado em vídeos."
     confirmation: "Você tem certeza que quer votar no logo $LOGO? Você só pode votar uma vez."
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
