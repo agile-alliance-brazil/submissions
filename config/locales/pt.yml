@@ -266,7 +266,7 @@ pt:
       comment:
         comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
       new_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Clique no logotipo desejado para selecioná-lo (e deixá-lo colorido sempre) e confirme seu voto no botão \"Votar\"."
-      edit_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo (e deixá-lo colorido sempre) e confirme sua alteração de voto no botão \"Mudar voto\""
+      edit_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo (e deixá-lo colorido sempre) e confirme sua alteração de voto no botão \"Mudar voto\"."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
