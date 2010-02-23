@@ -6,7 +6,7 @@
 
 %p A comunidade participou do concurso de logo enviando 14 propostas. Destas, nós selecionamos as 3 melhores de acordo com os #{link_to("critérios de avaliação", "http://www.agilebrazil.com/2010/criterios.html")}. Agora é sua vez! Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)} no sistema da conferência e #{logged_in? ? link_to("vote", new_vote_path) : "vote"} no seu logo preferido. A votação ficará aberta até <strong>#{l(Date.new(2010, 3, 7))}</strong>.
 
-%p Aproveite o acesso ao sistema e #{logged_in? ? link_to("submeta uma proposta", new_session_path) : "submeta uma proposta"} ou comente #{logged_in? ? link_to("as propostas submetidas", sessions_path) : "as propostas submetidas"}.
+%p Aproveite o acesso ao sistema e #{logged_in? ? link_to("submeta uma proposta", new_session_path) : "submeta uma proposta"} ou dê o seu feedback adicionando comentários nas #{logged_in? ? link_to("propostas submetidas", sessions_path) : "propostas submetidas"}.
 
 %h1 Chamada de trabalhos para a Agile Brazil 2010
 
