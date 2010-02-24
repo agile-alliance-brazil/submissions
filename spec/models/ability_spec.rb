@@ -143,8 +143,20 @@ describe Ability do
 
     it_should_behave_like "all users"
     
-    it "can create sessions" do
-      @ability.should be_can(:create, Session)
+    describe "can create sessions if:" do
+      before(:each) do
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
+      end
+      
+      it "- before deadline of 28/2/2010" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 2, 28, 23, 59, 59))
+        @ability.should be_can(:create, Session)
+      end
+      
+      it "- after deadline author can't update" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 1, 0, 0, 0))
+        @ability.should be_cannot(:create, Session)
+      end
     end
     
     describe "can update session if:" do
