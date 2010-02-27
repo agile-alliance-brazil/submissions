@@ -148,13 +148,13 @@ describe Ability do
         Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
       end
       
-      it "- before deadline of 28/2/2010" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 2, 28, 23, 59, 59))
+      it "- before deadline of 7/3/2010" do
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
         @ability.should be_can(:create, Session)
       end
       
       it "- after deadline author can't update" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 1, 0, 0, 0))
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
         @ability.should be_cannot(:create, Session)
       end
     end
@@ -177,15 +177,15 @@ describe Ability do
         @ability.should be_can(:update, @session)
       end
       
-      it "- before deadline of 28/2/2010" do
+      it "- before deadline of 7/8/2010" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 2, 28, 23, 59, 59))
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
         @ability.should be_can(:update, @session)
       end
       
       it "- after deadline author can't update" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 1, 0, 0, 0))
+        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
         @ability.should be_cannot(:update, @session)
       end
     end

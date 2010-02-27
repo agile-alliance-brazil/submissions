@@ -26,11 +26,11 @@ class Ability
       can :manage, :all
     elsif user.author?
       can :create, Session do
-        Time.zone.now <= Time.zone.local(2010, 2, 28, 23, 59, 59)
+        Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
       end
       can :update, Session do |session|
         is_author = session.try(:author) == user || session.try(:second_author) == user
-        is_author && Time.zone.now <= Time.zone.local(2010, 2, 28, 23, 59, 59)
+        is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
       end
     end
   end
