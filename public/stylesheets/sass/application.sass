@@ -3,11 +3,11 @@
 @import grid.sass
 @import helper.sass
 
-!color1 = #d20000
-!color2 = #b8a16b
-!color3 = #d2c89c
+!color1 = #009933
+!color2 = #5ad295
+!color3 = #f7c13b
 !color4 = #ffffe0
-!color5 = #878268
+!color5 = #336699
 
 html
   :background               #ffffff url('/images/bg.png') repeat-x center top
@@ -24,14 +24,22 @@ a:hover
 #header
   +grid(12)
   :height                   90px
-  :color                    #ff9b00
+  :color                    = !color1
   :position                 relative
-  
+      
   img
     :float                  left
     :padding-right          5px
   .logo
     :float                  left
+    h1
+      :display              none
+    strong
+      :position             absolute
+      :top                  60px
+      :left                 80px
+      :color                #999999
+    
   ul#languages
     :float                  right
     :overflow               hidden
@@ -42,10 +50,10 @@ a:hover
     li + li::before
       :content              "\00a0|\00a0"
     a
-      :color                = !color3
+      :color                = !color1
       :text-decoration      none
     a:hover
-      :color                = !color3 - #222
+      :color                = !color1 - #222
       :text-decoration      underline
 
   ul#menu
@@ -61,9 +69,9 @@ a:hover
       :list-style           none
       :background-color     = !color5
       :margin               2px
-      :border               2px solid #afa57c
+      :border               = 2px solid !color3
       &.selected
-        :background-color   = !color5 - #333
+        :background-color   = !color5 + #222
         a
           :color            = !color3
       
@@ -292,7 +300,7 @@ ul.spaced
   :bottom                   0
   :color                    #fff
   :background-color         = !color5
-  :border                   2px solid #afa57c
+  :border                   = 2px solid !color3
   :text-align               center
   :font-size                14px
   :margin-bottom            6px

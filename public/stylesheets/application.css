@@ -68,10 +68,10 @@ html {
   color: #333333; }
 
 a {
-  color: #878268; }
+  color: #336699; }
 
 a:hover {
-  color: #bab59b; }
+  color: #6699cc; }
 
 .auto_focus {
   display: none; }
@@ -83,13 +83,20 @@ a:hover {
   margin-right: 10px;
   width: 940px;
   height: 90px;
-  color: #ff9b00;
+  color: #009933;
   position: relative; }
   #header img {
     float: left;
     padding-right: 5px; }
   #header .logo {
     float: left; }
+    #header .logo h1 {
+      display: none; }
+    #header .logo strong {
+      position: absolute;
+      top: 60px;
+      left: 80px;
+      color: #999999; }
   #header ul#languages {
     float: right;
     overflow: hidden; }
@@ -99,10 +106,10 @@ a:hover {
     #header ul#languages li + li::before {
       content: "\00a0|\00a0"; }
     #header ul#languages a {
-      color: #d2c89c;
+      color: #009933;
       text-decoration: none; }
     #header ul#languages a:hover {
-      color: #b0a67a;
+      color: #007711;
       text-decoration: underline; }
   #header ul#menu {
     overflow: hidden;
@@ -114,20 +121,20 @@ a:hover {
     #header ul#menu li {
       float: left;
       list-style: none;
-      background-color: #878268;
+      background-color: #336699;
       margin: 2px;
-      border: 2px solid #afa57c; }
+      border: 2px solid #f7c13b; }
       #header ul#menu li.selected {
-        background-color: #544f35; }
+        background-color: #5588bb; }
         #header ul#menu li.selected a {
-          color: #d2c89c; }
+          color: #f7c13b; }
     #header ul#menu a {
       color: #fff;
       padding: 10px;
       line-height: 25px;
       text-decoration: none; }
     #header ul#menu a:hover {
-      color: #d2c89c;
+      color: #f7c13b;
       text-decoration: underline; }
 
 #footer {
@@ -281,8 +288,8 @@ a:hover {
   #content p {
     margin: 15px 0; }
   #content h1 {
-    color: #878268;
-    border-bottom: 1px solid #878268;
+    color: #336699;
+    border-bottom: 1px solid #336699;
     margin-bottom: 10px; }
   #content h3 {
     margin-top: 15px; }
@@ -314,11 +321,11 @@ a:hover {
     #content table th {
       font-size: 1.2em;
       font-weight: normal;
-      color: #d20000;
+      color: #009933;
       padding: 10px 8px;
-      border-bottom: 2px solid #d20000; }
+      border-bottom: 2px solid #009933; }
     #content table td {
-      border-bottom: 1px solid #878268;
+      border-bottom: 1px solid #336699;
       padding: 6px 8px; }
 
 table.sessions th.session_id {
@@ -392,7 +399,7 @@ ul.spaced {
       padding: 0;
       margin-right: 2px; }
     #pagination .pagination a {
-      border: solid 1px #878268;
+      border: solid 1px #336699;
       margin-right: 2px; }
     #pagination .pagination .disabled {
       border: solid 1px #DEDEDE;
@@ -405,20 +412,20 @@ ul.spaced {
     #pagination .pagination .next_page, #pagination .pagination .prev_page {
       font-weight: bold; }
     #pagination .pagination .current {
-      background: #b8a16b;
+      background: #5ad295;
       color: #FFFFFF;
       font-weight: bold;
       display: block;
       float: left;
       padding: 4px 6px; }
     #pagination .pagination a:link, #pagination .pagination a:visited {
-      color: #b8a16b;
+      color: #5ad295;
       display: block;
       float: left;
       padding: 3px 6px;
       text-decoration: none; }
     #pagination .pagination a:hover {
-      border: solid 1px #b8a16b; }
+      border: solid 1px #5ad295; }
 
 #flash_notice, #flash_error, #flash_news {
   padding: 5px 8px;
@@ -458,8 +465,8 @@ ul.spaced {
   right: 0;
   bottom: 0;
   color: #fff;
-  background-color: #878268;
-  border: 2px solid #afa57c;
+  background-color: #336699;
+  border: 2px solid #f7c13b;
   text-align: center;
   font-size: 14px;
   margin-bottom: 6px; }
