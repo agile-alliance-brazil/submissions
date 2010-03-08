@@ -418,6 +418,8 @@ ul.spaced {
       display: block;
       float: left;
       padding: 4px 6px; }
+    #pagination .pagination span.gap {
+      float: left; }
     #pagination .pagination a:link, #pagination .pagination a:visited {
       color: #5ad295;
       display: block;
