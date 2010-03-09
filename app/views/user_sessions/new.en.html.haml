@@ -1,4 +1,4 @@
-- title "How to submit a session to Agile Brazil 2010"
+- title "Sessions proposed to Agile Brazil 2010"
 - show_actions!
 .auto_focus
 
@@ -6,19 +6,16 @@
 
 %p Agile Brazil 2010 will be held in the main campus of PUCRS, in Porto Alegre, from June 22nd to 25th, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests. <strong>Martin Fowler</strong>, ThoughtWorks' chief scientist, and <strong>Philippe Kruchten</strong>, professor at UBC in Vancouver (Canada) and also known for leading the RUP team at Rational Software, are some of the confirmed guests for the event. Start preparing #{link_to("your trip", "http://www.agilebrazil.com/2010/viagem.html")} (Portuguese).
 
-%p The organization committee is pleased to invite you to join as a speaker of this great event. Tell Brazil about your experiences, present your research and share your products and learnings! Read the #{link_to("submission guidelines", static_page_path('guidelines'))}, pay attention to the important dates and submit your proposal:
-
-%ol
-  %li Register a #{logged_in? ? "new account" : link_to("new account", signup_path)}
-  %li Propose a #{logged_in? ? link_to("session", new_session_path) : "session"}
+%p The organization committee is pleased to announce we received 150 proposals and the evaluation process should start soon. Meanwhile, you can still add comments on the proposals you liked the most.
 
 %h3 Important dates
 
 %ul
   %li #{l(Date.new(2010, 1, 31))}: Release of proposal submission form
+  %li #{l(Date.new(2010, 3, 7))}: Submission deadline
   %li
-    %strong #{l(Date.new(2010, 3, 7))}: Submission deadline
-  %li #{l(Date.new(2010, 4, 16))}: Acceptance notification
+    %strong
+      #{l(Date.new(2010, 4, 16))}: Acceptance notification
   %li #{l(Date.new(2010, 4, 30))}: Inscription deadline to selected authors
 
 %p
@@ -27,8 +24,8 @@
   <strong>Promoted by</strong>: Sucesu-RS, supported by GUMA (Agile Methods User Group)
 
 %a{:name => 'news_contest'}
-%h1 Vote for the Logo of Agile Brazil 2010!
+%h1 The Logo of Agile Brazil 2010 has been chosen!
 
-%p The Brazilian Agile community has participated in the logo contest submitting 14 logo proposals. We selected the top 3 submissions according to the #{link_to("evaluation criteria", "http://www.agilebrazil.com/2010/criterios.html")} (Portuguese). Now it's your turn! Register a #{logged_in? ? "new account" : link_to("new account", signup_path)} and #{logged_in? ? link_to("vote", new_vote_path) : "vote"} for your favorite logo. Voting will be open until <strong>#{l(Date.new(2010, 3, 7))}</strong>.
+%p Thank you all for voting. Agile Brazil's Logo has been chosen and it will soon be announced when we update the layout of our websites.
 
-%p Participate even more by #{logged_in? ? link_to("proposing your own session", new_session_path) : "proposing your own session"} or providing your feedback by adding comments to #{logged_in? ? link_to("the proposed sessions", sessions_path) : "the proposed sessions"}.
+%p Participate even more by providing your feedback by adding comments to #{logged_in? ? link_to("the proposed sessions", sessions_path) : "the proposed sessions"}.

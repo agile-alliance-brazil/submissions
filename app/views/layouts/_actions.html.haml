@@ -1,7 +1,3 @@
-#date
-  %p= t('actions.submission_date')
-  %p <strong>#{l(Date.new(2010, 3, 7))}</strong>
-
 - if logged_in?
   %h3&= current_user.full_name
 - else

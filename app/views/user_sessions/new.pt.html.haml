@@ -1,4 +1,4 @@
-- title "Chamada de trabalhos para a Agile Brazil 2010"
+- title "Trabalhos da Agile Brazil 2010"
 - show_actions!
 .auto_focus
 
@@ -6,19 +6,16 @@
 
 %p O Agile Brazil 2010 acontecerá no campus central da PUCRS, em Porto Alegre, de 22 a 25 de junho, contando com cursos, apresentação de trabalhos e relatos de experiência provenientes de várias regiões do país, alem da participação de convidados reconhecidos internacionalmente. <strong>Martin Fowler</strong>, cientista chefe da ThoughtWorks, e <strong>Philippe Kruchten</strong>, professor da UBC em Vancouver (Canadá) e conhecido também por ter liderado a equipe do RUP na Rational Software, são alguns dos nomes já confirmados para o evento. Prepare desde já a #{link_to("sua viagem", "http://www.agilebrazil.com/2010/viagem.html")}.
 
-%p A comissão organizadora gostaria de convidá-lo para participar como palestrante deste grande evento. Conte para o Brasil suas experiências, apresente suas pesquisas e compartilhe seus produtos e aprendizados! Fique atento às #{link_to("regras de submissão", static_page_path('guidelines'))} e às datas importantes e submeta sua proposta:
-
-%ol
-  %li Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)}
-  %li Proponha uma #{logged_in? ? link_to("sessão", new_session_path) : "sessão"}
+%p A comissão organizadora fica muito feliz em anunciar que recebemos 150 propostas e o processo de avaliação deve começar em breve. Enquanto isso, você ainda pode adicionar comentários para as propostas que você mais gostou.
 
 %h3 Datas importantes
 
 %ul
   %li #{l(Date.new(2010, 1, 31))}: Abertura do formulário de submissão de propostas
+  %li #{l(Date.new(2010, 3, 7))}: Submissão de propostas
   %li
-    %strong #{l(Date.new(2010, 3, 7))}: Submissão de propostas
-  %li #{l(Date.new(2010, 4, 16))}: Notificação aos autores selecionados
+    %strong 
+      #{l(Date.new(2010, 4, 16))}: Notificação aos autores selecionados
   %li #{l(Date.new(2010, 4, 30))}: Limite para inscrição no evento dos autores selecionados
   
 %p
@@ -27,10 +24,10 @@
   <strong>Promoção</strong>: Sucesu-RS, através do GUMA (Grupo de Usuários de Métodos Ágeis)
 
 %a{:name => 'news_contest'}
-%h1 Participe do Concurso do Logo - Dê o seu Voto!
+%h1 O Logo da Agile Brazil 2010 foi escolhido!
 
-%p A comunidade participou do concurso de logo enviando 14 propostas. Destas, nós selecionamos as 3 melhores de acordo com os #{link_to("critérios de avaliação", "http://www.agilebrazil.com/2010/criterios.html")}. Agora é sua vez! Crie um #{logged_in? ? "usuário" : link_to("usuário", signup_path)} no sistema da conferência e #{logged_in? ? link_to("vote", new_vote_path) : "vote"} no seu logo preferido. A votação ficará aberta até <strong>#{l(Date.new(2010, 3, 7))}</strong>.
+%p Obrigado a todos por votar. O logo da Agile Brazil foi escolhido e será anunciado em breve quando atualizarmos o layout de nossos sites.
 
-%p Aproveite o acesso ao sistema e #{logged_in? ? link_to("submeta uma proposta", new_session_path) : "submeta uma proposta"} ou dê o seu feedback adicionando comentários nas #{logged_in? ? link_to("propostas submetidas", sessions_path) : "propostas submetidas"}.
+%p Você pode participar aidna mais adicionando comentários nas #{logged_in? ? link_to("propostas submetidas", sessions_path) : "propostas submetidas"}.
 
 

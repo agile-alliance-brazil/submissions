@@ -105,8 +105,8 @@ en:
         keyword_list: "Separate keywords with commas."
       comment:
         comment: "In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-      new_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. Click on the desired logo to select it (and keep it colorful) and confirm your vote by clicking on the \"Vote\" button."
-      edit_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. To change your vote, just click on another logo to select it (and keep it colorful) and confirm your vote change by clicking on the \"Change vote\" button."
+      new_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
+      edit_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -150,7 +150,7 @@ en:
     destroy: "Remove"
     destroy_comment: "remove comment"
     cancel: "Cancel"
-    vote: "Vote now!"
+    vote: "See the logo proposals"
     section:
       session: "Sessions"
       vote: "Logo Contest"
@@ -250,7 +250,7 @@ en:
       subject: "Agile Brazil 2010 session proposal submitted"
 
   vote:
-    description: "Agile Brazil 2010 is inviting members of the community to help us choose the logo for our event. You can cast your vote until March 7th. To vote, just choose the logo you like the most among the ones presented below. Once you have voted, you can still change your vote before the deadline, but your vote will only be counted once. Only the most recent vote will count. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
+    description: "You can no longer vote or update your vote. But feel free to look at the proposals. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
     confirmation: "Are you sure you want to vote for logo $LOGO? Only your most recent vote will count."
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"

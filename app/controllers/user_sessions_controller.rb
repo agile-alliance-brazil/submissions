@@ -5,7 +5,6 @@ class UserSessionsController < InheritedResources::Base
   actions :new, :create
   
   def new
-    flash.now[:news] = t('flash.news.vote')
     new!
   end
   
