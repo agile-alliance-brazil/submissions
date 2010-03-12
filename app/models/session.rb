@@ -38,8 +38,7 @@ class Session < ActiveRecord::Base
   validates_each :second_author_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.second_author.nil?
     record.errors.add(attr, :same_author) if record.second_author == record.author
-    authorization = Ability.new(record.second_author)
-    record.errors.add(attr, :incomplete) if authorization.cannot?(:create, Session)
+    record.errors.add(attr, :incomplete) if !record.second_author.try(:author?)
   end
   validates_each :duration_mins, :if => :experience_report? do |record, attr, value|
     record.errors.add(attr, :experience_report_duration) if value != 45
