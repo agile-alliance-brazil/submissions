@@ -79,6 +79,8 @@ describe User do
   
   context "associations" do
     should_have_many :sessions, :foreign_key => 'author_id'
+    should_have_many :organizers
+    should_have_many :organized_tracks, :through => :organizers, :source => :track
   end
   
   context "named scopes" do

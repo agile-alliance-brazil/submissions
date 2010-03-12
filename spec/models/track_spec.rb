@@ -9,6 +9,8 @@ describe Track do
   
   context "associations" do
     should_have_many :sessions
+    should_have_many :track_ownerships, :class_name => 'Organizer'
+    should_have_many :organizers, :through => :track_ownerships, :source => :user
   end
 
 end

@@ -4,11 +4,38 @@ Run rake gems to list the libraries being used to build this app.
 
 For project progress and stories: http://www.pivotaltracker.com/projects/48585
 
+select votes.*, users.*, session_aggr.cnt AS first_author_count, session_aggr_2.cnt AS second_author_count, comment_aggr.cnt AS comment_count
+from votes
+inner join users on users.id = votes.user_id
+left outer join (SELECT author_id, count(*) AS cnt FROM sessions GROUP BY author_id) AS session_aggr ON session_aggr.author_id = users.id
+left outer join (SELECT second_author_id, count(*) AS cnt FROM sessions GROUP BY second_author_id) AS session_aggr_2 ON session_aggr_2.second_author_id = users.id
+left outer join (SELECT user_id, count(*) AS cnt FROM comments GROUP BY user_id) AS comment_aggr ON comment_aggr.user_id = users.id
+where user_ip IN (
+select user_ip from votes
+group by user_ip
+having count(user_ip) > 1)
+order by votes.user_ip, votes.created_at
+
 TODO:
 
+ * Organizers can invite reviewers (send e-mail)
+ * Reviewer can accept/reject invitation
+ * Organizers can view list of session on track
+ * Organizers can view list of reviewers on track
+ * Assign/re-assign reviewer to session (send e-mail)
+ * Accept/reject invitation to review a session
+ * Reviewer can view a list of sessions to review
+ * Reviewer can add a review
+ * Reviewer can edit a review
+ * Deadline for adding/editing reviews
+ * Create time slots on agenda
+ * Organizers can create program
+ * Organizers can add note before publishing reviews to author
+ * Author can see anonymous reviews
+ * Session state machine
+ --- Lower priority
  * Voting results
  * Search submissions
- * Review session (epic, needs discussion)
  * Cucumber features
  * Manage Roles (admin only)
  - Validate foreign_key references
@@ -21,6 +48,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Organizer role for a track -- Danilo
  * Changing color scheme and logo -- Danilo
  * Change vote -- Hugo
  * Voting deadline -- Danilo

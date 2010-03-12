@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
                   :phone, :state, :city, :organization, :website_url, :bio
   
   has_many :sessions, :foreign_key => 'author_id'
+  has_many :organizers
+  has_many :organized_tracks, :through => :organizers, :source => :track
   
   validates_presence_of :first_name, :last_name
   validates_presence_of [:phone, :country, :city, :bio], :unless => :guest?
