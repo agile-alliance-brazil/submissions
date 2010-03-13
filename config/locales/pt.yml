@@ -165,6 +165,10 @@ pt:
           attributes:
             logo_id:
               blank: "por favor escolha um logo para votar"
+        organizer:
+          attributes:
+            track_id:
+              taken: "usuário já organiza essa trilha"
 
   authlogic:
     error_messages:
@@ -237,6 +241,10 @@ pt:
         updated_at: "Última atualização"
       comment:
         comment: "Seu comentário"
+      organizer:
+        user_id: "Organizador"
+        user_username: "Organizador (username)"
+        track_id: "Trilha de interesse"
     hints:
       user:
         email: "Principal email de contato."
@@ -278,6 +286,8 @@ pt:
       edit_comment: "Atualizar comentário"
       add_vote: "Votar"
       change_vote: "Mudar voto"
+      create_organizer: "Adicionar organizador"
+      update_organizer: "Atualizar organizador"
   
   # Mensagens customizadas
   title:
@@ -297,6 +307,7 @@ pt:
     comments: "Comentários"
     edit_comment: "Editar comentário"
     vote: "Veja as propostas de logo"
+    edit_organizer: "Atualizar organizador"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -311,8 +322,11 @@ pt:
     destroy_comment: "remover comentário"
     cancel: "Cancelar"
     vote: "Veja as propostas"
+    manage_organizers: "Gerenciar organizadores"
+    create_organizer: "Criar novo organizador"
     section:
       session: "Sessões"
+      review: "Processo de avaliação"
       vote: "Concurso logo"
       user: "Perfil"
 
@@ -356,6 +370,11 @@ pt:
     vote:
       create:
         success: "Obrigado por votar no concurso para escolher nosso logotipo!"
+    organizer:
+      create:
+        success: "Organizador criado com sucesso."
+      update:
+        success: "Organizador atualizado com sucesso!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:

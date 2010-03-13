@@ -32,7 +32,10 @@ en:
           attributes:
             logo_id:
               blank: "please choose a logo to vote"
-
+        organizer:
+          attributes:
+            track_id:
+              taken: "already organizing this track"
   formtastic:
     titles:
       user_login: "Login details"
@@ -78,6 +81,10 @@ en:
         updated_at: "Updated"
       comment:
         comment: "Your comment"
+      organizer:
+        user_id: "Organizer"
+        user_username: "Organizer's username"
+        track_id: "Track"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -118,6 +125,8 @@ en:
       edit_comment: "Update comment"
       add_vote: "Vote"
       change_vote: "Change vote"
+      create_organizer: "Add organizer"
+      update_organizer: "Update organizer"
 
   # Custom messages
   title:
@@ -137,6 +146,7 @@ en:
     comments: "Comments"
     edit_comment: "Edit comment"
     vote: "Vote for your favorite logo"
+    edit_organizer: "Update organizer"
   
   actions:
     submission_date: "Submission deadline"
@@ -151,9 +161,12 @@ en:
     destroy_comment: "remove comment"
     cancel: "Cancel"
     vote: "See the logo proposals"
+    manage_organizers: "Manage organizers"
+    create_organizer: "Create new organizer"
     section:
       session: "Sessions"
-      vote: "Logo Contest"
+      review: "Review process"
+      vote: "Logo contest"
       user: "Profile"
   
   text:
@@ -196,6 +209,11 @@ en:
     vote:
       create:
         success: "Thank you for voting on our logo contest!"
+    organizer:
+      create:
+        success: "Organizer added successfully."
+      update:
+        success: "Organizer was successfully updated!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:

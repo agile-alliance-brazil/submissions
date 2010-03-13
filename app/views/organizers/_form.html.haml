@@ -1,0 +1,8 @@
+- form.inputs do
+  = form.input :user_username, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :track_id, :required => true, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#organizer_user_username").autocomplete("#{users_path(:format => :js)}");    
+  })

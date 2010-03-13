@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login 'login', :controller => 'user_sessions', :action => 'new'
 
   map.resources :audience_levels, :only => [:index]
+  map.resources :organizers, :except => [:show]
   map.resources :password_resets, :except => [:destroy]
   map.resources :sessions, :except => [:destroy] do |session|
     session.resources :comments, :except => [:new]

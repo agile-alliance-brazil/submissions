@@ -21,19 +21,20 @@ TODO:
  * Organizers can invite reviewers (send e-mail)
  * Reviewer can accept/reject invitation
  * Organizers can view list of session on track
- * Organizers can view list of reviewers on track
- * Assign/re-assign reviewer to session (send e-mail)
- * Accept/reject invitation to review a session
+ * Organizers can view list of reviewers
  * Reviewer can view a list of sessions to review
  * Reviewer can add a review
- * Reviewer can edit a review
+ * Display progress bar with total number of reviews
+ * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
+ --- Medium term
  * Create time slots on agenda
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
  * Author can see anonymous reviews
  * Session state machine
  --- Lower priority
+ * Reviewer can edit a review
  * Voting results
  * Search submissions
  * Cucumber features
@@ -48,6 +49,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Admin can add organizer -- Danilo
  * Organizer role for a track -- Danilo
  * Changing color scheme and logo -- Danilo
  * Change vote -- Hugo

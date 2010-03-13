@@ -1,0 +1,8 @@
+- title t('title.edit_organizer')
+- show_actions!
+.auto_focus
+  
+- semantic_form_for(@organizer) do |form|
+  = render 'form', :form => form
+  - form.buttons do
+    = form.commit_button :update_organizer, :button_html => {:tabindex => autotab}

@@ -17,6 +17,12 @@
       %li= link_to t('actions.browse_sessions'), sessions_path
     - if can? :create, Session
       %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
+      
+  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
+    %h4= t('actions.section.review')
+    %ul
+      - if can? :read, Organizer
+        %li= link_to t('actions.manage_organizers'), organizers_path
         
   %h4= t('actions.section.user')
   %ul

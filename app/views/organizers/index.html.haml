@@ -1,0 +1,27 @@
+- title t('actions.manage_organizers')
+- show_actions!
+
+%table.organizers
+  %thead
+    %tr
+      %th.organizer= t('formtastic.labels.organizer.user_id')
+      %th.track= t('formtastic.labels.organizer.track_id')
+      %th
+  %tbody
+    - @organizers.each do |organizer|
+      - content_tag_for(:tr, organizer, :class => cycle(:odd, :even)) do
+        %td.organizer
+          - if can? :update, organizer
+            = link_to h(organizer.user.full_name), edit_organizer_path(organizer)
+          - else
+            = h(organizer.user.full_name)
+        %td.track&= t(organizer.track.title)
+        %td
+          - if can? :destroy, organizer
+            = link_to t('actions.destroy'), organizer_path(organizer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
+
+- if @organizers.total_pages > 1
+  #pagination= will_paginate(@organizers)
+
+- if can? :create, Organizer
+  = link_to t('actions.create_organizer'), new_organizer_path
