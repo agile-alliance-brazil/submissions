@@ -24,13 +24,18 @@ class Ability
     
     if user.admin?
       can :manage, :all
-    elsif user.author?
-      can :create, Session do
-        Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+    else
+      if user.author?
+        can :create, Session do
+          Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+        end
+        can :update, Session do |session|
+          is_author = session.try(:author) == user || session.try(:second_author) == user
+          is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+        end
       end
-      can :update, Session do |session|
-        is_author = session.try(:author) == user || session.try(:second_author) == user
-        is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+      if user.organizer?
+        can :manage, Reviewer
       end
     end
   end

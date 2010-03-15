@@ -190,4 +190,17 @@ describe Ability do
       end
     end
   end
+
+  context "- organizer" do
+    before(:each) do
+      @user.add_role "organizer"
+      @ability = Ability.new(@user)
+    end
+
+    it_should_behave_like "all users"
+    
+    it "can manage reviewer" do
+      @ability.should be_can(:manage, Reviewer)
+    end
+  end
 end

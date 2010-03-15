@@ -1,0 +1,7 @@
+- form.inputs do
+  = form.input :user_username, :required => true, :input_html => {:tabindex => autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#reviewer_user_username").autocomplete("#{users_path(:format => :js)}");    
+  })

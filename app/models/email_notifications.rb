@@ -31,6 +31,16 @@ class EmailNotifications < ActionMailer::Base
     
     multipart_content_for(:session_submitted, :session => session)
   end
+  
+  def reviewer_invitation(reviewer, sent_at = Time.now)
+    subject       "[#{host}] #{I18n.t('email.reviewer_invitation.subject')}"
+    recipients    "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>"
+    from          "\"Agile Brazil 2010\" <no-reply@#{host}>"
+    reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
+    sent_on       sent_at
+    
+    multipart_content_for(:reviewer_invitation, :reviewer => reviewer)
+  end
 
   private
   def host

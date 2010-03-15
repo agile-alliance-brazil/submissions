@@ -85,6 +85,10 @@ en:
         user_id: "Organizer"
         user_username: "Organizer's username"
         track_id: "Track"
+      reviewer:
+        user_id: "Reviewer"
+        user_username: "Reviewer's username"
+        state: "Status"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -112,6 +116,8 @@ en:
         keyword_list: "Separate keywords with commas."
       comment:
         comment: "In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+      reviewer:
+        user_username: "Please provide the reviewer's username in this field."
       new_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
       edit_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
     actions:
@@ -127,6 +133,7 @@ en:
       change_vote: "Change vote"
       create_organizer: "Add organizer"
       update_organizer: "Update organizer"
+      create_reviewer: "Invite reviewer"
 
   # Custom messages
   title:
@@ -163,6 +170,8 @@ en:
     vote: "See the logo proposals"
     manage_organizers: "Manage organizers"
     create_organizer: "Create new organizer"
+    manage_reviewers: "Manage reviewers"
+    create_reviewer: "Invite reviewer"
     section:
       session: "Sessions"
       review: "Review process"
@@ -214,6 +223,9 @@ en:
         success: "Organizer added successfully."
       update:
         success: "Organizer was successfully updated!"
+    reviewer:
+      create:
+        success: "Reviewer invited."
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:
@@ -273,7 +285,14 @@ en:
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"
     current_vote: "Thank you for voting! Your current vote is for logo {{logo}}."
-    
+  
+  reviewer:
+    state:
+      created: "Created"
+      invited: "Invited"
+      accepted: "Active"
+      rejected: "Rejected invitation"
+
   generic:
     or: "or"
     ago: "ago"

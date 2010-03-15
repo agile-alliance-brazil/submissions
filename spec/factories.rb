@@ -65,3 +65,7 @@ Factory.define :organizer do |o|
   o.association :user
   o.association :track
 end
+
+Factory.define :reviewer do |r|
+  r.association :user
+end

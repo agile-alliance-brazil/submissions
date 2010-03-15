@@ -8,6 +8,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :audience_levels, :only => [:index]
   map.resources :organizers, :except => [:show]
   map.resources :password_resets, :except => [:destroy]
+  map.resources :reviewers, :only => [:index, :new, :create, :destroy] do |reviewer|
+    reviewer.resource :accept, :only => [:show, :create]
+    reviewer.resource :reject, :only => [:show, :create]
+  end
   map.resources :sessions, :except => [:destroy] do |session|
     session.resources :comments, :except => [:new]
   end

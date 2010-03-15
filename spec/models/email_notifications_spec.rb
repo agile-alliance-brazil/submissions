@@ -68,4 +68,19 @@ describe EmailNotifications do
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
     end
   end
+
+  context "reviewer invitation" do
+    before(:each) do
+      @reviewer = Factory.build(:reviewer, :id => 3)
+    end
+    
+    it "should include link with invitation" do
+      mail = EmailNotifications.deliver_reviewer_invitation(@reviewer)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@reviewer.user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /\/reviewers\/3\/accept/
+  	  mail.body.should =~ /\/reviewers\/3\/reject/
+    end
+  end
 end

@@ -23,6 +23,8 @@
     %ul
       - if can? :read, Organizer
         %li= link_to t('actions.manage_organizers'), organizers_path
+      - if can? :read, Reviewer
+        %li= link_to t('actions.manage_reviewers'), reviewers_path
         
   %h4= t('actions.section.user')
   %ul

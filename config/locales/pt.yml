@@ -245,6 +245,10 @@ pt:
         user_id: "Organizador"
         user_username: "Organizador (username)"
         track_id: "Trilha de interesse"
+      reviewer:
+        user_id: "Avaliador"
+        user_username: "Avaliador (username)"
+        state: "Status"
     hints:
       user:
         email: "Principal email de contato."
@@ -275,6 +279,8 @@ pt:
         comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
       new_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo e deixá-lo colorido sempre."
       edit_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo e deixá-lo colorido sempre."
+      reviewer:
+        user_username: "Digite o nome de usuário do avaliador neste campo."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -288,6 +294,7 @@ pt:
       change_vote: "Mudar voto"
       create_organizer: "Adicionar organizador"
       update_organizer: "Atualizar organizador"
+      create_reviewer: "Convidar avaliador"
   
   # Mensagens customizadas
   title:
@@ -324,6 +331,8 @@ pt:
     vote: "Veja as propostas"
     manage_organizers: "Gerenciar organizadores"
     create_organizer: "Criar novo organizador"
+    manage_reviewers: "Gerenciar avaliadores"
+    create_reviewer: "Convidar novo avaliador"
     section:
       session: "Sessões"
       review: "Processo de avaliação"
@@ -375,6 +384,9 @@ pt:
         success: "Organizador criado com sucesso."
       update:
         success: "Organizador atualizado com sucesso!"
+    reviewer:
+      create:
+        success: "Avaliador convidado."
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
@@ -434,6 +446,13 @@ pt:
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
     current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
+
+  reviewer:
+    state:
+      created: "Criado"
+      invited: "Convite enviado"
+      accepted: "Ativo"
+      rejected: "Convite rejeitado"
   
   generic:
     or: "ou"
