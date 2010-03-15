@@ -439,6 +439,8 @@ pt:
       subject: "Recuperação de senha"
     session_submitted:
       subject: "Proposta de sessão submetida para Agile Brazil 2010"
+    reviewer_invitation:
+      subject: "Convite para equipe de avaliação da Agile Brazil 2010"
 
   vote:
     description: "A votação para o logotipo da Agile Brazil 2010 terminou. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
