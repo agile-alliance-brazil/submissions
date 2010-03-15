@@ -134,6 +134,8 @@ en:
       create_organizer: "Add organizer"
       update_organizer: "Update organizer"
       create_reviewer: "Invite reviewer"
+      reject_reviewer: "Reject invitation"
+      accept_reviewer: "Accept invitation"
 
   # Custom messages
   title:
@@ -168,9 +170,9 @@ en:
     destroy_comment: "remove comment"
     cancel: "Cancel"
     vote: "See the logo proposals"
-    manage_organizers: "Manage organizers"
+    manage_organizers: "Organizers"
     create_organizer: "Create new organizer"
-    manage_reviewers: "Manage reviewers"
+    manage_reviewers: "Reviewers"
     create_reviewer: "Invite reviewer"
     section:
       session: "Sessions"
@@ -226,6 +228,9 @@ en:
     reviewer:
       create:
         success: "Reviewer invited."
+      reject:
+        success: "Your invitation was rejected. Thanks for your prompt reply."
+        failure: "Your invitation is already {{status}}."
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:

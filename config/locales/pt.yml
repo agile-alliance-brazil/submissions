@@ -295,6 +295,8 @@ pt:
       create_organizer: "Adicionar organizador"
       update_organizer: "Atualizar organizador"
       create_reviewer: "Convidar avaliador"
+      reject_reviewer: "Rejeitar convite"
+      accept_reviewer: "Aceitar convite"
   
   # Mensagens customizadas
   title:
@@ -329,9 +331,9 @@ pt:
     destroy_comment: "remover comentário"
     cancel: "Cancelar"
     vote: "Veja as propostas"
-    manage_organizers: "Gerenciar organizadores"
+    manage_organizers: "Organizadores"
     create_organizer: "Criar novo organizador"
-    manage_reviewers: "Gerenciar avaliadores"
+    manage_reviewers: "Avaliadores"
     create_reviewer: "Convidar novo avaliador"
     section:
       session: "Sessões"
@@ -387,6 +389,9 @@ pt:
     reviewer:
       create:
         success: "Avaliador convidado."
+      reject:
+        success: "Seu convite foi rejeitado. Obrigado por responder prontamente."
+        failure: "Seu convite já está {{status}}."
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:

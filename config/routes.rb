@@ -9,8 +9,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organizers, :except => [:show]
   map.resources :password_resets, :except => [:destroy]
   map.resources :reviewers, :only => [:index, :new, :create, :destroy] do |reviewer|
-    reviewer.resource :accept, :only => [:show, :create]
-    reviewer.resource :reject, :only => [:show, :create]
+    reviewer.resource :accept, :only => [:show, :update], :controller => :accept_reviewers
+    reviewer.resource :reject, :only => [:show, :update], :controller => :reject_reviewers
   end
   map.resources :sessions, :except => [:destroy] do |session|
     session.resources :comments, :except => [:new]
