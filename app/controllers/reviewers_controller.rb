@@ -1,6 +1,4 @@
 class ReviewersController < InheritedResources::Base
-  before_filter :login_required
-  
   actions :index, :new, :create, :destroy
   respond_to :html
   

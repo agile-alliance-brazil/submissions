@@ -1,0 +1,5 @@
+- semantic_form_for @reviewer, :url => reviewer_accept_path(@reviewer) do |form|
+  - form.buttons do
+    = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
+    = t('generic.or')
+    = link_to t('formtastic.actions.reject_reviewer'), reviewer_reject_path(@reviewer)

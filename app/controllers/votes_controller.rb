@@ -1,6 +1,4 @@
 class VotesController < InheritedResources::Base
-  before_filter :login_required
-  
   actions :new, :create, :update
   respond_to :html
   

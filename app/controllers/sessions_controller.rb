@@ -1,6 +1,4 @@
 class SessionsController < InheritedResources::Base
-  before_filter :login_required
-  
   actions :all, :except => [:destroy]
   has_scope :for_user, :only => :index, :as => 'user_id'
   before_filter :load_user

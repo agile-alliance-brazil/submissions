@@ -18,7 +18,7 @@ order by votes.user_ip, votes.created_at
 
 TODO:
 
- * Reviewer can accept/reject invitation
+ * Reviewer provides preferences when accepting invitation
  * Organizers can view list of session on track
  * Organizers can view list of reviewers
  * Reviewer can view a list of sessions to review
@@ -48,6 +48,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Reviewer can accept/reject invitation -- Danilo
  * Organizers can remove reviewer -- Danilo
  * Organizers can invite reviewers (send e-mail) -- Danilo
  * Admin can manage organizers -- Danilo

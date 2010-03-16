@@ -1,4 +1,5 @@
 class UserSessionsController < InheritedResources::Base
+  skip_before_filter :login_required
   before_filter :login_required, :only => :destroy
   before_filter :logout_required, :only => :create
 

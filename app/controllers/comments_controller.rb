@@ -1,6 +1,4 @@
 class CommentsController < InheritedResources::Base
-  before_filter :login_required
-
   belongs_to :session
   
   actions :all, :except => [:new]

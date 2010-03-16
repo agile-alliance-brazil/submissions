@@ -1,6 +1,4 @@
 class OrganizersController < InheritedResources::Base
-  before_filter :login_required
-  
   actions :index, :new, :create, :update, :edit, :destroy
   respond_to :html
   

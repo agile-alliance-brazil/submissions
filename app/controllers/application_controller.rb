@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_timezone
+  before_filter :login_required
   before_filter :authorize_action
   
   rescue_from CanCan::AccessDenied do |exception|

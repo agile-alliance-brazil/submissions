@@ -1,4 +1,5 @@
 class PasswordResetsController < ApplicationController
+  skip_before_filter :login_required
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :logout_required
 

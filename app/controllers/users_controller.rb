@@ -1,4 +1,5 @@
 class UsersController < InheritedResources::Base
+  skip_before_filter :login_required
   before_filter :logout_required, :only => [:new, :create]
   before_filter :login_required, :only => [:edit, :update]
   has_scope :search, :only => :index, :as => 'q'
