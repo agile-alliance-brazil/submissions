@@ -3,6 +3,11 @@
 
 %p Olá #{@reviewer.user.full_name},
 
-%p Obrigado por considerar fazer parte da equipe de avaliação da Agile Brazil 2010. Por favor confirme sua decisão:
+%p Obrigado por considerar fazer parte da equipe de avaliação da Agile Brazil 2010. Para confirmar sua participação, por favor escolha as trilhas nas quais se julga apto a avaliar trabalhos, assim como seu nível de conhecimento na respectiva trilha:
 
-= render 'form'
+- content_for :agreement do
+  Eu declaro aceitar
+  * Item 1
+  * Item 2
+
+= render 'accept_reviewers/form'

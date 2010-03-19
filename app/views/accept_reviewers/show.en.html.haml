@@ -3,6 +3,11 @@
 
 %p Dear #{@reviewer.user.full_name},
 
-%p Thanks for considering being part of the review committee for Agile Brazil 2010. Please confirm your choice:
+%p Thanks for considering being part of the review committee for Agile Brazil 2010. To confirm your participation, please choose the tracks that you would be comfortable to review, as well as rating your own knowledge level on each selected track:
 
-= render 'form'
+- content_for :agreement do
+  I declare that I accept:
+  * Item 1
+  * Item 2
+    
+= render 'accept_reviewers/form'

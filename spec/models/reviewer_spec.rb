@@ -8,6 +8,9 @@ describe Reviewer do
   context "protect from mass assignment" do
     should_allow_mass_assignment_of :user_id
     should_allow_mass_assignment_of :user_username
+    should_allow_mass_assignment_of :preferences_attributes
+    should_allow_mass_assignment_of :reviewer_agreement
+    should_allow_mass_assignment_of :state_event
   
     should_not_allow_mass_assignment_of :evil_attr
   end
@@ -25,6 +28,20 @@ describe Reviewer do
       reviewer.user_id = 0
       reviewer.should_not be_valid
       reviewer.errors.on(:user).should == "não existe"
+    end
+    
+    it "should validate that at least 1 preference was accepted" do
+      reviewer = Factory(:reviewer)
+      reviewer.preferences.build(:accepted => false)
+      reviewer.accept.should be_false
+      reviewer.errors.on(:base).should == "pelo menos uma trilha deve ser aceita"
+    end
+
+    it "should validate that reviewer agreement was accepted" do
+      reviewer = Factory(:reviewer, :reviewer_agreement => false)
+      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+      reviewer.accept.should be_false
+      reviewer.errors.on(:reviewer_agreement).should == "deve ser aceito"
     end
     
     it "should copy user errors to user_username" do
@@ -49,6 +66,9 @@ describe Reviewer do
   
   context "associations" do
     should_belong_to :user
+    should_have_many :preferences
+    
+    should_accept_nested_attributes_for :preferences
 
     context "user association by username" do
       before(:each) do
@@ -127,6 +147,7 @@ describe Reviewer do
       end
       
       it "should allow accepting" do
+        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
         @reviewer.accept.should be_true
         @reviewer.should_not be_invited
         @reviewer.should be_accepted
@@ -142,6 +163,7 @@ describe Reviewer do
     context "State: accepted" do
       before(:each) do
         @reviewer.invite
+        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
         @reviewer.accept
         @reviewer.should be_accepted
       end
@@ -203,6 +225,7 @@ describe Reviewer do
       reviewer = Factory(:reviewer, :user => @user)
       reviewer.invite
       @user.should_not be_reviewer
+      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
       @user.should be_reviewer
       @user.reload.should be_reviewer
@@ -211,6 +234,7 @@ describe Reviewer do
     it "should remove organizer role after destroyed" do
       reviewer = Factory(:reviewer, :user => @user)
       reviewer.invite
+      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
       @user.should be_reviewer
       reviewer.destroy

@@ -114,6 +114,7 @@ describe Ability do
       Factory(:vote, :user => @user)
       @ability.should be_can(:new, Vote)
     end
+    
   end
 
   context "- all users (guests)" do
@@ -122,6 +123,26 @@ describe Ability do
     end
 
     it_should_behave_like "all users"
+    
+    describe "can update reviewer if:" do
+      before(:each) do
+        @reviewer = Factory(:reviewer, :user => @user)
+        @reviewer.invite
+      end
+      
+      it "- user is the same" do
+        @ability.should be_can(:update, @reviewer)
+        @reviewer.user = nil
+        @ability.should be_cannot(:update, @reviewer)
+      end
+      
+      it "- reviewer is in invited state" do
+        @ability.should be_can(:update, @reviewer)
+        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+        @reviewer.accept
+        @ability.should be_cannot(:update, @reviewer)
+      end
+    end
   end
   
   context "- admin" do
@@ -202,5 +223,14 @@ describe Ability do
     it "can manage reviewer" do
       @ability.should be_can(:manage, Reviewer)
     end
+  end
+
+  context "- reviewer" do
+    before(:each) do
+      @user.add_role "reviewer"
+      @ability = Ability.new(@user)
+    end
+
+    it_should_behave_like "all users"    
   end
 end

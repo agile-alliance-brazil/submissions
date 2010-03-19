@@ -3,7 +3,7 @@ require 'spec/spec_helper'
 describe AcceptReviewersController do
   integrate_views
 
-  it_should_require_login_for_actions :show, :update
+  it_should_require_login_for_actions :show
 
   before(:each) do
     @user = Factory(:user)
@@ -18,17 +18,14 @@ describe AcceptReviewersController do
     response.should render_template(:show)
   end
   
-  it "update action should render show template when transition is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    @reviewer.expects(:accept).returns(false)
-    put :update, :reviewer_id => @reviewer.id
-    response.should render_template(:show)
+  it "show action should populate preferences for each track when empty" do
+    get :show, :reviewer_id => @reviewer.id
+    assigns[:reviewer].preferences.size.should == Track.count
   end
-  
-  it "update action should redirect when transition is valid" do
-    put :update, :reviewer_id => @reviewer.id
-    response.should redirect_to(root_path)
+
+  it "show action should keep preferences when already present" do
+    @reviewer.preferences.build(:track_id => Track.first.id)
+    get :show, :reviewer_id => @reviewer.id
+    assigns[:reviewer].preferences.size.should == 1
   end
 end

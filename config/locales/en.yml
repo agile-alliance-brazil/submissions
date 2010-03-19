@@ -36,6 +36,9 @@ en:
           attributes:
             track_id:
               taken: "already organizing this track"
+        reviewer:
+          preferences: "at least one track has to be accepted"
+            
   formtastic:
     titles:
       user_login: "Login details"
@@ -89,6 +92,9 @@ en:
         user_id: "Reviewer"
         user_username: "Reviewer's username"
         state: "Status"
+        reviewer_agreement: "I accept the terms of this agreement"
+      preference:
+        audience_level_id: "Knowledge level"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -231,6 +237,8 @@ en:
       reject:
         success: "Your invitation was rejected. Thanks for your prompt reply."
         failure: "Your invitation is already {{status}}."
+      accept:
+        success: "Your invitation was accepted. Thanks for your prompt reply."
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:

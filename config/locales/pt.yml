@@ -169,6 +169,8 @@ pt:
           attributes:
             track_id:
               taken: "usuário já organiza essa trilha"
+        reviewer:
+          preferences: "pelo menos uma trilha deve ser aceita"
 
   authlogic:
     error_messages:
@@ -249,6 +251,9 @@ pt:
         user_id: "Avaliador"
         user_username: "Avaliador (username)"
         state: "Status"
+        reviewer_agreement: "Eu declaro aceitar os termos deste compromisso"
+      preference:
+        audience_level_id: "Nível de conhecimento"
     hints:
       user:
         email: "Principal email de contato."
@@ -392,6 +397,8 @@ pt:
       reject:
         success: "Seu convite foi rejeitado. Obrigado por responder prontamente."
         failure: "Seu convite já está {{status}}."
+      accept:
+        success: "Seu convite foi aceito. Obrigado por responder prontamente."
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
