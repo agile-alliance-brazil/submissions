@@ -160,6 +160,8 @@ describe Session do
   
   context "named scopes" do
     should_have_scope :for_user, :conditions => ['author_id = ? OR second_author_id = ?', 3, 3], :with => '3'
+
+    should_have_scope :for_tracks, :conditions => ['track_id IN (?)', [1, 2]], :with => [1, 2]
   end
   
   it "should determine if it's workshop" do
@@ -203,6 +205,63 @@ describe Session do
       session = Factory(:session)
       session.author = nil
       session.authors.should be_empty
+    end
+  end
+  
+  context "state machine" do
+    before(:each) do
+      @session = Factory.build(:session)
+    end
+    
+    context "State: created" do
+      it "should be the initial state" do
+        @session.should be_created
+      end
+      
+      it "should allow reviewing" do
+        @session.reviewing.should be_true
+        @session.should_not be_created
+        @session.should be_in_review
+      end
+
+      it "should allow cancel" do
+        @session.cancel.should be_true
+        @session.should_not be_created
+        @session.should be_cancelled
+      end
+    end
+    
+    context "State: in review" do
+      before(:each) do
+        @session.reviewing
+        @session.should be_in_review
+      end
+      
+      it "should allow reviewing again" do
+        @session.reviewing.should be_true
+        @session.should be_in_review
+      end
+      
+      it "should allow cancel" do
+        @session.cancel.should be_true
+        @session.should_not be_in_review
+        @session.should be_cancelled
+      end
+    end
+
+    context "State: cancelled" do
+      before(:each) do
+        @session.cancel
+        @session.should be_cancelled
+      end
+      
+      it "should not allow reviewing" do
+        @session.reviewing.should be_false
+      end
+      
+      it "should not allow cancelling" do
+        @session.cancel.should be_false
+      end
     end
   end
   

@@ -59,5 +59,17 @@ describe SessionsController do
     put :update, :id => Session.first
     response.should redirect_to(session_path(assigns[:session]))
   end
+
+  it "cancel action should cancel and redirect to organizer sessions" do
+    delete :cancel, :id => Session.first
+    response.should redirect_to(organizer_sessions_path)
+  end
   
+  it "cancel action should redirect to organizer sessions with error" do
+    session = Factory(:session)
+    session.cancel
+    delete :cancel, :id => session
+    response.should redirect_to(organizer_sessions_path)
+    flash[:error].should == "Sessão já está cancelada."
+  end
 end

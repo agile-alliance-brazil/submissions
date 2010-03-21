@@ -223,6 +223,26 @@ describe Ability do
     it "can manage reviewer" do
       @ability.should be_can(:manage, Reviewer)
     end
+    
+    it "cannot read organizers" do
+      @ability.should be_cannot(:read, Organizer)
+    end
+    
+    it "can read sessions to organize" do
+      @ability.should be_can(:index, 'organizer_sessions')
+    end
+    
+    context "can cancel session if:" do
+      before(:each) do
+        @session = Factory(:session)
+      end
+      
+      it "- session on organizer's track" do
+        @ability.should be_cannot(:cancel, @session)
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:cancel, @session)
+      end
+    end
   end
 
   context "- reviewer" do
@@ -231,6 +251,18 @@ describe Ability do
       @ability = Ability.new(@user)
     end
 
-    it_should_behave_like "all users"    
+    it_should_behave_like "all users"
+    
+    it "cannot read organizers" do
+      @ability.should be_cannot(:read, Organizer)
+    end
+
+    it "cannot read other reviewers" do
+      @ability.should be_cannot(:read, Reviewer)
+    end
+    
+    it "cannot read organizer's sessions" do
+      @ability.should be_cannot(:read, 'organizer_sessions')
+    end
   end
 end

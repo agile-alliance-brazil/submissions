@@ -1,0 +1,34 @@
+- title t('title.organizer_sessions')
+- show_actions!
+
+%table.sessions
+  %thead
+    %tr
+      %th.session_id ID
+      %th.title= t('formtastic.labels.session.title')
+      %th.author= t('formtastic.labels.session.author_id')
+      %th.author= t('formtastic.labels.session.second_author_id')
+      %th.track= t('formtastic.labels.session.track_id')
+      %th.state= t('formtastic.labels.session.state')
+      %th.action
+  %tbody
+    - @sessions.each do |session|
+      - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+        %td.session_id= session.id
+        %td.title
+          = link_to h(session.try(:title)), session_path(session)
+          - if session.comments.size > 0
+            .commentCount= session.comments.size
+        %td.author= link_to h(session.author.full_name), user_path(session.author)
+        %td.author
+          - if session.second_author
+            = link_to h(session.second_author.full_name), user_path(session.second_author)
+        %td.track
+          = t(session.track.title)
+        %td.state&= t("session.state.#{session.state}")
+        %td.action
+          - if can? :cancel, session
+            = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
+
+- if @sessions.total_pages > 1
+  #pagination= will_paginate(@sessions)

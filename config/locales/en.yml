@@ -82,6 +82,7 @@ en:
         second_author_username: "Second author's username"
         keyword_list: "Keywords"
         updated_at: "Updated"
+        state: "Status"
       comment:
         comment: "Your comment"
       organizer:
@@ -162,6 +163,7 @@ en:
     edit_comment: "Edit comment"
     vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
+    organizer_sessions: "Track organized sessions"
   
   actions:
     submission_date: "Submission deadline"
@@ -180,6 +182,7 @@ en:
     create_organizer: "Create new organizer"
     manage_reviewers: "Reviewers"
     create_reviewer: "Invite reviewer"
+    organizer_sessions: "Track organized sessions"
     section:
       session: "Sessions"
       review: "Review process"
@@ -223,6 +226,8 @@ en:
         success: "Session was successfully updated!"
       create:
         success: "Session submited successfully."
+      cancel:
+        failure: "Session already canceled."
     vote:
       create:
         success: "Thank you for voting on our logo contest!"
@@ -307,6 +312,12 @@ en:
       invited: "Invited"
       accepted: "Active"
       rejected: "Rejected invitation"
+
+  session:
+    state:
+      created: "Created"
+      in_review: "In review"
+      cancelled: "Cancelled"
 
   generic:
     or: "or"

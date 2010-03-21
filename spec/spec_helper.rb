@@ -6,6 +6,7 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'remarkable_rails'
 require 'authlogic/test_case'
+require 'mocha/standalone'
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'

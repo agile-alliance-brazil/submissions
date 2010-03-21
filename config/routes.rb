@@ -7,12 +7,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :audience_levels, :only => [:index]
   map.resources :organizers, :except => [:show]
+  map.resources :organizer_sessions, :only => [:index]
   map.resources :password_resets, :except => [:destroy]
   map.resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do |reviewer|
     reviewer.resource :accept, :only => [:show], :controller => :accept_reviewers
     reviewer.resource :reject, :only => [:show, :update], :controller => :reject_reviewers
   end
-  map.resources :sessions, :except => [:destroy] do |session|
+  map.resources :sessions, :except => [:destroy], :member => {:cancel => :delete} do |session|
     session.resources :comments, :except => [:new]
   end
   map.resources :session_types, :only => [:index]

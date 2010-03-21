@@ -30,7 +30,12 @@ class SessionsController < InheritedResources::Base
         render :edit
       end
     end
-  end  
+  end
+  
+  def cancel
+    flash[:error] = t('flash.session.cancel.failure') unless resource.cancel
+    redirect_to organizer_sessions_path
+  end
   
   protected
   

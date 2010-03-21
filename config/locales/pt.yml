@@ -241,6 +241,7 @@ pt:
         second_author_username: "Segundo autor (username)"
         keyword_list: "Palavras-chave"
         updated_at: "Última atualização"
+        state: "Status"
       comment:
         comment: "Seu comentário"
       organizer:
@@ -322,6 +323,7 @@ pt:
     edit_comment: "Editar comentário"
     vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
+    organizer_sessions: "Organizar sessões"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -340,6 +342,7 @@ pt:
     create_organizer: "Criar novo organizador"
     manage_reviewers: "Avaliadores"
     create_reviewer: "Convidar novo avaliador"
+    organizer_sessions: "Organizar sessões"
     section:
       session: "Sessões"
       review: "Processo de avaliação"
@@ -383,6 +386,8 @@ pt:
         success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
+      cancel:
+        failure: "Sessão já está cancelada."
     vote:
       create:
         success: "Obrigado por votar no concurso para escolher nosso logotipo!"
@@ -467,7 +472,13 @@ pt:
       invited: "Convite enviado"
       accepted: "Ativo"
       rejected: "Convite rejeitado"
-  
+
+  session:
+    state:
+      created: "Criada"
+      in_review: "Em avaliação"
+      cancelled: "Cancelada"
+
   generic:
     or: "ou"
     ago: "atrás"

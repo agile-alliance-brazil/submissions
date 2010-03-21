@@ -18,7 +18,6 @@ order by votes.user_ip, votes.created_at
 
 TODO:
 
- * Organizers can view list of session on track
  * Organizers can view list of reviewers
  * Reviewer can view a list of sessions to review
  * Reviewer can add a review
@@ -47,6 +46,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Organizers can view list of session on track -- Danilo
+ * Organizer can cancel session on his/her track -- Danilo
  * Javascript enhancements on user invitation preferences page -- Danilo
  * Reviewer provides preferences when accepting invitation -- Danilo
  * Reviewer can accept/reject invitation -- Danilo

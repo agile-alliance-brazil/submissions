@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100316111713) do
+ActiveRecord::Schema.define(:version => 20100320224628) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20100316111713) do
     t.integer  "duration_mins"
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
+    t.string   "state"
   end
 
   create_table "taggings", :force => true do |t|

@@ -25,6 +25,8 @@
         %li= link_to t('actions.manage_organizers'), organizers_path
       - if can? :read, Reviewer
         %li= link_to t('actions.manage_reviewers'), reviewers_path
+      - if can? :index, 'organizer_sessions'
+        %li= link_to t('actions.organizer_sessions'), organizer_sessions_path
         
   %h4= t('actions.section.user')
   %ul

@@ -50,7 +50,23 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :constant) if record.author_id_changed?
   end
   
-  named_scope :for_user, lambda { |u| {:conditions => ['author_id = ? OR second_author_id = ?', u.to_i, u.to_i]}}
+  named_scope :for_user, lambda { |u|
+    {:conditions => ['author_id = ? OR second_author_id = ?', u.to_i, u.to_i]}
+  }
+  
+  named_scope :for_tracks, lambda { |track_ids| 
+    {:conditions => ['track_id IN (?)', track_ids]}
+  }
+
+  state_machine :initial => :created do
+    event :reviewing do
+      transition [:created, :in_review] => :in_review
+    end
+
+    event :cancel do
+      transition all - [:cancelled] => :cancelled
+    end
+  end
   
   def second_author_username
     @second_author_username || second_author.try(:username)
