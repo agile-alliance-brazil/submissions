@@ -1,0 +1,44 @@
+- title t('title.new_review', :session => @review.session)
+- show_actions!
+.auto_focus
+  
+- semantic_form_for(@review) do |form|
+  - form.inputs do
+    = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
+    = form.input :session_id, :as => :hidden, :input_html => {:tabindex => autotab}
+  - form.inputs :author do
+    = form.input :author_agile_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+    = form.input :author_proposal_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+  - form.inputs :proposal do
+    = form.input :proposal_track, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    = form.input :proposal_level, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    = form.input :proposal_type, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    = form.input :proposal_duration, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    = form.input :proposal_limit, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    = form.input :proposal_abstract, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+  - form.inputs :work do
+    = form.input :proposal_quality_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+    = form.input :proposal_relevance_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+  - form.inputs :conclusion do
+    = form.input :recommendation, :required => true, :collection => Recommendation.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+    = form.input :justification, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
+  - form.inputs :to_organizers do
+    = form.input :reviewer_confidence_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+    = form.input :comments_to_organizers, :required => true, :input_html => {:rows => 3, :tabindex => autotab}
+  - form.inputs :to_authors do
+    = form.input :comments_to_authors, :required => true, :input_html => {:rows => 3, :tabindex => autotab}
+  - form.buttons do
+    = form.commit_button :submit_review, :button_html => {:tabindex => autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#review_recommendation").trigger('updated');
+  })
+  
+  function recommentationActions() {
+    if ($(this).val() === "1") {
+      $("#review_justification").show();
+    } else {
+      $("#review_justification").hide();
+    }
+  }

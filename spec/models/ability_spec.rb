@@ -304,5 +304,9 @@ describe Ability do
     it "can read sessions to review" do
       @ability.should be_can(:read, 'reviewer_sessions')
     end
+    
+    it "can create a new review" do
+      @ability.should be_can(:create, Review)
+    end
   end
 end

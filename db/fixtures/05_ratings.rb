@@ -14,6 +14,6 @@ Rating.seed do |rating|
 end
 
 Rating.seed do |rating|
-  rating.id = 1
+  rating.id = 4
   rating.title = 'rating.none.title'
 end
