@@ -467,7 +467,27 @@ pt:
       invited: "Convite enviado"
       accepted: "Ativo"
       rejected: "Convite rejeitado"
-  
+
+  rating:
+    high:
+      title: "Alta"
+    medium:
+      title: "Média"
+    low:
+      title: "Baixa"
+    none:
+      title: "Nenhuma"
+
+  recommendation:
+    strong_accept:
+      title: "Aceitação forte (sem restrições)"
+    weak_accept:
+      title: "Aceitação fraca (com restrições)"
+    weak_reject:
+      title: "Rejeição fraca (posso mudar de opinião)"
+    strong_reject:
+      title: "Rejeição forte (não mudarei de opinião)"
+
   generic:
     or: "ou"
     ago: "atrás"

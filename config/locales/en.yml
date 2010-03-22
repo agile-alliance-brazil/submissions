@@ -308,6 +308,26 @@ en:
       accepted: "Active"
       rejected: "Rejected invitation"
 
+  rating:
+    high:
+      title: "High"
+    medium:
+      title: "Medium"
+    low:
+      title: "Low"
+    none:
+      title: "None"
+
+  recommendation:
+    strong_accept:
+      title: "Strong acceptance (no restrictions)"
+    weak_accept:
+      title: "Weak acceptance (some restrictions apply)"
+    weak_reject:
+      title: "Weak rejection (I could change my mind)"
+    strong_reject:
+      title: "Strong rejection (Won't change my mind)"
+
   generic:
     or: "or"
     ago: "ago"
