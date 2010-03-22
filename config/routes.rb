@@ -13,10 +13,10 @@ ActionController::Routing::Routes.draw do |map|
     reviewer.resource :accept, :only => [:show], :controller => :accept_reviewers
     reviewer.resource :reject, :only => [:show, :update], :controller => :reject_reviewers
   end
-  map.resources :reviews, :only => [:index, :new, :create, :show]
   map.resources :reviewer_sessions, :only => [:index]
   map.resources :sessions, :except => [:destroy], :member => {:cancel => :delete} do |session|
     session.resources :comments, :except => [:new]
+    session.resources :reviews, :only => [:index, :new, :create, :show]
   end
   map.resources :session_types, :only => [:index]
   map.resources :tags, :only => [:index]
