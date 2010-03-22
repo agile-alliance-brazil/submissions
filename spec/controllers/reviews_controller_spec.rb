@@ -8,8 +8,7 @@ describe ReviewsController do
   before(:each) do
     @review = Factory(:review)
     activate_authlogic
-    # TODO Is this needed?
-    # UserSession.create(@review.reviewer)
+    UserSession.create(@review.reviewer.user)
   end
   
   it "show action should render show template" do

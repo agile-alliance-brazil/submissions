@@ -51,6 +51,7 @@ class Ability
       end
       if user.reviewer?
         can :read, "reviewer_sessions"
+        can :create, Review
       end
     end
   end
