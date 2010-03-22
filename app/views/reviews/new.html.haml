@@ -3,9 +3,6 @@
 .auto_focus
   
 - semantic_form_for([@review.session, @review]) do |form|
-  - form.inputs do
-    = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
-    = form.input :session_id, :as => :hidden, :input_html => {:tabindex => autotab}
   - form.inputs :author do
     = form.input :author_agile_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
     = form.input :author_proposal_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}

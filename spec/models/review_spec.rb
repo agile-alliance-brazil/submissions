@@ -47,12 +47,12 @@ describe Review do
     should_validate_presence_of :author_agile_xp_rating_id
     should_validate_presence_of :author_proposal_xp_rating_id
     
-    should_validate_presence_of :proposal_track
-    should_validate_presence_of :proposal_level
-    should_validate_presence_of :proposal_type
-    should_validate_presence_of :proposal_duration
-    should_validate_presence_of :proposal_limit
-    should_validate_presence_of :proposal_abstract
+    should_validate_inclusion_of :proposal_track, :in => [true, false]
+    should_validate_inclusion_of :proposal_level, :in => [true, false]
+    should_validate_inclusion_of :proposal_type, :in => [true, false]
+    should_validate_inclusion_of :proposal_duration, :in => [true, false]
+    should_validate_inclusion_of :proposal_limit, :in => [true, false]
+    should_validate_inclusion_of :proposal_abstract, :in => [true, false]
     
     should_validate_presence_of :proposal_quality_rating_id
     should_validate_presence_of :proposal_relevance_rating_id

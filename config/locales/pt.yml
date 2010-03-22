@@ -196,6 +196,8 @@ pt:
 
   # Formtastic
   formtastic:
+    :yes: "Sim"
+    :no: "Não"
     titles:
       user_login: "Informações de Login"
       user_personal: "Informações Pessoais"
