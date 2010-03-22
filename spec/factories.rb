@@ -76,3 +76,37 @@ Factory.define :preference do |p|
   p.association :audience_level
   p.accepted true
 end
+
+Factory.define :rating do |r|
+  r.title 'rating.high.title'
+end
+
+Factory.define :recommendation do |r|
+  r.title 'recommendation.strong_reject.title'
+end
+
+Factory.define :review do |r|
+  r.association :author_agile_xp_rating, :factory => :rating
+  r.association :author_proposal_xp_rating, :factory => :rating
+
+  r.proposal_track true
+  r.proposal_level true
+  r.proposal_type true
+  r.proposal_duration true
+  r.proposal_limit true
+  r.proposal_abstract true
+  
+  r.association :proposal_quality_rating, :factory => :rating
+  r.association :proposal_relevance_rating, :factory => :rating
+  
+  r.association :recommendation
+  r.justification "Fake"
+  
+  r.association :reviewer_confidence_rating, :factory => :rating
+  
+  r.comments_to_organizers "Fake"
+  r.comments_to_authors "Fake"
+  
+  r.association :reviewer
+  r.association :session
+end

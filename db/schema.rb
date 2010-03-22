@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100320224628) do
+ActiveRecord::Schema.define(:version => 20100322154002) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -53,9 +53,43 @@ ActiveRecord::Schema.define(:version => 20100320224628) do
     t.datetime "updated_at"
   end
 
+  create_table "ratings", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recommendations", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reviewers", :force => true do |t|
     t.integer  "user_id"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "author_agile_xp_rating_id"
+    t.integer  "author_proposal_xp_rating_id"
+    t.boolean  "proposal_track"
+    t.boolean  "proposal_level"
+    t.boolean  "proposal_type"
+    t.boolean  "proposal_duration"
+    t.boolean  "proposal_limit"
+    t.boolean  "proposal_abstract"
+    t.integer  "proposal_quality_rating_id"
+    t.integer  "proposal_relevance_rating_id"
+    t.integer  "recommendation_id"
+    t.text     "justification"
+    t.integer  "reviewer_confidence_rating_id"
+    t.text     "comments_to_organizers"
+    t.text     "comments_to_authors"
+    t.integer  "reviewer_id"
+    t.integer  "session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
