@@ -1,56 +1,42 @@
-- title t('review.title', @review.session, @review.reviewer)
+- title t('title.review', :session => @review.session, :reviewer => @review.reviewer)
 - show_actions!
 
-%ul.piped
-  %li= link_to h(@session.author.full_name), user_path(@session.author)
-  - if @session.second_author
-    %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
-  - if can? :update, @session
-    %li= link_to t('title.edit_session'), edit_session_path(@session)
-  %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
+- content_tag_for(:dl, @review) do
+  %dt= t('formtastic.labels.review.recommendation')
+  %dd&= @review.try(:recommendation)
+  - unless @review.justification.blank?
+    %dt= t('formtastic.labels.review.justification')
+    %dd&= @review.try(:justification)
 
-%ul.spaced
-  %li.first #{t('session.parameters')}:
-  %li= link_to t(@session.track.title), tracks_path
-  %li= link_to t(@session.audience_level.title), audience_levels_path
-  %li= link_to t(@session.session_type.title), session_types_path
-  %li
-    &= @session.try(:duration_mins)
-    = t('generic.minutes')
-  - unless @session.audience_limit.blank?
-    %li= t('session.audience_limit', :limit => @session.audience_limit)
+  %dt= t('formtastic.labels.review.reviewer_confidence_rating')
+  %dd&= @review.try(:reviewer_confidence_rating)
+  - unless @review.comments_to_organizers.blank?
+    %dt= t('formtastic.labels.review.comments_to_organizers')
+    %dd&= @review.try(:comments_to_organizers)
 
-%ul.spaced
-  %li.first #{t('formtastic.labels.session.keyword_list')}:
-  - @session.keyword_list.each do |keyword|
-    %li= link_to h(keyword), sessions_path(:tagged_with => keyword)
+  %dt= t('formtastic.labels.review.author_agile_xp_rating')
+  %dd&= @review.try(:author_agile_xp_rating)
+  %dt= t('formtastic.labels.review.author_proposal_xp_rating')
+  %dd&= @review.try(:author_proposal_xp_rating)
 
-- content_tag_for(:dl, @session) do
-  %dt= t('formtastic.labels.session.target_audience')
-  %dd&= @session.try(:target_audience)
-  %dt= t('formtastic.labels.session.summary')
-  %dd
-    :textile
-      #{@session.try(:summary)}
-  %dt= t('formtastic.labels.session.description')
-  %dd
-    :textile
-      #{@session.try(:description)}
-  - unless @session.mechanics.blank?
-    %dt= t('formtastic.labels.session.mechanics')
-    %dd
-      :textile
-        #{@session.mechanics}
-  %dt= t('formtastic.labels.session.benefits')
-  %dd
-    :textile
-      #{@session.try(:benefits)}
-  %dt= t('formtastic.labels.session.experience')
-  %dd
-    :textile
-      #{@session.try(:experience)}
+  %dt= t('formtastic.labels.review.proposal_track')
+  %dd&= @review.try(:proposal_track)
+  %dt= t('formtastic.labels.review.proposal_level')
+  %dd&= @review.try(:proposal_level)
+  %dt= t('formtastic.labels.review.proposal_type')
+  %dd&= @review.try(:proposal_type)
+  %dt= t('formtastic.labels.review.proposal_duration')
+  %dd&= @review.try(:proposal_duration)
+  %dt= t('formtastic.labels.review.proposal_limit')
+  %dd&= @review.try(:proposal_limit)
+  %dt= t('formtastic.labels.review.proposal_abstract')
+  %dd&= @review.try(:proposal_abstract)
 
-%hr
+  %dt= t('formtastic.labels.review.proposal_quality_rating')
+  %dd&= @review.try(:proposal_quality_rating)
+  %dt= t('formtastic.labels.review.proposal_relevance_rating')
+  %dd&= @review.try(:proposal_relevance_rating)
 
-%a{:name => 'comments'}
-= render 'comments/new'
+  - unless @review.comments_to_authors.blank?
+    %dt= t('formtastic.labels.review.comments_to_authors')
+    %dd&= @review.try(:comments_to_authors)

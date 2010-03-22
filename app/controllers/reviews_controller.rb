@@ -1,13 +1,17 @@
 class ReviewsController < InheritedResources::Base
-  actions :all, :except => [:destroy]
-  has_scope :for_user, :only => :index, :as => 'user_id'
-  before_filter :load_reviewer
-  before_filter :load_comment, :only => :show
-  has_scope :tagged_with, :only => :index
-
-  def create
-  end
+  actions :index, :new, :create, :show
+  respond_to :html
   
-  def update
+  def create
+    create! do |success, failure|
+      success.html do
+        flash[:notice] = t('flash.review.create.success')
+        redirect_to session_path(@review)
+      end
+      failure.html do
+        flash.now[:error] = t('flash.failure')
+        render :new
+      end
+    end
   end
 end
