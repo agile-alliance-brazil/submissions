@@ -19,7 +19,7 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  * Organizers can view list of reviewers
- * Reviewer can add a review
+ * Reviewer can view a list of sessions to review
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
@@ -42,6 +42,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Reviewer can add a review -- Hugo
  
 DONE:
 
