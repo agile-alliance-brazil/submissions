@@ -19,7 +19,6 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  * Organizers can view list of reviewers
- * Reviewer can view a list of sessions to review
  * Reviewer can add a review
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
@@ -46,6 +45,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Reviewer can view a list of sessions to review -- Danilo
  * Organizers can view list of session on track -- Danilo
  * Organizer can cancel session on his/her track -- Danilo
  * Javascript enhancements on user invitation preferences page -- Danilo

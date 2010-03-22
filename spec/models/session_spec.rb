@@ -159,9 +159,54 @@ describe Session do
   end
   
   context "named scopes" do
-    should_have_scope :for_user, :conditions => ['author_id = ? OR second_author_id = ?', 3, 3], :with => '3'
+    it {should have_scope(:for_user).conditions(['author_id = ? OR second_author_id = ?', 3, 3]).with('3') }
 
-    should_have_scope :for_tracks, :conditions => ['track_id IN (?)', [1, 2]], :with => [1, 2]
+    it {should have_scope(:for_tracks).conditions(['track_id IN (?)', [1, 2]]).with([1, 2]) }
+ 
+    context "for reviewer" do
+      context "on accepted preferences" do
+        it "no preferences" do
+          # If user has no preference, no sessions to review
+          should have_scope(:for_preferences).conditions('1 = 2').with()
+        end
+        
+        it "one preference" do
+          should have_scope(:for_preferences).conditions([
+            '(track_id = ? AND audience_level_id <= ?)',
+            1, 2
+          ]).with(Preference.new(:track_id => 1, :audience_level_id => 2))
+        end
+        
+        it "multiple preferences" do
+          should have_scope(:for_preferences).conditions([
+            '(track_id = ? AND audience_level_id <= ?) OR (track_id = ? AND audience_level_id <= ?)',
+            1, 2, 3, 4
+          ]).with(
+            Preference.new(:track_id => 1, :audience_level_id => 2),
+            Preference.new(:track_id => 3, :audience_level_id => 4)
+          )
+        end
+      end
+      
+      it "non cancelled" do
+        should have_scope(:without_states).conditions(['state NOT IN (?)', ["cancelled"]]).with(:cancelled)
+      end
+      
+      it "if not author" do
+        should have_scope(:not_author).conditions(['author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', 3, 3]).with('3')
+      end
+      
+      it "with less than 3 reviews"
+      
+      it "should combine criteria" do
+        reviewer = Factory(:reviewer)
+        Session.expects(:not_author).with(reviewer.user.id).returns(Session)
+        Session.expects(:without_state).with(:cancelled).returns(Session)
+        Session.expects(:for_preferences).with(*reviewer.preferences).returns(Session)
+        
+        Session.for_reviewer(reviewer.user)
+      end
+    end
   end
   
   it "should determine if it's workshop" do

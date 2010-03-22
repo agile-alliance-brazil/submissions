@@ -1,13 +1,13 @@
 require 'spec/spec_helper'
  
-describe OrganizerSessionsController do
+describe ReviewerSessionsController do
   integrate_views
 
   it_should_require_login_for_actions :index
 
   before(:each) do
     @user = Factory(:user)
-    @organizer = Factory(:organizer, :user => @user)
+    @reviewer = Factory(:reviewer, :user => @user)
     activate_authlogic
     UserSession.create(@user)
   end
@@ -17,8 +17,8 @@ describe OrganizerSessionsController do
     response.should render_template(:index)
   end
   
-  it "index action should find sessions on organizer's tracks" do
-    Session.expects(:for_tracks).with([@organizer.track.id]).returns([])
+  it "index action should find sessions for reviewer" do
+    Session.expects(:for_reviewer).with(@user).returns([])
     get :index
     assigns[:sessions].should == []
   end

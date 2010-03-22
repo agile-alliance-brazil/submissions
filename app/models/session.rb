@@ -57,7 +57,22 @@ class Session < ActiveRecord::Base
   named_scope :for_tracks, lambda { |track_ids| 
     {:conditions => ['track_id IN (?)', track_ids]}
   }
-
+  
+  named_scope :not_author, lambda { |u|
+    {:conditions => ['author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i]}
+  }
+  
+  named_scope :for_preferences, lambda { |*preferences|
+    return {:conditions => '1 = 2'} if preferences.empty?
+    clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
+    args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
+    {:conditions => [clause, *args]}
+  }
+  
+  def self.for_reviewer(user)
+    not_author(user.id).without_state(:cancelled).for_preferences(*user.preferences)
+  end
+  
   state_machine :initial => :created do
     event :reviewing do
       transition [:created, :in_review] => :in_review

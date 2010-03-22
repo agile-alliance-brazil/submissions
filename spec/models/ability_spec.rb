@@ -123,6 +123,22 @@ describe Ability do
     end
 
     it_should_behave_like "all users"
+
+    it "cannot manage reviewer" do
+      @ability.should be_cannot(:manage, Reviewer)
+    end
+    
+    it "cannot read organizers" do
+      @ability.should be_cannot(:read, Organizer)
+    end
+    
+    it "cannot read sessions to organize" do
+      @ability.should be_cannot(:read, 'organizer_sessions')
+    end
+
+    it "cannot read sessions to review" do
+      @ability.should be_cannot(:read, 'reviewer_sessions')
+    end
     
     describe "can update reviewer if:" do
       before(:each) do
@@ -163,6 +179,22 @@ describe Ability do
     end
 
     it_should_behave_like "all users"
+
+    it "cannot manage reviewer" do
+      @ability.should be_cannot(:manage, Reviewer)
+    end
+    
+    it "cannot read organizers" do
+      @ability.should be_cannot(:read, Organizer)
+    end
+    
+    it "cannot read sessions to organize" do
+      @ability.should be_cannot(:read, 'organizer_sessions')
+    end
+
+    it "cannot read sessions to review" do
+      @ability.should be_cannot(:read, 'reviewer_sessions')
+    end
     
     describe "can create sessions if:" do
       before(:each) do
@@ -229,7 +261,11 @@ describe Ability do
     end
     
     it "can read sessions to organize" do
-      @ability.should be_can(:index, 'organizer_sessions')
+      @ability.should be_can(:read, 'organizer_sessions')
+    end
+
+    it "cannot read sessions to review" do
+      @ability.should be_cannot(:read, 'reviewer_sessions')
     end
     
     context "can cancel session if:" do
@@ -263,6 +299,10 @@ describe Ability do
     
     it "cannot read organizer's sessions" do
       @ability.should be_cannot(:read, 'organizer_sessions')
+    end
+
+    it "can read sessions to review" do
+      @ability.should be_can(:read, 'reviewer_sessions')
     end
   end
 end

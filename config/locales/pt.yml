@@ -323,7 +323,6 @@ pt:
     edit_comment: "Editar comentário"
     vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
-    organizer_sessions: "Organizar sessões"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -343,6 +342,7 @@ pt:
     manage_reviewers: "Avaliadores"
     create_reviewer: "Convidar novo avaliador"
     organizer_sessions: "Organizar sessões"
+    reviewer_sessions: "Avaliar sessões"
     section:
       session: "Sessões"
       review: "Processo de avaliação"

@@ -1,0 +1,24 @@
+- title t('actions.reviewer_sessions')
+- show_actions!
+
+%table.sessions
+  %thead
+    %tr
+      %th.session_id ID
+      %th.title= t('formtastic.labels.session.title')
+      %th.track= t('formtastic.labels.session.track_id')
+      %th.action
+  %tbody
+    - @sessions.each do |session|
+      - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+        %td.session_id= session.id
+        %td.title
+          = h(session.try(:title))
+          - if session.comments.size > 0
+            .commentCount= session.comments.size
+        %td.track
+          = t(session.track.title)
+        %td.action
+
+- if @sessions.total_pages > 1
+  #pagination= will_paginate(@sessions)

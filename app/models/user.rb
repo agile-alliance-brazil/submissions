@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :sessions, :foreign_key => 'author_id'
   has_many :organizers
   has_many :organized_tracks, :through => :organizers, :source => :track
+  has_one :reviewer
+  has_many :preferences, :through => :reviewer, :source => :accepted_preferences
   
   validates_presence_of :first_name, :last_name
   validates_presence_of [:phone, :country, :city, :bio], :unless => :guest?

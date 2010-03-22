@@ -163,7 +163,6 @@ en:
     edit_comment: "Edit comment"
     vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
-    organizer_sessions: "Track organized sessions"
   
   actions:
     submission_date: "Submission deadline"
@@ -183,6 +182,7 @@ en:
     manage_reviewers: "Reviewers"
     create_reviewer: "Invite reviewer"
     organizer_sessions: "Track organized sessions"
+    reviewer_sessions: "Sessions to review"
     section:
       session: "Sessions"
       review: "Review process"

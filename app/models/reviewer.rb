@@ -5,6 +5,7 @@ class Reviewer < ActiveRecord::Base
 
   belongs_to :user
   has_many :preferences
+  has_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
   
   accepts_nested_attributes_for :preferences
   

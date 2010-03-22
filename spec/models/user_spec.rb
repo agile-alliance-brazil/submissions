@@ -81,6 +81,8 @@ describe User do
     should_have_many :sessions, :foreign_key => 'author_id'
     should_have_many :organizers
     should_have_many :organized_tracks, :through => :organizers, :source => :track
+    should_have_one :reviewer
+    should_have_many :preferences, :through => :reviewer, :source => :accepted_preferences
   end
   
   context "named scopes" do

@@ -67,6 +67,7 @@ describe Reviewer do
   context "associations" do
     should_belong_to :user
     should_have_many :preferences
+    should_have_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
     
     should_accept_nested_attributes_for :preferences
 

@@ -7,7 +7,10 @@ class Ability
     alias_action :edit, :update, :destroy, :to => :modify
     
     can(:read, :all) do |object_class, obj|
-      object_class != Organizer && object_class != Reviewer && obj != "organizer_sessions"
+      object_class != Organizer &&
+      object_class != Reviewer &&
+      obj != "organizer_sessions" &&
+      obj != "reviewer_sessions"
     end
     can(:manage, UserSession)
     can(:create, User)
@@ -41,10 +44,13 @@ class Ability
       end
       if user.organizer?
         can :manage, Reviewer
-        can :index, "organizer_sessions"
+        can :read, "organizer_sessions"
         can :cancel, Session do |session|
           user.organized_tracks.include?(session.track)
         end
+      end
+      if user.reviewer?
+        can :read, "reviewer_sessions"
       end
     end
   end
