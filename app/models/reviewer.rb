@@ -1,9 +1,13 @@
 class Reviewer < ActiveRecord::Base
-  attr_accessible :user_id, :user_username
+  attr_accessible :user_id, :user_username, :preferences_attributes,
+                  :reviewer_agreement, :state_event
   attr_trimmed    :user_username
 
   belongs_to :user
-  has_many :evaluations
+  has_many :reviews
+  has_many :preferences
+  
+  accepts_nested_attributes_for :preferences
   
   validates_presence_of :user_username
   validates_existence_of :user, :message => :existence
@@ -39,6 +43,15 @@ class Reviewer < ActiveRecord::Base
 
     event :reject do
       transition :invited => :rejected
+    end
+    
+    state :accepted do
+      validate do |reviewer|
+        if reviewer.preferences.select {|p| p.accepted?}.empty?
+          reviewer.errors.add_to_base(:preferences)
+        end
+      end
+      validates_acceptance_of :reviewer_agreement
     end
   end
   

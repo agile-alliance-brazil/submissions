@@ -1,5 +1,30 @@
-- semantic_form_for @reviewer, :url => reviewer_accept_path(@reviewer) do |form|
+- semantic_form_for @reviewer do |form|
+  - form.semantic_fields_for :preferences do |p|
+    - p.inputs :class => 'inputs preferences' do
+      = p.input :track_id, :as => :hidden
+      = p.input :accepted, :label => t(p.instance_variable_get("@object").track.title), :input_html => {:tabindex => autotab}
+      = p.input :audience_level_id, :required => true, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+      %p.inline-hints= t(p.instance_variable_get("@object").track.description)
+  - form.inputs do
+    = form.errors_on :base
+    %pre#reviewer_agreement= yield(:agreement)
+    = form.input :reviewer_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
   - form.buttons do
     = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.reject_reviewer'), reviewer_reject_path(@reviewer)
+
+:javascript
+  $(document).ready(function() {
+    $("fieldset.preferences input:checkbox").bind('change', preferenceTriggered).change();
+  })
+
+  function preferenceTriggered() {
+    if ($(this).is(":checked")) {
+      $(this).parents('ol').find('li select').removeAttr('disabled');
+      $(this).parents('ol').find('li.select label abbr').show();
+    } else {
+      $(this).parents('ol').find('li select').val('').attr('disabled', 'disabled');
+      $(this).parents('ol').find('li.select label abbr').hide();
+    }
+  }

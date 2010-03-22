@@ -69,3 +69,10 @@ end
 Factory.define :reviewer do |r|
   r.association :user
 end
+
+Factory.define :preference do |p|
+  p.association :reviewer
+  p.association :track
+  p.association :audience_level
+  p.accepted true
+end

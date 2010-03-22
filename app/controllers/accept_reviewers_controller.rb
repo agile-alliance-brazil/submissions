@@ -1,14 +1,9 @@
 class AcceptReviewersController < ApplicationController
   def show
-  end
-  
-  def update
-    if @reviewer.try(:accept)
-      flash[:notice] = t('flash.reviewer.accept.success')
-      redirect_to root_path
-    else
-      flash.now[:error] = t('flash.reviewer.accept.failure', :status => t("reviewer.state.#{@reviewer.state}"))
-      render :show
+    if @reviewer.preferences.empty?
+      Track.all.each do |track|
+        @reviewer.preferences.build(:track_id => track.id)
+      end
     end
   end
   

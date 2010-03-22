@@ -18,7 +18,6 @@ order by votes.user_ip, votes.created_at
 
 TODO:
 
- * Reviewer provides preferences when accepting invitation
  * Organizers can view list of session on track
  * Organizers can view list of reviewers
  * Reviewer can view a list of sessions to review
@@ -48,6 +47,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Javascript enhancements on user invitation preferences page -- Danilo
+ * Reviewer provides preferences when accepting invitation -- Danilo
  * Reviewer can accept/reject invitation -- Danilo
  * Organizers can remove reviewer -- Danilo
  * Organizers can invite reviewers (send e-mail) -- Danilo

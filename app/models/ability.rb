@@ -21,6 +21,9 @@ class Ability
       is_voter && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
     end
     can(:new, Vote)
+    can :update, Reviewer do |reviewer|
+      reviewer.try(:user) == user && reviewer.invited?
+    end
     
     if user.admin?
       can :manage, :all
