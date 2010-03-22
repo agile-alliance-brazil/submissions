@@ -7,6 +7,8 @@
       %th.session_id ID
       %th.title= t('formtastic.labels.session.title')
       %th.track= t('formtastic.labels.session.track_id')
+      %th.type= t('formtastic.labels.session.session_type_id')
+      %th.audience_level= t('formtastic.labels.session.audience_level_id')
       %th.action
   %tbody
     - @sessions.each do |session|
@@ -18,6 +20,10 @@
             .commentCount= session.comments.size
         %td.track
           = t(session.track.title)
+        %td.type
+          = t(session.session_type.title)
+        %td.audience_level
+          = t(session.audience_level.title)
         %td.action
 
 - if @sessions.total_pages > 1
