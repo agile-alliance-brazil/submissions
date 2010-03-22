@@ -1,8 +1,8 @@
-- title t('title.new_review', :session => @review.session)
+- title t('title.new_review', :session => @review.session.title)
 - show_actions!
 .auto_focus
   
-- semantic_form_for(@review) do |form|
+- semantic_form_for([@review.session, @review]) do |form|
   - form.inputs do
     = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
     = form.input :session_id, :as => :hidden, :input_html => {:tabindex => autotab}

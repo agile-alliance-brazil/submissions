@@ -346,7 +346,7 @@ pt:
     vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '{{session}}'"
-    review: "Avaliação de '{{reviewer}}' da sessão '{{session}}' "
+    review: "Avaliação da sessão '{{session}}' "
   
   actions:
     submission_date: "Prazo para submissões"

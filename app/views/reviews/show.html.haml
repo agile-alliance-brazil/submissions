@@ -1,23 +1,23 @@
-- title t('title.review', :session => @review.session, :reviewer => @review.reviewer)
+- title t('title.review', :session => @review.session.title)
 - show_actions!
 
 - content_tag_for(:dl, @review) do
   %dt= t('formtastic.labels.review.recommendation')
-  %dd&= @review.try(:recommendation)
+  %dd&= t(@review.try(:recommendation).title)
   - unless @review.justification.blank?
     %dt= t('formtastic.labels.review.justification')
     %dd&= @review.try(:justification)
 
   %dt= t('formtastic.labels.review.reviewer_confidence_rating')
-  %dd&= @review.try(:reviewer_confidence_rating)
+  %dd&= t(@review.try(:reviewer_confidence_rating).title)
   - unless @review.comments_to_organizers.blank?
     %dt= t('formtastic.labels.review.comments_to_organizers')
     %dd&= @review.try(:comments_to_organizers)
 
   %dt= t('formtastic.labels.review.author_agile_xp_rating')
-  %dd&= @review.try(:author_agile_xp_rating)
+  %dd&= t(@review.try(:author_agile_xp_rating).title)
   %dt= t('formtastic.labels.review.author_proposal_xp_rating')
-  %dd&= @review.try(:author_proposal_xp_rating)
+  %dd&= t(@review.try(:author_proposal_xp_rating).title)
 
   %dt= t('formtastic.labels.review.proposal_track')
   %dd&= @review.try(:proposal_track)
@@ -33,9 +33,9 @@
   %dd&= @review.try(:proposal_abstract)
 
   %dt= t('formtastic.labels.review.proposal_quality_rating')
-  %dd&= @review.try(:proposal_quality_rating)
+  %dd&= t(@review.try(:proposal_quality_rating).title)
   %dt= t('formtastic.labels.review.proposal_relevance_rating')
-  %dd&= @review.try(:proposal_relevance_rating)
+  %dd&= t(@review.try(:proposal_relevance_rating).title)
 
   - unless @review.comments_to_authors.blank?
     %dt= t('formtastic.labels.review.comments_to_authors')
