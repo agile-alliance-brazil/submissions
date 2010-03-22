@@ -21,7 +21,6 @@ TODO:
  * Organizers can view list of session on track
  * Organizers can view list of reviewers
  * Reviewer can view a list of sessions to review
- * Reviewer can add a review
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
@@ -44,6 +43,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Reviewer can add a review -- Hugo
  
 DONE:
 
