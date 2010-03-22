@@ -3,6 +3,7 @@ class Reviewer < ActiveRecord::Base
   attr_trimmed    :user_username
 
   belongs_to :user
+  has_many :evaluations
   
   validates_presence_of :user_username
   validates_existence_of :user, :message => :existence

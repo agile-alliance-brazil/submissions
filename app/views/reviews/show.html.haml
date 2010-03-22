@@ -1,0 +1,56 @@
+- title t('review.title', @review.session, @review.reviewer)
+- show_actions!
+
+%ul.piped
+  %li= link_to h(@session.author.full_name), user_path(@session.author)
+  - if @session.second_author
+    %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
+  - if can? :update, @session
+    %li= link_to t('title.edit_session'), edit_session_path(@session)
+  %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
+
+%ul.spaced
+  %li.first #{t('session.parameters')}:
+  %li= link_to t(@session.track.title), tracks_path
+  %li= link_to t(@session.audience_level.title), audience_levels_path
+  %li= link_to t(@session.session_type.title), session_types_path
+  %li
+    &= @session.try(:duration_mins)
+    = t('generic.minutes')
+  - unless @session.audience_limit.blank?
+    %li= t('session.audience_limit', :limit => @session.audience_limit)
+
+%ul.spaced
+  %li.first #{t('formtastic.labels.session.keyword_list')}:
+  - @session.keyword_list.each do |keyword|
+    %li= link_to h(keyword), sessions_path(:tagged_with => keyword)
+
+- content_tag_for(:dl, @session) do
+  %dt= t('formtastic.labels.session.target_audience')
+  %dd&= @session.try(:target_audience)
+  %dt= t('formtastic.labels.session.summary')
+  %dd
+    :textile
+      #{@session.try(:summary)}
+  %dt= t('formtastic.labels.session.description')
+  %dd
+    :textile
+      #{@session.try(:description)}
+  - unless @session.mechanics.blank?
+    %dt= t('formtastic.labels.session.mechanics')
+    %dd
+      :textile
+        #{@session.mechanics}
+  %dt= t('formtastic.labels.session.benefits')
+  %dd
+    :textile
+      #{@session.try(:benefits)}
+  %dt= t('formtastic.labels.session.experience')
+  %dd
+    :textile
+      #{@session.try(:experience)}
+
+%hr
+
+%a{:name => 'comments'}
+= render 'comments/new'

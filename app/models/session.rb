@@ -16,6 +16,8 @@ class Session < ActiveRecord::Base
   belongs_to :session_type
   belongs_to :audience_level
   
+  has_many :evaluations
+  
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
                         :audience_level_id, :author_id, :track_id, :session_type_id,
                         :experience, :duration_mins, :keyword_list
