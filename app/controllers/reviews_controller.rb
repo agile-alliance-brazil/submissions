@@ -23,5 +23,4 @@ class ReviewsController < InheritedResources::Base
     attributes[:reviewer_id] = current_user.id
     @review ||= end_of_association_chain.send(method_for_build, attributes)
   end
-  
 end

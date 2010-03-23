@@ -68,9 +68,6 @@ describe Review do
     
     should_validate_presence_of :reviewer_confidence_rating_id
     
-    should_validate_presence_of :comments_to_organizers, :allow_blank => true
-    should_validate_presence_of :comments_to_authors, :allow_blank => true
-    
     should_validate_presence_of :reviewer_id
     should_validate_presence_of :session_id
     

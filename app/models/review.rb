@@ -23,7 +23,6 @@ class Review < ActiveRecord::Base
                         :proposal_quality_rating_id, :proposal_relevance_rating_id,
                         :recommendation_id,
                         :reviewer_confidence_rating_id,
-                        :comments_to_organizers, :comments_to_authors,
                         :reviewer_id, :session_id
 
   validates_inclusion_of :proposal_track, :proposal_level, :proposal_type,
