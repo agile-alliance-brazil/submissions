@@ -83,11 +83,7 @@ describe Organizer do
     end
   end
   
-  context "managing organizer role" do
-    before(:each) do
-      @user = Factory(:user)
-    end
-    
+  shared_examples_for "organizer role" do
     it "should make given user organizer role after created" do
       @user.should_not be_organizer
       organizer = Factory(:organizer, :user => @user)
@@ -130,5 +126,21 @@ describe Organizer do
       @user.reload.should be_organizer
       another_user.should be_organizer
     end
+  end
+  
+  context "managing organizer role for normal user" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
+    it_should_behave_like "organizer role"
+  end
+
+  context "managing organizer role for simple user" do
+    before(:each) do
+      @user = Factory(:simple_user)
+    end
+    
+    it_should_behave_like "organizer role"
   end
 end

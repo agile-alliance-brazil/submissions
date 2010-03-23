@@ -15,7 +15,7 @@ class Organizer < ActiveRecord::Base
   
   def after_save
     user.add_role :organizer
-    user.save!
+    user.save_without_validation
   end
   
   def after_update
@@ -23,7 +23,7 @@ class Organizer < ActiveRecord::Base
       old_user = User.find(user_id_was)
       if old_user.organized_tracks.empty?
         old_user.remove_role :organizer
-        old_user.save!
+        old_user.save_without_validation
       end
     end
   end
@@ -31,7 +31,7 @@ class Organizer < ActiveRecord::Base
   def after_destroy
     if user.organized_tracks.empty?
       user.remove_role :organizer
-      user.save!
+      user.save_without_validation
     end
   end
   

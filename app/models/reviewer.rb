@@ -31,7 +31,7 @@ class Reviewer < ActiveRecord::Base
     
     after_transition :on => :accept do |reviewer|
       reviewer.user.add_role :reviewer
-      reviewer.user.save!
+      reviewer.user.save_without_validation
     end
     
     event :invite do
@@ -62,7 +62,7 @@ class Reviewer < ActiveRecord::Base
   
   def after_destroy
     user.remove_role :reviewer
-    user.save!
+    user.save_without_validation
   end
   
   def user_username

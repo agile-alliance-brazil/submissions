@@ -217,11 +217,7 @@ describe Reviewer do
     end
   end
 
-  context "managing reviewer role" do
-    before(:each) do
-      @user = Factory(:user)
-    end
-    
+  shared_examples_for "reviewer role" do
     it "should make given user reviewer role after invitation accepted" do
       reviewer = Factory(:reviewer, :user => @user)
       reviewer.invite
@@ -242,5 +238,21 @@ describe Reviewer do
       @user.should_not be_reviewer
       @user.reload.should_not be_reviewer
     end
+  end
+  
+  context "managing reviewer role for complete user" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
+    it_should_behave_like "reviewer role"
+  end
+
+  context "managing reviewer role for simple user" do
+    before(:each) do
+      @user = Factory(:simple_user)
+    end
+    
+    it_should_behave_like "reviewer role"
   end
 end

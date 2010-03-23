@@ -14,6 +14,15 @@ Factory.define :user do |u|
   u.bio "Some text about me..."
 end
 
+Factory.define :simple_user, :class => User do |u|
+  u.first_name "User"
+  u.sequence(:last_name) {|n| "Name#{n}"}
+  u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
+  u.email { |a| "#{a.username.parameterize}@example.com" }
+  u.password "secret"
+  u.password_confirmation "secret"
+end
+
 Factory.define :session_type do |t|
   t.title "session_types.tutorial.title"
   t.description "session_types.tutorial.description"
