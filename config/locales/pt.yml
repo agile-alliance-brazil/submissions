@@ -171,6 +171,10 @@ pt:
               taken: "usuário já organiza essa trilha"
         reviewer:
           preferences: "pelo menos uma trilha deve ser aceita"
+        review:
+          attributes:
+            justification:
+              not_strong_acceptance_justification: "não pode ficar em branco"
 
   authlogic:
     error_messages:
@@ -476,11 +480,6 @@ pt:
       title: "Experiente"
       description: "Alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
   
-  session:
-    parameters: "Sobre esta sessão"
-    audience_limit: "Limite: {{limit}} participantes"
-    no_audience_limit: "Não há limite de participantes"
-  
   email:
     welcome:
       subject: "Cadastro realizado com sucesso"
@@ -510,6 +509,9 @@ pt:
       created: "Criada"
       in_review: "Em avaliação"
       cancelled: "Cancelada"
+    parameters: "Sobre esta sessão"
+    audience_limit: "Limite: {{limit}} participantes"
+    no_audience_limit: "Não há limite de participantes"
   
   rating:
     high:

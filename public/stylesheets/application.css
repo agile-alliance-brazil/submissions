@@ -591,24 +591,26 @@ form.reviewer pre#reviewer_agreement {
   float: left;
   display: block; }
 
-form.review fieldset.inputs legend {
+form.review.formtastic fieldset.inputs legend {
   font-size: 14pt;
   color: black;
   border-bottom: 1px solid black;
   width: 100%; }
-form.review fieldset.inputs ol {
+form.review.formtastic fieldset.inputs ol {
   float: none; }
-  form.review fieldset.inputs ol li fieldset legend.label {
+  form.review.formtastic fieldset.inputs ol li fieldset legend.label {
     border-bottom: 0; }
-    form.review fieldset.inputs ol li fieldset legend.label label {
+    form.review.formtastic fieldset.inputs ol li fieldset legend.label label {
       font-size: 10pt; }
-  form.review fieldset.inputs ol li.hidden {
+  form.review.formtastic fieldset.inputs ol li.hidden {
     display: inline; }
-  form.review fieldset.inputs ol li label {
+  form.review.formtastic fieldset.inputs ol li label {
     display: inline; }
-  form.review fieldset.inputs ol li.radio fieldset legend.label {
+  form.review.formtastic fieldset.inputs ol li.radio fieldset legend.label {
     position: relative; }
-  form.review fieldset.inputs ol li.radio fieldset ol {
+  form.review.formtastic fieldset.inputs ol li.radio fieldset ol {
     padding-left: 0px; }
-form.review select {
+form.review.formtastic select {
   display: inline; }
+form.review.formtastic fieldset ol li ul.errors {
+  float: none; }

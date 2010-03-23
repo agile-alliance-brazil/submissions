@@ -38,6 +38,10 @@ en:
               taken: "already organizing this track"
         reviewer:
           preferences: "at least one track has to be accepted"
+        review:
+          attributes:
+            justification:
+              not_strong_acceptance_justification: "não pode ficar em branco"
             
   formtastic:
     titles:
@@ -314,11 +318,6 @@ en:
       title: "Experienced"
       description: "A person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
   
-  session:
-    parameters: "About this session"
-    audience_limit: "Limit: {{limit}} participants"
-    no_audience_limit: "There is participants limit"
-  
   email:
     welcome:
       subject: "Account registration"
@@ -348,6 +347,9 @@ en:
       created: "Created"
       in_review: "In review"
       cancelled: "Cancelled"
+    parameters: "About this session"
+    audience_limit: "Limit: {{limit}} participants"
+    no_audience_limit: "There is no participants limit"
 
   rating:
     high:
