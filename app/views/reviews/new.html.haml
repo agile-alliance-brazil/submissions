@@ -35,6 +35,11 @@
     = form.input :proposal_limit, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
 
   - form.inputs :work do
+    - unless @review.session.mechanics.blank?
+      %p
+        = t('formtastic.labels.session.mechanics') + ':'
+        :textile
+          #{@session.try(:mechanics)}
     %p
       = t('formtastic.labels.session.benefits') + ':'
       :textile
