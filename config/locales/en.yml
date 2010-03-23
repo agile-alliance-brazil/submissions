@@ -103,19 +103,19 @@ en:
       preference:
         audience_level_id: "Knowledge level"
       review:
-        author_agile_xp_rating_id: "How do you rate the author's experience with agile methods?"
-        author_proposal_xp_rating_id: "How do you rate the author's experience with proposal subject?"
+        author_agile_xp_rating: "How do you rate the author's experience with agile methods?"
+        author_proposal_xp_rating: "How do you rate the author's experience with proposal subject?"
         proposal_track: "Is the track adequate?"
         proposal_level: "Is the level adequate?"
         proposal_type: "Is the session type adequate?"
         proposal_duration: "Is the duration adequate?"
         proposal_limit: "Is the participants limit adequate?"
         proposal_abstract: "Is the abstract coherent with the full description?"
-        proposal_quality_rating_id: "How do you rate the given material's clarity, objectivity and writing?"
-        proposal_relevance_rating_id: "How do you rate the relevance of the subject to the event?"
-        recommendation_id: "Based on the previous items, as a reviewer, what do you recommend?"
+        proposal_quality_rating: "How do you rate the given material's clarity, objectivity and writing?"
+        proposal_relevance_rating: "How do you rate the relevance of the subject to the event?"
+        recommendation: "Based on the previous items, as a reviewer, what do you recommend?"
         justification: "Why have you chosen this recommendation?"
-        reviewer_confidence_rating_id: "How confident are you to review the subject of this proposal?"
+        reviewer_confidence_rating: "How confident are you to review the subject of this proposal?"
         comments_to_organizers: "Please enter any comments you believe the program committee should know about."
         comments_to_authors: "Please enter any comments you believe the authors should know about."
     hints:
@@ -165,6 +165,7 @@ en:
       create_reviewer: "Invite reviewer"
       reject_reviewer: "Reject invitation"
       accept_reviewer: "Accept invitation"
+      submit_review: "Send review"
 
   # Custom messages
   title:

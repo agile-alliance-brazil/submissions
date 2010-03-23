@@ -411,3 +411,28 @@ form.reviewer
     :width                  100%
     :float                  left
     :display                block
+
+form.review
+  fieldset.inputs
+    legend
+      :font-size            14pt
+      :color                black
+      :border-bottom        1px solid black
+      :width                100%
+    ol
+      :float                none
+      li fieldset legend.label
+        :border-bottom      0
+        label
+          :font-size        10pt
+      li.hidden
+        :display            inline
+      li label
+        :display            inline
+      li.radio fieldset
+        legend.label
+          :position         relative
+        ol
+          :padding-left     0px
+  select
+    :display                inline
