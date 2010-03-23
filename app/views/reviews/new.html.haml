@@ -3,20 +3,66 @@
 .auto_focus
   
 - semantic_form_for([@review.session, @review]) do |form|
-  - form.inputs :author do
-    = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
-    = form.input :author_agile_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
-    = form.input :author_proposal_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
   - form.inputs :proposal do
-    = form.input :proposal_track, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
-    = form.input :proposal_level, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
-    = form.input :proposal_type, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
-    = form.input :proposal_duration, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
-    = form.input :proposal_limit, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+    %p
+      = t('formtastic.labels.session.summary') + ':'
+      :textile
+        #{@session.try(:summary)}
+    %p
+      = t('formtastic.labels.session.description') + ':'
+      :textile
+        #{@session.try(:description)}
     = form.input :proposal_abstract, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
+    %p
+      = t('formtastic.labels.session.track_id') + ': ' + t(@review.session.track.title)
+    = form.input :proposal_track, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
+    %p
+      = t('formtastic.labels.session.audience_level_id') + ': ' + t(@review.session.audience_level.title)
+    = form.input :proposal_level, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
+    %p
+      = t('formtastic.labels.session.session_type_id') + ': ' + t(@review.session.session_type.title)
+    = form.input :proposal_type, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
+    %p
+      = t('formtastic.labels.session.duration_mins') + ': ' + @review.session.duration_mins.to_s + ' ' + t('generic.minutes')
+    = form.input :proposal_duration, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
+    %p
+      = @review.session.audience_limit ? t('session.audience_limit', :limit => @review.session.audience_limit) : t('session.no_audience_limit')
+    = form.input :proposal_limit, :required => true, :as => :radio, :input_html => {:tabindex => autotab}
+
   - form.inputs :work do
+    %p
+      = t('formtastic.labels.session.benefits') + ':'
+      :textile
+        #{@session.try(:benefits)}
     = form.input :proposal_quality_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
     = form.input :proposal_relevance_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+
+  - form.inputs :author do
+    = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
+    %p
+      = t('formtastic.labels.session.author_id') + ': ' + h(@review.session.author.full_name)
+    %p
+      = t('formtastic.labels.user.bio') + ':'
+      :textile
+        #{@review.session.author.bio}
+    - if @review.session.second_author
+      %p
+        = t('formtastic.labels.session.second_author_id') + ': ' + h(@review.session.second_author.full_name)
+        = t('formtastic.labels.user.bio') + ':'
+        :textile
+          #{@review.session.second_author.bio}
+    = form.input :author_agile_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+    %p
+      = t('formtastic.labels.session.experience') + ':'
+      :textile
+        #{@review.session.experience}
+    = form.input :author_proposal_xp_rating, :required => true, :collection => Rating.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+
   - form.inputs :conclusion do
     = form.input :recommendation, :required => true, :collection => Recommendation.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
     = form.input :justification, :required => true, :input_html => {:rows => 10, :tabindex => autotab}

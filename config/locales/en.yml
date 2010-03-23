@@ -317,6 +317,7 @@ en:
   session:
     parameters: "About this session"
     audience_limit: "Limit: {{limit}} participants"
+    no_audience_limit: "There is participants limit"
   
   email:
     welcome:

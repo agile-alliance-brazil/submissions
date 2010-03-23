@@ -22,8 +22,8 @@ TODO:
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
- * Add more i18n keys and values to support showing the review
  * 'My reviews' listing for each reviewer
+ * Listing of reviews of each proposal
  --- Medium term
  * Create time slots on agenda
  * Organizers can create program

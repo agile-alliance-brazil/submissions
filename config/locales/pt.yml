@@ -376,7 +376,7 @@ pt:
       review: "Processo de avaliação"
       vote: "Concurso logo"
       user: "Perfil"
-
+  
   text:
     for_user: "Mostrando sessões do usuário: <strong>{{name}}</strong>"
     tagged_with: "Mostrando sessões com a palavra-chave: <strong>{{tag}}</strong>"
@@ -479,7 +479,8 @@ pt:
   session:
     parameters: "Sobre esta sessão"
     audience_limit: "Limite: {{limit}} participantes"
-
+    no_audience_limit: "Não há limite de participantes"
+  
   email:
     welcome:
       subject: "Cadastro realizado com sucesso"
@@ -489,27 +490,27 @@ pt:
       subject: "Proposta de sessão submetida para Agile Brazil 2010"
     reviewer_invitation:
       subject: "Convite para equipe de avaliação da Agile Brazil 2010"
-
+  
   vote:
     description: "A votação para o logotipo da Agile Brazil 2010 terminou. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
     confirmation: "Você tem certeza que quer votar no logo $LOGO? Apenas o seu voto mais recente será contado."
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
     current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
-
+  
   reviewer:
     state:
       created: "Criado"
       invited: "Convite enviado"
       accepted: "Ativo"
       rejected: "Convite rejeitado"
-
+  
   session:
     state:
       created: "Criada"
       in_review: "Em avaliação"
       cancelled: "Cancelada"
-
+  
   rating:
     high:
       title: "Alta"
@@ -519,7 +520,7 @@ pt:
       title: "Baixa"
     none:
       title: "Nenhuma"
-
+  
   recommendation:
     strong_accept:
       title: "Aceitação forte (sem restrições)"
@@ -529,7 +530,7 @@ pt:
       title: "Rejeição fraca (posso mudar de opinião)"
     strong_reject:
       title: "Rejeição forte (não mudarei de opinião)"
-
+  
   generic:
     or: "ou"
     ago: "atrás"
@@ -538,3 +539,4 @@ pt:
     next: "Próxima &raquo;"
     says: "diz"
     are_you_sure: "Você tem certeza que quer {{action}}?"
+  
