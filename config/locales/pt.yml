@@ -369,6 +369,7 @@ pt:
     create_reviewer: "Convidar novo avaliador"
     organizer_sessions: "Organizar sessões"
     reviewer_sessions: "Avaliar sessões"
+    review_session: "Avaliar"
     section:
       session: "Sessões"
       review: "Processo de avaliação"

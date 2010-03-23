@@ -19,6 +19,7 @@ describe ReviewsController do
   it "new action should render new template" do
     get :new, :session_id => Session.first
     response.should render_template(:new)
+    assigns[:review].reviewer.should == @review.reviewer
   end
 
   it "create action should render new template when model is invalid" do

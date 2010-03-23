@@ -83,6 +83,7 @@ describe User do
     should_have_many :organized_tracks, :through => :organizers, :source => :track
     should_have_one :reviewer
     should_have_many :preferences, :through => :reviewer, :source => :accepted_preferences
+    should_have_many :reviews, :foreign_key => 'reviewer_id'
   end
   
   context "named scopes" do

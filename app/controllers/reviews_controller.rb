@@ -3,7 +3,7 @@ class ReviewsController < InheritedResources::Base
   respond_to :html
 
   belongs_to :session
-  
+
   def create
     create! do |success, failure|
       success.html do
@@ -16,4 +16,12 @@ class ReviewsController < InheritedResources::Base
       end
     end
   end
+
+  protected
+  def build_resource
+    attributes = params[:review] || {}
+    attributes[:reviewer_id] = current_user.id
+    @review ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+  
 end

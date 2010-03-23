@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :organized_tracks, :through => :organizers, :source => :track
   has_one :reviewer
   has_many :preferences, :through => :reviewer, :source => :accepted_preferences
+  has_many :reviews, :foreign_key => 'reviewer_id'
   
   validates_presence_of :first_name, :last_name
   validates_presence_of [:phone, :country, :city, :bio], :unless => :guest?

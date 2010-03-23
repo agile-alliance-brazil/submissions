@@ -19,7 +19,6 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  * Organizers can view list of reviewers
- * Reviewer can view a list of sessions to review
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
@@ -27,9 +26,6 @@ TODO:
  * Improve show review layout
  * Add more i18n keys and values to support showing the review
  * 'My reviews' listing for each reviewer
- * Add link to create a review in the reviewer session listing
- * Change reviews to refer to a user instead of a reviewer
- * Include the user id while creating a new review (currently forbidding to save)
  --- Medium term
  * Create time slots on agenda
  * Organizers can create program
@@ -50,9 +46,13 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Reviewer can add a review -- Hugo
+ * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
  
 DONE:
 
+ * Add link to create a review in the reviewer session listing -- Danilo
+ * Change reviews to refer to a user instead of a reviewer -- Danilo
+ * Include the user id while creating a new review (currently forbidding to save) -- Danilo
  * Add restriction access to review new and create -- Danilo
  * Reviewer can view a list of sessions to review -- Danilo
  * Organizers can view list of session on track -- Danilo

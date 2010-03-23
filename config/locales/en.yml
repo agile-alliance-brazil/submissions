@@ -207,6 +207,7 @@ en:
     create_reviewer: "Invite reviewer"
     organizer_sessions: "Track organized sessions"
     reviewer_sessions: "Sessions to review"
+    review_session: "Review"
     section:
       session: "Sessions"
       review: "Review process"
