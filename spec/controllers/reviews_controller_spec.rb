@@ -3,12 +3,12 @@ require 'spec/spec_helper'
 describe ReviewsController do
   integrate_views
 
-  it_should_require_login_for_actions :index, :show, :new, :create
+  it_should_require_login_for_actions :show, :new, :create
 
   before(:each) do
     @review = Factory(:review)
     activate_authlogic
-    UserSession.create(@review.reviewer.user)
+    UserSession.create(@review.reviewer)
   end
   
   it "show action should render show template" do

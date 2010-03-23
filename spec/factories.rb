@@ -116,6 +116,6 @@ Factory.define :review do |r|
   r.comments_to_organizers "Fake"
   r.comments_to_authors "Fake"
   
-  r.association :reviewer
+  r.association :reviewer, :factory => :user
   r.association :session
 end

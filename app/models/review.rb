@@ -1,6 +1,7 @@
 class Review < ActiveRecord::Base
   attr_accessible :author_agile_xp_rating_id, :author_proposal_xp_rating_id,
-                  :proposal_track, :proposal_level, :proposal_type, :proposal_duration, :proposal_limit, :proposal_abstract,
+                  :proposal_track, :proposal_level, :proposal_type, :proposal_duration,
+                  :proposal_limit, :proposal_abstract,
                   :proposal_quality_rating_id, :proposal_relevance_rating_id,
                   :recommendation_id, :justification,
                   :reviewer_confidence_rating_id,
@@ -9,7 +10,7 @@ class Review < ActiveRecord::Base
   
   attr_trimmed :comments_to_organizers, :comments_to_authors, :justification
   
-  belongs_to :reviewer
+  belongs_to :reviewer, :class_name => "User"
   belongs_to :session
   belongs_to :author_agile_xp_rating, :class_name => "Rating"
   belongs_to :author_proposal_xp_rating, :class_name => "Rating"
@@ -25,12 +26,9 @@ class Review < ActiveRecord::Base
                         :comments_to_organizers, :comments_to_authors,
                         :reviewer_id, :session_id
 
-  validates_inclusion_of :proposal_track, :in => [true, false]
-  validates_inclusion_of :proposal_level, :in => [true, false]
-  validates_inclusion_of :proposal_type, :in => [true, false]
-  validates_inclusion_of :proposal_duration, :in => [true, false]
-  validates_inclusion_of :proposal_limit, :in => [true, false]
-  validates_inclusion_of :proposal_abstract, :in => [true, false]
+  validates_inclusion_of :proposal_track, :proposal_level, :proposal_type,
+                        :proposal_duration, :proposal_limit, :proposal_abstract,
+                        :in => [true, false]
 
   validates_each :justification, :unless => :strong_accept? do |record, attr, value|
     record.errors.add(attr, :not_strong_acceptance_justification) if value.blank?

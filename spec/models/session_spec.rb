@@ -33,6 +33,8 @@ describe Session do
     
     should_have_many :comments, :as => :commentable, :dependent => :destroy
     
+    should_have_many :reviews
+    
     context "second author association by username" do
       before(:each) do
         @session = Factory(:session)

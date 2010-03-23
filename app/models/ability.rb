@@ -9,6 +9,7 @@ class Ability
     can(:read, :all) do |object_class, obj|
       object_class != Organizer &&
       object_class != Reviewer &&
+      object_class != Review &&
       obj != "organizer_sessions" &&
       obj != "reviewer_sessions"
     end
@@ -26,32 +27,34 @@ class Ability
       is_voter && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
     end
     can(:new, Vote)
-    can :update, Reviewer do |reviewer|
+    can(:update, Reviewer) do |reviewer|
       reviewer.try(:user) == user && reviewer.invited?
     end
     
     if user.admin?
-      can :manage, :all
+      can(:manage, :all)
     else
       if user.author?
-        can :create, Session do
+        can(:create, Session) do
           Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
         end
-        can :update, Session do |session|
+        can(:update, Session) do |session|
           is_author = session.try(:author) == user || session.try(:second_author) == user
           is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
         end
       end
       if user.organizer?
-        can :manage, Reviewer
-        can :read, "organizer_sessions"
-        can :cancel, Session do |session|
+        can(:manage, Reviewer)
+        can(:read, "organizer_sessions")
+        can(:cancel, Session) do |session|
           user.organized_tracks.include?(session.track)
         end
+        can(:read, Review)
       end
       if user.reviewer?
-        can :read, "reviewer_sessions"
-        can :create, Review
+        can(:read, "reviewer_sessions")
+        can(:read, Review) { |review| review.reviewer == user }
+        can(:create, Review)
       end
     end
   end

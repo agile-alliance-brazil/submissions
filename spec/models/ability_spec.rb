@@ -132,6 +132,10 @@ describe Ability do
       @ability.should be_cannot(:read, Organizer)
     end
     
+    it "cannot read reviews" do
+      @ability.should be_cannot(:read, Review)
+    end
+    
     it "cannot read sessions to organize" do
       @ability.should be_cannot(:read, 'organizer_sessions')
     end
@@ -139,7 +143,7 @@ describe Ability do
     it "cannot read sessions to review" do
       @ability.should be_cannot(:read, 'reviewer_sessions')
     end
-    
+
     describe "can update reviewer if:" do
       before(:each) do
         @reviewer = Factory(:reviewer, :user => @user)
@@ -186,6 +190,10 @@ describe Ability do
     
     it "cannot read organizers" do
       @ability.should be_cannot(:read, Organizer)
+    end
+    
+    it "cannot read reviews" do
+      @ability.should be_cannot(:read, Review)
     end
     
     it "cannot read sessions to organize" do
@@ -259,6 +267,10 @@ describe Ability do
     it "cannot read organizers" do
       @ability.should be_cannot(:read, Organizer)
     end
+
+    it "can read reviews" do
+      @ability.should be_can(:read, Review)
+    end    
     
     it "can read sessions to organize" do
       @ability.should be_can(:read, 'organizer_sessions')
@@ -304,6 +316,13 @@ describe Ability do
     it "can read sessions to review" do
       @ability.should be_can(:read, 'reviewer_sessions')
     end
+
+    it "can read own reviews" do
+      review = Factory(:review)
+      @ability.should be_cannot(:read, review)
+      review.reviewer = @user
+      @ability.should be_can(:read, review)
+    end    
     
     it "can create a new review" do
       @ability.should be_can(:create, Review)

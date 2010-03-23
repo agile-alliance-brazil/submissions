@@ -31,8 +31,15 @@ describe Review do
   it_should_trim_attributes Review, :comments_to_organizers, :comments_to_authors, :justification
         
   context "associations" do
-    should_belong_to :reviewer, :class_name => 'Reviewer'
-    should_belong_to :session, :class_name => 'Session'
+    should_belong_to :reviewer, :class_name => 'User'
+    should_belong_to :session
+    should_belong_to :recommendation
+    
+    should_belong_to :author_agile_xp_rating, :class_name => "Rating"
+    should_belong_to :author_proposal_xp_rating, :class_name => "Rating"
+    should_belong_to :proposal_quality_rating, :class_name => "Rating"
+    should_belong_to :proposal_relevance_rating, :class_name => "Rating"
+    should_belong_to :reviewer_confidence_rating, :class_name => "Rating"
   end
   
   it "should determine if it's strong accept" do
@@ -68,52 +75,64 @@ describe Review do
     should_validate_presence_of :session_id
     
     context "strong acceptance" do
+      before(:each) do
+        @review = Factory(:review)
+        @review.recommendation = Recommendation.new(:title => "recommendation.strong_accept.title")
+      end
+      
       it "should not validate presence of justification" do
-        review = Factory(:review)
-        review.recommendation = Recommendation.new(:title => "recommendation.strong_accept.title")
-        review.justification = nil
-        review.should be_valid
-        review.justification = "I want to justify that the session rules!"
-        review.should be_valid
+        @review.justification = nil
+        @review.should be_valid
+        @review.justification = "I want to justify that the session rules!"
+        @review.should be_valid
       end
     end
     
     context "weak acceptance" do
+      before(:each) do
+        @review = Factory(:review)
+        @review.recommendation = Recommendation.new(:title => "recommendation.weak_accept.title")
+      end
+      
       it "should validate presence of justification" do
-        review = Factory(:review)
-        review.recommendation = Recommendation.new(:title => "recommendation.weak_accept.title")
-        review.justification = nil
-        review.should_not be_valid
-        review.justification = ""
-        review.should_not be_valid
-        review.justification = "I want to justify that the session is ok."
-        review.should be_valid
+        @review.justification = nil
+        @review.should_not be_valid
+        @review.justification = ""
+        @review.should_not be_valid
+        @review.justification = "I want to justify that the session is ok."
+        @review.should be_valid
       end
     end
     
     context "weak rejection" do
+      before(:each) do
+        @review = Factory(:review)
+        @review.recommendation = Recommendation.new(:title => "recommendation.weak_reject.title")
+      end
+      
       it "should validate presence of justification" do
-        review = Factory(:review)
-        review.recommendation = Recommendation.new(:title => "recommendation.weak_reject.title")
-        review.justification = nil
-        review.should_not be_valid
-        review.justification = ""
-        review.should_not be_valid
-        review.justification = "I want to justify that the session is not so good..."
-        review.should be_valid
+        @review.justification = nil
+        @review.should_not be_valid
+        @review.justification = ""
+        @review.should_not be_valid
+        @review.justification = "I want to justify that the session is not so good..."
+        @review.should be_valid
       end
     end
     
     context "strong rejection" do
+      before(:each) do
+        @review = Factory(:review)
+        @review.recommendation = Recommendation.new(:title => "recommendation.strong_reject.title")
+      end
+      
       it "should validate presence of justification" do
-        review = Factory(:review)
-        review.recommendation = Recommendation.new(:title => "recommendation.strong_reject.title")
-        review.justification = nil
-        review.should_not be_valid
-        review.justification = ""
-        review.should_not be_valid
-        review.justification = "I want to justify that the session sucks a lot..."
-        review.should be_valid
+        @review.justification = nil
+        @review.should_not be_valid
+        @review.justification = ""
+        @review.should_not be_valid
+        @review.justification = "I want to justify that the session sucks a lot..."
+        @review.should be_valid
       end
     end
   end

@@ -23,7 +23,6 @@ TODO:
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Deadline for adding/editing reviews
- * Add restriction access to review new and create
  * Improve new review form layout
  * Improve show review layout
  * Add more i18n keys and values to support showing the review
@@ -54,6 +53,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Add restriction access to review new and create -- Danilo
  * Reviewer can view a list of sessions to review -- Danilo
  * Organizers can view list of session on track -- Danilo
  * Organizer can cancel session on his/her track -- Danilo
