@@ -19,10 +19,9 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
- * Reviewer can't choose preference on track(s) he/she is organizing
+ * [task]
  --- High priority
  * Deadline for adding/editing reviews
- * 'My reviews' listing for each reviewer
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Listing of reviews of each proposal
@@ -44,10 +43,12 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Improve new review form layout -- Hugo/Danilo
+ * Reviewer can't choose preference on track(s) he/she is organizing -- Danilo
+ * 'My reviews' listing for each reviewer -- Hugo
  
 DONE:
 
+ * Improve new review form layout -- Hugo/Danilo
  * Session state machine -- Danilo
  * Organizers can view list of reviewers -- Danilo
  * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
