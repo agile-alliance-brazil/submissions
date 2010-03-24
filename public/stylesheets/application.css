@@ -573,7 +573,7 @@ form.reviewer fieldset.inputs li {
   float: left;
   margin-bottom: 0; }
   form.reviewer fieldset.inputs li.boolean, form.reviewer fieldset.inputs li.select {
-    width: 100%; }
+    width: 35%; }
   form.reviewer fieldset.inputs li label {
     width: 50%; }
   form.reviewer fieldset.inputs li ul.errors {
@@ -587,13 +587,19 @@ form.reviewer p.inline-hints {
   color: #999999;
   font-style: italic; }
 form.reviewer pre#reviewer_agreement {
-  width: 100%;
   float: left;
-  display: block; }
-  form.reviewer pre#reviewer_agreement p {
-    margin: 0; }
-  form.reviewer pre#reviewer_agreement ol li {
-    float: none; }
+  display: block;
+  background-color: #ffffe0;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: 1px dashed #f7c13b;
+  padding: 10px;
+  font-size: 8pt; }
+form.reviewer fieldset.accept {
+  width: 100%; }
+  form.reviewer fieldset.accept li.boolean {
+    width: 100%; }
 
 form.review.formtastic fieldset.inputs legend {
   font-size: 14pt;

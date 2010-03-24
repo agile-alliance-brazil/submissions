@@ -393,7 +393,7 @@ form.reviewer
     :float                  left
     :margin-bottom          0
     &.boolean, &.select
-      :width                100%
+      :width                35%
     label
       :width                50%
     ul.errors
@@ -407,13 +407,19 @@ form.reviewer
     :color                  #999999
     :font-style             italic
   pre#reviewer_agreement
-    :width                  100%
     :float                  left
     :display                block
-    p
-      :margin               0
-    ol li
-      :float                none
+    :background-color       = !color4
+    :border-radius          10px
+    :-moz-border-radius     10px
+    :-webkit-border-radius  10px
+    :border                 = 1px dashed !color3
+    :padding                10px
+    :font-size              8pt
+  fieldset.accept
+    :width                  100%
+    li.boolean
+      :width                100%
 
 form.review.formtastic
   fieldset.inputs

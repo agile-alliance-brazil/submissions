@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reviewer_sessions, :only => [:index]
   map.resources :sessions, :except => [:destroy], :member => {:cancel => :delete} do |session|
     session.resources :comments, :except => [:new]
-    session.resources :reviews, :only => [:index, :new, :create, :show]
+    session.resources :reviews, :only => [:new, :create, :show]
   end
   map.resources :session_types, :only => [:index]
   map.resources :tags, :only => [:index]
