@@ -340,6 +340,11 @@ describe Ability do
       it "has a session available to add the review to" do
         @ability.should be_cannot(:create, Review)
         @ability.should be_cannot(:create, Review, nil)
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability.should be_can(:create, Review)
+        @ability.should be_can(:create, Review, nil)
+        @ability.should be_can(:create, Review, @session)
       end
     end
   end
