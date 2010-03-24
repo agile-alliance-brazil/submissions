@@ -41,6 +41,21 @@ describe Preference do
       preference.should_not be_valid
       preference.errors.on(:audience_level).should == "não existe"
     end
+    
+    describe "should validate preference for organizer" do
+      before(:each) do
+        @organizer = Factory(:organizer)
+      end
+      
+      it "cannot choose track that is being organized by him/her" do
+        preference = Factory.build(:preference)
+        preference.should be_valid
+        preference.reviewer.user = @organizer.user
+        preference.track = @organizer.track
+        preference.should_not be_valid
+        preference.errors.on(:accepted).should == "não pode avaliar trilha que está organizando"
+      end
+    end
   end
   
   context "associations" do

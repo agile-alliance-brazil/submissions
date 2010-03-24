@@ -65,6 +65,10 @@ class Reviewer < ActiveRecord::Base
     user.save_without_validation
   end
   
+  def can_review?(track)
+    !user.organized_tracks.include?(track)
+  end
+  
   def user_username
     @user_username || user.try(:username)
   end

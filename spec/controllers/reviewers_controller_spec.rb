@@ -47,7 +47,7 @@ describe ReviewersController do
     reviewer = Factory(:reviewer)
     reviewer.stubs(:valid?).returns(true)
     put :update, :id => reviewer.id
-    response.should redirect_to(root_path)
+    response.should redirect_to(reviewer_sessions_path)
   end
   
   

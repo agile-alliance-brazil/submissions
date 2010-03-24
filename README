@@ -19,7 +19,6 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
- * Reviewer can't choose preference on track(s) he/she is organizing
  --- High priority
  * Deadline for adding/editing reviews
  * 'My reviews' listing for each reviewer
@@ -187,3 +186,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * Exception when inviting user with simple profile to be a reviewer/organizer [fixed]
 * Adding review should call session.reviewing to change it's state [fixed]
 * Cannot review same session again (validation on review and permission) [fixed]
+* Reviewer can't choose preference on track(s) he/she is organizing [fixed]

@@ -38,6 +38,8 @@ en:
               taken: "already organizing this track"
         reviewer:
           preferences: "at least one track has to be accepted"
+        preference:
+          organizer_track: "cannot review track that is organizing"
         review:
           inclusion: "cannot be blank"
             

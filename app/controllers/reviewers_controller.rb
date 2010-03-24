@@ -20,7 +20,7 @@ class ReviewersController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         flash[:notice] = t('flash.reviewer.accept.success')
-        redirect_to root_path
+        redirect_to reviewer_sessions_path
       end
       failure.html do
         flash.now[:error] = t('flash.failure')

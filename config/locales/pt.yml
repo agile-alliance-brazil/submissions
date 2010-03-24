@@ -171,6 +171,8 @@ pt:
               taken: "usuário já organiza essa trilha"
         reviewer:
           preferences: "pelo menos uma trilha deve ser aceita"
+        preference:
+          organizer_track: "não pode avaliar trilha que está organizando"
         review:
           inclusion: "não pode ficar em branco"
 

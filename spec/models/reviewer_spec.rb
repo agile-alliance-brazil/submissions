@@ -255,4 +255,19 @@ describe Reviewer do
     
     it_should_behave_like "reviewer role"
   end
+  
+  context "checking if able to review a track" do
+    before(:each) do
+      @organizer = Factory(:organizer)
+      @reviewer = Factory(:reviewer, :user => @organizer.user)
+    end
+    
+    it "can review track when not organizer" do
+      @reviewer.should be_can_review(Factory(:track))
+    end
+    
+    it "can not review track when organizer" do
+      @reviewer.should_not be_can_review(@organizer.track)
+    end
+  end
 end
