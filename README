@@ -18,6 +18,9 @@ order by votes.user_ip, votes.created_at
 
 TODO:
 
+ --- BUGS
+ * Adding review should call session.reviewing to change it's state
+ --- High priority
  * Organizers can view list of reviewers
  * Deadline for adding/editing reviews
  * 'My reviews' listing for each reviewer
@@ -44,7 +47,7 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
- * Improve new review form layout -- Hugo
+ * Improve new review form layout -- Hugo/Danilo
  
 DONE:
 

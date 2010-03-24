@@ -610,6 +610,15 @@ form.review.formtastic fieldset.inputs ol {
     position: relative; }
   form.review.formtastic fieldset.inputs ol li.radio fieldset ol {
     padding-left: 0px; }
+form.review.formtastic .session_info {
+  background-color: #ffffe0;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: 1px dashed #f7c13b;
+  padding: 10px; }
+  form.review.formtastic .session_info p strong {
+    font-weight: bold; }
 form.review.formtastic select {
   display: inline; }
 form.review.formtastic fieldset ol li ul.errors {

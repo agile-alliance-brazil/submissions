@@ -24,14 +24,12 @@ class Review < ActiveRecord::Base
                         :recommendation_id,
                         :reviewer_confidence_rating_id,
                         :reviewer_id, :session_id
+  validates_presence_of :justification, :unless => :strong_accept?
 
   validates_inclusion_of :proposal_track, :proposal_level, :proposal_type,
                         :proposal_duration, :proposal_limit, :proposal_abstract,
                         :in => [true, false]
 
-  validates_each :justification, :unless => :strong_accept? do |record, attr, value|
-    record.errors.add(attr, :not_strong_acceptance_justification) if value.blank?
-  end
   
   private
   def strong_accept?
