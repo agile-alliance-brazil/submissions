@@ -187,3 +187,4 @@ account" link on the left hand column.  They point to the same link but used dif
 * Adding review should call session.reviewing to change it's state [fixed]
 * Cannot review same session again (validation on review and permission) [fixed]
 * Reviewer can't choose preference on track(s) he/she is organizing [fixed]
+* Reviewer can review any session (even if not part of his preferences) [fixed]

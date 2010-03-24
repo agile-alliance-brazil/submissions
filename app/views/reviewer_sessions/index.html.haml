@@ -25,7 +25,7 @@
         %td.audience_level
           = t(session.audience_level.title)
         %td.action
-          - if can? :create, Review
+          - if can?(:create, Review, session)
             = link_to t('actions.review_session'), new_session_review_path(session)
 
 - if @sessions.total_pages > 1

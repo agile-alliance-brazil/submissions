@@ -323,15 +323,24 @@ describe Ability do
       review.reviewer = @user
       @ability.should be_can(:read, review)
     end    
-    
-    it "can create a new review if has not created a review for this session" do
-      session = Factory(:session)
-      @ability = Ability.new(@user, :session_id => session.to_param)
+
+    context "can create a new review if:" do
+      before(:each) do
+        @session = Factory(:session)
+        Session.stubs(:for_reviewer).with(@user).returns([@session])
+      end
       
-      @ability.should be_can(:create, Review)
+      it "has not created a review for this session" do
+        @ability.should be_can(:create, Review, @session)
       
-      review = Factory(:review, :session => session, :reviewer => @user)
-      @ability.should be_cannot(:create, Review)
+        Session.expects(:for_reviewer).with(@user).returns([])
+        @ability.should be_cannot(:create, Review, @session)
+      end
+      
+      it "has a session available to add the review to" do
+        @ability.should be_cannot(:create, Review)
+        @ability.should be_cannot(:create, Review, nil)
+      end
     end
   end
 end
