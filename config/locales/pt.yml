@@ -282,6 +282,7 @@ pt:
         reviewer_confidence_rating_id: "Como você avalia seu próprio conhecimento sobre o assunto dessa proposta?"
         comments_to_organizers: "Por favor entre qualquer comentário relevante para o comitê de programa."
         comments_to_authors: "Por favor entre qualquer comentário relevante para os autores."
+        authors: "Autores"
     hints:
       user:
         email: "Principal email de contato."
@@ -513,6 +514,9 @@ pt:
     audience_limit: "Limite: {{limit}} participantes"
     no_audience_limit: "Não há limite de participantes"
   
+  review:
+    view_session: "Ver proposta original (com comentários)"
+    
   rating:
     high:
       title: "Alta"
@@ -535,6 +539,7 @@ pt:
   
   generic:
     or: "ou"
+    and: "e"
     ago: "atrás"
     minutes: "minutos"
     previous: "&laquo; Anterior"

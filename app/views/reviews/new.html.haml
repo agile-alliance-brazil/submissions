@@ -1,5 +1,8 @@
 - title t('title.new_review', :session => @review.session.title)
 .auto_focus
+
+%ul.piped
+  %li= link_to t('review.view_session'), session_path(@review.session)
   
 - semantic_form_for([@review.session, @review]) do |form|
   - form.inputs :proposal do
@@ -64,22 +67,15 @@
     = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
     .session_info
       %p
-        %strong #{t('formtastic.labels.session.author_id')}:
-        #{h(@review.session.author.full_name)}
+        %strong #{t('formtastic.labels.review.authors')}:
+        = link_to h(@review.session.author.full_name), user_path(@review.session.author)
+        - if @review.session.second_author
+          = t('generic.and')
+          = link_to h(@review.session.second_author.full_name), user_path(@review.session.second_author)
       %p
         %strong #{t('formtastic.labels.user.bio')}:
         :textile
           #{@review.session.author.bio}
-    - if @review.session.second_author
-      %br
-      .session_info
-        %p
-          %strong #{t('formtastic.labels.session.second_author_id')}:
-          #{h(@review.session.second_author.full_name)}
-        %p
-          %strong #{t('formtastic.labels.user.bio')}:
-          :textile
-            #{@review.session.second_author.bio}
     = form.input :author_agile_xp_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     .session_info
       %p

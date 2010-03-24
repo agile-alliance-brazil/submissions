@@ -121,6 +121,7 @@ en:
         reviewer_confidence_rating_id: "How confident are you to review the subject of this proposal?"
         comments_to_organizers: "Please enter any comments relevant to the program committee."
         comments_to_authors: "Please enter any comments relevant to the authors."
+        authors: "Authors"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -351,6 +352,9 @@ en:
     audience_limit: "Limit: {{limit}} participants"
     no_audience_limit: "There is no participants limit"
 
+  review:
+    view_session: "View original proposal (with comments)"
+
   rating:
     high:
       title: "High"
@@ -373,6 +377,7 @@ en:
 
   generic:
     or: "or"
+    and: "and"
     ago: "ago"
     minutes: "minutes"
     previous: "&laquo; Previous"

@@ -19,6 +19,7 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
+ * Reviewer can't choose preference on track(s) he/she is organizing
  --- High priority
  * Deadline for adding/editing reviews
  * 'My reviews' listing for each reviewer
