@@ -30,7 +30,6 @@ TODO:
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
  * Author can see anonymous reviews
- * Session state machine
  --- Lower priority
  * Reviewer can edit a review
  * Voting results
@@ -48,6 +47,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Session state machine -- Danilo
  * Organizers can view list of reviewers -- Danilo
  * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
  * Improve show review layout -- Hugo
