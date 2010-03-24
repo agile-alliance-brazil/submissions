@@ -613,6 +613,7 @@ form.review.formtastic fieldset.inputs ol {
   form.review.formtastic fieldset.inputs ol li.radio fieldset legend.label {
     position: relative; }
   form.review.formtastic fieldset.inputs ol li.radio fieldset ol {
+    padding-top: 1.5em;
     padding-left: 0px; }
 form.review.formtastic .session_info {
   background-color: #ffffe0;
