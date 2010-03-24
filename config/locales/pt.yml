@@ -269,7 +269,7 @@ pt:
       preference:
         audience_level_id: "Nível de conhecimento"
       review:
-        author_agile_xp_rating_id: "Como você avalia a experiência do autor com métodos ágeis?"
+        author_agile_xp_rating_id: "Como você avalia a experiência do autor principal com métodos ágeis?"
         author_proposal_xp_rating_id: "Como você avalia a experiência do autor com o assunto da proposta?"
         proposal_track: "A trilha está adequada?"
         proposal_level: "O nível está adequado?"

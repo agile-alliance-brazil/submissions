@@ -108,7 +108,7 @@ en:
       preference:
         audience_level_id: "Knowledge level"
       review:
-        author_agile_xp_rating_id: "How do you rate the author's experience with agile methods?"
+        author_agile_xp_rating_id: "How do you rate the mais author's experience with agile methods?"
         author_proposal_xp_rating_id: "How do you rate the author's experience with proposal subject?"
         proposal_track: "Is the track adequate?"
         proposal_level: "Is the audience level adequate?"

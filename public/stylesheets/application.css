@@ -628,6 +628,20 @@ form.review.formtastic .session_info {
   -webkit-border-radius: 10px;
   border: 1px dashed #f7c13b;
   padding: 10px; }
+  form.review.formtastic .session_info ol {
+    list-style: decimal outside;
+    padding-left: 1em; }
+    form.review.formtastic .session_info ol li {
+      margin-bottom: 0px;
+      display: list-item;
+      margin-left: 0.5em; }
+  form.review.formtastic .session_info ul {
+    list-style: disc outside;
+    padding-left: 1em; }
+    form.review.formtastic .session_info ul li {
+      margin-bottom: 0px;
+      display: list-item;
+      margin-left: 0.5em; }
   form.review.formtastic .session_info p strong {
     font-weight: bold; }
 form.review.formtastic select {

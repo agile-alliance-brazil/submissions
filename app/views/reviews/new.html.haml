@@ -1,8 +1,8 @@
 - title t('title.new_review', :session => @review.session.title)
 .auto_focus
 
-%ul.piped
-  %li= link_to t('review.view_session'), session_path(@review.session)
+%p
+  = link_to t('review.view_session'), session_path(@review.session), :target => '_blank'
   
 - semantic_form_for([@review.session, @review]) do |form|
   - form.inputs :proposal do
