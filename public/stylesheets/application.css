@@ -573,7 +573,7 @@ form.reviewer fieldset.inputs li {
   float: left;
   margin-bottom: 0; }
   form.reviewer fieldset.inputs li.boolean, form.reviewer fieldset.inputs li.select {
-    width: 35%; }
+    width: 100%; }
   form.reviewer fieldset.inputs li label {
     width: 50%; }
   form.reviewer fieldset.inputs li ul.errors {
@@ -590,6 +590,10 @@ form.reviewer pre#reviewer_agreement {
   width: 100%;
   float: left;
   display: block; }
+  form.reviewer pre#reviewer_agreement p {
+    margin: 0; }
+  form.reviewer pre#reviewer_agreement ol li {
+    float: none; }
 
 form.review.formtastic fieldset.inputs legend {
   font-size: 14pt;

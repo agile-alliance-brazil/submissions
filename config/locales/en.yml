@@ -38,6 +38,8 @@ en:
               taken: "already organizing this track"
         reviewer:
           preferences: "at least one track has to be accepted"
+        review:
+          inclusion: "cannot be blank"
             
   formtastic:
     titles:
@@ -100,7 +102,7 @@ en:
         user_id: "Reviewer"
         user_username: "Reviewer's username"
         state: "Status"
-        reviewer_agreement: "I accept the terms of this agreement"
+        reviewer_agreement: "I read the terms and acknowledge my responsibilities as a reviewer"
       preference:
         audience_level_id: "Knowledge level"
       review:

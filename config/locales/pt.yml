@@ -171,6 +171,8 @@ pt:
               taken: "usuário já organiza essa trilha"
         reviewer:
           preferences: "pelo menos uma trilha deve ser aceita"
+        review:
+          inclusion: "não pode ficar em branco"
 
   authlogic:
     error_messages:
@@ -261,7 +263,7 @@ pt:
         user_id: "Avaliador"
         user_username: "Avaliador (username)"
         state: "Status"
-        reviewer_agreement: "Eu declaro aceitar os termos deste compromisso"
+        reviewer_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
       preference:
         audience_level_id: "Nível de conhecimento"
       review:

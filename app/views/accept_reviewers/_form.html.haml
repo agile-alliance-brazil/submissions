@@ -7,7 +7,8 @@
       %p.inline-hints= t(p.instance_variable_get("@object").track.description)
   - form.inputs do
     = form.errors_on :base
-    %pre#reviewer_agreement= yield(:agreement)
+  %pre#reviewer_agreement= yield(:agreement)
+  - form.inputs do
     = form.input :reviewer_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
   - form.buttons do
     = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
