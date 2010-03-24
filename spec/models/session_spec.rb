@@ -198,15 +198,26 @@ describe Session do
         should have_scope(:not_author).conditions(['author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', 3, 3]).with('3')
       end
       
-      it "with less than 3 reviews"
+      it "with less than 3 reviews" do
+        should have_scope(:incomplete_reviews).conditions(['reviews_count < ?', 3]).with(3)
+      end
+      
+      it "if not already reviewed by user" do
+        should have_scope(:reviewed_by).joins(:reviews).conditions(['reviewer_id = ?', 3]).with('3')
+      end
       
       it "should combine criteria" do
         reviewer = Factory(:reviewer)
+        Session.expects(:incomplete_reviews).with(3).returns(Session)
         Session.expects(:not_author).with(reviewer.user.id).returns(Session)
         Session.expects(:without_state).with(:cancelled).returns(Session)
         Session.expects(:for_preferences).with(*reviewer.preferences).returns(Session)
         
-        Session.for_reviewer(reviewer.user)
+        Session.expects(:reviewed_by).with(reviewer.user.id).returns(Session)
+        
+        Session.expects(:all).times(2).then.returns([1, 2, 3, 4]).then.returns([2, 3, 6])
+        
+        Session.for_reviewer(reviewer.user).should == [1, 4]
       end
     end
   end

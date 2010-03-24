@@ -64,6 +64,13 @@ class Session < ActiveRecord::Base
     {:conditions => ['author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i]}
   }
   
+  named_scope :reviewed_by, lambda { |u|
+    {
+      :joins => :reviews,
+      :conditions => ['reviewer_id = ?', u.to_i]
+    }
+  }
+  
   named_scope :for_preferences, lambda { |*preferences|
     return {:conditions => '1 = 2'} if preferences.empty?
     clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
@@ -71,8 +78,15 @@ class Session < ActiveRecord::Base
     {:conditions => [clause, *args]}
   }
   
+  named_scope :incomplete_reviews, lambda { |limit|
+    {:conditions => ['reviews_count < ?', limit]}
+  }
+  
   def self.for_reviewer(user)
-    not_author(user.id).without_state(:cancelled).for_preferences(*user.preferences)
+    incomplete_reviews(3).
+    not_author(user.id).
+    without_state(:cancelled).
+    for_preferences(*user.preferences).all - reviewed_by(user.id).all
   end
   
   state_machine :initial => :created do

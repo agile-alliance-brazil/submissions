@@ -324,8 +324,14 @@ describe Ability do
       @ability.should be_can(:read, review)
     end    
     
-    it "can create a new review" do
+    it "can create a new review if has not created a review for this session" do
+      session = Factory(:session)
+      @ability = Ability.new(@user, :session_id => session.to_param)
+      
       @ability.should be_can(:create, Review)
+      
+      review = Factory(:review, :session => session, :reviewer => @user)
+      @ability.should be_cannot(:create, Review)
     end
   end
 end

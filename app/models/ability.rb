@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
   
-  def initialize(user)
+  def initialize(user, params = {})
     user ||= User.new # guest
     
     alias_action :edit, :update, :destroy, :to => :modify
@@ -54,7 +54,9 @@ class Ability
       if user.reviewer?
         can(:read, "reviewer_sessions")
         can(:read, Review) { |review| review.reviewer == user }
-        can(:create, Review)
+        can(:create, Review) do
+          Review.count(:conditions => ['reviewer_id = ? AND session_id = ?', user.id, params[:session_id].to_i]) == 0
+        end
       end
     end
   end

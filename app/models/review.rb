@@ -11,7 +11,7 @@ class Review < ActiveRecord::Base
   attr_trimmed :comments_to_organizers, :comments_to_authors, :justification
   
   belongs_to :reviewer, :class_name => "User"
-  belongs_to :session
+  belongs_to :session, :counter_cache => true
   belongs_to :author_agile_xp_rating, :class_name => "Rating"
   belongs_to :author_proposal_xp_rating, :class_name => "Rating"
   belongs_to :proposal_quality_rating, :class_name => "Rating"
@@ -29,7 +29,12 @@ class Review < ActiveRecord::Base
   validates_inclusion_of :proposal_track, :proposal_level, :proposal_type,
                         :proposal_duration, :proposal_limit, :proposal_abstract,
                         :in => [true, false]
+  
+  validates_uniqueness_of :reviewer_id, :scope => :session_id
 
+  def after_create
+    session.reviewing
+  end
   
   private
   def strong_accept?

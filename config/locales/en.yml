@@ -89,6 +89,7 @@ en:
         keyword_list: "Keywords"
         updated_at: "Updated"
         state: "Status"
+        reviews: "Reviews"
       comment:
         comment: "Your comment"
       organizer:

@@ -19,9 +19,7 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
- * Adding review should call session.reviewing to change it's state
  --- High priority
- * Organizers can view list of reviewers
  * Deadline for adding/editing reviews
  * 'My reviews' listing for each reviewer
  * Display progress bar with total number of reviews
@@ -46,11 +44,12 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
  * Improve new review form layout -- Hugo/Danilo
  
 DONE:
 
+ * Organizers can view list of reviewers -- Danilo
+ * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo
  * Improve show review layout -- Hugo
  * Reviewer can add a review -- Hugo
  * Add link to create a review in the reviewer session listing -- Danilo
@@ -185,3 +184,5 @@ account" link on the left hand column.  They point to the same link but used dif
 * Why is there no indication whether a user has voted or not?  It looks like we are forever asking for the user to cast a vote when they have already done so.  Can we say something like "You have voted", somewhere on the page?  If not, it is okay to have the green box on the logo the user has voted. [fixed]
 * To edit the session, the author has to click on the "Edit" link that is next to their name (also as a link).  This is slightly confusing as it appears to be a link to edit the author profile, or it could be editing the session page.  Suggested solution: use link text "Edit session" to prevent ambiguity. [fixed]
 * Exception when inviting user with simple profile to be a reviewer/organizer [fixed]
+* Adding review should call session.reviewing to change it's state [fixed]
+* Cannot review same session again (validation on review and permission) [fixed]

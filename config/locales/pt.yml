@@ -250,6 +250,7 @@ pt:
         keyword_list: "Palavras-chave"
         updated_at: "Última atualização"
         state: "Status"
+        reviews: "Avaliações"
       comment:
         comment: "Seu comentário"
       organizer:

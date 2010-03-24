@@ -32,7 +32,7 @@ describe Review do
         
   context "associations" do
     should_belong_to :reviewer, :class_name => 'User'
-    should_belong_to :session
+    should_belong_to :session, :counter_cache => true
     should_belong_to :recommendation
     
     should_belong_to :author_agile_xp_rating, :class_name => "Rating"
@@ -70,6 +70,9 @@ describe Review do
     
     should_validate_presence_of :reviewer_id
     should_validate_presence_of :session_id
+    
+    before { Factory(:review) }
+    should_validate_uniqueness_of :reviewer_id, :scope => :session_id
     
     context "strong acceptance" do
       before(:each) do
@@ -133,4 +136,19 @@ describe Review do
       end
     end
   end
+  
+  context "callbacks" do
+    it "should set session in review after created" do
+      review = Factory.build(:review)
+      review.save
+      review.session.should be_in_review
+    end
+    
+    it "should not set session in review if validation failed" do
+      review = Factory.build(:review, :reviewer_id => nil)
+      review.save
+      review.session.should be_created
+    end
+  end
+  
 end

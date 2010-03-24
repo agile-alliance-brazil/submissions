@@ -10,6 +10,7 @@
       %th.author= t('formtastic.labels.session.second_author_id')
       %th.track= t('formtastic.labels.session.track_id')
       %th.state= t('formtastic.labels.session.state')
+      %th.reviews= t('formtastic.labels.session.reviews')
       %th.action
   %tbody
     - @sessions.each do |session|
@@ -26,6 +27,7 @@
         %td.track
           = t(session.track.title)
         %td.state&= t("session.state.#{session.state}")
+        %td.reviews= session.reviews_count
         %td.action
           - if can? :cancel, session
             = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
