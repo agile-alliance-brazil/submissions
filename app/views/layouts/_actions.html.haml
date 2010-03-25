@@ -29,6 +29,8 @@
         %li= link_to t('actions.organizer_sessions'), organizer_sessions_path
       - if can? :read, 'reviewer_sessions'
         %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path
+      - if can? :read, 'reviews_listing'
+        %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path
       - if can?(:create, Review, @session)
         %li= link_to t('actions.review_session'), new_session_review_path(@session)
         

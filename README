@@ -26,7 +26,6 @@ TODO:
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
- * Adding reviewer preference to list of reviewers
  * Adding reviewer review count to list of reviewers
 --- Medium term
  * Create time slots on agenda
@@ -46,6 +45,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Adding reviewer preference to list of reviewers -- Hugo
  
 DONE:
 
