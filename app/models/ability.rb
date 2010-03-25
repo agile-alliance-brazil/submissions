@@ -11,7 +11,8 @@ class Ability
       object_class != Reviewer &&
       object_class != Review &&
       obj != "organizer_sessions" &&
-      obj != "reviewer_sessions"
+      obj != "reviewer_sessions" &&
+      obj != "reviews_listing"
     end
     can(:manage, UserSession)
     can(:create, User)
@@ -57,6 +58,7 @@ class Ability
         can(:create, Review) do
           Review.count(:conditions => ['reviewer_id = ? AND session_id = ?', user.id, params[:session_id].to_i]) == 0
         end
+        can(:read, 'reviews_listing')
       end
     end
   end
