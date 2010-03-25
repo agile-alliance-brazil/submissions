@@ -25,7 +25,9 @@ TODO:
  * Display progress bar with total number of reviews
  * Display progress bar with total number of reviews for reviewer
  * Listing of reviews of each proposal
- --- Medium term
+ * Sorting proposals by any field in the organizer listing
+ * Sorting proposals by any field in the reviewer listing
+--- Medium term
  * Create time slots on agenda
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
