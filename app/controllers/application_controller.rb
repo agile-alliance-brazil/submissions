@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   end
   
   def current_ability
-    puts "Creating an ability for #{current_user} with params #{params}"
     Ability.new(current_user, params)
   end
   

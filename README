@@ -48,7 +48,6 @@ IN PROGRESS:
 DONE:
 
  * Do not paginate reviewers on organizer's view -- Hugo
- * Link to "My reviews" is bugged when locale is set -- Hugo
  * Adding reviewer review count to list of reviewers -- Hugo
  * Adding reviewer preference to list of reviewers -- Hugo
  * Display progress bar with total number of reviews -- Danilo
@@ -145,6 +144,8 @@ BUGS:
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 FIXED:
+* Login brings you to the review count js [dirty fix] -- Hugo
+* Link to "My reviews" is bugged when locale is set [fixed] -- Hugo
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
 * How to submit a session > "Create a user" link on the main page and "Register new
 account" link on the left hand column.  They point to the same link but used different words.  Should we use the same words?  i.e. stick to one. [fixed]
