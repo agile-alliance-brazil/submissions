@@ -509,6 +509,7 @@ pt:
       invited: "Convite enviado"
       accepted: "Ativo"
       rejected: "Convite rejeitado"
+    doesnot_review: "Não avalia"
   
   session:
     state:

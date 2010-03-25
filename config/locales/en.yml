@@ -347,6 +347,7 @@ en:
       invited: "Invited"
       accepted: "Active"
       rejected: "Rejected invitation"
+    doesnot_review: "Does not review"
 
   session:
     state:

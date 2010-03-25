@@ -335,6 +335,15 @@ table.sessions th.title {
 table.sessions th.author {
   width: 15%; }
 
+table.reviewers th.reviewer {
+  width: 20%; }
+table.reviewers th.status {
+  width: 10%; }
+table.reviewers th.track {
+  width: 15%; }
+table.reviewers th.actions {
+  width: 10%; }
+
 .commentCount {
   font-size: 8px;
   font-weight: bold;

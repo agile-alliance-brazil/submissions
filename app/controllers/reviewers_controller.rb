@@ -2,6 +2,11 @@ class ReviewersController < InheritedResources::Base
   actions :index, :new, :create, :destroy, :update
   respond_to :html
   
+  def index
+    @tracks = Track.find(:all)
+    index!
+  end
+  
   def create
     create! do |success, failure|
       success.html do

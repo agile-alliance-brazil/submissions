@@ -6,13 +6,17 @@
     %tr
       %th.reviewer= t('formtastic.labels.reviewer.user_id')
       %th.state= t('formtastic.labels.reviewer.state')
-      %th
+      - @tracks.each do |track|
+        %th.track= t(track.title)
+      %th.actions
   %tbody
     - @reviewers.each do |reviewer|
       - content_tag_for(:tr, reviewer, :class => cycle(:odd, :even)) do
         %td.reviewer&= reviewer.user.full_name
         %td.state&= t("reviewer.state.#{reviewer.state}")
-        %td
+        - @tracks.each do |track|
+          %td.track&= t(review_level(reviewer.accepted_preferences, track))
+        %td.actions
           - if can? :destroy, reviewer
             = link_to t('actions.destroy'), reviewer_path(reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
 
