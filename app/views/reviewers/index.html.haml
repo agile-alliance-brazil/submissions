@@ -22,8 +22,5 @@
           - if can? :destroy, reviewer
             = link_to t('actions.destroy'), reviewer_path(reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
 
-- if @reviewers.total_pages > 1
-  #pagination= will_paginate(@reviewers)
-
 - if can? :create, Reviewer
   = link_to t('actions.create_reviewer'), new_reviewer_path

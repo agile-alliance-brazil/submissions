@@ -36,10 +36,6 @@ class ReviewersController < InheritedResources::Base
   
   protected
   def collection
-    paginate_options ||= {}
-    paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 10)
-    paginate_options[:order] ||= 'reviewers.created_at DESC'
-    @reviewers ||= end_of_association_chain.paginate(paginate_options)
+    @reviewers ||= Reviewer.find(:all).sort{|reviewer1, reviewer2| reviewer1.user.full_name <=> reviewer2.user.full_name}
   end
 end
