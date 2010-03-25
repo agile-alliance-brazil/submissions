@@ -47,7 +47,7 @@ class Ability
         can(:manage, Reviewer)
         can(:read, "organizer_sessions")
         can(:cancel, Session) do |session|
-          user.organized_tracks.include?(session.track)
+          session.can_cancel? && user.organized_tracks.include?(session.track)
         end
         can(:read, Review)
       end

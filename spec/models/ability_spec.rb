@@ -290,6 +290,13 @@ describe Ability do
         Factory(:organizer, :track => @session.track, :user => @user)
         @ability.should be_can(:cancel, @session)
       end
+      
+      it "- session is not already cancelled" do
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:cancel, @session)
+        @session.cancel
+        @ability.should be_cannot(:cancel, @session)
+      end
     end
   end
 
