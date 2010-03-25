@@ -336,11 +336,13 @@ table.sessions th.author {
   width: 15%; }
 
 table.reviewers th.reviewer {
-  width: 20%; }
+  width: 15%; }
 table.reviewers th.status {
   width: 10%; }
 table.reviewers th.track {
   width: 15%; }
+table.reviewers th.count {
+  width: 5%; }
 table.reviewers th.actions {
   width: 10%; }
 

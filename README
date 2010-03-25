@@ -19,13 +19,13 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
+ * Link to "My reviews" is bugged when locale is set
  --- High priority
  * Deadline for adding/editing reviews
  * Display number of reviews per reviewer on organizer's view (no pagination)
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
- * Adding reviewer review count to list of reviewers
 --- Medium term
  * Create time slots on agenda
  * Organizers can create program
@@ -48,6 +48,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Adding reviewer review count to list of reviewers -- Hugo
  * Adding reviewer preference to list of reviewers -- Hugo
  * Display progress bar with total number of reviews -- Danilo
  * Reviewer can't choose preference on track(s) he/she is organizing -- Danilo
