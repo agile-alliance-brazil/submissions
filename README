@@ -21,8 +21,7 @@ TODO:
  --- BUGS
  --- High priority
  * Deadline for adding/editing reviews
- * Display progress bar with total number of reviews
- * Display progress bar with total number of reviews for reviewer
+ * Display number of reviews per reviewer on organizer's view (no pagination)
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
@@ -33,6 +32,7 @@ TODO:
  * Organizers can add note before publishing reviews to author
  * Author can see anonymous reviews
  --- Lower priority
+ * Display progress bar with total number of reviews for reviewer
  * Reviewer can edit a review
  * Voting results
  * Search submissions
@@ -49,6 +49,7 @@ IN PROGRESS:
 DONE:
 
  * Adding reviewer preference to list of reviewers -- Hugo
+ * Display progress bar with total number of reviews -- Danilo
  * Reviewer can't choose preference on track(s) he/she is organizing -- Danilo
  * 'My reviews' listing for each reviewer -- Hugo
  * Improve new review form layout -- Hugo/Danilo

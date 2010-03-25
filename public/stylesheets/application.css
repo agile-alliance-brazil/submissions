@@ -657,3 +657,7 @@ form.review.formtastic select {
   display: inline; }
 form.review.formtastic fieldset ol li ul.errors {
   float: none; }
+
+#review_progress_count {
+  font-size: 8pt;
+  padding-bottom: 4px; }

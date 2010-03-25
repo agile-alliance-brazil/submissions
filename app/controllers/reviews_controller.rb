@@ -3,7 +3,7 @@ class ReviewsController < InheritedResources::Base
   respond_to :html
 
   belongs_to :session
-
+  
   def create
     create! do |success, failure|
       success.html do
