@@ -11,7 +11,8 @@ class Ability
       object_class != Reviewer &&
       object_class != Review &&
       obj != "organizer_sessions" &&
-      obj != "reviewer_sessions"
+      obj != "reviewer_sessions" &&
+      obj != "reviews_listing"
     end
     can(:manage, UserSession)
     can(:create, User)
@@ -58,6 +59,7 @@ class Ability
           session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
           Session.for_reviewer(user).include?(session)
         end
+        can(:read, 'reviews_listing')
       end
     end
   end
