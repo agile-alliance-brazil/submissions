@@ -59,14 +59,18 @@
 :javascript
   $(document).ready(function() {
     $.getJSON('#{reviews_path(:format => :js)}', function(data) {
+      var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
+      var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
+      var green = Math.floor(parseInt(data.required_reviews) * 0.90);
       $("#review_progress_count .progress").progressBar(data.total_reviews, {
         boxImage : '/images/progressbar.gif',
         max : data.required_reviews,
         textFormat : 'fraction',
         barImage : {
                       0:  '/images/progressbg_red.gif',
-                      30: '/images/progressbg_orange.gif',
-                      70: '/images/progressbg_green.gif'
+                      orange: '/images/progressbg_orange.gif',
+                      yellow: '/images/progressbg_yellow.gif',
+                      green: '/images/progressbg_green.gif'
         }
       });
     })
