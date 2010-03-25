@@ -587,7 +587,7 @@ form.reviewer p.inline-hints {
   color: #999999;
   font-style: italic; }
 form.reviewer pre#reviewer_agreement {
-  float: left;
+  width: 80%;
   display: block;
   background-color: #ffffe0;
   border-radius: 10px;
