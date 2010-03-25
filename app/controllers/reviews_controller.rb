@@ -3,6 +3,17 @@ class ReviewsController < InheritedResources::Base
   respond_to :html
 
   belongs_to :session
+  
+  def index
+    respond_to do |format|
+      format.js do
+        render :json => {
+          'required_reviews' => Session.without_state(:cancelled).count * 3,
+          'total_reviews' => Review.count
+        }
+      end
+    end
+  end
 
   def create
     create! do |success, failure|

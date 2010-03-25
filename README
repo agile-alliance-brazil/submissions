@@ -21,9 +21,8 @@ TODO:
  --- BUGS
  --- High priority
  * Deadline for adding/editing reviews
+ * Display number of reviews per reviewer on organizer's view (no pagination)
  * 'My reviews' listing for each reviewer
- * Display progress bar with total number of reviews
- * Display progress bar with total number of reviews for reviewer
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
@@ -33,6 +32,7 @@ TODO:
  * Organizers can add note before publishing reviews to author
  * Author can see anonymous reviews
  --- Lower priority
+ * Display progress bar with total number of reviews for reviewer
  * Reviewer can edit a review
  * Voting results
  * Search submissions
@@ -49,6 +49,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Display progress bar with total number of reviews -- Danilo
  * Session state machine -- Danilo
  * Organizers can view list of reviewers -- Danilo
  * Reviewer can view a list of sessions to review (missing limit by number of reviews) -- Danilo

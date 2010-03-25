@@ -198,6 +198,8 @@ en:
   
   actions:
     submission_date: "Submission deadline"
+    review_date: "Review deadline"
+    review_goal: "Goal"
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"
     profile: "My profile"

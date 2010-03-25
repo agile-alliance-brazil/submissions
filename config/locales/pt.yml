@@ -360,6 +360,8 @@ pt:
   
   actions:
     submission_date: "Prazo para submissões"
+    review_date: "Prazo para avaliações"
+    review_goal: "Meta"
     submit_session: "Envie uma proposta"
     browse_sessions: "Propostas de sessão submetidas"
     profile: "Meu perfil"
