@@ -285,6 +285,8 @@ pt:
         comments_to_organizers: "Por favor entre qualquer comentário relevante para o comitê de programa."
         comments_to_authors: "Por favor entre qualquer comentário relevante para os autores."
         authors: "Autores"
+        session: "Sessão"
+        recommendation: "Recomendação"
     hints:
       user:
         email: "Principal email de contato."
@@ -378,6 +380,7 @@ pt:
     organizer_sessions: "Organizar sessões"
     reviewer_sessions: "Avaliar sessões"
     review_session: "Avaliar"
+    reviewer_reviews: "Minhas avaliações"
     section:
       session: "Sessões"
       review: "Processo de avaliação"

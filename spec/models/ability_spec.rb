@@ -136,6 +136,10 @@ describe Ability do
       @ability.should be_cannot(:read, Review)
     end
     
+    it "cannot read reviews listing" do
+      @ability.should be_cannot(:read, 'reviews_listing')
+    end
+    
     it "cannot read sessions to organize" do
       @ability.should be_cannot(:read, 'organizer_sessions')
     end
@@ -194,6 +198,10 @@ describe Ability do
     
     it "cannot read reviews" do
       @ability.should be_cannot(:read, Review)
+    end
+    
+    it "cannot read reviews listing" do
+      @ability.should be_cannot(:read, 'reviews_listing')
     end
     
     it "cannot read sessions to organize" do
@@ -270,7 +278,11 @@ describe Ability do
 
     it "can read reviews" do
       @ability.should be_can(:read, Review)
-    end    
+    end
+    
+    it "cannot read reviews listing" do
+      @ability.should be_cannot(:read, 'reviews_listing')
+    end
     
     it "can read sessions to organize" do
       @ability.should be_can(:read, 'organizer_sessions')
@@ -322,6 +334,10 @@ describe Ability do
 
     it "can read sessions to review" do
       @ability.should be_can(:read, 'reviewer_sessions')
+    end
+    
+    it "can read reviews listing" do
+      @ability.should be_can(:read, 'reviews_listing')
     end
 
     it "can read own reviews" do

@@ -1,0 +1,26 @@
+- title t('actions.reviewer_reviews')
+- show_actions!
+
+%table.sessions
+  %thead
+    %tr
+      %th.review_id ID
+      %th.title= t('formtastic.labels.review.session')
+      %th.author= t('formtastic.labels.session.author_id')
+      %th.track= t('formtastic.labels.session.track_id')
+      %th.review= t('formtastic.labels.review.recommendation')
+  %tbody
+    - @reviews.each do |review|
+      - content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
+        %td.review_id= review.id
+        %td.title
+          = link_to h(review.session.try(:title)), session_path(review.session)
+          - if review.session.comments.size > 0
+            .commentCount= review.session.comments.size
+        %td.author= link_to h(review.session.author.full_name), user_path(review.session.author)
+        %td.track
+          = t(review.session.track.title)
+        %td.review= link_to t(review.recommendation.title), session_review_path(review.session, review)
+
+- if @reviews.total_pages > 1
+  #pagination= will_paginate(@reviews)

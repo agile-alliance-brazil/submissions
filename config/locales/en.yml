@@ -124,6 +124,8 @@ en:
         comments_to_organizers: "Please enter any comments relevant to the program committee."
         comments_to_authors: "Please enter any comments relevant to the authors."
         authors: "Authors"
+        session: "Session"
+        recommendation: "Recommendation"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -216,6 +218,7 @@ en:
     organizer_sessions: "Track organized sessions"
     reviewer_sessions: "Sessions to review"
     review_session: "Review"
+    reviewer_reviews: "My reviews"
     section:
       session: "Sessions"
       review: "Review process"
