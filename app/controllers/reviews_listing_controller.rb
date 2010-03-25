@@ -1,9 +1,19 @@
 class ReviewsListingController < ApplicationController
   def index
-    if(current_user.reviewer)
-      redirect_to :action => :reviewer
-    else
-      unauthorized!
+    respond_to do |format|
+      format.html do
+        if(current_user.reviewer)
+          redirect_to :action => :reviewer
+        else
+          unauthorized!
+        end
+      end
+      format.js do
+        render :json => {
+          'required_reviews' => Session.without_state(:cancelled).count * 3,
+          'total_reviews' => Review.count
+        }
+      end
     end
   end
   

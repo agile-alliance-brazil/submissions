@@ -3,22 +3,12 @@ require 'spec/spec_helper'
 describe ReviewsController do
   integrate_views
 
-  it_should_require_login_for_actions :index, :show, :new, :create
+  it_should_require_login_for_actions :show, :new, :create
 
   before(:each) do
     @review = Factory(:review)
     activate_authlogic
     UserSession.create(@review.reviewer)
-  end
-
-  it "show action should render JSON" do
-    session = Factory(:session)
-    Factory(:review, :session => session)
-    get :index, :format => 'js'
-    response.body.should == {
-      'total_reviews' => 2,
-      'required_reviews' => 6
-    }.to_json
   end
   
   it "show action should render show template" do
