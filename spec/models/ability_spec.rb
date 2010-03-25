@@ -368,6 +368,26 @@ describe Ability do
         @ability.should be_can(:create, Review)
         @ability.should be_can(:create, Review, nil)
         @ability.should be_can(:create, Review, @session)
+        
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:create, Review)
+        @ability.should be_cannot(:create, Review, nil)
+      end
+      
+      it "is admin and has a session" do
+        @user.add_role('admin')
+        
+        @ability.should be_cannot(:create, Review)
+        @ability.should be_cannot(:create, Review, nil)
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability.should be_can(:create, Review)
+        @ability.should be_can(:create, Review, nil)
+        @ability.should be_can(:create, Review, @session)
+        
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:create, Review)
+        @ability.should be_cannot(:create, Review, nil)
       end
     end
   end

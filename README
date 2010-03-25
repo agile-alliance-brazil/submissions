@@ -19,10 +19,10 @@ order by votes.user_ip, votes.created_at
 TODO:
 
  --- BUGS
- * Link to "My reviews" is bugged when locale is set
+ * new_session_review(nil) works iff locale is not explicit
  --- High priority
  * Deadline for adding/editing reviews
- * Display number of reviews per reviewer on organizer's view (no pagination)
+ * Do not paginate reviewers on organizer's view
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
@@ -48,6 +48,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Link to "My reviews" is bugged when locale is set -- Hugo
  * Adding reviewer review count to list of reviewers -- Hugo
  * Adding reviewer preference to list of reviewers -- Hugo
  * Display progress bar with total number of reviews -- Danilo

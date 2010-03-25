@@ -34,6 +34,10 @@ class Ability
     
     if user.admin?
       can(:manage, :all)
+      can(:create, Review) do |_, session|
+        session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
+        session
+      end
     else
       if user.author?
         can(:create, Session) do
