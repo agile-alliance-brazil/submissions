@@ -4,7 +4,6 @@ class Reviewer < ActiveRecord::Base
   attr_trimmed    :user_username
 
   belongs_to :user
-  has_many :reviews
   has_many :preferences
   has_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
   
