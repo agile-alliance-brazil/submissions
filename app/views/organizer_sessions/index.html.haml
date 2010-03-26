@@ -4,13 +4,13 @@
 %table.sessions
   %thead
     %tr
-      %th.session_id ID
-      %th.title= t('formtastic.labels.session.title')
-      %th.author= t('formtastic.labels.session.author_id')
-      %th.author= t('formtastic.labels.session.second_author_id')
-      %th.track= t('formtastic.labels.session.track_id')
-      %th.state= t('formtastic.labels.session.state')
-      %th.reviews= t('formtastic.labels.session.reviews')
+      %th.session_id= sortable_column('ID', :id)
+      %th.title= sortable_column(t('formtastic.labels.session.title'), :title)
+      %th.author= sortable_column(t('formtastic.labels.session.author_id'), :author)
+      %th.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author)
+      %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track)
+      %th.state= sortable_column(t('formtastic.labels.session.state'), :state)
+      %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews)
       %th.action
   %tbody
     - @sessions.each do |session|

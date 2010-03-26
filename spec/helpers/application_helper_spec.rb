@@ -20,4 +20,9 @@ describe ApplicationHelper do
       helper.prepend_http('   ').should == '   '
     end
   end
+  
+  describe "links to sort"
+    it "should not link if already sorting like that"
+    it "should like to the right direction"
+  end
 end

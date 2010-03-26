@@ -393,3 +393,6 @@ en:
     says: "says"
     are_you_sure: "Are you sure you want to {{action}}?"
     reviewed_by: "Reviewed by"
+    sort_by: "Sort by {{direction}} {{column}}"
+    sort_up: "ascendent"
+    sort_down: "descendent"

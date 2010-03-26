@@ -23,7 +23,6 @@ TODO:
  --- High priority
  * Deadline for adding/editing reviews
  * Listing of reviews of each proposal
- * Sorting proposals by any field in the organizer listing
  * Sorting proposals by any field in the reviewer listing
 --- Medium term
  * Create time slots on agenda
@@ -44,6 +43,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Sorting proposals by any field in the organizer listing -- Hugo
  
 DONE:
 
