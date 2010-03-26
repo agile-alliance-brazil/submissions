@@ -252,6 +252,7 @@ pt:
         second_author_id: "Segundo autor"
         second_author_username: "Segundo autor (username)"
         keyword_list: "Palavras-chave"
+        created_at: "Criação"
         updated_at: "Última atualização"
         state: "Status"
         reviews: "Avaliações"
