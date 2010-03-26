@@ -61,6 +61,6 @@ module Authentication
   private
   
   def store_target_location
-    session[:return_to] = request.request_uri unless request.request_url == reviews_path(:format => :js)
+    session[:return_to] = request.request_uri unless params[:format] == 'js'
   end
 end

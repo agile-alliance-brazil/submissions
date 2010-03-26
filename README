@@ -29,6 +29,7 @@ TODO:
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
  * Author can see anonymous reviews
+ * Allow reviewers to remove a session from the list of session they can review
  --- Lower priority
  * Display progress bar with total number of reviews for reviewer
  * Reviewer can edit a review
@@ -39,6 +40,8 @@ TODO:
  - Validate foreign_key references
  - send emails on background job (delayed_job?)
  * Upload picture to profile
+ * Forbid to add an organizer to a track in which he has submissions (main or second author)
+ * Allow reviewers who removed a session from their list of session to re-add those sessions
 
 IN PROGRESS:
 
