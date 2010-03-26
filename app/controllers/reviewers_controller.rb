@@ -36,6 +36,6 @@ class ReviewersController < InheritedResources::Base
   
   protected
   def collection
-    @reviewers ||= Reviewer.find(:all).sort{|reviewer1, reviewer2| reviewer1.user.full_name <=> reviewer2.user.full_name}
+    @reviewers ||= Reviewer.find(:all, :joins => [:user], :order => 'first_name, last_name')
   end
 end
