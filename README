@@ -20,7 +20,6 @@ TODO:
 
  --- BUGS
  * new_session_review(nil) works iff locale is not explicit
- * Session ID on the reviewer session listing is wrong
  --- High priority
  * Deadline for adding/editing reviews
  * Listing of reviews of each proposal
@@ -149,6 +148,7 @@ BUGS:
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 FIXED:
+* Session ID on the reviewer session listing is wrong [column removed] -- Hugo
 * Login brings you to the review count js [fixed] -- Hugo/Danilo
 * Link to "My reviews" is bugged when locale is set [fixed] -- Hugo
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
