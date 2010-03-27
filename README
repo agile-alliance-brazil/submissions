@@ -202,3 +202,5 @@ account" link on the left hand column.  They point to the same link but used dif
 * Reviewer can't choose preference on track(s) he/she is organizing [fixed]
 * Reviewer can review any session (even if not part of his preferences) [fixed]
 * Organizer can cancel already cancelled session [fixed]
+* Review count on reviewers page is wrong [fixed]
+* Progress bar changes color with progress [fixed]

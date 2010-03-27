@@ -91,6 +91,7 @@ en:
         second_author_id: "Second author"
         second_author_username: "Second author's username"
         keyword_list: "Keywords"
+        created_at: "Created"
         updated_at: "Updated"
         state: "Status"
         reviews: "Reviews"
