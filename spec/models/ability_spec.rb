@@ -200,6 +200,8 @@ describe Ability do
       @ability.should be_cannot(:read, Review)
     end
     
+    it "can index reviews of his session"
+    
     it "cannot read reviews listing" do
       @ability.should be_cannot(:read, 'reviews_listing')
     end
@@ -287,6 +289,13 @@ describe Ability do
     it "can read sessions to organize" do
       @ability.should be_can(:read, 'organizer_sessions')
     end
+    
+    it "can read session reviews" do
+      @ability.should be_can(:read, Review)
+    end
+    
+    it "can index reviews on session on organizer's track" 
+    it "cannot index reviews on session outside of organizer's track" 
 
     it "cannot read sessions to review" do
       @ability.should be_cannot(:read, 'reviewer_sessions')
@@ -339,13 +348,15 @@ describe Ability do
     it "can read reviews listing" do
       @ability.should be_can(:read, 'reviews_listing')
     end
+    
+    it "cannot index all reviews of any session"
 
     it "can read own reviews" do
       review = Factory(:review)
       @ability.should be_cannot(:read, review)
       review.reviewer = @user
       @ability.should be_can(:read, review)
-    end    
+    end
 
     context "can create a new review if:" do
       before(:each) do

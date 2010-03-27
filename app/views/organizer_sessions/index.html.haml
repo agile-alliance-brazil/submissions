@@ -25,7 +25,7 @@
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         %td.track
           = t(session.track.title)
-        %td.reviews= session.reviews_count
+        %td.reviews= link_to_unless(session.reviews_count == 0, session.reviews_count, session_reviews_path(session))
         %td.action
           - if can? :cancel, session
             = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))

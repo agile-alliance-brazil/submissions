@@ -211,6 +211,7 @@ pt:
       conclusion: "Conclusão"
       to_organizers: "Informações aos organizadores"
       to_authors: "Informações aos autores"
+      details: "Detalhes"
     labels:
       user:
         first_name: "Nome"
@@ -288,6 +289,8 @@ pt:
         authors: "Autores"
         session: "Sessão"
         recommendation: "Recomendação"
+        confidence: "Confiança"
+        reviewer: "Avaliador"
     hints:
       user:
         email: "Principal email de contato."
@@ -522,9 +525,15 @@ pt:
     parameters: "Sobre esta sessão"
     audience_limit: "Limite: {{limit}} participantes"
     no_audience_limit: "Não há limite de participantes"
+    reviews: "Avaliações de '{{session}}'"
   
   review:
     view_session: "Ver proposta original (com comentários)"
+    justification: "Justificativa"
+    agile_xp_rating: "Experiência com Métodos Ágeis"
+    proposal_xp_rating: "Experiência com o assunto"
+    proposal_quality_rating: "Clareza, objetividade e escrita"
+    proposal_relevance_rating: "Relevância pro evento"
     
   rating:
     high:
@@ -559,3 +568,5 @@ pt:
     sort_by: "Ordernar {{direction}}"
     sort_up: "ascendente"
     sort_down: "descendente"
+    show: "Exibir {{target}}"
+    hide: "Esconder {{target}}"

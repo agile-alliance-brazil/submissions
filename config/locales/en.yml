@@ -53,6 +53,7 @@ en:
       conclusion: "Conclusion"
       to_organizers: "Information to the organizers"
       to_authors: "Information to the authors"
+      details: "Details"
     labels:
       user:
         first_name: "First name"
@@ -127,6 +128,8 @@ en:
         authors: "Authors"
         session: "Session"
         recommendation: "Recommendation"
+        confidence: "Confidence"
+        reviewer: "Reviewer"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -360,9 +363,15 @@ en:
     parameters: "About this session"
     audience_limit: "Limit: {{limit}} participants"
     no_audience_limit: "There is no participants limit"
+    reviews: "Review of '{{session}}'"
 
   review:
     view_session: "View original proposal (with comments)"
+    justification: "Justification"
+    agile_xp_rating: "Agile Methods experience"
+    proposal_xp_rating: "Proposal subject experience"
+    proposal_quality_rating: "Clarity, objectivity and writing"
+    proposal_relevance_rating: "Relevance to the event"
 
   rating:
     high:
@@ -397,3 +406,5 @@ en:
     sort_by: "Sort {{direction}}"
     sort_up: "ascendent"
     sort_down: "descendent"
+    show: "Show {{target}}"
+    hide: "Hide {{target}}"

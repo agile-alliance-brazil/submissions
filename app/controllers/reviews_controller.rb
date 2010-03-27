@@ -1,5 +1,5 @@
 class ReviewsController < InheritedResources::Base
-  actions :new, :create, :show
+  actions :all, :except => [:edit, :update]
   respond_to :html
 
   belongs_to :session
