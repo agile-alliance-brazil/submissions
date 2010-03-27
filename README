@@ -20,11 +20,12 @@ TODO:
 
  --- BUGS
  * new_session_review(nil) works iff locale is not explicit
+ * Session ID on the reviewer session listing is wrong
  --- High priority
  * Deadline for adding/editing reviews
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the reviewer listing
---- Medium term
+ --- Medium term
  * Create time slots on agenda
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
@@ -147,7 +148,7 @@ BUGS:
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 FIXED:
-* Login brings you to the review count js [dirty fix] -- Hugo
+* Login brings you to the review count js [fixed] -- Hugo/Danilo
 * Link to "My reviews" is bugged when locale is set [fixed] -- Hugo
 * If I try to log in using an invalid account, I get an error message "is not valid" - could that be aligned under the user name text field? [fixed]
 * How to submit a session > "Create a user" link on the main page and "Register new
