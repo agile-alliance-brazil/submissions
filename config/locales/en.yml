@@ -372,6 +372,7 @@ en:
     proposal_xp_rating: "Proposal subject experience"
     proposal_quality_rating: "Clarity, objectivity and writing"
     proposal_relevance_rating: "Relevance to the event"
+    comments_to_organizers: "Comments to organizers"
 
   rating:
     high:

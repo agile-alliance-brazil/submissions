@@ -534,6 +534,7 @@ pt:
     proposal_xp_rating: "Experiência com o assunto"
     proposal_quality_rating: "Clareza, objetividade e escrita"
     proposal_relevance_rating: "Relevância pro evento"
+    comments_to_organizers: "Comentários aos organizadores"
     
   rating:
     high:
