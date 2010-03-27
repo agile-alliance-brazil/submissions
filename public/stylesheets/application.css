@@ -334,6 +334,8 @@ table.sessions th.title {
   width: 50%; }
 table.sessions th.author {
   width: 15%; }
+table.sessions th.track {
+  width: 15%; }
 
 table.reviewers th.reviewer {
   width: 15%; }

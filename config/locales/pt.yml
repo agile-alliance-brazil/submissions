@@ -556,6 +556,6 @@ pt:
     says: "diz"
     are_you_sure: "Você tem certeza que quer {{action}}?"
     reviewed_by: "Avaliado por"
-    sort_by: "Ordernar por {{column}} {{direction}}"
+    sort_by: "Ordernar {{direction}}"
     sort_up: "ascendente"
     sort_down: "descendente"

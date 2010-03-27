@@ -16,14 +16,12 @@ module ApplicationHelper
     @current_tab += 1
   end
   
-  def sortable_column(text, column)
-    text + sort_link(column, 'up') + sort_link(column, 'down')
+  def sortable_column(text, column, parameters=request.parameters)
+    if(parameters[:column] == column.to_s)
+      direction = parameters[:direction] == 'down' ? 'up' : 'down'
+    else
+      direction = 'down'
+    end
+    link_to text, parameters.merge({:column => column, :direction => direction})
   end
-
-  def sort_link(column, direction, options = {})
-    condition = options[:unless] if options.has_key?(:unless)
-    text = t('generic.sort_by', :direction => t("generic.sort_#{direction}"), :column => column.to_s.capitalize)
-    image = image_tag("#{direction}.gif", :alt => text, :class_name => "sort #{direction}")
-    link_to_unless condition, image, request.parameters.merge({:column => column, :direction => direction})
-  end  
 end

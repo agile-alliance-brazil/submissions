@@ -21,8 +21,28 @@ describe ApplicationHelper do
     end
   end
   
-  describe "links to sort"
-    it "should not link if already sorting like that"
-    it "should like to the right direction"
+  describe "sort link" do
+    before(:each) do
+      @params = {:controller => :organizer_sessions, :action => :index}
+    end
+    
+    it "should link down if nothing set" do
+      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+    end
+    it "should link down if was going up on that column" do
+      @params[:column] = 'id'
+      @params[:direction] = 'up'
+      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+    end
+    it "should link up if was going down on that column" do
+      @params[:column] = 'id'
+      @params[:direction] = 'down'
+      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=up">test</a>'
+    end
+    it "should link down if was going down on another column" do
+      @params[:column] = 'author_id'
+      @params[:direction] = 'down'
+      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+    end
   end
 end

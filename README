@@ -26,6 +26,7 @@ TODO:
  * Listing of reviews of each proposal
  * Sorting proposals by any field in the reviewer listing
  --- Medium term
+ * Improve sorting by reviews count using SQL (currently Ruby done)
  * Create time slots on agenda
  * Organizers can create program
  * Organizers can add note before publishing reviews to author
@@ -47,10 +48,10 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Sorting proposals by any field in the organizer listing -- Hugo
  
 DONE:
 
+ * Sorting proposals by any field in the organizer listing -- Hugo
  * Do not paginate reviewers on organizer's view -- Hugo
  * Adding reviewer review count to list of reviewers -- Hugo
  * Adding reviewer preference to list of reviewers -- Hugo
