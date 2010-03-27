@@ -17,10 +17,6 @@ class OrganizerSessionsController < ApplicationController
   end  
   
   private
-  def sanatize(text)
-    text.gsub(/[\s;'\"]/,'')
-  end
-  
   def sort_by_review_count(sessions, reverse)
     sessions.sort do |s1, s2|
       sort = (s1.reviews.count <=> s2.reviews.count)

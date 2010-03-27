@@ -20,10 +20,12 @@ TODO:
 
  --- BUGS
  * new_session_review(nil) works iff locale is not explicit
+ * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
+ * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
  * Deadline for adding/editing reviews
  * Listing of reviews of each proposal
- * Sorting proposals by any field in the reviewer listing
+ * Sort by author, second_author and track on reviewer_reviews
  --- Medium term
  * Improve sorting by reviews count using SQL (currently Ruby done)
  * Create time slots on agenda
@@ -50,6 +52,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Sorting proposals by recommendation and session id in the reviewer listing -- Hugo
  * Sorting proposals by any field in the organizer listing -- Hugo
  * Do not paginate reviewers on organizer's view -- Hugo
  * Adding reviewer review count to list of reviewers -- Hugo

@@ -4,10 +4,11 @@
 %table.sessions
   %thead
     %tr
-      %th.title= t('formtastic.labels.review.session')
+      %th.title= sortable_column t('formtastic.labels.review.session'), :session_id
       %th.author= t('formtastic.labels.session.author_id')
+      %th.author= t('formtastic.labels.session.second_author_id')
       %th.track= t('formtastic.labels.session.track_id')
-      %th.review= t('formtastic.labels.review.recommendation')
+      %th.review= sortable_column t('formtastic.labels.review.recommendation'), :recommendation_id
   %tbody
     - @reviews.each do |review|
       - content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
@@ -16,6 +17,9 @@
           - if review.session.comments.size > 0
             .commentCount= review.session.comments.size
         %td.author= link_to h(review.session.author.full_name), user_path(review.session.author)
+        %td.author
+          - if review.session.second_author
+            = link_to h(review.session.second_author.full_name), user_path(review.session.second_author)
         %td.track
           = t(review.session.track.title)
         %td.review= link_to t(review.recommendation.title), session_review_path(review.session, review)

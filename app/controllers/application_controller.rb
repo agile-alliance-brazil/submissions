@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     params[:locale] ? { :locale => params[:locale] } : {}
   end
   
+  def sanatize(text)
+    text.gsub(/[\s;'\"]/,'')
+  end
+  
   protected
   def render_optional_error_file(status_code)
     set_locale
