@@ -94,8 +94,8 @@ a:hover {
       display: none; }
     #header .logo strong {
       position: absolute;
-      top: 60px;
-      left: 80px;
+      top: 0px;
+      left: 105px;
       color: #999999; }
   #header ul#languages {
     float: right;
