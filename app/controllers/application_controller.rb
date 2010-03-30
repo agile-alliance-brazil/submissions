@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     params[:locale] ? { :locale => params[:locale] } : {}
   end
   
-  def sanatize(text)
+  def sanitize(text)
     text.gsub(/[\s;'\"]/,'')
   end
   

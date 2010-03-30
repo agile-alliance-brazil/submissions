@@ -6,7 +6,7 @@
 
 %h2= t('formtastic.titles.conclusion')
 
-%table.reviews
+%table#conclusions.reviews
   %thead
     %tr
       %th.reviewer= t('formtastic.labels.review.reviewer')
@@ -21,30 +21,27 @@
         %td.recommendation= t(review.recommendation.title)
         %td.confidence= t(review.reviewer_confidence_rating.title)
         %td.action
-          = "<a id='justification_hidden' class='hidden' onClick=\"show_review_justification('#{review.id}')\">#{t('generic.show', :target => t('review.justification'))}</a>"
-          = "<a id='justification_shown' class='shown' onClick=\"hide_review_justification('#{review.id}')\">#{t('generic.hide', :target => t('review.justification'))}</a>"
-      - content_tag_for(:tr, review, :class => "#{class_name} justification") do
+      - content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
         %td{:class => "justification", :colspan => 4}
           = "<strong>" + t('review.justification') + ":</strong>"
           &= review.justification
 
 %h2= t('formtastic.titles.details')
 
-%table.reviews
+%table#comments.reviews
   %thead
     %tr
       %th.reviewer= t('formtastic.labels.review.reviewer')
       %th.comment= t('review.comments_to_organizers')
   %tbody
     - @reviews.each do |review|
-      - class_name = cycle(:odd, :even)
-      - content_tag_for(:tr, review, :class => class_name) do
+      - content_tag_for(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
         %td.reviewer&= review.reviewer.full_name
         %td.comment&= review.comments_to_organizers
 
 %h3= t('formtastic.titles.author')
 
-%table.reviews.author
+%table#authors.reviews.author
   %thead
     %tr
       %th
@@ -62,7 +59,7 @@
 
 %h3= t('formtastic.titles.proposal')
 
-%table.reviews.proposal
+%table#proposal.reviews.proposal
   %thead
     %tr
       %th
@@ -96,7 +93,7 @@
 
 %h3= t('formtastic.titles.work')
 
-%table.reviews.work
+%table#work.reviews.work
   %thead
     %tr
       %th
@@ -112,21 +109,27 @@
       - @reviews.each do |review|
         %td= t(review.proposal_relevance_rating.title)
 
+- show_link = "<a class='hidden' onClick='show_review_justification(this)'>#{t('generic.show', :target => t('review.justification'))}</a>"
+- hide_link = "<a class='shown' onClick='hide_review_justification(this)'>#{t('generic.hide', :target => t('review.justification'))}</a>"
 :javascript
   $(document).ready(function() {
     var hide_function = function(index, value){$(value).hide()};
     $.each($('tr.justification'), hide_function);
+    $.each($('table#conclusions>tbody>tr.review'), function(index, value) {
+      var action_td = $('tr#'+value.id+'>td:nth-child(4)');
+      action_td.append("#{show_link}#{hide_link}");
+    });
     $.each($('a.shown'), hide_function);
   })
-  function show_review_justification(id) {
-    toggle_justification(id, 'shown', 'hidden', function(item) {item.show()});
+  function show_review_justification(link) {
+    toggle_justification(link, 'shown', 'hidden', function(item) {item.show()});
   }
-  function hide_review_justification(id) {
-    toggle_justification(id, 'hidden', 'shown', function(item) {item.hide()});
+  function hide_review_justification(link) {
+    toggle_justification(link, 'hidden', 'shown', function(item) {item.hide()});
   }
-  function toggle_justification(id, to_show, to_hide, operation) {
-    var parent = 'tr#review_'+id;
-    $(parent+'>td>a.'+to_show).show();
-    $(parent+'>td>a.'+to_hide).hide();
-    operation($(parent+'.justification'));
+  function toggle_justification(link, to_show, to_hide, operation) {
+    var parent = link.parentNode.parentNode;
+    $('#'+parent.id+'>td>a.'+to_show).show();
+    $('#'+parent.id+'>td>a.'+to_hide).hide();
+    operation($('#'+parent.id+'_justification'));
   }

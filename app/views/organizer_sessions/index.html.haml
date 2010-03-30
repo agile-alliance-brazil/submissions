@@ -9,7 +9,7 @@
       %th.author= sortable_column(t('formtastic.labels.session.author_id'), :author_id)
       %th.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author_id)
       %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
-      %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews)
+      %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews_count)
       %th.action
   %tbody
     - @sessions.each do |session|
