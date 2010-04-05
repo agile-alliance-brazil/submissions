@@ -278,8 +278,8 @@ describe Ability do
       @ability.should be_cannot(:read, Organizer)
     end
 
-    it "can read reviews" do
-      @ability.should be_can(:read, Review)
+    it "can show reviews" do
+      @ability.should be_can(:show, Review)
     end
     
     it "cannot read reviews listing" do
@@ -289,16 +289,36 @@ describe Ability do
     it "can read sessions to organize" do
       @ability.should be_can(:read, 'organizer_sessions')
     end
-    
-    it "can read session reviews" do
-      @ability.should be_can(:read, Review)
-    end
-    
-    it "can index reviews on session on organizer's track" 
-    it "cannot index reviews on session outside of organizer's track" 
 
     it "cannot read sessions to review" do
       @ability.should be_cannot(:read, 'reviewer_sessions')
+    end
+    
+    context "index reviews of a session:" do
+      before(:each) do
+        @session = Factory(:session)
+      end
+      
+      it "can index reviews on session on organizer's track" do
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_cannot(:index, Review) # no params
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability.should be_can(:index, Review) # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:index, Review) # session id nil
+      end
+      
+      it "cannot index reviews on session outside of organizer's track" do
+        @ability.should be_cannot(:index, Review) # no params
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability.should be_cannot(:index, Review) # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:index, Review) # session id nil
+      end
     end
     
     context "can cancel session if:" do
@@ -349,13 +369,15 @@ describe Ability do
       @ability.should be_can(:read, 'reviews_listing')
     end
     
-    it "cannot index all reviews of any session"
+    it "cannot index all reviews of any session" do
+      @ability.should be_cannot(:index, Review)
+    end
 
-    it "can read own reviews" do
+    it "can show own reviews" do
       review = Factory(:review)
-      @ability.should be_cannot(:read, review)
+      @ability.should be_cannot(:show, review)
       review.reviewer = @user
-      @ability.should be_can(:read, review)
+      @ability.should be_can(:show, review)
     end
 
     context "can create a new review if:" do

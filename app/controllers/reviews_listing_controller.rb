@@ -19,7 +19,7 @@ class ReviewsListingController < ApplicationController
   
   def reviewer
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'
-    column = sanatize(params[:column] || 'created_at')
+    column = sanitize(params[:column] || 'created_at')
     order = "reviews.#{column} #{direction}"
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)

@@ -54,11 +54,15 @@ class Ability
         can(:cancel, Session) do |session|
           session.can_cancel? && user.organized_tracks.include?(session.track)
         end
-        can(:read, Review)
+        can(:show, Review)
+        can(:index, Review) do
+          session = Session.find(params[:session_id]) if !params[:session_id].blank?
+          user.organized_tracks.include?(session.try(:track))
+        end
       end
       if user.reviewer?
         can(:read, "reviewer_sessions")
-        can(:read, Review) { |review| review.reviewer == user }
+        can(:show, Review) { |review| review.reviewer == user }
         can(:create, Review) do |_, session|
           session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
           Session.for_reviewer(user).include?(session)
