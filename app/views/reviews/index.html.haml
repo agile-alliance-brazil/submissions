@@ -1,6 +1,23 @@
 - title t('session.reviews', :session => @session.title)
 - show_actions!
 
+%ul.spaced
+  %li.first #{t('formtastic.labels.review.authors')}:
+  %li= link_to h(@session.author.full_name), user_path(@session.author)
+  - if @session.second_author
+    %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
+
+%ul.spaced
+  %li.first #{t('session.parameters')}:
+  %li= link_to t(@session.track.title), tracks_path
+  %li= link_to t(@session.audience_level.title), audience_levels_path
+  %li= link_to t(@session.session_type.title), session_types_path
+  %li
+    &= @session.try(:duration_mins)
+    = t('generic.minutes')
+  - unless @session.audience_limit.blank?
+    %li= t('session.audience_limit', :limit => @session.audience_limit)
+
 %p
   = link_to t('review.view_session'), session_path(@session), :target => '_blank'
 
