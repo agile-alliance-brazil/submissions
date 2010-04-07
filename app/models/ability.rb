@@ -34,41 +34,37 @@ class Ability
     
     if user.admin?
       can(:manage, :all)
+    end
+    if user.author?
+      can(:create, Session) do
+        Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+      end
+      can(:update, Session) do |session|
+        is_author = session.try(:author) == user || session.try(:second_author) == user
+        is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+      end
+    end
+    if user.organizer?
+      can(:manage, Reviewer)
+      can(:read, "organizer_sessions")
+      can(:cancel, Session) do |session|
+        session.can_cancel? && user.organized_tracks.include?(session.track)
+      end
+      can(:show, Review)
+      can(:index, Review) do
+        session = Session.find(params[:session_id]) if !params[:session_id].blank?
+        user.organized_tracks.include?(session.try(:track))
+      end
+    end
+    if user.reviewer?
+      can(:read, "reviewer_sessions")
+      can(:show, Review) { |review| review.reviewer == user }
       can(:create, Review) do |_, session|
         session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
-        session
+        Session.for_reviewer(user).include?(session)
       end
-    else
-      if user.author?
-        can(:create, Session) do
-          Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
-        end
-        can(:update, Session) do |session|
-          is_author = session.try(:author) == user || session.try(:second_author) == user
-          is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
-        end
-      end
-      if user.organizer?
-        can(:manage, Reviewer)
-        can(:read, "organizer_sessions")
-        can(:cancel, Session) do |session|
-          session.can_cancel? && user.organized_tracks.include?(session.track)
-        end
-        can(:show, Review)
-        can(:index, Review) do
-          session = Session.find(params[:session_id]) if !params[:session_id].blank?
-          user.organized_tracks.include?(session.try(:track))
-        end
-      end
-      if user.reviewer?
-        can(:read, "reviewer_sessions")
-        can(:show, Review) { |review| review.reviewer == user }
-        can(:create, Review) do |_, session|
-          session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
-          Session.for_reviewer(user).include?(session)
-        end
-        can(:read, 'reviews_listing')
-      end
+      can(:read, 'reviews_listing')
+      can(:reviewer, 'reviews_listing')
     end
   end
 end

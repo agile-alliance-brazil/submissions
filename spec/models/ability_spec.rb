@@ -367,6 +367,7 @@ describe Ability do
     
     it "can read reviews listing" do
       @ability.should be_can(:read, 'reviews_listing')
+      @ability.should be_can(:reviewer, 'reviews_listing')
     end
     
     it "cannot index all reviews of any session" do
