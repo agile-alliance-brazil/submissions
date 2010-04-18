@@ -43,6 +43,10 @@ class Ability
         is_author = session.try(:author) == user || session.try(:second_author) == user
         is_author && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
       end
+      can(:index, Review) do
+        session = Session.find(params[:session_id]) if session.nil? && !params[:session_id].blank?
+        user.sessions.include? session
+      end
     end
     if user.organizer?
       can(:manage, Reviewer)

@@ -128,7 +128,7 @@ en:
         authors: "Authors"
         session: "Session"
         recommendation: "Recommendation"
-        confidence: "Confidence"
+        confidence: "Reviewer's confidence"
         reviewer: "Reviewer"
     hints:
       user:
@@ -368,11 +368,12 @@ en:
   review:
     view_session: "View original proposal (with comments)"
     justification: "Justification"
-    agile_xp_rating: "Agile Methods experience"
+    agile_xp_rating: "Agile methods experience"
     proposal_xp_rating: "Proposal subject experience"
     proposal_quality_rating: "Clarity, objectivity and writing"
     proposal_relevance_rating: "Relevance to the event"
     comments_to_organizers: "Comments to organizers"
+    comments_to_authors: "Comments to authors"
 
   rating:
     high:

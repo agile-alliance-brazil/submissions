@@ -14,7 +14,8 @@
       %th.title= t('formtastic.labels.session.title')
       %th.author= t('formtastic.labels.session.author_id')
       %th.author= t('formtastic.labels.session.second_author_id')
-      %th.updated_at= t('formtastic.labels.session.created_at')
+      %th.reviews= t('formtastic.labels.session.reviews')
+      %th.created_at= t('formtastic.labels.session.created_at')
   %tbody
     - @sessions.each do |session|
       - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
@@ -27,7 +28,9 @@
         %td.author
           - if session.second_author
             = link_to h(session.second_author.full_name), user_path(session.second_author)
-        %td.updated_at
+        %td.reviews
+          = link_to_unless !(can?(:create, Review, session)), h(session.reviews.count), session_reviews_path(session)
+        %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')
 

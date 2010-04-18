@@ -200,7 +200,34 @@ describe Ability do
       @ability.should be_cannot(:read, Review)
     end
     
-    it "can index reviews of his session"
+    context "index reviews of" do
+      before(:each) do
+        @session = Factory(:session)
+        @user = @session.author
+        @user.add_role(:author)
+      end
+      
+      it "his sessions is allowed" do
+        @ability.should be_cannot(:index, Review) # no params
+        
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:index, Review) # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:index, Review) # session id nil
+      end
+      
+      it "other people's sessions is forbidden" do
+        session = Factory(:session)
+        @ability.should be_cannot(:index, Review) # no params
+        
+        @ability = Ability.new(@user, :session_id => session.to_param)
+        @ability.should be_cannot(:index, Review) # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:index, Review) # session id nil
+      end
+    end
     
     it "cannot read reviews listing" do
       @ability.should be_cannot(:read, 'reviews_listing')
@@ -294,12 +321,12 @@ describe Ability do
       @ability.should be_cannot(:read, 'reviewer_sessions')
     end
     
-    context "index reviews of a session:" do
+    context "index reviews of" do
       before(:each) do
         @session = Factory(:session)
       end
       
-      it "can index reviews on session on organizer's track" do
+      it "session on organizer's track is allowed" do
         Factory(:organizer, :track => @session.track, :user => @user)
         @ability.should be_cannot(:index, Review) # no params
         
@@ -310,7 +337,7 @@ describe Ability do
         @ability.should be_cannot(:index, Review) # session id nil
       end
       
-      it "cannot index reviews on session outside of organizer's track" do
+      it "session outside of organizer's track is forbidden" do
         @ability.should be_cannot(:index, Review) # no params
         
         @ability = Ability.new(@user, :session_id => @session.to_param)

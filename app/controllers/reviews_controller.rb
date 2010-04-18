@@ -4,6 +4,12 @@ class ReviewsController < InheritedResources::Base
 
   belongs_to :session
   
+  def index
+    index! do |format|
+      format.html { render(current_user.author? ? :author : :organizer) }
+    end
+  end
+  
   def create
     create! do |success, failure|
       success.html do

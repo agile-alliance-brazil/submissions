@@ -145,6 +145,7 @@ BUGS:
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 FIXED:
+* "My sessions" link disapeared after session submission deadline expired -- Hugo/Mari
 * Session ID on the reviewer session listing is wrong [column removed] -- Hugo
 * Login brings you to the review count js [fixed] -- Hugo/Danilo
 * Link to "My reviews" is bugged when locale is set [fixed] -- Hugo

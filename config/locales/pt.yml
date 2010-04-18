@@ -289,7 +289,7 @@ pt:
         authors: "Autores"
         session: "Sessão"
         recommendation: "Recomendação"
-        confidence: "Confiança"
+        confidence: "Confiança do avaliador"
         reviewer: "Avaliador"
     hints:
       user:
@@ -530,11 +530,12 @@ pt:
   review:
     view_session: "Ver proposta original (com comentários)"
     justification: "Justificativa"
-    agile_xp_rating: "Experiência com Métodos Ágeis"
+    agile_xp_rating: "Experiência com métodos ágeis"
     proposal_xp_rating: "Experiência com o assunto"
     proposal_quality_rating: "Clareza, objetividade e escrita"
     proposal_relevance_rating: "Relevância pro evento"
     comments_to_organizers: "Comentários aos organizadores"
+    comments_to_authors: "Comentários aos autores"
     
   rating:
     high:
