@@ -6,7 +6,13 @@ class ReviewsController < InheritedResources::Base
   
   def index
     index! do |format|
-      format.html { render(current_user.author? ? :author : :organizer) }
+      format.html { render :author }
+    end
+  end
+  
+  def organizer
+    index! do |format|
+      format.html { render :organizer }
     end
   end
   

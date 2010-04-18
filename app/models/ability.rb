@@ -40,10 +40,11 @@ class Ability
         Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
       end
       can(:update, Session) do |session|
-        is_author(session, user) && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+        session.try(:is_author?, user) && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
       end
-      can(:index, Review) do
-        is_author(find_session(params), user)
+      can(:index, Review) do |_, session|
+        session = find_session(params) if session.nil?
+        session.try(:is_author?, user)
       end
     end
     if user.organizer?
@@ -53,7 +54,7 @@ class Ability
         session.can_cancel? && user.organized_tracks.include?(session.track)
       end
       can(:show, Review)
-      can(:index, Review) do
+      can(:organizer, Review) do
         session = find_session(params)
         user.organized_tracks.include?(session.try(:track))
       end
@@ -74,9 +75,5 @@ class Ability
   
   def find_session(params)
     Session.find(params[:session_id]) if !params[:session_id].blank?
-  end
-  
-  def is_author(session, user)
-    session.try(:author) == user || session.try(:second_author) == user
-  end
+  end  
 end

@@ -29,7 +29,8 @@
           - if session.second_author
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         %td.reviews
-          = link_to_unless !(can?(:create, Review, session)), h(session.reviews.count), session_reviews_path(session)
+          - if can?(:index, Review, session) && session.reviews_count > 0
+            = link_to t('formtastic.labels.session.reviews'), session_reviews_path(session)
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')

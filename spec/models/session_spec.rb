@@ -264,6 +264,26 @@ describe Session do
       session.author = nil
       session.authors.should be_empty
     end
+    
+    it "should state that first author is author" do
+      user = Factory(:user)
+      user.add_role(:author)
+      
+      session = Factory(:session, :author => user)
+      session.is_author?(user).should be_true
+      session.author = nil
+      session.is_author?(user).should be_false
+    end
+
+    it "should state that second author is author" do
+      user = Factory(:user)
+      user.add_role(:author)
+      
+      session = Factory(:session, :second_author => user)
+      session.is_author?(user).should be_true
+      session.second_author = nil
+      session.is_author?(user).should be_false
+    end
   end
   
   context "state machine" do

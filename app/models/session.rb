@@ -121,6 +121,10 @@ class Session < ActiveRecord::Base
   def authors
     [author, second_author].compact
   end
+  
+  def is_author?(user)
+    authors.include?(user)
+  end
 
   private
   def workshop?

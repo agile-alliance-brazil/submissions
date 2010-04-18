@@ -11,15 +11,13 @@ describe ReviewsController do
     UserSession.create(@review.reviewer)
   end
   
-  it "index action should render author template if user is author" do
-    User.any_instance.stubs(:author?).returns(true)
+  it "index action should render author template" do
     get :index, :session_id => Session.first
     response.should render_template(:author)
   end
   
-  it "index action should render author template if user is organizer" do
-    User.any_instance.stubs(:organizer?).returns(true)    
-    get :index, :session_id => Session.first
+  it "organizer action should render organizer template if user is organizer" do
+    get :organizer, :session_id => Session.first
     response.should render_template(:organizer)
   end
   

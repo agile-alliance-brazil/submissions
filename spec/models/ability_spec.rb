@@ -207,37 +207,48 @@ describe Ability do
       
       it "his sessions as first author is allowed" do
         @ability.should be_cannot(:index, Review) # no params
+        @ability.should be_cannot(:index, Review, @session)
         
         @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_cannot(:index, Review) # session id provided
+        @ability.should be_cannot(:index, Review, @session)
         @session.reload.update_attribute(:author_id, @user.id)
         @ability.should be_can(:index, Review) # session id provided
+        @ability.should be_can(:index, Review, @session)
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
         @ability.should be_cannot(:index, Review) # session id nil
+        @ability.should be_can(:index, Review, @session)
       end
 
       it "his sessions as second author is allowed" do
         @ability.should be_cannot(:index, Review) # no params
+        @ability.should be_cannot(:index, Review, @session)
         
         @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_cannot(:index, Review) # session id provided
+        @ability.should be_cannot(:index, Review, @session)
         @session.reload.update_attribute(:second_author_id, @user.id)
         @ability.should be_can(:index, Review) # session id provided
+        @ability.should be_can(:index, Review, @session)
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
         @ability.should be_cannot(:index, Review) # session id nil
+        @ability.should be_can(:index, Review, @session)
       end
       
       it "other people's sessions is forbidden" do
         session = Factory(:session)
         @ability.should be_cannot(:index, Review) # no params
+        @ability.should be_cannot(:index, Review, session)
         
         @ability = Ability.new(@user, :session_id => session.to_param)
         @ability.should be_cannot(:index, Review) # session id provided
+        @ability.should be_cannot(:index, Review, session)  
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
         @ability.should be_cannot(:index, Review) # session id nil
+        @ability.should be_cannot(:index, Review, session)
       end
     end
     
@@ -333,30 +344,30 @@ describe Ability do
       @ability.should be_cannot(:read, 'reviewer_sessions')
     end
     
-    context "index reviews of" do
+    context "organizer index reviews of" do
       before(:each) do
         @session = Factory(:session)
       end
       
       it "session on organizer's track is allowed" do
         Factory(:organizer, :track => @session.track, :user => @user)
-        @ability.should be_cannot(:index, Review) # no params
+        @ability.should be_cannot(:organizer, Review) # no params
         
         @ability = Ability.new(@user, :session_id => @session.to_param)
-        @ability.should be_can(:index, Review) # session id provided
+        @ability.should be_can(:organizer, Review) # session id provided
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
-        @ability.should be_cannot(:index, Review) # session id nil
+        @ability.should be_cannot(:organizer, Review) # session id nil
       end
       
       it "session outside of organizer's track is forbidden" do
-        @ability.should be_cannot(:index, Review) # no params
+        @ability.should be_cannot(:organizer, Review) # no params
         
         @ability = Ability.new(@user, :session_id => @session.to_param)
-        @ability.should be_cannot(:index, Review) # session id provided
+        @ability.should be_cannot(:organizer, Review) # session id provided
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
-        @ability.should be_cannot(:index, Review) # session id nil
+        @ability.should be_cannot(:organizer, Review) # session id nil
       end
     end
     
@@ -411,6 +422,10 @@ describe Ability do
     
     it "cannot index all reviews of any session" do
       @ability.should be_cannot(:index, Review)
+    end
+
+    it "cannot index all organizer reviews of any session" do
+      @ability.should be_cannot(:organizer, Review)
     end
 
     it "can show own reviews" do
