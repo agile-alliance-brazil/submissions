@@ -3,6 +3,7 @@ class EmailNotifications < ActionMailer::Base
   helper :application
   
   def welcome(user, sent_at = Time.now)
+    I18n.locale = user.default_locale
     subject       "[#{host}] #{I18n.t('email.welcome.subject')}"
     recipients    "\"#{user.full_name}\" <#{user.email}>"
     from          "\"Agile Brazil 2010\" <no-reply@#{host}>"
@@ -13,6 +14,7 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def password_reset_instructions(user, sent_at = Time.now)
+    I18n.locale = user.default_locale
     subject       "[#{host}] #{I18n.t('email.password_reset.subject')}"
     recipients    "\"#{user.full_name}\" <#{user.email}>"
     from          "\"Agile Brazil 2010\" <no-reply@#{host}>"
@@ -23,6 +25,7 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def session_submitted(session, sent_at = Time.now)
+    I18n.locale = session.author.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.session_submitted.subject')}"
     recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
     from          "\"Agile Brazil 2010\" <no-reply@#{host}>"
@@ -33,6 +36,7 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def reviewer_invitation(reviewer, sent_at = Time.now)
+    I18n.locale = reviewer.user.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.reviewer_invitation.subject')}"
     recipients    "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>"
     from          "\"Agile Brazil 2010\" <no-reply@#{host}>"

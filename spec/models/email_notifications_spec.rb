@@ -5,6 +5,7 @@ describe EmailNotifications do
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
+    I18n.locale = I18n.default_locale
   end
 
   after do
@@ -22,6 +23,17 @@ describe EmailNotifications do
       mail.to.should == [@user.email]
       mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /Nome de usuário.*#{@user.username}/
+  	  mail.subject.should == "[localhost:3000] Cadastro realizado com sucesso"
+    end
+    
+    it "should be sent in user's default language" do
+      @user.default_locale = 'en'
+      mail = EmailNotifications.deliver_welcome(@user)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Username.*#{@user.username}/
+  	  mail.subject.should == "[localhost:3000] Account registration"
     end
   end
 
@@ -37,6 +49,18 @@ describe EmailNotifications do
       mail.to.should == [@user.email]
       mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
+  	  mail.subject.should == "[localhost:3000] Recuperação de senha"
+    end
+    
+    it "should be sent in user's default language" do
+      @user.default_locale = 'en'
+      @user.reset_perishable_token!
+      mail = EmailNotifications.deliver_password_reset_instructions(@user)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
+  	  mail.subject.should == "[localhost:3000] Password reset"
     end
   end
 
@@ -53,6 +77,7 @@ describe EmailNotifications do
   	  mail.body.should =~ /Olá #{@session.author.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
     end
     
     it "should be sent to second author, if available" do
@@ -66,7 +91,36 @@ describe EmailNotifications do
   	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
     end
+    
+    it "should be sent to first author in default language" do
+      @session.author.default_locale = 'en'
+      mail = EmailNotifications.deliver_session_submitted(@session)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Dear #{@session.author.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
+    end
+
+    it "should be sent to second author, if available (in first author's default language)" do
+      @session.author.default_locale = 'en'
+      user = Factory(:user, :default_locale => 'fr')
+      @session.second_author = user
+      
+      mail = EmailNotifications.deliver_session_submitted(@session)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email, user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
+    end
+    
   end
 
   context "reviewer invitation" do
@@ -81,6 +135,18 @@ describe EmailNotifications do
       mail.content_type.should == "multipart/alternative"
   	  mail.body.should =~ /\/reviewers\/3\/accept/
   	  mail.body.should =~ /\/reviewers\/3\/reject/
+  	  mail.subject.should == "[localhost:3000] Convite para equipe de avaliação da Agile Brazil 2010"
+    end
+
+    it "should be sent in user's default language" do
+      @reviewer.user.default_locale = 'en'
+      mail = EmailNotifications.deliver_reviewer_invitation(@reviewer)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@reviewer.user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /\/reviewers\/3\/accept/
+  	  mail.body.should =~ /\/reviewers\/3\/reject/
+  	  mail.subject.should == "[localhost:3000] Invitation to be part of Agile Brazil 2010 review committee"
     end
   end
 end

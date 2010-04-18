@@ -1,4 +1,5 @@
 - form.inputs :user_login do
+  = form.input :default_locale, :as => :hidden
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}

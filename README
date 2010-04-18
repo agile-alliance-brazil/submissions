@@ -41,10 +41,10 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
- * Add default language to each user (to allow email on the correct language) -- Danilo
  
 DONE:
 
+ * Add default language to each user (to allow email on the correct language) -- Danilo
  * Create time slots on agenda -- Danilo
  * Improve sorting by reviews count using SQL (currently Ruby done) -- Hugo
  * Listing of reviews of each proposal -- Hugo

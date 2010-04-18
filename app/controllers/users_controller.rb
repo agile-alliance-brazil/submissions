@@ -39,5 +39,12 @@ class UsersController < InheritedResources::Base
         render :edit
       end
     end
-  end  
+  end
+  
+  protected
+  def build_resource
+    attributes = params[:user] || {}
+    attributes[:default_locale] ||= I18n.locale
+    @user ||= end_of_association_chain.send(method_for_build, attributes)
+  end
 end

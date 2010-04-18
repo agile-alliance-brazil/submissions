@@ -16,6 +16,7 @@ describe User do
     should_allow_mass_assignment_of :website_url
     should_allow_mass_assignment_of :bio
     should_allow_mass_assignment_of :wants_to_submit
+    should_allow_mass_assignment_of :default_locale
   
     should_not_allow_mass_assignment_of :evil_attr
   end
@@ -123,5 +124,10 @@ describe User do
     
     EmailNotifications.expects(:deliver_password_reset_instructions).with(user)
     user.deliver_password_reset_instructions!
+  end
+  
+  it "should have 'pt' as default locale" do
+    user = Factory(:user)
+    user.default_locale.should == 'pt'
   end
 end

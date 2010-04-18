@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :country, :state, :city,
-                  :organization, :website_url, :bio, :wants_to_submit
+                  :organization, :website_url, :bio, :wants_to_submit, :default_locale
   attr_trimmed    :first_name, :last_name, :username, :email,
                   :phone, :state, :city, :organization, :website_url, :bio
   

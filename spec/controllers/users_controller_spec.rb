@@ -24,6 +24,11 @@ describe UsersController do
     get :new
     response.should render_template(:new)
   end
+
+  it "new action should build user with default locale" do
+    get :new, :locale => 'en'
+    assigns[:user].default_locale.should == 'en'
+  end
   
   it "create action should render new template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
@@ -59,6 +64,11 @@ describe UsersController do
     it "edit action should render edit template" do
       get :edit, :id => @user
       response.should render_template(:edit)
+    end
+
+    it "edit action should set default locale regardless of params" do
+      get :edit, :id => @user, :locale => 'en'
+      assigns[:user].default_locale.should == 'pt'
     end
   
     it "update action should render edit template when model is invalid" do
