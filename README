@@ -11,21 +11,18 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Deadline for adding reviews
- * Sort by author, second_author and track on reviewer_reviews
  * Organizers can choose approved proposals
+ * Organizers can add note before publishing reviews to author
  * Authors can confirm approval (and edit some fields of the proposal according to the feedback)
  * Deadline to confirm a proposal approval (and confirm that author will register)
  * Organizers can choose rejected proposals
- * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification)
- * Add default language to each user (to allow email on the correct language)
- * Organizers can add note before publishing reviews to author
  --- Medium term
- * Create time slots on agenda
  * Organizers can create program
+ * Sort by author, second_author and track on reviewer_reviews
  * Author can see anonymous reviews
- * Allow reviewers to remove a session from the list of session they can review
  --- Lower priority
+ * Allow reviewers to remove a session from the list of session they can review
+ * Deadline for adding reviews
  * Display progress bar with total number of reviews for reviewer
  * Reviewer can edit a review
  * Voting results
@@ -41,9 +38,12 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
+ * Add default language to each user (to allow email on the correct language) -- Danilo
  
 DONE:
 
+ * Create time slots on agenda -- Danilo
  * Improve sorting by reviews count using SQL (currently Ruby done) -- Hugo
  * Listing of reviews of each proposal -- Hugo
  * Sorting proposals by recommendation and session id in the reviewer listing -- Hugo
