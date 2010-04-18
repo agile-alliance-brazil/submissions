@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>Motion Chart</title>
+	<style>
+	<%= inline_css("default.css") %>	
+	</style>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {'packages':['motionchart']});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addRows(<%= @motion.size %>);
+      data.addColumn('string', 'Filename');
+      data.addColumn('date', 'Date');
+      <% if @collector.has_aggregate?(:saikuro) %>
+        data.addColumn('number', 'Size');
+        data.addColumn('number', 'Complexity');
+      <% end %>
+      <% if @collector.has_aggregate?(:rcov) %>
+        data.addColumn('number', 'Coverage');
+      <% end %>
+      <% if @collector.has_aggregate?(:flay) %>
+        data.addColumn('number', 'Flay');
+      <% end %>
+      <% if @collector.has_aggregate?(:churn) %>
+        data.addColumn('number', 'Churn');
+      <% end %>
+      <% if @collector.has_aggregate?(:flog) %>
+        data.addColumn('number', 'Flog total');
+        data.addColumn('number', 'Flog methods');
+        data.addColumn('number', 'Flog average');
+        data.addColumn('number', 'Flog highest');
+      <% end %>
+      <% @motion.each_with_index do |data, row| %>
+        data.setValue(<%= row %>, <%= col = 0 %>, '<%= data.filename %>');
+        <% date = "new Date(#{data.date.year}, #{data.date.month - 1}, #{data.date.day})" %>
+        data.setValue(<%= row %>, <%= col += 1 %>, <%= date %>);
+        <% if @collector.has_aggregate?(:saikuro) %>
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.size.to_f %>);
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.complexity.to_f %>);
+        <% end %>
+        <% if @collector.has_aggregate?(:rcov) %>
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.coverage.to_f %>);
+        <% end %>
+        <% if @collector.has_aggregate?(:flay) %>
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.flay.to_f %>);
+        <% end %>
+        <% if @collector.has_aggregate?(:churn) %>
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.churn.to_f %>);
+        <% end %>
+        <% if @collector.has_aggregate?(:flog) %>
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.flog_total.to_f %>);
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.flog_methods.to_f %>);
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.flog_average.to_f %>);
+          data.setValue(<%= row %>, <%= col += 1 %>, <%= data.flog_highest.to_f %>);
+        <% end %>
+      <% end %>
+
+      var options = {};
+      options['width'] = 800;
+      options['height'] = 500;
+      var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+  
+</head>
+
+<body>
+	<h1>Motion Chart</h1>
+  <a href="index.html">back to menu</a>
+	<p>History of metrics aggregated by filename in a motion chart.</p>
+	
+	<div id="chart_div" style="width: 800px; height: 500px;"></div>
+
+	<p>Generated on <%= Time.now.localtime %></p>	
+</body>
+</html>
+
+

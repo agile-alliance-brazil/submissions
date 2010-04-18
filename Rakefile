@@ -15,3 +15,9 @@ begin
 rescue LoadError
   # seed-fu gem is not installed
 end
+
+begin
+  require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))
+rescue
+  # metric_fu gem is not installed
+end

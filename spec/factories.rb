@@ -119,3 +119,10 @@ Factory.define :review do |r|
   r.association :reviewer, :factory => :user
   r.association :session
 end
+
+Factory.define :slot do |s|
+  s.association :track
+  s.start_at Time.zone.local(2010, 1, 12, 9, 0, 0)
+  s.end_at Time.zone.local(2010, 1, 12, 9, 45, 0)
+  s.duration_mins 45
+end
