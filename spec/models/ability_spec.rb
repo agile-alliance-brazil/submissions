@@ -203,14 +203,26 @@ describe Ability do
     context "index reviews of" do
       before(:each) do
         @session = Factory(:session)
-        @user = @session.author
-        @user.add_role(:author)
       end
       
-      it "his sessions is allowed" do
+      it "his sessions as first author is allowed" do
         @ability.should be_cannot(:index, Review) # no params
         
         @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_cannot(:index, Review) # session id provided
+        @session.reload.update_attribute(:author_id, @user.id)
+        @ability.should be_can(:index, Review) # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:index, Review) # session id nil
+      end
+
+      it "his sessions as second author is allowed" do
+        @ability.should be_cannot(:index, Review) # no params
+        
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_cannot(:index, Review) # session id provided
+        @session.reload.update_attribute(:second_author_id, @user.id)
         @ability.should be_can(:index, Review) # session id provided
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
