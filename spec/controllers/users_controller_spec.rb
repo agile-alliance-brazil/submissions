@@ -27,7 +27,7 @@ describe UsersController do
 
   it "new action should build user with default locale" do
     get :new, :locale => 'en'
-    assigns[:user].default_locale.should == 'en'
+    assigns[:user].default_locale.should == :en
   end
   
   it "create action should render new template when model is invalid" do

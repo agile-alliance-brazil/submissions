@@ -16,7 +16,6 @@ TODO:
  * Authors can confirm approval (and edit some fields of the proposal according to the feedback)
  * Deadline to confirm a proposal approval (and confirm that author will register)
  * Organizers can choose rejected proposals
- * Add default language to each user (to allow email on the correct language)
  * Organizers can add note before publishing reviews to author
  --- Medium term
  * Organizers can create program
@@ -40,10 +39,10 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
  
 DONE:
 
+ * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
  * Add default language to each user (to allow email on the correct language) -- Danilo
  * Create time slots on agenda -- Danilo
  * Improve sorting by reviews count using SQL (currently Ruby done) -- Hugo
