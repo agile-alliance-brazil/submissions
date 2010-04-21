@@ -95,7 +95,19 @@ class Session < ActiveRecord::Base
     end
 
     event :cancel do
-      transition all - [:cancelled] => :cancelled
+      transition [:created, :in_review] => :cancelled
+    end
+    
+    event :tentatively_accept do
+      transition :in_review => :pending_confirmation
+    end
+    
+    event :accept do
+      transition :pending_confirmation => :accepted
+    end
+
+    event :reject do
+      transition :pending_confirmation => :rejected
     end
   end
   

@@ -307,6 +307,18 @@ describe Session do
         @session.should_not be_created
         @session.should be_cancelled
       end
+
+      it "should not allow tentatively accept" do
+        @session.tentatively_accept.should be_false
+      end
+
+      it "should not allow accepting" do
+        @session.accept.should be_false
+      end
+
+      it "should not allow rejecting" do
+        @session.reject.should be_false
+      end
     end
     
     context "State: in review" do
@@ -325,6 +337,20 @@ describe Session do
         @session.should_not be_in_review
         @session.should be_cancelled
       end
+
+      it "should allow tentatively accept" do
+        @session.tentatively_accept.should be_true
+        @session.should_not be_in_review
+        @session.should be_pending_confirmation
+      end
+
+      it "should not allow accepting" do
+        @session.accept.should be_false
+      end
+
+      it "should not allow rejecting" do
+        @session.reject.should be_false
+      end
     end
 
     context "State: cancelled" do
@@ -339,6 +365,108 @@ describe Session do
       
       it "should not allow cancelling" do
         @session.cancel.should be_false
+      end
+
+      it "should not allow tentatively accept" do
+        @session.tentatively_accept.should be_false
+      end
+      
+      it "should not allow accepting" do
+        @session.accept.should be_false
+      end
+
+      it "should not allow rejecting" do
+        @session.reject.should be_false
+      end
+    end
+    
+    context "State: pending confirmation" do
+      before(:each) do
+        @session.reviewing
+        @session.tentatively_accept
+        @session.should be_pending_confirmation
+      end
+      
+      it "should not allow reviewing" do
+        @session.reviewing.should be_false
+      end
+      
+      it "should not allow cancelling" do
+        @session.cancel.should be_false
+      end
+      
+      it "should not allow tentatively accept" do
+        @session.tentatively_accept.should be_false
+      end
+
+      it "should allow accepting" do
+        @session.accept.should be_true
+        @session.should_not be_pending_confirmation
+        @session.should be_accepted
+      end
+
+      it "should allow rejecting" do
+        @session.reject.should be_true
+        @session.should_not be_pending_confirmation
+        @session.should be_rejected
+      end
+    end
+
+    context "State: accepted" do
+      before(:each) do
+        @session.reviewing
+        @session.tentatively_accept
+        @session.accept
+        @session.should be_accepted
+      end
+      
+      it "should not allow reviewing" do
+        @session.reviewing.should be_false
+      end
+      
+      it "should not allow cancelling" do
+        @session.cancel.should be_false
+      end
+      
+      it "should not allow tentatively accept" do
+        @session.tentatively_accept.should be_false
+      end
+
+      it "should not allow accepting" do
+        @session.accept.should be_false
+      end
+      
+      it "should not allow rejecting" do
+        @session.reject.should be_false
+      end
+    end
+
+    context "State: rejected" do
+      before(:each) do
+        @session.reviewing
+        @session.tentatively_accept
+        @session.reject
+        @session.should be_rejected
+      end
+      
+      it "should not allow reviewing" do
+        @session.reviewing.should be_false
+      end
+      
+      it "should not allow cancelling" do
+        @session.cancel.should be_false
+      end
+      
+      it "should not allow tentatively accept" do
+        @session.tentatively_accept.should be_false
+      end
+
+      it "should not allow accepting" do
+        @session.accept.should be_false
+      end
+      
+      it "should not allow rejecting" do
+        @session.reject.should be_false
       end
     end
   end
