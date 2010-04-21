@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100418231126) do
+ActiveRecord::Schema.define(:version => 20100421025204) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(:version => 20100418231126) do
     t.datetime "updated_at"
   end
 
+  create_table "outcomes", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "preferences", :force => true do |t|
     t.integer  "reviewer_id"
     t.integer  "track_id"
@@ -61,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20100418231126) do
 
   create_table "recommendations", :force => true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "review_decisions", :force => true do |t|
+    t.integer  "session_id"
+    t.integer  "outcome_id"
+    t.text     "note_to_authors"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

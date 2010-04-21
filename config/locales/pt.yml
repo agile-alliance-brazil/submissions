@@ -556,6 +556,12 @@ pt:
       title: "Rejeição fraca (posso mudar de opinião)"
     strong_reject:
       title: "Rejeição forte (não mudarei de opinião)"
+      
+  outcomes:
+    accept:
+      title: "Aceita"
+    reject:
+      title: "Rejeitada"
   
   generic:
     or: "ou"

@@ -126,3 +126,13 @@ Factory.define :slot do |s|
   s.end_at Time.zone.local(2010, 1, 12, 9, 45, 0)
   s.duration_mins 45
 end
+
+Factory.define :outcome do |o|
+  o.title "outcomes.accept.title"
+end
+
+Factory.define :review_decision do |d|
+  d.association :session
+  d.association :outcome
+  d.note_to_authors "Some note to the authors"
+end

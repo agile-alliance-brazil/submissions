@@ -395,6 +395,12 @@ en:
     strong_reject:
       title: "Strong rejection (Won't change my mind)"
 
+  outcomes:
+    accept:
+      title: "Accepted"
+    reject:
+      title: "Rejected"
+
   generic:
     or: "or"
     and: "and"
