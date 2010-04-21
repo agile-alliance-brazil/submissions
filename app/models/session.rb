@@ -99,7 +99,7 @@ class Session < ActiveRecord::Base
     end
     
     event :tentatively_accept do
-      transition :in_review => :pending_confirmation
+      transition [:in_review, :rejected] => :pending_confirmation
     end
     
     event :accept do

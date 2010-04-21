@@ -457,8 +457,10 @@ describe Session do
         @session.cancel.should be_false
       end
       
-      it "should not allow tentatively accept" do
-        @session.tentatively_accept.should be_false
+      it "should allow tentatively accept" do
+        @session.tentatively_accept.should be_true
+        @session.should_not be_rejected
+        @session.should be_pending_confirmation
       end
 
       it "should not allow accepting" do
