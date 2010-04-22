@@ -14,7 +14,8 @@
       %th.title= t('formtastic.labels.session.title')
       %th.author= t('formtastic.labels.session.author_id')
       %th.author= t('formtastic.labels.session.second_author_id')
-      %th.reviews= t('formtastic.labels.session.reviews')
+      - if @user == current_user
+        %th.reviews= t('formtastic.labels.session.reviews')
       %th.created_at= t('formtastic.labels.session.created_at')
   %tbody
     - @sessions.each do |session|
@@ -28,9 +29,10 @@
         %td.author
           - if session.second_author
             = link_to h(session.second_author.full_name), user_path(session.second_author)
-        %td.reviews
-          - if can?(:index, Review, session) && session.reviews_count > 0
-            = link_to t('formtastic.labels.session.reviews'), session_reviews_path(session)
+        - if @user == current_user
+          %td.reviews
+            - if can?(:index, Review, session) && session.reviews_count > 0
+              = link_to t('formtastic.labels.session.reviews'), session_reviews_path(session)
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')
