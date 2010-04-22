@@ -30,10 +30,10 @@
         %td.status
           = t("session.state.#{session.state}")
         %td.action
-          - if can?(:cancel, session) && session.can_cancel?
-            = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
           - if can?(:create, ReviewDecision, session)
             = link_to t('actions.review_decision'), new_session_review_decision_path(session)
+          - if can?(:cancel, session) && session.can_cancel?
+            = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)
