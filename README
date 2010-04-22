@@ -11,7 +11,6 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Organizers can publish reviews to author
  * Authorization for authors to be able to see their reviews once published by organizer
  * Authors can confirm approval (and edit some fields of the proposal according to the feedback)
  * Deadline to confirm a proposal approval (and confirm that author will register)
@@ -37,10 +36,11 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Organizers can choose approved/rejected proposals, adding note to author -- Danilo
+ * Organizers can publish reviews to author -- Danilo
  
 DONE:
 
+ * Organizers can choose approved/rejected proposals, adding note to author -- Danilo
  * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
  * Add default language to each user (to allow email on the correct language) -- Danilo
  * Create time slots on agenda -- Danilo

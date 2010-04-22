@@ -10,6 +10,7 @@
       %th.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author_id)
       %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
       %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews_count)
+      %th.status= sortable_column(t('formtastic.labels.session.state'), :state)
       %th.action
   %tbody
     - @sessions.each do |session|
@@ -26,9 +27,13 @@
         %td.track
           = t(session.track.title)
         %td.reviews= link_to_unless(session.reviews_count == 0, session.reviews_count, organizer_session_reviews_path(session))
+        %td.status
+          = t("session.state.#{session.state}")
         %td.action
-          - if can? :cancel, session
+          - if can?(:cancel, session) && session.can_cancel?
             = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
+          - if can?(:create, ReviewDecision, session)
+            = link_to t('actions.review_decision'), new_session_review_decision_path(session)
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

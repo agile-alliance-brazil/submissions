@@ -58,6 +58,10 @@ class Ability
         session = find_session(params)
         user.organized_tracks.include?(session.try(:track))
       end
+      can(:create, ReviewDecision) do |_, session|
+        session = find_session(params) if session.nil?
+        session.try(:in_review?) && user.organized_tracks.include?(session.track)
+      end      
     end
     if user.reviewer?
       can(:read, "reviewer_sessions")

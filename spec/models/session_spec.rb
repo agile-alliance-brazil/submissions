@@ -34,6 +34,7 @@ describe Session do
     should_have_many :comments, :as => :commentable, :dependent => :destroy
     
     should_have_many :reviews
+    should_have_one  :review_decision
     
     context "second author association by username" do
       before(:each) do
@@ -348,8 +349,10 @@ describe Session do
         @session.accept.should be_false
       end
 
-      it "should not allow rejecting" do
-        @session.reject.should be_false
+      it "should allow rejecting" do
+        @session.reject.should be_true
+        @session.should_not be_in_review
+        @session.should be_rejected
       end
     end
 
@@ -444,7 +447,6 @@ describe Session do
     context "State: rejected" do
       before(:each) do
         @session.reviewing
-        @session.tentatively_accept
         @session.reject
         @session.should be_rejected
       end

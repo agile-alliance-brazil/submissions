@@ -42,6 +42,9 @@ en:
           organizer_track: "cannot review track that is organizing"
         review:
           inclusion: "cannot be blank"
+        review_decision:
+          cant_accept: "cannot be accepted"
+          cant_reject: "cannot be rejected"
             
   formtastic:
     titles:
@@ -130,6 +133,9 @@ en:
         recommendation: "Recommendation"
         confidence: "Reviewer's confidence"
         reviewer: "Reviewer"
+      review_decision:
+        outcome_id: "Organizer's decision"
+        note_to_authors: "Comments to the authors"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -180,6 +186,7 @@ en:
       reject_reviewer: "Reject invitation"
       accept_reviewer: "Accept invitation"
       submit_review: "Send review"
+      submit_review_decision: "Submit organizer's decision"
 
   # Custom messages
   title:
@@ -201,6 +208,7 @@ en:
     vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
     new_review: "New review for session '{{session}}'"
+    new_review_decision: "Review decision for session '{{session}}'"
   
   actions:
     submission_date: "Submission deadline"
@@ -230,6 +238,7 @@ en:
       review: "Review process"
       vote: "Logo contest"
       user: "Profile"
+    review_decision: "Decide"
   
   text:
     for_user: "Showing sessions for user: <strong>{{name}}</strong>"
@@ -286,6 +295,9 @@ en:
         failure: "Your invitation is already {{status}}."
       accept:
         success: "Your invitation was accepted. Thanks for your prompt reply."
+    review_decision:
+      create:
+        success: "Organizer's decision submited successfully."
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:
@@ -360,6 +372,9 @@ en:
       created: "Created"
       in_review: "In review"
       cancelled: "Cancelled"
+      pending_confirmation: "Pending confirmation"
+      accepted: "Accepted"
+      rejected: "Rejected"
     parameters: "About this session"
     audience_limit: "Limit: {{limit}} participants"
     no_audience_limit: "There is no participants limit"

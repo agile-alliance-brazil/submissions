@@ -17,6 +17,7 @@ class Session < ActiveRecord::Base
   belongs_to :audience_level
   
   has_many :reviews
+  has_one :review_decision
   
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
                         :audience_level_id, :author_id, :track_id, :session_type_id,
@@ -99,7 +100,7 @@ class Session < ActiveRecord::Base
     end
     
     event :tentatively_accept do
-      transition [:in_review, :rejected] => :pending_confirmation
+      transition [:rejected, :in_review] => :pending_confirmation
     end
     
     event :accept do
@@ -107,7 +108,7 @@ class Session < ActiveRecord::Base
     end
 
     event :reject do
-      transition :pending_confirmation => :rejected
+      transition [:pending_confirmation, :in_review] => :rejected
     end
   end
   

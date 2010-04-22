@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100421025204) do
+ActiveRecord::Schema.define(:version => 20100422031007) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20100421025204) do
     t.text     "note_to_authors"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organizer_id"
   end
 
   create_table "reviewers", :force => true do |t|

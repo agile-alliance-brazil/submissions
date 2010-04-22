@@ -132,6 +132,7 @@ Factory.define :outcome do |o|
 end
 
 Factory.define :review_decision do |d|
+  d.association :organizer, :factory => :user
   d.association :session
   d.association :outcome
   d.note_to_authors "Some note to the authors"

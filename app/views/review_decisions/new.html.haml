@@ -1,0 +1,12 @@
+- title t('title.new_review_decision', :session => @review_decision.session.title)
+- show_actions!
+.auto_focus
+
+- semantic_form_for([@review_decision.session, @review_decision]) do |form|
+  - form.inputs do
+    = form.input :organizer_id, :as => :hidden
+    = form.input :session_id, :as => :hidden
+    = form.input :outcome_id, :required => true, :collection => Outcome.all, :label_method => Proc.new { |o| t(o.title) }, :input_html => {:tabindex => autotab}
+    = form.input :note_to_authors, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
+  - form.buttons do
+    = form.commit_button :submit_review_decision, :button_html => {:tabindex => autotab}
