@@ -41,7 +41,7 @@
       - if should_justify
         - content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
           %td{:class => "justification", :colspan => 4}
-            = "<strong>" + t('review.justification') + ":</strong>"
+            = "<strong>" + t('review.justification') + ":</strong> " + review.justification
 
 
 %h2= t('formtastic.titles.details')
