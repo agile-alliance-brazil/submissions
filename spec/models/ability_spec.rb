@@ -201,6 +201,7 @@ describe Ability do
     
     context "index reviews of" do
       before(:each) do
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 4, 28))
         @session = Factory(:session)
       end
       
@@ -234,6 +235,20 @@ describe Ability do
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
         @ability.should be_cannot(:index, Review) # session id nil
         @ability.should be_can(:index, Review, @session)
+      end
+      
+      describe "his sessions if:" do
+        it "- adter deadline of 27/4/2010" do
+          @session.author = @user
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 28, 0, 0, 0))
+          @ability.should be_can(:index, Review, @session)
+        end
+
+        it "- before deadline author can't view reviews" do
+          @session.author = @user
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 27, 23, 59, 58))
+          @ability.should be_cannot(:index, Review, @session)
+        end
       end
       
       it "other people's sessions is forbidden" do
@@ -297,7 +312,7 @@ describe Ability do
         @ability.should be_can(:update, @session)
       end
       
-      it "- before deadline of 7/8/2010" do
+      it "- before deadline of 7/3/2010" do
         @session.author = @user
         Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
         @ability.should be_can(:update, @session)
