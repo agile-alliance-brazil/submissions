@@ -201,7 +201,7 @@ describe Ability do
     
     context "index reviews of" do
       before(:each) do
-        Time.zone.stubs(:now).returns(Time.zone.local(2010, 4, 28))
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 5, 3))
         @session = Factory(:session)
       end
       
@@ -238,15 +238,15 @@ describe Ability do
       end
       
       describe "his sessions if:" do
-        it "- adter deadline of 27/4/2010" do
+        it "- adter deadline of 03/5/2010" do
           @session.author = @user
-          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 28, 0, 0, 0))
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 5, 3, 0, 0, 0))
           @ability.should be_can(:index, Review, @session)
         end
 
         it "- before deadline author can't view reviews" do
           @session.author = @user
-          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 27, 23, 59, 58))
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 5, 2, 23, 59, 58))
           @ability.should be_cannot(:index, Review, @session)
         end
       end

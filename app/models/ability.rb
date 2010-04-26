@@ -44,7 +44,7 @@ class Ability
       end
       can(:index, Review) do |_, session|
         session = find_session(params) if session.nil?
-        session.try(:is_author?, user) && Time.zone.now >= Time.zone.local(2010, 4, 27, 23, 59, 59)
+        session.try(:is_author?, user) && Time.zone.now >= Time.zone.local(2010, 5, 2, 23, 59, 59)
       end
     end
     if user.organizer?
