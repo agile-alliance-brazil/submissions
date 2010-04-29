@@ -21,6 +21,12 @@
 %p
   = link_to t('review.view_session'), session_path(@session), :target => '_blank'
 
+- if(@session.review_decision)
+  %h2= t('formtastic.titles.review_decision')
+
+  %p= "<strong>" + t('formtastic.labels.review_decision.outcome_id') + ":</strong> " + t(@session.review_decision.outcome.title)
+  %p= "<strong>" + t('formtastic.labels.review_decision.note_to_authors') + ":</strong><br/>" + @session.review_decision.note_to_authors
+
 %h2= t('formtastic.titles.conclusion')
 
 %table#conclusions.reviews

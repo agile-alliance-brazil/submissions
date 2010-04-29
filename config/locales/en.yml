@@ -53,10 +53,11 @@ en:
       author: "About the author(s)"
       proposal: "About the proposal"
       work: "About the work"
-      conclusion: "Conclusion"
+      conclusion: "Reviewers conclusion"
       to_organizers: "Information to the organizers"
       to_authors: "Information to the authors"
       details: "Details"
+      review_decision: "Final decision"
     labels:
       user:
         first_name: "First name"

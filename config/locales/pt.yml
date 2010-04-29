@@ -211,10 +211,11 @@ pt:
       author: "Sobre o(s) autor(es)"
       proposal: "Sobre a proposta"
       work: "Sobre o trabalho"
-      conclusion: "Conclusão"
+      conclusion: "Conclusão dos avaliadores"
       to_organizers: "Informações aos organizadores"
       to_authors: "Informações aos autores"
       details: "Detalhes"
+      review_decision: "Parecer final"
     labels:
       user:
         first_name: "Nome"
