@@ -11,6 +11,7 @@
       %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
       %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews_count)
       %th.status= sortable_column(t('formtastic.labels.session.state'), :state)
+      %th.author_confirmed= t('formtastic.labels.session.author_confirmed')
       %th.action
   %tbody
     - @sessions.each do |session|
@@ -29,6 +30,8 @@
         %td.reviews= link_to_unless(session.reviews_count == 0, session.reviews_count, organizer_session_reviews_path(session))
         %td.status
           = t("session.state.#{session.state}")
+        %td.author_confirmed
+          = session.author_agreement ? t("generic.confirmed") : ""
         %td.action
           - if can?(:create, ReviewDecision, session)
             = link_to t('actions.review_decision'), new_session_review_decision_path(session)

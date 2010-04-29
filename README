@@ -12,7 +12,7 @@ TODO:
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
  * Authorization for authors to be able to see their reviews once published by organizer
- * Authors can confirm approval (and edit some fields of the proposal according to the feedback)
+ * Author can edit some fields of the proposal according to the feedback when confirming
  * Deadline to confirm a proposal approval (and confirm that author will register)
  --- Medium term
  * Organizers can create program
@@ -40,6 +40,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Authors can confirm/withdraw approval -- Danilo 
  * Author can only view reviews after deadline of 27/04/2010 -- Danilo
  * Organizers can choose approved/rejected proposals, adding note to author -- Danilo
  * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo

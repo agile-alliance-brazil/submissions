@@ -18,6 +18,8 @@ ActionController::Routing::Routes.draw do |map|
     session.resources :comments, :except => [:new]
     session.resources :reviews, :except => [:edit, :update, :destroy], :collection => {:organizer => :get}
     session.resources :review_decisions, :only => [:new, :create]
+    session.resource  :confirm, :only => [:show, :update], :controller => :confirm_sessions
+    session.resource  :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
   end
   map.resources :reviews, :controller => :reviews_listing, :only => [:index], :collection => {:reviewer => :get}
   map.resources :session_types, :only => [:index]

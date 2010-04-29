@@ -99,6 +99,9 @@ en:
         updated_at: "Updated"
         state: "Status"
         reviews: "Reviews"
+        author_agreement: "I read the terms and acknowledge my responsibilities"
+        image_agreement: "I allow my session to be recorded during the event and grant the rights to use it for later reproduction"
+        author_confirmed: "Author confirmation"
       comment:
         comment: "Your comment"
       organizer:
@@ -187,6 +190,8 @@ en:
       accept_reviewer: "Accept invitation"
       submit_review: "Send review"
       submit_review_decision: "Submit organizer's decision"
+      confirm_session: "Confirm attendance"
+      withdraw_session: "Withdraw session"
 
   # Custom messages
   title:
@@ -277,6 +282,10 @@ en:
         success: "Session was successfully updated!"
       create:
         success: "Session submited successfully."
+      confirm:
+        success: "Conference attendance confirmed successfully."
+      withdraw:
+        success: "Withdraw of attendance confirmed successfully."
       cancel:
         failure: "Session already canceled."
     vote:
@@ -420,6 +429,7 @@ en:
     or: "or"
     and: "and"
     ago: "ago"
+    confirmed: "Yes"
     minutes: "minutes"
     previous: "&laquo; Previous"
     next: "Next &raquo;"

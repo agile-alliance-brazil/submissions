@@ -260,6 +260,9 @@ pt:
         updated_at: "Última atualização"
         state: "Status"
         reviews: "Avaliações"
+        author_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
+        image_agreement: "Permito a filmagem da minha palestra durante o evento e ceder os direitos de imagem para sua posterior reprodução"
+        author_confirmed: "Confirmação do autor"
       comment:
         comment: "Seu comentário"
       organizer:
@@ -349,6 +352,8 @@ pt:
       accept_reviewer: "Aceitar convite"
       submit_review: "Enviar avaliação"
       submit_review_decision: "Submeter parecer da organização"
+      confirm_session: "Confirmar participação"
+      withdraw_session: "Retirar sessão"
   
   # Mensagens customizadas
   title:
@@ -439,6 +444,10 @@ pt:
         success: "Sessão atualizado com sucesso!"
       create:
         success: "Sessão submetida com sucesso."
+      confirm:
+        success: "Participação confirmada com sucesso."
+      withdraw:
+        success: "Desistência de participação confirmada com sucesso."
       cancel:
         failure: "Sessão já está cancelada."
     vote:
@@ -582,6 +591,7 @@ pt:
     or: "ou"
     and: "e"
     ago: "atrás"
+    confirmed: "Sim"
     minutes: "minutos"
     previous: "&laquo; Anterior"
     next: "Próxima &raquo;"

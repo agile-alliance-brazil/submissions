@@ -17,6 +17,9 @@ describe Session do
     should_allow_mass_assignment_of :duration_mins
     should_allow_mass_assignment_of :experience
     should_allow_mass_assignment_of :keyword_list
+    should_allow_mass_assignment_of :author_agreement
+    should_allow_mass_assignment_of :image_agreement
+    should_allow_mass_assignment_of :state_event
   
     should_not_allow_mass_assignment_of :evil_attr
   end
@@ -159,6 +162,25 @@ describe Session do
       session.should_not be_valid
       session.errors.on(:author_id).should == "não pode mudar"
     end
+    
+    context "confirming attendance:" do
+      it "should validate that author agreement was accepted on acceptance" do
+        session = Factory(:session)
+        session.reviewing
+        session.tentatively_accept
+        session.update_attributes(:state_event => 'accept', :author_agreement => false).should be_false
+        session.errors.on(:author_agreement).should == "deve ser aceito"
+      end
+
+      it "should validate that author agreement was accepted on withdraw" do
+        session = Factory(:session)
+        session.reviewing
+        session.tentatively_accept
+        session.update_attributes(:state_event => 'reject', :author_agreement => false).should be_false
+        session.errors.on(:author_agreement).should == "deve ser aceito"
+      end
+    end
+    
   end
   
   context "named scopes" do

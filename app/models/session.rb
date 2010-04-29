@@ -3,7 +3,7 @@ class Session < ActiveRecord::Base
                   :target_audience, :audience_level_id, :audience_limit,
                   :author_id, :second_author_username, :track_id,
                   :session_type_id, :duration_mins, :experience,
-                  :keyword_list
+                  :keyword_list, :author_agreement, :image_agreement, :state_event
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :experience
   
@@ -110,6 +110,15 @@ class Session < ActiveRecord::Base
     event :reject do
       transition [:pending_confirmation, :in_review] => :rejected
     end
+    
+    state :accepted do
+      validates_acceptance_of :author_agreement, :accept => true
+    end
+
+    state :rejected do
+      validates_acceptance_of :author_agreement, :accept => true
+    end
+    
   end
   
   def second_author_username

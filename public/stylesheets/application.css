@@ -582,24 +582,24 @@ li#vote_logo_id_input ul.errors {
   float: left;
   width: 100%; }
 
-form.reviewer fieldset.inputs li {
+form.reviewer fieldset.inputs li, form.review_decision_confirm fieldset.inputs li, form.review_decision_withdraw fieldset.inputs li {
   float: left;
   margin-bottom: 0; }
-  form.reviewer fieldset.inputs li.boolean, form.reviewer fieldset.inputs li.select {
+  form.reviewer fieldset.inputs li.boolean, form.reviewer fieldset.inputs li.select, form.review_decision_confirm fieldset.inputs li.boolean, form.review_decision_confirm fieldset.inputs li.select, form.review_decision_withdraw fieldset.inputs li.boolean, form.review_decision_withdraw fieldset.inputs li.select {
     width: 35%; }
-  form.reviewer fieldset.inputs li label {
+  form.reviewer fieldset.inputs li label, form.review_decision_confirm fieldset.inputs li label, form.review_decision_withdraw fieldset.inputs li label {
     width: 50%; }
-  form.reviewer fieldset.inputs li ul.errors {
+  form.reviewer fieldset.inputs li ul.errors, form.review_decision_confirm fieldset.inputs li ul.errors, form.review_decision_withdraw fieldset.inputs li ul.errors {
     float: left;
     width: 100%; }
-form.reviewer fieldset.buttons {
+form.reviewer fieldset.buttons, form.review_decision_confirm fieldset.buttons, form.review_decision_withdraw fieldset.buttons {
   margin-top: 15px; }
-form.reviewer p.inline-hints {
+form.reviewer p.inline-hints, form.review_decision_confirm p.inline-hints, form.review_decision_withdraw p.inline-hints {
   float: left;
   width: 74%;
   color: #999999;
   font-style: italic; }
-form.reviewer pre#reviewer_agreement {
+form.reviewer pre#reviewer_agreement, form.reviewer pre#author_agreement, form.review_decision_confirm pre#reviewer_agreement, form.review_decision_confirm pre#author_agreement, form.review_decision_withdraw pre#reviewer_agreement, form.review_decision_withdraw pre#author_agreement {
   width: 80%;
   display: block;
   background-color: #ffffe0;
@@ -609,9 +609,9 @@ form.reviewer pre#reviewer_agreement {
   border: 1px dashed #f7c13b;
   padding: 10px;
   font-size: 8pt; }
-form.reviewer fieldset.accept {
+form.reviewer fieldset.accept, form.review_decision_confirm fieldset.accept, form.review_decision_withdraw fieldset.accept {
   width: 100%; }
-  form.reviewer fieldset.accept li.boolean {
+  form.reviewer fieldset.accept li.boolean, form.review_decision_confirm fieldset.accept li.boolean, form.review_decision_withdraw fieldset.accept li.boolean {
     width: 100%; }
 
 form.review.formtastic fieldset.inputs legend {

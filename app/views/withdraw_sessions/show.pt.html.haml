@@ -1,0 +1,26 @@
+- title "Desistência de participação na Agile Brazil 2010"
+.auto_focus
+
+%p Olá #{current_user.full_name},
+
+%p Seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010, mas você decidiu desistir de participar do evento. Para confirmar sua desistência, você precisa ler e assinar o termo de compromisso abaixo:
+
+- content_for :agreement do
+  %h3 TERMO DE DESISTÊNCIA COMO AUTOR - AGILE BRAZIL 2010
+  Ao concordar com este termo, declaro:
+  %br
+  (1) Estar apto a realizar minha apresentação no Agile Brazil 2010, em data e local definidos pela organização
+  do evento, com o compromisso pela alta qualidade do evento;
+  %br
+  (2) Estar ciente de que devo notificar imediatamente a organização do Agile Brazil 2010 caso algum evento de
+  força maior venha a impedir minha participação na conferência, permitindo minha rápida substituição ou a resolução de
+  problemas;
+  %br
+  (3) Ceder à organização do Agile Brazil 2010 o direito de uso de minha imagem para fins não comerciais, políticos e
+  religiosos (tanto em foto quanto em vídeo), em atividades estritamente relacionadas à conferência e sem a reprodução
+  de conteúdo intelectual registrado sem o meu consentimento;
+  %br
+  (4) Que todo o conteúdo da apresentação é de minha inteira responsabilidade civil e intelectual, sendo passível de
+  responder judicialmente a qualquer ato ilegal que possa vir a realizar durante sua exposição na conferência.
+
+= render 'withdraw_sessions/form'
