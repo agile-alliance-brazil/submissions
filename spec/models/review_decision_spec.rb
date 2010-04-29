@@ -63,18 +63,42 @@ describe ReviewDecision do
   end
 
   context "callbacks" do
-    it "should set session pending confirmation after accepting" do
+    it "should set session pending confirmation after creating an accept review decision" do
       review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
       review_decision.session.update_attribute(:state, 'in_review')
       review_decision.save
       review_decision.session.should be_pending_confirmation
     end
     
-    it "should set session rejected after rejecting" do
+    it "should set session rejected after rejecting creating a reject review decision" do
       review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
       review_decision.session.update_attribute(:state, 'in_review')
       review_decision.save
       review_decision.session.should be_rejected
+    end
+    
+    context "existing review decision" do
+      it "should set session pending confirmation after updating to accept" do
+        @review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
+        @review_decision.session.update_attribute(:state, 'in_review')
+        @review_decision.save
+        
+        @review_decision.outcome = Outcome.find_by_title('outcomes.accept.title')
+        @review_decision.save
+        
+        @review_decision.session.should be_pending_confirmation
+      end
+    
+      it "should set session rejected after updating to reject" do
+        @review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
+        @review_decision.session.update_attribute(:state, 'in_review')
+        @review_decision.save
+        
+        @review_decision.outcome = Outcome.find_by_title('outcomes.reject.title')
+        @review_decision.save
+        
+        @review_decision.session.should be_rejected
+      end
     end
   end
 end

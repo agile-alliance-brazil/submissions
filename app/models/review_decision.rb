@@ -18,7 +18,7 @@ class ReviewDecision < ActiveRecord::Base
     end
   end
   
-  def after_create
+  def after_save
     case outcome
     when Outcome.find_by_title('outcomes.accept.title')
       session.tentatively_accept

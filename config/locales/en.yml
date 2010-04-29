@@ -208,7 +208,7 @@ en:
     vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
     new_review: "New review for session '{{session}}'"
-    new_review_decision: "Review decision for session '{{session}}'"
+    review_decision: "Review decision for session '{{session}}'"
   
   actions:
     submission_date: "Submission deadline"
@@ -239,6 +239,8 @@ en:
       vote: "Logo contest"
       user: "Profile"
     review_decision: "Decide"
+    create_review_decision: "New Decision"
+    edit_review_decision: "Edit Decision"
   
   text:
     for_user: "Showing sessions for user: <strong>{{name}}</strong>"
@@ -298,6 +300,8 @@ en:
     review_decision:
       create:
         success: "Organizer's decision submited successfully."
+      update:
+        success: "Organizer's decision updated successfully."
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:

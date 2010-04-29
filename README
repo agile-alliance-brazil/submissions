@@ -36,10 +36,10 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Organizers can publish reviews to author -- Danilo
- * Organizers can edit proposals outcome and note -- Hugo
  
 DONE:
 
+ * Organizers can edit proposals outcome and note -- Hugo
  * Author can only view reviews after deadline of 27/04/2010 -- Danilo
  * Organizers can choose approved/rejected proposals, adding note to author -- Danilo
  * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo
