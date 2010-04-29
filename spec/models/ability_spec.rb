@@ -201,7 +201,7 @@ describe Ability do
     
     context "index reviews of" do
       before(:each) do
-        Time.zone.stubs(:now).returns(Time.zone.local(2010, 4, 28))
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 5, 3))
         @session = Factory(:session)
       end
       
@@ -238,15 +238,15 @@ describe Ability do
       end
       
       describe "his sessions if:" do
-        it "- adter deadline of 27/4/2010" do
+        it "- adter deadline of 03/5/2010" do
           @session.author = @user
-          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 28, 0, 0, 0))
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 5, 3, 0, 0, 0))
           @ability.should be_can(:index, Review, @session)
         end
 
         it "- before deadline author can't view reviews" do
           @session.author = @user
-          Time.zone.expects(:now).returns(Time.zone.local(2010, 4, 27, 23, 59, 58))
+          Time.zone.expects(:now).returns(Time.zone.local(2010, 5, 2, 23, 59, 58))
           @ability.should be_cannot(:index, Review, @session)
         end
       end
@@ -455,6 +455,91 @@ describe Ability do
 
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should be_cannot(:create, ReviewDecision)
+      end
+    end
+    
+    context "can edit review decision session if:" do
+      before(:each) do
+        @session = Factory(:session)
+        @session.reviewing
+      end
+      
+      it "- session on organizer's track" do
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+        
+        Factory(:organizer, :track => @session.track, :user => @user)
+
+        @ability = Ability.new(@user)
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+      end
+
+      it "- session was not confirmed by author" do
+        @session.tentatively_accept
+        @session.accept
+
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+      end
+      
+      it "- session has a review decision" do
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+      end
+      
+      it "- session is rejected" do
+        @session.reject
+        
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_can(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+      end
+      
+      it "- session is tentatively accepted" do
+        @session.tentatively_accept
+        
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+        
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_can(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
       end
     end
   end

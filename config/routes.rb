@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sessions, :except => [:destroy], :member => {:cancel => :delete} do |session|
     session.resources :comments, :except => [:new]
     session.resources :reviews, :except => [:edit, :update, :destroy], :collection => {:organizer => :get}
-    session.resources :review_decisions, :only => [:new, :create]
+    session.resources :review_decisions, :only => [:new, :create, :edit, :update]
     session.resource  :confirm, :only => [:show, :update], :controller => :confirm_sessions
     session.resource  :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
   end

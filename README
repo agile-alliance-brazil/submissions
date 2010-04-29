@@ -17,7 +17,6 @@ TODO:
  --- Medium term
  * Organizers can create program
  * Sort by author, second_author and track on reviewer_reviews
- * Author can see anonymous reviews
  --- Lower priority
  * Allow reviewers to remove a session from the list of session they can review
  * Deadline for adding reviews
@@ -44,6 +43,7 @@ DONE:
  * E-mail template for accepted sessions -- Danilo
  * Organizers can enter review decision on sessions -- Danilo
  * Authors can confirm/withdraw approval -- Danilo 
+ * Organizers can edit proposals outcome and note -- Hugo
  * Author can only view reviews after deadline of 27/04/2010 -- Danilo
  * Organizers can choose approved/rejected proposals, adding note to author -- Danilo
  * Authors can view the reviews for their proposals (omitting reviewer name as well as recommendation and justification) -- Hugo

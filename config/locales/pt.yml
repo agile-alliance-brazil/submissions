@@ -375,7 +375,7 @@ pt:
     vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '{{session}}'"
-    new_review_decision: "Parecer da sessão '{{session}}'"
+    review_decision: "Parecer da sessão '{{session}}'"
   
   actions:
     submission_date: "Prazo para submissões"
@@ -406,6 +406,8 @@ pt:
       vote: "Concurso logo"
       user: "Perfil"
     review_decision: "Parecer"
+    create_review_decision: "Novo Parecer"
+    edit_review_decision: "Editar Parecer"
   
   text:
     for_user: "Mostrando sessões do usuário: <strong>{{name}}</strong>"
@@ -469,6 +471,8 @@ pt:
     review_decision:
       create:
         success: "Parecer submetido com sucesso."
+      update:
+        success: "Parecer atualizado com sucesso."
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
