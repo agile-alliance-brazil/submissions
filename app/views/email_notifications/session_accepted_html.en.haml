@@ -1,0 +1,19 @@
+%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+
+%p We are pleased to inform you that your proposal <strong>'#{h(@session.title)}'</strong> has been selected to be part of the program of the Brazilian Conference about Agile Methods – Agile Brazil 2010!
+
+%p We would like to ask you to confirm your attendance at the event by 23:59 of *May XX* by accessing the form at #{link_to session_confirm_url(@session, :locale => 'en'), session_confirm_url(@session, :locale => 'en')} If you can not attend the event, we kindly ask you to confirm your withdrawal using the form at #{link_to session_withdraw_url(@session, :locale => 'en'), session_withdraw_url(@session, :locale => 'en')} The author who does not confirm or withdraw their attendance until *May XX* will have their proposal automatically removed from the lineup and replaced immediately by other selected work.
+
+%p Once the attendance or withdraw has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing the address:
+
+%p= link_to session_reviews_url(@session, :locale => 'en'), session_reviews_url(@session, :locale => 'en')
+
+%p We will soon be sending more instructions to the speakers. Should you have any queries, requests or comments, please contact the Program Committee at #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+
+%p We hope to see you soon!
+
+%p Regards,
+
+%p Program Committee of Agile Brazil 2010 Conference
+
+%small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

@@ -46,6 +46,17 @@ class EmailNotifications < ActionMailer::Base
     multipart_content_for(:reviewer_invitation, :reviewer => reviewer)
   end
 
+  def notification_of_acceptance(session, decision, sent_at = Time.now)
+    I18n.locale = session.author.try(:default_locale)
+    subject       "[#{host}] #{I18n.t('email.session_accepted.subject')}"
+    recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
+    from          "\"Agile Brazil 2010\" <no-reply@#{host}>"
+    reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
+    sent_on       sent_at
+    
+    multipart_content_for(:session_accepted, :session => session, :decision => decision)
+  end
+
   private
   def host
     ActionMailer::Base.default_url_options[:host]

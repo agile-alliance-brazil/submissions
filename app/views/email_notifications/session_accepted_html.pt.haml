@@ -1,0 +1,19 @@
+%p Olá #{h(@session.authors.map(&:full_name).join(" & "))},
+
+%p É com grande satisfação que comunicamos que seu trabalho <strong>'#{h(@session.title)}'</strong> foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010!
+
+%p Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia *XX/05* acessando o formulário #{link_to session_confirm_url(@session, :locale => 'pt'), session_confirm_url(@session, :locale => 'pt')} Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário #{link_to session_withdraw_url(@session, :locale => 'pt'), session_withdraw_url(@session, :locale => 'pt')} O autor que não confirmar ou cancelar sua presença até o dia *XX/05* terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
+
+%p Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
+
+%p= link_to session_reviews_url(@session, :locale => 'pt'), session_reviews_url(@session, :locale => 'pt')
+
+%p Em breve, enviaremos mais instruções aos palestrantes. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+
+%p Esperamos vê-lo em breve!
+
+%p Gratos,
+
+%p Equipe de programa da Agile Brazil 2010
+
+%small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

@@ -360,6 +360,10 @@ en:
       subject: "Agile Brazil 2010 session proposal submitted"
     reviewer_invitation:
       subject: "Invitation to be part of Agile Brazil 2010 review committee"
+    session_accepted:
+      subject: "Notification from the Program Committee of Agile Brazil 2010"
+    session_rejected:
+      subject: "Notification from the Program Committee of Agile Brazil 2010"
 
   vote:
     description: "You can no longer vote or update your vote. But feel free to look at the proposals. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
