@@ -4,13 +4,17 @@ Olá #{@session.authors.map(&:full_name).join(" & ")},
 É com grande satisfação que comunicamos que seu trabalho '#{h(@session.title)}' foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010!
 
 
-Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia *XX/05* acessando o formulário #{session_confirm_url(@session, :locale => 'pt')} Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário #{session_withdraw_url(@session, :locale => 'pt')} O autor que não confirmar ou cancelar sua presença até o dia *XX/05* terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
+Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia 09/05/2010 acessando o formulário #{session_confirm_url(@session, :locale => 'pt')} Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário #{session_withdraw_url(@session, :locale => 'pt')} O autor que não confirmar ou cancelar sua presença até o dia 09/05/2010 terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 
 Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
 
 
 = session_reviews_url(@session, :locale => 'pt')
+
+
+ATENÇÃO: PALESTRANTES ESTÃO ISENTOS DE INSCRIÇÃO NO EVENTO!
+Sua inscrição será feita pela organização do Agile Brazil 2010 uma vez que sua presença for confirmada pelo formulário acima.
 
 
 Em breve, enviaremos mais instruções aos palestrantes. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email programa@agilebrazil.com.
