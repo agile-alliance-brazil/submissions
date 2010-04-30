@@ -46,7 +46,7 @@ class EmailNotifications < ActionMailer::Base
     multipart_content_for(:reviewer_invitation, :reviewer => reviewer)
   end
 
-  def notification_of_acceptance(session, decision, sent_at = Time.now)
+  def notification_of_acceptance(session, sent_at = Time.now)
     I18n.locale = session.author.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.session_accepted.subject')}"
     recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
@@ -54,10 +54,10 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    multipart_content_for(:session_accepted, :session => session, :decision => decision)
+    multipart_content_for(:session_accepted, :session => session)
   end
 
-  def notification_of_rejection(session, decision, sent_at = Time.now)
+  def notification_of_rejection(session, sent_at = Time.now)
     I18n.locale = session.author.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.session_rejected.subject')}"
     recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
@@ -65,7 +65,7 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    multipart_content_for(:session_rejected, :session => session, :decision => decision)
+    multipart_content_for(:session_rejected, :session => session)
   end
 
   private

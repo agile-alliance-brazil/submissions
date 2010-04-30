@@ -152,12 +152,11 @@ describe EmailNotifications do
   
   context "notification of acceptance" do
     before(:each) do
-      @decision = Factory(:review_decision)
-      @session = @decision.session
+      @session = Factory(:session)
     end
     
     it "should be sent to first author" do
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
@@ -174,7 +173,7 @@ describe EmailNotifications do
       user = Factory(:user)
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
@@ -189,7 +188,7 @@ describe EmailNotifications do
     
     it "should be sent to first author in default language" do
       @session.author.default_locale = 'en'
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
@@ -207,7 +206,7 @@ describe EmailNotifications do
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
@@ -224,12 +223,11 @@ describe EmailNotifications do
   
   context "notification of rejection" do
     before(:each) do
-      @decision = Factory(:review_decision)
-      @session = @decision.session
+      @session = Factory(:session)
     end
     
     it "should be sent to first author" do
-      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_rejection(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
@@ -244,7 +242,7 @@ describe EmailNotifications do
       user = Factory(:user)
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_rejection(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
@@ -257,7 +255,7 @@ describe EmailNotifications do
     
     it "should be sent to first author in default language" do
       @session.author.default_locale = 'en'
-      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_rejection(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
@@ -273,7 +271,7 @@ describe EmailNotifications do
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      mail = EmailNotifications.deliver_notification_of_rejection(@session)
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
