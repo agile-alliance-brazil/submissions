@@ -222,4 +222,67 @@ describe EmailNotifications do
     
   end
   
+  context "notification of rejection" do
+    before(:each) do
+      @decision = Factory(:review_decision)
+      @session = @decision.session
+    end
+    
+    it "should be sent to first author" do
+      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Olá #{@session.author.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+    end
+    
+    it "should be sent to second author, if available" do
+      user = Factory(:user)
+      @session.second_author = user
+      
+      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email, user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+    end
+    
+    it "should be sent to first author in default language" do
+      @session.author.default_locale = 'en'
+      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Dear #{@session.author.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+      
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+    end
+
+    it "should be sent to second author, if available (in first author's default language)" do
+      @session.author.default_locale = 'en'
+      user = Factory(:user, :default_locale => 'fr')
+      @session.second_author = user
+      
+      mail = EmailNotifications.deliver_notification_of_rejection(@session, @decision)
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@session.author.email, user.email]
+      mail.content_type.should == "multipart/alternative"
+  	  mail.body.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /#{@session.title}/
+  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+    end
+    
+  end
 end

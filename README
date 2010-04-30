@@ -35,11 +35,11 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * E-mail template for rejected sessions -- Danilo
  * Admin can send all acceptance/rejection e-mails at once -- Danilo
  
 DONE:
 
+ * E-mail template for rejected sessions -- Danilo
  * Authors can view the review decision as well as the organizer note in the review page for their session -- Hugo
  * E-mail template for accepted sessions -- Danilo
  * Organizers can enter review decision on sessions -- Danilo

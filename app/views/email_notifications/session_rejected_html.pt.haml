@@ -1,0 +1,17 @@
+%p Olá #{h(@session.authors.map(&:full_name).join(" & "))},
+
+%p Infelizmente, sua proposta <strong>'#{h(@session.title)}'</strong> não foi selecionada para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010.
+
+%p Recebemos em torno de 150 propostas este ano -- mais sessões submetidas do que qualquer outra conferência brasileira de métodos ágeis. Infelizmente, isso significa que muitas boas propostas não puderam ser aceitas devido à falta de espaço. No final, nós aceitamos cerca de 35 apresentações, considerarando a necessidade de criar um programa equilibrado, com um conteúdo de ponta e efetivo aos participantes da conferência. Você pode ver o feedback sobre sua proposta fornecido pelos avaliadores e pelos organizadores de trilha acessando o endereço:
+
+%p= link_to session_reviews_url(@session, :locale => 'pt'), session_reviews_url(@session, :locale => 'pt')
+
+%p Se você tiver qualquer dúvida, comentário ou sugestão, não hesite em entrar em contato com a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+
+%p Muito obrigado pela sua proposta. Esperamos que você participe da conferência este ano e traga novas propostas para o próximo ano.
+
+%p Atenciosamente,
+
+%p Equipe de programa da Agile Brazil 2010
+
+%small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]
