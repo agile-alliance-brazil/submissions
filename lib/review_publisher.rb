@@ -48,7 +48,7 @@ class ReviewPublisher
   def sessions_with_outcome(outcome)
     Session.all(
       :joins => :review_decision,
-      :conditions => ['outcome_id = ?', Outcome.find_by_title(outcome).id]
+      :conditions => ['outcome_id = ? AND published = ?', Outcome.find_by_title(outcome).id, false]
     )
   end
 end

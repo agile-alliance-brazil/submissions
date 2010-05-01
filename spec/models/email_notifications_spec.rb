@@ -152,7 +152,27 @@ describe EmailNotifications do
   
   context "notification of acceptance" do
     before(:each) do
-      @session = Factory(:session)
+      @decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
+      @decision.session.update_attribute(:state, "in_review")
+      @decision.save
+      @session = @decision.session
+    end
+    
+    it "should not be sent if session has no decision" do
+      session = Factory(:session)
+      lambda {EmailNotifications.deliver_notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
+    end
+    
+    it "should not be sent if session has been rejected" do
+      @session.review_decision.expects(:rejected?).returns(true)
+      
+      lambda {EmailNotifications.deliver_notification_of_acceptance(@session)}.should raise_error("Cannot accept a rejected session")
+    end
+    
+    it "should make review published" do
+      @decision.should_not be_published
+      EmailNotifications.deliver_notification_of_acceptance(@session)
+      @decision.reload.should be_published
     end
     
     it "should be sent to first author" do
@@ -223,9 +243,29 @@ describe EmailNotifications do
   
   context "notification of rejection" do
     before(:each) do
-      @session = Factory(:session)
+      @decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
+      @decision.session.update_attribute(:state, "in_review")
+      @decision.save
+      @session = @decision.session
     end
     
+    it "should not be sent if session has no decision" do
+      session = Factory(:session)
+      lambda {EmailNotifications.deliver_notification_of_rejection(session)}.should raise_error("Notification can't be sent before decision has been made")
+    end
+    
+    it "should not be sent if session has been accepted" do
+      @session.review_decision.expects(:accepted?).returns(true)
+      
+      lambda {EmailNotifications.deliver_notification_of_rejection(@session)}.should raise_error("Cannot reject an accepted session")
+    end
+
+    it "should make review published" do
+      @decision.should_not be_published
+      EmailNotifications.deliver_notification_of_rejection(@session)
+      @decision.reload.should be_published
+    end    
+
     it "should be sent to first author" do
       mail = EmailNotifications.deliver_notification_of_rejection(@session)
       ActionMailer::Base.deliveries.size.should == 1

@@ -26,4 +26,12 @@ class ReviewDecision < ActiveRecord::Base
       session.reject unless session.rejected?
     end
   end
+  
+  def accepted?
+    outcome == Outcome.find_by_title('outcomes.accept.title')
+  end
+
+  def rejected?
+    outcome == Outcome.find_by_title('outcomes.reject.title')
+  end
 end

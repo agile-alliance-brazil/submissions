@@ -11,10 +11,11 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Add a boolean to capture that e-mail has been sent
- * Authorization for authors to be able to see their reviews once published by organizer
  * Author can edit some fields of the proposal according to the feedback when confirming
  * Deadline to confirm a proposal approval (and confirm that author will register)
+ * Update agreement terms
+ * Update withdraw terms/text
+ * Only first author can accept/withdraw (functionality and e-mail text)
  --- Medium term
  * Organizers can create program
  * Sort by author, second_author and track on reviewer_reviews
@@ -39,6 +40,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Authorization for authors to be able to see their reviews once published by organizer -- Danilo
+ * Add a boolean to capture that e-mail has been sent -- Danilo
  * Admin can send all acceptance/rejection e-mails at once -- Danilo
  * E-mail template for rejected sessions -- Danilo
  * Authors can view the review decision as well as the organizer note in the review page for their session -- Hugo

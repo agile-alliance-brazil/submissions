@@ -38,7 +38,7 @@ describe ReviewPublisher do
     it "should send reject e-mails first" do
       Session.expects(:all).with(
         :joins => :review_decision,
-        :conditions => ['outcome_id = ?', 2]).
+        :conditions => ['outcome_id = ? AND published = ?', 2, false]).
         returns(@sessions)
     
       EmailNotifications.expects(:deliver_notification_of_rejection).with(@sessions[0]).with(@sessions[1])
@@ -49,7 +49,7 @@ describe ReviewPublisher do
     it "should send acceptance e-mails" do
       Session.expects(:all).with(
         :joins => :review_decision,
-        :conditions => ['outcome_id = ?', 1]).
+        :conditions => ['outcome_id = ? AND published = ?', 1, false]).
         returns(@sessions)
           EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[0]).with(@sessions[1])
     

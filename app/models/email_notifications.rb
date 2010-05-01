@@ -47,6 +47,8 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def notification_of_acceptance(session, sent_at = Time.now)
+    raise "Notification can't be sent before decision has been made" unless session.review_decision
+    raise "Cannot accept a rejected session" if session.review_decision.rejected?
     I18n.locale = session.author.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.session_accepted.subject')}"
     recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
@@ -54,10 +56,14 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    multipart_content_for(:session_accepted, :session => session)
+    returning multipart_content_for(:session_accepted, :session => session) do
+      session.review_decision.update_attribute(:published, true)
+    end
   end
 
   def notification_of_rejection(session, sent_at = Time.now)
+    raise "Notification can't be sent before decision has been made" unless session.review_decision
+    raise "Cannot reject an accepted session" if session.review_decision.accepted?
     I18n.locale = session.author.try(:default_locale)
     subject       "[#{host}] #{I18n.t('email.session_rejected.subject')}"
     recipients    session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" }
@@ -65,7 +71,9 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    multipart_content_for(:session_rejected, :session => session)
+    returning multipart_content_for(:session_rejected, :session => session) do
+      session.review_decision.update_attribute(:published, true)
+    end
   end
 
   private

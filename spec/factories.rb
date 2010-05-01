@@ -136,4 +136,5 @@ Factory.define :review_decision do |d|
   d.association :session
   d.association :outcome
   d.note_to_authors "Some note to the authors"
+  d.published false
 end
