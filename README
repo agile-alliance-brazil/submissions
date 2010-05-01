@@ -11,6 +11,7 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
+ * Add a boolean to capture that e-mail has been sent
  * Authorization for authors to be able to see their reviews once published by organizer
  * Author can edit some fields of the proposal according to the feedback when confirming
  * Deadline to confirm a proposal approval (and confirm that author will register)
@@ -35,10 +36,10 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Admin can send all acceptance/rejection e-mails at once -- Danilo
  
 DONE:
 
+ * Admin can send all acceptance/rejection e-mails at once -- Danilo
  * E-mail template for rejected sessions -- Danilo
  * Authors can view the review decision as well as the organizer note in the review page for their session -- Hugo
  * E-mail template for accepted sessions -- Danilo
