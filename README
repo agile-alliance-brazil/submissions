@@ -11,9 +11,7 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Author can edit some fields of the proposal (title, summary) according to the feedback when confirming
  * Deadline to confirm a proposal approval (and confirm that author will register)
- * Update agreement terms
  * Update withdraw terms/text
  * Only first author can accept/withdraw (functionality and e-mail text)
  --- Medium term
@@ -40,6 +38,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Update agreement terms -- Danilo
+ * Author can edit some fields of the proposal (title, summary, audience_limit) according to the feedback when confirming -- Danilo
  * Authorization for authors to be able to see their reviews once published by organizer -- Danilo
  * Add a boolean to capture that e-mail has been sent -- Danilo
  * Admin can send all acceptance/rejection e-mails at once -- Danilo

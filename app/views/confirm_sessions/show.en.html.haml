@@ -3,24 +3,28 @@
 
 %p Dear #{current_user.full_name},
 
-%p We are pleased to inform you that your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – Agile Brazil 2010! To confirm your attendance at the event, please read and sign the following term of agreement:
+%p We are pleased to inform you that your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – Agile Brazil 2010! To confirm your attendance at the event, please make the changes suggested by the organizers, then read and sign the term of agreement.
+
+%p#review_decision
+  %strong #{t('formtastic.labels.review_decision.note_to_authors')}:
+  %br
+  = @session.review_decision.note_to_authors
 
 - content_for :agreement do
   %h3 AUTHOR TERM OF AGREEMENT - AGILE BRAZIL 2010
-  On agreeing to these terms, I declare:
+  On agreeing to these terms, I declare that I will:
   %br
-  (1) Being able to present my session at Agile Brazil 2010 at the date and place defined by the event organization,
+  (1) Be able to present my session at Agile Brazil 2010 at the date and place defined by the event organization,
   committing to the high quality of the event;
   %br
-  (2) Being aware that I must immediately notify the organization of Agile Brazil 2010 should any unpredicted
-  event stop me from participating in the conference, thus allowing my session to be replaced or the problem solved 
-  in any way;
+  (2) Be aware that I must immediately notify the organization of Agile Brazil 2010 should any unpredicted event prevent
+  me from participating in the conference, thus allowing my session to be replaced or the issue be solved in any way;
   %br
-  (3) Granting the organization of Agile Brazil 2010 the right to use my image for non-commercial, non-political
-  and non-religious purposes (be it in picture or video), in activities strictly related to the conference and without
-  reproduction of the intellectual content without my consent;
+  (3) Be granting the organization of Agile Brazil 2010 the consent to use photographs of myself, or in any media form,
+  for non-commercial, non-political and non-religious purposes, in activities strictly related to the conference and
+  without reproduction of the intellectual content without my acknowledgement;
   %br
-  (4) Being responsible civil and intellectually for all the content in my presentation, being able to respond
-  legally to any illegal act I may do during its presentation at the conference.
+  (4) Be responsible and accountable for the intellectual property of all the content in my presentation, as well as
+  being legally responsible for any activities performed during its presentation at the conference.
 
 = render 'confirm_sessions/form'

@@ -3,7 +3,12 @@
 
 %p Olá #{current_user.full_name},
 
-%p É com grande satisfação que comunicamos que seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010! Para confirmar sua participação no evento, você precisa ler e assinar o termo de compromisso abaixo:
+%p É com grande satisfação que comunicamos que seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010! Para confirmar sua participação no evento, você precisa realizar as alterações sugeridas pelos organizadores, além de ler e assinar o termo de compromisso aqui apresentado.
+
+%p#review_decision
+  %strong #{t('formtastic.labels.review_decision.note_to_authors')}:
+  %br
+  = @session.review_decision.note_to_authors
 
 - content_for :agreement do
   %h3 TERMO DE COMPROMISSO COMO AUTOR - AGILE BRAZIL 2010

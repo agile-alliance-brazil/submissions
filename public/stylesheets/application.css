@@ -614,6 +614,15 @@ form.reviewer fieldset.accept, form.review_decision_confirm fieldset.accept, for
   form.reviewer fieldset.accept li.boolean, form.review_decision_confirm fieldset.accept li.boolean, form.review_decision_withdraw fieldset.accept li.boolean {
     width: 100%; }
 
+p#review_decision {
+  background-color: #d8ffdc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: 1px dashed #1c8c1c;
+  padding: 10px;
+  width: 80%; }
+
 form.review.formtastic fieldset.inputs legend {
   font-size: 14pt;
   color: black;
