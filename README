@@ -11,7 +11,7 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Author can edit some fields of the proposal according to the feedback when confirming
+ * Author can edit some fields of the proposal (title, summary) according to the feedback when confirming
  * Deadline to confirm a proposal approval (and confirm that author will register)
  * Update agreement terms
  * Update withdraw terms/text
