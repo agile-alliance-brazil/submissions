@@ -1,4 +1,4 @@
-Caro#{session.authors.size > 1 ? "s":""} #{@session.authors.map(&:full_name).join(" & ")},
+Caro#{@session.authors.size > 1 ? "s":""} #{@session.authors.map(&:full_name).join(" & ")},
 
 
 É com grande satisfação que comunicamos que seu trabalho '#{h(@session.title)}' foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010!
@@ -12,7 +12,7 @@ Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua
 
 = session_withdraw_url(@session, :locale => 'pt')
 
-Apenas o primeiro autor da sessão (#{session.author.full_name}) pode confirmar ou cancelar a presença.
+Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
 
 
 O autor que não confirmar ou cancelar sua presença até o dia 09/05/2010 terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
@@ -31,9 +31,9 @@ Sua inscrição será feita pela organização do Agile Brazil 2010 uma vez que 
 Em breve, enviaremos mais instruções aos palestrantes. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email programa@agilebrazil.com.
 
 
-Esperamos vê-lo#{session.authors.size > 1 ? "s":""} em breve!
+Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em breve!
 
---
+#{"--"}
 
 Equipe de programa da Agile Brazil 2010
 

@@ -180,7 +180,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name},/
+  	  mail.body.should =~ /Caro #{@session.author.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
       mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
@@ -197,7 +197,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
       mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
@@ -271,7 +271,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
       mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name},/
+  	  mail.body.should =~ /Caro #{@session.author.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
   	  
@@ -286,7 +286,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
       mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.body.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.body.should =~ /#{@session.title}/
   	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
 
