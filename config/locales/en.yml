@@ -100,8 +100,12 @@ en:
         updated_at: "Updated"
         state: "Status"
         reviews: "Reviews"
-        author_agreement: "I read the terms and acknowledge my responsibilities"
-        image_agreement: "I allow my session to be recorded during the event and grant the rights to use it for later reproduction"
+        confirm:
+          author_agreement: "I read the terms and acknowledge my responsibilities as an author."
+        withdraw:
+          author_agreement: "I declare I withdraw my session at the conference and I acknowledge that I have no right to go back on that decision."
+        image_agreement_description: "In addition to this term, you can optionally agree to the term below. It authorizes the organization to record the contents of your session, for example on video, for later dissemination on the Internet or other media, without commercial purposes."
+        image_agreement: "By accepting this term, I grant the organization of Agile Brazil in 2010, for non-commercial purposes, the right of recording and reproducing all or part of the technical content presented by me during the conference, in any form or medium, without any cost for the event."
         author_confirmed: "Author confirmation"
       comment:
         comment: "Your comment"
@@ -288,7 +292,7 @@ en:
       confirm:
         success: "Conference attendance confirmed successfully."
       withdraw:
-        success: "Withdraw of attendance confirmed successfully."
+        success: "Session withdrawal confirmed successfully."
       cancel:
         failure: "Session already canceled."
     vote:

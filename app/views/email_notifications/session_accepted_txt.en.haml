@@ -6,14 +6,13 @@ We are pleased to inform you that your proposal '#{h(@session.title)}' has been 
 
 We would like to ask you to confirm your attendance at the event by 23:59 of May 9th, 2010 by accessing the form at
 
-
 = session_confirm_url(@session, :locale => 'en')
-
 
 If you can not attend the event, we kindly ask you to confirm your withdrawal using the form at
 
-
 = session_withdraw_url(@session, :locale => 'en')
+
+Only the first author of the session (#{session.author.full_name}) can confirm or withdraw the attendance.
 
 
 The author who does not confirm or withdraw their attendance until May 9th, 2010 will have their proposal automatically removed from the lineup and replaced immediately by other selected work.
@@ -21,12 +20,12 @@ The author who does not confirm or withdraw their attendance until May 9th, 2010
 
 Once the attendance or withdraw has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing:
 
-
 = session_reviews_url(@session, :locale => 'en')
 
 
-ATTENTION: AUTHORS ARE ENTITLED FOR FREE CONFERENCE REGISTRATION!
-Your registration will be processed by the organization of Agile Brazil 2010 once your attendance is confirmed using the above form.
+ATTENTION: THE FIRST AUTHOR OF EACH SESSION IS ENTITLED FOR FREE CONFERENCE REGISTRATION!
+
+Your registration will be processed by the organization of Agile Brazil 2010 once your attendance is confirmed.
 
 
 We will soon be sending more instructions to the speakers. Should you have any queries, requests or comments, please contact the Program Committee at programa@agilebrazil.com.
@@ -34,9 +33,7 @@ We will soon be sending more instructions to the speakers. Should you have any q
 
 We hope to see you soon!
 
-
-Regards,
-
+--
 
 Program Committee of Agile Brazil 2010 Conference
 

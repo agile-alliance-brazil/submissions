@@ -221,7 +221,7 @@ describe EmailNotifications do
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end
 
-    it "should be sent to second author, if available (in first author's default language)" do
+    it "should be the same to both authors, if second autor is available" do
       @session.author.default_locale = 'en'
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
@@ -306,7 +306,7 @@ describe EmailNotifications do
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end
 
-    it "should be sent to second author, if available (in first author's default language)" do
+    it "should be the same to both authors, if second autor is available" do
       @session.author.default_locale = 'en'
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user

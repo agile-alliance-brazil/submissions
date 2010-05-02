@@ -35,7 +35,7 @@ describe ReviewPublisher do
       Session.stubs(:all).returns(@sessions)
     end
   
-    it "should send reject e-mails first" do
+    it "should send reject e-mails" do
       Session.expects(:all).with(
         :joins => :review_decision,
         :conditions => ['outcome_id = ? AND published = ?', 2, false]).
@@ -51,7 +51,29 @@ describe ReviewPublisher do
         :joins => :review_decision,
         :conditions => ['outcome_id = ? AND published = ?', 1, false]).
         returns(@sessions)
-          EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[0]).with(@sessions[1])
+        
+      EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[0]).with(@sessions[1])
+    
+      @publisher.publish
+    end
+    
+    it "should send reject e-mails before acceptance e-mails" do
+      @sessions << Factory(:session)
+      
+      Session.expects(:all).with(
+        :joins => :review_decision,
+        :conditions => ['outcome_id = ? AND published = ?', 2, false]).
+        returns([@sessions[0], @sessions[2]])
+        
+      Session.expects(:all).with(
+        :joins => :review_decision,
+        :conditions => ['outcome_id = ? AND published = ?', 1, false]).
+        returns([@sessions[1]])
+        
+      notifications = sequence('notification')
+
+      EmailNotifications.expects(:deliver_notification_of_rejection).with(@sessions[0]).with(@sessions[2]).in_sequence(notifications)
+      EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[1]).in_sequence(notifications)
     
       @publisher.publish
     end

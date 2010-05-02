@@ -6,7 +6,10 @@
     = form.input :audience_limit, :input_html => {:tabindex => autotab}
   %pre#author_agreement= yield(:agreement)
   - form.inputs :class => 'inputs accept' do
-    = form.input :author_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
+    = form.input :author_agreement, :label => t('formtastic.labels.session.confirm.author_agreement'), :required => true, :as => :boolean, :input_html => {:tabindex => autotab}
+
+  - form.inputs :class => 'inputs accept' do
+    %p= t('formtastic.labels.session.image_agreement_description')
     = form.input :image_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
   - form.buttons do
     = form.commit_button :confirm_session, :button_html => {:tabindex => autotab}

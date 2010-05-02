@@ -261,8 +261,12 @@ pt:
         updated_at: "Última atualização"
         state: "Status"
         reviews: "Avaliações"
-        author_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
-        image_agreement: "Permito a filmagem da minha palestra durante o evento e ceder os direitos de imagem para sua posterior reprodução"
+        confirm:
+          author_agreement: "Li e declaro estar ciente de minhas responsabilidades como autor agora que assumo este compromisso."
+        withdraw:
+          author_agreement: "Declaro desistir de apresentar minha sessão na conferência e reconheço que não tenho direito de voltar atrás nessa decisão."
+        image_agreement_description: "Além deste termo, você pode, opcionalmente, concordar com o termo a seguir. Ele autoriza a organização a gravar o conteúdo de sua sessão, por exemplo em vídeo, para divulgação posterior na Internet ou outras mídias sem fins comerciais."
+        image_agreement: "Ao aceitar este termo, concedo à organização do Agile Brazil 2010, para  fins não comerciais,  o direito de gravação e reprodução total ou  parcial do conteúdo  técnico apresentado por mim durante a conferência, em qualquer formato e  veículo de comunicação, sem qualquer tipo de ônus para o evento."
         author_confirmed: "Confirmação do autor"
       comment:
         comment: "Seu comentário"
@@ -450,7 +454,7 @@ pt:
       confirm:
         success: "Participação confirmada com sucesso."
       withdraw:
-        success: "Desistência de participação confirmada com sucesso."
+        success: "Retirada de sessão confirmada com sucesso."
       cancel:
         failure: "Sessão já está cancelada."
     vote:
