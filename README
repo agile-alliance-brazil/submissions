@@ -7,12 +7,11 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  --- BUGS
+ * Once author has confirmed or withdrawn session, track organizers should not be able to edit review decision
  * new_session_review(nil) works iff locale is not explicit
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
- * Update withdraw terms/text
- * Update accept/withdraw e-mail text and agreement acceptance text
  --- Medium term
  * Organizers can create program
  * Sort by author, second_author and track on reviewer_reviews
@@ -37,6 +36,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Update withdraw terms/text -- Mari and Hugo
+ * Update accept/withdraw e-mail text and agreement acceptance text -- Mari and Hugo
  * Only first author can accept/withdraw -- Danilo
  * Deadline to confirm a proposal approval (and confirm that author will register) -- Danilo
  * Update agreement terms -- Danilo
