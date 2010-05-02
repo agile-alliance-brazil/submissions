@@ -19,6 +19,9 @@ class ReviewPublisher
   end
   
   def ensure_all_decisions_made
+    not_decided_count = Session.count(:conditions => ['state = ?', 'in_review'])
+    raise "There are #{not_decided_count} sessions without decision" if not_decided_count > 0
+
     missing_decision = Session.count(
       :joins => "left outer join (
                   SELECT session_id, count(*) AS cnt
@@ -26,7 +29,7 @@ class ReviewPublisher
                   GROUP BY session_id
                 ) AS review_decision_count
                 ON review_decision_count.session_id = sessions.id",
-      :conditions => ['state = ? AND review_decision_count.cnt = 0', 'in_review'])
+      :conditions => ['state IN (?) AND review_decision_count.cnt <> 1', ['pending_confirmation', 'rejected']])
     raise "There are #{missing_decision} sessions without decision" if missing_decision > 0
   end
   

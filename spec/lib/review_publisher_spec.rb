@@ -15,18 +15,25 @@ describe ReviewPublisher do
     Session.expects(:count).with(:conditions => ['state = ?', 'created']).returns(2)
     lambda {@publisher.publish}.should raise_error("There are 2 sessions not reviewed")
   end
+
+  context "validating sessions without decision" do
+    it "should raise error if sessions in_review" do
+      Session.expects(:count).with(:conditions => ['state = ?', 'in_review']).returns(3)
+      lambda {@publisher.publish}.should raise_error("There are 3 sessions without decision")
+    end
   
-  it "should raise error if reviewed sessions don't have decisions" do
-    Session.expects(:count).with(
-      :joins => "left outer join (
+    it "should raise error if reviewed sessions don't have decisions" do
+      Session.expects(:count).with(
+        :joins => "left outer join (
                   SELECT session_id, count(*) AS cnt
                   FROM review_decisions
                   GROUP BY session_id
                 ) AS review_decision_count
                 ON review_decision_count.session_id = sessions.id",
-      :conditions => ['state = ? AND review_decision_count.cnt = 0', 'in_review']).
-      returns(3)
-    lambda {@publisher.publish}.should raise_error("There are 3 sessions without decision")
+        :conditions => ['state IN (?) AND review_decision_count.cnt <> 1', ['pending_confirmation', 'rejected']]).
+        returns(4)
+      lambda {@publisher.publish}.should raise_error("There are 4 sessions without decision")
+    end
   end
   
   context "Sessions are all reviewed" do
