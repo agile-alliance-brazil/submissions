@@ -64,7 +64,7 @@ class Ability
       end
       can(:update, ReviewDecision) do |_, session|
         session = find_session(params) if session.nil?
-        (session.try(:pending_confirmation?) || session.try(:rejected?)) && user.organized_tracks.include?(session.track)
+        !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && user.organized_tracks.include?(session.track)
       end      
     end
     if user.reviewer?

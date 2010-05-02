@@ -1,4 +1,4 @@
-%p Caro#{session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" & "))},
 
 %p Infelizmente, sua proposta <strong>'#{h(@session.title)}'</strong> não foi selecionada para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010.
 
@@ -9,11 +9,11 @@
 
 %p Se você tiver qualquer dúvida, comentário ou sugestão, não hesite em entrar em contato com a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
-%p Muito obrigado pela sua proposta. Esperamos que você#{session.authors.size > 1 ? "s":""} participe#{session.authors.size > 1 ? "m":""} da conferência este ano e traga#{session.authors.size > 1 ? "m":""} novas propostas para o próximo ano.
+%p Muito obrigado pela sua proposta. Esperamos que você#{@session.authors.size > 1 ? "s":""} participe#{@session.authors.size > 1 ? "m":""} da conferência este ano e traga#{@session.authors.size > 1 ? "m":""} novas propostas para o próximo ano.
 
 %p
   Atenciosamente,
-  --
+  = "--"
   Comissão de Programa da Agile Brazil 2010
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

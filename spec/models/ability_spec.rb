@@ -451,13 +451,13 @@ describe Ability do
       end
     end
     
-    context "can edit review decision session if:" do
+    context "can edit review decision session" do
       before(:each) do
         @session = Factory(:session)
         @session.reviewing
       end
       
-      it "- session on organizer's track" do
+      it " if session on organizer's track" do
         @ability.should be_cannot(:update, ReviewDecision, @session)
         @ability.should be_cannot(:update, ReviewDecision)
 
@@ -479,8 +479,8 @@ describe Ability do
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should be_cannot(:update, ReviewDecision)
       end
-
-      it "- session was not confirmed by author" do
+      
+      it "if session was not confirmed by author" do
         @session.tentatively_accept
         @session.accept
 
@@ -494,8 +494,34 @@ describe Ability do
         @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should be_cannot(:update, ReviewDecision)
       end
+
+      it "unless session was rejected by author" do
+        @session.tentatively_accept
+        
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:update, ReviewDecision, @session)
+
+        @session.reject
+        @session.author_agreement = true;
+        @session.save
+        
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+      end
       
-      it "- session has a review decision" do
+      it "unless session was accepted by author" do
+        @session.tentatively_accept
+        
+        Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should be_can(:update, ReviewDecision, @session)
+
+        @session.accept
+        @session.author_agreement = true;
+        @session.save
+        
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+      end
+      
+      it "if session has a review decision" do
         Factory(:organizer, :track => @session.track, :user => @user)
         @ability.should be_cannot(:update, ReviewDecision, @session)
         @ability.should be_cannot(:update, ReviewDecision)
@@ -507,7 +533,7 @@ describe Ability do
         @ability.should be_cannot(:update, ReviewDecision)
       end
       
-      it "- session is rejected" do
+      it "if session is rejected" do
         @session.reject
         
         Factory(:organizer, :track => @session.track, :user => @user)
@@ -521,7 +547,7 @@ describe Ability do
         @ability.should be_cannot(:update, ReviewDecision)
       end
       
-      it "- session is tentatively accepted" do
+      it "if session is tentatively accepted" do
         @session.tentatively_accept
         
         Factory(:organizer, :track => @session.track, :user => @user)

@@ -1,4 +1,4 @@
-Caro#{session.authors.size > 1 ? "s":""} #{@session.authors.map(&:full_name).join(" & ")},
+Caro#{@session.authors.size > 1 ? "s":""} #{@session.authors.map(&:full_name).join(" & ")},
 
 
 Infelizmente, sua proposta '#{h(@session.title)}' não foi selecionada para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010.
@@ -12,12 +12,12 @@ Recebemos em torno de 150 propostas este ano -- mais sessões submetidas do que 
 Se você tiver qualquer dúvida, comentário ou sugestão, não hesite em entrar em contato com a Comissão de Programa através do email programa@agilebrazil.com.
 
 
-Muito obrigado pela sua proposta. Esperamos que você#{session.authors.size > 1 ? "s":""} participe#{session.authors.size > 1 ? "m":""} da conferência este ano e traga#{session.authors.size > 1 ? "m":""} novas propostas para o próximo ano.
+Muito obrigado pela sua proposta. Esperamos que você#{@session.authors.size > 1 ? "s":""} participe#{@session.authors.size > 1 ? "m":""} da conferência este ano e traga#{@session.authors.size > 1 ? "m":""} novas propostas para o próximo ano.
 
 
 Atenciosamente,
 
---
+#{"--"}
 
 Comissão de Programa da Agile Brazil 2010
 

@@ -7,7 +7,6 @@ For project progress and stories: http://www.pivotaltracker.com/projects/48585
 TODO:
 
  --- BUGS
- * Once author has confirmed or withdrawn session, track organizers should not be able to edit review decision
  * new_session_review(nil) works iff locale is not explicit
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
@@ -36,6 +35,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Fixing email templates and tests -- Hugo
+ * Once author has confirmed or withdrawn session, track organizers should not be able to edit review decision -- Hugo
  * Update withdraw terms/text -- Mari and Hugo
  * Update accept/withdraw e-mail text and agreement acceptance text -- Mari and Hugo
  * Only first author can accept/withdraw -- Danilo
