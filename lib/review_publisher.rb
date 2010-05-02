@@ -10,6 +10,7 @@ class ReviewPublisher
       Rails.logger.info("[SESSION] #{session.to_param}")
       try_with("ACCEPT") { EmailNotifications.deliver_notification_of_acceptance(session) }
     end
+    Rails.logger.flush
   end
   
   private

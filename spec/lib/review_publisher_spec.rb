@@ -7,6 +7,7 @@ describe ReviewPublisher do
     EmailNotifications.stubs(:deliver_notification_of_rejection)
     EmailNotifications.stubs(:deliver_notification_of_acceptance)
     Rails.logger.stubs(:info)
+    Rails.logger.stubs(:flush)
     
     @publisher = ReviewPublisher.new
   end
@@ -111,6 +112,12 @@ describe ReviewPublisher do
       
       Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       Rails.logger.expects(:info).with("  [REJECT] OK")
+      
+      @publisher.publish
+    end
+    
+    it "should flush log at the end" do
+      Rails.logger.expects(:flush)
       
       @publisher.publish
     end
