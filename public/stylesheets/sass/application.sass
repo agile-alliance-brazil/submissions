@@ -435,6 +435,24 @@ form.reviewer, form.review_decision_confirm, form.review_decision_withdraw
     li.boolean
       :width                100%
 
+form.review_decision_confirm, form.review_decision_withdraw
+  fieldset.inputs li
+    &.boolean, &.select
+      :width                90%
+    label
+      :width                90%
+    ul.errors
+      :float                left
+      :width                90%
+  p.inline-hints
+    :width                  90%
+  pre#reviewer_agreement, pre#author_agreement
+    :width                  90%
+  fieldset.accept
+    :width                  90%
+    li.boolean
+      :width                90%
+
 p#review_decision
   :background-color         #d8ffdc
   :border-radius            10px
@@ -442,7 +460,7 @@ p#review_decision
   :-webkit-border-radius    10px
   :border                   1px dashed #1c8c1c
   :padding                  10px
-  :width                    80%
+  :width                    90%
 
 form.review.formtastic
   fieldset.inputs

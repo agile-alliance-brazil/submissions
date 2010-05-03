@@ -6,11 +6,13 @@
   Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia 09/05/2010 acessando o formulário
   %br
   = link_to session_confirm_url(@session, :locale => 'pt'), session_confirm_url(@session, :locale => 'pt')
-  %br
+
+%p
   Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
   %br
   = link_to session_withdraw_url(@session, :locale => 'pt'), session_withdraw_url(@session, :locale => 'pt')
-  %br
+
+%p
   Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
 
 %p O autor que não confirmar ou cancelar sua presença até o dia 09/05/2010 terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.

@@ -8,9 +8,11 @@ We would like to ask you to confirm your attendance at the event by 23:59 of May
 
 = session_confirm_url(@session, :locale => 'en')
 
+
 If you can not attend the event, we kindly ask you to confirm your withdrawal using the form at
 
 = session_withdraw_url(@session, :locale => 'en')
+
 
 Only the first author of the session (#{@session.author.full_name}) can confirm or withdraw the attendance.
 

@@ -8,9 +8,11 @@ Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia
 
 = session_confirm_url(@session, :locale => 'pt')
 
+
 Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
 
 = session_withdraw_url(@session, :locale => 'pt')
+
 
 Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
 
