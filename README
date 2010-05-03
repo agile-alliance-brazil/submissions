@@ -11,6 +11,8 @@ TODO:
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
  * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
+ * Visibility for author to know if he confirmed his presence or not (both authors)
+ * Feedback for organizers to know if author agreed to give the rights to use his image
  --- Medium term
  * Organizers can create program
  * Sort by author, second_author and track on reviewer_reviews
