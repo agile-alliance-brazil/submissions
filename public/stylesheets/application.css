@@ -614,6 +614,22 @@ form.reviewer fieldset.accept, form.review_decision_confirm fieldset.accept, for
   form.reviewer fieldset.accept li.boolean, form.review_decision_confirm fieldset.accept li.boolean, form.review_decision_withdraw fieldset.accept li.boolean {
     width: 100%; }
 
+form.review_decision_confirm fieldset.inputs li.boolean, form.review_decision_confirm fieldset.inputs li.select, form.review_decision_withdraw fieldset.inputs li.boolean, form.review_decision_withdraw fieldset.inputs li.select {
+  width: 90%; }
+form.review_decision_confirm fieldset.inputs li label, form.review_decision_withdraw fieldset.inputs li label {
+  width: 90%; }
+form.review_decision_confirm fieldset.inputs li ul.errors, form.review_decision_withdraw fieldset.inputs li ul.errors {
+  float: left;
+  width: 90%; }
+form.review_decision_confirm p.inline-hints, form.review_decision_withdraw p.inline-hints {
+  width: 90%; }
+form.review_decision_confirm pre#reviewer_agreement, form.review_decision_confirm pre#author_agreement, form.review_decision_withdraw pre#reviewer_agreement, form.review_decision_withdraw pre#author_agreement {
+  width: 90%; }
+form.review_decision_confirm fieldset.accept, form.review_decision_withdraw fieldset.accept {
+  width: 90%; }
+  form.review_decision_confirm fieldset.accept li.boolean, form.review_decision_withdraw fieldset.accept li.boolean {
+    width: 90%; }
+
 p#review_decision {
   background-color: #d8ffdc;
   border-radius: 10px;
@@ -621,7 +637,7 @@ p#review_decision {
   -webkit-border-radius: 10px;
   border: 1px dashed #1c8c1c;
   padding: 10px;
-  width: 80%; }
+  width: 90%; }
 
 form.review.formtastic fieldset.inputs legend {
   font-size: 14pt;
