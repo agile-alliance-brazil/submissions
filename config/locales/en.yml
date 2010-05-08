@@ -107,6 +107,7 @@ en:
         image_agreement_description: "In addition to this term, you can optionally agree to the term below. It authorizes the organization to record the contents of your session, for example on video, for later dissemination on the Internet or other media for non-commercial purposes."
         image_agreement: "By accepting this term, I grant the organization of Agile Brazil 2010 the right of recording and reproducing all or part of the technical content presented by me during the conference for non-commercial purposes, in any form or medium, without any cost for the event."
         author_confirmed: "Author confirmation"
+        author_image_agreement: "Image rights"
       comment:
         comment: "Your comment"
       organizer:

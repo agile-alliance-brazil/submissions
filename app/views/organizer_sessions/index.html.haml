@@ -12,6 +12,7 @@
       %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :reviews_count)
       %th.status= sortable_column(t('formtastic.labels.session.state'), :state)
       %th.author_confirmed= t('formtastic.labels.session.author_confirmed')
+      %th.author_image_agreement= t('formtastic.labels.session.author_image_agreement')
       %th.action
   %tbody
     - @sessions.each do |session|
@@ -32,6 +33,8 @@
           = t("session.state.#{session.state}")
         %td.author_confirmed
           = session.author_agreement ? t("generic.confirmed") : ""
+        %td.author_image_agreement
+          = session.image_agreement ? t("generic.confirmed") : ""
         %td.action
           - if can?(:create, ReviewDecision, session)
             = link_to t('actions.create_review_decision'), new_session_review_decision_path(session)
