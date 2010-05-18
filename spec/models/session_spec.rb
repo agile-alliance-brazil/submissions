@@ -229,6 +229,10 @@ describe Session do
         should have_scope(:reviewed_by).joins(:reviews).conditions(['reviewer_id = ?', 3]).with('3')
       end
       
+      it "accepted" do
+        should have_scope(:with_state).conditions({:state => ['accepted']}).with(:accepted)
+      end
+      
       it "should combine criteria" do
         reviewer = Factory(:reviewer)
         Session.expects(:incomplete_reviews).with(3).returns(Session)
@@ -496,5 +500,4 @@ describe Session do
       end
     end
   end
-  
 end

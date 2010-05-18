@@ -21,6 +21,8 @@ ActionController::Routing::Routes.draw do |map|
     session.resource  :confirm, :only => [:show, :update], :controller => :confirm_sessions
     session.resource  :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
   end
+  map.resources :accepted_sessions, :only => [:index]
+  
   map.resources :reviews, :controller => :reviews_listing, :only => [:index], :collection => {:reviewer => :get}
   map.resources :session_types, :only => [:index]
   map.resources :tags, :only => [:index]

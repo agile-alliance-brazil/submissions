@@ -382,6 +382,7 @@ pt:
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '{{session}}'"
     review_decision: "Parecer da sessão '{{session}}'"
+    accepted_sessions: "Sessões aceitas"
   
   actions:
     submission_date: "Prazo para submissões"
