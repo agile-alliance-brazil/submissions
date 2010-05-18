@@ -32,7 +32,8 @@
           #{session.author.try(:bio)}
         - if session.second_author
           %h6= h(session.second_author.full_name)
-          #{session.second_author.try(:bio)}
+          :textile
+            #{session.second_author.try(:bio)}
 
       :textile
         #{session.try(:summary)}
