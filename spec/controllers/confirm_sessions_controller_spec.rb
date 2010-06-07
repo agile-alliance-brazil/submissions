@@ -69,14 +69,14 @@ describe ConfirmSessionsController do
         flash[:error].should == "Você não está autorizado a acessar esta página"
       end
     
-      it "- before deadline of 17/5/2010" do
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 5, 17, 23, 59, 58))
+      it "- before deadline of 7/6/2010" do
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
         get :show, :session_id => @session.id
         flash[:error].should be_blank
       end
     
       it "- after deadline can't confirm" do
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 5, 18, 0, 0, 0))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
         get :show, :session_id => @session.id
         flash[:error].should == "Você não está autorizado a acessar esta página"
       end
@@ -114,14 +114,14 @@ describe ConfirmSessionsController do
         flash[:error].should == "Você não está autorizado a acessar esta página"
       end
     
-      it "- before deadline of 17/5/2010" do
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 5, 17, 23, 59, 58))
+      it "- before deadline of 7/6/2010" do
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
         put :update, :session_id => @session.id
         flash[:error].should be_blank
       end
     
       it "- after deadline can't confirm" do
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 5, 18, 0, 0, 0))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
         put :update, :session_id => @session.id
         flash[:error].should == "Você não está autorizado a acessar esta página"
       end
