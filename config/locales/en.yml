@@ -27,7 +27,7 @@ en:
         session:
           attributes:
             keyword_list:
-              too_long: "can't have more than {{count}} keywords"
+              too_long: "can't have more than %{count} keywords"
         vote:
           attributes:
             logo_id:
@@ -212,14 +212,14 @@ en:
     tracks: "Session Tracks"
     session_types: "Session Types"
     audience_levels: "Audience Levels"
-    edit_profile: "Edit profile for {{user}}"
+    edit_profile: "Edit profile for %{user}"
     edit_session: "Edit session"
     comments: "Comments"
     edit_comment: "Edit comment"
     vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
-    new_review: "New review for session '{{session}}'"
-    review_decision: "Review decision for session '{{session}}'"
+    new_review: "New review for session '%{session}}"
+    review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
   
   actions:
@@ -255,8 +255,8 @@ en:
     edit_review_decision: "Edit Decision"
   
   text:
-    for_user: "Showing sessions for user: <strong>{{name}}</strong>"
-    tagged_with: "Showing sessions tagged with: <strong>{{tag}}</strong>"
+    for_user: "Showing sessions for user: <strong>%{name}</strong>"
+    tagged_with: "Showing sessions tagged with: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
   
@@ -310,7 +310,7 @@ en:
         success: "Reviewer invited."
       reject:
         success: "Your invitation was rejected. Thanks for your prompt reply."
-        failure: "Your invitation is already {{status}}."
+        failure: "Your invitation is already %{status}."
       accept:
         success: "Your invitation was accepted. Thanks for your prompt reply."
     review_decision:
@@ -381,7 +381,7 @@ en:
     confirmation: "Are you sure you want to vote for logo $LOGO? Only your most recent vote will count."
     change:
       confirmation: "Are you sure you want to change your vote for logo $LOGO?"
-    current_vote: "Thank you for voting! Your current vote is for logo {{logo}}."
+    current_vote: "Thank you for voting! Your current vote is for logo %{logo}."
   
   reviewer:
     state:
@@ -400,9 +400,9 @@ en:
       accepted: "Accepted"
       rejected: "Rejected"
     parameters: "About this session"
-    audience_limit: "Limit: {{limit}} participants"
+    audience_limit: "Limit: %{limit} participants"
     no_audience_limit: "There is no participants limit"
-    reviews: "Review of '{{session}}'"
+    reviews: "Review of '%{session}'"
 
   review:
     view_session: "View original proposal (with comments)"
@@ -449,10 +449,10 @@ en:
     previous: "&laquo; Previous"
     next: "Next &raquo;"
     says: "says"
-    are_you_sure: "Are you sure you want to {{action}}?"
+    are_you_sure: "Are you sure you want to %{action}?"
     reviewed_by: "Reviewed by"
-    sort_by: "Sort {{direction}}"
+    sort_by: "Sort %{direction}"
     sort_up: "ascendent"
     sort_down: "descendent"
-    show: "Show {{target}}"
-    hide: "Hide {{target}}"
+    show: "Show %{target}"
+    hide: "Hide %{target}"

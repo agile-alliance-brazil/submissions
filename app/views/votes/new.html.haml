@@ -10,7 +10,7 @@
 
 - semantic_form_for(@vote) do |form|
   - form.inputs do
-    = form.input :logo_id, :as => :radio, :label => false, :collection => Logo.all, :hint => (@vote.new_record? ? :new_vote : :edit_vote), :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
+    = form.input :logo_id, :as => :radio, :label => false, :as => :select, :collection => Logo.all, :hint => (@vote.new_record? ? :new_vote : :edit_vote), :input_html => {:tabindex => autotab}, :label_method => lambda { |l| |
       content_tag(:span, l.id, :class => 'logo_number') +                              |
       image_tag(l.to_filename(:size => :small, :color => false), :class => 'bw') +     |
       image_tag(l.to_filename(:size => :small), :class => 'color') +                   |

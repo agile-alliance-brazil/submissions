@@ -1,0 +1,145 @@
+--- !ruby/object:Gem::Specification 
+name: formtastic
+version: !ruby/object:Gem::Version 
+  version: 1.2.3
+platform: ruby
+authors: 
+- Justin French
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-01-06 00:00:00 -06:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: activesupport
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 2.3.7
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: actionpack
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 2.3.7
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: i18n
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: "0.4"
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rails
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 3.0.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rspec-rails
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 2.0.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rspec_tag_matchers
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.0.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: hpricot
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 0.8.3
+    version: 
+description: A Rails form builder plugin/gem with semantically rich and accessible markup
+email: justin@indent.com.au
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README.textile
+files: 
+- generators/form/form_generator.rb
+- generators/form/USAGE
+- generators/formtastic/formtastic_generator.rb
+- lib/formtastic/i18n.rb
+- lib/formtastic/layout_helper.rb
+- lib/formtastic/railtie.rb
+- lib/formtastic/util.rb
+- lib/formtastic.rb
+- lib/generators/formtastic/form/form_generator.rb
+- lib/generators/formtastic/install/install_generator.rb
+- lib/generators/templates/_form.html.erb
+- lib/generators/templates/_form.html.haml
+- lib/generators/templates/formtastic.css
+- lib/generators/templates/formtastic.rb
+- lib/generators/templates/formtastic_changes.css
+- lib/generators/templates/rails2/_form.html.erb
+- lib/generators/templates/rails2/_form.html.haml
+- lib/locale/en.yml
+- rails/init.rb
+- MIT-LICENSE
+- README.textile
+- init.rb
+has_rdoc: true
+homepage: http://github.com/justinfrench/formtastic/tree/master
+licenses: []
+
+post_install_message: "\n  ========================================================================\n  Thanks for installing Formtastic!\n  ------------------------------------------------------------------------\n  You can now (optionally) run the generator to copy some stylesheets and\n  a config initializer into your application:\n    rails generate formtastic:install # Rails 3\n    ./script/generate formtastic      # Rails 2\n\n  To generate some semantic form markup for your existing models, just run:\n    rails generate formtastic:form MODEL_NAME # Rails 3\n    ./script/generate form MODEL_NAME         # Rails 2\n\n  Find out more and get involved:\n    http://github.com/justinfrench/formtastic\n    http://groups.google.com.au/group/formtastic\n  ========================================================================\n  "
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 3
+summary: A Rails form builder plugin/gem with semantically rich and accessible markup
+test_files: []
+

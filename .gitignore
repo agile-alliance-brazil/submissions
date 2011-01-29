@@ -5,3 +5,4 @@ tmp/**/*
 coverage
 **/*~
 config/config*.yml
+.idea

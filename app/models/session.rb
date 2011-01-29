@@ -127,7 +127,7 @@ class Session < ActiveRecord::Base
   
   def second_author_username=(username)
     @second_author_username = username.try(:strip)
-    returning @second_author_username do
+    @second_author_username.tap do
       if @second_author_username.blank?
         self.second_author = nil
       else

@@ -1,8 +1,8 @@
-== Agile Brazil 2010 Submission System
+== Agile Brazil Submission System
 
-Run rake gems to list the libraries being used to build this app.
+ISSUES AFTER UPGRADE:
 
-For project progress and stories: http://www.pivotaltracker.com/projects/48585
+ * Label with HTML are rendering without links (e.g. session/new)
 
 TODO:
 

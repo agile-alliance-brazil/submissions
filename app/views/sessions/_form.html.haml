@@ -1,8 +1,8 @@
 - form.inputs do
   = form.input :author_id, :as => :hidden, :input_html => {:tabindex => autotab}
-  = form.input :track_id, :required => true, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
-  = form.input :audience_level_id, :required => true, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
-  = form.input :session_type_id, :required => true, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}
+  = form.input :track_id, :required => true, :as => :select, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+  = form.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+  = form.input :session_type_id, :required => true, :as => :select, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}
   = form.input :duration_mins, :required => true, :as => :select, :collection => [["45 #{t('generic.minutes')}", 45], ["90 #{t('generic.minutes')}", 90]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}

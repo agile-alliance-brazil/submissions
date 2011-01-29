@@ -26,44 +26,44 @@ pt:
       half_a_minute: 'meio minuto'
       less_than_x_seconds:
         one: 'menos de 1 segundo'
-        other: 'menos de {{count}} segundos'
+        other: 'menos de %{count} segundos'
       
       x_seconds:
         one: '1 segundo'
-        other: '{{count}} segundos'
+        other: '%{count} segundos'
       
       less_than_x_minutes:
         one: 'menos de um minuto'
-        other: 'menos de {{count}} minutos'
+        other: 'menos de %{count} minutos'
       
       x_minutes:
         one: '1 minuto'
-        other: '{{count}} minutos'
-      
+        other: '%{count} minutos'
+
       about_x_hours:
         one: 'aproximadamente 1 hora'
-        other: 'aproximadamente {{count}} horas'
-      
+        other: 'aproximadamente %{count} horas'
+
       x_days:
         one: '1 dia'
-        other: '{{count}} dias'
-      
+        other: '%{count} dias'
+
       about_x_months:
         one: 'aproximadamente 1 mês'
-        other: 'aproximadamente {{count}} meses'
-      
+        other: 'aproximadamente %{count} meses'
+
       x_months:
         one: '1 mês'
-        other: '{{count}} meses'
-      
+        other: '%{count} meses'
+
       about_x_years:
         one: 'aproximadamente 1 ano'
-        other: 'aproximadamente {{count}} anos'
-      
+        other: 'aproximadamente %{count} anos'
+
       over_x_years:
         one: 'mais de 1 ano'
-        other: 'mais de {{count}} anos'
-    
+        other: 'mais de %{count} anos'
+
     prompts:
       year: "Ano"
       month: "Mês"
@@ -71,7 +71,7 @@ pt:
       hour: "Hora"
       minute: "Minuto"
       second: "Segundos"
- 
+
   # numeros
   number:
     format:
@@ -105,21 +105,21 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
- 
+
   # Usado no Array.to_sentence
   support:
     array:
       words_connector: ", "
       two_words_connector: " e "
       last_word_connector: " e "
-    
+
   # ActiveRecord
   activerecord:
     errors:
       template:
         header:
-          one: "Não foi possível gravar {{model}}: 1 erro"
-          other: "Não foi possível gravar {{model}}: {{count}} erros."
+          one: "Não foi possível gravar %{model}: 1 erro"
+          other: "Não foi possível gravar %{model}: %{count} erros."
         body: "Por favor, verifique o(s) seguinte(s) campo(s):"
       messages:
         inclusion: "não está incluído na lista"
@@ -129,19 +129,19 @@ pt:
         accepted: "deve ser aceito"
         empty: "não pode ficar vazio"
         blank: "não pode ficar em branco"
-        too_long: "é muito longo (máximo: {{count}} caracteres)"
-        too_short: "é muito curto (mínimo: {{count}} caracteres)"
-        wrong_length: "não possui o tamanho esperado ({{count}} caracteres)"
+        too_long: "é muito longo (máximo: %{count} caracteres)"
+        too_short: "é muito curto (mínimo: %{count} caracteres)"
+        wrong_length: "não possui o tamanho esperado (%{count} caracteres)"
         taken: "já está em uso"
         not_a_number: "não é um número"
-        greater_than: "deve ser maior do que {{count}}"
-        greater_than_or_equal_to: "deve ser maior ou igual a {{count}}"
-        equal_to: "deve ser igual a {{count}}"
-        less_than: "deve ser menor do que {{count}}"
-        less_than_or_equal_to: "deve ser menor ou igual a {{count}}"
+        greater_than: "deve ser maior do que %{count}"
+        greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
+        equal_to: "deve ser igual a %{count}"
+        less_than: "deve ser menor do que %{count}"
+        less_than_or_equal_to: "deve ser menor ou igual a %{count}"
         odd: "deve ser ímpar"
         even: "deve ser par"
-        record_invalid: "A validação falhou: {{errors}}"
+        record_invalid: "A validação falhou: %{errors}"
         existence: "não existe"
         same_author: "não pode ser o mesmo autor"
         incomplete: "perfil de autor incompleto"
@@ -160,7 +160,7 @@ pt:
         session:
           attributes:
             keyword_list:
-              too_long: "não pode ter mais que {{count}} palavras-chave"
+              too_long: "não pode ter mais que %{count} palavras-chave"
         vote:
           attributes:
             logo_id:
@@ -360,7 +360,7 @@ pt:
       submit_review_decision: "Submeter parecer da organização"
       confirm_session: "Confirmar participação"
       withdraw_session: "Retirar sessão"
-  
+
   # Mensagens customizadas
   title:
     home: "Página inicial"
@@ -374,16 +374,16 @@ pt:
     tracks: "Trilhas de interesse"
     session_types: "Tipos de sessão"
     audience_levels: "Perfis do público"
-    edit_profile: "Atualizar perfil de {{user}}"
+    edit_profile: "Atualizar perfil de %{user}"
     edit_session: "Editar sessão"
     comments: "Comentários"
     edit_comment: "Editar comentário"
     vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
-    new_review: "Nova avaliação da sessão '{{session}}'"
-    review_decision: "Parecer da sessão '{{session}}'"
+    new_review: "Nova avaliação da sessão '%{session}'"
+    review_decision: "Parecer da sessão '%{session}'"
     accepted_sessions: "Sessões aceitas"
-  
+
   actions:
     submission_date: "Prazo para submissões"
     review_date: "Prazo para avaliações"
@@ -415,16 +415,16 @@ pt:
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
-  
+
   text:
-    for_user: "Mostrando sessões do usuário: <strong>{{name}}</strong>"
-    tagged_with: "Mostrando sessões com a palavra-chave: <strong>{{tag}}</strong>"
+    for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
+    tagged_with: "Mostrando sessões com a palavra-chave: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
-    
+
   footer:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
-  
+
   flash:
     user:
       create:
@@ -472,7 +472,7 @@ pt:
         success: "Avaliador convidado."
       reject:
         success: "Seu convite foi rejeitado. Obrigado por responder prontamente."
-        failure: "Seu convite já está {{status}}."
+        failure: "Seu convite já está %{status}."
       accept:
         success: "Seu convite foi aceito. Obrigado por responder prontamente."
     review_decision:
@@ -487,7 +487,7 @@ pt:
     review:
       create:
         success: "Avaliação gravada com sucesso."
-  
+
   session_types:
     tutorial:
       title: "Tutorial"
@@ -523,7 +523,7 @@ pt:
     experienced:
       title: "Experiente"
       description: "Alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
-  
+
   email:
     welcome:
       subject: "Cadastro realizado com sucesso"
@@ -537,14 +537,14 @@ pt:
       subject: "Comunicado do Comitê de Programa da Agile Brazil 2010"
     session_rejected:
       subject: "Comunicado do Comitê de Programa da Agile Brazil 2010"
-  
+
   vote:
     description: "A votação para o logotipo da Agile Brazil 2010 terminou. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
     confirmation: "Você tem certeza que quer votar no logo $LOGO? Apenas o seu voto mais recente será contado."
     change:
       confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
-    current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo {{logo}}."
-  
+    current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo %{logo}."
+
   reviewer:
     state:
       created: "Criado"
@@ -552,7 +552,7 @@ pt:
       accepted: "Ativo"
       rejected: "Convite rejeitado"
     doesnot_review: "Não avalia"
-  
+
   session:
     state:
       created: "Criada"
@@ -562,10 +562,10 @@ pt:
       accepted: "Aceita"
       rejected: "Rejeitada"
     parameters: "Sobre esta sessão"
-    audience_limit: "Limite: {{limit}} participantes"
+    audience_limit: "Limite: %{limit} participantes"
     no_audience_limit: "Não há limite de participantes"
-    reviews: "Avaliações de '{{session}}'"
-  
+    reviews: "Avaliações de '%{session}'"
+
   review:
     view_session: "Ver proposta original (com comentários)"
     justification: "Justificativa"
@@ -575,7 +575,7 @@ pt:
     proposal_relevance_rating: "Relevância pro evento"
     comments_to_organizers: "Comentários aos organizadores"
     comments_to_authors: "Comentários aos autores"
-    
+
   rating:
     high:
       title: "Alta"
@@ -585,7 +585,7 @@ pt:
       title: "Baixa"
     none:
       title: "Nenhuma"
-  
+
   recommendation:
     strong_accept:
       title: "Aceitação forte (sem restrições)"
@@ -595,13 +595,13 @@ pt:
       title: "Rejeição fraca (posso mudar de opinião)"
     strong_reject:
       title: "Rejeição forte (não mudarei de opinião)"
-      
+
   outcomes:
     accept:
       title: "Aceita"
     reject:
       title: "Rejeitada"
-  
+
   generic:
     or: "ou"
     and: "e"
@@ -611,10 +611,10 @@ pt:
     previous: "&laquo; Anterior"
     next: "Próxima &raquo;"
     says: "diz"
-    are_you_sure: "Você tem certeza que quer {{action}}?"
+    are_you_sure: "Você tem certeza que quer %{action}?"
     reviewed_by: "Avaliado por"
-    sort_by: "Ordernar {{direction}}"
+    sort_by: "Ordernar %{direction}"
     sort_up: "ascendente"
     sort_down: "descendente"
-    show: "Exibir {{target}}"
-    hide: "Esconder {{target}}"
+    show: "Exibir %{target}"
+    hide: "Esconder %{target}"

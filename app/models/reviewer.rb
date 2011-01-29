@@ -74,7 +74,7 @@ class Reviewer < ActiveRecord::Base
   
   def user_username=(username)
     @user_username = username.try(:strip)
-    returning @user_username do
+    @user_username.tap do
       if @user_username.blank?
         self.user = nil
       else

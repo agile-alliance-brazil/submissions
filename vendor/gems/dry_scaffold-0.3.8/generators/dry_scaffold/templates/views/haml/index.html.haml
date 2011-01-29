@@ -1,0 +1,20 @@
+%h1.heading
+  = "<%= model_plural_name.humanize %>"
+  
+%p.actions
+  = link_to 'New <%= model_singular_name.humanize %>', <%= new_path %>
+  
+%table
+  %thead.header
+    %tr
+<% attributes.each do |attribute| -%>
+      %th.<%= attribute.name %>= '<%= attribute.name.humanize %>'
+<% end -%>
+      %th.actions= 'Actions'
+  %tbody.items.<%= plural_name %>
+    - <%= collection_instance %>.each do |<%= singular_name %>|
+      = render 'item', :<%= singular_name %> => <%= singular_name %>
+      
+<% if options[:pagination] -%>
+= will_paginate(<%= collection_instance %>)
+<% end -%>

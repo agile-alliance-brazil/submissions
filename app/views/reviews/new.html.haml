@@ -60,8 +60,8 @@
         %strong #{t('formtastic.labels.session.benefits')}:
         :textile
           #{@session.try(:benefits)}
-    = form.input :proposal_quality_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
-    = form.input :proposal_relevance_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :proposal_quality_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :proposal_relevance_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
 
   - form.inputs :author do
     = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
@@ -76,19 +76,19 @@
         %strong #{t('formtastic.labels.user.bio')}:
         :textile
           #{@review.session.author.bio}
-    = form.input :author_agile_xp_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :author_agile_xp_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     .session_info
       %p
         %strong #{t('formtastic.labels.session.experience')}:
         :textile
           #{@review.session.experience}
-    = form.input :author_proposal_xp_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :author_proposal_xp_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
 
   - form.inputs :conclusion do
-    = form.input :recommendation_id, :required => true, :collection => Recommendation.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :recommendation_id, :required => true, :as => :select, :collection => Recommendation.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     = form.input :justification, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
   - form.inputs :to_organizers do
-    = form.input :reviewer_confidence_rating_id, :required => true, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
+    = form.input :reviewer_confidence_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     = form.input :comments_to_organizers, :required => false, :input_html => {:rows => 3, :tabindex => autotab}
   - form.inputs :to_authors do
     = form.input :comments_to_authors, :required => false, :input_html => {:rows => 3, :tabindex => autotab}

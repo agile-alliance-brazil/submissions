@@ -9,7 +9,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-12-30 00:00:00 +00:00
+date: 2009-12-29 18:00:00 -06:00
 default_executable: 
 dependencies: []
 

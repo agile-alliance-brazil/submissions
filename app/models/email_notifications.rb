@@ -56,7 +56,7 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    returning multipart_content_for(:session_accepted, :session => session) do
+    multipart_content_for(:session_accepted, :session => session).tap do
       session.review_decision.update_attribute(:published, true)
     end
   end
@@ -71,7 +71,7 @@ class EmailNotifications < ActionMailer::Base
     reply_to      "\"Agile Brazil 2010\" <no-reply@#{host}>"
     sent_on       sent_at
     
-    returning multipart_content_for(:session_rejected, :session => session) do
+    multipart_content_for(:session_rejected, :session => session).tap do
       session.review_decision.update_attribute(:published, true)
     end
   end
