@@ -33,7 +33,7 @@ describe ReviewsListingController do
       get :index
       response.should redirect_to(reviewer_reviews_url)
     end
-    
+
     it "reviewer action should render reviewer template" do
       get :reviewer
       response.should render_template(:reviewer)

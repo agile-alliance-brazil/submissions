@@ -60,16 +60,6 @@ Factory.define :comment do |c|
   c.comment "Fake comment body..."
 end
 
-Factory.define :logo do |l|
-  l.format "jpg"
-end
-
-Factory.define :vote do |v|
-  v.association :user
-  v.association :logo
-  v.user_ip "192.168.0.22"
-end
-
 Factory.define :organizer do |o|
   o.association :user
   o.association :track

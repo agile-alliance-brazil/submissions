@@ -1,4 +1,6 @@
 class RejectReviewersController < ApplicationController
+  before_filter :load_reviewer
+
   def show
   end
   
@@ -13,8 +15,7 @@ class RejectReviewersController < ApplicationController
   end
   
   protected
-  def authorize_action
+  def load_reviewer
     @reviewer = Reviewer.find(params[:reviewer_id])
-    unauthorized! unless current_user == @reviewer.try(:user) && @reviewer.invited?
   end
 end

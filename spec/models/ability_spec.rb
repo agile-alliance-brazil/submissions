@@ -6,10 +6,12 @@ describe Ability do
   end
   
   shared_examples_for "all users" do
-    it "can read all" do
-      @ability.should be_can(:read, :all)
+    it "can read public entities" do
+      @ability.should be_can(:read, User)
+      @ability.should be_can(:read, Session)
+      @ability.should be_can(:read, Comment)
     end
-    
+
     it "can login/logout" do
       @ability.should be_can(:create, UserSession)
       @ability.should be_can(:destroy, UserSession)
@@ -47,72 +49,6 @@ describe Ability do
       @ability.should be_cannot(:destroy, comment)
       comment.user = @user
       @ability.should be_can(:destroy, comment)
-    end
-    
-    it "can read votes" do
-      vote = Vote.new
-      @ability.should be_can(:read, vote)
-    end
-    
-    it "cannot update votes" do
-      @ability.should be_cannot(:update, Vote)
-      vote = Vote.new
-      @ability.should be_cannot(:update, vote)
-    end
-    
-    describe "can vote if:" do
-      before(:each) do
-        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
-      end
-      
-      it "- haven't voted yet" do
-        @ability.should be_can(:create, Vote)
-        Factory(:vote, :user => @user)
-        @ability.should be_cannot(:create, Vote)
-      end
-      
-      it "- before deadline of 7/3/2010" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
-        @ability.should be_can(:create, Vote)
-      end
-      
-      it "- after deadline can't vote" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
-        @ability.should be_cannot(:create, Vote)
-      end
-    end
-
-    describe "can change vote if:" do
-      before(:each) do
-        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
-        @vote = Factory(:vote, :user => @user)
-      end
-      
-      it "- has already voted" do
-        @ability.should be_can(:update, @vote)
-      end
-
-      it "- vote belongs to user" do
-        another_vote = Factory(:vote)
-        @ability.should be_can(:update, @vote)
-        @ability.should be_cannot(:update, another_vote)
-      end
-      
-      it "- before deadline of 7/3/2010" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 7, 23, 59, 59))
-        @ability.should be_can(:update, @vote)
-      end
-      
-      it "- after deadline can't vote" do
-        Time.zone.expects(:now).returns(Time.zone.local(2010, 3, 8, 0, 0, 0))
-        @ability.should be_cannot(:update, @vote)
-      end
-    end
-    
-    it "can new vote after voting" do
-      @ability.should be_can(:new, Vote)
-      Factory(:vote, :user => @user)
-      @ability.should be_can(:new, Vote)
     end
   end
 
@@ -208,11 +144,13 @@ describe Ability do
       it "his sessions as first author is allowed" do
         @ability.should be_cannot(:index, Review) # no params
         @ability.should be_cannot(:index, Review, @session)
-        
+
         @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_cannot(:index, Review) # session id provided
         @ability.should be_cannot(:index, Review, @session)
+        
         @session.reload.update_attribute(:author_id, @user.id)
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_can(:index, Review) # session id provided
         @ability.should be_can(:index, Review, @session)
 
@@ -228,7 +166,9 @@ describe Ability do
         @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_cannot(:index, Review) # session id provided
         @ability.should be_cannot(:index, Review, @session)
+
         @session.reload.update_attribute(:second_author_id, @user.id)
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
         @ability.should be_can(:index, Review) # session id provided
         @ability.should be_can(:index, Review, @session)
 
@@ -317,6 +257,137 @@ describe Ability do
         @ability.should be_cannot(:update, @session)
       end
     end
+
+    describe "can confirm session if:" do
+      before(:each) do
+        @another_user = Factory(:user)
+        @session = Factory(:session, :author => @user)
+        @session.reviewing
+        Factory(:review_decision, :session => @session)
+        @session.tentatively_accept
+        Session.stubs(:find).returns(@session)
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
+      end
+
+      it "- user is first author" do
+        @ability.should be_cannot(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+
+        @session.stubs(:author).returns(@another_user)
+        @ability.should be_cannot(:manage, 'confirm_sessions') # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:manage, 'confirm_sessions') # session id nil
+      end
+
+      it "- session is pending confirmation" do
+        @ability.should be_cannot(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+
+        @session.stubs(:pending_confirmation?).returns(false)
+        @ability.should be_cannot(:manage, 'confirm_sessions') # session id provided
+      end
+
+      it "- session has a review" do
+        @ability.should be_cannot(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+
+        @session.stubs(:review_decision).returns(nil)
+        @ability.should be_cannot(:manage, 'confirm_sessions') # session id provided
+      end
+
+      it "- before deadline of 7/6/2010" do
+        @ability.should be_cannot(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+      end
+
+      it "- after deadline can't confirm" do
+        @ability.should be_cannot(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'confirm_sessions') # session id provided
+
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
+        @ability.should be_cannot(:manage, 'confirm_sessions') # session id provided
+      end
+    end
+
+    describe "can withdraw session if:" do
+      before(:each) do
+        @another_user = Factory(:user)
+        @session = Factory(:session, :author => @user)
+        @session.reviewing
+        Factory(:review_decision, :session => @session)
+        @session.tentatively_accept
+        Session.stubs(:find).returns(@session)
+        Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
+      end
+
+      it "- user is first author" do
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+
+        @session.stubs(:author).returns(@another_user)
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # session id provided
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # session id nil
+      end
+
+      it "- session is pending confirmation" do
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+
+        @session.stubs(:pending_confirmation?).returns(false)
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # session id provided
+      end
+
+      it "- session has a review" do
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+
+        @session.stubs(:review_decision).returns(nil)
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # session id provided
+      end
+
+      it "- before deadline of 7/6/2010" do
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+      end
+
+      it "- after deadline can't withdraw" do
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # no params
+
+        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability.should be_can(:manage, 'withdraw_sessions') # session id provided
+
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
+        @ability.should be_cannot(:manage, 'withdraw_sessions') # session id provided
+      end
+    end
+
   end
 
   context "- organizer" do
@@ -426,6 +497,31 @@ describe Ability do
         @ability.should be_cannot(:create, ReviewDecision)
       end
       
+      it "- overrides admin privileges to check if session on organizer's track" do
+        @user.add_role('admin')
+        
+        @ability.should be_cannot(:create, ReviewDecision, @session)
+        @ability.should be_cannot(:create, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:create, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:create, ReviewDecision)
+
+        Factory(:organizer, :track => @session.track, :user => @user)
+
+        @ability = Ability.new(@user)
+        @ability.should be_can(:create, ReviewDecision, @session)
+        @ability.should be_cannot(:create, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_can(:create, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:create, ReviewDecision)
+      end
+
       it "- session is in review" do
         Factory(:organizer, :track => @session.track, :user => @user)
         @ability.should be_can(:create, ReviewDecision, @session)
@@ -480,6 +576,31 @@ describe Ability do
         @ability.should be_cannot(:update, ReviewDecision)
       end
       
+      it " overrides admin privileges to check if session on organizer's track" do
+        @user.add_role('admin')
+        
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        Factory(:organizer, :track => @session.track, :user => @user)
+
+        @ability = Ability.new(@user)
+        @ability.should be_cannot(:update, ReviewDecision, @session)
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability.should be_cannot(:update, ReviewDecision)
+
+        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability.should be_cannot(:update, ReviewDecision)
+      end
+
       it "if session was not confirmed by author" do
         @session.tentatively_accept
         @session.accept
@@ -634,7 +755,7 @@ describe Ability do
         @ability.should be_cannot(:create, Review, nil)
       end
       
-      it "is admin and has a session" do
+      it "overrides admin privileges to check if session available" do
         @user.add_role('admin')
         
         @ability.should be_cannot(:create, Review)

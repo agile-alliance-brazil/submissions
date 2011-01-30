@@ -28,10 +28,6 @@ en:
           attributes:
             keyword_list:
               too_long: "can't have more than %{count} keywords"
-        vote:
-          attributes:
-            logo_id:
-              blank: "please choose a logo to vote"
         organizer:
           attributes:
             track_id:
@@ -176,8 +172,6 @@ en:
         user_username: "Please provide the reviewer's username in this field."
       review:
         comments_to_authors: "Please provide any meaningful feedback for the authors here."
-      new_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
-      edit_vote: "To see the logos in color version just move your mouse over the logo, or click on the magnifying glass to see a larger version. You can no longer change your vote but you can still, just click on another logo to select it and keep it colorful."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -187,8 +181,6 @@ en:
       edit_session: "Update session"
       add_comment: "Add comment"
       edit_comment: "Update comment"
-      add_vote: "Vote"
-      change_vote: "Change vote"
       create_organizer: "Add organizer"
       update_organizer: "Update organizer"
       create_reviewer: "Invite reviewer"
@@ -216,7 +208,6 @@ en:
     edit_session: "Edit session"
     comments: "Comments"
     edit_comment: "Edit comment"
-    vote: "Vote for your favorite logo"
     edit_organizer: "Update organizer"
     new_review: "New review for session '%{session}}"
     review_decision: "Review decision for session '%{session}'"
@@ -236,7 +227,6 @@ en:
     destroy: "Remove"
     destroy_comment: "remove comment"
     cancel: "Cancel"
-    vote: "See the logo proposals"
     manage_organizers: "Organizers"
     create_organizer: "Create new organizer"
     manage_reviewers: "Reviewers"
@@ -248,7 +238,6 @@ en:
     section:
       session: "Sessions"
       review: "Review process"
-      vote: "Logo contest"
       user: "Profile"
     review_decision: "Decide"
     create_review_decision: "New Decision"
@@ -297,9 +286,6 @@ en:
         success: "Session withdrawal confirmed successfully."
       cancel:
         failure: "Session already canceled."
-    vote:
-      create:
-        success: "Thank you for voting on our logo contest!"
     organizer:
       create:
         success: "Organizer added successfully."
@@ -321,7 +307,6 @@ en:
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:
-      vote: "News: Vote on our <a href='#news_contest'>logo contest</a> and provide feedback to session proposals!"
     review:
       create:
         success: "Review recorded successfully."
@@ -375,13 +360,6 @@ en:
       subject: "Notification from the Program Committee of Agile Brazil 2010"
     session_rejected:
       subject: "Notification from the Program Committee of Agile Brazil 2010"
-
-  vote:
-    description: "You can no longer vote or update your vote. But feel free to look at the proposals. Remember that the logo will be presented on the event's advertisement material: printed, projected on screens, or used on videos (both in colors and in black and white)."
-    confirmation: "Are you sure you want to vote for logo $LOGO? Only your most recent vote will count."
-    change:
-      confirmation: "Are you sure you want to change your vote for logo $LOGO?"
-    current_vote: "Thank you for voting! Your current vote is for logo %{logo}."
   
   reviewer:
     state:

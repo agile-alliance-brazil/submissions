@@ -1,0 +1,66 @@
+$ninesixty_gutter_width: 20px !default;
+$ninesixty_grid_width: 960px !default;
+$ninesixty_columns: 12 !default;
+
+@mixin grid-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: $ninesixty_grid_width; }
+
+@mixin grid-width($n, $cols: $ninesixty_columns, $gutter_width: $ninesixty_gutter_width) {
+  width: $ninesixty_grid_width / $cols * $n - $gutter_width; }
+
+@mixin grid-width-with-border($n, $border, $cols: $ninesixty_columns, $gutter_width: $ninesixty_gutter_width) {
+  @include grid-width($n, $cols, $gutter_width + $border); }
+
+@mixin grid-unit-base($gutter_width: $ninesixty_gutter_width) {
+  display: inline;
+  float: left;
+  margin: {
+    left: $gutter_width / 2;
+    right: $gutter_width / 2; }; }
+
+@mixin grid($n, $cols: $ninesixty_columns, $gutter_width: $ninesixty_gutter_width) {
+  @include grid-unit-base($gutter_width);
+  @include grid-width($n, $cols, $gutter_width); }
+
+@mixin alpha {
+  margin-left: 0; }
+
+@mixin omega {
+  margin-right: 0; }
+
+@mixin grids($cols: $ninesixty_columns, $gutter_width: $ninesixty_gutter_width) {
+  @for $n from 1 through $cols {
+    .grid_#{$n} {
+      @include grid-unit-base($gutter_width);
+      @include grid-width($n, $cols, $gutter_width); } } }
+
+@mixin grid-prefix($n, $cols: $ninesixty_columns) {
+  padding-left: $ninesixty_grid_width / $cols * $n; }
+
+@mixin grid-prefixes($cols: $ninesixty_columns) {
+  @for $n from 1 through $cols - 1 {
+    .prefix_#{$n} {
+      @include grid-prefix($n, $cols); } } }
+
+@mixin grid-suffix($n, $cols: $ninesixty_columns) {
+  padding-right: $ninesixty_grid_width / $cols * $n; }
+
+@mixin grid-suffixes($cols: $ninesixty_columns) {
+  @for $n from 1 through $cols - 1 {
+    .suffix_#{$n} {
+      @include grid-suffix($n, $cols); } } }
+
+@mixin grid-children {
+  .alpha {
+    @include alpha; }
+  .omega {
+    @include omega; } }
+
+@mixin grid-system($cols: $ninesixty_columns) {
+  @include grid-container;
+  @include grids($cols);
+  @include grid-prefixes($cols);
+  @include grid-suffixes($cols);
+  @include grid-children; }

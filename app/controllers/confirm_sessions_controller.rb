@@ -1,4 +1,6 @@
 class ConfirmSessionsController < ApplicationController
+  before_filter :load_session
+
   def show
   end
   
@@ -14,8 +16,7 @@ class ConfirmSessionsController < ApplicationController
   end
   
   protected
-  def authorize_action
+  def load_session
     @session = Session.find(params[:session_id])
-    unauthorized! unless @session.author == current_user && @session.pending_confirmation? && @session.review_decision && Time.zone.now <= Time.zone.local(2010, 6, 7, 23, 59, 59)
   end
 end

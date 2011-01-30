@@ -161,10 +161,6 @@ pt:
           attributes:
             keyword_list:
               too_long: "não pode ter mais que %{count} palavras-chave"
-        vote:
-          attributes:
-            logo_id:
-              blank: "por favor escolha um logo para votar"
         organizer:
           attributes:
             track_id:
@@ -334,8 +330,6 @@ pt:
         keyword_list: "Digite as palavras-chave separadas por vírgula."
       comment:
         comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-      new_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo e deixá-lo colorido sempre."
-      edit_vote: "Para ver os logotipos coloridos, basta passar o mouse por cima do logotipo, ou clicar na lupa para visualizar uma imagem ampliada. Para alterar seu voto, clique no logotipo desejado para selecioná-lo e deixá-lo colorido sempre."
       reviewer:
         user_username: "Digite o nome de usuário do avaliador neste campo."
       review:
@@ -349,8 +343,6 @@ pt:
       edit_session: "Atualizar sessão"
       add_comment: "Enviar comentário"
       edit_comment: "Atualizar comentário"
-      add_vote: "Votar"
-      change_vote: "Mudar voto"
       create_organizer: "Adicionar organizador"
       update_organizer: "Atualizar organizador"
       create_reviewer: "Convidar avaliador"
@@ -378,7 +370,6 @@ pt:
     edit_session: "Editar sessão"
     comments: "Comentários"
     edit_comment: "Editar comentário"
-    vote: "Veja as propostas de logo"
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '%{session}'"
     review_decision: "Parecer da sessão '%{session}'"
@@ -398,7 +389,6 @@ pt:
     destroy: "Remover"
     destroy_comment: "remover comentário"
     cancel: "Cancelar"
-    vote: "Veja as propostas"
     manage_organizers: "Organizadores"
     create_organizer: "Criar novo organizador"
     manage_reviewers: "Avaliadores"
@@ -410,7 +400,6 @@ pt:
     section:
       session: "Sessões"
       review: "Processo de avaliação"
-      vote: "Concurso logo"
       user: "Perfil"
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
@@ -459,9 +448,6 @@ pt:
         success: "Retirada de sessão confirmada com sucesso."
       cancel:
         failure: "Sessão já está cancelada."
-    vote:
-      create:
-        success: "Obrigado por votar no concurso para escolher nosso logotipo!"
     organizer:
       create:
         success: "Organizador criado com sucesso."
@@ -483,7 +469,6 @@ pt:
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
-      vote: "Novidades: Participe do <a href='#news_contest'>concurso do logo</a> e dê o seu feedback nas propostas submetidas!"
     review:
       create:
         success: "Avaliação gravada com sucesso."
@@ -537,13 +522,6 @@ pt:
       subject: "Comunicado do Comitê de Programa da Agile Brazil 2010"
     session_rejected:
       subject: "Comunicado do Comitê de Programa da Agile Brazil 2010"
-
-  vote:
-    description: "A votação para o logotipo da Agile Brazil 2010 terminou. Lembre-se que o logotipo será apresentado nos materiais de divulgação do evento: impresso, projetado ou usado em vídeos (tanto em formato colorido como em preto e branco)."
-    confirmation: "Você tem certeza que quer votar no logo $LOGO? Apenas o seu voto mais recente será contado."
-    change:
-      confirmation: "Você tem certeza que quer mudar seu voto para o logo $LOGO?"
-    current_vote: "Obrigado por votar no concurso para escolher nosso logotipo! Seu voto atual é para o logotipo %{logo}."
 
   reviewer:
     state:

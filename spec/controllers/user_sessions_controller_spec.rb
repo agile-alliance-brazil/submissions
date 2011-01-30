@@ -18,9 +18,9 @@ describe UserSessionsController do
     UserSession.find.should be_nil
   end
   
-  it "create action should redirect when authentication is valid" do
+  it "create action should redirect when authentication is valid with user's default locale" do
     post :create, :user_session => { :username => "foo", :password => "secret" }
-    response.should redirect_to(root_url)
+    response.should redirect_to(root_url(:locale => 'en'))
     UserSession.find.user.should == users(:foo)
   end
 end

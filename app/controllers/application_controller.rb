@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
   before_filter :authorize_action
   
   rescue_from CanCan::AccessDenied do |exception|
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
+    
     flash[:error] = t('flash.unauthorised')
     redirect_to :back rescue redirect_to root_path
   end
   
   def current_ability
-    Ability.new(current_user, params)
+    @current_ability ||= Ability.new(current_user, params)
   end
   
   def default_url_options(options={})
@@ -53,7 +55,6 @@ class ApplicationController < ActionController::Base
     clazz = resource_class rescue nil
     action = params[:action].to_sym
     controller = obj || clazz || controller_name
-    not_authorized = cannot?(action, controller) rescue false
-    unauthorized! if not_authorized
+    authorize!(action, controller)
   end
 end

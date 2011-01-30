@@ -1,0 +1,131 @@
+--- !ruby/object:Gem::Specification 
+name: cancan
+version: !ruby/object:Gem::Version 
+  version: 1.5.1
+platform: ruby
+authors: 
+- Ryan Bates
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-01-20 00:00:00 -06:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 2.1.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rails
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 3.0.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rr
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 0.10.11
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: supermodel
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: 0.1.4
+    version: 
+description: Simple authorization solution for Rails which is decoupled from user roles. All permissions are stored in a single location.
+email: ryan@railscasts.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/cancan/ability.rb
+- lib/cancan/controller_additions.rb
+- lib/cancan/controller_resource.rb
+- lib/cancan/exceptions.rb
+- lib/cancan/inherited_resource.rb
+- lib/cancan/matchers.rb
+- lib/cancan/model_adapters/abstract_adapter.rb
+- lib/cancan/model_adapters/active_record_adapter.rb
+- lib/cancan/model_adapters/data_mapper_adapter.rb
+- lib/cancan/model_adapters/default_adapter.rb
+- lib/cancan/model_adapters/mongoid_adapter.rb
+- lib/cancan/model_additions.rb
+- lib/cancan/rule.rb
+- lib/cancan.rb
+- lib/generators/cancan/ability/ability_generator.rb
+- lib/generators/cancan/ability/templates/ability.rb
+- lib/generators/cancan/ability/USAGE
+- spec/cancan/ability_spec.rb
+- spec/cancan/controller_additions_spec.rb
+- spec/cancan/controller_resource_spec.rb
+- spec/cancan/exceptions_spec.rb
+- spec/cancan/inherited_resource_spec.rb
+- spec/cancan/matchers_spec.rb
+- spec/cancan/model_adapters/active_record_adapter_spec.rb
+- spec/cancan/model_adapters/data_mapper_adapter_spec.rb
+- spec/cancan/model_adapters/default_adapter_spec.rb
+- spec/cancan/model_adapters/mongoid_adapter_spec.rb
+- spec/cancan/rule_spec.rb
+- spec/matchers.rb
+- spec/README.rdoc
+- spec/spec.opts
+- spec/spec_helper.rb
+- CHANGELOG.rdoc
+- Gemfile
+- LICENSE
+- Rakefile
+- README.rdoc
+- init.rb
+has_rdoc: true
+homepage: http://github.com/ryanb/cancan
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: 1.3.4
+  version: 
+requirements: []
+
+rubyforge_project: cancan
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 3
+summary: Simple authorization solution for Rails.
+test_files: []
+

@@ -2,11 +2,7 @@ class ReviewsListingController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        if(current_user.reviewer)
-          redirect_to :action => :reviewer
-        else
-          unauthorized!
-        end
+        redirect_to :action => :reviewer
       end
       format.js do
         render :json => {

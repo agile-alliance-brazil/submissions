@@ -17,7 +17,7 @@ blockquote, q {
   quotes: none; }
 
 blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
+  content: "";
   content: none; }
 
 :focus {
@@ -34,13 +34,13 @@ table {
   border-spacing: 0; }
 
 body {
-  font: 13px/1.5 'Helvetica Neue','Arial','Liberation Sans','FreeSans','sans-serif'; }
+  font: 13px/1.5 "Helvetica Neue", "Arial", "Liberation Sans", "FreeSans", "sans-serif"; }
 
 a:focus {
   outline: 1px dotted; }
 
 hr {
-  border: 0 #ccc solid;
+  border: 0 #cccccc solid;
   border-top-width: 1px;
   clear: both;
   height: 0; }
@@ -64,7 +64,7 @@ h6 {
   font-size: 15px; }
 
 html {
-  background: #ffffff url('/images/bg.png') repeat-x center top;
+  background: white url("/images/bg.png") repeat-x center top;
   color: #333333; }
 
 a {
@@ -129,7 +129,7 @@ a:hover {
         #header ul#menu li.selected a {
           color: #f7c13b; }
     #header ul#menu a {
-      color: #fff;
+      color: white;
       padding: 10px;
       line-height: 25px;
       text-decoration: none; }
@@ -151,11 +151,6 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   width: 960px; }
-  #container enumerate(.grid, #container 1, #container 12, #container _) {
-    display: inline;
-    float: left;
-    margin-left: 10px;
-    margin-right: 10px; }
   #container .grid_1 {
     display: inline;
     float: left;
@@ -308,7 +303,7 @@ a:hover {
     #content dl dd h2 {
       font-size: 1.1em; }
     #content dl dd h3 {
-      font-size: 1.0em; }
+      font-size: 1em; }
     #content dl dd ul {
       padding-left: 2em; }
     #content dl dd ol {
@@ -352,7 +347,7 @@ table.reviewers th.actions {
   font-size: 8px;
   font-weight: bold;
   padding: 1px 5px 0;
-  background: url('/images/icon-comments.png') left top no-repeat;
+  background: url("/images/icon-comments.png") left top no-repeat;
   position: relative;
   overflow: hidden;
   display: inline;
@@ -365,10 +360,10 @@ table.reviewers th.actions {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-bottom: 1px solid #999;
-  border-right: 1px solid #999;
-  border-left: 1px solid #ccc;
-  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #999999;
+  border-right: 1px solid #999999;
+  border-left: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
   padding: 5px;
   margin: 10px 0; }
   .commentBlock cite {
@@ -376,7 +371,7 @@ table.reviewers th.actions {
     clear: both; }
   .commentBlock .commentDate {
     float: right;
-    color: #999;
+    color: #999999;
     font-size: 12px; }
 
 ul.piped {
@@ -415,7 +410,7 @@ ul.spaced {
       border: solid 1px #336699;
       margin-right: 2px; }
     #pagination .pagination .disabled {
-      border: solid 1px #DEDEDE;
+      border: solid 1px #dedede;
       color: #888888;
       display: block;
       float: left;
@@ -426,7 +421,7 @@ ul.spaced {
       font-weight: bold; }
     #pagination .pagination .current {
       background: #5ad295;
-      color: #FFFFFF;
+      color: white;
       font-weight: bold;
       display: block;
       float: left;
@@ -455,8 +450,8 @@ ul.spaced {
   border: solid 1px #cc6666; }
 
 #flash_news {
-  background-color: #FFF6BF;
-  border: solid 1px #FFD324; }
+  background-color: #fff6bf;
+  border: solid 1px #ffd324; }
 
 .fieldWithErrors {
   display: inline; }
@@ -466,8 +461,8 @@ ul.spaced {
   width: 95%;
   height: 20%; }
 .resizable-textarea .grippie {
-  background: #EEEEEE url('/images/grippie.png') no-repeat scroll center 2px;
-  border-color: #DDDDDD;
+  background: #eeeeee url("/images/grippie.png") no-repeat scroll center 2px;
+  border-color: #dddddd;
   border-style: solid;
   border-width: 0pt 1px 1px;
   cursor: s-resize;
@@ -479,7 +474,7 @@ ul.spaced {
   display: block;
   right: 0;
   bottom: 0;
-  color: #fff;
+  color: white;
   background-color: #336699;
   border: 2px solid #f7c13b;
   text-align: center;
@@ -501,7 +496,7 @@ ul.spaced {
     margin-left: 10px;
     margin-right: 10px;
     width: 300px;
-    border: 1px dashed #666;
+    border: 1px dashed #666666;
     padding: 10px;
     min-height: 150px; }
   #textile_help .example .space {
@@ -516,7 +511,7 @@ ul.spaced {
     margin-left: 10px;
     margin-right: 10px;
     width: 300px;
-    border: 1px dashed #666;
+    border: 1px dashed #666666;
     padding: 10px;
     min-height: 150px; }
     #textile_help .example .preview:after {
@@ -543,44 +538,6 @@ li#user_wants_to_submit_input {
   border: 1px dashed #1c8c1c;
   padding: 10px;
   width: 74%; }
-
-p.current_vote {
-  font-weight: bold; }
-
-li#vote_logo_id_input p.inline-hints {
-  width: 100%; }
-li#vote_logo_id_input ol {
-  margin: 10px 0 0 0;
-  padding: 0;
-  width: 100%; }
-  li#vote_logo_id_input ol li {
-    float: left; }
-    li#vote_logo_id_input ol li label {
-      position: relative;
-      margin-right: 10px; }
-      li#vote_logo_id_input ol li label span.logo_number {
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        font-size: 20px;
-        color: #999; }
-      li#vote_logo_id_input ol li label a[rel*=facebox] {
-        position: absolute;
-        bottom: 5px;
-        right: 15px; }
-      li#vote_logo_id_input ol li label img.color {
-        border: 1px solid #999;
-        display: none; }
-      li#vote_logo_id_input ol li label img.bw {
-        border: 1px solid #999; }
-      li#vote_logo_id_input ol li label img.highlighted {
-        border: 3px solid green;
-        border-radius: 2px;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px; }
-li#vote_logo_id_input ul.errors {
-  float: left;
-  width: 100%; }
 
 form.reviewer fieldset.inputs li, form.review_decision_confirm fieldset.inputs li, form.review_decision_withdraw fieldset.inputs li {
   float: left;
