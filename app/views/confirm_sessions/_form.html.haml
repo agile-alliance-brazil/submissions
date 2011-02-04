@@ -1,17 +1,17 @@
-- semantic_form_for @session, :url => session_confirm_path(@session), :html => {:class => 'review_decision_confirm'} do |form|
-  - form.inputs do
+= semantic_form_for @session, :url => session_confirm_path(@session), :html => {:class => 'review_decision_confirm'} do |form|
+  = form.inputs do
     = form.errors_on :base
     = form.input :title, :required => true, :input_html => {:tabindex => autotab}
     = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
     = form.input :audience_limit, :input_html => {:tabindex => autotab}
   %pre#author_agreement= yield(:agreement)
-  - form.inputs :class => 'inputs accept' do
+  = form.inputs :class => 'inputs accept' do
     = form.input :author_agreement, :label => t('formtastic.labels.session.confirm.author_agreement'), :required => true, :as => :boolean, :input_html => {:tabindex => autotab}
 
-  - form.inputs :class => 'inputs accept' do
+  = form.inputs :class => 'inputs accept' do
     %p= t('formtastic.labels.session.image_agreement_description')
     = form.input :image_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
-  - form.buttons do
+  = form.buttons do
     = form.commit_button :confirm_session, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.withdraw_session'), session_withdraw_path(@session)

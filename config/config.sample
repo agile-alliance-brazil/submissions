@@ -1,9 +1,0 @@
----
- :smtp_settings:
- :address: smtp.domain.com
- :port: 587
- :domain: domain.com
- :authentication: :login
- :user_name: no-reply@domain.com
- :password: password
- :host: localhost:3000

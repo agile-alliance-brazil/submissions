@@ -10,27 +10,27 @@ class Reviewer < ActiveRecord::Base
   accepts_nested_attributes_for :preferences
   
   validates_presence_of :user_username
-  validates_existence_of :user, :message => :existence
+  validates_existence_of :user
   validates_uniqueness_of :user_id
 
   validates_each :user_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.user.nil?
   end
   
-  def after_validation
-    if errors.on(:user_id)
-      errors.on(:user_id).each { |error| errors.add(:user_username, error) }
+  after_validation do
+    if !errors[:user_id].empty?
+      errors[:user_id].each { |error| errors.add(:user_username, error) }
     end
   end
   
   state_machine :initial => :created do
     after_transition :on => :invite do |reviewer|
-      EmailNotifications.deliver_reviewer_invitation(reviewer)
+      EmailNotifications.reviewer_invitation(reviewer).deliver
     end
     
     after_transition :on => :accept do |reviewer|
       reviewer.user.add_role :reviewer
-      reviewer.user.save_without_validation
+      reviewer.user.save(:validate => false)
     end
     
     event :invite do
@@ -48,20 +48,20 @@ class Reviewer < ActiveRecord::Base
     state :accepted do
       validate do |reviewer|
         if reviewer.preferences.select {|p| p.accepted?}.empty?
-          reviewer.errors.add_to_base(:preferences)
+          reviewer.errors.add(:base, :preferences)
         end
       end
       validates_acceptance_of :reviewer_agreement
     end
   end
   
-  def after_create
+  after_create do
     invite
   end
   
-  def after_destroy
+  after_destroy do
     user.remove_role :reviewer
-    user.save_without_validation
+    user.save(:validate =>false)
   end
   
   def can_review?(track)

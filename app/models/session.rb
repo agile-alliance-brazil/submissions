@@ -53,35 +53,22 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :constant) if record.author_id_changed?
   end
   
-  named_scope :for_user, lambda { |u|
-    {:conditions => ['author_id = ? OR second_author_id = ?', u.to_i, u.to_i]}
-  }
+  scope :for_user, lambda { |u| where('author_id = ? OR second_author_id = ?', u.to_i, u.to_i) }
   
-  named_scope :for_tracks, lambda { |track_ids| 
-    {:conditions => ['track_id IN (?)', track_ids]}
-  }
+  scope :for_tracks, lambda { |track_ids| where('track_id IN (?)', track_ids) }
   
-  named_scope :not_author, lambda { |u|
-    {:conditions => ['author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i]}
-  }
+  scope :not_author, lambda { |u| where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i) }
   
-  named_scope :reviewed_by, lambda { |u|
-    {
-      :joins => :reviews,
-      :conditions => ['reviewer_id = ?', u.to_i]
-    }
-  }
-  
-  named_scope :for_preferences, lambda { |*preferences|
-    return {:conditions => '1 = 2'} if preferences.empty?
+  scope :reviewed_by, lambda { |u| where('reviewer_id = ?', u.to_i).joins(:reviews) }
+
+  scope :for_preferences, lambda { |*preferences|
+    return where('1 = 2') if preferences.empty?
     clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
     args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
-    {:conditions => [clause, *args]}
+    where(clause, *args)
   }
   
-  named_scope :incomplete_reviews, lambda { |limit|
-    {:conditions => ['reviews_count < ?', limit]}
-  }
+  scope :incomplete_reviews, lambda { |limit| where('reviews_count < ?', limit) }
   
   def self.for_reviewer(user)
     incomplete_reviews(3).

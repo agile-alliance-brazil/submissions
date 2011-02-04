@@ -1,15 +1,16 @@
-!!! Strict
+!!! 5
 %html{html_attrs(I18n.locale)}
   
   %head
     %title
       Agile Brazil 2010 -
-      = (yield(:title) || t('title.untitled'))
+      = content_for?(:title) ? yield(:title) : t('title.untitled')
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "/favicon.ico"}/
     = stylesheet_link_tag 'application', 'formtastic', 'formtastic_changes', 'jquery.autocomplete', '/facebox/facebox', :cache => true
-    = javascript_include_tag 'jquery-1.4.min', 'application', 'jquery.autocomplete.min', 'jquery.textarearesizer', 'jquery.progressbar.min', '/facebox/facebox', :cache => true
-    
+    = javascript_include_tag 'jquery-1.4.min', 'rails', 'application', 'jquery.autocomplete.min', 'jquery.textarearesizer', 'jquery.progressbar.min', '/facebox/facebox', :cache => true
+    = csrf_meta_tag
+
     = yield(:head)
   
   %body    

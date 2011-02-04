@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe ReviewDecisionsController do
-  integrate_views
+  render_views
 
   it_should_require_login_for_actions :new, :create, :edit, :update
 
@@ -10,12 +10,13 @@ describe ReviewDecisionsController do
     @organizer = Factory(:organizer, :track => @session.track)
     activate_authlogic
     UserSession.create(@organizer.user)
+    disable_authorization
   end
   
   it "new action should render new template" do
     get :new, :session_id => Session.first
     response.should render_template(:new)
-    assigns[:review_decision].organizer.should == @organizer.user
+    assigns(:review_decision).organizer.should == @organizer.user
   end
 
   it "create action should render new template when model is invalid" do
@@ -40,7 +41,7 @@ describe ReviewDecisionsController do
     it "edit action should render edit template" do
       get :edit, :session_id => @session.id, :id => @decision.id
       response.should render_template(:edit)
-      assigns[:review_decision].organizer.should == @organizer.user
+      assigns(:review_decision).organizer.should == @organizer.user
     end
   
     it "update action should render edit template when model is invalid" do

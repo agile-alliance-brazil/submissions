@@ -1,4 +1,5 @@
-require 'spec/spec_helper'
+# encoding: utf-8
+require 'spec_helper'
 
 describe User do
   context "protect from mass assignment" do
@@ -18,7 +19,7 @@ describe User do
     should_allow_mass_assignment_of :wants_to_submit
     should_allow_mass_assignment_of :default_locale
   
-    should_not_allow_mass_assignment_of :evil_attr
+    should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes User, :first_name, :last_name, :username,
@@ -74,7 +75,7 @@ describe User do
       user = Factory(:user)
       user.username = 'new_username'
       user.should_not be_valid
-      user.errors.on(:username).should == "não pode mudar"
+      user.errors[:username].should == ["não pode mudar"]
     end
   end
   
@@ -88,7 +89,7 @@ describe User do
   end
   
   context "named scopes" do
-    should_have_scope :search, :conditions => ['username LIKE ?', "%danilo%"], :with => 'danilo'
+    xit { should have_scope(:search, :with =>'danilo', :where => "username LIKE '%danilo%'") }
   end
   
   context "authorization" do
@@ -122,7 +123,7 @@ describe User do
     user = Factory(:user)
     old_token = user.perishable_token
     
-    EmailNotifications.expects(:deliver_password_reset_instructions).with(user)
+    EmailNotifications.expects(:password_reset_instructions).with(user).returns(stub(:deliver => true))
     user.deliver_password_reset_instructions!
   end
   

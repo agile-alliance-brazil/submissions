@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     config.merge_validates_length_of_login_field_options(:within => 3..30)
   end
 
-  named_scope :search, lambda { |q| {:conditions => ["username LIKE ?", "%#{q}%"]} }
+  scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
   
   def full_name
     [self.first_name, self.last_name].join(' ')
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    EmailNotifications.deliver_password_reset_instructions(self)
+    EmailNotifications.password_reset_instructions(self).deliver
   end
   
   def wants_to_submit

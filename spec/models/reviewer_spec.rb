@@ -1,8 +1,9 @@
-require 'spec/spec_helper'
+# encoding: utf-8
+require 'spec_helper'
 
 describe Reviewer do
   before(:each) do
-    EmailNotifications.stubs(:deliver_reviewer_invitation)
+    EmailNotifications.stubs(:reviewer_invitation).returns(stub(:deliver => true))
   end
   
   context "protect from mass assignment" do
@@ -12,7 +13,7 @@ describe Reviewer do
     should_allow_mass_assignment_of :reviewer_agreement
     should_allow_mass_assignment_of :state_event
   
-    should_not_allow_mass_assignment_of :evil_attr
+    should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes Reviewer, :user_username
@@ -21,34 +22,28 @@ describe Reviewer do
     before { Factory(:reviewer) }
     should_validate_presence_of :user_username
     should_validate_uniqueness_of :user_id
-    
-    it "should validate existence of user" do
-      reviewer = Factory.build(:reviewer)
-      reviewer.should be_valid
-      reviewer.user_id = 0
-      reviewer.should_not be_valid
-      reviewer.errors.on(:user).should == "não existe"
-    end
+
+    should_validate_existence_of :user
     
     it "should validate that at least 1 preference was accepted" do
       reviewer = Factory(:reviewer)
       reviewer.preferences.build(:accepted => false)
       reviewer.accept.should be_false
-      reviewer.errors.on(:base).should == "pelo menos uma trilha deve ser aceita"
+      reviewer.errors[:base].should include("pelo menos uma trilha deve ser aceita")
     end
 
     it "should validate that reviewer agreement was accepted" do
       reviewer = Factory(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept.should be_false
-      reviewer.errors.on(:reviewer_agreement).should == "deve ser aceito"
+      reviewer.errors[:reviewer_agreement].should include("deve ser aceito")
     end
     
     it "should copy user errors to user_username" do
       reviewer = Factory(:reviewer)
       new_reviewer = Factory.build(:reviewer, :user => reviewer.user)
       new_reviewer.should_not be_valid
-      new_reviewer.errors.on(:user_username).should == "já está em uso"
+      new_reviewer.errors[:user_username].should include("já está em uso")
     end
 
     context "user" do
@@ -59,7 +54,7 @@ describe Reviewer do
       it "should be a valid user" do
         @reviewer.user_username = 'invalid_username'
         @reviewer.should_not be_valid
-        @reviewer.errors.on(:user_username).should include("não existe")
+        @reviewer.errors[:user_username].should include("não existe")
       end
     end      
   end
@@ -131,7 +126,7 @@ describe Reviewer do
     
     context "Event: invite" do
       it "should send invitation email" do
-        EmailNotifications.expects(:deliver_reviewer_invitation).with(@reviewer)
+        EmailNotifications.expects(:reviewer_invitation).with(@reviewer).returns(stub(:deliver => true))
         @reviewer.invite
       end
     end

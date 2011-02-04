@@ -1,16 +1,16 @@
-- semantic_form_for @reviewer do |form|
-  - form.semantic_fields_for :preferences do |p|
-    - p.inputs :class => 'inputs preferences' do
+= semantic_form_for @reviewer do |form|
+  = form.semantic_fields_for :preferences do |p|
+    = p.inputs :class => 'inputs preferences' do
       = p.input :track_id, :as => :hidden
       = p.input :accepted, :label => t(p.instance_variable_get("@object").track.title), :input_html => {:tabindex => autotab}
       = p.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
       %p.inline-hints= t(p.instance_variable_get("@object").track.description)
-  - form.inputs do
+  = form.inputs do
     = form.errors_on :base
   %pre#reviewer_agreement= yield(:agreement)
-  - form.inputs :class => 'inputs accept' do
+  = form.inputs :class => 'inputs accept' do
     = form.input :reviewer_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
-  - form.buttons do
+  = form.buttons do
     = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.reject_reviewer'), reviewer_reject_path(@reviewer)

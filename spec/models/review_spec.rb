@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe Review do
   context "protect from mass assignment" do
@@ -25,7 +25,7 @@ describe Review do
     should_allow_mass_assignment_of :session_id
     should_allow_mass_assignment_of :reviewer_id
   
-    should_not_allow_mass_assignment_of :evil_attr
+    should_not_allow_mass_assignment_of :id
   end
      
   it_should_trim_attributes Review, :comments_to_organizers, :comments_to_authors, :justification

@@ -1,8 +1,8 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe AudienceLevelsController do
   fixtures :all
-  integrate_views
+  render_views
 
   before(:each) do
     Factory(:audience_level)

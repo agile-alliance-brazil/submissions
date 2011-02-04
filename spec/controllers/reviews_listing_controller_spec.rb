@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe ReviewsListingController do
-  integrate_views
+  render_views
 
   it_should_require_login_for_actions :index, :reviewer
 
@@ -10,15 +10,16 @@ describe ReviewsListingController do
     user = Factory(:user)
     activate_authlogic
     UserSession.create(user)
-    
+    disable_authorization
+
     # 2 reviews (2 sessions)
     Factory(:review)
     Factory(:review)
     
     get :index, :format => 'js'
     response.body.should == {
-      'total_reviews' => 2,
-      'required_reviews' => 6
+      'required_reviews' => 6,
+      'total_reviews' => 2
     }.to_json
   end
   
@@ -27,6 +28,7 @@ describe ReviewsListingController do
       @reviewer = Factory(:reviewer)
       activate_authlogic
       UserSession.create(@reviewer.user)
+      disable_authorization
     end
     
     it "index action should redirect to reviewer action" do

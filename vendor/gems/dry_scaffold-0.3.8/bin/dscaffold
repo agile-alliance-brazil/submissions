@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-`ruby script/generate dscaffold #{ARGV.join(' ')}`

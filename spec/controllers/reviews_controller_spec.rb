@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe ReviewsController do
-  integrate_views
+  render_views
 
   it_should_require_login_for_actions :index, :show, :new, :create
 
@@ -9,6 +9,7 @@ describe ReviewsController do
     @review = Factory(:review)
     activate_authlogic
     UserSession.create(@review.reviewer)
+    disable_authorization
   end
   
   it "index action should render author template" do
@@ -29,7 +30,7 @@ describe ReviewsController do
   it "new action should render new template" do
     get :new, :session_id => Session.first
     response.should render_template(:new)
-    assigns[:review].reviewer.should == @review.reviewer
+    assigns(:review).reviewer.should == @review.reviewer
   end
 
   it "create action should render new template when model is invalid" do
@@ -43,6 +44,6 @@ describe ReviewsController do
   it "create action should redirect when model is valid" do
     Review.any_instance.stubs(:valid?).returns(true)
     post :create, :session_id => Session.first
-    response.should redirect_to(session_review_url(assigns[:session], assigns[:review]))
+    response.should redirect_to(session_review_url(assigns(:session), assigns(:review)))
   end
 end

@@ -1,4 +1,5 @@
-require 'spec/spec_helper'
+# encoding: utf-8
+require 'spec_helper'
 
 describe ReviewDecision do
   
@@ -8,7 +9,7 @@ describe ReviewDecision do
     should_allow_mass_assignment_of :outcome_id
     should_allow_mass_assignment_of :note_to_authors
   
-    should_not_allow_mass_assignment_of :evil_attr
+    should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes ReviewDecision, :note_to_authors
@@ -18,41 +19,18 @@ describe ReviewDecision do
     should_validate_presence_of :session_id
     should_validate_presence_of :outcome_id
     should_validate_presence_of :note_to_authors
-    
-    it "should validate existence of organizer" do
-      review_decision = Factory.build(:review_decision)
-      review_decision.should be_valid
-      review_decision.organizer_id = 0
-      review_decision.should_not be_valid
-      review_decision.errors.on(:organizer).should == "não existe"
-    end
+    should_validate_existence_of :organizer, :session, :outcome
 
-    it "should validate existence of session" do
-      review_decision = Factory.build(:review_decision)
-      review_decision.should be_valid
-      review_decision.session_id = 0
-      review_decision.should_not be_valid
-      review_decision.errors.on(:session).should == "não existe"
-    end
-
-    it "should validate existence of outcome" do
-      review_decision = Factory.build(:review_decision)
-      review_decision.should be_valid
-      review_decision.outcome_id = 0
-      review_decision.should_not be_valid
-      review_decision.errors.on(:outcome).should == "não existe"
-    end
-    
     it "should validate outcome can transition session on acceptance" do
       review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
       review_decision.should_not be_valid
-      review_decision.errors.on(:session_id).should == "não pode ser aceita"
+      review_decision.errors[:session_id].should include("não pode ser aceita")
     end
 
     it "should validate outcome can transition session on rejection" do
       review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
       review_decision.should_not be_valid
-      review_decision.errors.on(:session_id).should == "não pode ser rejeitada"
+      review_decision.errors[:session_id].should include("não pode ser rejeitada")
     end
   end
   

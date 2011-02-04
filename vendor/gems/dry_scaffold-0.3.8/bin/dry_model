@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-`ruby script/generate dry_model #{ARGV.join(' ')}`

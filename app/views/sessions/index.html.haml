@@ -19,7 +19,7 @@
       %th.created_at= t('formtastic.labels.session.created_at')
   %tbody
     - @sessions.each do |session|
-      - content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
           = link_to h(session.try(:title)), session_path(session)

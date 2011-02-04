@@ -15,7 +15,7 @@
       #{comment.comment}
 
 - if can? :create, Comment
-  - semantic_form_for(@comment, :url => session_comments_path(@session)) do |form|
+  = semantic_form_for(@comment, :url => session_comments_path(@session)) do |form|
     = render 'comments/form', :form => form
-    - form.buttons do
+    = form.buttons do
       = form.commit_button :add_comment, :button_html => {:tabindex => autotab}

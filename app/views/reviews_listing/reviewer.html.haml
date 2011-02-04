@@ -11,7 +11,7 @@
       %th.review= sortable_column t('formtastic.labels.review.recommendation'), :recommendation_id
   %tbody
     - @reviews.each do |review|
-      - content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
         %td.title
           = link_to h(review.session.try(:title)), session_path(review.session)
           - if review.session.comments.size > 0

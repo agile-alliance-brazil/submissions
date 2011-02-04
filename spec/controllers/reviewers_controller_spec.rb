@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe ReviewersController do
-  integrate_views
+  render_views
 
   it_should_require_login_for_actions :index, :new, :create, :update
 
@@ -9,6 +9,7 @@ describe ReviewersController do
     @user = Factory(:user)
     activate_authlogic    
     UserSession.create(@user)
+    disable_authorization
   end
 
   it "index action should render index template" do

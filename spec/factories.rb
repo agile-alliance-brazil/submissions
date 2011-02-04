@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Factory.define :user do |u|
   u.first_name "User"
   u.sequence(:last_name) {|n| "Name#{n}"}

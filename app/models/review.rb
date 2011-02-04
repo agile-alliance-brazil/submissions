@@ -32,7 +32,7 @@ class Review < ActiveRecord::Base
   
   validates_uniqueness_of :reviewer_id, :scope => :session_id
 
-  def after_create
+  after_create do
     session.reviewing
   end
   

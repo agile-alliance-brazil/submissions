@@ -1,4 +1,4 @@
-- form.inputs do
+= form.inputs do
   = form.input :author_id, :as => :hidden, :input_html => {:tabindex => autotab}
   = form.input :track_id, :required => true, :as => :select, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
   = form.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}

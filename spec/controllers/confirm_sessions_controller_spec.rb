@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe ConfirmSessionsController do
-  integrate_views
+  render_views
 
   it_should_require_login_for_actions :show, :update
 
@@ -14,6 +14,7 @@ describe ConfirmSessionsController do
     Session.stubs(:find).returns(@session)
     activate_authlogic    
     UserSession.create(@user)
+    disable_authorization
   end
 
   it "show action should render show template" do

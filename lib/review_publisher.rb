@@ -4,11 +4,11 @@ class ReviewPublisher
     ensure_all_decisions_made
     rejected_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("REJECT") { EmailNotifications.deliver_notification_of_rejection(session) }
+      try_with("REJECT") { EmailNotifications.notification_of_rejection(session).deliver }
     end
     accepted_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("ACCEPT") { EmailNotifications.deliver_notification_of_acceptance(session) }
+      try_with("ACCEPT") { EmailNotifications.notification_of_acceptance(session).deliver }
     end
     Rails.logger.flush
   end

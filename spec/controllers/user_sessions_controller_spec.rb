@@ -1,8 +1,8 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe UserSessionsController do
   fixtures :users
-  integrate_views
+  render_views
   
   it_should_require_login_for_actions :destroy
   it_should_require_logout_for_actions :create

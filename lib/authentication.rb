@@ -21,7 +21,6 @@
 module Authentication
   def self.included(controller)
     controller.send :helper_method, :current_user, :logged_in?, :redirect_to_target_or_default
-    controller.filter_parameter_logging :password
   end
   
   def current_user_session

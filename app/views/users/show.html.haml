@@ -6,7 +6,7 @@
   - if can? :update, @user
     %li= link_to t('actions.edit'), edit_user_path(@user)
 
-- content_tag_for(:dl, @user) do
+= content_tag_for(:dl, @user) do
   %dt= t('formtastic.labels.user.username')
   %dd&= @user.username
   

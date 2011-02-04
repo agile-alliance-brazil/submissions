@@ -8,7 +8,7 @@
   %li= link_to t('review.view_session'), session_path(@review.session)
   %li #{l(@review.created_at, :format => :short)}
 
-- content_tag_for(:dl, @review) do
+= content_tag_for(:dl, @review) do
   %dt= t('formtastic.labels.review.recommendation_id')
   %dd&= t(@review.try(:recommendation).title)
   - unless @review.justification.blank?

@@ -1,9 +1,8 @@
-require 'spec/spec_helper'
+# encoding: utf-8
+require 'spec_helper'
 
 describe EmailNotifications do
   before do
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
     I18n.locale = I18n.default_locale
   end
@@ -18,21 +17,19 @@ describe EmailNotifications do
     end
     
     it "should include account details" do
-      mail = EmailNotifications.deliver_welcome(@user)
+      mail = EmailNotifications.welcome(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Nome de usuário.*#{@user.username}/
+  	  mail.encoded.should =~ /#{@user.username}/
   	  mail.subject.should == "[localhost:3000] Cadastro realizado com sucesso"
     end
     
     it "should be sent in user's default language" do
       @user.default_locale = 'en'
-      mail = EmailNotifications.deliver_welcome(@user)
+      mail = EmailNotifications.welcome(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Username.*#{@user.username}/
+  	  mail.encoded.should =~ /Username.*#{@user.username}/
   	  mail.subject.should == "[localhost:3000] Account registration"
     end
   end
@@ -44,22 +41,20 @@ describe EmailNotifications do
     
     it "should include link with perishable_token" do
       @user.reset_perishable_token!
-      mail = EmailNotifications.deliver_password_reset_instructions(@user)
+      mail = EmailNotifications.password_reset_instructions(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
+  	  mail.encoded.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
   	  mail.subject.should == "[localhost:3000] Recuperação de senha"
     end
     
     it "should be sent in user's default language" do
       @user.default_locale = 'en'
       @user.reset_perishable_token!
-      mail = EmailNotifications.deliver_password_reset_instructions(@user)
+      mail = EmailNotifications.password_reset_instructions(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
+  	  mail.encoded.should =~ /\/password_resets\/#{@user.perishable_token}\/edit/
   	  mail.subject.should == "[localhost:3000] Password reset"
     end
   end
@@ -70,13 +65,12 @@ describe EmailNotifications do
     end
     
     it "should be sent to first author" do
-      mail = EmailNotifications.deliver_session_submitted(@session)
+      mail = EmailNotifications.session_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
     end
     
@@ -84,25 +78,23 @@ describe EmailNotifications do
       user = Factory(:user)
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_session_submitted(@session)
+      mail = EmailNotifications.session_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Olá #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
     end
     
     it "should be sent to first author in default language" do
       @session.author.default_locale = 'en'
-      mail = EmailNotifications.deliver_session_submitted(@session)
+      mail = EmailNotifications.session_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
     end
 
@@ -111,13 +103,12 @@ describe EmailNotifications do
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_session_submitted(@session)
+      mail = EmailNotifications.session_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
     end
     
@@ -129,23 +120,21 @@ describe EmailNotifications do
     end
     
     it "should include link with invitation" do
-      mail = EmailNotifications.deliver_reviewer_invitation(@reviewer)
+      mail = EmailNotifications.reviewer_invitation(@reviewer).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@reviewer.user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /\/reviewers\/3\/accept/
-  	  mail.body.should =~ /\/reviewers\/3\/reject/
+  	  mail.encoded.should =~ /\/reviewers\/3\/accept/
+  	  mail.encoded.should =~ /\/reviewers\/3\/reject/
   	  mail.subject.should == "[localhost:3000] Convite para equipe de avaliação da Agile Brazil 2010"
     end
 
     it "should be sent in user's default language" do
       @reviewer.user.default_locale = 'en'
-      mail = EmailNotifications.deliver_reviewer_invitation(@reviewer)
+      mail = EmailNotifications.reviewer_invitation(@reviewer).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@reviewer.user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /\/reviewers\/3\/accept/
-  	  mail.body.should =~ /\/reviewers\/3\/reject/
+  	  mail.encoded.should =~ /\/reviewers\/3\/accept/
+  	  mail.encoded.should =~ /\/reviewers\/3\/reject/
   	  mail.subject.should == "[localhost:3000] Invitation to be part of Agile Brazil 2010 review committee"
     end
   end
@@ -160,31 +149,30 @@ describe EmailNotifications do
     
     it "should not be sent if session has no decision" do
       session = Factory(:session)
-      lambda {EmailNotifications.deliver_notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
+      lambda {EmailNotifications.notification_of_acceptance(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
     it "should not be sent if session has been rejected" do
       @session.review_decision.expects(:rejected?).returns(true)
       
-      lambda {EmailNotifications.deliver_notification_of_acceptance(@session)}.should raise_error("Cannot accept a rejected session")
+      lambda {EmailNotifications.notification_of_acceptance(@session).deliver}.should raise_error("Cannot accept a rejected session")
     end
     
     it "should make review published" do
       @decision.should_not be_published
-      EmailNotifications.deliver_notification_of_acceptance(@session)
+      EmailNotifications.notification_of_acceptance(@session).deliver
       @decision.reload.should be_published
     end
     
     it "should be sent to first author" do
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
+      mail = EmailNotifications.notification_of_acceptance(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Caro #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
+  	  mail.encoded.should =~ /Caro #{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
   	  
   	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
     end
@@ -193,30 +181,28 @@ describe EmailNotifications do
       user = Factory(:user)
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
+      mail = EmailNotifications.notification_of_acceptance(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
+  	  mail.encoded.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
 
   	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
     end
     
     it "should be sent to first author in default language" do
       @session.author.default_locale = 'en'
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
+      mail = EmailNotifications.notification_of_acceptance(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
       
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end
@@ -226,15 +212,14 @@ describe EmailNotifications do
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_acceptance(@session)
+      mail = EmailNotifications.notification_of_acceptance(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/confirm/
-      mail.body.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
+      mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
 
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end
@@ -251,29 +236,28 @@ describe EmailNotifications do
     
     it "should not be sent if session has no decision" do
       session = Factory(:session)
-      lambda {EmailNotifications.deliver_notification_of_rejection(session)}.should raise_error("Notification can't be sent before decision has been made")
+      lambda {EmailNotifications.notification_of_rejection(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
     it "should not be sent if session has been accepted" do
       @session.review_decision.expects(:accepted?).returns(true)
       
-      lambda {EmailNotifications.deliver_notification_of_rejection(@session)}.should raise_error("Cannot reject an accepted session")
+      lambda {EmailNotifications.notification_of_rejection(@session).deliver}.should raise_error("Cannot reject an accepted session")
     end
 
     it "should make review published" do
       @decision.should_not be_published
-      EmailNotifications.deliver_notification_of_rejection(@session)
+      EmailNotifications.notification_of_rejection(@session).deliver
       @decision.reload.should be_published
     end    
 
     it "should be sent to first author" do
-      mail = EmailNotifications.deliver_notification_of_rejection(@session)
+      mail = EmailNotifications.notification_of_rejection(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Caro #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Caro #{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  
   	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
     end
@@ -282,26 +266,24 @@ describe EmailNotifications do
       user = Factory(:user)
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_rejection(@session)
+      mail = EmailNotifications.notification_of_rejection(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Caros #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
 
   	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
     end
     
     it "should be sent to first author in default language" do
       @session.author.default_locale = 'en'
-      mail = EmailNotifications.deliver_notification_of_rejection(@session)
+      mail = EmailNotifications.notification_of_rejection(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
       
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end
@@ -311,13 +293,12 @@ describe EmailNotifications do
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
-      mail = EmailNotifications.deliver_notification_of_rejection(@session)
+      mail = EmailNotifications.notification_of_rejection(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
-      mail.content_type.should == "multipart/alternative"
-  	  mail.body.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
-  	  mail.body.should =~ /#{@session.title}/
-  	  mail.body.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
+  	  mail.encoded.should =~ /#{@session.title}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
 
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
     end

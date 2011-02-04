@@ -1,35 +1,49 @@
-ActionController::Routing::Routes.draw do |map|
-  map.signup 'signup', :controller => 'users', :action => 'new'
-  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
-  map.login 'login', :controller => 'user_sessions', :action => 'new'
+AgileBrazil::Application.routes.draw do
+  root :to => 'user_sessions#new'
 
-  map.resources :audience_levels, :only => [:index]
-  map.resources :organizers, :except => [:show]
-  map.resources :organizer_sessions, :only => [:index]
-  map.resources :password_resets, :except => [:destroy]
-  map.resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do |reviewer|
-    reviewer.resource :accept, :only => [:show], :controller => :accept_reviewers
-    reviewer.resource :reject, :only => [:show, :update], :controller => :reject_reviewers
-  end
-  map.resources :reviewer_sessions, :only => [:index]
-  map.resources :sessions, :except => [:destroy], :member => {:cancel => :delete} do |session|
-    session.resources :comments, :except => [:new]
-    session.resources :reviews, :except => [:edit, :update, :destroy], :collection => {:organizer => :get}
-    session.resources :review_decisions, :only => [:new, :create, :edit, :update]
-    session.resource  :confirm, :only => [:show, :update], :controller => :confirm_sessions
-    session.resource  :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
-  end
-  map.resources :accepted_sessions, :only => [:index]
-  
-  map.resources :reviews, :controller => :reviews_listing, :only => [:index], :collection => {:reviewer => :get}
-  map.resources :session_types, :only => [:index]
-  map.resources :tags, :only => [:index]
-  map.resources :tracks, :only => [:index]
-  map.resources :user_sessions, :only => [:new, :create, :destroy]
-  map.resources :users, :except => [:destroy] do |user|
-    user.my_sessions 'my_sessions', :controller => 'sessions', :action => 'index'
+  match 'signup' => 'users#new', :as => :signup
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'login' => 'user_sessions#new', :as => :login
+
+  resources :audience_levels, :only => [:index]
+  resources :organizers, :except => [:show]
+  resources :organizer_sessions, :only => [:index]
+  resources :password_resets, :except => [:destroy]
+  resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do
+    resource :accept, :only => [:show], :controller => :accept_reviewers
+    resource :reject, :only => [:show, :update], :controller => :reject_reviewers
   end
 
-  map.static_page ':page', :controller => 'static_pages', :action => 'show', :page => /guidelines|syntax_help/  
-  map.root :controller => 'user_sessions', :action => 'new'
+  resources :reviewer_sessions, :only => [:index]
+  resources :sessions, :except => [:destroy] do
+    member do
+      delete :cancel
+    end
+    resources :comments, :except => [:new]
+    resources :reviews, :except => [:edit, :update, :destroy] do
+      collection do
+        get :organizer
+      end
+    end
+    resources :review_decisions, :only => [:new, :create, :edit, :update]
+    resource :confirm, :only => [:show, :update], :controller => :confirm_sessions
+    resource :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
+  end
+
+  resources :accepted_sessions, :only => [:index]
+  resources :reviews, :only => [:index], :controller => :reviews_listing do
+    collection do
+      get :reviewer
+    end
+  end
+
+  resources :session_types, :only => [:index]
+  resources :tags, :only => [:index]
+  resources :tracks, :only => [:index]
+  resources :user_sessions,  :only => [:new, :create, :destroy]
+  resources :users, :except => [:destroy] do
+    match 'my_sessions' => 'sessions#index', :as => :my_sessions
+  end
+
+  match ':page' => 'static_pages#show', :as => :static_page, :page => /guidelines|syntax_help/
 end

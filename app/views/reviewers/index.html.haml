@@ -12,7 +12,7 @@
       %th.actions
   %tbody
     - @reviewers.each do |reviewer|
-      - content_tag_for(:tr, reviewer, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, reviewer, :class => cycle(:odd, :even)) do
         %td.reviewer&= reviewer.user.full_name
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - @tracks.each do |track|

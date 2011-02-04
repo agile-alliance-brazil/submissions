@@ -3,7 +3,7 @@ class ReviewersController < InheritedResources::Base
   respond_to :html
   
   def index
-    @tracks = Track.find(:all)
+    @tracks = Track.all
     index!
   end
   
@@ -36,6 +36,6 @@ class ReviewersController < InheritedResources::Base
   
   protected
   def collection
-    @reviewers ||= Reviewer.find(:all, :joins => :user, :order => 'first_name, last_name')
+    @reviewers ||= Reviewer.joins(:user).order('first_name, last_name')
   end
 end

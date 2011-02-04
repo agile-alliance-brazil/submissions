@@ -1,11 +1,11 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe ReviewPublisher do
   before(:each) do
     Session.stubs(:count).returns(0)
     Session.stubs(:all).returns([])
-    EmailNotifications.stubs(:deliver_notification_of_rejection)
-    EmailNotifications.stubs(:deliver_notification_of_acceptance)
+    EmailNotifications.stubs(:notification_of_rejection).returns(stub(:deliver => true))
+    EmailNotifications.stubs(:notification_of_acceptance).returns(stub(:deliver => true))
     Rails.logger.stubs(:info)
     Rails.logger.stubs(:flush)
     
@@ -49,7 +49,7 @@ describe ReviewPublisher do
         :conditions => ['outcome_id = ? AND published = ?', 2, false]).
         returns(@sessions)
     
-      EmailNotifications.expects(:deliver_notification_of_rejection).with(@sessions[0]).with(@sessions[1])
+      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).with(@sessions[1]).returns(stub(:deliver => true))
     
       @publisher.publish
     end
@@ -60,7 +60,7 @@ describe ReviewPublisher do
         :conditions => ['outcome_id = ? AND published = ?', 1, false]).
         returns(@sessions)
         
-      EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[0]).with(@sessions[1])
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(stub(:deliver => true))
     
       @publisher.publish
     end
@@ -68,13 +68,15 @@ describe ReviewPublisher do
     it "should send reject e-mails before acceptance e-mails" do
       notifications = sequence('notification')
 
-      EmailNotifications.expects(:deliver_notification_of_rejection).
+      EmailNotifications.expects(:notification_of_rejection).
         with(@sessions[0]).
         with(@sessions[1]).
+        returns(stub(:deliver => true)).
         in_sequence(notifications)
-      EmailNotifications.expects(:deliver_notification_of_acceptance).
+      EmailNotifications.expects(:notification_of_acceptance).
         with(@sessions[0]).
         with(@sessions[1]).
+        returns(stub(:deliver => true)).
         in_sequence(notifications)
     
       @publisher.publish
@@ -97,8 +99,8 @@ describe ReviewPublisher do
     end
     
     it "should capture error when notifying acceptance and move on" do
-      EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[0]).raises("error")
-      EmailNotifications.expects(:deliver_notification_of_acceptance).with(@sessions[1])
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises("error")
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(stub(:deliver => true))
       
       Rails.logger.expects(:info).with("  [FAILED ACCEPT] error")
       Rails.logger.expects(:info).with("  [ACCEPT] OK")
@@ -107,8 +109,8 @@ describe ReviewPublisher do
     end
 
     it "should capture error when notifying rejection and move on" do
-      EmailNotifications.expects(:deliver_notification_of_rejection).with(@sessions[0]).raises("error")
-      EmailNotifications.expects(:deliver_notification_of_rejection).with(@sessions[1])
+      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).raises("error")
+      EmailNotifications.expects(:notification_of_rejection).with(@sessions[1]).returns(stub(:deliver => true))
       
       Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       Rails.logger.expects(:info).with("  [REJECT] OK")

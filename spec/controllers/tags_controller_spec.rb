@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
  
 describe TagsController do
-  integrate_views
+  render_views
   
   it "index action should render index template" do
     get :index, :format => :js

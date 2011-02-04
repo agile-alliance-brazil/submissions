@@ -1,4 +1,4 @@
-- form.inputs :user_login do
+= form.inputs :user_login do
   = form.input :default_locale, :as => :hidden
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -6,7 +6,7 @@
   = form.input :email, :required => true, :input_html => {:tabindex => autotab}
   = form.input :password, :required => @user.new_record?, :input_html => {:tabindex => autotab}
   = form.input :password_confirmation, :required => @user.new_record?, :input_html => {:tabindex => autotab}
-- form.inputs :user_personal do
+= form.inputs :user_personal do
   = form.input :wants_to_submit, :as => :boolean, :input_html => {:tabindex => autotab, :disabled => (!@user.new_record? && !@user.roles_mask_changed? && @user.author?)}
   = form.input :phone, :required => true, :input_html => {:tabindex => autotab}
   = form.input :country, :required => true, :as => :country, :priority_countries => [:BR], :input_html => {:tabindex => autotab}

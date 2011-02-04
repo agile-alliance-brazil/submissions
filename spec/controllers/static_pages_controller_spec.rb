@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe StaticPagesController do
   it "should route to guidelines page" do

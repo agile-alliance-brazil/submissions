@@ -6,32 +6,32 @@ class Organizer < ActiveRecord::Base
   belongs_to :track
   
   validates_presence_of :track_id, :user_username
-  validates_existence_of :user, :track, :message => :existence
+  validates_existence_of :user, :track
   validates_uniqueness_of :track_id, :scope => :user_id
 
   validates_each :user_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.user.nil?
   end
   
-  def after_save
+  after_save do
     user.add_role :organizer
-    user.save_without_validation
+    user.save(:validate => false)
   end
   
-  def after_update
+  after_update do
     if user_id_changed?
       old_user = User.find(user_id_was)
       if old_user.organized_tracks.empty?
         old_user.remove_role :organizer
-        old_user.save_without_validation
+        old_user.save(:validate => false)
       end
     end
   end
   
-  def after_destroy
+  after_destroy do
     if user.organized_tracks.empty?
       user.remove_role :organizer
-      user.save_without_validation
+      user.save(:validate => false)
     end
   end
   

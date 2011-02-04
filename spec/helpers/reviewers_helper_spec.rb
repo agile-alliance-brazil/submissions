@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe ReviewersHelper do
   it "should reply doesnot_review for track without preferences" do

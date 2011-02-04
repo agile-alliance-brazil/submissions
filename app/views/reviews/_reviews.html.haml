@@ -24,8 +24,13 @@
 - if(@session.review_decision)
   %h2= t('formtastic.titles.review_decision')
 
-  %p= "<strong>" + t('formtastic.labels.review_decision.outcome_id') + ":</strong> " + t(@session.review_decision.outcome.title)
-  %p= "<strong>" + t('formtastic.labels.review_decision.note_to_authors') + ":</strong><br/>" + @session.review_decision.note_to_authors
+  %p
+    %strong #{t('formtastic.labels.review_decision.outcome_id')}:
+    = t(@session.review_decision.outcome.title)
+  %p
+    %strong #{t('formtastic.labels.review_decision.note_to_authors')}:
+    %br
+    = @session.review_decision.note_to_authors
 
 %h2= t('formtastic.titles.conclusion')
 
@@ -39,13 +44,13 @@
   %tbody
     - @reviews.each do |review|
       - class_name = cycle(:odd, :even)
-      - content_tag_for(:tr, review, :class => class_name) do
+      = content_tag_for(:tr, review, :class => class_name) do
         %td.reviewer&= reviewers[review]
         %td.recommendation= t(review.recommendation.title)
         %td.confidence= t(review.reviewer_confidence_rating.title)
         %td.action
       - if should_justify
-        - content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
+        = content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
           %td{:class => "justification", :colspan => 4}
             = "<strong>" + t('review.justification') + ":</strong> " + review.justification
 
@@ -59,7 +64,7 @@
       %th.comment= comments_label
   %tbody
     - @reviews.each do |review|
-      - content_tag_for(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
+      = content_tag(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
         %td.reviewer&= reviewers[review]
         %td.comment&= comments[review]
 

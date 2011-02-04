@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe Comment do
   context "protect from mass assignment" do
@@ -6,7 +6,7 @@ describe Comment do
     should_allow_mass_assignment_of :user_id
     should_allow_mass_assignment_of :commentable_id
   
-    should_not_allow_mass_assignment_of :evil_attr
+    should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes Comment, :comment

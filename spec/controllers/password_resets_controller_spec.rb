@@ -1,7 +1,7 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 describe PasswordResetsController do
-  integrate_views
+  render_views
 
   it_should_require_logout_for_actions :index, :new, :create, :edit, :update
   

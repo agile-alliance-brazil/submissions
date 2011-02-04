@@ -16,7 +16,7 @@ class UsersController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        EmailNotifications.deliver_welcome(@user)
+        EmailNotifications.welcome(@user).deliver
         UserSession.create(@user)
         flash[:notice] = t('flash.user.create.success')
         redirect_to root_url
