@@ -15,3 +15,9 @@ SessionType.seed do |session_type|
   session_type.title = 'session_types.talk.title'
   session_type.description = 'session_types.talk.description'
 end
+
+SessionType.seed do |session_type|
+  session_type.id = 4
+  session_type.title = 'session_types.lightning_talk.title'
+  session_type.description = 'session_types.lightning_talk.description'
+end

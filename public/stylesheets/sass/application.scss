@@ -5,7 +5,7 @@
 
 $color1: #009933;
 $color2: #5ad295;
-$color3: #f7c13b;
+$color3: #b0dff5;
 $color4: #ffffe0;
 $color5: #336699;
 
@@ -63,20 +63,20 @@ a:hover {
     li {
       float: left;
       list-style: none;
-      background-color: $color5;
+      background-color: $color1;
       margin: 2px;
       border: 2px solid $color3;
       &.selected {
-        background-color: $color5 + #222222;
+        background-color: $color1 + #222222;
         a {
-          color: $color3; } } }
+          color: $color4; } } }
     a {
       color: white;
       padding: 10px;
       line-height: 25px;
       text-decoration: none; }
     a:hover {
-      color: $color3;
+      color: $color4;
       text-decoration: underline; } } }
 
 #footer {

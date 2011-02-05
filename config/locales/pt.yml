@@ -483,6 +483,9 @@ pt:
     talk:
       title: "Palestra"
       description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil."
+    lightning_talk:
+      title: "Lightning Talk"
+      description: "Lightning talks são palestras de no máximo 8 minutos com 2 minutos para perguntar (sem slides) que têm o objetivo de transmitir uma ideia de forma rápida e concisa. O uso de slides é opcional. Um dos formatos conhecidos para lightning talk é o Pecha Kucha, no qual o apresentador tem 20 slides mudando automaticamente a cada 20 segundos, totalizando 6 minutos e 40 segundos de apresentação."
 
   tracks:
     general_interest:
