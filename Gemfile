@@ -16,14 +16,16 @@ gem 'cancan'
 gem 'RedCloth'
 gem 'acts_as_commentable'
 gem 'state_machine'
-gem "validates_existence", :git => 'git://github.com/dtsato/validates_existence.git'
+gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+group :development do
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
 
-group :test, :development do
-  gem "mocha"
-  gem "rspec-rails"
-  gem "remarkable_activerecord", "~>4.0.0.alpha4"
-  gem "factory_girl_rails"
-  gem "metric_fu"
+group :test do
+  gem 'mocha'
+  gem 'rspec-rails'
+  gem 'remarkable_activerecord', '~>4.0.0.alpha4'
+  gem 'factory_girl_rails'
+  gem 'metric_fu'
 end
