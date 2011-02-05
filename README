@@ -20,11 +20,14 @@ TODO:
  * Add cucumber features to test end-to-end journeys
  * Update images and text referencing "Agile Brazil 2010"
  * Remove hard-coded dates on deadlines for each phase of the conference
+ * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
- * Decide what to do with 2010 data
+ * Create a Conference model and scope all data to it
  * Update static page text and home page text
  * Add new SessionType for Lightning Talks (seed)
+ * Edit preferred language on user's profile
+
 --- 2010
  --- BUGS
  * new_session_review(nil) works iff locale is not explicit
