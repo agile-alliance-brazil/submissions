@@ -417,9 +417,9 @@ ul.spaced {
       font-weight: bold;
       margin-right: 2px;
       padding: 3px 4px; }
-    #pagination .pagination .next_page, #pagination .pagination .prev_page {
+    #pagination .pagination .next_page, #pagination .pagination .previous_page {
       font-weight: bold; }
-    #pagination .pagination .current {
+    #pagination .pagination em {
       background: #5ad295;
       color: white;
       font-weight: bold;

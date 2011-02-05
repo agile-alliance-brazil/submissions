@@ -4,7 +4,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
  * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec')
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
- * Styling and I18n label on will_paginate
  * Authlogic throwing lots of deprecation warnings (replace with devise??)
 
 FIXED UPGRADE ISSUES:
@@ -14,6 +13,7 @@ FIXED UPGRADE ISSUES:
  * Controller specs failing on authorization (see spec/support/disable_authorization.rb)
  * Validates_existence specs (using a patched gem with custom RSpec macros, see Gemfile)
  * Label with HTML are rendering without links (e.g. session/new) (see config/initializers/formtastic.rb)
+ * Styling and I18n label on will_paginate (see application.scss and application_helper.rb)
 
 TODO:
 

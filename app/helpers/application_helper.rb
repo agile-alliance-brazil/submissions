@@ -24,4 +24,14 @@ module ApplicationHelper
     end
     link_to text, parameters.merge({:column => column, :direction => direction})
   end
+
+  # Monkey patch to add I18N support to will paginate next/previous labels
+  def will_paginate(collection, options = {})
+    options.merge!({
+      :previous_label => t('generic.previous'),
+      :next_label => t('generic.next')
+    })
+
+    super(collection, options)
+  end
 end
