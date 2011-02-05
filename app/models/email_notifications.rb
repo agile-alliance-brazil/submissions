@@ -6,8 +6,8 @@ class EmailNotifications < ActionMailer::Base
     @user = user
     mail :subject => "[#{host}] #{I18n.t('email.welcome.subject')}",
          :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date => sent_at
   end
   
@@ -16,8 +16,8 @@ class EmailNotifications < ActionMailer::Base
     @user = user
     mail :subject => "[#{host}] #{I18n.t('email.password_reset.subject')}",
          :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date => sent_at
   end
   
@@ -26,8 +26,8 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject')}",
          :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date => sent_at
   end
   
@@ -36,8 +36,8 @@ class EmailNotifications < ActionMailer::Base
     @reviewer = reviewer
     mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject')}",
          :to       => "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>",
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date     => sent_at
   end
 
@@ -49,8 +49,8 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject')}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date     => sent_at).tap do
       session.review_decision.update_attribute(:published, true)
     end
@@ -64,14 +64,18 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject')}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <no-reply@#{host}>",
-         :reply_to => "\"Agile Brazil 2010\" <no-reply@#{host}>",
+         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
+         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
          :date     => sent_at).tap do
       session.review_decision.update_attribute(:published, true)
     end
   end
 
   private
+  def from_address
+    ActionMailer::Base.smtp_settings[:user_name]
+  end
+
   def host
     ActionMailer::Base.default_url_options[:host]
   end  

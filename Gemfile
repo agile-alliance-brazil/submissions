@@ -20,6 +20,7 @@ gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.
 
 group :development do
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'capistrano-ext'
 end
 
 group :test do

@@ -52,6 +52,14 @@ GEM
       activesupport (>= 3.0.0)
     builder (2.1.2)
     cancan (1.5.1)
+    capistrano (2.5.19)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.0.0)
+    capistrano-ext (1.2.1)
+      capistrano (>= 1.0.0)
     chronic (0.2.3)
       hoe (>= 1.2.1)
     churn (0.0.13)
@@ -82,6 +90,7 @@ GEM
       i18n (~> 0.4)
     haml (3.0.25)
     has_scope (0.5.0)
+    highline (1.6.1)
     hirb (0.3.6)
     hoe (2.9.0)
       rake (>= 0.8.7)
@@ -112,6 +121,13 @@ GEM
     mime-types (1.16)
     mocha (0.9.11)
       rake
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.1.0)
+    net-ssh-gateway (1.0.1)
+      net-ssh (>= 1.99.1)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -199,6 +215,7 @@ DEPENDENCIES
   authlogic!
   brhelper
   cancan
+  capistrano-ext
   factory_girl_rails
   formtastic
   haml
