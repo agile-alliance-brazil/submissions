@@ -2,7 +2,6 @@
 
 KNOWN ISSUES AFTER UPGRADE:
 
- * Label with HTML are rendering without links (e.g. session/new)
  * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec')
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
  * Styling and I18n label on will_paginate
@@ -14,17 +13,19 @@ FIXED UPGRADE ISSUES:
  * Controller Macro to check if user is logged_in/logged_out (see spec/support/controller_macros.rb)
  * Controller specs failing on authorization (see spec/support/disable_authorization.rb)
  * Validates_existence specs (using a patched gem with custom RSpec macros, see Gemfile)
+ * Label with HTML are rendering without links (e.g. session/new) (see config/initializers/formtastic.rb)
 
 TODO:
 
  * Add cucumber features to test end-to-end journeys
  * Update images and text referencing "Agile Brazil 2010"
  * Remove hard-coded dates on deadlines for each phase of the conference
- * Update deployment scripts
+ * Update deployment scripts (production)
+ ** email settings (enable_starttls_auto: false)
  * Decide what to do with 2010 data
  * Update static page text and home page text
  * Add new SessionType for Lightning Talks (seed)
-
+--- 2010
  --- BUGS
  * new_session_review(nil) works iff locale is not explicit
  * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
@@ -52,10 +53,12 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Rails 3 Upgrade -- Danilo
 
 DONE:
 
+ * Update deployment scripts (staging) -- Danilo
+ * Rails 3 Upgrade -- Danilo
+--- 2010
  * Feedback for organizers to know if author agreed to give the rights to use his image -- Danilo
  * Fixing email templates and tests -- Hugo
  * Once author has confirmed or withdrawn session, track organizers should not be able to edit review decision -- Hugo

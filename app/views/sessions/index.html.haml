@@ -3,9 +3,9 @@
 
 %ul
   - if params[:tagged_with]
-    %li= t('text.tagged_with', :tag => h(params[:tagged_with]))
+    %li= t('text.tagged_with', :tag => h(params[:tagged_with])).html_safe
   - if params[:user_id]
-    %li= t('text.for_user', :name => h(@user.try(:full_name)))
+    %li= t('text.for_user', :name => h(@user.try(:full_name))).html_safe
 
 %table.sessions
   %thead

@@ -14,7 +14,7 @@
           - if can? :update, organizer
             = link_to h(organizer.user.full_name), edit_organizer_path(organizer)
           - else
-            = h(organizer.user.full_name)
+            = organizer.user.full_name
         %td.track&= t(organizer.track.title)
         %td
           - if can? :destroy, organizer
