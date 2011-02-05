@@ -39,7 +39,7 @@
       
         = yield
 
-      #footer Copyleft - Agile Brazil 2010 - #{t('footer.help')}
+      #footer Copyleft - Agile Brazil 2010 - #{t('footer.help').html_safe}
 
     - unless AppConfig[:tracker_id].nil?
       :javascript
