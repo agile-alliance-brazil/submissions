@@ -323,7 +323,7 @@ en:
       description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community."
     lightning_talk:
       title: "Lightning Talk"
-      description: "Lightning talks are short talks with, at most, 8 minutes length plus 2 minutes for questions (without slides) whose objective is to present an idea in a quick and concise way. The use of slides is optional. A well-known format for lightning talks is Pecha Kucha, in which the presenter has 20 slides moving automatically every 20 seconds, summing up to a 6 minutes and 40 seconds presentation."
+      description: "Lightning talks are short talks with, at most, 8 minutes length plus 2 minutes for questions (without slides) whose objective is to present an idea in a quick and concise way. The use of slides is optional. A well-known format for lightning talks is Pecha Kucha, in which the presenter has 20 slides switching automatically every 20 seconds, summing up to a 6 minutes and 40 seconds presentation."
     
   tracks:
     general_interest:

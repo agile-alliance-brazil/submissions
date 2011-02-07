@@ -18,14 +18,12 @@ FIXED UPGRADE ISSUES:
 TODO:
 
  * Add cucumber features to test end-to-end journeys
- * Update images and text referencing "Agile Brazil 2010"
  * Remove hard-coded dates on deadlines for each phase of the conference
  * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
  * Create a Conference model and scope all data to it
  * Update static page text and home page text
- * Add new SessionType for Lightning Talks (seed)
  * Edit preferred language on user's profile
 
 --- 2010
@@ -59,6 +57,8 @@ IN PROGRESS:
 
 DONE:
 
+ * Update images and text referencing "Agile Brazil 2010" -- Hugo
+ * Add new SessionType for Lightning Talks (seed) -- Hugo
  * Update deployment scripts (staging) -- Danilo
  * Rails 3 Upgrade -- Danilo
 --- 2010
