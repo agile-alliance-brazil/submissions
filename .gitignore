@@ -7,3 +7,4 @@ coverage
 **/*~
 config/config*.yml
 .idea
+bin/*

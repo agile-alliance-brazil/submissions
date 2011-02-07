@@ -13,10 +13,17 @@ gem 'brhelper'
 gem 'seed-fu'
 gem 'acts-as-taggable-on'
 gem 'cancan'
-gem 'RedCloth'
 gem 'acts_as_commentable'
 gem 'state_machine'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
+
+platforms :mswin do
+  gem 'RedCloth', :platforms => :mswin
+end
+
+platforms :ruby do
+  gem 'RedCloth'
+end
 
 group :development do
   gem 'sqlite3-ruby', :require => 'sqlite3'
