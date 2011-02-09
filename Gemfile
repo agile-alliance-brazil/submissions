@@ -17,12 +17,16 @@ gem 'acts_as_commentable'
 gem 'state_machine'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
 
-platforms :mswin do
+platforms :mswin, :mingw do
   gem 'RedCloth', :platforms => :mswin
 end
 
 platforms :ruby do
   gem 'RedCloth'
+end
+
+group :development, :test do
+  gem 'hoe', '=2.8.0'
 end
 
 group :development do
