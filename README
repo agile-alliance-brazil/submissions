@@ -17,11 +17,11 @@ FIXED UPGRADE ISSUES:
 
 TODO:
 
- * Remove hard-coded dates on deadlines for each phase of the conference
  * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
  * Update static page text and home page text
+ * Remove hard-coded dates on deadlines for each phase of the conference
  -- lower priority
  * Edit preferred language on user's profile
  * Add cucumber features to test end-to-end journeys
@@ -57,6 +57,7 @@ IN PROGRESS:
 
 DONE:
 
+ * Updated deadlines for 2011 conference -- Danilo
  * Create a Conference model and scope all data to it -- Danilo
  * Update images and text referencing "Agile Brazil 2010" -- Hugo
  * Add new SessionType for Lightning Talks (seed) -- Hugo

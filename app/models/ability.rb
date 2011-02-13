@@ -56,10 +56,10 @@ class Ability
   def author
     can do |action, subject_class, subject|
       expand_actions([:create]).include?(action) && subject_class == Session &&
-          Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+          Time.zone.now <= Time.zone.local(2011, 3, 19, 23, 59, 59)
     end
     can(:update, Session) do |session|
-      session.try(:is_author?, @user) && Time.zone.now <= Time.zone.local(2010, 3, 7, 23, 59, 59)
+      session.try(:is_author?, @user) && Time.zone.now <= Time.zone.local(2011, 3, 19, 23, 59, 59)
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
@@ -68,10 +68,10 @@ class Ability
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2010, 6, 7, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 4, 30, 23, 59, 59)
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2010, 6, 7, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 4, 30, 23, 59, 59)
     end
   end
 
