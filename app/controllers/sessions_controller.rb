@@ -38,7 +38,12 @@ class SessionsController < InheritedResources::Base
   end
   
   protected
-  
+  def build_resource
+    attributes = params[:session] || {}
+    attributes[:conference_id] = current_conference.id
+    @session ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+
   def load_user
     @user = User.find(params[:user_id]) if params[:user_id]
   end
