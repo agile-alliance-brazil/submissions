@@ -15,8 +15,12 @@ class ApplicationController < ActionController::Base
     redirect_to :back rescue redirect_to root_path
   end
 
+  def current_conference
+    @current_conference ||= Conference.current
+  end
+
   def current_ability
-    @current_ability ||= Ability.new(current_user, params)
+    @current_ability ||= Ability.new(current_user, current_conference, params)
   end
 
   def default_url_options(options={})

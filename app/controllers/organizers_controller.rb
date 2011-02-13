@@ -26,14 +26,20 @@ class OrganizersController < InheritedResources::Base
         render :edit
       end
     end
-  end  
+  end
   
   protected
+  def build_resource
+    attributes = params[:organizer] || {}
+    attributes[:conference_id] = current_conference.id
+    @organizer ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+
   def collection
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= 'organizers.created_at DESC'
-    @organizers ||= end_of_association_chain.paginate(paginate_options)
+    @organizers ||= end_of_association_chain.for_conference(current_conference).paginate(paginate_options)
   end
 end

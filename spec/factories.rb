@@ -1,4 +1,7 @@
 # encoding: utf-8
+Factory.define :conference do |c|
+  c.sequence(:name) {|n| "Agile Brazil #{2000+n}"}
+end
 
 Factory.define :user do |u|
   u.first_name "User"
@@ -44,6 +47,7 @@ Factory.define :session do |s|
   s.association :track
   s.association :session_type
   s.association :audience_level
+  s.association :conference
   s.duration_mins 45
   s.title "Fake title"
   s.summary "Summary details of session"
@@ -65,10 +69,12 @@ end
 Factory.define :organizer do |o|
   o.association :user
   o.association :track
+  o.association :conference
 end
 
 Factory.define :reviewer do |r|
   r.association :user
+  r.association :conference
 end
 
 Factory.define :preference do |p|

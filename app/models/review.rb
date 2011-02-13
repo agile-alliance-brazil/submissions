@@ -32,6 +32,8 @@ class Review < ActiveRecord::Base
   
   validates_uniqueness_of :reviewer_id, :scope => :session_id
 
+  scope :for_conference, lambda { |c| joins(:session).where(:sessions => {:conference_id => c.id})}
+
   after_create do
     session.reviewing
   end

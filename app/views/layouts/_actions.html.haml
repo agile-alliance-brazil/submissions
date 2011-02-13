@@ -1,21 +1,14 @@
 - if logged_in?
-  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
-    #date
-      %p= t('actions.review_date')
-      %p <strong>#{l(Date.new(2010, 4, 8))}</strong>
+  /- if current_user.reviewer? || current_user.organizer? || current_user.admin?
+  #date
+    %p= t('actions.submission_date')
+    %p <strong>#{l(Date.new(2011, 3, 19))}</strong>
+    /
       #review_progress_count
         #{t('actions.review_goal')}:
         %span.progress
   %h3&= current_user.full_name
-- else
-  = semantic_form_for @user_session do |f|
-    = f.inputs do
-      = f.input :username, :required => true, :input_html => {:tabindex => autotab}
-      = f.input :password, :required => true, :input_html => {:tabindex => autotab}
-    = f.buttons do
-      = f.commit_button "Log in", :button_html => {:tabindex => autotab}
 
-- if logged_in?
   %h4= t('actions.section.session')
   %ul
     - if can? :create, Session
@@ -24,7 +17,7 @@
       %li= link_to t('actions.browse_sessions'), sessions_path
       - if current_user.sessions.count > 0
         %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
-      
+
   - if current_user.reviewer? || current_user.organizer? || current_user.admin?
     %h4= t('actions.section.review')
     %ul
@@ -36,11 +29,11 @@
         %li= link_to t('actions.organizer_sessions'), organizer_sessions_path
       - if can? :read, 'reviewer_sessions'
         %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path
-      - if can? :read, 'reviews_listing'
+      - if can? :reviewer, 'reviews_listing'
         %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path
       - if @session.present? && can?(:create, Review, @session)
         %li= link_to t('actions.review_session'), new_session_review_path(@session)
-        
+
   %h4= t('actions.section.user')
   %ul
     - if can? :read, User
@@ -49,30 +42,38 @@
       %li= link_to t('actions.edit_profile'), edit_user_path(current_user)
     - if can? :destroy, UserSession
       %li= link_to "Logout", logout_path
-        
+
+  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
+    :javascript
+      $(document).ready(function() {
+        $.getJSON('#{reviews_path(:format => :js)}', function(data) {
+          var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
+          var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
+          var green = Math.floor(parseInt(data.required_reviews) * 0.90);
+          var progressImages = {};
+          progressImages[0] = '/images/progressbg_red.gif';
+          progressImages[orange] = '/images/progressbg_orange.gif';
+          progressImages[yellow] = '/images/progressbg_yellow.gif';
+          progressImages[green] = '/images/progressbg_green.gif';
+
+          $("#review_progress_count .progress").progressBar(data.total_reviews, {
+            boxImage : '/images/progressbar.gif',
+            max : data.required_reviews,
+            textFormat : 'fraction',
+            barImage : progressImages
+          });
+        })
+      })
+              
 - else
+  = semantic_form_for @user_session do |f|
+    = f.inputs do
+      = f.input :username, :required => true, :input_html => {:tabindex => autotab}
+      = f.input :password, :required => true, :input_html => {:tabindex => autotab}
+    = f.buttons do
+      = f.commit_button "Log in", :button_html => {:tabindex => autotab}
+
   %ul
     - if can? :create, User
       %li= link_to t('actions.signup'), signup_path
     %li= link_to t('title.lost_password'), new_password_reset_path
-
-:javascript
-  $(document).ready(function() {
-    $.getJSON('#{reviews_path(:format => :js)}', function(data) {
-      var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
-      var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
-      var green = Math.floor(parseInt(data.required_reviews) * 0.90);
-      var progressImages = {};
-      progressImages[0] = '/images/progressbg_red.gif';
-      progressImages[orange] = '/images/progressbg_orange.gif';
-      progressImages[yellow] = '/images/progressbg_yellow.gif';
-      progressImages[green] = '/images/progressbg_green.gif';
-      
-      $("#review_progress_count .progress").progressBar(data.total_reviews, {
-        boxImage : '/images/progressbar.gif',
-        max : data.required_reviews,
-        textFormat : 'fraction',
-        barImage : progressImages
-      });
-    })
-  })

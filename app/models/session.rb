@@ -1,7 +1,7 @@
 class Session < ActiveRecord::Base
   attr_accessible :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :audience_level_id, :audience_limit,
-                  :author_id, :second_author_username, :track_id,
+                  :author_id, :second_author_username, :track_id, :conference_id,
                   :session_type_id, :duration_mins, :experience,
                   :keyword_list, :author_agreement, :image_agreement, :state_event
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
@@ -15,13 +15,14 @@ class Session < ActiveRecord::Base
   belongs_to :track
   belongs_to :session_type
   belongs_to :audience_level
+  belongs_to :conference
   
   has_many :reviews
   has_one :review_decision
   
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
                         :audience_level_id, :author_id, :track_id, :session_type_id,
-                        :experience, :duration_mins, :keyword_list
+                        :experience, :duration_mins, :keyword_list, :conference_id
   
   validates_presence_of :mechanics, :if => :workshop?
   validates_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
@@ -33,6 +34,8 @@ class Session < ActiveRecord::Base
   validates_length_of :summary, :maximum => 800
   validates_length_of :description, :maximum => 2400
   validates_length_of :mechanics, :maximum => 2400, :allow_blank => true
+
+  validates_existence_of :conference, :track, :session_type, :audience_level, :author
 
   validates_each :keyword_list do |record, attr, value|
     record.errors.add(attr, :too_long, :count => 10) if record.keyword_list.size > 10
@@ -52,14 +55,16 @@ class Session < ActiveRecord::Base
   validates_each :author_id, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.author_id_changed?
   end
-  
+
+  scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
+
   scope :for_user, lambda { |u| where('author_id = ? OR second_author_id = ?', u.to_i, u.to_i) }
   
   scope :for_tracks, lambda { |track_ids| where('track_id IN (?)', track_ids) }
   
   scope :not_author, lambda { |u| where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i) }
   
-  scope :reviewed_by, lambda { |u| where('reviewer_id = ?', u.to_i).joins(:reviews) }
+  scope :reviewed_by, lambda { |u, c| where('reviewer_id = ? AND conference_id = ?', u.id, c.id).joins(:reviews) }
 
   scope :for_preferences, lambda { |*preferences|
     return where('1 = 2') if preferences.empty?
@@ -70,11 +75,12 @@ class Session < ActiveRecord::Base
   
   scope :incomplete_reviews, lambda { |limit| where('reviews_count < ?', limit) }
   
-  def self.for_reviewer(user)
+  def self.for_reviewer(user, conference)
+    for_conference(conference).
     incomplete_reviews(3).
     not_author(user.id).
     without_state(:cancelled).
-    for_preferences(*user.preferences).all - reviewed_by(user.id).all
+    for_preferences(*user.preferences(conference)).all - reviewed_by(user, conference).all
   end
   
   state_machine :initial => :created do

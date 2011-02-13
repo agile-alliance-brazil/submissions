@@ -6,8 +6,8 @@ class ReviewsListingController < ApplicationController
       end
       format.js do
         render :json => {
-          'required_reviews' => Session.without_state(:cancelled).count * 3,
-          'total_reviews' => Review.count
+          'required_reviews' => Session.for_conference(current_conference).without_state(:cancelled).count * 3,
+          'total_reviews' => Review.for_conference(current_conference).count
         }
       end
     end
@@ -21,6 +21,6 @@ class ReviewsListingController < ApplicationController
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= order
-    @reviews = current_user.reviews.paginate(paginate_options)
+    @reviews = current_user.reviews.for_conference(current_conference).paginate(paginate_options)
   end
 end

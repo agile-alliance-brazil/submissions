@@ -1,6 +1,6 @@
 class AcceptedSessionsController < InheritedResources::Base
   def index
-    @sessions = Session.with_state(:accepted)
+    @sessions = Session.for_conference(current_conference).with_state(:accepted)
     @tracks = Track.all
   end
 end

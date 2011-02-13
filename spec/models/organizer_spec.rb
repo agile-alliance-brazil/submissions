@@ -5,6 +5,7 @@ describe Organizer do
   context "protect from mass assignment" do
     should_allow_mass_assignment_of :user_id
     should_allow_mass_assignment_of :track_id
+    should_allow_mass_assignment_of :conference_id
     should_allow_mass_assignment_of :user_username
   
     should_not_allow_mass_assignment_of :id
@@ -16,16 +17,17 @@ describe Organizer do
     before { Factory(:organizer) }
     should_validate_presence_of :user_username
     should_validate_presence_of :track_id
-    should_validate_uniqueness_of :track_id, :scope => :user_id
+    should_validate_presence_of :conference_id
+    should_validate_uniqueness_of :track_id, :scope => [:conference_id, :user_id]
 
-    should_validate_existence_of :user, :track
+    should_validate_existence_of :user, :track, :conference
 
     context "user" do
-      xit "should be a valid user" do
+      it "should be a valid user" do
         organizer = Factory(:organizer)
         organizer.user_username = 'invalid_username'
         organizer.should_not be_valid
-        organizer.errors[:user_username].should include("não existe")
+        organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
       end
     end      
   end
@@ -33,6 +35,7 @@ describe Organizer do
   context "associations" do
     should_belong_to :user
     should_belong_to :track
+    should_belong_to :conference
 
     context "user association by username" do
       before(:each) do
@@ -68,15 +71,19 @@ describe Organizer do
   end
   
   shared_examples_for "organizer role" do
+    before do
+      @conference = Factory(:conference)
+    end
+
     it "should make given user organizer role after created" do
       @user.should_not be_organizer
-      organizer = Factory(:organizer, :user => @user)
+      organizer = Factory(:organizer, :user => @user, :conference => @conference)
       @user.should be_organizer
       @user.reload.should be_organizer
     end
     
     it "should remove organizer role after destroyed" do
-      organizer = Factory(:organizer, :user => @user)
+      organizer = Factory(:organizer, :user => @user, :conference => @conference)
       @user.should be_organizer
       organizer.destroy
       @user.should_not be_organizer
@@ -84,8 +91,8 @@ describe Organizer do
     end
     
     it "should keep organizer role after destroyed if user organizes other tracks" do
-      Factory(:organizer, :user => @user)
-      organizer = Factory(:organizer, :user => @user)
+      Factory(:organizer, :user => @user, :conference => @conference)
+      organizer = Factory(:organizer, :user => @user, :conference => @conference)
       @user.should be_organizer
       organizer.destroy
       @user.should be_organizer
@@ -93,7 +100,7 @@ describe Organizer do
     end
     
     it "should remove organizer role after update" do
-      organizer = Factory(:organizer, :user => @user)
+      organizer = Factory(:organizer, :user => @user, :conference => @conference)
       another_user = Factory(:user)
       organizer.user = another_user
       organizer.save
@@ -102,8 +109,8 @@ describe Organizer do
     end
 
     it "should keep organizer role after update if user organizes other tracks" do
-      Factory(:organizer, :user => @user)
-      organizer = Factory(:organizer, :user => @user)
+      Factory(:organizer, :user => @user, :conference => @conference)
+      organizer = Factory(:organizer, :user => @user, :conference => @conference)
       another_user = Factory(:user)
       organizer.user = another_user
       organizer.save

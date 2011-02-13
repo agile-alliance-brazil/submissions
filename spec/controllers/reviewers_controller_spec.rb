@@ -6,6 +6,7 @@ describe ReviewersController do
   it_should_require_login_for_actions :index, :new, :create, :update
 
   before(:each) do
+    @conference = Factory(:conference)
     @user = Factory(:user)
     activate_authlogic    
     UserSession.create(@user)
@@ -31,7 +32,7 @@ describe ReviewersController do
   end
   
   it "create action should redirect when model is valid" do
-    post :create, :reviewer => {:user_id => @user.id}
+    post :create, :reviewer => {:user_id => @user.id, :conference_id => @conference.id}
     response.should redirect_to(reviewers_path)
   end
   
@@ -50,8 +51,7 @@ describe ReviewersController do
     put :update, :id => reviewer.id
     response.should redirect_to(reviewer_sessions_path)
   end
-  
-  
+
   it "destroy action should redirect" do
     reviewer = Factory(:reviewer, :user_id => @user.id)
     delete :destroy, :id => reviewer.id

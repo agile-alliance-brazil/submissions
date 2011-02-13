@@ -8,6 +8,7 @@ describe Reviewer do
   
   context "protect from mass assignment" do
     should_allow_mass_assignment_of :user_id
+    should_allow_mass_assignment_of :conference_id
     should_allow_mass_assignment_of :user_username
     should_allow_mass_assignment_of :preferences_attributes
     should_allow_mass_assignment_of :reviewer_agreement
@@ -20,10 +21,10 @@ describe Reviewer do
 
   context "validations" do
     before { Factory(:reviewer) }
-    should_validate_presence_of :user_username
-    should_validate_uniqueness_of :user_id
+    should_validate_presence_of :user_username, :conference_id
+    should_validate_uniqueness_of :user_id, :scope => :conference_id
 
-    should_validate_existence_of :user
+    should_validate_existence_of :user, :conference
     
     it "should validate that at least 1 preference was accepted" do
       reviewer = Factory(:reviewer)
@@ -41,7 +42,7 @@ describe Reviewer do
     
     it "should copy user errors to user_username" do
       reviewer = Factory(:reviewer)
-      new_reviewer = Factory.build(:reviewer, :user => reviewer.user)
+      new_reviewer = Factory.build(:reviewer, :user => reviewer.user, :conference => reviewer.conference)
       new_reviewer.should_not be_valid
       new_reviewer.errors[:user_username].should include("já está em uso")
     end
@@ -61,6 +62,7 @@ describe Reviewer do
   
   context "associations" do
     should_belong_to :user
+    should_belong_to :conference
     should_have_many :preferences
     should_have_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
     
@@ -213,8 +215,12 @@ describe Reviewer do
   end
 
   shared_examples_for "reviewer role" do
+    before do
+      @conference = Factory(:conference)
+    end
+
     it "should make given user reviewer role after invitation accepted" do
-      reviewer = Factory(:reviewer, :user => @user)
+      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
       @user.should_not be_reviewer
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
@@ -224,7 +230,7 @@ describe Reviewer do
     end
     
     it "should remove organizer role after destroyed" do
-      reviewer = Factory(:reviewer, :user => @user)
+      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
@@ -254,15 +260,20 @@ describe Reviewer do
   context "checking if able to review a track" do
     before(:each) do
       @organizer = Factory(:organizer)
-      @reviewer = Factory(:reviewer, :user => @organizer.user)
+      @reviewer = Factory(:reviewer, :user => @organizer.user, :conference => @organizer.conference)
     end
     
     it "can review track when not organizer" do
       @reviewer.should be_can_review(Factory(:track))
     end
     
-    it "can not review track when organizer" do
+    it "can not review track when organizer on the same conference" do
       @reviewer.should_not be_can_review(@organizer.track)
+    end
+
+    it "can review track when organizer for different conference" do
+      reviewer = Factory(:reviewer, :user => @organizer.user)
+      reviewer.should be_can_review(@organizer.track)
     end
   end
 end

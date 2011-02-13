@@ -13,7 +13,7 @@ describe Preference do
   
   context "validations" do
     should_validate_inclusion_of :accepted, :in => [true, false]
-    
+
     describe "should validate audience level if accepted" do
       subject {Factory(:preference, :accepted => true)}
       should_validate_presence_of :audience_level_id
@@ -31,6 +31,7 @@ describe Preference do
         preference = Factory.build(:preference)
         preference.should be_valid
         preference.reviewer.user = @organizer.user
+        preference.reviewer.conference = @organizer.conference
         preference.track = @organizer.track
         preference.should_not be_valid
         preference.errors[:accepted].should include("não pode avaliar trilha que está organizando")
@@ -42,7 +43,7 @@ describe Preference do
     should_belong_to :reviewer
     should_belong_to :track
     should_belong_to :audience_level
-    
+
     should_have_one :user, :through => :reviewer
   end
 end

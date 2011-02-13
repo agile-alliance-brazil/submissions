@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Ability do
   before(:each) do
     @user = Factory(:user)
+    @conference = Factory(:conference)
   end
   
   shared_examples_for "all users" do
@@ -61,7 +62,7 @@ describe Ability do
 
   context "- all users (guests)" do
     before(:each) do
-      @ability = Ability.new(@user)
+      @ability = Ability.new(@user, @conference)
     end
 
     it_should_behave_like "all users"
@@ -114,7 +115,7 @@ describe Ability do
   context "- admin" do
     before(:each) do
       @user.add_role "admin"
-      @ability = Ability.new(@user)
+      @ability = Ability.new(@user, @conference)
     end
 
     it "can manage all" do
@@ -125,7 +126,7 @@ describe Ability do
   context "- author" do
     before(:each) do
       @user.add_role "author"
-      @ability = Ability.new(@user)
+      @ability = Ability.new(@user, @conference)
     end
 
     it_should_behave_like "all users"
@@ -152,16 +153,16 @@ describe Ability do
         @ability.should_not be_able_to(:index, Review) # no params
         @ability.should_not be_able_to(:index, Review, @session)
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should_not be_able_to(:index, Review) # session id provided
         @ability.should_not be_able_to(:index, Review, @session)
         
         @session.reload.update_attribute(:author_id, @user.id)
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:index, Review) # session id provided
         @ability.should be_able_to(:index, Review, @session)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:index, Review) # session id nil
         @ability.should be_able_to(:index, Review, @session)
       end
@@ -170,16 +171,16 @@ describe Ability do
         @ability.should_not be_able_to(:index, Review) # no params
         @ability.should_not be_able_to(:index, Review, @session)
         
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should_not be_able_to(:index, Review) # session id provided
         @ability.should_not be_able_to(:index, Review, @session)
 
         @session.reload.update_attribute(:second_author_id, @user.id)
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:index, Review) # session id provided
         @ability.should be_able_to(:index, Review, @session)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference,  {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:index, Review) # session id nil
         @ability.should be_able_to(:index, Review, @session)
       end
@@ -196,11 +197,11 @@ describe Ability do
         @ability.should_not be_able_to(:index, Review) # no params
         @ability.should_not be_able_to(:index, Review, session)
         
-        @ability = Ability.new(@user, :session_id => session.to_param)
+        @ability = Ability.new(@user, @conference, :session_id => session.to_param)
         @ability.should_not be_able_to(:index, Review) # session id provided
         @ability.should_not be_able_to(:index, Review, session)  
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:index, Review) # session id nil
         @ability.should_not be_able_to(:index, Review, session)
       end
@@ -279,20 +280,20 @@ describe Ability do
       it "- user is first author" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
         @session.stubs(:author).returns(@another_user)
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
       end
 
       it "- session is pending confirmation" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
         @session.stubs(:pending_confirmation?).returns(false)
@@ -302,7 +303,7 @@ describe Ability do
       it "- session has a review" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
         @session.stubs(:review_decision).returns(nil)
@@ -312,7 +313,7 @@ describe Ability do
       it "- before deadline of 7/6/2010" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
         Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
@@ -322,7 +323,7 @@ describe Ability do
       it "- after deadline can't confirm" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
         Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
@@ -344,20 +345,20 @@ describe Ability do
       it "- user is first author" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
         @session.stubs(:author).returns(@another_user)
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id nil
       end
 
       it "- session is pending confirmation" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
         @session.stubs(:pending_confirmation?).returns(false)
@@ -367,7 +368,7 @@ describe Ability do
       it "- session has a review" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
         @session.stubs(:review_decision).returns(nil)
@@ -377,7 +378,7 @@ describe Ability do
       it "- before deadline of 7/6/2010" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
         Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 7, 23, 59, 58))
@@ -387,7 +388,7 @@ describe Ability do
       it "- after deadline can't withdraw" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
-        @ability = Ability.new(@user, {:session_id => @session.to_param})
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
         Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2010, 6, 8, 0, 0, 0))
@@ -400,7 +401,8 @@ describe Ability do
   context "- organizer" do
     before(:each) do
       @user.add_role "organizer"
-      @ability = Ability.new(@user)
+      Factory(:organizer, :user => @user, :conference => @conference)
+      @ability = Ability.new(@user, @conference)
     end
 
     it_should_behave_like "all users"
@@ -417,8 +419,9 @@ describe Ability do
       @ability.should be_able_to(:show, Review)
     end
     
-    it "cannot read reviews listing" do
-      @ability.should_not be_able_to(:read, 'reviews_listing')
+    it "can read reviews listing" do
+      @ability.should be_able_to(:read, 'reviews_listing')
+      @ability.should_not be_able_to(:reviewer, 'reviews_listing')
     end
     
     it "can read sessions to organize" do
@@ -435,23 +438,23 @@ describe Ability do
       end
       
       it "session on organizer's track is allowed" do
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:organizer, Review) # no params
         
-        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should be_able_to(:organizer, Review) # session id provided
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:organizer, Review) # session id nil
       end
       
       it "session outside of organizer's track is forbidden" do
         @ability.should_not be_able_to(:organizer, Review) # no params
         
-        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should_not be_able_to(:organizer, Review) # session id provided
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:organizer, Review) # session id nil
       end
     end
@@ -463,12 +466,16 @@ describe Ability do
       
       it "- session on organizer's track" do
         @ability.should_not be_able_to(:cancel, @session)
+
         Factory(:organizer, :track => @session.track, :user => @user)
+        @ability.should_not be_able_to(:cancel, @session)
+
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:cancel, @session)
       end
-      
+
       it "- session is not already cancelled" do
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:cancel, @session)
         @session.cancel
         @ability.should_not be_able_to(:cancel, @session)
@@ -485,22 +492,22 @@ describe Ability do
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
 
-        @ability = Ability.new(@user)
+        @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
       
@@ -510,46 +517,46 @@ describe Ability do
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
 
-        @ability = Ability.new(@user)
+        @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
 
       it "- session is in review" do
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
         
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
 
         @session.reject
         
-        @ability = Ability.new(@user)
+        @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
     end
@@ -564,22 +571,22 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
         
         Factory(:organizer, :track => @session.track, :user => @user)
 
-        @ability = Ability.new(@user)
+        @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
       
@@ -589,22 +596,22 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
 
         Factory(:organizer, :track => @session.track, :user => @user)
 
-        @ability = Ability.new(@user)
+        @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
@@ -616,17 +623,17 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
       it "unless session was rejected by author" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.reject
@@ -639,7 +646,7 @@ describe Ability do
       it "unless session was accepted by author" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.accept
@@ -654,38 +661,38 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
       
       it "if session is rejected" do
         @session.reject
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
         
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
       
       it "if session is tentatively accepted" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
         
-        @ability = Ability.new(@user, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
     end
@@ -694,7 +701,8 @@ describe Ability do
   context "- reviewer" do
     before(:each) do
       @user.add_role "reviewer"
-      @ability = Ability.new(@user)
+      Factory(:reviewer, :user => @user, :conference => @conference)
+      @ability = Ability.new(@user, @conference)
     end
 
     it_should_behave_like "all users"
@@ -738,13 +746,13 @@ describe Ability do
     context "can create a new review if:" do
       before(:each) do
         @session = Factory(:session)
-        Session.stubs(:for_reviewer).with(@user).returns([@session])
+        Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
       end
       
       it "has not created a review for this session" do
         @ability.should be_able_to(:create, Review, @session)
       
-        Session.expects(:for_reviewer).with(@user).returns([])
+        Session.expects(:for_reviewer).with(@user, @conference).returns([])
         @ability.should_not be_able_to(:create, Review, @session)
       end
       
@@ -752,12 +760,12 @@ describe Ability do
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)
         
-        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should be_able_to(:create, Review)
         @ability.should be_able_to(:create, Review, nil)
         @ability.should be_able_to(:create, Review, @session)
         
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)
       end
@@ -768,12 +776,12 @@ describe Ability do
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)
         
-        @ability = Ability.new(@user, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should be_able_to(:create, Review)
         @ability.should be_able_to(:create, Review, nil)
         @ability.should be_able_to(:create, Review, @session)
         
-        @ability = Ability.new(@user, {:locale => 'pt', :session_id => nil})
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)
       end

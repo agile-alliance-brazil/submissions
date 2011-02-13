@@ -82,10 +82,30 @@ describe User do
   context "associations" do
     should_have_many :sessions, :foreign_key => 'author_id'
     should_have_many :organizers
-    should_have_many :organized_tracks, :through => :organizers, :source => :track
-    should_have_one :reviewer
-    should_have_many :preferences, :through => :reviewer, :source => :accepted_preferences
+    should_have_many :all_organized_tracks, :through => :organizers, :source => :track
+    should_have_many :reviewers
     should_have_many :reviews, :foreign_key => 'reviewer_id'
+
+    describe "organized tracks for conference" do
+      it "should narrow tracks based on conference" do
+        organizer = Factory(:organizer)
+        user = organizer.user
+        Factory(:organizer, :user => user)
+
+        user.organized_tracks(organizer.conference).should == [organizer.track]
+      end
+    end
+
+    describe "user preferences" do
+      it "should return reviewer preferences based on conference" do
+        preference = Factory(:preference)
+        reviewer = preference.reviewer
+        user = reviewer.user
+        Factory(:preference, :reviewer => Factory(:reviewer, :user => user))
+
+        user.preferences(reviewer.conference).should == [preference] 
+      end
+    end
   end
   
   context "named scopes" do

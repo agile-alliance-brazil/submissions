@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
   
   has_many :sessions, :foreign_key => 'author_id'
   has_many :organizers
-  has_many :organized_tracks, :through => :organizers, :source => :track
-  has_one :reviewer
-  has_many :preferences, :through => :reviewer, :source => :accepted_preferences
+  has_many :all_organized_tracks, :through => :organizers, :source => :track
+  has_many :reviewers
   has_many :reviews, :foreign_key => 'reviewer_id'
   
   validates_presence_of :first_name, :last_name
@@ -34,7 +33,33 @@ class User < ActiveRecord::Base
   end
 
   scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
-  
+
+  def organized_tracks(conference)
+    Track.joins(:track_ownerships).where(:organizers => {
+        :conference_id => conference.id,
+        :user_id => self.id
+    })
+  end
+
+  def preferences(conference)
+    Preference.joins(:reviewer).where(:reviewers => {
+        :conference_id => conference.id,
+        :user_id => self.id
+    })
+  end
+
+  # Overriding role check to take current conference into account
+  def reviewer_with_conference?
+    reviewer_without_conference? && Reviewer.user_reviewing_conference?(self, Conference.current)
+  end
+  alias_method_chain :reviewer?, :conference
+
+  # Overriding role check to take current conference into account
+  def organizer_with_conference?
+    organizer_without_conference? && Organizer.user_organizing_conference?(self, Conference.current)
+  end
+  alias_method_chain :organizer?, :conference
+
   def full_name
     [self.first_name, self.last_name].join(' ')
   end

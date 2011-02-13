@@ -2,7 +2,6 @@
 
 KNOWN ISSUES AFTER UPGRADE:
 
- * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec')
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
  * Authlogic throwing lots of deprecation warnings (replace with devise??)
 
@@ -14,17 +13,18 @@ FIXED UPGRADE ISSUES:
  * Validates_existence specs (using a patched gem with custom RSpec macros, see Gemfile)
  * Label with HTML are rendering without links (e.g. session/new) (see config/initializers/formtastic.rb)
  * Styling and I18n label on will_paginate (see application.scss and application_helper.rb)
+ * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec', see config/initializers/default_locale.rb)
 
 TODO:
 
- * Add cucumber features to test end-to-end journeys
  * Remove hard-coded dates on deadlines for each phase of the conference
  * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
- * Create a Conference model and scope all data to it
  * Update static page text and home page text
+ -- lower priority
  * Edit preferred language on user's profile
+ * Add cucumber features to test end-to-end journeys
 
 --- 2010
  --- BUGS
@@ -57,6 +57,7 @@ IN PROGRESS:
 
 DONE:
 
+ * Create a Conference model and scope all data to it -- Danilo
  * Update images and text referencing "Agile Brazil 2010" -- Hugo
  * Add new SessionType for Lightning Talks (seed) -- Hugo
  * Update deployment scripts (staging) -- Danilo

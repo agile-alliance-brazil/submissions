@@ -52,7 +52,7 @@ class SessionsController < InheritedResources::Base
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= 'sessions.created_at DESC'
-    @sessions ||= end_of_association_chain.paginate(paginate_options)
+    @sessions ||= end_of_association_chain.for_conference(current_conference).paginate(paginate_options)
   end
   
   def begin_of_association_chain

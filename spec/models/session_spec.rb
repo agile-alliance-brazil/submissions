@@ -21,7 +21,8 @@ describe Session do
     should_allow_mass_assignment_of :author_agreement
     should_allow_mass_assignment_of :image_agreement
     should_allow_mass_assignment_of :state_event
-  
+    should_allow_mass_assignment_of :conference_id
+
     should_not_allow_mass_assignment_of :id
   end
   
@@ -34,6 +35,7 @@ describe Session do
     should_belong_to :track
     should_belong_to :session_type
     should_belong_to :audience_level
+    should_belong_to :conference
     
     should_have_many :comments, :as => :commentable, :dependent => :destroy
     
@@ -82,13 +84,16 @@ describe Session do
     should_validate_presence_of :target_audience
     should_validate_presence_of :author_id
     should_validate_presence_of :track_id
+    should_validate_presence_of :conference_id
     should_validate_presence_of :session_type_id
     should_validate_presence_of :audience_level_id
     should_validate_presence_of :experience
     should_validate_presence_of :duration_mins
     should_validate_presence_of :keyword_list
     should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
-    
+
+    should_validate_existence_of :conference, :track, :session_type, :audience_level, :author
+
     should_validate_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
     
     should_validate_length_of :title, :maximum => 100
@@ -185,6 +190,8 @@ describe Session do
   end
   
   context "named scopes" do
+    xit {should have_scope(:for_conference, :with => '1').where('conference_id = 1') }
+
     xit {should have_scope(:for_user, :with => '3').where('author_id = 3 OR second_author_id = 3') }
 
     xit {should have_scope(:for_tracks, :with => [1, 2]).where('track_id IN (1, 2)') }
@@ -232,16 +239,18 @@ describe Session do
       
       it "should combine criteria" do
         reviewer = Factory(:reviewer)
+        conference = reviewer.conference
+        Session.expects(:for_conference).with(conference).returns(Session)
         Session.expects(:incomplete_reviews).with(3).returns(Session)
         Session.expects(:not_author).with(reviewer.user.id).returns(Session)
         Session.expects(:without_state).with(:cancelled).returns(Session)
         Session.expects(:for_preferences).with(*reviewer.preferences).returns(Session)
         
-        Session.expects(:reviewed_by).with(reviewer.user.id).returns(Session)
+        Session.expects(:reviewed_by).with(reviewer.user, conference).returns(Session)
         
         Session.expects(:all).times(2).then.returns([1, 2, 3, 4]).then.returns([2, 3, 6])
         
-        Session.for_reviewer(reviewer.user).should == [1, 4]
+        Session.for_reviewer(reviewer.user, conference).should == [1, 4]
       end
     end
   end

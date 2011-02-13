@@ -1,22 +1,31 @@
 class Reviewer < ActiveRecord::Base
-  attr_accessible :user_id, :user_username, :preferences_attributes,
+  attr_accessible :user_id, :conference_id, :user_username, :preferences_attributes,
                   :reviewer_agreement, :state_event
   attr_trimmed    :user_username
 
   belongs_to :user
+  belongs_to :conference
   has_many :preferences
   has_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
   
   accepts_nested_attributes_for :preferences
   
-  validates_presence_of :user_username
-  validates_existence_of :user
-  validates_uniqueness_of :user_id
+  validates_presence_of :user_username, :conference_id
+  validates_existence_of :user, :conference
+  validates_uniqueness_of :user_id, :scope => :conference_id
 
   validates_each :user_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.user.nil?
   end
-  
+
+  scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
+
+  scope :for_user, lambda { |u| where('user_id = ?', u.id)}
+
+  def self.user_reviewing_conference?(user, conference)
+    !self.for_user(user).for_conference(conference).empty?
+  end
+
   after_validation do
     if !errors[:user_id].empty?
       errors[:user_id].each { |error| errors.add(:user_username, error) }
@@ -65,7 +74,7 @@ class Reviewer < ActiveRecord::Base
   end
   
   def can_review?(track)
-    !user.organized_tracks.include?(track)
+    !user.organized_tracks(self.conference).include?(track)
   end
   
   def user_username

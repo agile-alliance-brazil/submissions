@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100501033554) do
+ActiveRecord::Schema.define(:version => 20110207012822) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",          :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "conferences", :force => true do |t|
+    t.string   "name"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "logos", :force => true do |t|
     t.string   "format"
@@ -43,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
     t.integer  "track_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "conference_id"
   end
 
   create_table "outcomes", :force => true do |t|
@@ -87,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "conference_id"
   end
 
   create_table "reviews", :force => true do |t|
@@ -125,7 +134,7 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit",    :limit => 255
+    t.integer  "audience_limit"
     t.integer  "author_id"
     t.text     "experience"
     t.datetime "created_at"
@@ -136,9 +145,10 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "reviews_count",                    :default => 0
+    t.integer  "reviews_count",     :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
+    t.integer  "conference_id"
   end
 
   create_table "slots", :force => true do |t|
@@ -149,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20100501033554) do
     t.integer  "duration_mins"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "conference_id"
   end
 
   create_table "taggings", :force => true do |t|

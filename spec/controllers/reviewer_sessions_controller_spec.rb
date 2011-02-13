@@ -6,8 +6,9 @@ describe ReviewerSessionsController do
   it_should_require_login_for_actions :index
 
   before(:each) do
+    @conference = Factory(:conference)
     @user = Factory(:user)
-    @reviewer = Factory(:reviewer, :user => @user)
+    @reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
     activate_authlogic
     UserSession.create(@user)
     disable_authorization
@@ -19,7 +20,7 @@ describe ReviewerSessionsController do
   end
   
   it "index action should find sessions for reviewer" do
-    Session.expects(:for_reviewer).with(@user).returns([])
+    Session.expects(:for_reviewer).with(@user, @conference).returns([])
     get :index
     assigns(:sessions).should == []
   end

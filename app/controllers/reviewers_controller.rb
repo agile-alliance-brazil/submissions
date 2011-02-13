@@ -35,7 +35,13 @@ class ReviewersController < InheritedResources::Base
   end  
   
   protected
+  def build_resource
+    attributes = params[:reviewer] || {}
+    attributes[:conference_id] = current_conference.id
+    @reviewer ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+
   def collection
-    @reviewers ||= Reviewer.joins(:user).order('first_name, last_name')
+    @reviewers ||= Reviewer.for_conference(current_conference).joins(:user).order('first_name, last_name')
   end
 end

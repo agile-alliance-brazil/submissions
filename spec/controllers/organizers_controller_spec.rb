@@ -6,6 +6,7 @@ describe OrganizersController do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   before(:each) do
+    @conference = Factory(:conference)
     @user = Factory(:user)
     activate_authlogic
     UserSession.create(@user)
@@ -33,7 +34,7 @@ describe OrganizersController do
   it "create action should redirect when model is valid" do
     user = Factory(:user)
     track = Factory(:track)
-    post :create, :organizer => {:user_username => user.username, :track_id => track.id}
+    post :create, :organizer => {:user_username => user.username, :track_id => track.id, :conference_id => @conference.id}
     response.should redirect_to(organizers_path)
   end
   

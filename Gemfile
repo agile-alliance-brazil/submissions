@@ -31,13 +31,15 @@ end
 
 group :development do
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'ruby-mysql'
   gem 'capistrano-ext'
 end
 
-group :test do
+group :development, :test do
   gem 'mocha'
   gem 'rspec-rails'
   gem 'remarkable_activerecord', '~>4.0.0.alpha4'
   gem 'factory_girl_rails'
   gem 'metric_fu'
+  gem 'hoe', '=2.8.0'
 end

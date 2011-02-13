@@ -7,7 +7,8 @@ describe SessionsController do
   it_should_require_login_for_actions :index, :show, :new, :create, :edit, :update
 
   before(:each) do
-    @session = Factory(:session)
+    @conference = Factory(:conference)
+    @session = Factory(:session, :conference => @conference)
     activate_authlogic
     UserSession.create(@session.author)
     disable_authorization
@@ -68,7 +69,7 @@ describe SessionsController do
   end
   
   it "cancel action should redirect to organizer sessions with error" do
-    session = Factory(:session)
+    session = Factory(:session, :conference => @conference)
     session.cancel
     delete :cancel, :id => session
     response.should redirect_to(organizer_sessions_path)
