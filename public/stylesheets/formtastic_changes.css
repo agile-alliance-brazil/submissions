@@ -49,7 +49,7 @@ form.formtastic abbr::before, form.formtastic acronym::before {
 }
 
 form.formtastic fieldset ol li p.inline-hints {
-  color: #999999;
+  color: #666666;
   font-style: italic;
   width: 74%;
 }
