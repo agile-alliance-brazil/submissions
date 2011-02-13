@@ -21,8 +21,8 @@ TODO:
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
  * Update static page text and home page text
- * Remove hard-coded dates on deadlines for each phase of the conference
  -- lower priority
+ * Remove hard-coded dates on deadlines for each phase of the conference
  * Edit preferred language on user's profile
  * Add cucumber features to test end-to-end journeys
 

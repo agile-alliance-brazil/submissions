@@ -75,6 +75,9 @@ en:
         edit:
           password: "Change password"
           password_confirmation: "Confirm new password"
+      user_session:
+        username: "Username"
+        password: "Password"
       session:
         title: "Session title"
         track_id: "Track"
