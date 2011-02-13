@@ -11,8 +11,7 @@
         %li= link_to t('actions.edit'), edit_session_comment_path(@session, comment)
       - if can? :destroy, comment
         %li= link_to t('actions.destroy'), session_comment_path(@session, comment), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy_comment'))
-    :textile
-      #{comment.comment}
+    = textilize(comment.comment)
 
 - if can? :create, Comment
   = semantic_form_for(@comment, :url => session_comments_path(@session)) do |form|

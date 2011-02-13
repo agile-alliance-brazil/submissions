@@ -28,12 +28,9 @@
           %li= t('session.audience_limit', :limit => session.audience_limit)
       %span.bio{:id => "bio_#{session.id}"}
         %h6= session.author.full_name
-        :textile
-          #{session.author.try(:bio)}
+        = textilize(session.author.try(:bio))
         - if session.second_author
           %h6= session.second_author.full_name
-          :textile
-            #{session.second_author.try(:bio)}
+          = textilize(session.second_author.try(:bio))
 
-      :textile
-        #{session.try(:summary)}
+      = textilize(session.try(:summary))

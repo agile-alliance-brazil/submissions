@@ -20,6 +20,4 @@
   
   - unless @user.bio.blank?
     %dt= t('formtastic.labels.user.bio')
-    %dd
-      :textile
-        #{@user.bio}
+    %dd= textilize(@user.bio)

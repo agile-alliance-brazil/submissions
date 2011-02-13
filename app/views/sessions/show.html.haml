@@ -31,26 +31,16 @@
   %dt= t('formtastic.labels.session.target_audience')
   %dd&= @session.try(:target_audience)
   %dt= t('formtastic.labels.session.summary')
-  %dd
-    :textile
-      #{@session.try(:summary)}
+  %dd= textilize(@session.try(:summary))
   %dt= t('formtastic.labels.session.description')
-  %dd
-    :textile
-      #{@session.try(:description)}
+  %dd= textilize(@session.try(:description))
   - unless @session.mechanics.blank?
     %dt= t('formtastic.labels.session.mechanics')
-    %dd
-      :textile
-        #{@session.mechanics}
+    %dd= textilize(@session.mechanics)
   %dt= t('formtastic.labels.session.benefits')
-  %dd
-    :textile
-      #{@session.try(:benefits)}
+  %dd= textilize(@session.try(:benefits))
   %dt= t('formtastic.labels.session.experience')
-  %dd
-    :textile
-      #{@session.try(:experience)}
+  %dd= textilize(@session.try(:experience))
 
 %hr
 

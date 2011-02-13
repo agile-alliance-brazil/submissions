@@ -4,7 +4,8 @@ KNOWN ISSUES AFTER UPGRADE:
 
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
  * Authlogic throwing lots of deprecation warnings (replace with devise??)
-
+ * Custom error pages not working
+ 
 FIXED UPGRADE ISSUES:
 
  * ActionMailer bug when setting I18n (see config/initializers/rails3_abstract_controller_rendering_fix.rb)
@@ -14,6 +15,7 @@ FIXED UPGRADE ISSUES:
  * Label with HTML are rendering without links (e.g. session/new) (see config/initializers/formtastic.rb)
  * Styling and I18n label on will_paginate (see application.scss and application_helper.rb)
  * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec', see config/initializers/default_locale.rb)
+ * XSS on textile rendering (using RedCloth on application_helper instead of :textile HAML filter)
 
 TODO:
 

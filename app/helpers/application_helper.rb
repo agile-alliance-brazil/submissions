@@ -34,4 +34,8 @@ module ApplicationHelper
 
     super(collection, options)
   end
+
+  def textilize(text)
+    ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
+  end
 end

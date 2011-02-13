@@ -9,12 +9,10 @@
     .session_info
       %p
         %strong #{t('formtastic.labels.session.summary')}:
-        :textile
-          #{@session.try(:summary)}
+        = textilize(@session.try(:summary))
       %p
         %strong #{t('formtastic.labels.session.description')}:
-        :textile
-          #{@session.try(:description)}
+        = textilize(@session.try(:description))
       %p
         %strong #{t('formtastic.labels.session.keyword_list')}:
         = @session.keyword_list.join(', ')
@@ -54,12 +52,10 @@
       - unless @review.session.mechanics.blank?
         %p
           %strong #{t('formtastic.labels.session.mechanics')}:
-          :textile
-            #{@session.try(:mechanics)}
+          = textilize(@session.try(:mechanics))
       %p
         %strong #{t('formtastic.labels.session.benefits')}:
-        :textile
-          #{@session.try(:benefits)}
+        = textilize(@session.try(:benefits))
     = form.input :proposal_quality_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     = form.input :proposal_relevance_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
 
@@ -74,14 +70,12 @@
           = link_to h(@review.session.second_author.full_name), user_path(@review.session.second_author)
       %p
         %strong #{t('formtastic.labels.user.bio')}:
-        :textile
-          #{@review.session.author.bio}
+        = textilize(@review.session.author.bio)
     = form.input :author_agile_xp_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
     .session_info
       %p
         %strong #{t('formtastic.labels.session.experience')}:
-        :textile
-          #{@review.session.experience}
+        = textilize(@review.session.experience)
     = form.input :author_proposal_xp_rating_id, :required => true, :as => :select, :collection => Rating.all, :label_method => Proc.new { |rating| t(rating.title) }, :input_html => {:tabindex => autotab}
 
   = form.inputs :conclusion do
