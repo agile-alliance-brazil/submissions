@@ -9,9 +9,11 @@ set :project,             "submissoes"
 set :application,         "submissoes.agilebrazil.com"
 set :applicationdir,      "/home/#{user}/#{application}"
 set :gem_path,            "/home/#{user}/gems"
+set :bundle_cmd,          "#{gem_path}/bin/bundle"
+set :rake,                "#{bundle_cmd} exec rake"
 
 set :scm,                 :git
-set :repository,          "git@github.com:frankmt/agile_brazil.git"
+set :repository,          "git@github.com:dtsato/agile_brazil.git"
 set :scm_verbose,         true
 
 set :deploy_to,           applicationdir
@@ -22,5 +24,3 @@ role :web, domain
 role :db,  domain, :primary => true
 
 set :use_sudo, false
-
-set :migrate_env, "GEM_PATH=#{gem_path}"

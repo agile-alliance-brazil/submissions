@@ -18,11 +18,11 @@ gem 'state_machine'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
 
 platforms :mswin, :mingw do
-  gem 'RedCloth', :platforms => :mswin
+  gem 'RedCloth', :require => 'redcloth', :platforms => :mswin
 end
 
 platforms :ruby do
-  gem 'RedCloth'
+  gem 'RedCloth', :require => 'redcloth'
 end
 
 group :development, :test do
