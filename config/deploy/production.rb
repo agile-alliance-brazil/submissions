@@ -8,7 +8,7 @@ set :domain,              "agilebrazil.com"
 set :project,             "submissoes"
 set :application,         "submissoes.agilebrazil.com"
 set :applicationdir,      "/home/#{user}/#{application}"
-set :gem_path,            "/home/#{user}/gems"
+set :gem_path,            "/home/#{user}/.gems"
 set :bundle_cmd,          "#{gem_path}/bin/bundle"
 set :rake,                "#{bundle_cmd} exec rake"
 
