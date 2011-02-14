@@ -22,17 +22,14 @@ TODO:
  * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
- * Update static page text and home page text
  -- lower priority
+ * Reviewer add/remove role on update/destroy
+ * Organizer can only manage reviewers for same conference
  * Remove hard-coded dates on deadlines for each phase of the conference
  * Edit preferred language on user's profile
  * Add cucumber features to test end-to-end journeys
 
 --- 2010
- --- BUGS
- * new_session_review(nil) works iff locale is not explicit
- * Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
- * Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
  --- High priority
  * Visibility for author to know if he confirmed his presence or not (both authors)
  --- Medium term
@@ -59,6 +56,10 @@ IN PROGRESS:
 
 DONE:
 
+ * Update static page text and home page text -- Danilo
+ * Access last year's sessions -- Danilo
+ * Lightning talk and experience report validation -- Danilo
+ * Update durations (10, 50, 110) -- Danilo
  * Updated deadlines for 2011 conference -- Danilo
  * Create a Conference model and scope all data to it -- Danilo
  * Update images and text referencing "Agile Brazil 2010" -- Hugo
@@ -179,7 +180,12 @@ DONE:
 
 BUGS:
 
+--- 2010
 * After I have logged in, I then change my password, when I click on update, I am logged out....
+
+* new_session_review(nil) works iff locale is not explicit
+* Sorting by author, second author and track sort weirdly (using ids instead of names) on organizer_sessions
+* Sorting by session sorts weirdly (using ids instead of names) on reviewer_reviews
 
 * After I have logged in, I should not see "Register a new account" on the main text, How to submit a session to Agile Brazil 2010.  The registered user should not be asked to register again, in other words. [won't fix]
 * Should not allow numerical characters in City field. [won't fix]
@@ -189,7 +195,21 @@ BUGS:
 * Edit profile page: should not be able to insert <H1> / <H2> tags in Bio field. [won't fix]
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
+--- 2011
+* When I have just submitted a session, the confirmation message "Sessão submetida com sucesso." should be in English
+* Given I entered an invalid username and blank password, and I click on log in and see the error message, When I click on "English", Then I should not see a Google Oops page.  Then I should see the English version of the Agile Brazil home page.
+
 FIXED:
+* When I am viewing my profile, "Session proposals" link needs to be rename to "My session proposals" -- Danilo
+* (Cosmetic tweak) Propose a session page: the Copyleft text is too close to the edge of the page at the end.  All other pages have a gap under the copyleft statement -- Danilo
+* When I click on Log in button with blank username and password fields, the "Você não passou detalhes para autenticação" message should be in English -- Danilo
+* When I am viewing my profile, "Edit" link needs to be renamed to "Edit profile".  Currently the edit link is just after the session proposals link, which made it look like it's a link to edit the session proposal but it's actually a link to edit my profile page -- Danilo
+* When I add an invalid username as my second author, error message "does not exist -- has incomplete author profile" needs to be changed to "does not exist" (because the non-existent user trumps whether it's an author or not, so there is no need to further specify that this is a light user profile, when user does not even exist in the system) -- Danilo
+* Edit user profile: "De preferência um celular." should be in English -- Danilo
+* "has incomplete author profile" changed to "user is currently not an author" -- Danilo
+* When logging in with an invalid username and / or password in English, the error message should not be in Portuguese -- Danilo
+* In comments field, I should not be able to put HTML tags, such as scripts tags, or <h1>H1 text</h1> -- Danilo
+* After clicking on Forgotten Password and entered my email address, I should not get a Portuguese feedback message.  In my inbox, I should not see the email in Portuguese either. -- Danilo
 * "My sessions" link disapeared after session submission deadline expired -- Hugo/Mari
 * Session ID on the reviewer session listing is wrong [column removed] -- Hugo
 * Login brings you to the review count js [fixed] -- Hugo/Danilo

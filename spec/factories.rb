@@ -48,7 +48,7 @@ Factory.define :session do |s|
   s.association :session_type
   s.association :audience_level
   s.association :conference
-  s.duration_mins 45
+  s.duration_mins 50
   s.title "Fake title"
   s.summary "Summary details of session"
   s.description "Full details of session"

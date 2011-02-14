@@ -144,8 +144,10 @@ pt:
         record_invalid: "A validação falhou: %{errors}"
         existence: "não existe"
         same_author: "não pode ser o mesmo autor"
-        incomplete: "perfil de autor incompleto"
-        experience_report_duration: "só pode ser 45 minutos"
+        incomplete: "usuário não possui perfil de autor completo"
+        experience_report_talk_duration: "só pode ser 50 minutos"
+        non_lightning_talk_duration: "só pode ser 50 ou 110 minutos"
+        lightning_talk_duration: "só pode ser 10 minutos"
         experience_report_session_type: "só pode ser uma Palestra"
         email_format: "deve ter um formato de e-mail válido"
         username_format: "deve usar apenas letras, números, espaços e .-_@"
@@ -315,9 +317,9 @@ pt:
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas votar ou deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
       session:
-        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 45 minutos de duração."
+        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 50 minutos de duração ou Lightning Talks com 10 minutos de duração."
         session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt' target='_blank'>aqui</a>."
-        duration_mins: "Se a sua sessão for uma Palestra, indique a duração adequada para ela. Para Tutoriais e Workshops recomendamos uma duração de 90 minutos."
+        duration_mins: "Se a sua sessão for uma Palestra, indique a duração adequada para ela. Para Tutoriais e Workshops recomendamos uma duração de 110 minutos."
         audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='/audience_levels?locale=pt' target='_blank'>aqui</a>."
         audience_limit: "Se a sua sessão for um Tutorial ou Workshop, indique se ela tem um número máximo de participantes."
         target_audience: "Descreva um pouco sobre o público-alvo, por exemplo: desenvolvedores, iniciantes em Métodos Ágeis, analistas, arquitetos, QAs, gerentes de projeto, executivos."
@@ -362,6 +364,7 @@ pt:
     change_password: "Escolha uma nova senha"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
+    user_sessions: "Sessões submetidas por %{name}"    
     new_session: "Proposta de sessão"
     tracks: "Trilhas de interesse"
     session_types: "Tipos de sessão"
@@ -469,6 +472,7 @@ pt:
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
+      session_different_conference: "Você está acessando uma proposta da %{conference_name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da %{current_conference_name}."
     review:
       create:
         success: "Avaliação gravada com sucesso."
@@ -479,7 +483,7 @@ pt:
       description: "Este tipo de sessão contempla atividades endereçadas especialmente a pessoas que estão apenas começando ou procurando por um apoio em Métodos Ágeis. Tutoriais são aulas guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos Ágeis. Tutoriais têm objetivos claros de aprendizado que focam no ensino de habilidades ou técnicas específicas."
     workshop:
       title: "Workshop"
-      description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para fazer um brainstorm de idéia para a próxima \"novidade\"."
+      description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para discutir novas idéias a serem compartilhadas com a comunidade."
     talk:
       title: "Palestra"
       description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil."

@@ -145,7 +145,8 @@ a:hover {
   width: 940px;
   color: #999999;
   text-align: center;
-  font-size: 8pt; }
+  font-size: 8pt;
+  margin-bottom: 20px; }
 
 #container {
   margin-left: auto;

@@ -4,7 +4,7 @@ class UserSessionsController < InheritedResources::Base
   before_filter :logout_required, :only => :create
 
   actions :new, :create
-  
+
   def new
     new!
   end

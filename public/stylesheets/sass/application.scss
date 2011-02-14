@@ -83,7 +83,8 @@ a:hover {
   @include grid(12);
   color: #999999;
   text-align: center;
-  font-size: 8pt; }
+  font-size: 8pt;
+  margin-bottom: 20px; }
 
 #container {
   @include grid-system(12); }

@@ -237,7 +237,7 @@ describe Ability do
     
     describe "can update session if:" do
       before(:each) do
-        @session = Factory(:session)
+        @session = Factory(:session, :conference => @conference)
         Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
       end
       
@@ -262,6 +262,13 @@ describe Ability do
       it "- after deadline author can't update" do
         @session.author = @user
         Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 20, 0, 0, 0))
+        @ability.should_not be_able_to(:update, @session)
+      end
+
+      it "- session on current conference" do
+        @session.author = @user
+        @ability.should be_able_to(:update, @session)
+        @session.conference = Factory(:conference)
         @ability.should_not be_able_to(:update, @session)
       end
     end

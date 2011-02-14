@@ -25,6 +25,13 @@ describe SessionsController do
     assigns(:comment).user.should == @session.author
     assigns(:comment).commentable_id.should == Session.first.id
   end
+
+  it "show action should display flash news if session from previous conference" do
+    old_session = Factory(:session)
+    Factory(:session)
+    get :show, :id => old_session.id
+    flash[:news].should == "Você está acessando uma proposta da #{old_session.conference.name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da #{Conference.current.name}."
+  end
   
   it "new action should render new template" do
     get :new

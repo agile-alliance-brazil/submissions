@@ -9,8 +9,10 @@ en:
       messages:
         existence: "does not exist"
         same_author: "can't be the same as author"
-        incomplete: "has incomplete author profile"
-        experience_report_duration: "can only be 45 minutes"
+        incomplete: "user is currently not an author"
+        experience_report_talk_duration: "can only be 50 minutes"
+        non_lightning_talk_duration: "can only be 50 or 110 minutes"
+        lightning_talk_duration: "can only be 10 minutes"
         experience_report_session_type: "can only be a Talk"
         email_format: "should look like an email address"
         username_format: "please use only letters, numbers, spaces, and .-_@"
@@ -147,6 +149,7 @@ en:
     hints:
       user:
         email: "Main e-mail address for contact purposes."
+        phone: "Preferably your mobile cellphone number."
         password: "At least 4 characters."
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
@@ -156,9 +159,9 @@ en:
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         wants_to_submit: "Leave this blank if you only want to vote or leave comments on other users' sessions. You can change your mind later, by editing your profile."
       session:
-        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 45 minutes will be accepted."
+        track_id: "A detailed description of each track can be found <a href='/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 50 minutes or Lightning Talks lasting 10 minutes will be accepted."
         session_type_id: "A detailed description of session types can be found <a href='/session_types?locale=en' target='_blank'>here</a>."
-        duration_mins: "If you are proposing a Talk, please indicate its duration. For Tutorials and Workshops we recommend a duration of 90 minutes."
+        duration_mins: "If you are proposing a Talk, please indicate its duration. For Tutorials and Workshops we recommend a duration of 110 minutes."
         audience_level_id: "Indicate the appropriate experience level of your audience. A description of each level can be found <a href='/audience_levels?locale=en' target='_blank'>here</a>."
         audience_limit: "If your session is a Tutorial or Workshop, indicate if it has a maximum number of participants."
         target_audience: "Indicate your target audience, for example: developers, new to Agile, analysts, architects, QAs, project managers, executives."
@@ -203,6 +206,7 @@ en:
     change_password: "Choose new password"
     untitled: "Untitled"
     sessions: "Session proposals"
+    user_sessions: "%{name}'s session proposals"
     new_session: "Propose a session"
     tracks: "Session Tracks"
     session_types: "Session Types"
@@ -310,6 +314,7 @@ en:
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:
+      session_different_conference: "You're viewing a session from %{conference_name}. Check %{current_conference_name}'s <a href='/sessions?locale=en'>sessions</a>."
     review:
       create:
         success: "Review recorded successfully."
@@ -320,7 +325,7 @@ en:
       description: "This type includes sessions specially targeted for people who are just beginning or looking for a foothold in Agile methods. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects. Tutorials have clear learning objectives that focus on teaching specific skills or techniques."
     workshop:
       title: "Workshop"
-      description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or brainstorm ideas for the next new \"thing\"."
+      description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or discuss new ideas to be shared with the community."
     talk:
       title: "Talk"
       description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community."

@@ -1,10 +1,10 @@
-- title "Trabalhos da Agile Brazil 2011"
+- title "Trabalhos da #{current_conference.name}"
 - show_actions!
 .auto_focus
 
-%p A Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{link_to("Agile Brazil 2011", "http://www.agilebrazil.com/2011/")} – é uma conferência nacional sem fins lucrativos organizada por representantes das principais comunidades ágeis brasileiras. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes visando à disseminação coordenada da cultura Ágil por todo o país.
+%p A Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{link_to(current_conference.name, "http://www.agilebrazil.com/2011/")} – é uma conferência nacional sem fins lucrativos organizada por representantes das principais comunidades ágeis brasileiras. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes visando à disseminação coordenada da cultura Ágil por todo o país.
 
-%p O Agile Brazil 2011 acontecerá em Fortaleza, no fim de Junho, contando com cursos, apresentação de trabalhos e relatos de experiência provenientes de várias regiões do país, alem da participação de convidados reconhecidos internacionalmente. Prepare desde já a #{link_to("sua viagem", "http://www.agilebrazil.com/2011/pt/viagem.php")}.
+%p O #{current_conference.name} acontecerá em Fortaleza, no fim de Junho, contando com cursos, apresentação de trabalhos e relatos de experiência provenientes de várias regiões do país, alem da participação de convidados reconhecidos internacionalmente. Prepare desde já a #{link_to("sua viagem", "http://www.agilebrazil.com/2011/pt/viagem.php")}.
 
 %h3 Datas importantes
 

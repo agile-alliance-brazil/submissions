@@ -3,7 +3,7 @@
   
   %head
     %title
-      Agile Brazil 2011 -
+      #{current_conference.name} -
       = content_for?(:title) ? yield(:title) : t('title.untitled')
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "/favicon.ico"}/
@@ -18,7 +18,7 @@
       #header
         = link_to image_tag('logo.png'), root_path
         .logo
-          %h1 Agile Brazil 2011
+          %h1= current_conference.name
           %strong Fortaleza CE, Fim Jun/2011
         %ul#languages
           %li= link_to "Português", "?locale=pt"

@@ -13,6 +13,7 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:user][:email])
     if @user
+      @user.default_locale = I18n.locale
       @user.deliver_password_reset_instructions!
       flash[:notice] = t('flash.password_reset.create.success')
       redirect_to root_url

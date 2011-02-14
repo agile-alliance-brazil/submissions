@@ -5,10 +5,10 @@
 
 %p Note que você poderá também ler as propostas submetidas por outros usuários, assim como eles poderão ler as suas, mesmo após o prazo de submissão.
 
-%p As submissões serão revisadas e avaliadas por pelo menos 3 membros do comitê de avaliação. Serão levados em consideração:
+%p As submissões serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Serão levados em consideração:
 
 %ul
-  %li A experiência do(s) autor(es) - tanto o mini-currículo preenchido no #{logged_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
+  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{logged_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
   %li Adequação da proposta no que diz respeito à #{link_to "trilha escolhida", tracks_path}, #{link_to "tipo de sessão", session_types_path} proposto, #{link_to "nível e perfil", audience_levels_path} do público;
   %li Relevância para o evento;
   %li Clareza e qualidade do material enviado.

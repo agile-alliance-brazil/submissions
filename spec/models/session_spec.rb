@@ -90,9 +90,10 @@ describe Session do
     should_validate_presence_of :experience
     should_validate_presence_of :duration_mins
     should_validate_presence_of :keyword_list
-    should_validate_inclusion_of :duration_mins, :in => [45, 90], :allow_blank => true
+    should_validate_inclusion_of :duration_mins, :in => [10, 50, 110], :allow_blank => true
 
-    should_validate_existence_of :conference, :track, :session_type, :audience_level, :author
+    should_validate_existence_of :conference, :author
+    should_validate_existence_of :track, :session_type, :audience_level, :allow_nil => true
 
     should_validate_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
     
@@ -135,27 +136,59 @@ describe Session do
         guest = Factory(:user)
         @session.second_author_username = guest.username
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include("perfil de autor incompleto")
+        @session.errors[:second_author_username].should include("usuário não possui perfil de autor completo")
       end
     end
-    
-    context "experience report" do
+
+    context "duration" do
       before(:each) do
         @talk = SessionType.new(:title => 'session_types.talk.title')
+        @lightning_talk = SessionType.new(:title => 'session_types.lightning_talk.title')
         @session = Factory(:session)
-        @session.track = Track.new(:title => 'tracks.experience_reports.title')
         @session.session_type = @talk
       end
-      
-      it "should only have duration of 45 minutes" do
-        @session.duration_mins = 45
+
+      it "should only allow duration of 50 or 110 minutes for talks" do
+        @session.duration_mins = 50
         @session.should be_valid
-        @session.duration_mins = 90
+        @session.duration_mins = 110
+        @session.should be_valid
+        @session.duration_mins = 10
         @session.should_not be_valid
       end
 
-      it "should only be talk" do
+      it "should only have duration of 10 minutes for lightning talks" do
+        @session.session_type = @lightning_talk
+        @session.duration_mins = 10
+        @session.should be_valid
+        @session.duration_mins = 50
+        @session.should_not be_valid
+        @session.duration_mins = 110
+        @session.should_not be_valid
+      end
+    end
+
+    context "experience report" do
+      before(:each) do
+        @talk = SessionType.new(:title => 'session_types.talk.title')
+        @lightning_talk = SessionType.new(:title => 'session_types.lightning_talk.title')
+        @session = Factory(:session)
+        @session.track = Track.new(:title => 'tracks.experience_reports.title')
+      end
+
+      it "should only have duration of 50 minutes for talks" do
         @session.session_type = @talk
+        @session.duration_mins = 50
+        @session.should be_valid
+        @session.duration_mins = 110
+        @session.should_not be_valid
+      end
+
+      it "should be talk or lightning talk" do
+        @session.session_type = @talk
+        @session.should be_valid
+        @session.session_type = @lightning_talk
+        @session.duration_mins = 10
         @session.should be_valid
         @session.session_type = SessionType.new(:title => 'session_types.workshop.title')
         @session.should_not be_valid
@@ -261,6 +294,14 @@ describe Session do
     session.should_not be_workshop
     session.session_type = workshop
     session.should be_workshop
+  end
+
+  it "should determine if it's lightning talk" do
+    lightning_talk = SessionType.new(:title => 'session_types.lightning_talk.title')
+    session = Factory(:session)
+    session.should_not be_lightning_talk
+    session.session_type = lightning_talk
+    session.should be_lightning_talk
   end
 
   it "should determine if it's experience_report" do

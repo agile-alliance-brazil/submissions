@@ -3,7 +3,7 @@
   = form.input :track_id, :required => true, :as => :select, :collection => Track.all, :label_method => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
   = form.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
   = form.input :session_type_id, :required => true, :as => :select, :collection => SessionType.all, :label_method => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}
-  = form.input :duration_mins, :required => true, :as => :select, :collection => [["45 #{t('generic.minutes')}", 45], ["90 #{t('generic.minutes')}", 90]], :input_html => {:tabindex => autotab}
+  = form.input :duration_mins, :required => true, :as => :select, :collection => [["10 #{t('generic.minutes')}", 10], ["50 #{t('generic.minutes')}", 50], ["110 #{t('generic.minutes')}", 110]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
   = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab}
@@ -25,14 +25,18 @@
     $("#session_session_type_id").filterOn("#session_track_id", {
       "4": ["", "1", "2"]
     })
-    $("#session_duration_mins").filterOn("#session_track_id", {
-      "4": ["", "90"]
-    })
     $("#session_track_id").bindSelectUpdated();
-    
+
+    $("#session_duration_mins").filterOn("#session_session_type_id", {
+      "1": ["10"],
+      "2": ["10"],
+      "3": ["10"],
+      "4": ["", "50", "110"]
+    })
+    $("#session_session_type_id").bindSelectUpdated();
+
     $("#session_session_type_id").bind('updated', sessionTypeActions);
     $("#session_session_type_id").bindSelectUpdated();
-    
     
     $("#session_session_type_id, #session_track_id").trigger('updated');
   })

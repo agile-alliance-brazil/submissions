@@ -59,7 +59,7 @@ class Ability
           Time.zone.now <= Time.zone.local(2011, 3, 19, 23, 59, 59)
     end
     can(:update, Session) do |session|
-      session.try(:is_author?, @user) && Time.zone.now <= Time.zone.local(2011, 3, 19, 23, 59, 59)
+      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= Time.zone.local(2011, 3, 19, 23, 59, 59)
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?

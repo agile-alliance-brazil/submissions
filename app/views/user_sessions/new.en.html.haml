@@ -1,10 +1,10 @@
-- title "Sessions proposed to Agile Brazil 2011"
+- title "Sessions proposed to #{current_conference.name}"
 - show_actions!
 .auto_focus
 
-%p The Brazilian Conference about Agile Methods – #{link_to("Agile Brazil 2011", "http://www.agilebrazil.com/2011")} – is a non-profitable national conference organized by representatives of the main Brazilian agile communities. The event's goal is to promote communication and collaboration among its attendees aiming to disseminate the Agile culture in the whole country.
+%p The Brazilian Conference about Agile Methods – #{link_to(current_conference.name, "http://www.agilebrazil.com/2011")} – is a non-profitable national conference organized by representatives of the main Brazilian agile communities. The event's goal is to promote communication and collaboration among its attendees aiming to disseminate the Agile culture in the whole country.
 
-%p Agile Brazil 2011 will be held in Fortaleza, in the end of June, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests. Start preparing #{link_to("your trip", "http://www.agilebrazil.com/2011/en/trip.php")}.
+%p #{current_conference.name} will be held in Fortaleza, in the end of June, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests. Start preparing #{link_to("your trip", "http://www.agilebrazil.com/2011/en/trip.php")}.
 
 %h3 Important dates
 

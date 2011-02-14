@@ -26,7 +26,7 @@ jQuery.fn.filterOn = function(field, options_to_hide) {
           $(select).append(option);
         }
       });
-      $(select).val($(select).data('selected'));
+      $(select).val($(select).data('selected')).trigger('updated');
     });            
   });
 };
