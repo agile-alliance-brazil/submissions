@@ -1,20 +1,20 @@
-- title "Invitation to be part of the Agile Brazil 2010 review committee"
+- title "Invitation to be part of the #{current_conference.name} review committee"
 .auto_focus
 
 %p Dear #{@reviewer.user.full_name},
 
-%p Thanks for considering being part of the review committee for Agile Brazil 2010. To confirm your participation, please choose the tracks that you would be comfortable to review, as well as rating your own knowledge level on each selected track:
+%p Thanks for considering being part of the review committee for #{current_conference.name}. To confirm your participation, please choose the tracks that you would be comfortable to review, as well as rating your own knowledge level on each selected track:
 
 - content_for :agreement do
-  %h3 TERM OF AGREEMENT AS REVIEWER OF AGILE BRAZIL 2010
+  %h3 TERM OF AGREEMENT AS REVIEWER OF #{current_conference.name.upcase}
 
   %p
     To confirm your participation and commitment as REVIEWER of the submitted proposals to the
-    Industrial track of Agile Brazil 2010 Conference, you must agree with the following terms:
+    Industrial track of #{current_conference.name} Conference, you must agree with the following terms:
   %ol
     %li
       As a Reviewing Committee member, I will contribute to the selection of a high level
-      technical program in order to transform Agile Brazil 2010 in an internacional reference
+      technical program in order to transform #{current_conference.name} in an internacional reference
       event about agile methods;
     %li
       As a reviewer, I will analyse critically and impartially proposals submitted to the
@@ -39,17 +39,17 @@
       quality ensurance;
     %li
       As a member of the Review Committee, I acknowledge that the final selection of proposals
-      that will compose Agile Brazil 2010's program will be performed by the Program Committee,
+      that will compose #{current_conference.name}'s program will be performed by the Program Committee,
       based on the criteria and reviews provided by the reviewers;
     %li
       As a member of the Review Committee, I acknowledge that this is a voluntary and not
-      remunerated work, not being allowed to transfer any expenses to Agile Brazil 2010's
+      remunerated work, not being allowed to transfer any expenses to #{current_conference.name}'s
       organization;
     %li
       If there is any impediment to accomplish my targets, I will communicate immediatly to
       the Program Coordinators the need of replacement and transfer of my responsibilities.
   %p 
-    And, acknowledging that Agile Brazil 2010's Organization team is providing me complete
+    And, acknowledging that #{current_conference.name}'s Organization team is providing me complete
     trust for an ethical and professional behavior in the selection process of the submitted
     proposal to the conference, I acknowledge the possible consequences of atitudes that may
     conflict with the responsibilities that I assume by accepting the terms of this document.

@@ -1,8 +1,8 @@
-- title "Invitation to be part of the Agile Brazil 2010 review committee"
+- title "Invitation to be part of the #{current_conference.name} review committee"
 .auto_focus
 
 %p Dear #{@reviewer.user.full_name},
 
-%p Thanks for considering being part of the review committee for Agile Brazil 2010. Please confirm your choice:
+%p Thanks for considering being part of the review committee for #{current_conference.name}. Please confirm your choice:
 
 = render 'form'

@@ -1,6 +1,6 @@
 %p Dear #{h(@user.full_name)},
 
-%p You have registered an account on the submission system for the Agile Brazil 2010 conference. To submit a session proposal, please visit #{link_to root_url, root_url} and login with:
+%p You have registered an account on the submission system for the #{@conference_name} conference. To submit a session proposal, please visit #{link_to root_url, root_url} and login with:
 
 %ul
   %li <strong>Username</strong>: #{h(@user.username)}
@@ -9,6 +9,6 @@
 
 %p Regards,
 
-%p Program Committee of Agile Brazil 2010 Conference
+%p Program Committee of #{@conference_name} Conference
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

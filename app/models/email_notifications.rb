@@ -1,43 +1,42 @@
 class EmailNotifications < ActionMailer::Base
-  helper :application
-  
   def welcome(user, sent_at = Time.now)
-    I18n.locale = user.try(:default_locale)
     @user = user
+    @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.welcome.subject')}",
          :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
   end
   
   def password_reset_instructions(user, sent_at = Time.now)
-    I18n.locale = user.try(:default_locale)
     @user = user
+    @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.password_reset.subject')}",
          :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
   end
   
   def session_submitted(session, sent_at = Time.now)
-    I18n.locale = session.author.try(:default_locale)
     @session = session
-    mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject')}",
+    @conference_name = current_conference.name
+    mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => current_conference.name)}",
          :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
   end
   
   def reviewer_invitation(reviewer, sent_at = Time.now)
     I18n.locale = reviewer.user.try(:default_locale)
     @reviewer = reviewer
-    mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject')}",
+    @conference_name = current_conference.name
+    mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => current_conference.name)}",
          :to       => "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>",
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date     => sent_at
   end
 
@@ -47,10 +46,11 @@ class EmailNotifications < ActionMailer::Base
     I18n.locale = session.author.try(:default_locale)
 
     @session = session
-    mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject')}",
+    @conference_name = current_conference.name
+    mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => current_conference.name)}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date     => sent_at).tap do
       session.review_decision.update_attribute(:published, true)
     end
@@ -62,10 +62,11 @@ class EmailNotifications < ActionMailer::Base
     I18n.locale = session.author.try(:default_locale)
 
     @session = session
-    mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject')}",
+    @conference_name = current_conference.name
+    mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => current_conference.name)}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"Agile Brazil 2010\" <#{from_address}>",
-         :reply_to => "\"Agile Brazil 2010\" <#{from_address}>",
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date     => sent_at).tap do
       session.review_decision.update_attribute(:published, true)
     end
@@ -78,5 +79,9 @@ class EmailNotifications < ActionMailer::Base
 
   def host
     ActionMailer::Base.default_url_options[:host]
-  end  
+  end
+
+  def current_conference
+    @current_conference ||= Conference.current
+  end
 end

@@ -12,7 +12,7 @@ class UserSessionsController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        flash[:notice] = t('flash.user_session.create.success')
+        flash[:notice] = t('flash.user_session.create.success', :locale => @user_session.user.default_locale)
         redirect_to_target_or_default(root_url(:locale => @user_session.user.default_locale))
       end
       failure.html do        

@@ -106,7 +106,7 @@ en:
         withdraw:
           author_agreement: "I declare I withdraw my session from the conference and I acknowledge that I have no right to go back on that decision."
         image_agreement_description: "In addition to this term, you can optionally agree to the term below. It authorizes the organization to record the contents of your session, for example on video, for later dissemination on the Internet or other media for non-commercial purposes."
-        image_agreement: "By accepting this term, I grant the organization of Agile Brazil 2010 the right of recording and reproducing all or part of the technical content presented by me during the conference for non-commercial purposes, in any form or medium, without any cost for the event."
+        image_agreement: "By accepting this term, I grant the organization of Agile Brazil the right of recording and reproducing all or part of the technical content presented by me during the conference for non-commercial purposes, in any form or medium, without any cost for the event."
         author_confirmed: "Author confirmation"
         author_image_agreement: "Image rights"
       comment:
@@ -364,13 +364,13 @@ en:
     password_reset:
       subject: "Password reset"
     session_submitted:
-      subject: "Agile Brazil 2010 session proposal submitted"
+      subject: "%{conference_name} session proposal submitted"
     reviewer_invitation:
-      subject: "Invitation to be part of Agile Brazil 2010 review committee"
+      subject: "Invitation to be part of %{conference_name} review committee"
     session_accepted:
-      subject: "Notification from the Program Committee of Agile Brazil 2010"
+      subject: "Notification from the Program Committee of %{conference_name}"
     session_rejected:
-      subject: "Notification from the Program Committee of Agile Brazil 2010"
+      subject: "Notification from the Program Committee of %{conference_name}"
   
   reviewer:
     state:

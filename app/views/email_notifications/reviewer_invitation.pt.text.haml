@@ -1,7 +1,7 @@
 Olá #{h(@reviewer.user.full_name)},
 
 
-Gostaríamos de te convidar para fazer parte da equipe de avaliação do programa da Agile Brazil 2010. Caso você aceite este convite, clique no link abaixo:
+Gostaríamos de te convidar para fazer parte da equipe de avaliação do programa da #{@conference_name}. Caso você aceite este convite, clique no link abaixo:
 
 
 = link_to reviewer_accept_url(@reviewer, :locale => 'pt'), reviewer_accept_url(@reviewer, :locale => 'pt')
@@ -16,13 +16,13 @@ Caso você rejeite o convite, clique no link abaixo:
 Se alguma das URLs acima não funcionar tente copiar e colar o endereço completo no seu navegador.
 
 
-Contamos com sua colaboração para montar uma programação excelente para a Agile Brazil 2010. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
+Contamos com sua colaboração para montar uma programação excelente para a #{@conference_name}. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 
 Gratos,
 
 
-Equipe de programa da Agile Brazil 2010
+Equipe de programa da #{@conference_name}
 
 
 [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

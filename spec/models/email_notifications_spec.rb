@@ -5,6 +5,7 @@ describe EmailNotifications do
   before do
     ActionMailer::Base.deliveries = []
     I18n.locale = I18n.default_locale
+    @conference = Conference.current || Factory(:conference)
   end
 
   after do
@@ -24,8 +25,8 @@ describe EmailNotifications do
   	  mail.subject.should == "[localhost:3000] Cadastro realizado com sucesso"
     end
     
-    it "should be sent in user's default language" do
-      @user.default_locale = 'en'
+    it "should be sent in system's locale" do
+      I18n.locale = 'en'
       mail = EmailNotifications.welcome(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@user.email]
@@ -48,8 +49,8 @@ describe EmailNotifications do
   	  mail.subject.should == "[localhost:3000] Recuperação de senha"
     end
     
-    it "should be sent in user's default language" do
-      @user.default_locale = 'en'
+    it "should be sent in system's locale" do
+      I18n.locale = 'en'
       @user.reset_perishable_token!
       mail = EmailNotifications.password_reset_instructions(@user).deliver
       ActionMailer::Base.deliveries.size.should == 1
@@ -71,7 +72,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para #{@conference.name}"
     end
     
     it "should be sent to second author, if available" do
@@ -84,22 +85,22 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para #{@conference.name}"
     end
     
-    it "should be sent to first author in default language" do
-      @session.author.default_locale = 'en'
+    it "should be sent to first author in system's locale" do
+      I18n.locale = 'en'
       mail = EmailNotifications.session_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
   	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
+  	  mail.subject.should == "[localhost:3000] #{@conference.name} session proposal submitted"
     end
 
-    it "should be sent to second author, if available (in first author's default language)" do
-      @session.author.default_locale = 'en'
+    it "should be sent to second author, if available (in system's locale)" do
+      I18n.locale = 'en'
       user = Factory(:user, :default_locale => 'fr')
       @session.second_author = user
       
@@ -109,7 +110,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.subject.should == "[localhost:3000] Agile Brazil 2010 session proposal submitted"
+  	  mail.subject.should == "[localhost:3000] #{@conference.name} session proposal submitted"
     end
     
   end
@@ -125,7 +126,7 @@ describe EmailNotifications do
       mail.to.should == [@reviewer.user.email]
   	  mail.encoded.should =~ /\/reviewers\/3\/accept/
   	  mail.encoded.should =~ /\/reviewers\/3\/reject/
-  	  mail.subject.should == "[localhost:3000] Convite para equipe de avaliação da Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Convite para equipe de avaliação da #{@conference.name}"
     end
 
     it "should be sent in user's default language" do
@@ -135,7 +136,7 @@ describe EmailNotifications do
       mail.to.should == [@reviewer.user.email]
   	  mail.encoded.should =~ /\/reviewers\/3\/accept/
   	  mail.encoded.should =~ /\/reviewers\/3\/reject/
-  	  mail.subject.should == "[localhost:3000] Invitation to be part of Agile Brazil 2010 review committee"
+  	  mail.subject.should == "[localhost:3000] Invitation to be part of #{@conference.name} review committee"
     end
   end
   
@@ -148,7 +149,7 @@ describe EmailNotifications do
     end
     
     it "should not be sent if session has no decision" do
-      session = Factory(:session)
+      session = Factory(:session, :conference => @conference)
       lambda {EmailNotifications.notification_of_acceptance(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
@@ -174,7 +175,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
   	  
-  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da #{@conference.name}"
     end
     
     it "should be sent to second author, if available" do
@@ -190,7 +191,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
 
-  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da #{@conference.name}"
     end
     
     it "should be sent to first author in default language" do
@@ -204,7 +205,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
       
-  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of #{@conference.name}"
     end
 
     it "should be the same to both authors, if second autor is available" do
@@ -221,7 +222,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/confirm/
       mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/withdraw/
 
-  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of #{@conference.name}"
     end
     
   end
@@ -235,7 +236,7 @@ describe EmailNotifications do
     end
     
     it "should not be sent if session has no decision" do
-      session = Factory(:session)
+      session = Factory(:session, :conference => @conference)
       lambda {EmailNotifications.notification_of_rejection(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
@@ -259,7 +260,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  
-  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da #{@conference.name}"
     end
     
     it "should be sent to second author, if available" do
@@ -273,7 +274,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
 
-  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Comunicado do Comitê de Programa da #{@conference.name}"
     end
     
     it "should be sent to first author in default language" do
@@ -285,7 +286,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
       
-  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of #{@conference.name}"
     end
 
     it "should be the same to both authors, if second autor is available" do
@@ -300,7 +301,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
 
-  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of Agile Brazil 2010"
+  	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of #{@conference.name}"
     end
     
   end

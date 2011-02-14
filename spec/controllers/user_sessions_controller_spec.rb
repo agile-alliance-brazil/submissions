@@ -6,6 +6,10 @@ describe UserSessionsController do
   
   it_should_require_login_for_actions :destroy
   it_should_require_logout_for_actions :create
+
+  before do
+    Factory(:conference)
+  end
   
   it "new action should render new template" do
     get :new

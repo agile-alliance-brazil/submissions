@@ -1,7 +1,7 @@
 Dear #{@session.authors.map(&:full_name).join(" & ")},
 
 
-We regret to inform you that your proposal '#{h(@session.title)}' has not been selected to be part of the program of the Brazilian Conference about Agile Methods – Agile Brazil 2010.
+We regret to inform you that your proposal '#{h(@session.title)}' has not been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}.
 
 
 We have received around 150 proposals this year -- more proposals than any other Brazilian conference about agile methods. Sadly, this means that many good proposals could not be included in the program due to lack of space. In the end, around 35 sessions were selected, taking into consideration the need to create a balanced schedule, with high quality content and tailored to the conference attendees. You may see the feedback that your proposal has received from the reviewers and track organizers at:
@@ -19,7 +19,7 @@ Sincerely,
 
 #{"--"}
 
-Program Committee of Agile Brazil 2010 Conference
+Program Committee of #{@conference_name} Conference
 
 
 [Please do not reply to this e-mail. It was sent from an unmonitored email address]

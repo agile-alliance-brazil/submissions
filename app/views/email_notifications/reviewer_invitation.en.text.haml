@@ -1,7 +1,7 @@
 Dear #{h(@reviewer.user.full_name)},
 
 
-We would like to invite you to be part of the Agile Brazil 2010 review committee. If you accept this invitation, please click the link below:
+We would like to invite you to be part of the #{@conference_name} review committee. If you accept this invitation, please click the link below:
 
 
 = link_to reviewer_accept_url(@reviewer, :locale => 'en'), reviewer_accept_url(@reviewer, :locale => 'en')
@@ -16,13 +16,13 @@ If you decline, please click on the link below:
 If any of the above URLs do not work try copying and pasting into your browser.
 
 
-We are looking forward to a successful collaboration in building an outstanding program for Agile Brazil 2010. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
+We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 
 Regards,
 
 
-Program Committee of Agile Brazil 2010 Conference
+Program Committee of #{@conference_name} Conference
 
 
 [Please do not reply to this e-mail. It was sent from an unmonitored email address]

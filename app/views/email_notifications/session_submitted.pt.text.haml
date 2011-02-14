@@ -1,7 +1,7 @@
 Olá #{@session.authors.map(&:full_name).join(" & ")},
 
 
-Obrigado por submeter a proposta de sessão '#{@session.title}' para a Agile Brazil 2010. Você pode acessar e alterar os detalhes de sua proposta até o fim do prazo de submissão no dia 07/03/2010, acessando o link:
+Obrigado por submeter a proposta de sessão '#{@session.title}' para a #{@conference_name}. Você pode acessar e alterar os detalhes de sua proposta até o fim do prazo de submissão no dia 19/03/2011, acessando o link:
 
 
 = session_url(@session, :locale => 'pt')
@@ -10,7 +10,7 @@ Obrigado por submeter a proposta de sessão '#{@session.title}' para a Agile Bra
 Gratos,
 
 
-Equipe de programa da Agile Brazil 2010
+Equipe de programa da #{@conference_name}
 
 
 [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

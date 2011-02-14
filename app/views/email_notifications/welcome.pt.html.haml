@@ -1,6 +1,6 @@
 %p Olá #{h(@user.full_name)},
 
-%p Você acaba de se registrar no sistema de submissões da Agile Brazil 2010. Para submeter uma proposta de sessão, basta acessar #{link_to root_url, root_url} e fazer login utilizando:
+%p Você acaba de se registrar no sistema de submissões da #{@conference_name}. Para submeter uma proposta de sessão, basta acessar #{link_to root_url, root_url} e fazer login utilizando:
 
 %ul
   %li <strong>Nome de usuário</strong>: #{h(@user.username)}
@@ -9,6 +9,6 @@
 
 %p Gratos,
 
-%p Equipe de programa da Agile Brazil 2010
+%p Equipe de programa da #{@conference_name}
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

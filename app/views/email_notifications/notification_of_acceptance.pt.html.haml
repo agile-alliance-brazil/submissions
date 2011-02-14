@@ -1,6 +1,6 @@
 %p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" & "))},
 
-%p É com grande satisfação que comunicamos que seu trabalho <strong>'#{h(@session.title)}'</strong> foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – Agile Brazil 2010!
+%p É com grande satisfação que comunicamos que seu trabalho <strong>'#{h(@session.title)}'</strong> foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference_name}!
 
 %p
   Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia 09/05/2010 acessando o formulário
@@ -25,7 +25,7 @@
 %p
   ATENÇÃO: O PRIMEIRO AUTOR DE CADA SESSÃO ESTÁ ISENTO DE INSCRIÇÃO NO EVENTO!
   %br
-  Sua inscrição será feita pela organização do Agile Brazil 2010 uma vez que sua presença for confirmada.
+  Sua inscrição será feita pela organização do #{@conference_name} uma vez que sua presença for confirmada.
 
 %p Em breve, enviaremos mais instruções a todos. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
@@ -34,6 +34,6 @@
   %br
   = "--"
   %br
-  Comissão de Programa da Agile Brazil 2010
+  Comissão de Programa da #{@conference_name}
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

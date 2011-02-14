@@ -1,6 +1,6 @@
 %p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
 
-%p We are pleased to inform you that your proposal <strong>'#{h(@session.title)}'</strong> has been selected to be part of the program of the Brazilian Conference about Agile Methods – Agile Brazil 2010!
+%p We are pleased to inform you that your proposal <strong>'#{h(@session.title)}'</strong> has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
 
 %p
   We would like to ask you to confirm your attendance at the event by 23:59 of May 9th, 2010 by accessing the form at
@@ -25,7 +25,7 @@
 %p
   ATTENTION: THE FIRST AUTHOR OF EACH SESSION IS ENTITLED FOR FREE CONFERENCE REGISTRATION!
   %br
-  Your registration will be processed by the organization of Agile Brazil 2010 once your attendance is confirmed.
+  Your registration will be processed by the organization of #{@conference_name} once your attendance is confirmed.
 
 %p We will soon be sending more instructions to all participants. Should you have any queries, requests or comments, please contact the Program Committee at #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
@@ -34,6 +34,6 @@
   %br
   = "--"
   %br
-  Program Committee of Agile Brazil 2010 Conference
+  Program Committee of #{@conference_name} Conference
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

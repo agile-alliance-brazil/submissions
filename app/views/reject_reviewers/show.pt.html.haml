@@ -1,8 +1,8 @@
-- title "Convite para participar da equipe de avaliação da Agile Brazil 2010"
+- title "Convite para participar da equipe de avaliação da #{current_conference.name}"
 .auto_focus
 
 %p Olá #{@reviewer.user.full_name},
 
-%p Obrigado por considerar fazer parte da equipe de avaliação da Agile Brazil 2010. Por favor confirme sua decisão:
+%p Obrigado por considerar fazer parte da equipe de avaliação da #{current_conference.name}. Por favor confirme sua decisão:
 
 = render 'form'

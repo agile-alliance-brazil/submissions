@@ -19,7 +19,6 @@ FIXED UPGRADE ISSUES:
 
 TODO:
 
- * Update e-mail texts to remove hard-coded conference name
  * Update deployment scripts (production)
  ** email settings (enable_starttls_auto: false)
  -- lower priority
@@ -56,6 +55,7 @@ IN PROGRESS:
 
 DONE:
 
+ * Update e-mail texts to remove hard-coded conference name -- Danilo
  * Update static page text and home page text -- Danilo
  * Access last year's sessions -- Danilo
  * Lightning talk and experience report validation -- Danilo
@@ -196,10 +196,10 @@ BUGS:
 * Should allow / not allow numbers and characters in target audience field? [won't fix]
 
 --- 2011
-* When I have just submitted a session, the confirmation message "Sessão submetida com sucesso." should be in English
 * Given I entered an invalid username and blank password, and I click on log in and see the error message, When I click on "English", Then I should not see a Google Oops page.  Then I should see the English version of the Agile Brazil home page.
 
 FIXED:
+* When I have just submitted a session, the confirmation message "Sessão submetida com sucesso." should be in English -- Danilo
 * When I am viewing my profile, "Session proposals" link needs to be rename to "My session proposals" -- Danilo
 * (Cosmetic tweak) Propose a session page: the Copyleft text is too close to the edge of the page at the end.  All other pages have a gap under the copyleft statement -- Danilo
 * When I click on Log in button with blank username and password fields, the "Você não passou detalhes para autenticação" message should be in English -- Danilo
