@@ -603,3 +603,6 @@ pt:
     sort_down: "descendente"
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
+    
+  warning:
+    users_from_last_year: "Atenção: os usuários do ano passado ainda são válidos. Caso não lembre de sua senha, use o link acima para recuperá-la."

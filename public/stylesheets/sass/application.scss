@@ -306,6 +306,19 @@ ul.spaced {
     margin: 2px;
     padding: 4px; } }
 
+#warning {
+  overflow: hidden;
+  display: block;
+  right: 0;
+  bottom: 0;
+  background-color: $color4;
+  border: 2px solid $color3;
+  font-size: 12px;
+  margin-bottom: 6px;
+  p {
+    margin: 2px;
+    padding: 4px; } }
+
 #textile_help {
   .example {
     @include grid(9);

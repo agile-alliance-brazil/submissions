@@ -445,3 +445,6 @@ en:
     sort_down: "descendent"
     show: "Show %{target}"
     hide: "Hide %{target}"
+
+  warning:
+    users_from_last_year: "Warning: Users from last year are still valid. If you don't remember your password, use the link above to recover it."

@@ -485,6 +485,19 @@ ul.spaced {
     margin: 2px;
     padding: 4px; }
 
+#warning {
+  overflow: hidden;
+  display: block;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffe0;
+  border: 2px solid #b0dff5;
+  font-size: 12px;
+  margin-bottom: 6px; }
+  #warning p {
+    margin: 2px;
+    padding: 4px; }
+
 #textile_help .example {
   display: inline;
   float: left;
