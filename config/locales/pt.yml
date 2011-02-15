@@ -604,5 +604,5 @@ pt:
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
     
-  warning:
-    users_from_last_year: "Atenção: os usuários do ano passado ainda são válidos. Caso não lembre de sua senha, use o link acima para recuperá-la."
+  tips:
+    users_from_last_year: "<strong>Dica:</strong> os usuários do ano passado ainda são válidos. Caso não lembre do nome do seu usuário ou sua senha, use o link acima para recuperá-la."

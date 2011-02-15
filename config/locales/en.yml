@@ -446,5 +446,5 @@ en:
     show: "Show %{target}"
     hide: "Hide %{target}"
 
-  warning:
-    users_from_last_year: "Warning: Users from last year are still valid. If you don't remember your password, use the link above to recover it."
+  tips:
+    users_from_last_year: "<strong>Tip:</strong> Users from last year are still active. If you don't remember your username or password, use the link above to recover it."
