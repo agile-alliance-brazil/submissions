@@ -4,14 +4,16 @@
 
 %p The Brazilian Conference about Agile Methods – #{link_to(current_conference.name, "http://www.agilebrazil.com/2011")} – is a non-profitable national conference organized by representatives of the main Brazilian agile communities. The event's goal is to promote communication and collaboration among its attendees aiming to disseminate the Agile culture in the whole country.
 
-%p #{current_conference.name} will be held in Fortaleza, in the end of June, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests. Start preparing #{link_to("your trip", "http://www.agilebrazil.com/2011/en/trip.php")}.
+%p #{current_conference.name} will be held in Fortaleza, in the end of June, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests.
+
+%p Submit your proposal and come join us in Fortaleza! Read the submission #{link_to(t('title.guidelines'), static_page_path('guidelines')}, build your proposal and submit it. To do so, just enter your user and password, click on '#{t('actions.submit_session')}' and fill the form. Send your proposal, add comments to others and make Agile Brazil 2011 the perfect conference for you.
 
 %h3 Important dates
 
 %ul
-  %li
-    %strong #{l(Date.new(2011, 2, 5))}: Call for Submissions
+  %li #{l(Date.new(2011, 2, 5))}: Call for Submissions
   %li #{l(Date.new(2011, 2, 14))}: Release of proposal submission form
-  %li #{l(Date.new(2011, 3, 19))}: Submission deadline
+  %li
+    %strong #{l(Date.new(2011, 3, 19))}: Submission deadline
   %li #{l(Date.new(2011, 4, 25))}: Acceptance notification
   %li #{l(Date.new(2011, 4, 30))}: Inscription deadline to selected authors
