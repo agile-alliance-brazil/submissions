@@ -16,6 +16,7 @@ gem 'cancan'
 gem 'acts_as_commentable'
 gem 'state_machine'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
+gem 'goalie'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', :require => 'redcloth', :platforms => :mswin

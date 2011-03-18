@@ -23,3 +23,9 @@ AgileBrazil::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 end
 
+# This is just for testing that error pages are generated properly
+#class ActionDispatch::Request
+#  def local?
+#     false
+#  end
+#end

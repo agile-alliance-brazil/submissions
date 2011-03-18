@@ -40,3 +40,4 @@ module AgileBrazil
     config.filter_parameters += [:password]
   end
 end
+require 'goalie/rails'
