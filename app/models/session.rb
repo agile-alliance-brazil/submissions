@@ -147,6 +147,10 @@ class Session < ActiveRecord::Base
   def is_author?(user)
     authors.include?(user)
   end
+  
+  def lightning_talk?
+    self.session_type.try(:title) == 'session_types.lightning_talk.title'
+  end
 
   private
   def workshop?
@@ -155,9 +159,5 @@ class Session < ActiveRecord::Base
 
   def experience_report?
     self.track.try(:title) == 'tracks.experience_reports.title'
-  end
-
-  def lightning_talk?
-    self.session_type.try(:title) == 'session_types.lightning_talk.title'
   end
 end

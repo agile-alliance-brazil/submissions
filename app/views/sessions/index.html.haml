@@ -23,6 +23,8 @@
         %td.session_id= session.id
         %td.title
           = link_to h(session.try(:title)), session_path(session)
+          - if session.lightning_talk?
+            = image_tag("lightning-talk.png")
           - if session.comments.size > 0
             .commentCount= session.comments.size
         %td.author= link_to h(session.author.full_name), user_path(session.author)
