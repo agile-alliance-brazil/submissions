@@ -68,10 +68,10 @@ class Ability
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 4, 30, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 5, 4, 23, 59, 59)
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 4, 30, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 5, 4, 23, 59, 59)
     end
   end
 
