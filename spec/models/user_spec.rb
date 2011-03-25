@@ -52,8 +52,7 @@ describe User do
     end
     
     should_validate_length_of :username, :minimum => 3, :maximum => 30
-    should_validate_length_of :password, :minimum => 4
-    should_validate_length_of :password_confirmation, :minimum => 4
+    should_validate_length_of :password, :within => 3..30
     should_validate_length_of :email, :minimum => 6, :maximum => 100
     should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
     should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
@@ -68,6 +67,9 @@ describe User do
     
     should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
+
+    should_validate_uniqueness_of :email
+    should_validate_uniqueness_of :username, :case_sensitive => false
         
     should_validate_confirmation_of :password
     
@@ -137,14 +139,6 @@ describe User do
     
     user.username = nil
     user.to_param.ends_with?("-danilo-sato-1990-2").should be_false
-  end
-  
-  it "should allow reset password" do
-    user = Factory(:user)
-    old_token = user.perishable_token
-    
-    EmailNotifications.expects(:password_reset_instructions).with(user).returns(stub(:deliver => true))
-    user.deliver_password_reset_instructions!
   end
   
   it "should have 'pt' as default locale" do

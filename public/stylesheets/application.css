@@ -438,7 +438,7 @@ ul.spaced {
     #pagination .pagination a:hover {
       border: solid 1px #5ad295; }
 
-#flash_notice, #flash_error, #flash_news {
+#flash_notice, #flash_error, #flash_news, #flash_alert {
   padding: 5px 8px;
   margin: 10px 0; }
 
@@ -446,7 +446,7 @@ ul.spaced {
   background-color: #ccffcc;
   border: solid 1px #66cc66; }
 
-#flash_error {
+#flash_error, #flash_alert {
   background-color: #ffcccc;
   border: solid 1px #cc6666; }
 

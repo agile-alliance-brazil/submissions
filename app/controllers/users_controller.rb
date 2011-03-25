@@ -1,50 +1,13 @@
 class UsersController < InheritedResources::Base
-  skip_before_filter :login_required
-  before_filter :logout_required, :only => [:new, :create]
-  before_filter :login_required, :only => [:edit, :update]
+  skip_before_filter :authenticate_user!
   has_scope :search, :only => :index, :as => 'q'
-  
-  actions :all, :except => [:destroy]
-  
+
+  actions :index, :show
+
   def index
     index! do |format|
-      format.html { redirect_to new_user_path }
+      format.html { redirect_to new_user_registration_path }
       format.js
     end
-  end
-  
-  def create
-    create! do |success, failure|
-      success.html do
-        EmailNotifications.welcome(@user).deliver
-        UserSession.create(@user)
-        flash[:notice] = t('flash.user.create.success')
-        redirect_to root_url
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        render :new
-      end
-    end
-  end
-
-  def update
-    update! do |success, failure|
-      success.html do
-        flash[:notice] = t('flash.user.update.success')
-        redirect_to user_path(@user)
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        render :edit
-      end
-    end
-  end
-  
-  protected
-  def build_resource
-    attributes = params[:user] || {}
-    attributes[:default_locale] ||= I18n.locale
-    @user ||= end_of_association_chain.send(method_for_build, attributes)
   end
 end

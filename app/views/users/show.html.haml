@@ -4,7 +4,7 @@
 %ul.piped
   %li= link_to t('title.user_sessions', :name => @user.first_name), user_my_sessions_path(@user)
   - if can? :update, @user
-    %li= link_to t('actions.edit_profile'), edit_user_path(@user)
+    %li= link_to t('actions.edit_profile'), edit_user_registration_path
 
 = content_tag_for(:dl, @user) do
   %dt= t('formtastic.labels.user.username')

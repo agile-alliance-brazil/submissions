@@ -64,16 +64,6 @@ form.formtastic fieldset ol li ul.errors {
   padding-left: 20px;
 }
 
-form#new_user_session fieldset ol li ul.errors {
-  background: url('/images/error_bg.png') no-repeat;
-  color: #d20000;
-  list-style: none;
-  margin: 0;
-  padding-left: 20px;
-  float: none;
-  width: 74%;
-}
-
 form.reviewer.formtastic fieldset ol ul.errors {
   background: url('/images/error_bg.png') no-repeat;
   color: #d20000;

@@ -1,14 +1,21 @@
 AgileBrazil::Application.routes.draw do
-  root :to => 'user_sessions#new'
+  root :to => 'static_pages#show', :page => 'home'
 
-  match 'signup' => 'users#new', :as => :signup
-  match 'logout' => 'user_sessions#destroy', :as => :logout
-  match 'login' => 'user_sessions#new', :as => :login
+  devise_for :users,
+             :controllers => {
+               :sessions      => "user_sessions",
+               :registrations => "registrations",
+               :passwords     => "password_resets"
+             },
+             :path_names => {
+               :sign_in       => 'login',
+               :sign_out      => 'logout',
+               :sign_up       => 'signup'
+             }
 
   resources :audience_levels, :only => [:index]
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]
-  resources :password_resets, :except => [:destroy]
   resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do
     resource :accept, :only => [:show], :controller => :accept_reviewers
     resource :reject, :only => [:show, :update], :controller => :reject_reviewers
@@ -40,10 +47,9 @@ AgileBrazil::Application.routes.draw do
   resources :session_types, :only => [:index]
   resources :tags, :only => [:index]
   resources :tracks, :only => [:index]
-  resources :user_sessions,  :only => [:new, :create, :destroy]
-  resources :users, :except => [:destroy] do
+  resources :users, :only => [:index, :show] do
     match 'my_sessions' => 'sessions#index', :as => :my_sessions
   end
 
-  match ':page' => 'static_pages#show', :as => :static_page, :page => /guidelines|syntax_help/
+  match ':page' => 'static_pages#show', :as => :static_page, :page => /home|guidelines|syntax_help/
 end

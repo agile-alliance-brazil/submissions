@@ -1,8 +1,9 @@
 - title t('title.change_password')
 .auto_focus
 
-= semantic_form_for @user, :url => password_reset_path, :method => :put do |form|
+= semantic_form_for resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :put} do |form|
   = form.inputs do
+    = form.input :reset_password_token, :as => :hidden
     = form.input :password, :required => true, :input_html => {:tabindex => autotab}
     = form.input :password_confirmation, :required => true, :input_html => {:tabindex => autotab}
   = form.buttons do

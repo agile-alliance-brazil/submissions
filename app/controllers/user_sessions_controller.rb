@@ -1,31 +1,8 @@
-class UserSessionsController < InheritedResources::Base
-  skip_before_filter :login_required
-  before_filter :login_required, :only => :destroy
-  before_filter :logout_required, :only => :create
-
-  actions :new, :create
-
+class UserSessionsController < Devise::SessionsController
+  skip_before_filter :authorize_action
+  
   def new
-    new!
-  end
-  
-  def create
-    create! do |success, failure|
-      success.html do
-        flash[:notice] = t('flash.user_session.create.success', :locale => @user_session.user.default_locale)
-        redirect_to_target_or_default(root_url(:locale => @user_session.user.default_locale))
-      end
-      failure.html do        
-        flash.now[:error] = @user_session.errors[:base] unless @user_session.errors[:base].blank?
-        render :new
-      end
-    end
-  end
-  
-  def destroy
-    @user_session = UserSession.find
-    @user_session.destroy
-    flash[:notice] = t('flash.user_session.destroy.success')
-    redirect_to root_url
+    build_resource
+    render :template => 'static_pages/home'
   end
 end

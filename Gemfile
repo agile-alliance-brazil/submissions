@@ -8,7 +8,7 @@ gem 'formtastic'
 gem 'inherited_resources'
 gem 'responders'
 gem 'has_scope'
-gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
+gem 'devise'
 gem 'brhelper'
 gem 'seed-fu'
 gem 'acts-as-taggable-on'
@@ -17,6 +17,7 @@ gem 'acts_as_commentable'
 gem 'state_machine'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
 gem 'goalie'
+gem 'jammit'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', :require => 'redcloth', :platforms => :mswin

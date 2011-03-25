@@ -8,7 +8,7 @@
 %p The submissions will be reviewed and evaluated by at least 3 members of the Reviewing Committee. For that, they will consider:
 
 %ul
-  %li The authors' experience - both the mini biography presented in #{logged_in? ? link_to("your user profile", user_path(current_user)) : "your user profile"} and the field about experience with the subject in the submission form;
+  %li The authors' experience - both the mini biography presented in #{user_signed_in? ? link_to("your user profile", user_path(current_user)) : "your user profile"} and the field about experience with the subject in the submission form;
   %li Adequacy of your proposal in what concerns the chosen #{link_to "track", tracks_path}, #{link_to "session type", session_types_path}, #{link_to "audience level", audience_levels_path}, and target audience;
   %li Relevance to event;
   %li Clarity and quality of the written material.

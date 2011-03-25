@@ -12,8 +12,7 @@ describe WithdrawSessionsController do
     Factory(:review_decision, :session => @session)
     @session.tentatively_accept
     Session.stubs(:find).returns(@session)
-    activate_authlogic    
-    UserSession.create(@user)
+    sign_in @user
     disable_authorization
   end
 

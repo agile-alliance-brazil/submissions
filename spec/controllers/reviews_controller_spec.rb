@@ -7,8 +7,7 @@ describe ReviewsController do
 
   before(:each) do
     @review = Factory(:review)
-    activate_authlogic
-    UserSession.create(@review.reviewer)
+    sign_in @review.reviewer
     disable_authorization
   end
   

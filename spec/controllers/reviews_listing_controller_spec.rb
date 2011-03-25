@@ -8,8 +8,7 @@ describe ReviewsListingController do
   it "index action (JS) should render JSON" do
     # Login
     user = Factory(:user)
-    activate_authlogic
-    UserSession.create(user)
+    sign_in user
     disable_authorization
 
     # 2 reviews (2 sessions)
@@ -26,8 +25,7 @@ describe ReviewsListingController do
   context "as a reviewer" do
     before(:each) do
       @reviewer = Factory(:reviewer)
-      activate_authlogic
-      UserSession.create(@reviewer.user)
+      sign_in @reviewer.user
       disable_authorization
     end
     

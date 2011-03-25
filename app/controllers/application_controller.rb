@@ -1,11 +1,10 @@
 class ApplicationController < ActionController::Base
-  include Authentication
   helper :all # include all helpers, all the time
   protect_from_forgery
 
   before_filter :set_locale
   before_filter :set_timezone
-  before_filter :login_required
+  before_filter :authenticate_user!
   before_filter :authorize_action
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -34,16 +33,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  def render_optional_error_file(status_code)
-    set_locale
-    status = interpret_status(status_code)
-    template = self.view_paths.find_template("errors/#{status[0,3]}", :html)
-
-    render :template => template, :status => status, :content_type => Mime::HTML
-  rescue
-    super
-  end
-
   private
   def set_locale
     # if params[:locale] is nil then I18n.default_locale will be used

@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   include Authorization
-  
+
+  devise :database_authenticatable, :registerable, :recoverable, :encryptable, :trackable, :validatable
+
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :country, :state, :city,
                   :organization, :website_url, :bio, :wants_to_submit, :default_locale
@@ -19,17 +21,16 @@ class User < ActiveRecord::Base
   
   validates_length_of [:first_name, :last_name, :phone, :city, :organization, :website_url], :maximum => 100, :allow_blank => true
   validates_length_of :bio, :maximum => 1600, :allow_blank => true
-  
+  validates_length_of :username, :within => 3..30
+  validates_length_of :email, :within => 6..100, :allow_blank => true
+
   validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i, :unless => :guest?, :allow_blank => true
+  validates_format_of :username, :with => /\A\w[\w\.+\-_@ ]+$/, :message => :username_format
+
+  validates_uniqueness_of :username, :case_sensitive => false, :if => :username_changed?
   
   validates_each :username, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.username_changed?
-  end
-  
-  acts_as_authentic do |config|
-    config.merge_validates_format_of_email_field_options(:message => :email_format)
-    config.merge_validates_format_of_login_field_options(:message => :username_format)
-    config.merge_validates_length_of_login_field_options(:within => 3..30)
   end
 
   scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
@@ -71,12 +72,7 @@ class User < ActiveRecord::Base
   def in_brazil?
     self.country == "BR"
   end
-  
-  def deliver_password_reset_instructions!
-    reset_perishable_token!
-    EmailNotifications.password_reset_instructions(self).deliver
-  end
-  
+
   def wants_to_submit
     author?
   end

@@ -159,6 +159,10 @@ pt:
               invalid: "deve usar apenas números, espaços e .-+()"
             email:
               taken: "outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail"
+              invalid: "deve ter um formato de e-mail válido"
+              not_found: "nenhum usuário foi encontrado com esse endereço de email"
+            reset_password_token:
+              invalid: "Desculpe-nos mas não conseguimos localizar seu usuário. Se você está tendo problemas para recuperar seus dados de acesso tente copiar e colar a URL fornecida por email no navegador ou reinicie o processo de recuperação de senha."
         session:
           attributes:
             keyword_list:
@@ -176,28 +180,6 @@ pt:
         review_decision:
           cant_accept: "não pode ser aceita"
           cant_reject: "não pode ser rejeitada"
-
-  authlogic:
-    error_messages:
-      login_blank: "não pode ficar em branco"
-      login_not_found: "não é válido"
-      login_invalid: "deve usar apenas letras, números, espaços e .-_@"
-      consecutive_failed_logins_limit_exceeded: "Limite de tentativas de logins atingido, conta suspensa"
-      email_invalid: "deve ter um formato de e-mail válido"
-      password_blank: "não pode ficar em branco"
-      password_invalid: "não é válido"
-      not_active: "Sus conta não está ativa"
-      not_confirmed: "Sua conta não está confirmada"
-      not_approved: "Sua conta não está aprovada"
-      no_authentication_details: "Você não passou detalhes para autenticação"
-    # models:
-    #   user_session: UserSession (or whatever name you are using)
-    # attributes:
-    #   user_session: (or whatever name you are using)
-    #     login: login
-    #     email: email
-    #     password: password
-    #     remember_me: remember me
 
   # Formtastic
   formtastic:
@@ -229,15 +211,20 @@ pt:
         bio: "Mini-currículo"
         roles: "Permissões"
         wants_to_submit: "Pretendo submeter palestras para a conferência"
+        password: "Senha"
+        current_password: "Senha atual"
         new:
           password: "Senha"
           password_confirmation: "Confirmação de senha"
+        create:
+          password: "Senha"
+          password_confirmation: "Confirmação de senha"
         edit:
-          password: "Trocar senha"
+          password: "Nova senha"
           password_confirmation: "Confirmação da nova senha"
-      user_session:
-        username: "Nome de usuário"
-        password: "Senha"
+        update:
+          password: "Nova senha"
+          password_confirmation: "Confirmação da nova senha"
       session:
         title: "Título da sessão"
         track_id: "Trilha de interesse"
@@ -418,28 +405,6 @@ pt:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
 
   flash:
-    user:
-      create:
-        success: "Usuário criado com sucesso! Login efetuado com sucesso."
-      update:
-        success: "Perfil atualizado com sucesso!"
-      login:
-        required: "Você precisa estar logado para acessar esta página."
-      logout:
-        required: "Página disponível apenas quando você não está logado."
-    password_reset:
-      create:
-        success: "Instruções para recuperar seus dados de acesso foram enviadas. Por favor verifique seu e-mail."
-        failure: "Nenhum usuário foi encontrado com esse endereço de email."
-      update:
-        success: "Senha alterada com sucesso!"
-        failure: "Por favor escolha uma nova senha"
-      invalid_token: "Desculpe-nos mas não conseguimos localizar seu usuário. Se você está tendo problemas para recuperar seus dados de acesso tente copiar e colar a URL fornecida por email no navegador ou reinicie o processo de recuperação de senha."
-    user_session:
-      create:
-        success: "Login efetuado com sucesso."
-      destroy:
-        success: "Logout efetuado."
     session:
       update:
         success: "Sessão atualizado com sucesso!"

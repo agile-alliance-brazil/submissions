@@ -8,7 +8,7 @@ module ControllerMacros
       actions.each do |action|
         it "should require login for action #{action}" do
           before_filters = controller.class._process_action_callbacks.find_all{|x| x.kind == :before}.map{|x| x.filter}
-          before_filters.should include(:login_required)
+          before_filters.should include(:authenticate_user!)
         end
       end
       
@@ -20,6 +20,12 @@ module ControllerMacros
           before_filters = controller.class._process_action_callbacks.find_all{|x| x.kind == :before}.map{|x| x.filter}
           before_filters.should include(:logout_required)
         end
+      end
+    end
+
+    def it_should_behave_like_a_devise_controller
+      before(:each) do
+        request.env["devise.mapping"] = Devise.mappings[:user]
       end
     end
   end  

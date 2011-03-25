@@ -7,8 +7,7 @@ describe CommentsController do
 
   before(:each) do
     @comment = Factory(:comment)
-    activate_authlogic
-    UserSession.create(@comment.user)
+    sign_in @comment.user
     disable_authorization
   end
   

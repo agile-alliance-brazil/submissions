@@ -1,0 +1,38 @@
+pt:
+  errors:
+    messages:
+      not_found: 'não encontrado'
+
+  devise:
+    failure:
+      unauthenticated: 'Você precisa estar logado para acessar esta página.'
+      unconfirmed: 'You have to confirm your account before continuing.'
+      locked: 'Your account is locked.'
+      invalid: 'Nome de usuário ou senha inválido(s).'
+      invalid_token: 'Invalid authentication token.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      inactive: 'Your account was not activated yet.'
+    user_sessions:
+      user:
+        signed_in: 'Login efetuado com sucesso.'
+      signed_out: 'Logout efetuado.'
+    password_resets:
+      send_instructions: 'Instruções para recuperar seus dados de acesso foram enviadas. Por favor verifique seu e-mail.'
+      updated: 'Senha alterada com sucesso!'
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+    registrations:
+      signed_up: 'Usuário criado com sucesso! Login efetuado com sucesso.'
+      updated: 'Perfil atualizado com sucesso!'
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+      unlock_instructions:
+        subject: 'Unlock Instructions'

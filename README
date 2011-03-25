@@ -3,7 +3,6 @@
 KNOWN ISSUES AFTER UPGRADE:
 
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
- * Authlogic throwing lots of deprecation warnings (replace with devise??)
 
 FIXED UPGRADE ISSUES:
 
@@ -16,6 +15,8 @@ FIXED UPGRADE ISSUES:
  * Fix I18N on model specs (organizer_spec passes if ran in isolation, fails if ran through 'rake spec', see config/initializers/default_locale.rb)
  * XSS on textile rendering (using RedCloth on application_helper instead of :textile HAML filter)
  * Custom error pages not working (added goalie and moved custom error pages to app/views/public_errors + controller)
+ * Authlogic throwing lots of deprecation warnings (replaced with devise)
+ * I18n on edit profile/reset password, after error - password fields lose correct translation (added translation for actions create/update)
 
 TODO:
 

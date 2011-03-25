@@ -9,8 +9,7 @@ describe AcceptReviewersController do
     @user = Factory(:user)
     @reviewer = Factory(:reviewer, :user => @user)
     Reviewer.stubs(:find).returns(@reviewer)
-    activate_authlogic
-    UserSession.create(@user)
+    sign_in @user
     disable_authorization
   end
 

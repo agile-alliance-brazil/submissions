@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110207012822) do
+ActiveRecord::Schema.define(:version => 20110225224316) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -189,8 +189,7 @@ ActiveRecord::Schema.define(:version => 20110207012822) do
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
-    t.string   "persistence_token"
-    t.string   "crypted_password"
+    t.string   "encrypted_password"
     t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -204,16 +203,15 @@ ActiveRecord::Schema.define(:version => 20110207012822) do
     t.text     "bio"
     t.integer  "roles_mask"
     t.string   "country"
-    t.string   "perishable_token"
-    t.datetime "last_request_at"
-    t.datetime "current_login_at"
-    t.datetime "last_login_at"
-    t.string   "current_login_ip"
-    t.string   "last_login_ip"
-    t.string   "default_locale",    :default => "pt"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "default_locale",       :default => "pt"
+    t.string   "reset_password_token"
+    t.string   "authentication_token"
+    t.integer  "sign_in_count"
   end
-
-  add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
   create_table "votes", :force => true do |t|
     t.integer  "user_id"

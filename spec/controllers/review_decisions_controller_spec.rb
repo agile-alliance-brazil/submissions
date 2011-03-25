@@ -8,8 +8,7 @@ describe ReviewDecisionsController do
   before(:each) do
     @session = Factory(:session)
     @organizer = Factory(:organizer, :track => @session.track)
-    activate_authlogic
-    UserSession.create(@organizer.user)
+    sign_in @organizer.user
     disable_authorization
   end
   

@@ -9,8 +9,7 @@ describe SessionsController do
   before(:each) do
     @conference = Factory(:conference)
     @session = Factory(:session, :conference => @conference)
-    activate_authlogic
-    UserSession.create(@session.author)
+    sign_in @session.author
     disable_authorization
   end
 

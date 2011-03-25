@@ -1,5 +1,5 @@
 class PublicErrorsController < ApplicationController
-  skip_before_filter :login_required, :authorize_action
+  skip_before_filter :authenticate_user!, :authorize_action
 
   def unprocessable_entity
     render :action => 'internal_server_error'

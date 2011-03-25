@@ -9,8 +9,7 @@ describe OrganizerSessionsController do
     @conference = Factory(:conference)
     @user = Factory(:user)
     @organizer = Factory(:organizer, :user => @user, :conference => @conference)
-    activate_authlogic
-    UserSession.create(@user)
+    sign_in @user
     disable_authorization
   end
 

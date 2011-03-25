@@ -20,11 +20,6 @@ describe Ability do
       @ability.should be_able_to(:manage, 'password_resets')
     end
 
-    it "can login/logout" do
-      @ability.should be_able_to(:create, UserSession)
-      @ability.should be_able_to(:destroy, UserSession)
-    end
-    
     it "can create a new account" do
       @ability.should be_able_to(:create, User)
     end

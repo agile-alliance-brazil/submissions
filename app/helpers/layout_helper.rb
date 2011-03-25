@@ -14,7 +14,6 @@ module LayoutHelper
   
   def show_actions!
     @show_actions = true
-    @user_session ||= UserSession.new
   end
   
   def show_actions?

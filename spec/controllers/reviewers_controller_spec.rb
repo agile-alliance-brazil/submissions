@@ -8,8 +8,7 @@ describe ReviewersController do
   before(:each) do
     @conference = Factory(:conference)
     @user = Factory(:user)
-    activate_authlogic    
-    UserSession.create(@user)
+    sign_in @user
     disable_authorization
   end
 

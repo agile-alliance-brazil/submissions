@@ -3,12 +3,9 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'remarkable/active_record'
-require 'authlogic/test_case'
 require 'mocha/standalone'
 require "cancan/matchers"
 require 'validates_existence/rspec_macros'
-
-include Authlogic::TestCase
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -17,9 +14,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec.configure do |config|
   config.include(ControllerMacros, :type => :controller)
   config.include(DisableAuthorization, :type => :controller)
+  config.include(Devise::TestHelpers, :type => :controller)
   config.include(TrimmerMacros)
   config.include(ValidatesExistence::RspecMacros)
-
+  
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

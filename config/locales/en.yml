@@ -24,8 +24,12 @@ en:
               invalid: "please use only number, spaces, and .-+()"
             email:
               taken: "another user has an account with the same e-mail address. Please enter another"            
+              invalid: "should be a valid e-mail address"
+              not_found: "no user was found with that e-mail address"
             password:
               confirmation: "passwords do not match"
+            reset_password_token:
+              invalid: "We're sorry, but we could not locate your profile. If you are having issues try copying and pasting the URL from your email into your browser or restarting the reset password process."
         session:
           attributes:
             keyword_list:
@@ -71,15 +75,20 @@ en:
         bio: "Bio"
         roles: "Roles"
         wants_to_submit: "I want to submit sessions for the conference"
+        password: "Password"
+        current_password: "Current password"
         new:
           password: "Password"
           password_confirmation: "Confirm password"
+        create:
+          password: "Password"
+          password_confirmation: "Confirm password"
         edit:
-          password: "Change password"
+          password: "New password"
           password_confirmation: "Confirm new password"
-      user_session:
-        username: "Username"
-        password: "Password"
+        update:
+          password: "New password"
+          password_confirmation: "Confirm new password"
       session:
         title: "Session title"
         track_id: "Track"
@@ -260,28 +269,6 @@ en:
     help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
   
   flash:
-    user:
-      update:
-        success: "Profile was successfully updated!"
-      create:
-        success: "Thank you for signing up! You are now logged in."
-      login:
-        required: "You must first log in or sign up before accessing this page."
-      logout:
-        required: "This page is only available when you're logged out."
-    password_reset:
-      create:
-        success: "Instructions to reset your password have been sent. Please check your e-mail."
-        failure: "No user was found with that e-mail address."
-      update:
-        success: "Password successfully updated!"
-        failure: "Please provide a new password"
-      invalid_token: "We're sorry, but we could not locate your profile. If you are having issues try copying and pasting the URL from your email into your browser or restarting the reset password process."
-    user_session:
-      create:
-        success: "Logged in successfully."
-      destroy:
-        success: "You have been logged out."
     session:
       update:
         success: "Session was successfully updated!"
