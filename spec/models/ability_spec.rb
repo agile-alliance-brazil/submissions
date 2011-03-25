@@ -219,13 +219,13 @@ describe Ability do
         Time.zone.stubs(:now).returns(Time.zone.local(2010, 1, 1))
       end
       
-      it "- before deadline of 19/3/2011" do
-        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 19, 23, 59, 59))
+      it "- before deadline of 27/3/2011" do
+        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 27, 23, 59, 59))
         @ability.should be_able_to(:create, Session)
       end
       
       it "- after deadline author can't update" do
-        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 20, 0, 0, 0))
+        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 28, 0, 0, 0))
         @ability.should_not be_able_to(:create, Session)
       end
     end
@@ -248,15 +248,15 @@ describe Ability do
         @ability.should be_able_to(:update, @session)
       end
       
-      it "- before deadline of 19/3/2011" do
+      it "- before deadline of 27/3/2011" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 19, 23, 59, 59))
+        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 27, 23, 59, 59))
         @ability.should be_able_to(:update, @session)
       end
       
       it "- after deadline author can't update" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 20, 0, 0, 0))
+        Time.zone.expects(:now).returns(Time.zone.local(2011, 3, 28, 0, 0, 0))
         @ability.should_not be_able_to(:update, @session)
       end
 
@@ -312,13 +312,13 @@ describe Ability do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
       end
 
-      it "- before deadline of 30/4/2011" do
+      it "- before deadline of 4/5/2011" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 4, 30, 23, 59, 58))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 4, 23, 59, 58))
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
       end
 
@@ -328,7 +328,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 1, 0, 0, 0))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 5, 0, 0, 0))
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
       end
     end
@@ -377,13 +377,13 @@ describe Ability do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
       end
 
-      it "- before deadline of 30/4/2011" do
+      it "- before deadline of 4/5/2011" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
 
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 4, 30, 23, 59, 58))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 4, 23, 59, 58))
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
       end
 
@@ -393,7 +393,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 1, 0, 0, 0))
+        Time.zone.expects(:now).at_least_once.returns(Time.zone.local(2011, 5, 5, 0, 0, 0))
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
       end
     end
