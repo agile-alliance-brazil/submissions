@@ -28,8 +28,8 @@ namespace :deploy do
     run "#{release_path}/script/rails runner -e #{rails_env} 'Sass::Plugin.update_stylesheets'"
   end
   
-  task :package_assets => "deploy:compile_sass", :roles => :app, :except => {:no_release => true} do
-    bundle_cmd = fecth(:bundle_cmd)
+  task :package_assets, :depends => ["deploy:compile_sass"], :roles => :app, :except => {:no_release => true} do
+    bundle_cmd = fetch(:bundle_cmd)
     run "cd #{release_path} && #{bundle_cmd} exec jammit -f"
   end
 
