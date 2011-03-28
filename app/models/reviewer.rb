@@ -18,12 +18,14 @@ class Reviewer < ActiveRecord::Base
     record.errors.add(attr, :existence) if record.user.nil?
   end
 
-  scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
+  scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
 
-  scope :for_user, lambda { |u| where('user_id = ?', u.id)}
+  scope :for_user, lambda { |u| where('user_id = ?', u.id) }
+
+  scope :accepted, lambda { |u| where('state = ?', :accepted) }
 
   def self.user_reviewing_conference?(user, conference)
-    !self.for_user(user).for_conference(conference).empty?
+    !self.for_user(user).for_conference(conference).accepted.empty?
   end
 
   after_validation do
