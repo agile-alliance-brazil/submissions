@@ -229,7 +229,7 @@ en:
     comments: "Comments"
     edit_comment: "Edit comment"
     edit_organizer: "Update organizer"
-    new_review: "New review for session '%{session}}"
+    new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
   
