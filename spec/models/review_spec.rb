@@ -65,12 +65,13 @@ describe Review do
     should_validate_presence_of :proposal_relevance_rating_id
     
     should_validate_presence_of :recommendation_id
-    should_validate_presence_of :comments_to_authors
 
     should_validate_presence_of :reviewer_confidence_rating_id
     
     should_validate_presence_of :reviewer_id
     should_validate_presence_of :session_id
+
+    should_validate_length_of :comments_to_authors, :minimum => 150
     
     before { Factory(:review) }
     should_validate_uniqueness_of :reviewer_id, :scope => :session_id

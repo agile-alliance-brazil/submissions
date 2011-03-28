@@ -112,7 +112,7 @@ Factory.define :review do |r|
   r.association :reviewer_confidence_rating, :factory => :rating
   
   r.comments_to_organizers "Fake"
-  r.comments_to_authors "Fake"
+  r.comments_to_authors "Fake " * 40
   
   r.association :reviewer, :factory => :user
   r.association :session

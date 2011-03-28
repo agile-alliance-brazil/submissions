@@ -23,7 +23,6 @@ class Review < ActiveRecord::Base
                         :proposal_quality_rating_id, :proposal_relevance_rating_id,
                         :recommendation_id,
                         :reviewer_confidence_rating_id,
-                        :comments_to_authors,
                         :reviewer_id, :session_id
   validates_presence_of :justification, :unless => :strong_accept?
 
@@ -31,6 +30,8 @@ class Review < ActiveRecord::Base
                         :proposal_duration, :proposal_limit, :proposal_abstract,
                         :in => [true, false]
   
+  validates_length_of :comments_to_authors, :minimum => 150
+
   validates_uniqueness_of :reviewer_id, :scope => :session_id
 
   scope :for_conference, lambda { |c| joins(:session).where(:sessions => {:conference_id => c.id})}
