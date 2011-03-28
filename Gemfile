@@ -4,7 +4,9 @@ gem 'rails', '3.0.3'
 gem 'rack', '=1.2.1'
 gem 'haml', '~> 3.0.25'
 gem 'will_paginate', '~> 3.0.pre2'
-gem 'formtastic', '~> 1.2.3'
+# this was ~> 1.2.3, but there's a bug with checkboxes that should be fixed with 1.2.4
+# https://github.com/justinfrench/formtastic/commit/a36408d4ea805d7c20296c07b5c7733dab77acc9
+gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => '1.2-stable'
 gem 'inherited_resources', '~> 1.2.1'
 gem 'responders', '~> 0.6.2'
 gem 'has_scope', '~> 0.5.0'

@@ -3,7 +3,6 @@
 KNOWN ISSUES AFTER UPGRADE:
 
  * Fix named_scope specs (problem with remarkable and rails3/arel, pending for now)
- * Checkbox defaults to checked on error (accept invitation)
 
 FIXED UPGRADE ISSUES:
 
@@ -19,6 +18,7 @@ FIXED UPGRADE ISSUES:
  * Authlogic throwing lots of deprecation warnings (replaced with devise)
  * I18n on edit profile/reset password, after error - password fields lose correct translation (added translation for actions create/update)
  * I18N for yes/no radio buttons
+ * Checkbox defaults to checked on error when accept invitation (bug on formtastic, see Gemfile)
 
 TODO:
 

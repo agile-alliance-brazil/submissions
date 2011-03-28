@@ -22,7 +22,7 @@ class Reviewer < ActiveRecord::Base
 
   scope :for_user, lambda { |u| where('user_id = ?', u.id) }
 
-  scope :accepted, lambda { |u| where('state = ?', :accepted) }
+  scope :accepted, lambda { where('state = ?', :accepted) }
 
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?
