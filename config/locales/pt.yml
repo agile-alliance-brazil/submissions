@@ -268,8 +268,8 @@ pt:
       preference:
         audience_level_id: "Nível de conhecimento"
       review:
-        author_agile_xp_rating_id: "Como você avalia a experiência do autor principal com métodos ágeis?"
-        author_proposal_xp_rating_id: "Como você avalia a experiência do autor com o assunto da proposta?"
+        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com métodos ágeis?"
+        author_proposal_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com o assunto da proposta?"
         proposal_track: "A trilha está adequada?"
         proposal_level: "O nível está adequado?"
         proposal_type: "O tipo da sessão está adequado?"
@@ -323,7 +323,8 @@ pt:
       reviewer:
         user_username: "Digite o nome de usuário do avaliador neste campo."
       review:
-        comments_to_authors: "Procurem escrever feedback útil aos autores neste campo. Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
+        comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
+        justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"

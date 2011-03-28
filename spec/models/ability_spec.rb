@@ -703,7 +703,10 @@ describe Ability do
   context "- reviewer" do
     before(:each) do
       @user.add_role "reviewer"
-      Factory(:reviewer, :user => @user, :conference => @conference)
+      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
+      reviewer.invite
+      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+      reviewer.accept
       @ability = Ability.new(@user, @conference)
     end
 

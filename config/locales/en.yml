@@ -134,8 +134,8 @@ en:
       preference:
         audience_level_id: "Knowledge level"
       review:
-        author_agile_xp_rating_id: "How do you rate the mais author's experience with agile methods?"
-        author_proposal_xp_rating_id: "How do you rate the author's experience with proposal subject?"
+        author_agile_xp_rating_id: "How do you rate the author(s)' experience with agile methods?"
+        author_proposal_xp_rating_id: "How do you rate the author(s)' experience with the proposal subject?"
         proposal_track: "Is the track adequate?"
         proposal_level: "Is the audience level adequate?"
         proposal_type: "Is the session type adequate?"
@@ -189,7 +189,8 @@ en:
       reviewer:
         user_username: "Please provide the reviewer's username in this field."
       review:
-        comments_to_authors: "Please provide any meaningful feedback for the authors here."
+        comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
+        justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
