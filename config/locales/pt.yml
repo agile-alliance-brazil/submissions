@@ -303,6 +303,7 @@ pt:
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas votar ou deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
+        current_password: "Para qualquer alteração no perfil é preciso confirmar sua senha atual."
       session:
         track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 50 minutos de duração ou Lightning Talks com 10 minutos de duração."
         session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt' target='_blank'>aqui</a>."

@@ -4,8 +4,6 @@
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}
   = form.input :email, :required => true, :input_html => {:tabindex => autotab}
-  - if !@user.new_record?
-    = form.input :current_password, :required => true, :input_html => {:tabindex => autotab}
   = form.input :password, :required => @user.new_record?, :input_html => {:tabindex => autotab}
   = form.input :password_confirmation, :required => @user.new_record?, :input_html => {:tabindex => autotab}
 = form.inputs :user_personal do
@@ -17,6 +15,8 @@
   = form.input :organization, :input_html => {:tabindex => autotab}
   = form.input :website_url, :input_html => {:tabindex => autotab}
   = form.input :bio, :required => true, :input_html => {:tabindex => autotab}
+  - if !@user.new_record?
+    = form.input :current_password, :required => true, :input_html => {:tabindex => autotab}
 
 :javascript
   $(document).ready(function() {
