@@ -2,7 +2,7 @@
   - if current_user.reviewer? || current_user.organizer? || current_user.admin?
     #date
       %p= t('actions.review_date')
-      %p <strong>#{l(Date.new(2011, 4, 10))}</strong>
+      %p <strong>#{l(Ability::REVIEW_DEADLINE.to_date)}</strong>
       #review_progress_count
         #{t('actions.review_goal')}:
         %span.progress

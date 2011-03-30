@@ -1,5 +1,9 @@
 class Ability
   include CanCan::Ability
+  
+  SESSION_SUBMISSION_DEADLINE = Time.zone.local(2011, 3, 27, 23, 59, 59)
+  REVIEW_DEADLINE = Time.zone.local(2011, 4, 10, 23, 59, 59)
+  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 5, 4, 23, 59, 59)
 
   def initialize(user, conference, params={})
     @user = user || User.new # guest
@@ -55,10 +59,10 @@ class Ability
   def author
     can do |action, subject_class, subject|
       expand_actions([:create]).include?(action) && subject_class == Session &&
-          Time.zone.now <= Time.zone.local(2011, 3, 27, 23, 59, 59)
+          Time.zone.now <= SESSION_SUBMISSION_DEADLINE
     end
     can(:update, Session) do |session|
-      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= Time.zone.local(2011, 3, 27, 23, 59, 59)
+      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= SESSION_SUBMISSION_DEADLINE
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
@@ -67,10 +71,10 @@ class Ability
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 5, 4, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= Time.zone.local(2011, 5, 4, 23, 59, 59)
+      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
   end
 
@@ -89,12 +93,12 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == ReviewDecision &&
-          session.try(:in_review?) && @user.organized_tracks(@conference).include?(session.track)
+          session.try(:in_review?) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
-          !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track)
+          !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
     end
   end
 
@@ -104,7 +108,7 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == Review &&
-          Session.for_reviewer(@user, @conference).include?(session)
+          Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= REVIEW_DEADLINE
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
