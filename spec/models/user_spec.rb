@@ -35,7 +35,7 @@ describe User do
       should_not_validate_presence_of :state
     end
     
-    context "non guest" do
+    context "author" do
       subject { u = Factory.build(:user); u.add_role("author"); u }
       should_validate_presence_of :phone
       should_validate_presence_of :country
