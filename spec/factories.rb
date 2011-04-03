@@ -136,3 +136,22 @@ Factory.define :review_decision do |d|
   d.note_to_authors "Some note to the authors"
   d.published false
 end
+
+Factory.define :attendee do |a|
+  a.association :conference, :factory => :conference
+  a.first_name "User"
+  a.sequence(:last_name) {|n| "Name#{n}"}
+  a.email { |e| "#{e.last_name.parameterize}@example.com" }
+  a.phone "(11) 3322-1234"
+  a.country "BR"
+  a.state "SP"
+  a.city "São Paulo"
+  a.organization "ThoughtWorks"
+  a.badge_name {|e| "The Great #{e.first_name}" }
+  a.cpf "12345678900"
+  a.gender false
+  a.twitter_user {|e| "#{e.last_name.parameterize}"}
+  a.address "Rua dos Bobos, 0"
+  a.neighbourhood "Vila Perdida"
+  a.zipcode "12345000"
+end

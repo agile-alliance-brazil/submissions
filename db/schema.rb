@@ -10,7 +10,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225224316) do
+ActiveRecord::Schema.define(:version => 20110401201503) do
+
+  create_table "attendees", :force => true do |t|
+    t.integer  "conference_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "organization"
+    t.string   "phone"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
+    t.string   "badge_name"
+    t.string   "cpf"
+    t.boolean  "gender"
+    t.string   "twitter_user"
+    t.string   "address"
+    t.string   "neighbourhood"
+    t.string   "zipcode"
+    t.string   "type"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
