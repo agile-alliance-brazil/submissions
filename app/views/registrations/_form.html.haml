@@ -24,6 +24,7 @@
     $("#user_country").bindSelectUpdated();
     
     $("#user_wants_to_submit").change(wantsToSubmitTriggered).trigger('change');
+    $("#user_country").trigger('updated');
   })
   
   function countryTriggered() {
