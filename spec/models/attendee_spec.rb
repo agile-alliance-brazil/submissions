@@ -141,4 +141,34 @@ describe Attendee do
       end      
     end
   end
+  
+  it "should provide full name" do
+    attendee = Attendee.new(:first_name => "Danilo", :last_name => "Sato")
+    attendee.full_name.should == "Danilo Sato"
+  end
+  
+  it "should be student when RegistrationType is student" do
+    attendee = Attendee.new(:registration_type => 'student')
+    attendee.should be_student
+  end
+  
+  it "should not be student when RegistrationType is individual" do
+    attendee = Attendee.new(:registration_type => 'individual')
+    attendee.should_not be_student
+  end
+  
+  it "should provide registration fee for individual first period" do
+    attendee = Attendee.new(:registration_type => 'individual')
+    attendee.registration_fee.should == 165.00
+  end
+  
+  it "should be male for gender male" do
+    attendee = Attendee.new(:gender => 'M')
+    attendee.should be_male
+  end
+  
+  it "should not be male for gender female" do
+    attendee = Attendee.new(:gender => 'F')
+    attendee.should_not be_male
+  end
 end

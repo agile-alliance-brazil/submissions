@@ -72,6 +72,17 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
+  def registration_pending(attendee, sent_at = Time.now)
+    @attendee = attendee
+    @conference_name = current_conference.name
+    mail :subject => "[#{host}] #{I18n.t('email.registration_pending.subject', :conference_name => current_conference.name)}",
+         :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
+         :cc       => conference_organizer,
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
   private
   def from_address
     ActionMailer::Base.smtp_settings[:user_name]
@@ -79,6 +90,10 @@ class EmailNotifications < ActionMailer::Base
 
   def host
     ActionMailer::Base.default_url_options[:host]
+  end
+  
+  def conference_organizer
+    "\"#{CONFERENCE_ORGANIZER[:name]}\" <#{CONFERENCE_ORGANIZER[:email]}>"
   end
 
   def current_conference

@@ -38,4 +38,20 @@ class Attendee < ActiveRecord::Base
       transition :pending => :expired
     end
   end
+  
+  def full_name
+    [self.first_name, self.last_name].join(' ')
+  end
+  
+  def student?
+    registration_type == 'student'
+  end
+  
+  def male?
+    gender == 'M'
+  end
+  
+  def registration_fee
+    165
+  end
 end

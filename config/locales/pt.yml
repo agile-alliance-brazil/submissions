@@ -496,6 +496,8 @@ pt:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
     session_rejected:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
+    registration_pending:
+      subject: "Pedido de inscrição na %{conference_name} enviada"
 
   reviewer:
     state:

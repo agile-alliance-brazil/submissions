@@ -114,7 +114,6 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
   	  mail.subject.should == "[localhost:3000] #{@conference.name} session proposal submitted"
     end
-    
   end
 
   context "reviewer invitation" do
@@ -304,7 +303,39 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
 
   	  mail.subject.should == "[localhost:3000] Notification from the Program Committee of #{@conference.name}"
+    end 
+  end
+  
+  context "registration pending" do
+    before(:each) do
+      @attendee = Factory(:attendee)
     end
     
+    it "should be sent to attendee cc'ed to conference organizer" do
+      mail = EmailNotifications.registration_pending(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == ["result@resultonline.com.br"]
+  	  mail.encoded.should =~ /Caro #{@attendee.full_name},/
+      # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
+  	  mail.encoded.should =~ /R\$ 165,00/
+  	  mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/pt\/inscricoes\.php/
+  	  mail.encoded.should =~ /result@resultonline\.com\.br/
+  	  mail.subject.should == "[localhost:3000] Pedido de inscrição na #{@conference.name} enviada"
+    end
+    
+    it "should be sent to attendee in system's locale" do
+      I18n.locale = 'en'
+      mail = EmailNotifications.registration_pending(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == ["result@resultonline.com.br"]
+  	  mail.encoded.should =~ /Dear #{@attendee.full_name},/
+  	  mail.encoded.should =~ /R\$ 165\.00/
+  	  mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
+  	  mail.encoded.should =~ /result@resultonline\.com\.br/
+  	  mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/en\/inscricoes\.php/
+  	  mail.subject.should == "[localhost:3000] Registration request to #{@conference.name} sent"
+    end
   end
 end

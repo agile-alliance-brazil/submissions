@@ -362,6 +362,8 @@ en:
       subject: "Notification from the Program Committee of %{conference_name}"
     session_rejected:
       subject: "Notification from the Program Committee of %{conference_name}"
+    registration_pending:
+      subject: "Registration request to %{conference_name} sent"
   
   reviewer:
     state:
