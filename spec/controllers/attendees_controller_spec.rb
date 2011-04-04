@@ -40,5 +40,12 @@ describe AttendeesController do
       post :create
       response.should redirect_to(root_path)
     end
+    
+    it "should send pending registration e-mail" do
+      email = stub(:deliver => true)
+      EmailNotifications.expects(:registration_pending).returns(email)
+      Attendee.any_instance.stubs(:valid?).returns(true)
+      post :create
+    end
   end
 end

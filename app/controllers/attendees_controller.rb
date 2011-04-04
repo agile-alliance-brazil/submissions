@@ -9,7 +9,7 @@ class AttendeesController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        # EmailNotifications.session_submitted(@session).deliver
+        EmailNotifications.registration_pending(@attendee).deliver
         flash[:notice] = t('flash.attendee.create.success')
         redirect_to root_path
       end
