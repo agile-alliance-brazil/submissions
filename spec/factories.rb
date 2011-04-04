@@ -139,7 +139,7 @@ end
 
 Factory.define :attendee do |a|
   a.association :conference, :factory => :conference
-  a.first_name "User"
+  a.first_name "Attendee"
   a.sequence(:last_name) {|n| "Name#{n}"}
   a.email { |e| "#{e.last_name.parameterize}@example.com" }
   a.phone "(11) 3322-1234"
@@ -149,9 +149,10 @@ Factory.define :attendee do |a|
   a.organization "ThoughtWorks"
   a.badge_name {|e| "The Great #{e.first_name}" }
   a.cpf "12345678900"
-  a.gender false
+  a.gender 'M'
   a.twitter_user {|e| "#{e.last_name.parameterize}"}
   a.address "Rua dos Bobos, 0"
   a.neighbourhood "Vila Perdida"
   a.zipcode "12345000"
+  a.registration_type "individual"
 end

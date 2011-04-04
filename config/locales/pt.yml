@@ -553,7 +553,15 @@ pt:
       title: "Aceita"
     reject:
       title: "Rejeitada"
+  
+  gender:
+    male: "Masculino"
+    female: "Feminino"
 
+  registration_type:
+    individual: "Individual"
+    student: "Estudante"
+    
   generic:
     or: "ou"
     and: "e"

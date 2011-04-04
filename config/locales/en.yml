@@ -419,6 +419,14 @@ en:
       title: "Accepted"
     reject:
       title: "Rejected"
+      
+  gender:
+    male: "Male"
+    female: "Female"
+  
+  registration_type:
+    individual: "Individual"
+    student: "Student"
 
   generic:
     or: "or"

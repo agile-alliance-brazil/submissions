@@ -18,9 +18,10 @@ describe Attendee do
     should_allow_mass_assignment_of :address
     should_allow_mass_assignment_of :neighbourhood
     should_allow_mass_assignment_of :zipcode
-    should_allow_mass_assignment_of :type
+    should_allow_mass_assignment_of :registration_type
     should_allow_mass_assignment_of :status_event
     should_allow_mass_assignment_of :conference_id
+    should_allow_mass_assignment_of :user_id
 
     should_not_allow_mass_assignment_of :id
   end
@@ -33,39 +34,53 @@ describe Attendee do
     should_belong_to :conference
     should_belong_to :user
     
-    should_have_many :courses, :dependent => :destroy
+    # should_have_many :courses, :dependent => :destroy
   end
   
   context "validations" do
     should_validate_presence_of :first_name
     should_validate_presence_of :last_name
     should_validate_presence_of :email
+    should_validate_presence_of :phone
     should_validate_presence_of :country
     should_validate_presence_of :state
     should_validate_presence_of :city
-    should_validate_presence_of :badge_name
+    should_validate_presence_of :address
     should_validate_presence_of :gender
     should_validate_presence_of :cpf
-    should_validate_presence_of :type
+    should_validate_presence_of :zipcode
+    should_validate_presence_of :registration_type
     should_validate_presence_of :conference_id
 
     should_validate_existence_of :conference
     should_validate_existence_of :user, :allow_nil => true
     
-    should_validate_length_of :first_name, :maximum => 100
-    should_validate_length_of :last_name, :maximum => 100
-    should_validate_length_of :badge_name, :maximum => 30
-    should_validate_length_of :organization, :maximum => 30, :allow_blank => true
-    should_validate_length_of :country, :maximum => 100
-    should_validate_length_of :state, :maximum => 100
-    should_validate_length_of :city, :maximum => 100
+    should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
+    should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
+    should_validate_length_of :badge_name, :maximum => 200, :allow_blank => true
+    should_validate_length_of :organization, :maximum => 100, :allow_blank => true
+    should_validate_length_of :country, :maximum => 100, :allow_blank => true
+    should_validate_length_of :state, :maximum => 100, :allow_blank => true
+    should_validate_length_of :city, :maximum => 100, :allow_blank => true
     should_validate_length_of :address, :maximum => 300, :allow_blank => true
     should_validate_length_of :neighbourhood, :maximum => 100, :allow_blank => true
     should_validate_length_of :zipcode, :maximum => 10, :allow_blank => true
-    should_validate_length_of :twitter_user, :maximum => 140, :allow_blank => true
+    should_validate_length_of :twitter_user, :maximum => 100, :allow_blank => true
+    should_validate_length_of :email, :within => 6..100
     
     should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
+    
+    should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
+    should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+
+    should_validate_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
+    should_validate_inclusion_of :registration_type, :in => RegistrationType.valid_values, :allow_blank => true
+    
+    context "uniqueness" do
+      before { Factory(:attendee) }
+      should_validate_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
+    end
   end
   
   context "state machine" do
@@ -78,13 +93,13 @@ describe Attendee do
         @attendee.should be_pending
       end
       
-      it "should allow confirmation" do
+      it "should allow confirming" do
         @attendee.confirm.should be_true
         @attendee.should_not be_pending
         @attendee.should_not be_expired
       end
 
-      it "should allow expire" do
+      it "should allow expiring" do
         @attendee.expire.should be_true
         @attendee.should_not be_pending
         @attendee.should_not be_confirmed
@@ -97,12 +112,12 @@ describe Attendee do
         @attendee.should be_confirmed
       end
       
-      it "should not allow confirm again" do
+      it "should not allow confirming again" do
         @attendee.confirm.should be_false
         @attendee.should be_confirmed
       end
       
-      it "should not allow expire" do
+      it "should not allow expiring" do
         @attendee.expire.should be_false
         @attendee.should_not be_expired
         @attendee.should be_confirmed
@@ -115,13 +130,15 @@ describe Attendee do
         @attendee.should be_expired
       end
       
-      it "should allow confirm" do
-        @attendee.confirm.should be_true
+      it "should not allow expiring again" do
+        @attendee.expire.should be_false
+        @attendee.should be_expired
       end
       
-      it "should allow pending" do
-        @attendee.pending.should be_true
-      end
+      it "should not allow confirming" do
+        @attendee.confirm.should be_false
+        @attendee.should be_expired
+      end      
     end
   end
 end

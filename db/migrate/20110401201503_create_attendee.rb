@@ -15,13 +15,13 @@ class CreateAttendee < ActiveRecord::Migration
       
       t.string :badge_name
       t.string :cpf
-      t.boolean :gender
+      t.string :gender
       t.string :twitter_user
       t.string :address
       t.string :neighbourhood
       t.string :zipcode
       
-      t.string :type
+      t.string :registration_type
       t.string :status
       
       t.timestamps
