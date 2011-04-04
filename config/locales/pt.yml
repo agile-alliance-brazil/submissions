@@ -196,6 +196,8 @@ pt:
       to_authors: "Informações aos autores"
       details: "Detalhes"
       review_decision: "Parecer final"
+      attendee_personal: "Informações Pessoais"
+      attendee_address: "Informações para Contato"
     labels:
       user:
         first_name: "Nome"
@@ -291,6 +293,23 @@ pt:
       review_decision:
         outcome_id: "Parecer do organizador"
         note_to_authors: "Comentários para os autores"
+      attendee:
+        registration_type: "Tipo de inscrição"
+        first_name: "Nome"
+        last_name: "Sobrenome"
+        email: "Email"
+        phone: "Telefone para contato"
+        country: "País"
+        state: "Estado"
+        city: "Cidade"
+        organization: "Organização / Instituição de ensino"
+        badge_name: "Nome para crachá"
+        cpf: "CPF"
+        gender: "Sexo"
+        twitter_user: "Twitter username"
+        address: "Endereço"
+        neighbourhood: "Bairro"
+        zipcode: "CEP"
     hints:
       user:
         email: "Principal email de contato."
@@ -325,6 +344,10 @@ pt:
       review:
         comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
         justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
+      attendee:
+        organization: "Nome da empresa ou organização que representa, ou nome da instituição de ensino onde estuda. Você precisará comprovar o vínculo com esta instituição de ensino para confirmar sua inscrição como estudante."
+        cpf: "Deixe este campo em branco se não for brasileiro."
+        email: "Preencha aqui o mesmo e-mail que usou no cadastro de pré-inscrição para acessar o desconto de pré-inscrição até 11/Abr"
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -343,11 +366,12 @@ pt:
       submit_review_decision: "Submeter parecer da organização"
       confirm_session: "Confirmar participação"
       withdraw_session: "Retirar sessão"
+      new_registration: "Submeter inscrição"
 
   # Mensagens customizadas
   title:
     home: "Página inicial"
-    guidelines: "Regras de Submissão"
+    guidelines: "Regras de submissão"
     signup: "Novo usuário"
     lost_password: "Esqueceu seu nome de usuário ou senha?"
     change_password: "Escolha uma nova senha"
@@ -366,6 +390,7 @@ pt:
     new_review: "Nova avaliação da sessão '%{session}'"
     review_decision: "Parecer da sessão '%{session}'"
     accepted_sessions: "Sessões aceitas"
+    registration: "Nova inscrição"
 
   actions:
     submission_date: "Prazo para submissões"
@@ -443,6 +468,9 @@ pt:
     review:
       create:
         success: "Avaliação gravada com sucesso."
+    attendee:
+      create:
+        success: "Inscrição submetida com sucesso. Instruções para confirmação e pagamento foram enviadas por e-mail."
 
   session_types:
     tutorial:

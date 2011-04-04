@@ -62,6 +62,8 @@ en:
       to_authors: "Information to the authors"
       details: "Details"
       review_decision: "Final decision"
+      attendee_personal: "Personal details"
+      attendee_address: "Contact details"
     labels:
       user:
         first_name: "First name"
@@ -157,6 +159,23 @@ en:
       review_decision:
         outcome_id: "Organizer's decision"
         note_to_authors: "Comments to the authors"
+      attendee:
+        registration_type: "Type of Registration"
+        first_name: "First name"
+        last_name: "Last name"
+        email: "E-mail address"
+        phone: "Phone"
+        country: "Country"
+        state: "State"
+        city: "City"
+        organization: "Organization / Institution"
+        badge_name: "Name for badge"
+        cpf: "Identification number"
+        gender: "Gender"
+        twitter_user: "Twitter username"
+        address: "Address"
+        neighbourhood: "Address 2"
+        zipcode: "Zip Code"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -191,6 +210,9 @@ en:
       review:
         comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
+      attendee:
+        organization: "Please provide the name of your organization (to be used in your badge), or the name of your institution where you study. You will be required to send proof of study to confirm a student registration."
+        cpf: "Leave blank if you are registering from outside of Brazil."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -209,6 +231,7 @@ en:
       submit_review_decision: "Submit organizer's decision"
       confirm_session: "Confirm attendance"
       withdraw_session: "Withdraw session"
+      new_registration: "Submit registration"
 
   # Custom messages
   title:
@@ -232,6 +255,7 @@ en:
     new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
+    registration: "New registration"
   
   actions:
     submission_date: "Submission deadline"
@@ -309,6 +333,9 @@ en:
     review:
       create:
         success: "Review recorded successfully."
+    attendee:
+      create:
+        success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
   
   session_types:
     tutorial:

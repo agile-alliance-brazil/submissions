@@ -21,18 +21,16 @@ describe Attendee do
     should_allow_mass_assignment_of :registration_type
     should_allow_mass_assignment_of :status_event
     should_allow_mass_assignment_of :conference_id
-    should_allow_mass_assignment_of :user_id
 
     should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes Attendee, :first_name, :last_name, :email, :organization, :phone,
-                                      :country, :state, :city, :badge_name, :cpf, :twitter_user,
+                                      :country, :state, :city, :badge_name, :twitter_user,
                                       :address, :neighbourhood, :zipcode
   
   context "associations" do
     should_belong_to :conference
-    should_belong_to :user
     
     # should_have_many :courses, :dependent => :destroy
   end
@@ -47,13 +45,23 @@ describe Attendee do
     should_validate_presence_of :city
     should_validate_presence_of :address
     should_validate_presence_of :gender
-    should_validate_presence_of :cpf
     should_validate_presence_of :zipcode
     should_validate_presence_of :registration_type
     should_validate_presence_of :conference_id
-
+    # should_validate_presence_of :cpf
+    should_not_validate_presence_of :organization
+    
+    context "student" do
+      subject {Factory(:attendee, :registration_type => 'student')}
+      should_validate_presence_of :organization
+    end
+    
+    context "non brazilians" do
+      subject {Factory(:attendee, :country => 'US')}
+      should_not_validate_presence_of :cpf
+    end
+    
     should_validate_existence_of :conference
-    should_validate_existence_of :user, :allow_nil => true
     
     should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
     should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
@@ -74,6 +82,9 @@ describe Attendee do
     should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
     should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
 
+    should_allow_values_for :cpf, "111.444.777-35", "11144477735"
+    should_not_allow_values_for :cpf, "12345", "111.111.111-11", "11111111111"
+    
     should_validate_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
     should_validate_inclusion_of :registration_type, :in => RegistrationType.valid_values, :allow_blank => true
     

@@ -51,6 +51,9 @@ GEM
     arel (2.0.9)
     arrayfields (4.7.4)
     bcrypt-ruby (2.1.4)
+    brcpfcnpj (3.0.4)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     brhelper (3.0.4)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -59,8 +62,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -231,6 +234,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.7)
   acts-as-taggable-on (~> 2.0.6)
   acts_as_commentable (~> 3.0.1)
+  brcpfcnpj (~> 3.0.4)
   brhelper (~> 3.0.4)
   cancan (~> 1.6.1)
   capistrano-ext (~> 1.2.1)

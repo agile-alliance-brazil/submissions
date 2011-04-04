@@ -24,6 +24,11 @@ describe Ability do
       @ability.should be_able_to(:create, User)
     end
     
+    it "can register a new attendee" do
+      @ability.should be_able_to(:create, Attendee)
+      @ability.should be_able_to(:index, Attendee)
+    end
+    
     it "can update their own account" do
       @ability.should be_able_to(:update, @user)
       @ability.should_not be_able_to(:update, User.new)

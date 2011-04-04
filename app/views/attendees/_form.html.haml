@@ -1,0 +1,50 @@
+= form.inputs do
+  = form.input :registration_type, :as => :radio, :collection => RegistrationType.options_for_select, :input_html => {:tabindex => autotab}
+= form.inputs :attendee_personal do
+  = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :badge_name, :input_html => {:tabindex => autotab}
+  = form.input :gender, :as => :select, :collection => Gender.options_for_select, :input_html => {:tabindex => autotab}
+  = form.input :organization, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :cpf, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :twitter_user, :input_html => {:tabindex => autotab}
+= form.inputs :attendee_address do
+  = form.input :email, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :phone, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :address, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :country, :required => true, :as => :country, :priority_countries => [:BR], :input_html => {:tabindex => autotab}
+  = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
+  = form.input :city, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :neighbourhood, :input_html => {:tabindex => autotab}
+  = form.input :zipcode, :required => true, :input_html => {:tabindex => autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#attendee_country").bind('updated', countryTriggered);  
+    $("#attendee_country").bindSelectUpdated().trigger('updated');
+
+    $("#attendee_registration_type_input input:radio").bind('change', registrationTypeTriggered);
+    $("#attendee_registration_type_input input:radio").trigger('change');
+  })
+
+  function countryTriggered() {
+    if ($(this).val() != "BR") {
+      $('#attendee_state').val('').attr('disabled', 'disabled');
+      $('#attendee_state_input').find('label abbr').hide();
+      $("#attendee_cpf").attr('disabled', 'disabled');
+      $('#attendee_cpf_input').hide();      
+    } else {
+      $('#attendee_state').removeAttr('disabled');
+      $('#attendee_state_input').find('label abbr').show();
+      $("#attendee_cpf").removeAttr('disabled');
+      $('#attendee_cpf_input').show();      
+    }
+  }
+  
+  function registrationTypeTriggered() {
+    if ($("#attendee_registration_type_input input:radio:checked").val() == 'student') {
+      $("#attendee_organization_input").find('label abbr').show();
+    } else {
+      $("#attendee_organization_input").find('label abbr').hide();
+    }
+  }

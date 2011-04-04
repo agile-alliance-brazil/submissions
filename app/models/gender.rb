@@ -1,11 +1,11 @@
 class Gender
   class << self
     def options_for_select
-      [['M', I18n.t('gender.male')], ['F', I18n.t('gender.female')]]
+      [[I18n.t('gender.male'), 'M'], [I18n.t('gender.female'), 'F']]
     end
     
     def valid_values
-      options_for_select.map(&:first)
+      options_for_select.map(&:second)
     end
   end
 end
