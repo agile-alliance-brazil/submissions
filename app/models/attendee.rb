@@ -30,6 +30,10 @@ class Attendee < ActiveRecord::Base
   
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   
+  def twitter_user=(value)
+    self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
+  end
+  
   state_machine :status, :initial => :pending do
     event :confirm do
       transition :pending => :confirmed
