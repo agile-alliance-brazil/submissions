@@ -6,6 +6,11 @@ class AttendeesController < InheritedResources::Base
     redirect_to new_attendee_path
   end
   
+  def new
+    flash.now[:news] = t('flash.attendee.news').html_safe
+    new!
+  end
+  
   def create
     create! do |success, failure|
       success.html do

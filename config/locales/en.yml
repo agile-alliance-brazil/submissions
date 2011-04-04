@@ -342,6 +342,7 @@ en:
     attendee:
       create:
         success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
+      news: "Only individual and student registrations are available. We are working to launch course registration, group registration, and to activate the discount for those who pre-registered. Follow <a href='http://www.twitter.com/agilebrazil' target='_blank'>@agilebrazil</a> on Twitter for more announcements."
   
   session_types:
     tutorial:
