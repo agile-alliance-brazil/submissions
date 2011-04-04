@@ -17,7 +17,7 @@ Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com suce
 2) Escreva o seu número de inscrição (#{@attendee.id}) no comprovante de depósito ou faça um depósito identificado
 
 
-3) Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{CONFERENCE_ORGANIZER[:email]}
+3) Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{AppConfig[:organizer][:email]}
 
 
 
@@ -35,7 +35,7 @@ Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.creat
 
 
 
-Qualquer dúvida, entre em contato através do email #{CONFERENCE_ORGANIZER[:email]}
+Qualquer dúvida, entre em contato através do email #{AppConfig[:organizer][:email]}
 
 
 

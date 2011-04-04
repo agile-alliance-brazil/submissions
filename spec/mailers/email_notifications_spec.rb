@@ -320,7 +320,7 @@ describe EmailNotifications do
       # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
   	  mail.encoded.should =~ /R\$ 165,00/
   	  mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/pt\/inscricoes\.php/
-  	  mail.encoded.should =~ /#{CONFERENCE_ORGANIZER[:email]}/
+  	  mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
   	  mail.subject.should == "[localhost:3000] Pedido de inscrição na #{@conference.name} enviada"
     end
     
@@ -333,7 +333,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /Dear #{@attendee.full_name},/
   	  mail.encoded.should =~ /R\$ 165\.00/
   	  mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
-  	  mail.encoded.should =~ /#{CONFERENCE_ORGANIZER[:email]}/
+  	  mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
   	  mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/en\/inscricoes\.php/
   	  mail.subject.should == "[localhost:3000] Registration request to #{@conference.name} sent"
     end

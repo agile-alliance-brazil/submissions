@@ -8,11 +8,11 @@ TODO:
 
  * Confirm bank details on e-mail
  * Confirm organizer e-mail (Production)
+ * Calculate totals
  * Create Course model
  * Check for pre-registered users on registration
  * Limit course attendance to 30
  * Limit course choices based on duration (1 or 2 days)
- * Calculate totals
  * Registration as a group/company
  * Admin page to confirm/expire registrations
 

@@ -4,7 +4,6 @@ begin
   ::AppConfig = config
   ActionMailer::Base.smtp_settings = config[:smtp_settings]
   ActionMailer::Base.default_url_options[:host] = config[:host]
-  CONFERENCE_ORGANIZER = config[:conference_organizer]
 rescue
   raise "config/config.yml file not found. Please check config/config.example for a sample"
 end
