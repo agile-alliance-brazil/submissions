@@ -7,7 +7,7 @@
   = form.input :gender, :as => :select, :collection => Gender.options_for_select, :input_html => {:tabindex => autotab}
   = form.input :organization, :required => true, :input_html => {:tabindex => autotab}
   = form.input :cpf, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :twitter_user, :input_html => {:tabindex => autotab}
+  = form.input :twitter_user, :label_html => {:class => 'twitter'}, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_address do
   = form.input :email, :required => true, :input_html => {:tabindex => autotab}
   = form.input :phone, :required => true, :input_html => {:tabindex => autotab}

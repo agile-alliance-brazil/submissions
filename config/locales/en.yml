@@ -212,6 +212,7 @@ en:
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
       attendee:
         organization: "Please provide the name of your organization (to be used in your badge), or the name of your institution where you study. You will be required to send proof of study to confirm a student registration."
+        twitter_user: "Type in your username without the '@' character. Ex: 'agilebrazil' -- OK. '@agilebrazil' -- Wrong"
         cpf: "Leave blank if you are registering from outside of Brazil."
     actions:
       signup: "Register new account"

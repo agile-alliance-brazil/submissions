@@ -28,6 +28,18 @@ describe Attendee do
   it_should_trim_attributes Attendee, :first_name, :last_name, :email, :organization, :phone,
                                       :country, :state, :city, :badge_name, :twitter_user,
                                       :address, :neighbourhood, :zipcode
+                                      
+  context "twitter user" do
+    it "should remove @ from start if present" do
+      attendee = Attendee.new(:twitter_user => '@agilebrazil')
+      attendee.twitter_user.should == 'agilebrazil'
+    end
+    
+    it "should keep as given if doesnt start with @" do
+      attendee = Attendee.new(:twitter_user => 'agilebrazil')
+      attendee.twitter_user.should == 'agilebrazil'
+    end
+  end
   
   context "associations" do
     should_belong_to :conference

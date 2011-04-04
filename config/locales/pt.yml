@@ -347,6 +347,7 @@ pt:
       attendee:
         organization: "Nome da empresa ou organização que representa, ou nome da instituição de ensino onde estuda. Você precisará comprovar o vínculo com esta instituição de ensino para confirmar sua inscrição como estudante."
         cpf: "Deixe este campo em branco se não for brasileiro."
+        twitter_user: "Digite seu usuário sem o caracter '@'. Ex: 'agilebrazil' -- OK. '@agilebrazil' -- Errado"
         email: "Preencha aqui o mesmo e-mail que usou no cadastro de pré-inscrição para acessar o desconto de pré-inscrição até 11/Abr"
     actions:
       signup: "Criar novo usuário"
