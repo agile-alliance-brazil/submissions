@@ -9,7 +9,7 @@ class Attendee < ActiveRecord::Base
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :state, :city,
                         :gender, :address, :zipcode, :registration_type, :conference_id
-  validates_presence_of :organization, :if => Proc.new {|a| a.registration_type == 'student'}
+  validates_presence_of :organization, :if => :student?
   validates_presence_of :cpf, :if => Proc.new {|a| a.country == 'BR'}
   usar_como_cpf :cpf
   

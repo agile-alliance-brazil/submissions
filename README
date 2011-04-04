@@ -6,7 +6,8 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * E-mail registration confirmation and payment instructions
+ * Confirm bank details on e-mail
+ * Confirm organizer e-mail (Production)
  * Create Course model
  * Check for pre-registered users on registration
  * Limit course attendance to 30
@@ -14,6 +15,8 @@ TODO:
  * Calculate totals
  * Registration as a group/company
  * Admin page to confirm/expire registrations
+
+ * Test cpf validation on attendee
  * Remove duplication between user/attendee
  * Stop adding review if review count is more than 75% of limit/person
  * Display personal review count on progress bar
@@ -45,6 +48,7 @@ TODO:
 
 IN PROGRESS:
 
+ * E-mail registration confirmation and payment instructions -- Hugo
  * [task] -- [person]
 
 DONE:
