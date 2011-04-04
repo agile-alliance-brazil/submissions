@@ -21,7 +21,7 @@ Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com suce
 
 
 
-Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.created_at.to_date + 5)}. Após essa data o valor para sua inscrição será atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
+Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.created_at.to_date + 5)}. Após essa data o valor para sua inscrição poderá atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
 
 
 - if @attendee.student?
