@@ -1,33 +1,14 @@
-class RegistrationType
+class RegistrationType < ActiveRecord::Base
+  belongs_to :conference
+  has_many :registration_prices
+  
   class << self
     def options_for_select
-      [
-        [I18n.t('registration_type.individual'), 'individual'],
-        [I18n.t('registration_type.student'), 'student']
-      ]
+      all.reject{|t| t.id == 2}.map {|type| [I18n.t(type.title), type.id]}
     end
     
     def valid_values
       options_for_select.map(&:second)
-    end
-    
-    def for(value)
-      "registration_type/#{value}".classify.constantize.new
-    rescue
-      Rails.logger.error("Invalid registration type: #{value}")
-      raise "Invalid registration type: #{value}"
-    end
-  end
-  
-  class Individual
-    def total
-      165
-    end
-  end
-  
-  class Student
-    def total
-      65
     end
   end
 end

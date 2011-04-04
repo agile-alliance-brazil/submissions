@@ -73,6 +73,7 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def registration_pending(attendee, sent_at = Time.now)
+    @now = sent_at
     @attendee = attendee
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.registration_pending.subject', :conference_name => current_conference.name)}",

@@ -1,7 +1,7 @@
 %p Dear #{h(@attendee.full_name)},
 
-%p Your request for registration at #{@attendee.conference.name} was received successfully. In order to complete the registration process, you must pay the fee of R$ #{number_with_precision(@attendee.registration_fee, :precision => 2)}. Please contact #{mail_to AppConfig[:organizer][:email]} to discuss possible payment methods.
+%p Your request for registration at #{@attendee.conference.name} was received successfully. In order to complete the registration process, you must pay the fee of R$ #{number_with_precision(@attendee.registration_fee(@now), :precision => 2)}. Please contact #{mail_to AppConfig[:organizer][:email]} to discuss possible payment methods.
 
-%p You must contact the conference organizer until #{I18n.l(@attendee.created_at.to_date + 5)}. After this date, the fee for your registration will be updated according to the table at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+%p You must contact the conference organizer until #{I18n.l(@now.to_date + 5)}. After this date, the fee for your registration will be updated according to the table at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

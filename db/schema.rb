@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110404054553) do
+ActiveRecord::Schema.define(:version => 20110404205742) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(:version => 20110404054553) do
     t.string   "address"
     t.string   "neighbourhood"
     t.string   "zipcode"
-    t.string   "registration_type_value"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "registration_type_id"
   end
 
   create_table "audience_levels", :force => true do |t|
@@ -58,6 +58,22 @@ ActiveRecord::Schema.define(:version => 20110404054553) do
   create_table "conferences", :force => true do |t|
     t.string   "name"
     t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "course_prices", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "registration_period_id"
+    t.decimal  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", :force => true do |t|
+    t.integer  "conference_id"
+    t.string   "name"
+    t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -98,6 +114,29 @@ ActiveRecord::Schema.define(:version => 20110404054553) do
   end
 
   create_table "recommendations", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "registration_periods", :force => true do |t|
+    t.integer  "conference_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "registration_prices", :force => true do |t|
+    t.integer  "registration_type_id"
+    t.integer  "registration_period_id"
+    t.decimal  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "registration_types", :force => true do |t|
+    t.integer  "conference_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"

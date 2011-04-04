@@ -139,6 +139,8 @@ end
 
 Factory.define :attendee do |a|
   a.association :conference, :factory => :conference
+  a.registration_type {|t| t.association(:registration_type)}
+  
   a.first_name "Attendee"
   a.sequence(:last_name) {|n| "Name#{n}"}
   a.email { |e| "#{e.last_name.parameterize}@example.com" }
@@ -155,5 +157,34 @@ Factory.define :attendee do |a|
   a.address "Rua dos Bobos, 0"
   a.neighbourhood "Vila Perdida"
   a.zipcode "12345000"
-  a.registration_type_value "individual"
+  a.registration_type_id 3
+end
+
+Factory.define :course do |c|
+  c.association :conference, :factory => :conference
+  c.name "CSM"
+  c.full_name "Certified Scrum Master"
+end
+
+Factory.define :registration_period do |p|
+  p.association :conference, :factory => :conference
+  p.start_at Time.zone.local(2011, 4, 4, 0, 0, 0)
+  p.end_at Time.zone.local(2011, 5, 23, 23, 59, 59)
+end
+
+Factory.define :course_price do |p|
+  p.association :course, :factory => :course
+  p.association :registration_period, :factory => :registration_period
+  p.value 990.00
+end
+
+Factory.define :registration_type do |t|
+  t.association :conference, :factory => :conference
+  t.title "registration_type.individual"
+end
+
+Factory.define :registration_price do |p|
+  p.association :registration_type, :factory => :registration_type
+  p.association :registration_period, :factory => :registration_period
+  p.value 165.00
 end

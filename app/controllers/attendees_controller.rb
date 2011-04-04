@@ -31,5 +31,4 @@ class AttendeesController < InheritedResources::Base
     attributes[:conference_id] = current_conference.id
     @attendee ||= end_of_association_chain.send(method_for_build, attributes)
   end
-  
 end

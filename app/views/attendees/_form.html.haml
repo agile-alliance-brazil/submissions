@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :registration_type_value, :as => :radio, :collection => RegistrationType.options_for_select, :input_html => {:tabindex => autotab}
+  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.options_for_select, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_personal do
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -24,8 +24,8 @@
     $("#attendee_country").bind('updated', countryTriggered);  
     $("#attendee_country").bindSelectUpdated().trigger('updated');
 
-    $("#attendee_registration_type_value_input input:radio").bind('change', registrationTypeTriggered);
-    $("#attendee_registration_type_value_input input:radio").trigger('change');
+    $("#attendee_registration_type_id_input input:radio").bind('change', registrationTypeTriggered);
+    $("#attendee_registration_type_id_input input:radio").trigger('change');
   })
 
   function countryTriggered() {
@@ -43,7 +43,7 @@
   }
   
   function registrationTypeTriggered() {
-    if ($("#attendee_registration_type_value_input input:radio:checked").val() == 'student') {
+    if ($("#attendee_registration_type_id_input input:radio:checked").val() == 1) {
       $("#attendee_organization_input").find('label abbr').show();
     } else {
       $("#attendee_organization_input").find('label abbr').hide();

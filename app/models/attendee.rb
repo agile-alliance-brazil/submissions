@@ -6,10 +6,12 @@ class Attendee < ActiveRecord::Base
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
   
   belongs_to :conference
-  composed_of :registration_type, :mapping => %w(registration_type_value), :constructor => :for
+  belongs_to :registration_type
+  
+  has_many :registration_prices, :through => :registration_type
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
-                        :gender, :address, :zipcode, :registration_type_value, :conference_id
+                        :gender, :address, :zipcode, :registration_type_id, :conference_id
   validates_presence_of :organization, :if => :student?
   validates_presence_of :cpf, :state, :if => Proc.new {|a| a.country == 'BR'}
   usar_como_cpf :cpf
@@ -27,7 +29,7 @@ class Attendee < ActiveRecord::Base
   validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i, :allow_blank => true
   
   validates_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
-  validates_inclusion_of :registration_type_value, :in => RegistrationType.valid_values, :allow_blank => true
+  validates_inclusion_of :registration_type_id, :in => RegistrationType.valid_values, :allow_blank => true
   
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   validates_uniqueness_of :cpf, :allow_blank => true
@@ -53,14 +55,16 @@ class Attendee < ActiveRecord::Base
   end
   
   def student?
-    registration_type_value == 'student'
+    registration_type_id == 1
   end
   
   def male?
     gender == 'M'
   end
   
-  def registration_fee
-    registration_type.total
+  def registration_fee(datetime)
+    registration_prices.to_s
+    # prices = registration_prices.select {|p| p.registration_period.include? datetime}
+    #   prices.size > 0 ? prices.first.value : nil
   end
 end

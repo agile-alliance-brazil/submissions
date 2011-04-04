@@ -595,8 +595,9 @@ pt:
     female: "Feminino"
 
   registration_type:
-    individual: "Individual"
     student: "Estudante"
+    group: "Grupo"
+    individual: "Individual"
     
   generic:
     or: "ou"

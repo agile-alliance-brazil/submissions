@@ -4,7 +4,7 @@ Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
 Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com sucesso. Para completar o processo de inscrição, siga os seguintes passos:
 
 
-1) Faça um depósito identificado de R$ #{number_with_precision(@attendee.registration_fee, :precision => 2)} na seguinte conta:
+1) Faça um depósito identificado de R$ #{number_with_precision(@attendee.registration_fee(@now), :precision => 2)} na seguinte conta:
 
 #{"    "}Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
 
@@ -26,7 +26,7 @@ Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com suce
 
 
 
-Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.created_at.to_date + 5)}. Após essa data o valor para sua inscrição poderá atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
+Você deve enviar o comprovante de depósito até o dia #{I18n.l(@now.to_date + 5)}. Após essa data o valor para sua inscrição poderá atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
 
 
 - if @attendee.student?

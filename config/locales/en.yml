@@ -461,8 +461,9 @@ en:
     female: "Female"
   
   registration_type:
-    individual: "Individual"
     student: "Student"
+    group: "Group"
+    individual: "Individual"
 
   generic:
     or: "or"
