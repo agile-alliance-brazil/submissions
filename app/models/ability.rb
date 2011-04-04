@@ -44,6 +44,8 @@ class Ability
     can(:manage, 'reject_reviewers') do
       find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
     end
+    can(:create, Attendee)
+    can(:index, Attendee)
   end
 
   def admin

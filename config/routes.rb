@@ -13,6 +13,7 @@ AgileBrazil::Application.routes.draw do
                :sign_up       => 'signup'
              }
 
+  resources :attendees, :only => [:index, :new, :create]
   resources :audience_levels, :only => [:index]
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]

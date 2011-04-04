@@ -10,13 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110401201503) do
+ActiveRecord::Schema.define(:version => 20110404032806) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "user_id"
     t.string   "email"
     t.string   "organization"
     t.string   "phone"

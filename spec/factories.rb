@@ -148,7 +148,7 @@ Factory.define :attendee do |a|
   a.city "São Paulo"
   a.organization "ThoughtWorks"
   a.badge_name {|e| "The Great #{e.first_name}" }
-  a.cpf "12345678900"
+  a.cpf "111.444.777-35"
   a.gender 'M'
   a.twitter_user {|e| "#{e.last_name.parameterize}"}
   a.address "Rua dos Bobos, 0"

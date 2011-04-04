@@ -1,18 +1,19 @@
 class Attendee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :cpf, :gender, :twitter_user, :address, :neighbourhood, :zipcode,
-                  :registration_type, :status_event, :conference_id, :user_id
+                  :registration_type, :status_event, :conference_id
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
-                  :badge_name, :cpf, :twitter_user, :address, :neighbourhood, :zipcode
+                  :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
   
   belongs_to :conference
-  belongs_to :user
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :state, :city,
-                        :cpf, :gender, :address, :zipcode, :registration_type, :conference_id
+                        :gender, :address, :zipcode, :registration_type, :conference_id
+  validates_presence_of :organization, :if => Proc.new {|a| a.registration_type == 'student'}
+  validates_presence_of :cpf, :if => Proc.new {|a| a.country == 'BR'}
+  usar_como_cpf :cpf
   
   validates_existence_of :conference
-  validates_existence_of :user, :allow_nil => true
   
   validates_length_of [:first_name, :last_name, :organization, :country, :state, :city, :neighbourhood, :twitter_user],
                       :maximum => 100, :allow_blank => true
