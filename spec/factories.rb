@@ -142,6 +142,7 @@ Factory.define :attendee do |a|
   a.first_name "Attendee"
   a.sequence(:last_name) {|n| "Name#{n}"}
   a.email { |e| "#{e.last_name.parameterize}@example.com" }
+  a.email_confirmation { |e| "#{e.last_name.parameterize}@example.com" }
   a.phone "(11) 3322-1234"
   a.country "BR"
   a.state "SP"
@@ -154,5 +155,5 @@ Factory.define :attendee do |a|
   a.address "Rua dos Bobos, 0"
   a.neighbourhood "Vila Perdida"
   a.zipcode "12345000"
-  a.registration_type "individual"
+  a.registration_type_value "individual"
 end

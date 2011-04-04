@@ -27,6 +27,11 @@ describe AttendeesController do
   end
   
   describe "POST create" do
+    before(:each) do
+      @email = stub(:deliver => true)
+      EmailNotifications.stubs(:registration_pending).returns(@email)
+    end
+    
     it "create action should render new template when model is invalid" do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
@@ -42,8 +47,7 @@ describe AttendeesController do
     end
     
     it "should send pending registration e-mail" do
-      email = stub(:deliver => true)
-      EmailNotifications.expects(:registration_pending).returns(email)
+      EmailNotifications.expects(:registration_pending).returns(@email)
       Attendee.any_instance.stubs(:valid?).returns(true)
       post :create
     end

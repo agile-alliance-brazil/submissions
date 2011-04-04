@@ -1,16 +1,17 @@
 class Attendee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :cpf, :gender, :twitter_user, :address, :neighbourhood, :zipcode,
-                  :registration_type, :status_event, :conference_id
+                  :registration_type_value, :status_event, :conference_id
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
   
   belongs_to :conference
+  composed_of :registration_type, :mapping => %w(registration_type_value), :constructor => :for
   
-  validates_presence_of :first_name, :last_name, :email, :phone, :country, :state, :city,
-                        :gender, :address, :zipcode, :registration_type, :conference_id
+  validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
+                        :gender, :address, :zipcode, :registration_type_value, :conference_id
   validates_presence_of :organization, :if => :student?
-  validates_presence_of :cpf, :if => Proc.new {|a| a.country == 'BR'}
+  validates_presence_of :cpf, :state, :if => Proc.new {|a| a.country == 'BR'}
   usar_como_cpf :cpf
   
   validates_existence_of :conference
@@ -26,9 +27,12 @@ class Attendee < ActiveRecord::Base
   validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i, :allow_blank => true
   
   validates_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
-  validates_inclusion_of :registration_type, :in => RegistrationType.valid_values, :allow_blank => true
+  validates_inclusion_of :registration_type_value, :in => RegistrationType.valid_values, :allow_blank => true
   
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
+  validates_uniqueness_of :cpf, :allow_blank => true
+  
+  validates_confirmation_of :email
   
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
@@ -49,7 +53,7 @@ class Attendee < ActiveRecord::Base
   end
   
   def student?
-    registration_type == 'student'
+    registration_type_value == 'student'
   end
   
   def male?
@@ -57,6 +61,6 @@ class Attendee < ActiveRecord::Base
   end
   
   def registration_fee
-    165
+    registration_type.total
   end
 end

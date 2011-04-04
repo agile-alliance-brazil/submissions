@@ -8,16 +8,17 @@ TODO:
 
  * Confirm bank details on e-mail
  * Confirm organizer e-mail (Production)
- * Calculate totals
  * Create Course model
  * Check for pre-registered users on registration
  * Limit course attendance to 30
  * Limit course choices based on duration (1 or 2 days)
+ * Display total on form
  * Registration as a group/company
  * Admin page to confirm/expire registrations
 
- * Test cpf validation on attendee
+ * Test cpf/state validation on attendee
  * Remove duplication between user/attendee
+
  * Stop adding review if review count is more than 75% of limit/person
  * Display personal review count on progress bar
  -- lower priority
@@ -48,11 +49,14 @@ TODO:
 
 IN PROGRESS:
 
- * E-mail registration confirmation and payment instructions -- Hugo
+ * Calculate totals -- Danilo
  * [task] -- [person]
 
 DONE:
 
+ * E-mail registration confirmation and payment instructions -- Hugo/Danilo
+ * Confirm e-mail field (to avoid typo) -- Danilo
+ * Uniqueness of CPF -- Danilo
  * Form to capture attendee registration as individual/student -- Danilo
  * Create Attendee model -- Hugo/Danilo
  * Remove access to adding review decision before end of review deadline -- Danilo
