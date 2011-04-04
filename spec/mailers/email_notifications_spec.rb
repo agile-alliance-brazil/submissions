@@ -315,7 +315,7 @@ describe EmailNotifications do
       mail = EmailNotifications.registration_pending(@attendee).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
-      mail.cc.should == ["result@resultonline.com.br"]
+      mail.cc.should == [AppConfig[:organizer][:email]]
   	  mail.encoded.should =~ /Caro #{@attendee.full_name},/
       # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
   	  mail.encoded.should =~ /R\$ 165,00/
@@ -329,7 +329,7 @@ describe EmailNotifications do
       mail = EmailNotifications.registration_pending(@attendee).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
-      mail.cc.should == ["result@resultonline.com.br"]
+      mail.cc.should == [AppConfig[:organizer][:email]]
   	  mail.encoded.should =~ /Dear #{@attendee.full_name},/
   	  mail.encoded.should =~ /R\$ 165\.00/
   	  mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
