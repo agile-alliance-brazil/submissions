@@ -1,7 +1,7 @@
 class Attendee < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
-                  :badge_name, :cpf, :gender, :twitter_user, :address, :neighbourhood, :zipcode,
-                  :registration_type_value, :status_event, :conference_id
+  attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,
+                  :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
+                  :neighbourhood, :zipcode, :registration_type_value, :status_event, :conference_id
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
   

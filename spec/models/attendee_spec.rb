@@ -6,6 +6,7 @@ describe Attendee do
     should_allow_mass_assignment_of :first_name
     should_allow_mass_assignment_of :last_name
     should_allow_mass_assignment_of :email
+    should_allow_mass_assignment_of :email_confirmation
     should_allow_mass_assignment_of :organization
     should_allow_mass_assignment_of :phone
     should_allow_mass_assignment_of :country
