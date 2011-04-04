@@ -14,7 +14,7 @@ Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com suce
     
 #{"    "}CNPJ: ????
     
-2) Escreva o seu número de inscrição (#{@attendee.id}) no comprovante de depósito ou faça um depósito identificado
+2) Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{@attendee.id}) no comprovante de depósito
 
 
 3) Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{AppConfig[:organizer][:email]}
@@ -25,7 +25,7 @@ Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.creat
 
 
 - if @attendee.student?
-  #{"  "}* - Documentos válidos como comprovante de estudo:
+  * - Documentos válidos como comprovante de estudo:
   
   #{"  "}Carteirinha da instituição com prazo de validade;
   
