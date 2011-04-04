@@ -5,12 +5,14 @@
 %ol
   %li
     Faça um depósito identificado de R$ #{number_with_precision(@attendee.registration_fee, :precision => 2)} na seguinte conta:
-    %br Banco: ????
-    %br Agência: ????
-    %br Conta corrente: ????
-    %br CNPJ: ????
+    %br Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
+    %br CNPJ: 10.784.390/0001-91
+    %br Banco: Caixa Econômica Federal (104)
+    %br Agência: 1560
+    %br Conta corrente: 113-8
+    %br Operação: 022
   %li Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{@attendee.id}) no comprovante de depósito
-  %li Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{AppConfig[:organizer][:email]}
+  %li Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
 
 %p Você deve enviar o comprovante de depósito até o dia #{I18n.l(@attendee.created_at.to_date + 5)}. Após essa data o valor para sua inscrição poderá atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
 
@@ -22,6 +24,6 @@
       %li Boleto de mensalidade da instituição;
       %li Declaração de matrícula da instituição.
 
-%p Qualquer dúvida, entre em contato através do email #{AppConfig[:organizer][:email]}
+%p Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

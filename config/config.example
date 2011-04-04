@@ -7,6 +7,8 @@
    :user_name: no-reply@domain.com
    :password: password
  :host: localhost:3000
- :conference_organizer:
+ :organizer:
    :name: Organizer
    :email: organizer@domain.com
+   :cced: Organizer Helper
+   :cced_email: helper@domain.com

@@ -93,7 +93,7 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def conference_organizer
-    "\"#{AppConfig[:organizer][:name]}\" <#{AppConfig[:organizer][:email]}>"
+    "\"#{AppConfig[:organizer][:name]}\" <#{AppConfig[:organizer][:email]}>, \"#{AppConfig[:organizer][:cced]}\" <#{AppConfig[:organizer][:cced_email]}>"
   end
 
   def current_conference

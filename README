@@ -6,8 +6,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Confirm bank details on e-mail
- * Confirm organizer e-mail (Production)
  * Create Course model
  * Check for pre-registered users on registration
  * Limit course attendance to 30
@@ -49,11 +47,13 @@ TODO:
 
 IN PROGRESS:
 
+ * Confirm organizer e-mail (Production) -- Hugo
  * Calculate totals -- Danilo
  * [task] -- [person]
 
 DONE:
 
+ * Confirm bank details on e-mail -- Hugo
  * E-mail registration confirmation and payment instructions -- Hugo/Danilo
  * Confirm e-mail field (to avoid typo) -- Danilo
  * Uniqueness of CPF -- Danilo
