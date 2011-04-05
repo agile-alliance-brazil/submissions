@@ -482,7 +482,7 @@ pt:
     attendee:
       create:
         success: "Inscrição submetida com sucesso. Instruções para confirmação e pagamento foram enviadas por e-mail."
-      news: "No momento estão disponíveis apenas inscrições individuais e para estudantes. Iremos lançar inscrições para os cursos, inscrições em grupo e ativaremos o desconto para os pré-inscritos em breve. Acompanhe <a href='http://www.twitter.com/agilebrazil' target='_blank'>@agilebrazil</a> no Twitter para saber das novidades."
+      news: "No momento estão disponíveis apenas inscrições individuais e para estudantes. Em breve iremos lançar inscrições em grupo e ativaremos o desconto para os pré-inscritos. Acompanhe <a href='http://www.twitter.com/agilebrazil' target='_blank'>@agilebrazil</a> no Twitter para saber das novidades."
 
   session_types:
     tutorial:
