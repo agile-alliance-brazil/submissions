@@ -6,10 +6,10 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Limit course attendance to 30 - wait list?
+ * Limit course attendance to 30
+ * Add a waiting list for courses
  * Display course price and information on the e-mail
  * Text for wait list explanation on e-mail
- * Display total on form
  * Registration as a group/company
  * Admin page to confirm/expire registrations
 
@@ -47,6 +47,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Display total on form -- Hugo
 
 DONE:
 
