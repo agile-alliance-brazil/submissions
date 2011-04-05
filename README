@@ -46,11 +46,11 @@ TODO:
 
 IN PROGRESS:
 
- * Check for pre-registered users on registration -- Hugo
  * [task] -- [person]
 
 DONE:
 
+ * Check for pre-registered users on registration -- Hugo
  * Calculate totals -- Danilo/Hugo
  * Limit course choices based on duration (1 or 2 days) -- Danilo
  * Create Course model -- Hugo

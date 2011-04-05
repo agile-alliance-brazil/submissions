@@ -292,4 +292,56 @@ describe Attendee do
       attendee.registration_fee(@date).should == 65.00 + 990.00 + 280.00
     end
   end
+  
+  context "pre-registration" do
+    before :each do
+      @attendee = Factory.build(:attendee)
+    end
+    
+    it "should not be pre-registered if no pre-registration is found for attendee's email" do
+      @attendee.should_not be_pre_registered
+    end
+    
+    it "should not be pre-registered if pre-registration is found but was already used for attendee's email" do
+      pre = PreRegistration.new(:email => @attendee.email, :used => true)
+      pre.save!      
+      @attendee.should_not be_pre_registered
+      pre.destroy
+    end
+    
+    it "should be pre-registered if pre-registration is found and wasn't used for attendee's email" do
+      pre = PreRegistration.new(:email => @attendee.email, :used => false)
+      pre.save!      
+      @attendee.should be_pre_registered
+      pre.destroy
+    end
+  end
+  
+  describe "pre-registered" do
+    before :each do
+      @attendee = Factory.build(:attendee)
+      @pre = PreRegistration.new(:email => @attendee.email, :used => false)
+      @pre.save!
+    end
+    
+    after :each do
+      @pre.destroy
+    end
+    
+    it "should calculate registration fee with discount if on pre-registration period" do
+      date = Time.zone.local(2011, 04, 10, 12, 0, 0)
+      @attendee.registration_fee(date).should == 130.00
+
+      @attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
+      @attendee.registration_fee(date).should == 50.00
+    end
+    
+    it "should calculate regular registration fee if outside of pre-registration period" do
+      date = Time.zone.local(2011, 05, 10, 12, 0, 0)
+      @attendee.registration_fee(date).should == 165.00
+
+      @attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
+      @attendee.registration_fee(date).should == 65.00
+    end
+  end
 end

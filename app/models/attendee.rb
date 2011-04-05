@@ -67,11 +67,22 @@ class Attendee < ActiveRecord::Base
   end
   
   def registration_fee(datetime)
-    period = RegistrationPeriod.for(datetime).first
+    periods = RegistrationPeriod.for(datetime)
+    if pre_registered? and periods.size > 1
+      period = periods.last
+    else
+      period = periods.first
+    end
+    
     base_price = period.price_for_registration_type(registration_type)
     course_prices = course_attendances.map { |ca| period.price_for_course(ca.course) }
 
     [base_price, *course_prices].sum
+  end
+  
+  def pre_registered?
+    pre_registration = PreRegistration.find_by_email(email)
+    return (not pre_registration.nil?) && (not pre_registration.used?)
   end
   
   def courses=(course_ids)
