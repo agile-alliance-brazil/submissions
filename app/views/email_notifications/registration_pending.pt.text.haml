@@ -1,10 +1,17 @@
 Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
 
 
-Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com sucesso. Para completar o processo de inscrição, siga os seguintes passos:
+Seu pedido de inscrição de tipo #{I18n.t(@attendee.registration_type.title)} no valor de #{number_to_currency(@attendee.registration_type.price(@now), :locale => :pt)} na #{@attendee.conference.name} foi realizado com sucesso.
+
+- unless @attendee.courses.empty?
+  Além da conferência, você se inscreveu para os seguites cursos:
+  - @attendee.courses.each do |course|
+    #{"-"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
 
 
-1) Faça um depósito identificado de R$ #{number_with_precision(@attendee.registration_fee(@now), :precision => 2)} na seguinte conta:
+Para completar o processo de inscrição, siga os seguintes passos:
+
+1) Faça um depósito identificado de #{number_to_currency(@attendee.registration_fee(@now), :locale => :pt)} na seguinte conta:
 
 #{"    "}Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
 
@@ -22,11 +29,18 @@ Seu pedido de inscrição na #{@attendee.conference.name} foi realizado com suce
 2) Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{@attendee.id}) no comprovante de depósito
 
 
-3) Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo*" : ""} para o email #{AppConfig[:organizer][:email]} com cópia para #{AppConfig[:organizer][:cced_email]}
+3) Envie o comprovante de depósito #{@attendee.student? ? "e um comprovante de estudo* " : ""}para o email #{AppConfig[:organizer][:email]} com cópia para #{AppConfig[:organizer][:cced_email]}
 
 
+IMPORTANTE:
 
-Você deve enviar o comprovante de depósito até o dia #{I18n.l(@now.to_date + 5)}. Após essa data o valor para sua inscrição poderá atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
+
+- deadline = @now.to_date + 5
+- unless @attendee.courses.empty?
+  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, sua vaga no#{@attendee.courses.size > 1 ? 's' : ''} curso#{@attendee.courses.size > 1 ? 's' : ''} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+
+Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor da inscrição será atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
+
 
 
 - if @attendee.student?

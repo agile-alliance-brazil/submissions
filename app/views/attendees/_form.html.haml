@@ -66,8 +66,13 @@
   }
   
   function registrationTypeTriggered() {
+    var checked_type = $("#attendee_registration_type_id_input input:radio:checked");
+    if(checked_type.length == 0) {
+      return;
+    }
+  
     var price = "#{number_to_currency(0, :locale => :pt)}";
-    if ($("#attendee_registration_type_id_input input:radio:checked").val() == 1) {
+    if (checked_type.val() == 1) {
       $("#attendee_organization_input").find('label abbr').show();
       price = "#{number_to_currency(RegistrationType.find(1).price(Time.zone.now), :locale => :pt)}";
     } else {

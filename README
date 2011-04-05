@@ -6,6 +6,7 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
+ * Update prices on form upon email completion (if email is pre-registered)
  * Limit course attendance to 30
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail

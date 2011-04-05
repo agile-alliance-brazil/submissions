@@ -1,11 +1,49 @@
 Dear #{h(@attendee.full_name)},
 
+Your request for registration as #{I18n.t(@attendee.registration_type.title)} priced #{number_to_currency(@attendee.registration_type.price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
 
-Your request for registration at #{@attendee.conference.name} was received successfully. In order to complete the registration process, you must pay the fee of R$ #{number_with_precision(@attendee.registration_fee(@now), :precision => 2)}. Please contact #{AppConfig[:organizer][:email]} to discuss possible payment methods.
+- unless @attendee.courses.empty?
+  Besides the conference, you registered to the following courses:
+  - @attendee.courses.each do |course|
+    #{"-"} '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}
 
 
-You must contact the conference organizer until #{I18n.l(@now.to_date + 5)}. After this date, the fee for your registration will be updated according to the table at http://www.agilebrazil.com.br/2011/en/inscricoes.php.
+In order to complete the registration process, you must pay the fee of #{number_to_currency(@attendee.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
+
+1) If you are paying in USD:
+#{"  "}Bank: New York Citybank
+#{"  "}Account: 36026886 - Caixa Econômica Federal
+#{"  "}SWIFT Code: CITIUS33
+
+#{"  "}If you are paying in EUR:
+#{"  "}Bank: CommerzBank Ag/Frankfurt
+#{"  "}Account: 400871228300EUR - Caixa Econômica Federal
+#{"  "}SWIFT Code: COBADEFF
+
+#{"  "}Otherwise please contact #{AppConfig[:organizer][:email]} to discuss other possible payment methods.
 
 
+2) Write your registration number (#{@attendee.id}) in your deposit voucher
+
+
+3) Send your voucher #{@attendee.student? ? "and a student id* " : ""}to the email #{AppConfig[:organizer][:email]} copied to #{AppConfig[:organizer][:cced_email]}
+
+
+IMPORTANT:
+
+- deadline = @now.to_date + 5
+- unless @attendee.courses.empty?
+  You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the course#{@attendee.courses.size > 1 ? 's' : ''} will no longer be ensured. To check place availability in any course, contact #{AppConfig[:organizer][:email]}.
+  
+  After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration fee will be updated according to the table available at http://www.agilebrazil.com.br/2011/en/inscricoes.php.
+
+
+- if @attendee.student?
+  * - Valid student ids:
+  ${"-"} Student id with expiration date;
+  ${"-"} Payment proof for the institution;
+  ${"-"} Enrollment declaration from the institution.
+
+If you have any doubt, please contact us at #{AppConfig[:organizer][:email]}
 
 [Please do not reply to this e-mail. It was sent from an unmonitored email address]

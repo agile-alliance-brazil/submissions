@@ -75,6 +75,8 @@ class EmailNotifications < ActionMailer::Base
   def registration_pending(attendee, sent_at = Time.now)
     @now = sent_at
     @attendee = attendee
+    periods = RegistrationPeriod.for(@now)
+    @registration_period = attendee.pre_registered? ? periods.last : periods.first
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.registration_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
