@@ -7,6 +7,7 @@ class AttendeesController < InheritedResources::Base
   end
   
   def new
+    @courses ||= courses
     flash.now[:news] = t('flash.attendee.news').html_safe
     new!
   end
@@ -19,6 +20,7 @@ class AttendeesController < InheritedResources::Base
         redirect_to root_path
       end
       failure.html do
+        @courses ||= courses
         flash.now[:error] = t('flash.failure')
         render :new
       end
@@ -30,5 +32,14 @@ class AttendeesController < InheritedResources::Base
     attributes = params[:attendee] || {}
     attributes[:conference_id] = current_conference.id
     @attendee ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+  
+  def courses
+    courses = []
+    Course.find_all_by_conference_id(Conference.current.id).map do |course|
+      price = course.price(DateTime.now)
+      courses << ["#{t(course.full_name)} - R$ #{"%.2f" % price}", course.id]
+    end
+    courses
   end
 end

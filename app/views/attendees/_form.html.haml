@@ -18,6 +18,7 @@
   = form.input :city, :required => true, :input_html => {:tabindex => autotab}
   = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
   = form.input :zipcode, :required => true, :input_html => {:tabindex => autotab}
+= form.input :courses_attendances, :as => :check_boxes, :collection => @courses, :input_html => {:tabindex => autotab}
 
 :javascript
   $(document).ready(function() {

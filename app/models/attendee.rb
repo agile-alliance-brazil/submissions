@@ -1,13 +1,14 @@
 class Attendee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,
                   :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
-                  :neighbourhood, :zipcode, :registration_type_value, :status_event, :conference_id
+                  :neighbourhood, :zipcode, :registration_type_id, :course_attendances, :status_event, :conference_id
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
   
   belongs_to :conference
   belongs_to :registration_type
   
+  has_many :course_attendances
   has_many :registration_prices, :through => :registration_type
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
@@ -63,8 +64,15 @@ class Attendee < ActiveRecord::Base
   end
   
   def registration_fee(datetime)
-    registration_prices.to_s
-    # prices = registration_prices.select {|p| p.registration_period.include? datetime}
-    #   prices.size > 0 ? prices.first.value : nil
+    prices = registration_prices.select {|p| p.registration_period.include? datetime}
+    prices.size > 0 ? prices.first.value : nil
+  end
+  
+  def courses=(courses)
+    course_attendances=courses.map {|course| CourseAttendance.new(:attendee => self, :course => course)}
+  end
+  
+  def courses
+    course_attendances.map { |attendance| attendance.course }
   end
 end

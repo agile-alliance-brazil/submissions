@@ -19,7 +19,8 @@ describe Attendee do
     should_allow_mass_assignment_of :address
     should_allow_mass_assignment_of :neighbourhood
     should_allow_mass_assignment_of :zipcode
-    should_allow_mass_assignment_of :registration_type_value
+    should_allow_mass_assignment_of :registration_type_id
+    should_allow_mass_assignment_of :course_attendances
     should_allow_mass_assignment_of :status_event
     should_allow_mass_assignment_of :conference_id
 
@@ -46,8 +47,8 @@ describe Attendee do
     should_belong_to :conference
     should_belong_to :registration_type
     
-    # should_have_many :courses, :dependent => :destroy
-    should_have_many :registration_prices, :through => :registration_type
+    should_have_many :course_attendances
+    should_have_many :registration_prices, :through => :registration_type;
   end
   
   context "validations" do

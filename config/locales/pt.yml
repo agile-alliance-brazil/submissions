@@ -311,6 +311,7 @@ pt:
         address: "Endereço"
         neighbourhood: "Bairro"
         zipcode: "CEP"
+        course_attendances: "Inscrição nos cursos"
     hints:
       user:
         email: "Principal email de contato."
@@ -598,6 +599,20 @@ pt:
     student: "Estudante"
     group: "Grupo"
     individual: "Individual"
+  
+  course:
+    csm:
+      name: "CSM"
+      full_name: "Certified Scrum Master"
+    cspo:
+      name: "CSPO"
+      full_name: "Certified Scrum Product Owner"
+    lean:
+      name: "Lean"
+      full_name: "Curso de Introdução ao Lean Thinking"
+    tdd:
+      name: "TDD"
+      full_name: "TDD: do básico ao avançado"
     
   generic:
     or: "ou"

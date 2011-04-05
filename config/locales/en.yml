@@ -64,6 +64,7 @@ en:
       review_decision: "Final decision"
       attendee_personal: "Personal details"
       attendee_address: "Contact details"
+      course_attendances: "Course registration"
     labels:
       user:
         first_name: "First name"
@@ -464,6 +465,20 @@ en:
     student: "Student"
     group: "Group"
     individual: "Individual"
+
+  course:
+    csm:
+      name: "CSM"
+      full_name: "Certified Scrum Master"
+    cspo:
+      name: "CSPO"
+      full_name: "Certified Scrum Product Owner"
+    lean:
+      name: "Lean"
+      full_name: "Introduction to Lean Thinking"
+    tdd:
+      name: "TDD"
+      full_name: "TDD: from basic to advanced"
 
   generic:
     or: "or"
