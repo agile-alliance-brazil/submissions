@@ -161,7 +161,7 @@ en:
         outcome_id: "Organizer's decision"
         note_to_authors: "Comments to the authors"
       attendee:
-        registration_type_value: "Type of Registration"
+        registration_type_id: "Type of Registration"
         first_name: "First name"
         last_name: "Last name"
         email: "E-mail address"
@@ -213,7 +213,7 @@ en:
         comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
       attendee:
-        registration_type_value: "Indicate whether your registration is normal or student. The student must prove his enrollment in an institution of higher education to have access to discounted values."
+        registration_type_id: "Indicate whether your registration is normal or student. The student must prove his enrollment in an institution of higher education to have access to discounted values."
         badge_name: "The name you want to print in your badge. If blank, your full name will be used instead."
         organization: "Name of the organization you represent or institution where you study. This information will appear in your badge."
         cpf: "Leave blank if you are not Brazilian."

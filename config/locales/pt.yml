@@ -295,7 +295,7 @@ pt:
         outcome_id: "Parecer do organizador"
         note_to_authors: "Comentários para os autores"
       attendee:
-        registration_type_value: "Tipo de inscrição"
+        registration_type_id: "Tipo de inscrição"
         first_name: "Nome"
         last_name: "Sobrenome"
         email: "Email"
@@ -347,7 +347,7 @@ pt:
         comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
         justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
       attendee:
-        registration_type_value: "Indique se sua inscrição é individual normal ou de estudante. O estudante deverá comprovar seu vínculo com uma instituição de ensino técnico ou superior para ter acesso aos valores com desconto."
+        registration_type_id: "Indique se sua inscrição é individual normal ou de estudante. O estudante deverá comprovar seu vínculo com uma instituição de ensino técnico ou superior para ter acesso aos valores com desconto."
         badge_name: "Indique o nome que você deseja que apareça no seu crachá. Se deixar em branco, será utilizado seu nome completo."
         organization: "Nome da empresa ou organização que representa ou nome da instituição de ensino onde estuda. Essa informação constará no seu crachá."
         cpf: "Deixe este campo em branco se não for brasileiro."
