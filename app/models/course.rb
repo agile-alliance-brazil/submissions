@@ -6,4 +6,9 @@ class Course < ActiveRecord::Base
   validates_presence_of :full_name
   
   scope :for_conference, lambda {|c| where('conference_id = ?', c.id)}
+  
+  def price(datetime)
+    period = RegistrationPeriod.for(datetime).first
+    period.price_for_course(self)
+  end
 end
