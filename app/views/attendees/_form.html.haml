@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.without_group.all, :label_method => Proc.new { |rt| t(rt.title) }, :input_html => {:tabindex => autotab}
+  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.without_group.all, :label_method => Proc.new { |rt| "#{t(rt.title)} - #{number_to_currency(rt.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_personal do
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -21,6 +21,19 @@
 = form.inputs :attendee_courses do
   = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
 
+%div.total
+  %h6 Registration fee total
+  %table
+    %tr
+      %th Registration
+      %td#registration_price= number_to_currency(0, :locale => :pt)
+    %tr
+      %th Courses
+      %td#course_price= number_to_currency(0, :locale => :pt)
+    %tr.last
+      %th Total
+      %td#total= number_to_currency(0, :locale => :pt)
+
 :javascript
   $(document).ready(function() {
     $("#attendee_country").bind('updated', countryTriggered);  
@@ -28,6 +41,14 @@
 
     $("#attendee_registration_type_id_input input:radio").bind('change', registrationTypeTriggered);
     $("#attendee_registration_type_id_input input:radio").trigger('change');
+    
+    var courses = $("#attendee_courses_input fieldset ol li label input");
+    for(var i = 0; i < courses.length; i++) {
+      $(courses[i]).bind('change', courseTriggered);
+      $(courses[i]).trigger('change');
+    }
+    
+    $("div.total").show();
   })
 
   function countryTriggered() {
@@ -45,9 +66,82 @@
   }
   
   function registrationTypeTriggered() {
+    var price = "#{number_to_currency(0, :locale => :pt)}";
     if ($("#attendee_registration_type_id_input input:radio:checked").val() == 1) {
       $("#attendee_organization_input").find('label abbr').show();
+      price = "#{number_to_currency(RegistrationType.find(1).price(Time.zone.now), :locale => :pt)}";
     } else {
       $("#attendee_organization_input").find('label abbr').hide();
+      price = "#{number_to_currency(RegistrationType.find(3).price(Time.zone.now), :locale => :pt)}";
     }
+    
+    $("td#registration_price").text(price);
+    updateTotal();
+  }
+  
+  function courseTriggered() {
+    updateCourseEnablement();
+  
+    var price = 0;
+    
+    var courses = $("#attendee_courses_input fieldset ol li label input:checked");
+    for(var i = 0; i < courses.length; i++) {
+      if ($(courses[i]).val() == 1) {
+        price += parseFloat("#{Course.find(1).price(Time.zone.now)}");
+      } else if($(courses[i]).val() == 2) {
+        price += parseFloat("#{Course.find(2).price(Time.zone.now)}");
+      } else if($(courses[i]).val() == 3) {
+        price += parseFloat("#{Course.find(3).price(Time.zone.now)}");
+      } else if($(courses[i]).val() == 4) {
+        price += parseFloat("#{Course.find(4).price(Time.zone.now)}");
+      }
+    }
+  
+    $("td#course_price").text(integerToCurrency(price));
+    updateTotal();
+  }
+  
+  function updateCourseEnablement() {
+    var checked_courses = $("#attendee_courses_input fieldset ol li label input:checked");
+    
+    var condition;
+    if(checked_courses.length == 0) {
+      condition = function(current) { return true; };
+    } else {
+      var first_course = checked_courses[0];
+      if($(first_course).val() > 2) {
+        condition = function(current) { return $(current).val() < 3 };
+      } else {
+        condition = function(current) { return current != first_course };
+      }
+    }
+    
+    var lambda;
+    if(checked_courses.length == 0) {
+      lambda = function(current) { current.removeAttr('disabled'); };
+    } else {
+      lambda = function(current) { current.attr('disabled','disabled'); };
+    }
+    
+    var courses = $("#attendee_courses_input fieldset ol li label input");
+    for(var i = 0; i < courses.length; i++) {
+      if(condition(courses[i])) {
+        lambda($(courses[i]));
+      }
+    }
+  }
+  
+  function updateTotal() {
+    var total = toFloat($("td#registration_price").text());
+    total += toFloat($("td#course_price").text());
+    $("td#total").text(integerToCurrency(total));
+  }
+  
+  function toFloat(text) {
+    var match = /R\$ (\d+),\d+/.exec(text);
+    return parseFloat(match[1]);
+  }
+  
+  function integerToCurrency(value) {
+    return "R$ " + value + ",00";
   }

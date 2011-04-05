@@ -673,3 +673,23 @@ span.bio {
   display: block; }
   span.bio * {
     font-size: smaller; }
+
+#content div.total {
+  display: none;
+  position: fixed;
+  top: 200px;
+  right: 23%;
+  width: 180px;
+  list-style: none;
+  border: 1px solid black;
+  margin: 0;
+  padding-left: 20px; }
+  #content div.total table th {
+    color: black;
+    font-size: 1em;
+    border-bottom-color: black;
+    border-bottom-width: 1px; }
+  #content div.total table tr.last th, #content div.total table tr.last td {
+    border-bottom-width: 0px; }
+  #content div.total table td {
+    text-align: right; }

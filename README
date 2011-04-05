@@ -8,7 +8,6 @@ TODO:
 
  * Limit course attendance to 30
  * Add a waiting list for courses
- * Display course price and information on the e-mail
  * Text for wait list explanation on e-mail
  * Registration as a group/company
  * Admin page to confirm/expire registrations
@@ -47,10 +46,11 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Display total on form -- Hugo
+ * Display course price and information on the e-mail -- Hugo
 
 DONE:
 
+ * Display total on form -- Hugo
  * Use FasterCSV instead of CSV -- Hugo
  * Check for pre-registered users on registration -- Hugo
  * Calculate totals -- Danilo/Hugo

@@ -482,3 +482,27 @@ span.bio {
   display: block;
   * {
     font-size: smaller; } }
+
+
+#content div.total {
+  display: none;
+  position: fixed;
+  top: 200px;
+  right: 23%;
+  width: 180px;
+  list-style: none;
+  border: 1px solid black;
+  margin: 0;
+  padding-left: 20px; 
+  table {
+    th {
+      color: black;
+      font-size: 1em;
+      border-bottom-color: black;
+      border-bottom-width: 1px;
+    }
+    tr.last th, tr.last td {
+      border-bottom-width: 0px;
+    }
+    td {
+      text-align: right; } } }
