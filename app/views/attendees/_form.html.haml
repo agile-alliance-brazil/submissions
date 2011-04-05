@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.options_for_select, :input_html => {:tabindex => autotab}
+  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.without_group.all, :label_method => Proc.new { |rt| t(rt.title) }, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_personal do
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -18,7 +18,8 @@
   = form.input :city, :required => true, :input_html => {:tabindex => autotab}
   = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
   = form.input :zipcode, :required => true, :input_html => {:tabindex => autotab}
-= form.input :courses_attendances, :as => :check_boxes, :collection => @courses, :input_html => {:tabindex => autotab}
+= form.inputs :attendee_courses do
+  = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
 
 :javascript
   $(document).ready(function() {

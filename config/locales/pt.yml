@@ -198,6 +198,7 @@ pt:
       review_decision: "Parecer final"
       attendee_personal: "Informações Pessoais"
       attendee_address: "Informações para Contato"
+      attendee_courses: "Inscrição em Cursos"
     labels:
       user:
         first_name: "Nome"

@@ -20,7 +20,7 @@ describe Attendee do
     should_allow_mass_assignment_of :neighbourhood
     should_allow_mass_assignment_of :zipcode
     should_allow_mass_assignment_of :registration_type_id
-    should_allow_mass_assignment_of :course_attendances
+    should_allow_mass_assignment_of :courses
     should_allow_mass_assignment_of :status_event
     should_allow_mass_assignment_of :conference_id
 
@@ -33,13 +33,35 @@ describe Attendee do
                                       
   context "twitter user" do
     it "should remove @ from start if present" do
-      attendee = Attendee.new(:twitter_user => '@agilebrazil')
+      attendee = Factory.build(:attendee, :twitter_user => '@agilebrazil')
       attendee.twitter_user.should == 'agilebrazil'
     end
     
     it "should keep as given if doesnt start with @" do
-      attendee = Attendee.new(:twitter_user => 'agilebrazil')
+      attendee = Factory.build(:attendee, :twitter_user => 'agilebrazil')
       attendee.twitter_user.should == 'agilebrazil'
+    end
+  end
+  
+  context "virtual attributes" do
+    before do
+      @csm = Course.find_by_name('course.csm.name')
+      @cspo = Course.find_by_name('course.cspo.name')
+    end
+    
+    it "should provide courses from course_attendances" do
+      attendee = Factory.build(:attendee)
+      attendee.course_attendances.build(:course => @csm)
+      attendee.course_attendances.build(:course => @cspo)
+
+      attendee.courses.should == [@csm, @cspo]
+    end
+    
+    it "should populate course_attendances from course ids" do
+      attendee = Factory.build(:attendee, :courses => [@csm.id, @cspo.id])
+      attendee.course_attendances[0].course.should == @csm
+      attendee.course_attendances[1].course.should == @cspo
+      attendee.course_attendances.size.should == 2
     end
   end
   
@@ -48,7 +70,6 @@ describe Attendee do
     should_belong_to :registration_type
     
     should_have_many :course_attendances
-    should_have_many :registration_prices, :through => :registration_type;
   end
   
   context "validations" do
@@ -78,7 +99,7 @@ describe Attendee do
       should_not_validate_presence_of :state
     end
     
-    should_validate_existence_of :conference
+    should_validate_existence_of :conference, :registration_type
     
     should_validate_confirmation_of :email
     
@@ -105,7 +126,6 @@ describe Attendee do
     should_not_allow_values_for :cpf, "12345", "111.111.111-11", "11111111111"
     
     should_validate_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
-    should_validate_inclusion_of :registration_type_id, :in => RegistrationType.valid_values, :allow_blank => true
     
     context "uniqueness" do
       before { Factory(:attendee) }
@@ -202,15 +222,15 @@ describe Attendee do
     attendee = Factory.build(:attendee)
     attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00
 
-    attendee = Factory.build(:attendee, :registration_type => RegistrationType.new(:id => 1))
+    attendee = Factory.build(:attendee, :registration_type => RegistrationType.find_by_title('registration_type.student'))
     attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00
   end
   
   it "should calculate registration fee based on registration price and courses" do
-    attendee = Factory.build(:attendee, :courses => [Factory(:course)])
+    attendee = Factory.build(:attendee, :courses => [Course.find_by_name('course.csm.name').id])
     attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00 + 990.00
 
-    attendee = Factory.build(:attendee, :registration_type => RegistrationType.new(:id => 1))
+    attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
     attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00 + 990.00
   end
 end

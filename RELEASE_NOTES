@@ -1,0 +1,4 @@
+- migrations
+- config.yml (organizer e-mail and cc)
+- rake task to load pre-registered
+- copy csv for pre-registered users

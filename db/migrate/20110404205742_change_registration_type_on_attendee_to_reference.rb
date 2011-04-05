@@ -18,9 +18,9 @@ class ChangeRegistrationTypeOnAttendeeToReference < ActiveRecord::Migration
     
     Attendee.all.each do |attendee|
       if attendee.registration_type_id == 3
-        attendee.registration_type_id = 'individual'
+        attendee.registration_type_value = 'individual'
       else
-        attendee.registration_type_id = 'student'
+        attendee.registration_type_value = 'student'
       end
     end
     
