@@ -311,7 +311,6 @@ pt:
         address: "Endereço"
         neighbourhood: "Bairro"
         zipcode: "CEP"
-        course_attendances: "Inscrição nos cursos"
     hints:
       user:
         email: "Principal email de contato."

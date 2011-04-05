@@ -64,8 +64,11 @@ class Attendee < ActiveRecord::Base
   end
   
   def registration_fee(datetime)
-    prices = registration_prices.select {|p| p.registration_period.include? datetime}
-    prices.size > 0 ? prices.first.value : nil
+    total = price(registration_prices, datetime)
+    
+    courses.each do |course|
+      total += price(course.course_prices, datetime)
+    end
   end
   
   def courses=(courses)
@@ -74,5 +77,11 @@ class Attendee < ActiveRecord::Base
   
   def courses
     course_attendances.map { |attendance| attendance.course }
+  end
+  
+  private
+  def price(prices, datetime)
+    valid_prices = prices.select {|p| p.registration_period.include? datetime}
+    valid_prices.empty? ? 10**10 : valid_prices.first.value
   end
 end

@@ -198,8 +198,19 @@ describe Attendee do
     attendee.should_not be_male
   end
   
-  it "should delegate registration fee to registration type" do
+  it "should calculate registration fee based on registration price and date" do
     attendee = Factory.build(:attendee)
     attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00
+
+    attendee = Factory.build(:attendee, :registration_type => RegistrationType.new(:id => 1))
+    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00
+  end
+  
+  it "should calculate registration fee based on registration price and courses" do
+    attendee = Factory.build(:attendee, :courses => [Factory(:course)])
+    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00 + 990.00
+
+    attendee = Factory.build(:attendee, :registration_type => RegistrationType.new(:id => 1))
+    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00 + 990.00
   end
 end

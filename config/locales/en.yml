@@ -64,7 +64,6 @@ en:
       review_decision: "Final decision"
       attendee_personal: "Personal details"
       attendee_address: "Contact details"
-      course_attendances: "Course registration"
     labels:
       user:
         first_name: "First name"

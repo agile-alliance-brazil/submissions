@@ -46,12 +46,12 @@ TODO:
 IN PROGRESS:
 
  * Check for pre-registered users on registration -- Hugo
- * Create Course model -- Hugo
  * Calculate totals -- Danilo/Hugo
  * [task] -- [person]
 
 DONE:
 
+ * Create Course model -- Hugo
  * Confirm organizer e-mail (Production) -- Hugo
  * Confirm bank details on e-mail -- Hugo
  * E-mail registration confirmation and payment instructions -- Hugo/Danilo
