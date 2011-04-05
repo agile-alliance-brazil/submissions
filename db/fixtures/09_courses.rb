@@ -3,6 +3,7 @@ Course.seed do |course|
   course.conference_id = 2
   course.name = 'course.csm.name'
   course.full_name = 'course.csm.full_name'
+  course.combine = false
 end
 
 Course.seed do |course|
@@ -10,6 +11,7 @@ Course.seed do |course|
   course.conference_id = 2
   course.name = 'course.cspo.name'
   course.full_name = 'course.cspo.full_name'
+  course.combine = false
 end
 
 Course.seed do |course|
@@ -17,6 +19,7 @@ Course.seed do |course|
   course.conference_id = 2
   course.name = 'course.lean.name'
   course.full_name = 'course.lean.full_name'
+  course.combine = true
 end
 
 Course.seed do |course|
@@ -24,4 +27,5 @@ Course.seed do |course|
   course.conference_id = 2
   course.name = 'course.tdd.name'
   course.full_name = 'course.tdd.full_name'
+  course.combine = true
 end

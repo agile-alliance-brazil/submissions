@@ -114,7 +114,7 @@ describe Attendee do
     should_validate_length_of :neighbourhood, :maximum => 100, :allow_blank => true
     should_validate_length_of :zipcode, :maximum => 10, :allow_blank => true
     should_validate_length_of :twitter_user, :maximum => 100, :allow_blank => true
-    should_validate_length_of :email, :within => 6..100
+    should_validate_length_of :email, :within => 6..100, :allow_blank => true
     
     should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
     should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
@@ -131,6 +131,56 @@ describe Attendee do
       before { Factory(:attendee) }
       should_validate_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
       should_validate_uniqueness_of :cpf, :allow_blank => true
+    end
+    
+    context "courses" do
+      before do
+        @csm = Course.find_by_name('course.csm.name')
+        @cspo = Course.find_by_name('course.cspo.name')
+        @tdd = Course.find_by_name('course.tdd.name')
+        @lean = Course.find_by_name('course.lean.name')
+      end
+
+      context "no courses" do
+        it "should be allowed" do
+          Factory.build(:attendee, :courses => []).should be_valid
+        end
+      end
+      
+      context "single course" do
+        it "should allow any combination" do
+          Factory.build(:attendee, :courses => [@csm.id]).should be_valid
+          Factory.build(:attendee, :courses => [@cspo.id]).should be_valid
+          Factory.build(:attendee, :courses => [@tdd.id]).should be_valid
+          Factory.build(:attendee, :courses => [@lean.id]).should be_valid
+        end
+      end
+      
+      context "two courses" do
+        it "should only allow combining TDD and Lean" do
+          Factory.build(:attendee, :courses => [@tdd.id, @lean.id]).should be_valid
+          
+          Factory.build(:attendee, :courses => [@csm.id, @cspo.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@csm.id, @tdd.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@csm.id, @lean.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@cspo.id, @tdd.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@cspo.id, @lean.id]).should_not be_valid
+        end
+      end
+      
+      context "three courses" do
+        it "should not be allowed" do
+          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @lean.id]).should_not be_valid
+          Factory.build(:attendee, :courses => [@cspo.id, @tdd.id, @lean.id]).should_not be_valid
+        end
+      end
+
+      context "four courses" do
+        it "should not be allowed" do
+          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id, @lean.id]).should_not be_valid
+        end
+      end
     end
   end
   
@@ -218,19 +268,28 @@ describe Attendee do
     attendee.should_not be_male
   end
   
-  it "should calculate registration fee based on registration price and date" do
-    attendee = Factory.build(:attendee)
-    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00
+  describe "registration fee" do
+    before do
+      @date = Time.zone.local(2011, 05, 01, 12, 0, 0)
+    end
 
-    attendee = Factory.build(:attendee, :registration_type => RegistrationType.find_by_title('registration_type.student'))
-    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00
-  end
+    it "should calculate registration fee based on registration price and date" do
+      attendee = Factory.build(:attendee)
+      attendee.registration_fee(@date).should == 165.00
+
+      attendee = Factory.build(:attendee, :registration_type => RegistrationType.find_by_title('registration_type.student'))
+      attendee.registration_fee(@date).should == 65.00
+    end
   
-  it "should calculate registration fee based on registration price and courses" do
-    attendee = Factory.build(:attendee, :courses => [Course.find_by_name('course.csm.name').id])
-    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 165.00 + 990.00
+    it "should calculate registration fee based on registration price and courses" do
+      attendee = Factory.build(:attendee, :courses => [Course.find_by_name('course.csm.name').id])
+      attendee.registration_fee(@date).should == 165.00 + 990.00
 
-    attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
-    attendee.registration_fee(Time.zone.local(2011, 05, 01, 12, 0, 0)).should == 65.00 + 990.00
+      attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
+      attendee.registration_fee(@date).should == 65.00 + 990.00
+      
+      attendee.course_attendances.build(:course => Course.find_by_name('course.tdd.name'))
+      attendee.registration_fee(@date).should == 65.00 + 990.00 + 280.00
+    end
   end
 end

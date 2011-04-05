@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110405043519) do
+ActiveRecord::Schema.define(:version => 20110405060721) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20110405043519) do
     t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "combine"
   end
 
   create_table "logos", :force => true do |t|

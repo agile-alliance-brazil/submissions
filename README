@@ -6,8 +6,9 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Limit course attendance to 30
- * Limit course choices based on duration (1 or 2 days)
+ * Limit course attendance to 30 - wait list?
+ * Display course price and information on the e-mail
+ * Text for wait list explanation on e-mail
  * Display total on form
  * Registration as a group/company
  * Admin page to confirm/expire registrations
@@ -46,11 +47,12 @@ TODO:
 IN PROGRESS:
 
  * Check for pre-registered users on registration -- Hugo
- * Calculate totals -- Danilo/Hugo
  * [task] -- [person]
 
 DONE:
 
+ * Calculate totals -- Danilo/Hugo
+ * Limit course choices based on duration (1 or 2 days) -- Danilo
  * Create Course model -- Hugo
  * Confirm organizer e-mail (Production) -- Hugo
  * Confirm bank details on e-mail -- Hugo

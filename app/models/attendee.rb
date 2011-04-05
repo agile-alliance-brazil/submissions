@@ -34,6 +34,11 @@ class Attendee < ActiveRecord::Base
   validates_uniqueness_of :cpf, :allow_blank => true
   
   validates_confirmation_of :email
+
+  validates_each :courses do |record, attr, value|
+    compatible = value.inject(true) { |a, c| a && c.combine? }
+    record.errors.add(attr, :compatible) if value.size > 1 && !compatible
+  end
   
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
@@ -63,13 +68,10 @@ class Attendee < ActiveRecord::Base
   
   def registration_fee(datetime)
     period = RegistrationPeriod.for(datetime).first
-    total = period.price_for_registration_type(registration_type)
-    
-    course_attendances.each do |course_attendance|
-      total += period.price_for_course(course_attendance.course)
-    end
-    
-    total
+    base_price = period.price_for_registration_type(registration_type)
+    course_prices = course_attendances.map { |ca| period.price_for_course(ca.course) }
+
+    [base_price, *course_prices].sum
   end
   
   def courses=(course_ids)
