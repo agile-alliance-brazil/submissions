@@ -85,11 +85,11 @@ describe RegistrationPeriod do
   
   context "appropriate period" do
     before :each do
-      @period = RegistrationPeriod.find_by_title('registration_period.early_bird')
+      @period = RegistrationPeriod.find_by_title('registration_period.regular')
     end
     
     it "should not include date before its start" do
-      RegistrationPeriod.for(@period.start_at - 1.second).first.should be_nil
+      RegistrationPeriod.for(@period.start_at - 1.second).first.should == RegistrationPeriod.find_by_title('registration_period.early_bird')
     end
 
     it "should include its start date" do
@@ -105,7 +105,17 @@ describe RegistrationPeriod do
     end
     
     it "should not include date after end date" do
-      RegistrationPeriod.for(@period.end_at + 1.second).first.should be_nil
+      RegistrationPeriod.for(@period.end_at + 1.second).first.should == RegistrationPeriod.find_by_title('registration_period.late')
+    end
+    
+    it "should not have any period before early_bird" do
+      early = RegistrationPeriod.find_by_title('registration_period.early_bird')
+      RegistrationPeriod.for(early.start_at - 1.second).first.should be_nil
+    end
+    
+    it "should not have any period after late" do
+      early = RegistrationPeriod.find_by_title('registration_period.late')
+      RegistrationPeriod.for(early.end_at + 1.second).first.should be_nil
     end
   end
 end
