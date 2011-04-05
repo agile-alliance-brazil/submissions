@@ -21,6 +21,7 @@ gem 'state_machine', '~> 0.9.4'
 gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.git'
 gem 'goalie', '~> 0.0.4'
 gem 'jammit', '~> 0.6.0'
+gem 'fastercsv', '~> 1.5.4'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', '~> 4.2.7', :require => 'redcloth', :platforms => :mswin
