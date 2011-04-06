@@ -94,7 +94,7 @@
   }
   
   function emailTriggered() {
-    $.post('#{pre_registered_attendee_path(:format => 'js')}', {email: $(this).val()}, updateDiscount);
+    $.post('#{pre_registered_attendee_path(:format => 'js')}', {email: $(this).val()}, #{RegistrationPeriod.find_by_title('registration_period.pre_register').for(Time.zone.now).size > 1 ? "updateDiscount" : "function() {}"});
   }
   
   function updateDiscount(is_pre_registered) {

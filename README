@@ -6,13 +6,12 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Set pre-registration to used once pre-registered attendee is created
- * Limit JS discount calculation to according registration period
  * Limit course attendance to 30
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
- * Registration as a group/company
+ * Set pre-registration to used once pre-registered attendee is created
  * Admin page to confirm/expire registrations
+ * Registration as a group/company
 
  * Test cpf/state validation on attendee
  * Remove duplication between user/attendee
@@ -51,6 +50,7 @@ IN PROGRESS:
 
 DONE:
 
+ * Limit JS discount calculation to according registration period -- Hugo
  * Scope emails to ignore case when checking for pre-registration -- Hugo
  * Update prices on form upon email completion (if email is pre-registered) -- Hugo
  * Add link to registration page on actions -- Hugo
