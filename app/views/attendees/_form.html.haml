@@ -37,6 +37,8 @@
       %th= t('registration_total.total')
       %td#total= number_to_currency(0, :locale => :pt)
 
+%div#flash_notice= t('registration.notice')
+
 :javascript
   $(document).ready(function() {
     $("#attendee_country").bind('updated', countryTriggered);
