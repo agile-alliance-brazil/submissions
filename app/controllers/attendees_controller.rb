@@ -27,8 +27,7 @@ class AttendeesController < InheritedResources::Base
   
   def pre_registered
     email = params[:email]
-    puts params
-    pre_registration = PreRegistration.find_by_email(email)
+    pre_registration = PreRegistration.registered(email)
     pre_registered = (not pre_registration.nil?) && (not pre_registration.used?)
     respond_to do |format|
       format.js { render :js => pre_registered.to_s }
