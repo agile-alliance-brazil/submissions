@@ -4,6 +4,7 @@ class PreRegistrationLoader
   attr_accessor :pre_registrations
   
   def initialize(filepath)
+    puts filepath
     @filename = filepath.split('/')[-1]
     raise Exception.new("File '#{@filename}' does not exist.") unless File.exist?(filepath)
     @pre_registrations = load_file(filepath)

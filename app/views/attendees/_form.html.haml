@@ -30,6 +30,9 @@
     %tr
       %th Courses
       %td#course_price= number_to_currency(0, :locale => :pt)
+    %tr
+      %th Discount
+      %td#discount= number_to_currency(0, :locale => :pt)
     %tr.last
       %th Total
       %td#total= number_to_currency(0, :locale => :pt)
@@ -41,6 +44,9 @@
 
     $("#attendee_registration_type_id_input input:radio").bind('change', registrationTypeTriggered);
     $("#attendee_registration_type_id_input input:radio").trigger('change');
+
+    $("#attendee_email_type input:email").bind('change', emailTriggered);
+    $("#attendee_email_type input:email").trigger('change');
     
     var courses = $("#attendee_courses_input fieldset ol li label input");
     for(var i = 0; i < courses.length; i++) {
@@ -81,6 +87,14 @@
     }
     
     $("td#registration_price").text(price);
+    updateTotal();
+  }
+  
+  function emailTriggered() {
+    // TODO Ajax request to find out if this user is pre-registered.
+    
+    var discount = 10;
+    $("td#discount").text(integerToCurrency(discout));
     updateTotal();
   }
   
@@ -139,6 +153,7 @@
   function updateTotal() {
     var total = toFloat($("td#registration_price").text());
     total += toFloat($("td#course_price").text());
+    total += toFloat($("td#discount").text());
     $("td#total").text(integerToCurrency(total));
   }
   

@@ -1,6 +1,6 @@
 %p Dear #{h(@attendee.full_name)},
 
-%p Your request for registration as <strong>#{I18n.t(@attendee.registration_type.title)}</strong> priced #{number_to_currency(@attendee.registration_type.price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
+%p Your request for registration as <strong>#{I18n.t(@attendee.registration_type.title)}</strong> priced #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
 
 - unless @attendee.courses.empty?
   %p Besides the conference, you registered to the following courses:

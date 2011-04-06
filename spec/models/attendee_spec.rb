@@ -293,6 +293,38 @@ describe Attendee do
     end
   end
   
+  describe "base price" do
+    before do
+      @date = Time.zone.local(2011, 04, 10, 12, 0, 0)
+    end
+
+    it "should calculate base price based on date" do
+      attendee = Factory.build(:attendee)
+      attendee.base_price(@date).should == 165.00
+
+      attendee.base_price(Time.zone.local(2011, 06, 01, 12, 0, 0)).should == 220.00
+    end
+    
+
+    it "should calculate base price based on type" do
+      attendee = Factory.build(:attendee)
+      attendee.base_price(@date).should == 165.00
+
+      attendee = Factory.build(:attendee, :registration_type => RegistrationType.find_by_title('registration_type.student'))
+      attendee.base_price(@date).should == 65.00
+    end
+
+    it "should calculate base price based on pre-registration" do
+      attendee = Factory.build(:attendee)
+      attendee.base_price(@date).should == 165.00
+
+      pre = PreRegistration.new(:email => attendee.email, :used => false)
+      pre.save!
+      attendee.base_price(@date).should == 130.00
+      pre.destroy
+    end
+  end
+  
   context "pre-registration" do
     before :each do
       @attendee = Factory.build(:attendee)
@@ -334,6 +366,15 @@ describe Attendee do
 
       @attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
       @attendee.registration_fee(date).should == 50.00
+    end
+    
+    it "should calculate registration fee with discount on pre-registration but not courses" do
+      date = Time.zone.local(2011, 04, 10, 12, 0, 0)
+      @attendee.courses=[3,4]
+      @attendee.registration_fee(date).should == 130.00 + 560.00
+
+      @attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
+      @attendee.registration_fee(date).should == 50.00 + 560.00
     end
     
     it "should calculate regular registration fee if outside of pre-registration period" do

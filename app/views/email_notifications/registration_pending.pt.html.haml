@@ -1,6 +1,6 @@
 %p Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
 
-%p Seu pedido de inscrição de tipo <strong>#{I18n.t(@attendee.registration_type.title)}</strong> no valor de #{number_to_currency(@attendee.registration_type.price(@now), :locale => :pt)} na #{@attendee.conference.name} foi realizado com sucesso.
+%p Seu pedido de inscrição de tipo <strong>#{I18n.t(@attendee.registration_type.title)}</strong> no valor de #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} na #{@attendee.conference.name} foi realizado com sucesso.
 
 - unless @attendee.courses.empty?
   %p Além da conferência, você se inscreveu para os seguites cursos:

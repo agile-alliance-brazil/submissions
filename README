@@ -6,7 +6,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Update prices on form upon email completion (if email is pre-registered)
  * Limit course attendance to 30
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
@@ -47,10 +46,11 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Display course price and information on the e-mail -- Hugo
+ * Update prices on form upon email completion (if email is pre-registered) -- Hugo
 
 DONE:
 
+ * Display course price and information on the e-mail -- Hugo
  * Display total on form -- Hugo
  * Use FasterCSV instead of CSV -- Hugo
  * Check for pre-registered users on registration -- Hugo

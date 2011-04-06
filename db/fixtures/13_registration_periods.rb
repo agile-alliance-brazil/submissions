@@ -3,7 +3,7 @@ RegistrationPeriod.seed do |period|
   period.conference_id = 2
   period.title = 'registration_period.pre_register'
   period.start_at = Time.zone.local(2011, 4, 4)
-  period.end_at = Time.zone.local(2011, 4, 11).end_of_day
+  period.end_at = Time.zone.local(2011, 4, 13).end_of_day
 end
 
 RegistrationPeriod.seed do |period|

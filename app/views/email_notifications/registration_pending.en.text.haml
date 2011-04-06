@@ -1,6 +1,6 @@
 Dear #{h(@attendee.full_name)},
 
-Your request for registration as #{I18n.t(@attendee.registration_type.title)} priced #{number_to_currency(@attendee.registration_type.price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
+Your request for registration as #{I18n.t(@attendee.registration_type.title)} priced #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
 
 - unless @attendee.courses.empty?
   Besides the conference, you registered to the following courses:
