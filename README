@@ -6,6 +6,7 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
+ * Set pre-registration to used once pre-registered attendee is created
  * Limit JS discount calculation to according registration period
  * Limit course attendance to 30
  * Add a waiting list for courses

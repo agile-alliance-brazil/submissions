@@ -87,7 +87,7 @@ class Attendee < ActiveRecord::Base
   end
   
   def pre_registered?
-    pre_registration = PreRegistration.registered(email)
+    pre_registration = PreRegistration.registered(email).first
     return (not pre_registration.nil?) && (not pre_registration.used?)
   end
   
