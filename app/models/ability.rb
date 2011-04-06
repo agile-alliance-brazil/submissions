@@ -46,6 +46,7 @@ class Ability
     end
     can(:create, Attendee)
     can(:index, Attendee)
+    can(:pre_registered, Attendee)
   end
 
   def admin

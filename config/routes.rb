@@ -14,6 +14,8 @@ AgileBrazil::Application.routes.draw do
              }
 
   resources :attendees, :only => [:index, :new, :create]
+  match 'attendees/pre_registered' => 'attendees#pre_registered', :as => :pre_registered_attendee, :constraints => {:format => /js/}
+
   resources :audience_levels, :only => [:index]
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]

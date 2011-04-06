@@ -50,6 +50,7 @@ IN PROGRESS:
 
 DONE:
 
+ * Add link to registration page on actions -- Hugo
  * Display course price and information on the e-mail -- Hugo
  * Display total on form -- Hugo
  * Use FasterCSV instead of CSV -- Hugo

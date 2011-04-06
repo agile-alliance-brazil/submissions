@@ -678,12 +678,12 @@ span.bio {
   display: none;
   position: fixed;
   top: 200px;
-  right: 23%;
-  width: 180px;
+  width: 200px;
   list-style: none;
   border: 1px solid black;
   margin: 0;
-  padding-left: 20px; }
+  margin-left: 720px;
+  padding: 5px; }
   #content div.total table th {
     color: black;
     font-size: 1em;
@@ -693,3 +693,5 @@ span.bio {
     border-bottom-width: 0px; }
   #content div.total table td {
     text-align: right; }
+  #content div.total table td.negative {
+    color: red; }

@@ -432,6 +432,7 @@ pt:
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
+    new_registration: "Nova inscrição"
 
   text:
     for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
@@ -599,6 +600,13 @@ pt:
   gender:
     male: "Masculino"
     female: "Feminino"
+  
+  registration_total:
+    title: "Custo total da inscrição"
+    base_price: "Inscrição"
+    courses: "Cursos"
+    discount: "Desconto"
+    total: "Total"
 
   registration_type:
     student: "Estudante"

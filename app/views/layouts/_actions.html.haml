@@ -7,6 +7,10 @@
         #{t('actions.review_goal')}:
         %span.progress
   %h3&= current_user.full_name
+  
+  %ul
+    %li
+      %strong= link_to(t('actions.new_registration'), new_attendee_path)
 
   %h4= t('actions.section.session')
   %ul
@@ -70,6 +74,10 @@
       = f.input :password, :required => true, :hint => false, :input_html => {:tabindex => autotab}
     = f.buttons do
       = f.commit_button "Log in", :button_html => {:tabindex => autotab}
+
+  %ul
+    %li
+      %strong= link_to(t('actions.new_registration'), new_attendee_path)
 
   %ul
     - if can? :create, User

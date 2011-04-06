@@ -298,6 +298,7 @@ en:
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
+    new_registration: "New registration"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -465,6 +466,13 @@ en:
   gender:
     male: "Male"
     female: "Female"
+
+  registration_total:
+    title: "Registration fee total"
+    base_price: "Registration"
+    courses: "Courses"
+    discount: "Discount"
+    total: "Total"
   
   registration_type:
     student: "Student"

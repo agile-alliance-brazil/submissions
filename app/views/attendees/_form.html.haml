@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.without_group.all, :label_method => Proc.new { |rt| "#{t(rt.title)} - #{number_to_currency(rt.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
+  = form.input :registration_type_id, :as => :radio, :collection => RegistrationType.without_group.all, :label_method => Proc.new { |rt| "#{t(rt.title)} - #{number_to_currency(rt.price(Time.zone.now), :locale => :pt)}"}, :required => true, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_personal do
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -22,19 +22,19 @@
   = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
 
 %div.total
-  %h6 Registration fee total
+  %h6= t('registration_total.title')
   %table
     %tr
-      %th Registration
+      %th= t('registration_total.base_price')
       %td#registration_price= number_to_currency(0, :locale => :pt)
     %tr
-      %th Courses
+      %th= t('registration_total.courses')
       %td#course_price= number_to_currency(0, :locale => :pt)
     %tr
-      %th Discount
+      %th= t('registration_total.discount')
       %td#discount= number_to_currency(0, :locale => :pt)
     %tr.last
-      %th Total
+      %th= t('registration_total.total')
       %td#total= number_to_currency(0, :locale => :pt)
 
 :javascript
@@ -45,8 +45,8 @@
     $("#attendee_registration_type_id_input input:radio").bind('change', registrationTypeTriggered);
     $("#attendee_registration_type_id_input input:radio").trigger('change');
 
-    $("#attendee_email_type input:email").bind('change', emailTriggered);
-    $("#attendee_email_type input:email").trigger('change');
+    $("#attendee_email_input input").bind('change', emailTriggered);
+    $("#attendee_email_input input").trigger('change');
     
     var courses = $("#attendee_courses_input fieldset ol li label input");
     for(var i = 0; i < courses.length; i++) {
@@ -91,11 +91,38 @@
   }
   
   function emailTriggered() {
-    // TODO Ajax request to find out if this user is pre-registered.
+    $.post('#{pre_registered_attendee_path(:format => 'js')}', {email: $(this).val()}, updateDiscount);
+  }
+  
+  function updateDiscount(is_pre_registered) {
+    var checked_type = $("#attendee_registration_type_id_input input:radio:checked");
+    var discount;
+    if(is_pre_registered == 'true' && checked_type.length == 1) {
+      discount = getDiscount(checked_type);
+    }
+    else {
+      discount = 0;
+    }
     
-    var discount = 10;
-    $("td#discount").text(integerToCurrency(discout));
+    if(discount < 0)
+      $("td#discount").addClass('negative');
+    else
+      $("td#discount").removeClass('negative');
+    $("td#discount").text(integerToCurrency(discount));
     updateTotal();
+  }
+  
+  function getDiscount(checked_type) {
+    var discounted_price;
+    var original_price;
+    if (checked_type.val() == 1) {
+      original_price = #{RegistrationType.find(1).price(Time.zone.now)};
+      discounted_price = #{RegistrationPeriod.find_by_title('registration_period.pre_register').price_for_registration_type(RegistrationType.find(1))};
+    } else {
+      original_price = #{RegistrationType.find(3).price(Time.zone.now)};
+      discounted_price = #{RegistrationPeriod.find_by_title('registration_period.pre_register').price_for_registration_type(RegistrationType.find(3))};
+    }
+    return discounted_price - original_price;
   }
   
   function courseTriggered() {
@@ -106,13 +133,13 @@
     var courses = $("#attendee_courses_input fieldset ol li label input:checked");
     for(var i = 0; i < courses.length; i++) {
       if ($(courses[i]).val() == 1) {
-        price += parseFloat("#{Course.find(1).price(Time.zone.now)}");
+        price += #{Course.find(1).price(Time.zone.now)};
       } else if($(courses[i]).val() == 2) {
-        price += parseFloat("#{Course.find(2).price(Time.zone.now)}");
+        price += #{Course.find(2).price(Time.zone.now)};
       } else if($(courses[i]).val() == 3) {
-        price += parseFloat("#{Course.find(3).price(Time.zone.now)}");
+        price += #{Course.find(3).price(Time.zone.now)};
       } else if($(courses[i]).val() == 4) {
-        price += parseFloat("#{Course.find(4).price(Time.zone.now)}");
+        price += #{Course.find(4).price(Time.zone.now)};
       }
     }
   
@@ -158,7 +185,7 @@
   }
   
   function toFloat(text) {
-    var match = /R\$ (\d+),\d+/.exec(text);
+    var match = /R\$ (-?\d+),\d+/.exec(text);
     return parseFloat(match[1]);
   }
   
