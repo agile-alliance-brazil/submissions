@@ -14,7 +14,11 @@ class AttendeesController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        EmailNotifications.registration_pending(@attendee).deliver
+        begin
+          EmailNotifications.registration_pending(@attendee).deliver
+        rescue e
+          flash[:alert] = t('flash.attendee.mail.fail')
+        end
         flash[:notice] = t('flash.attendee.create.success')
         redirect_to root_path
       end

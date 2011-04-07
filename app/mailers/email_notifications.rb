@@ -84,6 +84,8 @@ class EmailNotifications < ActionMailer::Base
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
+    @attendee.email_sent=true
+    @attendee.save
   end
 
   private
