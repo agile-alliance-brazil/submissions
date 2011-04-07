@@ -16,6 +16,8 @@ class AttendeesController < InheritedResources::Base
       success.html do
         begin
           EmailNotifications.registration_pending(@attendee).deliver
+          @attendee.email_sent=true
+          @attendee.save
         rescue e
           flash[:alert] = t('flash.attendee.mail.fail')
         end

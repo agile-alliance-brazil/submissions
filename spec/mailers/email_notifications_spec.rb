@@ -337,10 +337,5 @@ describe EmailNotifications do
       # mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/en\/inscricoes\.php/
   	  mail.subject.should == "[localhost:3000] Registration request to #{@conference.name} sent"
     end
-    
-    it "should save attendee as email sent once if email was successfully sent" do
-      mail = EmailNotifications.registration_pending(@attendee).deliver
-      @attendee.email_sent?.should be_true
-    end
   end
 end
