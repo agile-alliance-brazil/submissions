@@ -181,6 +181,18 @@ describe Attendee do
           Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id, @lean.id]).should_not be_valid
         end
       end
+
+      context "participants limit" do
+        it "should not be allowed" do
+          Course.any_instance.expects(:has_reached_limit?).returns(true)
+          attendee = Factory.build(:attendee, :courses => [@csm.id])
+          attendee.should_not be_valid
+          attendee.errors[:courses].should include(
+            I18n.t('activerecord.errors.models.attendee.attributes.courses.limit_reached',
+                   :course => I18n.t(@csm.name))
+          )
+        end
+      end
     end
   end
   

@@ -19,7 +19,7 @@
   = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
   = form.input :zipcode, :required => true, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_courses do
-  = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)}"}, :input_html => {:tabindex => autotab}
+  = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)} #{c.has_reached_limit? ? '**' : ''}"}, :input_html => {:tabindex => autotab}
 
 %div.total
   %h6= t('registration_total.title')
@@ -174,7 +174,9 @@
     
     var courses = $("#attendee_courses_input fieldset ol li label input");
     for(var i = 0; i < courses.length; i++) {
-      if(condition(courses[i])) {
+      if($(courses[i]).parent('label').text().match(/\*\*$/)) {
+        $(courses[i]).attr('disabled', 'disabled');
+      } else if(condition(courses[i])) {
         lambda($(courses[i]));
       }
     }
