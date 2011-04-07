@@ -6,15 +6,15 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Limit course attendance to 30
+ * Set pre-registration to used once pre-registered attendee is created
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
- * Set pre-registration to used once pre-registered attendee is created
  * Admin page to confirm/expire registrations
  * Registration as a group/company
 
  * Test cpf/state validation on attendee
  * Remove duplication between user/attendee
+ * Refactor JS on attendee form
 
  * Stop adding review if review count is more than 75% of limit/person
  * Display personal review count on progress bar
@@ -47,6 +47,7 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
+ * Limit course attendance to 30 -- Danilo
 
 DONE:
 

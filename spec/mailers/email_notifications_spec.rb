@@ -331,7 +331,7 @@ describe EmailNotifications do
       mail.to.should == [@attendee.email]
       mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
   	  mail.encoded.should =~ /Dear #{@attendee.full_name},/
-  	  mail.encoded.should =~ /R\$ 165\.00/
+  	  mail.encoded.should =~ /R\$ 165,00/
       # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
   	  mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
       # mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/en\/inscricoes\.php/

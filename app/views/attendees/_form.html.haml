@@ -37,7 +37,7 @@
       %th= t('registration_total.total')
       %td#total= number_to_currency(0, :locale => :pt)
 
-%div#flash_notice= t('registration.notice')
+#flash_notice= t('registration.notice')
 
 :javascript
   $(document).ready(function() {
@@ -55,7 +55,7 @@
       $(courses[i]).trigger('change');
     }
     
-    $("div.total").show();
+    $(".total").show();
   })
 
   function countryTriggered() {
@@ -94,7 +94,7 @@
   }
   
   function emailTriggered() {
-    $.post('#{pre_registered_attendee_path(:format => 'js')}', {email: $(this).val()}, #{RegistrationPeriod.find_by_title('registration_period.pre_register').for(Time.zone.now).size > 1 ? "updateDiscount" : "function() {}"});
+    $.post('#{pre_registered_attendee_path(:format => 'js')}', {email: $(this).val()}, #{RegistrationPeriod.for(Time.zone.now).size > 1 ? "updateDiscount" : "function() {}"});
   }
   
   function updateDiscount(is_pre_registered) {

@@ -35,9 +35,8 @@ class Attendee < ActiveRecord::Base
   
   validates_confirmation_of :email
 
-  validates_each :courses do |record, attr, value|
-    compatible = value.inject(true) { |a, c| a && c.combine? }
-    record.errors.add(attr, :compatible) if value.size > 1 && !compatible
+  validates_each :courses do |record, attr, courses|
+    record.errors.add(attr, :compatible) if courses.size > 1 && !courses.all?(&:combine?)
   end
   
   def twitter_user=(value)
