@@ -38,7 +38,7 @@ IMPORTANTE:
 - deadline = @now.to_date + 5
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 - if total_courses > 0
-  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos' : 'a vaga no curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos não serão garantidas' : 'a vaga no curso não será garantida'}. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
 
 
 Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.

@@ -17,7 +17,7 @@ IMPORTANTE:
 
 - deadline = @now.to_date + 5
 - unless @attendee.courses.empty?
-  A confirmação de pagamento do seu grupo deve ser enviada até o dia #{I18n.l(deadline)}. Após essa data, sua vaga #{@attendee.courses.size > 1 ? 'nos' : 'no'} #{@attendee.courses.size > 1 ? 'cursos' : 'curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+  A confirmação de pagamento do seu grupo deve ser enviada até o dia #{I18n.l(deadline)}. Após essa data, sua vaga #{@attendee.courses.size > 1 ? 'nos cursos não serão garantidas' : 'no curso não será garantida'}. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
 
 
 Qualquer dúvida, entre em contato através do email #{AppConfig[:organizer][:email]}
