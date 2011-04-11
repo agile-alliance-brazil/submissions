@@ -1,6 +1,6 @@
-Dear organizer for group #{h(@group.name)},
+Dear #{h(@group.contact_name)},
 
-Your request for registering the following #{@group.total_attendees} participants, priced a total of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, at #{@conference_name} was received successfully.
+Your request for registering the following #{@group.total_attendees} participants on group #{h(@group.name)}, priced a total of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, at #{@conference_name} was received successfully.
 
 - @group.attendees.each do |attendee|
   #{"-"} #{h(attendee.full_name)} priced #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
@@ -34,7 +34,7 @@ IMPORTANT:
 - deadline = @now.to_date + 5
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 - if total_courses > 0
-  You must send your deposit voucher until #{I18n.l(deadline)}. After that date, a place in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
+  You must send your deposit voucher until #{I18n.l(deadline)}. After that date, #{total_courses > 1 ? 'places' : 'a place'} in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
   
   
 After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at http://www.agilebrazil.com.br/2011/en/inscricoes.php.

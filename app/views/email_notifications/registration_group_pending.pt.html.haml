@@ -1,6 +1,6 @@
-%p Caro organizador do grupo #{h(@group.name)},
+%p Olá #{h(@group.contact_name)},
 
-%p A inscrição na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
+%p A inscrição do grupo #{h(@group.name)} na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
 
 %ul
   - @group.attendees.each do |attendee|
@@ -31,7 +31,7 @@
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 %p
   - if total_courses > 0
-    Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, a vaga #{total_courses > 1 ? 'nos' : 'no'} #{total_courses > 1 ? 'cursos' : 'curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+    Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos' : 'a vaga no curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
   %br Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
 
 %p Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}

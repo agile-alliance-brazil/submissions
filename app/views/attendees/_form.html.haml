@@ -22,7 +22,7 @@
   = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(Time.zone.now), :locale => :pt)} #{c.has_reached_limit? ? '**' : ''}"}, :input_html => {:tabindex => autotab}
 
 %div.total
-  %h6= t('registration_total.title')
+  %h6= parent? ? t('registration_total.title_partial') : t('registration_total.title')
   %table
     %tr
       %th= t('registration_total.base_price')

@@ -6,6 +6,7 @@ describe RegistrationGroup do
     should_allow_mass_assignment_of :cnpj
     should_allow_mass_assignment_of :state_inscription
     should_allow_mass_assignment_of :municipal_inscription
+    should_allow_mass_assignment_of :contact_name
     should_allow_mass_assignment_of :contact_email
     should_allow_mass_assignment_of :contact_email_confirmation
     should_allow_mass_assignment_of :phone
@@ -21,8 +22,9 @@ describe RegistrationGroup do
     should_not_allow_mass_assignment_of :id
   end
   
-  it_should_trim_attributes RegistrationGroup, :name, :state_inscription, :municipal_inscription, :contact_email,
-                                               :phone, :fax, :country, :state, :city, :address, :neighbourhood, :zipcode
+  it_should_trim_attributes RegistrationGroup, :name, :state_inscription, :municipal_inscription, :contact_email, 
+                                               :contact_name, :phone, :fax, :country, :state, :city, :address,
+                                               :neighbourhood, :zipcode
   
   context "associations" do
     should_have_many :attendees
@@ -33,6 +35,7 @@ describe RegistrationGroup do
       subject { Factory.build(:registration_group) }
       should_validate_presence_of :name
       should_validate_presence_of :contact_email
+      should_validate_presence_of :contact_name
       should_validate_presence_of :phone
       should_validate_presence_of :fax
       should_validate_presence_of :country
@@ -62,6 +65,7 @@ describe RegistrationGroup do
     should_validate_length_of :city, :maximum => 100, :allow_blank => true
     should_validate_length_of :address, :maximum => 300, :allow_blank => true
     should_validate_length_of :neighbourhood, :maximum => 100, :allow_blank => true
+    should_validate_length_of :contact_name, :maximum => 100, :allow_blank => true
     should_validate_length_of :zipcode, :maximum => 10, :allow_blank => true
     should_validate_length_of :contact_email, :within => 6..100, :allow_blank => true
     

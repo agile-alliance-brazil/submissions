@@ -90,7 +90,7 @@ class EmailNotifications < ActionMailer::Base
     I18n.locale = @attendee.country == 'BR' ? :pt : :en
     mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
-         :cc       => "\"#{@group.name}\" <#{@group.contact_email}>",
+         :cc       => "\"#{@group.contact_name}\" <#{@group.contact_email}>",
          :from     => "\"#{current_conference.name}\" <#{from_address}>",
          :reply_to => "\"#{current_conference.name}\" <#{from_address}>",
          :date => sent_at
@@ -103,7 +103,7 @@ class EmailNotifications < ActionMailer::Base
     periods = RegistrationPeriod.for(@now)
     @registration_period = @group.attendees.any?(&:pre_registered?) ? periods.last : periods.first
     mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
-         :to      => "\"#{@group.name}\" <#{@group.contact_email}>",
+         :to      => "\"#{@group.contact_name}\" <#{@group.contact_email}>",
          :cc       => conference_organizer,
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",

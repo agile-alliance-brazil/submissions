@@ -384,7 +384,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@registration_group.contact_email]
       mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
-      mail.encoded.should =~ /Caro organizador do grupo #{@registration_group.name},/
+      mail.encoded.should =~ /#{@registration_group.contact_name},/
       mail.encoded.should =~ /R\$ 135,00/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
       mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
@@ -396,7 +396,7 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@registration_group.contact_email]
       mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
-      mail.encoded.should =~ /Dear organizer for group #{@registration_group.name},/
+      mail.encoded.should =~ /Dear #{@registration_group.contact_name},/
       mail.encoded.should =~ /R\$ 135,00/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
       mail.subject.should == "[localhost:3000] Group registration request to #{@conference.name} sent"

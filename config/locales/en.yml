@@ -70,6 +70,8 @@ en:
       attendee_personal: "Personal details"
       attendee_address: "Contact details"
       attendee_courses: "Course registration"
+      registration_group_info: "Company details"
+      registration_group_contact: "Contact details"
     labels:
       user:
         first_name: "First name"
@@ -185,6 +187,7 @@ en:
         zipcode: "Zip Code"
       registration_group:
         name: "Organization / Institution name"
+        contact_name: "Contact name"
         contact_email: "E-mail address"
         contact_email_confirmation: "Confirm e-mail address"
         phone: "Contact phone"
@@ -243,7 +246,7 @@ en:
         cnpj: "Leave blank if this is not a Brazilian company / organization."
         state_inscription: "Leave blank if this is not a Brazilian company / organization."
         municipal_inscription: "Leave blank if this is not a Brazilian company / organization."
-        total_attendees: "A minimum of 5 participants is required for group registration."
+        total_attendees: "A minimum of 5 participants is required for group registration. They cannot be registered as students. Proof that all participants in this group work for the registered company will be required."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -322,7 +325,7 @@ en:
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
     new_registration: "Individual"
-    new_registration_group: "Group"
+    new_registration_group: "Company"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -506,7 +509,8 @@ en:
     female: "Female"
 
   registration_total:
-    title: "Registration fee total"
+    title: "Total Registration Amount"
+    title_partial: "Partial Registration Amount"
     base_price: "Registration"
     courses: "Courses"
     discount: "Discount"

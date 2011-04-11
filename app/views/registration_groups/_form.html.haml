@@ -1,8 +1,10 @@
-= form.inputs do
+= form.inputs :registration_group_info do
   = form.input :name, :input_html => {:tabindex => autotab}
   = form.input :cnpj, :required => true, :input_html => {:tabindex => autotab}
   = form.input :state_inscription, :required => true, :input_html => {:tabindex => autotab}
   = form.input :municipal_inscription, :required => true, :input_html => {:tabindex => autotab}
+= form.inputs :registration_group_contact do
+  = form.input :contact_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :contact_email, :required => true, :input_html => {:tabindex => autotab}
   = form.input :contact_email_confirmation, :required => true, :input_html => {:tabindex => autotab}
   = form.input :phone, :required => true, :input_html => {:tabindex => autotab}

@@ -161,6 +161,7 @@ end
 
 Factory.define :registration_group do |a|
   a.name "Big Corp"
+  a.contact_name "Contact Name"
   a.contact_email { |e| "contact@#{e.name.parameterize}.com" }
   a.contact_email_confirmation { |e| "contact@#{e.name.parameterize}.com" }
   a.phone "(11) 3322-1234"

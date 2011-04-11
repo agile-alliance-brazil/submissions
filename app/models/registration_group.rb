@@ -1,17 +1,18 @@
 class RegistrationGroup < ActiveRecord::Base
   attr_accessible :name, :cnpj, :state_inscription, :municipal_inscription,
-                  :contact_email, :contact_email_confirmation, :phone, :fax,
+                  :contact_name, :contact_email, :contact_email_confirmation, :phone, :fax,
                   :country, :state, :city, :address, :neighbourhood, :zipcode, :total_attendees
-  attr_trimmed    :name, :state_inscription, :municipal_inscription, :contact_email, :phone,
-                  :fax, :country, :state, :city, :address, :neighbourhood, :zipcode
+  attr_trimmed    :name, :state_inscription, :municipal_inscription, :contact_name, :contact_email,
+                  :phone, :fax, :country, :state, :city, :address, :neighbourhood, :zipcode
 
   has_many :attendees
 
-  validates_presence_of :name, :contact_email, :phone, :fax, :country, :city, :address, :zipcode, :total_attendees
+  validates_presence_of :name, :contact_name, :contact_email, :phone, :fax,
+                        :country, :city, :address, :zipcode, :total_attendees
   validates_presence_of :cnpj, :state_inscription, :municipal_inscription, :state, :if => Proc.new {|a| a.country == 'BR'}
   usar_como_cnpj :cnpj
   
-  validates_length_of [:name, :country, :state, :city, :neighbourhood],
+  validates_length_of [:name, :country, :state, :city, :neighbourhood, :contact_name],
                       :maximum => 100, :allow_blank => true
   validates_length_of :address, :maximum => 300, :allow_blank => true
   validates_length_of :zipcode, :maximum => 10, :allow_blank => true

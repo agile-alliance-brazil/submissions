@@ -204,6 +204,8 @@ pt:
       attendee_personal: "Informações Pessoais"
       attendee_address: "Informações para Contato"
       attendee_courses: "Inscrição em Cursos"
+      registration_group_info: "Informações da Empresa"
+      registration_group_contact: "Informações para Contato"
     labels:
       user:
         first_name: "Nome"
@@ -319,6 +321,7 @@ pt:
         zipcode: "CEP"
       registration_group:
         name: "Razão social"
+        contact_name: "Nome para contato"
         contact_email: "Email"
         contact_email_confirmation: "Confirmação de email"
         phone: "Telefone para contato"
@@ -380,7 +383,7 @@ pt:
         cnpj: "Deixe este campo em branco se não for uma empresa brasileira"
         state_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
         municipal_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
-        total_attendees: "No mínimo 5 participantes para inscrição em grupo"
+        total_attendees: "É preciso cadastrar no mínimo 5 participantes no grupo. Nenhum deles poderá ser cadastrado como estudante. Será necessário comprovar que todos os participantes trabalham na empresa cadastrada."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -459,7 +462,7 @@ pt:
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
     new_registration: "Individual"
-    new_registration_group: "Grupo"
+    new_registration_group: "Empresa"
 
   text:
     for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
@@ -510,7 +513,7 @@ pt:
     attendee:
       create:
         success: "Inscrição submetida com sucesso. Instruções para confirmação e pagamento foram enviadas por e-mail."
-      news: "<a href='/registration_groups/new?locale=pt'>Clique aqui</a> para inscrições em grupo."
+      news: "<a href='/registration_groups/new?locale=pt'>Clique aqui</a> para cadastro de empresa."
       mail:
         fail: "Ocorreu um problema para enviar o email de confirmação. Sua inscrição foi recebida mas não foi possível entregar o email de confirmação. Tentaremos mais tarde mas se não receber o email em 24 horas, entre em contato via contato@agilebrazil.com."
       registration_group:
@@ -522,7 +525,7 @@ pt:
       news: "<a href='/attendees/new?locale=pt'>Clique aqui</a> para inscrições individuais."
     registration:
       attendee: "Ao me inscrever na conferência, declaro estar ciente que o meu nome e email poderá ser compartilhado com os patrocinadores da conferência."
-      group: "Declaro estar ciente que o nome e email de todos os participantes inscritos na conferência poderão ser compartilhados com os patrocinadores da conferência."      
+      group: "Declaro estar ciente que o nome e email de todos os participantes inscritos na conferência poderão ser compartilhados com os patrocinadores da conferência."
 
   session_types:
     tutorial:
@@ -644,6 +647,7 @@ pt:
     
   registration_total:
     title: "Custo total da inscrição"
+    title_partial: "Custo parcial da inscrição"
     base_price: "Inscrição"
     courses: "Cursos"
     discount: "Desconto"
