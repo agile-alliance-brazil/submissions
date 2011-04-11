@@ -22,6 +22,7 @@ gem 'validates_existence', :git => 'git://github.com/dtsato/validates_existence.
 gem 'goalie', '~> 0.0.4'
 gem 'jammit', '~> 0.6.0'
 gem 'fastercsv', '~> 1.5.4'
+gem 'hoptoad_notifier', '~> 2.4.8'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', '~> 4.2.7', :require => 'redcloth', :platforms => :mswin

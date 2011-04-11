@@ -6,7 +6,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Notification of exceptions with Hoptoad
  * Add delayed_job to guarantee email delivery
  * Migrate email from smtp to amazon SES
  * Add a waiting list for courses
@@ -51,6 +50,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Notification of exceptions with Hoptoad -- Danilo
  * Registration as a group/company -- Danilo
  * Test cpf/state validation on attendee -- Danilo
  * Limit course attendance to 30 -- Danilo

@@ -62,8 +62,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -109,6 +109,9 @@ GEM
     hirb (0.4.1)
     hoe (2.8.0)
       rake (>= 0.8.7)
+    hoptoad_notifier (2.4.8)
+      activesupport
+      builder
     i18n (0.5.0)
     inherited_resources (1.2.1)
       has_scope (~> 0.5.0)
@@ -247,6 +250,7 @@ DEPENDENCIES
   haml (~> 3.0.25)
   has_scope (~> 0.5.0)
   hoe (= 2.8.0)
+  hoptoad_notifier (~> 2.4.8)
   inherited_resources (~> 1.2.1)
   jammit (~> 0.6.0)
   metric_fu (~> 2.1.1)
