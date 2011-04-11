@@ -381,7 +381,7 @@ en:
         success: "Registration submited successfully. Please register the next participant."
     registration_group:
       create:
-        success: "Group registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%attendee_url</a>"
+        success: "Group registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
       news: "<a href='/attendees/new?locale=en'>Click here</a> for individual registration."
     registration:
       attendee: "By registering for the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."

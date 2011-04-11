@@ -518,7 +518,7 @@ pt:
         success: "Inscrição submetida com sucesso. Por favor cadastre o próximo participante."
     registration_group:
       create:
-        success: "Grupo criado com sucesso. Caso não tenha todas as informações para cadastrar os %{total_attendees} participantes agora, ou queira que cada participante preencha seu próprio formulário de cadastro separadamente, salve ou compartilhe a seguinte URL: <a href='%{attendee_url}'>%attendee_url</a>"
+        success: "Grupo criado com sucesso. Caso não tenha todas as informações para cadastrar os %{total_attendees} participantes agora, ou queira que cada participante preencha seu próprio formulário de cadastro separadamente, salve ou compartilhe a seguinte URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
       news: "<a href='/attendees/new?locale=pt'>Clique aqui</a> para inscrições individuais."
     registration:
       attendee: "Ao me inscrever na conferência, declaro estar ciente que o meu nome e email poderá ser compartilhado com os patrocinadores da conferência."
