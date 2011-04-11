@@ -1,5 +1,5 @@
-if App::Config[:hoptoad]
+if AppConfig[:hoptoad]
   HoptoadNotifier.configure do |config|
-    config.api_key = App::Config[:hoptoad][:access_key]
+    config.api_key = AppConfig[:hoptoad][:access_key]
   end
 end
