@@ -11,6 +11,12 @@ require 'validates_existence/rspec_macros'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+module HoptoadNotifier
+  def self.notify(thing)
+    # do nothing.
+  end
+end
+
 RSpec.configure do |config|
   config.include(ControllerMacros, :type => :controller)
   config.include(DisableAuthorization, :type => :controller)

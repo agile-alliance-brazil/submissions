@@ -41,7 +41,8 @@ class AttendeesController < InheritedResources::Base
             @attendee.save
             redirect_to root_path
           end
-        rescue e
+        rescue => ex
+          notify_hoptoad(ex)
           flash[:alert] = t('flash.attendee.mail.fail')
           redirect_to root_path
         end
