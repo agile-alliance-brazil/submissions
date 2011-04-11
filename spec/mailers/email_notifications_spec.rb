@@ -324,8 +324,8 @@ describe EmailNotifications do
       mail.subject.should == "[localhost:3000] Pedido de inscrição na #{@conference.name} enviado"
     end
     
-    it "should be sent to attendee in system's locale" do
-      I18n.locale = 'en'
+    it "should be sent to attendee according to country" do
+      @attendee.country = 'US'
       mail = EmailNotifications.registration_pending(@attendee).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
@@ -358,8 +358,8 @@ describe EmailNotifications do
       mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
     end
   
-    it "should be sent to attendee in system's locale" do
-      I18n.locale = 'en'
+    it "should be sent to attendee according to country" do
+      @attendee.country = 'US'
       mail = EmailNotifications.registration_group_attendee(@attendee, @registration_group).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
@@ -390,8 +390,8 @@ describe EmailNotifications do
       mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
     end
   
-    it "should be sent to group organizer in system's locale" do
-      I18n.locale = 'en'
+    it "should be sent to group organizer according to country" do
+      @registration_group.country = 'US'
       mail = EmailNotifications.registration_group_pending(@registration_group).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@registration_group.contact_email]
