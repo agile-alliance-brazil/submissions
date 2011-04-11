@@ -3,7 +3,7 @@ Dear organizer for group #{h(@group.name)},
 Your request for registering the following #{@group.total_attendees} participants, priced a total of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, at #{@conference_name} was received successfully.
 
 - @group.attendees.each do |attendee|
-  #{"-"} #{h(attendee.full_name)}
+  #{"-"} #{h(attendee.full_name)} priced #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
   - attendee.courses.each do |course|
     #{"  -"} '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}
 

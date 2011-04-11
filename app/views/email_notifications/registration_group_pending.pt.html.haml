@@ -5,7 +5,7 @@
 %ul
   - @group.attendees.each do |attendee|
     %li
-      h(attendee.full_name)
+      #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
       - unless attendee.courses.empty?
         %ul
           - attendee.courses.each do |course|

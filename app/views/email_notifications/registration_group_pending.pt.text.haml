@@ -4,7 +4,7 @@ Caro organizador do grupo #{h(@group.name)},
 A inscrição na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
 
 - @group.attendees.each do |attendee|
-  #{"-"} #{h(attendee.full_name)}
+  #{"-"} #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
   - attendee.courses.each do |course|
     #{"  -"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
 
