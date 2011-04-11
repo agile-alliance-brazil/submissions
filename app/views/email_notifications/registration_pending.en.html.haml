@@ -3,12 +3,12 @@
 %p Your request for registration as <strong>#{I18n.t(@attendee.registration_type.title)}</strong> priced #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
 
 - unless @attendee.courses.empty?
-  %p Besides the conference, you registered to the following courses:
+  %p Besides the conference, you also registered for the following courses:
   %ul
     - @attendee.courses.each do |course|
       %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}
 
-%p In order to complete the registration process, you must pay the fee of #{number_to_currency(@attendee.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
+%p In order to complete the registration process, you must pay the total amount of #{number_to_currency(@attendee.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
 %ol
   %li 
     If you are paying in USD:
@@ -23,15 +23,15 @@
     %br
     %br Otherwise please contact #{mail_to AppConfig[:organizer][:email]} to discuss other possible payment methods.
   %li Write your registration number (#{@attendee.id}) in your deposit voucher
-  %li Send your voucher #{@attendee.student? ? "and a student id* " : ""}to the email #{mail_to AppConfig[:organizer][:email]} copied to #{mail_to AppConfig[:organizer][:cced_email]}
+  %li Send your voucher #{@attendee.student? ? "and a student id* " : ""}to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
 
 %h3 Important:
 
 - deadline = @now.to_date + 5
 %p
   - unless @attendee.courses.empty?
-    You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the course#{@attendee.courses.size > 1 ? 's' : ''} will no longer be ensured. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.
-  %br After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration fee will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+    You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the #{@attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.
+  %br After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration amount will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
 
 - if @attendee.student?
   %p
@@ -41,6 +41,6 @@
       %li Payment proof for the institution;
       %li Enrollment declaration from the institution.
 
-%p If you have any doubt, please contact us at #{mail_to AppConfig[:organizer][:email]}
+%p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

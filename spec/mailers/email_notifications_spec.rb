@@ -316,12 +316,12 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
       mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
-  	  mail.encoded.should =~ /Caro #{@attendee.full_name},/
+      mail.encoded.should =~ /Caro #{@attendee.full_name},/
       # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
-  	  mail.encoded.should =~ /R\$ 165,00/
+      mail.encoded.should =~ /R\$ 165,00/
       # mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/pt\/inscricoes\.php/
-  	  mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
-  	  mail.subject.should == "[localhost:3000] Pedido de inscrição na #{@conference.name} enviada"
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Pedido de inscrição na #{@conference.name} enviado"
     end
     
     it "should be sent to attendee in system's locale" do
@@ -330,12 +330,76 @@ describe EmailNotifications do
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@attendee.email]
       mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
-  	  mail.encoded.should =~ /Dear #{@attendee.full_name},/
-  	  mail.encoded.should =~ /R\$ 165,00/
+      mail.encoded.should =~ /Dear #{@attendee.full_name},/
+      mail.encoded.should =~ /R\$ 165,00/
       # mail.encoded.should =~ /#{I18n.l(Date.today + 5)},/
-  	  mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
       # mail.encoded.should =~ /http:\/\/www\.agilebrazil\.com\.br\/2011\/en\/inscricoes\.php/
-  	  mail.subject.should == "[localhost:3000] Registration request to #{@conference.name} sent"
+      mail.subject.should == "[localhost:3000] Registration request to #{@conference.name} sent"
+    end
+  end
+
+  context "registration group attendee" do
+    before(:each) do
+      @registration_group = Factory(:registration_group)
+      @attendee = Factory(:attendee,
+        :registration_type => RegistrationType.find_by_title('registration_type.group'),
+        :registration_group => @registration_group
+      )
+    end
+    
+    it "should be sent to attendee cc'ed to group organizer" do
+      mail = EmailNotifications.registration_group_attendee(@attendee, @registration_group).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == [@registration_group.contact_email]
+      mail.encoded.should =~ /Caro #{@attendee.full_name},/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
+    end
+  
+    it "should be sent to attendee in system's locale" do
+      I18n.locale = 'en'
+      mail = EmailNotifications.registration_group_attendee(@attendee, @registration_group).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == [@registration_group.contact_email]
+      mail.encoded.should =~ /Dear #{@attendee.full_name},/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Group registration request to #{@conference.name} sent"
+    end
+  end
+    
+  context "registration group pending" do
+    before(:each) do
+      @registration_group = Factory(:registration_group)
+      @attendee = Factory(:attendee,
+        :registration_type => RegistrationType.find_by_title('registration_type.group'),
+        :registration_group => @registration_group
+      )
+    end
+
+    it "should be sent to group organizer cc'ed to conference organizer" do
+      mail = EmailNotifications.registration_group_pending(@registration_group).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@registration_group.contact_email]
+      mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
+      mail.encoded.should =~ /Caro organizador do grupo #{@registration_group.name},/
+      mail.encoded.should =~ /R\$ 135,00/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
+    end
+  
+    it "should be sent to group organizer in system's locale" do
+      I18n.locale = 'en'
+      mail = EmailNotifications.registration_group_pending(@registration_group).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@registration_group.contact_email]
+      mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
+      mail.encoded.should =~ /Dear organizer for group #{@registration_group.name},/
+      mail.encoded.should =~ /R\$ 135,00/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Group registration request to #{@conference.name} sent"
     end
   end
 end

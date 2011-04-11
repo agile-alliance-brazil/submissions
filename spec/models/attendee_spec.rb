@@ -68,29 +68,28 @@ describe Attendee do
   context "associations" do
     should_belong_to :conference
     should_belong_to :registration_type
+    should_belong_to :registration_group
     
     should_have_many :course_attendances
   end
   
   context "validations" do
-    should_validate_presence_of :first_name
-    should_validate_presence_of :last_name
-    should_validate_presence_of :email
-    should_validate_presence_of :phone
-    should_validate_presence_of :country
-    # should_validate_presence_of :state
-    should_validate_presence_of :city
-    should_validate_presence_of :address
-    should_validate_presence_of :gender
-    should_validate_presence_of :zipcode
-    should_validate_presence_of :registration_type_id
-    should_validate_presence_of :conference_id
-    # should_validate_presence_of :cpf
-    should_not_validate_presence_of :organization
-    
-    context "student" do
-      subject {Factory(:attendee, :registration_type_id => 1)}
-      should_validate_presence_of :organization
+    context "brazilians" do
+      subject { Factory.build(:attendee) }
+      should_validate_presence_of :first_name
+      should_validate_presence_of :last_name
+      should_validate_presence_of :email
+      should_validate_presence_of :phone
+      should_validate_presence_of :country
+      should_validate_presence_of :state
+      should_validate_presence_of :city
+      should_validate_presence_of :address
+      should_validate_presence_of :gender
+      should_validate_presence_of :zipcode
+      should_validate_presence_of :registration_type_id
+      should_validate_presence_of :conference_id
+      should_validate_presence_of :cpf
+      should_not_validate_presence_of :organization
     end
     
     context "non brazilians" do
@@ -98,7 +97,12 @@ describe Attendee do
       should_not_validate_presence_of :cpf
       should_not_validate_presence_of :state
     end
-    
+
+    context "student" do
+      subject {Factory(:attendee, :registration_type_id => 1)}
+      should_validate_presence_of :organization
+    end
+        
     should_validate_existence_of :conference, :registration_type
     
     should_validate_confirmation_of :email

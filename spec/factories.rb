@@ -158,3 +158,21 @@ Factory.define :attendee do |a|
   a.neighbourhood "Vila Perdida"
   a.zipcode "12345000"
 end
+
+Factory.define :registration_group do |a|
+  a.name "Big Corp"
+  a.contact_email { |e| "contact@#{e.name.parameterize}.com" }
+  a.contact_email_confirmation { |e| "contact@#{e.name.parameterize}.com" }
+  a.phone "(11) 3322-1234"
+  a.fax "(11) 4422-1234"
+  a.country "BR"
+  a.state "SP"
+  a.city "São Paulo"
+  a.cnpj "69.103.604/0001-60"
+  a.state_inscription "110.042.490.114"
+  a.municipal_inscription "9999999"
+  a.address "Rua dos Bobos, 0"
+  a.neighbourhood "Vila Perdida"
+  a.zipcode "12345000"
+  a.total_attendees 5
+end

@@ -6,13 +6,15 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
+ * Notification of exceptions with Hoptoad
+ * Add delayed_job to guarantee email delivery
+ * Migrate email from smtp to amazon SES
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
  * Admin page to confirm/expire registrations
- * Registration as a group/company
+ * Allow registration in future for registration organizer
 
  * Set pre-registration to used once pre-registered attendee is created
- * Test cpf/state validation on attendee
  * Remove duplication between user/attendee
  * Refactor JS on attendee form
 
@@ -34,7 +36,6 @@ TODO:
  * Allow reviewers to remove a session from the list of session they can review
  * Display progress bar with total number of reviews for reviewer
  * Reviewer can edit a review
- * Voting results
  * Search submissions
  * Cucumber features
  * Manage Roles (admin only)
@@ -47,9 +48,11 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
-
+ 
 DONE:
 
+ * Registration as a group/company -- Danilo
+ * Test cpf/state validation on attendee -- Danilo
  * Limit course attendance to 30 -- Danilo
  * Limit JS discount calculation to according registration period -- Hugo
  * Scope emails to ignore case when checking for pre-registration -- Hugo

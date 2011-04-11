@@ -1,0 +1,22 @@
+%p Dear #{h(@attendee.full_name)},
+
+%p Your request for registration as part of group <strong>#{h(@group.name)}</strong> at #{@attendee.conference.name} was received successfully.
+
+- unless @attendee.courses.empty?
+  %p Besides the conference, you also registered for the following courses:
+  %ul
+    - @attendee.courses.each do |course|
+      %li '#{I18n.t(course.full_name)}'
+
+%p Instructions to complete the registration process will be sent to your group organizer as soon the request for registration for all participants are received.
+
+%h3 Important:
+
+- deadline = @now.to_date + 5
+%p
+  - unless @attendee.courses.empty?
+    The payment confirmation for you group must be received until #{I18n.l(deadline)}. After that date, your place in the #{@attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be ensured. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.
+
+%p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
+
+%small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

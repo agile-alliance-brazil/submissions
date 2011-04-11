@@ -4,7 +4,7 @@ Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
 Seu pedido de inscrição de tipo #{I18n.t(@attendee.registration_type.title)} no valor de #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} na #{@attendee.conference.name} foi realizado com sucesso.
 
 - unless @attendee.courses.empty?
-  Além da conferência, você se inscreveu para os seguites cursos:
+  Além da conferência, você se inscreveu para os seguintes cursos:
   - @attendee.courses.each do |course|
     #{"-"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
 
@@ -37,7 +37,7 @@ IMPORTANTE:
 
 - deadline = @now.to_date + 5
 - unless @attendee.courses.empty?
-  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, sua vaga no#{@attendee.courses.size > 1 ? 's' : ''} curso#{@attendee.courses.size > 1 ? 's' : ''} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, sua vaga #{@attendee.courses.size > 1 ? 'nos' : 'no'} #{@attendee.courses.size > 1 ? 'cursos' : 'curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
 
 Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor da inscrição será atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
 

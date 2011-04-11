@@ -7,6 +7,7 @@ class Attendee < ActiveRecord::Base
   
   belongs_to :conference
   belongs_to :registration_type
+  belongs_to :registration_group
   
   has_many :course_attendances
   

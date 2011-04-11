@@ -183,6 +183,19 @@ en:
         address: "Address"
         neighbourhood: "Address 2"
         zipcode: "Zip Code"
+      registration_group:
+        name: "Organization / Institution name"
+        contact_email: "E-mail address"
+        contact_email_confirmation: "Confirm e-mail address"
+        phone: "Contact phone"
+        fax: "Fax"
+        country: "Country"
+        state: "State"
+        city: "City"
+        address: "Address"
+        neighbourhood: "Address 2"
+        zipcode: "Zip Code"
+        total_attendees: "Total number of participants"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -226,6 +239,11 @@ en:
         twitter_user: "Your <a href='http://www.twitter.com' target='_blank'>twitter</a> username (without the '@' character - e.g. 'agilebrazil'), if given, will appear in your badge. Leave blank if you do not want that."
         email_confirmation: "Verify that your e-mail address is correct. This will be the main communication chanel about your registration."
         courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants."
+      registration_group:
+        cnpj: "Leave blank if this is not a Brazilian company / organization."
+        state_inscription: "Leave blank if this is not a Brazilian company / organization."
+        municipal_inscription: "Leave blank if this is not a Brazilian company / organization."
+        total_attendees: "A minimum of 5 participants is required for group registration."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -245,6 +263,7 @@ en:
       confirm_session: "Confirm attendance"
       withdraw_session: "Withdraw session"
       new_registration: "Submit registration"
+      new_registration_group: "Register participants"
 
   # Custom messages
   title:
@@ -269,6 +288,8 @@ en:
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
     registration: "New registration"
+    registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on group %{registration_group}"
+    registration_group: "New group registration"
   
   actions:
     submission_date: "Submission deadline"
@@ -296,10 +317,12 @@ en:
       session: "Sessions"
       review: "Review process"
       user: "Profile"
+      registration: "Registration"
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
-    new_registration: "New registration"
+    new_registration: "Individual"
+    new_registration_group: "Group"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -350,9 +373,19 @@ en:
     attendee:
       create:
         success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
+      news: "<a href='/registration_groups/new?locale=en'>Click here</a> for group registration."
       mail:
-        fail: "There was a problem while sending you confirmation email. Your registration was received but we could not deliver the confirmation email. We will try later but if you do not receive it in 24 hours, please contact us at contato@agilebrazil.com."
-      news: "Only individual and student registrations are available. We will be soon launching group registration but if you don't want to wait, just contact us at <a href='mailto:result@resultonline.com.br'>result@resultonline.com.br</a>. Follow <a href='http://www.twitter.com/agilebrazil' target='_blank'>@agilebrazil</a> on Twitter for more announcements."
+        fail: "There was a problem while sending your confirmation email. Your registration was received but we could not deliver the confirmation email. We will try later but if you do not receive it in 24 hours, please contact us at contato@agilebrazil.com."
+      registration_group:
+        complete: "This group already have %{total_attendees} registered participants."
+        success: "Registration submited successfully. Please register the next participant."
+    registration_group:
+      create:
+        success: "Group registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%attendee_url</a>"
+      news: "<a href='/attendees/new?locale=en'>Click here</a> for individual registration."
+    registration:
+      attendee: "By registering for the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."
+      group: "I acknowledge that the name and email of all participants that register for the conference will be shared with the sponsors of the conference."
   
   session_types:
     tutorial:
@@ -408,6 +441,8 @@ en:
       subject: "Notification from the Program Committee of %{conference_name}"
     registration_pending:
       subject: "Registration request to %{conference_name} sent"
+    registration_group_pending:
+      subject: "Group registration request to %{conference_name} sent"
   
   reviewer:
     state:
@@ -469,9 +504,6 @@ en:
   gender:
     male: "Male"
     female: "Female"
-
-  registration:
-    notice: "By registering to the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."
 
   registration_total:
     title: "Registration fee total"

@@ -46,6 +46,8 @@ class Ability
     end
     can(:create, Attendee)
     can(:index, Attendee)
+    can(:create, RegistrationGroup)
+    can(:index, RegistrationGroup)
     can(:pre_registered, Attendee)
   end
 

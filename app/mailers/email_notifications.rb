@@ -77,9 +77,31 @@ class EmailNotifications < ActionMailer::Base
     @attendee = attendee
     periods = RegistrationPeriod.for(@now)
     @registration_period = attendee.pre_registered? ? periods.last : periods.first
-    @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.registration_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
+         :cc       => conference_organizer,
+         :from     => "\"#{current_conference.name}\" <#{from_address}>",
+         :reply_to => "\"#{current_conference.name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
+  def registration_group_attendee(attendee, group, sent_at = Time.now)
+    @attendee, @group, @now = attendee, group, sent_at
+    mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
+         :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
+         :cc       => "\"#{@group.name}\" <#{@group.contact_email}>",
+         :from     => "\"#{current_conference.name}\" <#{from_address}>",
+         :reply_to => "\"#{current_conference.name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
+  def registration_group_pending(group, sent_at = Time.now)
+    @group, @now = group, sent_at
+    @conference_name = current_conference.name
+    periods = RegistrationPeriod.for(@now)
+    @registration_period = @group.attendees.any?(&:pre_registered?) ? periods.last : periods.first
+    mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
+         :to      => "\"#{@group.name}\" <#{@group.contact_email}>",
          :cc       => conference_organizer,
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
@@ -96,7 +118,10 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def conference_organizer
-    "\"#{AppConfig[:organizer][:name]}\" <#{AppConfig[:organizer][:email]}>, \"#{AppConfig[:organizer][:cced]}\" <#{AppConfig[:organizer][:cced_email]}>"
+    [
+      "\"#{AppConfig[:organizer][:name]}\" <#{AppConfig[:organizer][:email]}>",
+      "\"#{AppConfig[:organizer][:cced]}\" <#{AppConfig[:organizer][:cced_email]}>"
+    ]
   end
 
   def current_conference

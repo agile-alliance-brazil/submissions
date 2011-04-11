@@ -1,7 +1,7 @@
-- title t('title.registration')
+- title parent? ? t('title.registration_group_new_attendee', :registration_group => h(parent.name), :current_attendee => parent.attendees.count+1, :total_attendees => parent.total_attendees) : t('title.registration')
 .auto_focus
 
-= semantic_form_for @attendee do |form|
+= semantic_form_for(parent? ? [parent, @attendee] : @attendee) do |form|
   = render 'form', :form => form
   = form.buttons do
     = form.commit_button :new_registration, :button_html => {:tabindex => autotab}

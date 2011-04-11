@@ -1,0 +1,45 @@
+Dear organizer for group #{h(@group.name)},
+
+Your request for registering the following #{@group.total_attendees} participants, priced a total of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, at #{@conference_name} was received successfully.
+
+- @group.attendees.each do |attendee|
+  #{"-"} #{h(attendee.full_name)}
+  - attendee.courses.each do |course|
+    #{"  -"} '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}
+
+
+In order to complete the registration process, you must pay the total amount of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
+
+1) If you are paying in USD:
+#{"  "}Bank: New York Citybank
+#{"  "}Account: 36026886 - Caixa Econômica Federal
+#{"  "}SWIFT Code: CITIUS33
+
+#{"  "}If you are paying in EUR:
+#{"  "}Bank: CommerzBank Ag/Frankfurt
+#{"  "}Account: 400871228300EUR - Caixa Econômica Federal
+#{"  "}SWIFT Code: COBADEFF
+
+#{"  "}Otherwise please contact #{AppConfig[:organizer][:email]} to discuss other possible payment methods.
+
+
+2) Write your registration number (#{@group.to_param}) in your deposit voucher
+
+
+3) Send your voucher to the email #{AppConfig[:organizer][:email]} cc'ing to #{AppConfig[:organizer][:cced_email]}
+
+
+IMPORTANT:
+
+- deadline = @now.to_date + 5
+- total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
+- if total_courses > 0
+  You must send your deposit voucher until #{I18n.l(deadline)}. After that date, a place in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
+  
+  
+After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at http://www.agilebrazil.com.br/2011/en/inscricoes.php.
+
+
+If you have any questions, please contact us at #{AppConfig[:organizer][:email]}
+
+[Please do not reply to this e-mail. It was sent from an unmonitored email address]

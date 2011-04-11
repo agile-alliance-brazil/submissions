@@ -1,0 +1,7 @@
+- title t('title.registration_group')
+.auto_focus
+
+= semantic_form_for @registration_group do |form|
+  = render 'form', :form => form
+  = form.buttons do
+    = form.commit_button :new_registration_group, :button_html => {:tabindex => autotab}

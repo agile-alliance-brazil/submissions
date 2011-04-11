@@ -1,0 +1,39 @@
+%p Caro organizador do grupo #{h(@group.name)},
+
+%p A inscrição na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
+
+%ul
+  - @group.attendees.each do |attendee|
+    %li
+      h(attendee.full_name)
+      - unless attendee.courses.empty?
+        %ul
+          - attendee.courses.each do |course|
+            %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
+
+%p Para completar o processo de inscrição, siga os seguintes passos:
+
+%ol
+  %li
+    Faça um depósito identificado de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)} na seguinte conta:
+    %br Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
+    %br CNPJ: 10.784.390/0001-91
+    %br Banco: Caixa Econômica Federal (104)
+    %br Agência: 1560
+    %br Conta corrente: 113-8
+    %br Operação: 022
+  %li Caso não consiga identificar o depósito junto ao banco, escreva o número de inscrição do seu grupo (#{@group.to_param}) no comprovante de depósito
+  %li Envie o comprovante de depósito para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+
+%h3 Importante:
+
+- deadline = @now.to_date + 5
+- total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
+%p
+  - if total_courses > 0
+    Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, a vaga #{total_courses > 1 ? 'nos' : 'no'} #{total_courses > 1 ? 'cursos' : 'curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+  %br Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
+
+%p Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}
+
+%small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

@@ -1,0 +1,52 @@
+Caro organizador do grupo #{h(@group.name)},
+
+
+A inscrição na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
+
+- @group.attendees.each do |attendee|
+  #{"-"} #{h(attendee.full_name)}
+  - attendee.courses.each do |course|
+    #{"  -"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
+
+
+Para completar o processo de inscrição, siga os seguintes passos:
+
+1) Faça um depósito identificado de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)} na seguinte conta:
+
+#{"    "}Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
+
+#{"    "}CNPJ: 10.784.390/0001-91
+
+#{"    "}Banco: Caixa Econômica Federal (104)
+
+#{"    "}Agência: 1560
+
+#{"    "}Conta corrente: 113-8
+
+#{"    "}Operação: 022
+
+
+2) Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{@group.to_param}) no comprovante de depósito
+
+
+3) Envie o comprovante de depósito para o email #{AppConfig[:organizer][:email]} com cópia para #{AppConfig[:organizer][:cced_email]}
+
+
+IMPORTANTE:
+
+
+- deadline = @now.to_date + 5
+- total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
+- if total_courses > 0
+  Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, a vaga #{total_courses > 1 ? 'nos' : 'no'} #{total_courses > 1 ? 'cursos' : 'curso'} não será garantida. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+
+
+Após o dia #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em http://www.agilebrazil.com.br/2011/pt/inscricoes.php.
+
+
+
+Qualquer dúvida, entre em contato através do email #{AppConfig[:organizer][:email]}
+
+
+
+[Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]
