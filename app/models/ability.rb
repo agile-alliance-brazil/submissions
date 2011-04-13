@@ -122,6 +122,8 @@ class Ability
 
   def registrar
     can(:manage, 'registered_attendees')
+    can(:show, Attendee)
+    can(:update, Attendee)
   end
   
   def find_session

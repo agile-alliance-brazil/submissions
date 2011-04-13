@@ -882,5 +882,13 @@ describe Ability do
     it "can manage registered attendees" do
       @ability.should be_able_to(:manage, 'registered_attendees')
     end
+    
+    it "can show attendees" do
+      @ability.should be_able_to(:show, Attendee)
+    end
+    
+    it "can update attendees" do
+      @ability.should be_able_to(:update, Attendee)
+    end
   end
 end
