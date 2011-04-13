@@ -1,0 +1,8 @@
+- if can?(:confirm, 'registered_attendees', @attendee)
+  = semantic_form_for(@attendee, :url => registered_attendee_path(@attendee), :method => :put) do |form|
+    = form.inputs do
+      - if @attendee.pending?
+        = form.input :payment_agreement, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
+      = form.input :notes, :input_html => {:rows => 3, :tabindex => autotab, :disabled => @attendee.confirmed?}
+    = form.buttons do
+      = form.commit_button :confirm_registered_attendee, :button_html => {:tabindex => autotab, :disabled => @attendee.confirmed?}

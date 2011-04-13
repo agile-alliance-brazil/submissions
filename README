@@ -8,9 +8,12 @@ TODO:
 
  * Add delayed_job to guarantee email delivery
  * Migrate email from smtp to amazon SES
+
+ * Admin page to expire registrations
+
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
- * Admin page to confirm/expire registrations
+
  * Allow registration in future for registration organizer
 
  * Set pre-registration to used once pre-registered attendee is created
@@ -50,6 +53,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Admin page to confirm registrations -- Danilo
  * Notification of exceptions with Hoptoad -- Danilo
  * Registration as a group/company -- Danilo
  * Test cpf/state validation on attendee -- Danilo

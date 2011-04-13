@@ -1,0 +1,65 @@
+- title @attendee.full_name
+- show_actions!
+
+%h4= t('formtastic.titles.attendee_personal')
+
+= content_tag_for(:dl, @attendee) do
+  %dt= t('formtastic.labels.attendee.full_name')
+  %dd= @attendee.full_name
+  %dt= t('formtastic.labels.attendee.badge_name')
+  %dd= @attendee.badge_name.presence || @attendee.full_name
+  %dt= t('formtastic.labels.attendee.gender')
+  %dd= Gender.title_for(@attendee.gender)
+  - if @attendee.organization.present?
+    %dt= t('formtastic.labels.attendee.organization')
+    %dd= @attendee.try(:organization)
+  - if @attendee.cpf.present?
+    %dt= t('formtastic.labels.attendee.cpf')
+    %dd= @attendee.cpf
+  - if @attendee.twitter_user.present?
+    %dt= t('formtastic.labels.attendee.twitter_user')
+    %dd= @attendee.twitter_user
+
+%h3= t('formtastic.titles.attendee_address')
+
+= content_tag_for(:dl, @attendee) do
+  %dt= t('formtastic.labels.attendee.email')
+  %dd= @attendee.email
+  %dt= t('formtastic.labels.attendee.phone')
+  %dd= @attendee.phone
+  %dt= t('formtastic.labels.attendee.address')
+  %dd= @attendee.address
+  - if @attendee.neighbourhood.present?
+    %dt= t('formtastic.labels.attendee.neighbourhood')
+    %dd= @attendee.neighbourhood
+  %dt= t('formtastic.labels.attendee.city')
+  %dd= @attendee.city
+  - if @attendee.state.present?
+    %dt= t('formtastic.labels.attendee.state')
+    %dd= @attendee.state
+  %dt= t('formtastic.labels.attendee.country')
+  %dd= @attendee.country
+  %dt= t('formtastic.labels.attendee.zipcode')
+  %dd= @attendee.zipcode
+
+%table
+  %tr
+    %th
+    %th= t('formtastic.labels.attendee.created_at')
+    %th= t('formtastic.labels.attendee.total')
+  %tr
+    %td #{t('formtastic.labels.attendee.registration_type_id')}: #{t(@attendee.registration_type.title)}
+    %td= l(@attendee.created_at.to_date)
+    %td= number_to_currency(@attendee.base_price(@attendee.created_at), :locale => :pt)
+  - @attendee.courses.each do |course|
+    %tr
+      %td #{t('formtastic.labels.attendee.courses')}: #{t(course.name)}
+      %td= l(@attendee.created_at.to_date)
+      %td= number_to_currency(course.price(@attendee.created_at), :locale => :pt)
+  %tr.last
+    %th{:colspan => 2}= t('registration_total.total')
+    %th= number_to_currency(@attendee.registration_fee(@attendee.created_at), :locale => :pt)
+
+%hr/
+
+= render 'registered_attendees/confirm'

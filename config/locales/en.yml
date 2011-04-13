@@ -171,6 +171,7 @@ en:
         registration_type_id: "Type of Registration"
         first_name: "First name"
         last_name: "Last name"
+        full_name: "Name"
         email: "E-mail address"
         email_confirmation: "Confirm e-mail address"
         phone: "Phone"
@@ -185,6 +186,12 @@ en:
         address: "Address"
         neighbourhood: "Address 2"
         zipcode: "Zip Code"
+        status: "Status"
+        courses: "Courses"
+        created_at: "Created"
+        payment_agreement: "I confirm that the participant made the payment of the above mentioned amount and will be notified that his/her registration to the conference is confirmed."
+        notes: "Notes"
+        total: "Amount"
       registration_group:
         name: "Organization / Institution name"
         contact_name: "Contact name"
@@ -242,6 +249,7 @@ en:
         twitter_user: "Your <a href='http://www.twitter.com' target='_blank'>twitter</a> username (without the '@' character - e.g. 'agilebrazil'), if given, will appear in your badge. Leave blank if you do not want that."
         email_confirmation: "Verify that your e-mail address is correct. This will be the main communication chanel about your registration."
         courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants."
+        notes: "Leave any notes or observations that you think are relevant, for future reference (e.g. payment confirmation number, or any special information about this participant)"
       registration_group:
         cnpj: "Leave blank if this is not a Brazilian company / organization."
         state_inscription: "Leave blank if this is not a Brazilian company / organization."
@@ -267,6 +275,7 @@ en:
       withdraw_session: "Withdraw session"
       new_registration: "Submit registration"
       new_registration_group: "Register participants"
+      confirm_registered_attendee: "Confirm Payment"
 
   # Custom messages
   title:
@@ -326,6 +335,7 @@ en:
     edit_review_decision: "Edit Decision"
     new_registration: "Individual"
     new_registration_group: "Company"
+    registered_attendees: "Manage registrations"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -389,6 +399,9 @@ en:
     registration:
       attendee: "By registering for the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."
       group: "I acknowledge that the name and email of all participants that register for the conference will be shared with the sponsors of the conference."
+    registered_attendees:
+      confirm:
+        success: "Registration confirmed successfully. The participant was notified by email."
   
   session_types:
     tutorial:
@@ -444,6 +457,8 @@ en:
       subject: "Notification from the Program Committee of %{conference_name}"
     registration_pending:
       subject: "Registration request to %{conference_name} sent"
+    registration_confirmed:
+      subject: "Registration confirmed for %{conference_name}"
     registration_group_pending:
       subject: "Group registration request to %{conference_name} sent"
   
@@ -534,6 +549,12 @@ en:
     tdd:
       name: "TDD"
       full_name: "TDD: from basic to advanced"
+
+  attendee:
+    status:
+      pending: "Pending"
+      confirmed: "Confirmed"
+      expired: "Expired"
 
   generic:
     or: "or"

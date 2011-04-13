@@ -19,6 +19,7 @@ AgileBrazil::Application.routes.draw do
   resources :audience_levels, :only => [:index]
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]
+  resources :registered_attendees, :only => [:index, :show, :update]
   resources :registration_groups, :only => [:index, :new, :create] do
     resources :attendees, :only => [:index, :new, :create]
   end

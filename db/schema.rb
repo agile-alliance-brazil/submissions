@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411161331) do
+ActiveRecord::Schema.define(:version => 20110413040917) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(:version => 20110411161331) do
     t.datetime "updated_at"
     t.integer  "registration_type_id"
     t.integer  "registration_group_id"
-    t.boolean  "email_sent",            :default => false
+    t.boolean  "email_sent",               :default => false
+    t.integer  "course_attendances_count", :default => 0
+    t.text     "notes"
   end
 
   create_table "audience_levels", :force => true do |t|

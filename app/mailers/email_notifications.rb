@@ -85,6 +85,17 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def registration_confirmed(attendee, sent_at = Time.now)
+    @attendee, @group, @now = attendee, attendee.registration_group, sent_at
+    I18n.locale = @attendee.country == 'BR' ? :pt : :en
+    mail :subject => "[#{host}] #{I18n.t('email.registration_confirmed.subject', :conference_name => current_conference.name)}",
+         :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
+         :cc       => (@group.present? ? "\"#{@group.contact_name}\" <#{@group.contact_email}>" : []),
+         :from     => "\"#{current_conference.name}\" <#{from_address}>",
+         :reply_to => "\"#{current_conference.name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
   def registration_group_attendee(attendee, group, sent_at = Time.now)
     @attendee, @group, @now = attendee, group, sent_at
     I18n.locale = @attendee.country == 'BR' ? :pt : :en

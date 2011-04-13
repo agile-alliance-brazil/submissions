@@ -870,4 +870,17 @@ describe Ability do
       end
     end
   end
+
+  context "- registrar" do
+    before(:each) do
+      @user.add_role "registrar"
+      @ability = Ability.new(@user, @conference)
+    end
+
+    it_should_behave_like "all users"
+    
+    it "can manage registered attendees" do
+      @ability.should be_able_to(:manage, 'registered_attendees')
+    end
+  end
 end

@@ -1,15 +1,17 @@
 class Attendee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,
                   :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
-                  :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event, :conference_id
+                  :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event, :conference_id,
+                  :notes, :payment_agreement
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
-                  :badge_name, :twitter_user, :address, :neighbourhood, :zipcode
+                  :badge_name, :twitter_user, :address, :neighbourhood, :zipcode, :notes
   
   belongs_to :conference
   belongs_to :registration_type
   belongs_to :registration_group
   
   has_many :course_attendances
+  has_many :courses, :through => :course_attendances
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
                         :gender, :address, :zipcode, :registration_type_id, :conference_id
@@ -43,6 +45,8 @@ class Attendee < ActiveRecord::Base
     end
   end
   
+  scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
+  
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
   end
@@ -54,6 +58,10 @@ class Attendee < ActiveRecord::Base
 
     event :expire do
       transition :pending => :expired
+    end
+    
+    state :confirmed do
+      validates_acceptance_of :payment_agreement
     end
   end
   

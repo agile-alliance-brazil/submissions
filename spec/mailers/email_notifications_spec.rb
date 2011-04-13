@@ -339,6 +339,44 @@ describe EmailNotifications do
     end
   end
 
+  context "registration confirmed" do
+    before(:each) do
+      @attendee = Factory(:attendee)
+    end
+    
+    it "should be sent to attendee" do
+      mail = EmailNotifications.registration_confirmed(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == []
+      mail.encoded.should =~ /Caro #{@attendee.full_name},/
+      mail.encoded.should =~ /R\$ 165,00/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Inscrição na #{@conference.name} confirmada"
+    end
+
+    it "should cc group contact if available" do
+      group = Factory(:registration_group)
+      @attendee.registration_group = group
+      
+      mail = EmailNotifications.registration_confirmed(@attendee).deliver
+      mail.to.should == [@attendee.email]
+      mail.cc.should == [group.contact_email]
+    end
+    
+    it "should be sent to attendee according to country" do
+      @attendee.country = 'US'
+      mail = EmailNotifications.registration_confirmed(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == []
+      mail.encoded.should =~ /Dear #{@attendee.full_name},/
+      mail.encoded.should =~ /R\$ 165,00/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Registration confirmed for #{@conference.name}"
+    end
+  end
+
   context "registration group attendee" do
     before(:each) do
       @registration_group = Factory(:registration_group)

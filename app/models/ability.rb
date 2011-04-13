@@ -17,6 +17,7 @@ class Ability
     author if @user.author?
     organizer if @user.organizer?
     reviewer if @user.reviewer?
+    registrar if @user.registrar?
   end
 
   private
@@ -119,6 +120,10 @@ class Ability
     can(:reviewer, 'reviews_listing')
   end
 
+  def registrar
+    can(:manage, 'registered_attendees')
+  end
+  
   def find_session
     @session ||= Session.find(@params[:session_id]) if @params[:session_id].present?
   end

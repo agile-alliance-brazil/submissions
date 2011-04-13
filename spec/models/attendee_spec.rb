@@ -23,13 +23,15 @@ describe Attendee do
     should_allow_mass_assignment_of :courses
     should_allow_mass_assignment_of :status_event
     should_allow_mass_assignment_of :conference_id
+    should_allow_mass_assignment_of :notes
+    should_allow_mass_assignment_of :payment_agreement
 
     should_not_allow_mass_assignment_of :id
   end
   
   it_should_trim_attributes Attendee, :first_name, :last_name, :email, :organization, :phone,
                                       :country, :state, :city, :badge_name, :twitter_user,
-                                      :address, :neighbourhood, :zipcode
+                                      :address, :neighbourhood, :zipcode, :notes
                                       
   context "twitter user" do
     it "should remove @ from start if present" do
@@ -71,6 +73,7 @@ describe Attendee do
     should_belong_to :registration_group
     
     should_have_many :course_attendances
+    should_have_many :courses, :through => :course_attendances
   end
   
   context "validations" do
@@ -135,6 +138,12 @@ describe Attendee do
       before { Factory(:attendee) }
       should_validate_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
       should_validate_uniqueness_of :cpf, :allow_blank => true
+    end
+    
+    it "should validate that payment agreement is checked on confirmation" do
+      attendee = Factory(:attendee, :payment_agreement => false)
+      attendee.confirm.should be_false
+      attendee.errors[:payment_agreement].should include("deve ser aceito")
     end
     
     context "courses" do

@@ -7,5 +7,9 @@ class Gender
     def valid_values
       options_for_select.map(&:second)
     end
+    
+    def title_for(value)
+      options_for_select.find { |option| option[1] == value }.first
+    end
   end
 end
