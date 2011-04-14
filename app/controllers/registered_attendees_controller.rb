@@ -29,7 +29,7 @@ class RegisteredAttendeesController < InheritedResources::Base
     
     paginate_options ||= {}
     paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 10)
+    paginate_options[:per_page] ||= (params[:per_page] || 30)
     paginate_options[:order] ||= order
     
     @attendees ||= end_of_association_chain.for_conference(current_conference).paginate(paginate_options)

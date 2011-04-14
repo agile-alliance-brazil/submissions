@@ -322,8 +322,9 @@ pt:
         zipcode: "CEP"
         status: "Status"
         courses: "Cursos"
+        group: "Empresa"
         created_at: "Criação"
-        payment_agreement: "Declaro que o participante realizou o pagamento no valor acima descrito e será notificado que sua inscrição está confirmada."
+        payment_agreement: "Confirmo que o participante realizou o pagamento no valor acima. O sistema notificará o participante por email de que sua inscrição foi confirmada."
         notes: "Anotações"
         total: "Valor"
       registration_group:

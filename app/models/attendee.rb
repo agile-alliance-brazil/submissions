@@ -11,7 +11,6 @@ class Attendee < ActiveRecord::Base
   belongs_to :registration_group
   
   has_many :course_attendances
-  has_many :courses, :through => :course_attendances
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
                         :gender, :address, :zipcode, :registration_type_id, :conference_id
@@ -110,5 +109,9 @@ class Attendee < ActiveRecord::Base
   
   def courses
     course_attendances.map { |attendance| attendance.course }
+  end
+  
+  def courses_summary
+    courses.map {|c| I18n.t(c.name)}.join(',')
   end
 end

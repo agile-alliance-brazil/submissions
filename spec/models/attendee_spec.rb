@@ -32,19 +32,7 @@ describe Attendee do
   it_should_trim_attributes Attendee, :first_name, :last_name, :email, :organization, :phone,
                                       :country, :state, :city, :badge_name, :twitter_user,
                                       :address, :neighbourhood, :zipcode, :notes
-                                      
-  context "twitter user" do
-    it "should remove @ from start if present" do
-      attendee = Factory.build(:attendee, :twitter_user => '@agilebrazil')
-      attendee.twitter_user.should == 'agilebrazil'
-    end
-    
-    it "should keep as given if doesnt start with @" do
-      attendee = Factory.build(:attendee, :twitter_user => 'agilebrazil')
-      attendee.twitter_user.should == 'agilebrazil'
-    end
-  end
-  
+                                        
   context "virtual attributes" do
     before do
       @csm = Course.find_by_name('course.csm.name')
@@ -65,6 +53,18 @@ describe Attendee do
       attendee.course_attendances[1].course.should == @cspo
       attendee.course_attendances.size.should == 2
     end
+    
+    context "twitter user" do
+      it "should remove @ from start if present" do
+        attendee = Factory.build(:attendee, :twitter_user => '@agilebrazil')
+        attendee.twitter_user.should == 'agilebrazil'
+      end
+
+      it "should keep as given if doesnt start with @" do
+        attendee = Factory.build(:attendee, :twitter_user => 'agilebrazil')
+        attendee.twitter_user.should == 'agilebrazil'
+      end
+    end
   end
   
   context "associations" do
@@ -73,7 +73,6 @@ describe Attendee do
     should_belong_to :registration_group
     
     should_have_many :course_attendances
-    should_have_many :courses, :through => :course_attendances
   end
   
   context "validations" do
@@ -408,6 +407,29 @@ describe Attendee do
 
       @attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
       @attendee.registration_fee(date).should == 65.00
+    end
+  end
+  
+  describe "courses summary" do
+    before do
+      @attendee = Factory.build(:attendee)
+      @csm = Course.find_by_name('course.csm.name')
+      @cspo = Course.find_by_name('course.cspo.name')
+    end
+    
+    it "should be empty when no courses" do
+      @attendee.courses_summary.should be_empty
+    end
+    
+    it "single course should show it's name" do
+      @attendee.course_attendances.build(:course => @csm)
+      @attendee.courses_summary.should == I18n.t(@csm.name)
+    end
+
+    it "multiple courses should show all names" do
+      @attendee.course_attendances.build(:course => @csm)
+      @attendee.course_attendances.build(:course => @cspo)
+      @attendee.courses_summary.should == "#{I18n.t(@csm.name)},#{I18n.t(@cspo.name)}"
     end
   end
 end

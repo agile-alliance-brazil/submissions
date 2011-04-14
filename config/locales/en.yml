@@ -188,8 +188,9 @@ en:
         zipcode: "Zip Code"
         status: "Status"
         courses: "Courses"
+        group: "Group"
         created_at: "Created"
-        payment_agreement: "I confirm that the participant made the payment of the above mentioned amount and will be notified that his/her registration to the conference is confirmed."
+        payment_agreement: "I confirm that the participant made the payment of the above mentioned amount. The system will notify the participant that his/her registration to the conference is confirmed."
         notes: "Notes"
         total: "Amount"
       registration_group:

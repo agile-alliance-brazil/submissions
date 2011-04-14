@@ -8,7 +8,8 @@
       %th= sortable_column(t('formtastic.labels.attendee.full_name'), :last_name)
       %th= sortable_column(t('formtastic.labels.attendee.status'), :status)
       %th= sortable_column(t('formtastic.labels.attendee.registration_type_id'), :registration_type_id)
-      %th= sortable_column(t('formtastic.labels.attendee.courses'), :course_attendances_count)
+      %th= sortable_column(t('formtastic.labels.attendee.group'), :registration_group_id)
+      %th= t('formtastic.labels.attendee.courses')
       %th= sortable_column(t('formtastic.labels.attendee.created_at'), :created_at)
       %th= t('formtastic.labels.attendee.total')
   %tbody
@@ -18,7 +19,10 @@
         %td= link_to h(attendee.full_name), registered_attendee_path(attendee)
         %td= t("attendee.status.#{attendee.status}")
         %td= t(attendee.registration_type.title)
-        %td= attendee.course_attendances_count
+        %td
+          - if attendee.registration_group.present?
+            = attendee.registration_group.name
+        %td= attendee.courses_summary
         %td= l(attendee.created_at, :format => :short)
         %td= number_to_currency(attendee.registration_fee(attendee.created_at), :locale => :pt)
 
