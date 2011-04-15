@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
   
   SESSION_SUBMISSION_DEADLINE = Time.zone.local(2011, 3, 27, 23, 59, 59)
-  REVIEW_DEADLINE = Time.zone.local(2011, 4, 12, 23, 59, 59)
+  REVIEW_DEADLINE = Time.zone.local(2011, 4, 17, 23, 59, 59)
   AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 5, 4, 23, 59, 59)
 
   def initialize(user, conference, params={})
