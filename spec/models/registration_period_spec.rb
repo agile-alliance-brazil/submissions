@@ -105,7 +105,7 @@ describe RegistrationPeriod do
     end
     
     it "should not include date after end date" do
-      RegistrationPeriod.for(@period.end_at + 1.second).first.should == RegistrationPeriod.find_by_title('registration_period.late')
+      RegistrationPeriod.for(@period.end_at + 1.week).first.should == RegistrationPeriod.find_by_title('registration_period.late')
     end
     
     it "should not have any period before early_bird" do
