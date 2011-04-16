@@ -9,7 +9,10 @@ TODO:
  * Add delayed_job to guarantee email delivery
  * Migrate email from smtp to amazon SES
 
+ * Group Confirmation
+ * Comments for attendees
  * Admin page to expire registrations
+ * Refactor sorting behaviour
 
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
@@ -53,6 +56,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Filter registered attendees by status -- Danilo
+ * Search registered attendees by name -- Danilo
  * Admin page to confirm registrations -- Danilo
  * Notification of exceptions with Hoptoad -- Danilo
  * Registration as a group/company -- Danilo

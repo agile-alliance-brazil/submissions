@@ -22,7 +22,7 @@ module ApplicationHelper
     else
       direction = 'down'
     end
-    link_to text, parameters.merge({:column => column, :direction => direction})
+    link_to text, parameters.merge(:column => column, :direction => direction, :page => nil)
   end
 
   # Monkey patch to add I18N support to will paginate next/previous labels

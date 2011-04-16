@@ -46,6 +46,16 @@ class Attendee < ActiveRecord::Base
   
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
   
+  def self.sql_full_name
+    case connection.instance_values["config"][:adapter]
+    when "sqlite3" then "(first_name || ' ' || last_name)"
+    else "CONCAT_WS(' ', first_name, last_name)"
+    end
+  end
+  scope :with_full_name, select("*, #{Attendee.sql_full_name} as full_name")
+  
+  scope :search, lambda { |q| where("#{Attendee.sql_full_name} LIKE ?", "%#{q}%")}
+  
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
   end
@@ -67,7 +77,7 @@ class Attendee < ActiveRecord::Base
   def full_name
     [self.first_name, self.last_name].join(' ')
   end
-  
+    
   def student?
     registration_type_id == 1
   end

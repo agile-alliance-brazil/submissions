@@ -508,3 +508,16 @@ span.bio {
       text-align: right; }
     td.negative {
       color: red; } } }
+      
+#registered_attendees_form {
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+}
+
+.placeholder {
+  color: #999;
+}

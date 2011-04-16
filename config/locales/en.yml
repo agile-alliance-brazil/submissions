@@ -277,6 +277,7 @@ en:
       new_registration: "Submit registration"
       new_registration_group: "Register participants"
       confirm_registered_attendee: "Confirm Payment"
+      search: "Search"
 
   # Custom messages
   title:
@@ -556,6 +557,7 @@ en:
       pending: "Pending"
       confirmed: "Confirmed"
       expired: "Expired"
+      all: "All"
 
   generic:
     or: "or"

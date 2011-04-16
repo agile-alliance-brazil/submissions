@@ -5,6 +5,7 @@ javascripts:
     - public/javascripts/jquery.autocomplete.min.js
     - public/javascripts/jquery.textarearesizer.js
     - public/javascripts/jquery.progressbar.min.js
+    - public/javascripts/jquery.placeholder.js
     - public/javascripts/application.js
 
 stylesheets:

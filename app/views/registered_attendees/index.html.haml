@@ -1,11 +1,22 @@
 - title t('actions.registered_attendees')
 - show_actions!
 
-%table.sessions
+= form_tag registered_attendees_path, :method => :get, :id => 'registered_attendees_form' do
+  = hidden_field_tag :direction, params[:direction]
+  = hidden_field_tag :column, params[:column]
+  %p
+    .left
+      = text_field_tag :q, params[:q], :placeholder => t('formtastic.labels.attendee.full_name'), :tabindex => autotab
+      = submit_tag t('formtastic.actions.search')
+    .right
+      = label_tag :status, t('formtastic.labels.attendee.status') + ':'
+      = select_tag :status, options_for_select(attendee_status_options, params[:status]), :tabindex => autotab
+
+%table
   %thead
     %tr
       %th= sortable_column('ID', :id)
-      %th= sortable_column(t('formtastic.labels.attendee.full_name'), :last_name)
+      %th= sortable_column(t('formtastic.labels.attendee.full_name'), :full_name)
       %th= sortable_column(t('formtastic.labels.attendee.status'), :status)
       %th= sortable_column(t('formtastic.labels.attendee.registration_type_id'), :registration_type_id)
       %th= sortable_column(t('formtastic.labels.attendee.group'), :registration_group_id)
@@ -28,3 +39,12 @@
 
 - if @attendees.total_pages > 1
   #pagination= will_paginate(@attendees)
+
+:javascript
+  $(function() {
+    $("#registered_attendees_form select").change(submitFilter);
+  });
+  
+  function submitFilter() {
+    $("#registered_attendees_form").submit();
+  }

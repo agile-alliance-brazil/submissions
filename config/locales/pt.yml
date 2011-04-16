@@ -414,6 +414,7 @@ pt:
       new_registration: "Submeter inscrição"
       new_registration_group: "Inscrever participantes"
       confirm_registered_attendee: "Confirmar Pagamento"
+      search: "Buscar"
 
   # Mensagens customizadas
   title:
@@ -693,6 +694,7 @@ pt:
       pending: "Pendente"
       confirmed: "Confirmado"
       expired: "Expirado"
+      all: "Todos"
     
   generic:
     or: "ou"

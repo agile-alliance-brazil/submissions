@@ -1,7 +1,7 @@
 class OrganizerSessionsController < ApplicationController
   def index
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'
-    column = sanitize(params[:column] || 'created_at')
+    column = sanitize(params[:column].presence || 'created_at')
     order = "sessions.#{column} #{direction}"
 
     paginate_options ||= {}

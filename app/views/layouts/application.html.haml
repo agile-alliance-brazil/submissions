@@ -53,6 +53,7 @@
     :javascript
       $(document).ready(function() {
         $('textarea').TextAreaResizer();
+        $('[placeholder]').placeholder();
         var errorInput = $('li.error :input:visible:enabled:first');
         if (errorInput.length > 0) {
           errorInput.focus();

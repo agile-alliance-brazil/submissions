@@ -695,3 +695,11 @@ span.bio {
     text-align: right; }
   #content div.total table td.negative {
     color: red; }
+
+#registered_attendees_form .left {
+  float: left; }
+#registered_attendees_form .right {
+  float: right; }
+
+.placeholder {
+  color: #999; }

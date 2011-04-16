@@ -9,3 +9,4 @@ config/config*.yml
 .idea
 bin/*
 turbulence
+tmp
