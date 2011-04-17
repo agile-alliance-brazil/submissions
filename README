@@ -11,25 +11,22 @@ TODO:
 
  * Group Confirmation
  * Comments for attendees
+ * Allow registration in future for registration organizer
  * Admin page to expire registrations
  * Refactor sorting behaviour
 
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
 
- * Allow registration in future for registration organizer
-
  * Set pre-registration to used once pre-registered attendee is created
  * Remove duplication between user/attendee
  * Refactor JS on attendee form
 
  * Stop adding review if review count is more than 75% of limit/person
- * Display personal review count on progress bar
  -- lower priority
  * Reviewer add/remove role on update/destroy
  * Remove hard-coded dates on deadlines for each phase of the conference
  * Edit preferred language on user's profile
- * Add cucumber features to test end-to-end journeys
 
 --- 2010
  --- High priority
@@ -39,12 +36,11 @@ TODO:
  * Sort by author, second_author and track on reviewer_reviews
  --- Lower priority
  * Allow reviewers to remove a session from the list of session they can review
- * Display progress bar with total number of reviews for reviewer
+ * Display personal review count on progress bar
  * Reviewer can edit a review
  * Search submissions
- * Cucumber features
+ * Add cucumber features to test end-to-end journeys
  * Manage Roles (admin only)
- - Validate foreign_key references
  - send emails on background job (delayed_job?)
  * Upload picture to profile
  * Forbid to add an organizer to a track in which he has submissions (main or second author)

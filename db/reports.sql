@@ -118,3 +118,25 @@ inner join
 where     sessions.state <> 'cancelled'
           AND conference_id = 2
 order by sessions.id
+
+-- Reviewer experience on track
+select    reviewer.first_name,
+          reviewer.last_name,
+          preferences.accepted,
+          tracks.title,
+          audience_levels.title
+from      reviewers
+inner join
+          users AS reviewer
+          on reviewer.id = reviewers.user_id
+inner join
+          preferences
+          on reviewer.id = preferences.reviewer_id
+left outer join
+          tracks
+          on tracks.id = preferences.track_id
+left outer join
+          audience_levels
+          on audience_levels.id = preferences.audience_level_id
+where     conference_id = 2
+order by reviewer.first_name, reviewer.last_name
