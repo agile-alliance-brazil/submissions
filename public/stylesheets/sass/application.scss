@@ -45,8 +45,10 @@ a:hover {
     li {
       float: left;
       list-style: none; }
-    li + li::before {
+    li:before {
       content: "\00a0|\00a0"; }
+    li:first-child:before {
+      content: ""; }
     a {
       color: $color1;
       text-decoration: none; }
@@ -202,8 +204,10 @@ ul.piped {
     float: left;
     list-style: none;
     font-size: 11px; }
-  li + li::before {
-    content: "\00a0|\00a0"; } }
+  li:before {
+    content: "\00a0|\00a0"; }
+  li:first-child:before {
+    content: ""; } }
 
 ul.spaced {
   overflow: hidden;
