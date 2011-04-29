@@ -1,21 +1,21 @@
 %p Olá #{h(@group.contact_name)},
 
-%p A inscrição do grupo #{h(@group.name)} na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
+%p A inscrição do grupo #{h(@group.name)} na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee, :locale => :pt)}, foi realizada com sucesso:
 
 %ul
   - @group.attendees.each do |attendee|
     %li
-      #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
+      #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price, :locale => :pt)}
       - unless attendee.courses.empty?
         %ul
           - attendee.courses.each do |course|
-            %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
+            %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
 
 %p Para completar o processo de inscrição, siga os seguintes passos:
 
 %ol
   %li
-    Faça um depósito identificado de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)} na seguinte conta:
+    Faça um depósito identificado de #{number_to_currency(@group.registration_fee, :locale => :pt)} na seguinte conta:
     %br Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
     %br CNPJ: 10.784.390/0001-91
     %br Banco: Caixa Econômica Federal (104)
@@ -27,7 +27,7 @@
 
 %h3 Importante:
 
-- deadline = @now.to_date + 5
+- deadline = @group.attendees.first.registration_date.to_date + 5
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 %p
   - if total_courses > 0

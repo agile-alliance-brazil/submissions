@@ -1,14 +1,14 @@
 Dear #{h(@attendee.full_name)},
 
-Your request for registration as #{I18n.t(@attendee.registration_type.title)} priced #{number_to_currency(@attendee.base_price(@now), :locale => :pt)} at #{@attendee.conference.name} was received successfully.
+Your request for registration as #{I18n.t(@attendee.registration_type.title)} priced #{number_to_currency(@attendee.base_price, :locale => :pt)} at #{@attendee.conference.name} was received successfully.
 
 - unless @attendee.courses.empty?
   Besides the conference, you also registered for the following courses:
   - @attendee.courses.each do |course|
-    #{"-"} '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}
+    #{"-"} '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
 
 
-In order to complete the registration process, you must pay the total amount of #{number_to_currency(@attendee.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
+In order to complete the registration process, you must pay the total amount of #{number_to_currency(@attendee.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
 
 1) If you are paying in USD:
 #{"  "}Bank: New York Citybank
@@ -31,7 +31,7 @@ In order to complete the registration process, you must pay the total amount of 
 
 IMPORTANT:
 
-- deadline = @now.to_date + 5
+- deadline = @attendee.registration_date.to_date + 5
 - unless @attendee.courses.empty?
   You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the #{@attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, contact #{AppConfig[:organizer][:email]}.
   

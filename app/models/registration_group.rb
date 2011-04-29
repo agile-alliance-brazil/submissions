@@ -31,8 +31,8 @@ class RegistrationGroup < ActiveRecord::Base
     attendees.size >= total_attendees
   end
   
-  def registration_fee(datetime)
-    attendees.map {|attendee| attendee.registration_fee(datetime)}.sum(0.0)
+  def registration_fee
+    attendees.map {|attendee| attendee.registration_fee}.sum(0.0)
   end
   
   def to_param

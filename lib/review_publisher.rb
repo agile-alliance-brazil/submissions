@@ -15,12 +15,12 @@ class ReviewPublisher
   
   private
   def ensure_all_sessions_reviewed
-    not_reviewed_count = Session.count(:conditions => ['state = ?', 'created'])
+    not_reviewed_count = Session.count(:conditions => ['state = ? AND conference_id = ?', 'created', current_conference.id])
     raise "There are #{not_reviewed_count} sessions not reviewed" if not_reviewed_count > 0
   end
   
   def ensure_all_decisions_made
-    not_decided_count = Session.count(:conditions => ['state = ?', 'in_review'])
+    not_decided_count = Session.count(:conditions => ['state = ? AND conference_id = ?', 'in_review', current_conference.id])
     raise "There are #{not_decided_count} sessions without decision" if not_decided_count > 0
 
     missing_decision = Session.count(
@@ -30,7 +30,7 @@ class ReviewPublisher
                   GROUP BY session_id
                 ) AS review_decision_count
                 ON review_decision_count.session_id = sessions.id",
-      :conditions => ['state IN (?) AND review_decision_count.cnt <> 1', ['pending_confirmation', 'rejected']])
+      :conditions => ['state IN (?) AND review_decision_count.cnt <> 1 AND conference_id = ?', ['pending_confirmation', 'rejected'], current_conference.id])
     raise "There are #{missing_decision} sessions without decision" if missing_decision > 0
   end
   
@@ -52,7 +52,11 @@ class ReviewPublisher
   def sessions_with_outcome(outcome)
     Session.all(
       :joins => :review_decision,
-      :conditions => ['outcome_id = ? AND published = ?', Outcome.find_by_title(outcome).id, false]
+      :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', Outcome.find_by_title(outcome).id, false, current_conference.id]
     )
+  end
+  
+  def current_conference
+    @current_conference ||= Conference.current
   end
 end

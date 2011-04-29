@@ -308,7 +308,7 @@ describe EmailNotifications do
   
   context "registration pending" do
     before(:each) do
-      @attendee = Factory(:attendee)
+      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
     end
     
     it "should be sent to attendee cc'ed to conference organizer" do
@@ -341,7 +341,7 @@ describe EmailNotifications do
 
   context "registration confirmed" do
     before(:each) do
-      @attendee = Factory(:attendee)
+      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
     end
     
     it "should be sent to attendee" do
@@ -381,6 +381,7 @@ describe EmailNotifications do
     before(:each) do
       @registration_group = Factory(:registration_group)
       @attendee = Factory(:attendee,
+        :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0),
         :registration_type => RegistrationType.find_by_title('registration_type.group'),
         :registration_group => @registration_group
       )
@@ -412,6 +413,7 @@ describe EmailNotifications do
     before(:each) do
       @registration_group = Factory(:registration_group)
       @attendee = Factory(:attendee,
+        :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0),
         :registration_type => RegistrationType.find_by_title('registration_type.group'),
         :registration_group => @registration_group
       )

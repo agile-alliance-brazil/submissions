@@ -1,17 +1,17 @@
 %p Dear #{h(@group.contact_name)},
 
-%p Your request for registering the following #{@group.total_attendees} participants on group #{h(@group.name)}, priced a total of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, at #{@conference_name} was received successfully.
+%p Your request for registering the following #{@group.total_attendees} participants on group #{h(@group.name)}, priced a total of #{number_to_currency(@group.registration_fee, :locale => :pt)}, at #{@conference_name} was received successfully.
 
 %ul
   - @group.attendees.each do |attendee|
     %li
-      #{h(attendee.full_name)} priced #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
+      #{h(attendee.full_name)} priced #{number_to_currency(attendee.base_price, :locale => :pt)}
       - unless attendee.courses.empty?
         %ul
           - attendee.courses.each do |course|
-            %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@now), :locale => :pt)}      
+            %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
 
-%p In order to complete the registration process, you must pay the total amount of #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}. In order to do so, please follow these steps:
+%p In order to complete the registration process, you must pay the total amount of #{number_to_currency(@group.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
 %ol
   %li 
     If you are paying in USD:
@@ -30,7 +30,7 @@
 
 %h3 Important:
 
-- deadline = @now.to_date + 5
+- deadline = @group.attendees.first.registration_date.to_date + 5
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 %p
   - if total_courses > 0

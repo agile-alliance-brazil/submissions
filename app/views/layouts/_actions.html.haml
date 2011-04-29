@@ -1,8 +1,8 @@
 - if user_signed_in?
-  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
+  - if current_user.organizer?
     #date
-      %p= t('actions.review_date')
-      %p <strong>#{l(Ability::REVIEW_DEADLINE.to_date)}</strong>
+      %p= t('actions.notification_date')
+      %p <strong>#{l(Ability::AUTHOR_NOTIFICATION_DEADLINE.to_date)}</strong>
       #review_progress_count
         #{t('actions.review_goal')}:
         %span.progress
@@ -51,22 +51,22 @@
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
     %li= link_to "Logout", destroy_user_session_path
 
-  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
+  - if current_user.organizer?
     :javascript
       $(document).ready(function() {
-        $.getJSON('#{reviews_path(:format => :js)}', function(data) {
-          var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
-          var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
-          var green = Math.floor(parseInt(data.required_reviews) * 0.90);
+        $.getJSON('#{review_decisions_path(:format => :js)}', function(data) {
+          var orange = Math.floor(parseInt(data.required_decisions) * 0.30);
+          var yellow = Math.floor(parseInt(data.required_decisions) * 0.60);
+          var green = Math.floor(parseInt(data.required_decisions) * 0.90);
           var progressImages = {};
           progressImages[0] = '/images/progressbg_red.gif';
           progressImages[orange] = '/images/progressbg_orange.gif';
           progressImages[yellow] = '/images/progressbg_yellow.gif';
           progressImages[green] = '/images/progressbg_green.gif';
 
-          $("#review_progress_count .progress").progressBar(data.total_reviews, {
+          $("#review_progress_count .progress").progressBar(data.total_decisions, {
             boxImage : '/images/progressbar.gif',
-            max : data.required_reviews,
+            max : data.required_decisions,
             textFormat : 'fraction',
             barImage : progressImages
           });

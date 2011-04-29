@@ -189,7 +189,7 @@ en:
         status: "Status"
         courses: "Courses"
         group: "Group"
-        created_at: "Created"
+        registration_date: "Registration Date"
         payment_agreement: "I confirm that the participant made the payment of the above mentioned amount. The system will notify the participant that his/her registration to the conference is confirmed."
         notes: "Notes"
         total: "Amount"
@@ -308,6 +308,7 @@ en:
   actions:
     submission_date: "Submission deadline"
     review_date: "Review deadline"
+    notification_date: "Author notification deadline"
     review_goal: "Goal"
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"

@@ -24,7 +24,7 @@ class RegisteredAttendeesController < InheritedResources::Base
   private
   def collection
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'
-    column = sanitize(params[:column].presence || 'created_at')
+    column = sanitize(params[:column].presence || 'registration_date')
     order = "#{column} #{direction}"
     
     paginate_options ||= {}

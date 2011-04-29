@@ -323,7 +323,7 @@ pt:
         status: "Status"
         courses: "Cursos"
         group: "Empresa"
-        created_at: "Criação"
+        registration_date: "Data de Inscrição"
         payment_agreement: "Confirmo que o participante realizou o pagamento no valor acima. O sistema notificará o participante por email de que sua inscrição foi confirmada."
         notes: "Anotações"
         total: "Valor"
@@ -445,6 +445,7 @@ pt:
   actions:
     submission_date: "Prazo para submissões"
     review_date: "Prazo para avaliações"
+    notification_date: "Prazo para notificação aos autores"
     review_goal: "Meta"
     submit_session: "Envie uma proposta"
     browse_sessions: "Propostas de sessão submetidas"

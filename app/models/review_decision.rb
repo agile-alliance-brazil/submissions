@@ -26,6 +26,10 @@ class ReviewDecision < ActiveRecord::Base
       session.reject unless session.rejected?
     end
   end
+
+  scope :for_conference, lambda { |c| joins(:session).where('sessions.conference_id = ?', c.id) }
+  
+  scope :for_tracks, lambda { |track_ids| joins(:session).where('sessions.track_id IN(?)', track_ids) }
   
   def accepted?
     outcome == Outcome.find_by_title('outcomes.accept.title')

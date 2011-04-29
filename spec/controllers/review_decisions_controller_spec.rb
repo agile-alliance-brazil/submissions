@@ -3,13 +3,24 @@ require 'spec_helper'
 describe ReviewDecisionsController do
   render_views
 
-  it_should_require_login_for_actions :new, :create, :edit, :update
+  it_should_require_login_for_actions :new, :create, :edit, :update, :index
 
   before(:each) do
     @session = Factory(:session)
-    @organizer = Factory(:organizer, :track => @session.track)
+    @organizer = Factory(:organizer, :track => @session.track, :conference => @session.conference)
     sign_in @organizer.user
     disable_authorization
+  end
+
+  it "index action (JS) should render JSON" do
+    Factory(:session, :track => @session.track, :conference => @session.conference)
+    Factory(:review_decision, :session => @session, :organizer => @organizer.user)
+
+    get :index, :format => 'js'
+    response.body.should == {
+      'required_decisions' => 2,
+      'total_decisions' => 1
+    }.to_json
   end
   
   it "new action should render new template" do

@@ -2,7 +2,7 @@ class Attendee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,
                   :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
                   :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event, :conference_id,
-                  :notes, :payment_agreement
+                  :notes, :payment_agreement, :registration_date
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode, :notes
   
@@ -45,7 +45,9 @@ class Attendee < ActiveRecord::Base
   end
   
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
-  
+
+  after_initialize :set_default_registration_date
+
   def self.sql_full_name
     case connection.instance_values["config"][:adapter]
     when "sqlite3" then "(first_name || ' ' || last_name)"
@@ -86,10 +88,8 @@ class Attendee < ActiveRecord::Base
     gender == 'M'
   end
   
-  def registration_fee(datetime)
-    base_price = base_price(datetime)
-    
-    periods = RegistrationPeriod.for(datetime)
+  def registration_fee
+    periods = RegistrationPeriod.for(self.registration_date)
     period = periods.first
     
     course_prices = course_attendances.map { |ca| period.price_for_course(ca.course) }
@@ -97,11 +97,10 @@ class Attendee < ActiveRecord::Base
     [base_price, *course_prices].sum
   end
 
-  def base_price(datetime)
-    periods = RegistrationPeriod.for(datetime)
+  def base_price
+    periods = RegistrationPeriod.for(self.registration_date)
     
-    period = periods.first
-    period = periods.last if pre_registered?
+    period = pre_registered? ? periods.last : periods.first
 
     period.price_for_registration_type(registration_type)
   end
@@ -123,5 +122,10 @@ class Attendee < ActiveRecord::Base
   
   def courses_summary
     courses.map {|c| I18n.t(c.name)}.join(',')
+  end
+
+  private
+  def set_default_registration_date
+    self.registration_date ||= Time.zone.now
   end
 end

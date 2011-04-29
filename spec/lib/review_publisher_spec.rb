@@ -9,17 +9,19 @@ describe ReviewPublisher do
     Rails.logger.stubs(:info)
     Rails.logger.stubs(:flush)
     
+    @conference = Factory(:conference)
+    
     @publisher = ReviewPublisher.new
   end
   
   it "should raise error if there are sessions not reviewed" do
-    Session.expects(:count).with(:conditions => ['state = ?', 'created']).returns(2)
+    Session.expects(:count).with(:conditions => ['state = ? AND conference_id = ?', 'created', @conference.id]).returns(2)
     lambda {@publisher.publish}.should raise_error("There are 2 sessions not reviewed")
   end
 
   context "validating sessions without decision" do
     it "should raise error if sessions in_review" do
-      Session.expects(:count).with(:conditions => ['state = ?', 'in_review']).returns(3)
+      Session.expects(:count).with(:conditions => ['state = ? AND conference_id = ?', 'in_review', @conference.id]).returns(3)
       lambda {@publisher.publish}.should raise_error("There are 3 sessions without decision")
     end
   
@@ -31,7 +33,7 @@ describe ReviewPublisher do
                   GROUP BY session_id
                 ) AS review_decision_count
                 ON review_decision_count.session_id = sessions.id",
-        :conditions => ['state IN (?) AND review_decision_count.cnt <> 1', ['pending_confirmation', 'rejected']]).
+        :conditions => ['state IN (?) AND review_decision_count.cnt <> 1 AND conference_id = ?', ['pending_confirmation', 'rejected'], @conference.id]).
         returns(4)
       lambda {@publisher.publish}.should raise_error("There are 4 sessions without decision")
     end
@@ -46,7 +48,7 @@ describe ReviewPublisher do
     it "should send reject e-mails" do
       Session.expects(:all).with(
         :joins => :review_decision,
-        :conditions => ['outcome_id = ? AND published = ?', 2, false]).
+        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 2, false, @conference.id]).
         returns(@sessions)
     
       EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).with(@sessions[1]).returns(stub(:deliver => true))
@@ -57,7 +59,7 @@ describe ReviewPublisher do
     it "should send acceptance e-mails" do
       Session.expects(:all).with(
         :joins => :review_decision,
-        :conditions => ['outcome_id = ? AND published = ?', 1, false]).
+        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 1, false, @conference.id]).
         returns(@sessions)
         
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(stub(:deliver => true))

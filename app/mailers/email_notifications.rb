@@ -73,9 +73,9 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def registration_pending(attendee, sent_at = Time.now)
-    @attendee, @now = attendee, sent_at
+    @attendee = attendee
     I18n.locale = @attendee.country == 'BR' ? :pt : :en
-    periods = RegistrationPeriod.for(@now)
+    periods = RegistrationPeriod.for(@attendee.registration_date)
     @registration_period = attendee.pre_registered? ? periods.last : periods.first
     mail :subject => "[#{host}] #{I18n.t('email.registration_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
@@ -86,7 +86,7 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def registration_confirmed(attendee, sent_at = Time.now)
-    @attendee, @group, @now = attendee, attendee.registration_group, sent_at
+    @attendee, @group = attendee, attendee.registration_group
     I18n.locale = @attendee.country == 'BR' ? :pt : :en
     mail :subject => "[#{host}] #{I18n.t('email.registration_confirmed.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
@@ -97,7 +97,7 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def registration_group_attendee(attendee, group, sent_at = Time.now)
-    @attendee, @group, @now = attendee, group, sent_at
+    @attendee, @group = attendee, group
     I18n.locale = @attendee.country == 'BR' ? :pt : :en
     mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
@@ -108,10 +108,10 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def registration_group_pending(group, sent_at = Time.now)
-    @group, @now = group, sent_at
+    @group = group
     I18n.locale = @group.country == 'BR' ? :pt : :en
     @conference_name = current_conference.name
-    periods = RegistrationPeriod.for(@now)
+    periods = RegistrationPeriod.for(@group.attendees.first.registration_date)
     @registration_period = @group.attendees.any?(&:pre_registered?) ? periods.last : periods.first
     mail :subject => "[#{host}] #{I18n.t('email.registration_group_pending.subject', :conference_name => current_conference.name)}",
          :to      => "\"#{@group.contact_name}\" <#{@group.contact_email}>",

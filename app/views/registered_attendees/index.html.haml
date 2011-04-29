@@ -21,7 +21,7 @@
       %th= sortable_column(t('formtastic.labels.attendee.registration_type_id'), :registration_type_id)
       %th= sortable_column(t('formtastic.labels.attendee.group'), :registration_group_id)
       %th= t('formtastic.labels.attendee.courses')
-      %th= sortable_column(t('formtastic.labels.attendee.created_at'), :created_at)
+      %th= sortable_column(t('formtastic.labels.attendee.registration_date'), :registration_date)
       %th= t('formtastic.labels.attendee.total')
   %tbody
     - @attendees.each do |attendee|
@@ -34,8 +34,8 @@
           - if attendee.registration_group.present?
             = attendee.registration_group.name
         %td= attendee.courses_summary
-        %td= l(attendee.created_at, :format => :short)
-        %td= number_to_currency(attendee.registration_fee(attendee.created_at), :locale => :pt)
+        %td= l(attendee.registration_date, :format => :short)
+        %td= number_to_currency(attendee.registration_fee, :locale => :pt)
 
 - if @attendees.total_pages > 1
   #pagination= will_paginate(@attendees)

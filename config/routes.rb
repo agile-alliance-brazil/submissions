@@ -23,6 +23,7 @@ AgileBrazil::Application.routes.draw do
   resources :registration_groups, :only => [:index, :new, :create] do
     resources :attendees, :only => [:index, :new, :create]
   end
+  resources :review_decisions, :only => [:index]
   resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do
     resource :accept, :only => [:show], :controller => :accept_reviewers
     resource :reject, :only => [:show, :update], :controller => :reject_reviewers

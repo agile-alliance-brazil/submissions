@@ -458,6 +458,10 @@ describe Ability do
     it "can show reviews" do
       @ability.should be_able_to(:show, Review)
     end
+
+    it "can index review decisions" do
+      @ability.should be_able_to(:index, ReviewDecision)
+    end
     
     it "can read reviews listing" do
       @ability.should be_able_to(:read, 'reviews_listing')

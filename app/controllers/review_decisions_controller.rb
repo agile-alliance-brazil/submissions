@@ -2,7 +2,22 @@ class ReviewDecisionsController < InheritedResources::Base
   belongs_to :session, :singleton => true
   
   actions :new, :create, :edit, :update
-  
+
+  def index
+    respond_to do |format|
+      format.html do
+        redirect_to root_path
+      end
+      format.js do
+        track_ids = current_user.organized_tracks(current_conference).map(&:id)
+        render :json => {
+          'required_decisions' => Session.for_conference(current_conference).for_tracks(track_ids).without_state(:cancelled).count,
+          'total_decisions' => ReviewDecision.for_conference(current_conference).for_tracks(track_ids).count
+        }
+      end
+    end
+  end
+
   def create
     create! do |success, failure|
       success.html do

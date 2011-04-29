@@ -12,7 +12,7 @@
 
 %h3 Important:
 
-- deadline = @now.to_date + 5
+- deadline = @attendee.registration_date.to_date + 5
 %p
   - unless @attendee.courses.empty?
     The payment confirmation for you group must be received until #{I18n.l(deadline)}. After that date, your place in the #{@attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be ensured. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.

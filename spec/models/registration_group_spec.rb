@@ -114,10 +114,10 @@ describe RegistrationGroup do
     
     it "should sum registration fees for all attendees" do
       @registration_group = Factory(:registration_group)
-      Factory(:attendee, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
-      Factory(:attendee, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
+      Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+      Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
       
-      @registration_group.registration_fee(@date).should == 135.00 * 2
+      @registration_group.registration_fee.should == 135.00 * 2
     end
   end
   

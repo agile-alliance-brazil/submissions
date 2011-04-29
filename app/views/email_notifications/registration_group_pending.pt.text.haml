@@ -1,17 +1,17 @@
 Olá #{h(@group.contact_name)},
 
 
-A inscrição do grupo #{h(@group.name)} na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)}, foi realizada com sucesso:
+A inscrição do grupo #{h(@group.name)} na #{@conference_name} dos #{@group.total_attendees} participantes abaixo, no valor total de #{number_to_currency(@group.registration_fee, :locale => :pt)}, foi realizada com sucesso:
 
 - @group.attendees.each do |attendee|
-  #{"-"} #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price(@now), :locale => :pt)}
+  #{"-"} #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price, :locale => :pt)}
   - attendee.courses.each do |course|
-    #{"  -"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@now), :locale => :pt)}
+    #{"  -"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
 
 
 Para completar o processo de inscrição, siga os seguintes passos:
 
-1) Faça um depósito identificado de #{number_to_currency(@group.registration_fee(@now), :locale => :pt)} na seguinte conta:
+1) Faça um depósito identificado de #{number_to_currency(@group.registration_fee, :locale => :pt)} na seguinte conta:
 
 #{"    "}Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
 
@@ -35,7 +35,7 @@ Para completar o processo de inscrição, siga os seguintes passos:
 IMPORTANTE:
 
 
-- deadline = @now.to_date + 5
+- deadline = @group.attendees.first.registration_date.to_date + 5
 - total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 - if total_courses > 0
   Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos não serão garantidas' : 'a vaga no curso não será garantida'}. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
