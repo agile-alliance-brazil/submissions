@@ -3,7 +3,8 @@ require "bundler/capistrano"
 
 after "deploy:update_code", "deploy:symlink_configs"
 after "deploy:update_code", "deploy:compile_sass"
-after "deploy:update_code", "deploy:package_assets"
+
+after "deploy:symlink",     "deploy:package_assets"
 
 after "deploy",             "deploy:cleanup"
 after "deploy:migrations",  "deploy:cleanup"
@@ -30,8 +31,8 @@ namespace :deploy do
   end
   
   task :package_assets, :roles => :app, :except => {:no_release => true} do
-    bundle_cmd = fetch(:bundle_cmd)
-    run "cd #{release_path} && #{bundle_cmd} exec jammit -f"
+    bundle_cmd = fetch(:bundle_cmd, "bundle")
+    run "cd #{current_path} && #{bundle_cmd} exec jammit -f"
   end
 
   task :symlink_configs, :roles => :app, :except => {:no_release => true} do
