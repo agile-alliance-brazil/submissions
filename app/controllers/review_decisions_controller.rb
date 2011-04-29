@@ -9,10 +9,9 @@ class ReviewDecisionsController < InheritedResources::Base
         redirect_to root_path
       end
       format.js do
-        track_ids = current_user.organized_tracks(current_conference).map(&:id)
         render :json => {
-          'required_decisions' => Session.for_conference(current_conference).for_tracks(track_ids).without_state(:cancelled).count,
-          'total_decisions' => ReviewDecision.for_conference(current_conference).for_tracks(track_ids).count
+          'required_decisions' => Session.for_conference(current_conference).without_state(:cancelled).count,
+          'total_decisions' => ReviewDecision.for_conference(current_conference).count
         }
       end
     end
