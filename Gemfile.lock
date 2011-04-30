@@ -247,7 +247,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.7)
   acts-as-taggable-on (~> 2.0.6)
   acts_as_commentable (~> 3.0.1)
-  aws-ses
+  aws-ses (~> 0.4.2)
   brcpfcnpj (~> 3.0.4)
   brhelper (~> 3.0.4)
   cancan (~> 1.6.1)

@@ -8,6 +8,7 @@ describe ReviewPublisher do
     EmailNotifications.stubs(:notification_of_acceptance).returns(stub(:deliver => true))
     Rails.logger.stubs(:info)
     Rails.logger.stubs(:flush)
+    HoptoadNotifier.stubs(:notify)
     
     @conference = Factory(:conference)
     
@@ -101,22 +102,26 @@ describe ReviewPublisher do
     end
     
     it "should capture error when notifying acceptance and move on" do
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises("error")
+      error = StandardError.new('error')
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(stub(:deliver => true))
       
       Rails.logger.expects(:info).with("  [FAILED ACCEPT] error")
       Rails.logger.expects(:info).with("  [ACCEPT] OK")
+      HoptoadNotifier.expects(:notify).with(error)
       
       @publisher.publish
     end
 
     it "should capture error when notifying rejection and move on" do
-      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).raises("error")
+      error = StandardError.new('error')
+      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).raises(error)
       EmailNotifications.expects(:notification_of_rejection).with(@sessions[1]).returns(stub(:deliver => true))
       
       Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       Rails.logger.expects(:info).with("  [REJECT] OK")
-      
+      HoptoadNotifier.expects(:notify).with(error)
+
       @publisher.publish
     end
     
