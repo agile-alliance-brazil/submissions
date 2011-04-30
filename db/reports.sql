@@ -140,3 +140,11 @@ left outer join
           on audience_levels.id = preferences.audience_level_id
 where     conference_id = 2
 order by reviewer.first_name, reviewer.last_name
+
+-- Cleanup prod data for testing e-mails on staging
+delete from comments where commentable_type = 'Session' AND commentable_id NOT IN (288,285,303,153,325,318,280);
+delete from review_decisions where session_id NOT IN (288,285,303,153,325,318,280);
+delete from reviews where session_id NOT IN (288,285,303,153,325,318,280);
+delete from sessions where id NOT IN (288,285,303,153,325,318,280);
+update users set email = 'dtsato@hotmail.com' where id = 71;
+update users set email = 'danilo@dtsato.com' where id = 56;
