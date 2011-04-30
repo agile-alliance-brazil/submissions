@@ -50,6 +50,14 @@ GEM
     acts_as_commentable (3.0.1)
     arel (2.0.9)
     arrayfields (4.7.4)
+    aws-ses (0.4.2)
+      builder
+      builder
+      mail (~> 2.2.5)
+      mime-types
+      mime-types
+      xml-simple
+      xml-simple
     bcrypt-ruby (2.1.4)
     brcpfcnpj (3.0.4)
       actionpack (>= 3.0.0)
@@ -62,8 +70,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -229,6 +237,7 @@ GEM
     warden (1.0.3)
       rack (>= 1.0.0)
     will_paginate (3.0.pre2)
+    xml-simple (1.0.15)
     yui-compressor (0.9.4)
 
 PLATFORMS
@@ -238,6 +247,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.7)
   acts-as-taggable-on (~> 2.0.6)
   acts_as_commentable (~> 3.0.1)
+  aws-ses
   brcpfcnpj (~> 3.0.4)
   brhelper (~> 3.0.4)
   cancan (~> 1.6.1)

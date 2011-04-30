@@ -23,6 +23,7 @@ gem 'goalie', '~> 0.0.4'
 gem 'jammit', '~> 0.6.0'
 gem 'fastercsv', '~> 1.5.4'
 gem 'hoptoad_notifier', '~> 2.4.8'
+gem 'aws-ses', '~> 0.4.2', :require => 'aws/ses'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', '~> 4.2.7', :require => 'redcloth', :platforms => :mswin
