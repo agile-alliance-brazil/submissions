@@ -14,10 +14,13 @@ Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua
 = session_withdraw_url(@session, :locale => 'pt')
 
 
-Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
+
+- if(@session.authors.size > 1)
+  Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
 
 
-O autor que não confirmar ou cancelar sua presença até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
+
+A sessão que não for confirmada ou cancelada até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 
 Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
@@ -25,12 +28,14 @@ Uma vez confirmada a presença ou desistência do evento, você poderá consulta
 = session_reviews_url(@session, :locale => 'pt')
 
 
-ATENÇÃO: O PRIMEIRO AUTOR DE CADA SESSÃO ESTÁ ISENTO DE INSCRIÇÃO NO EVENTO!
+- if(@session.authors.size > 1)
+  Caso a sessão seja confirmada, ambos autores serão beneficiados de isenção de inscrição.
+- else
+  Caso a sessão seja confirmada, você será beneficiado de isenção de inscrição.
+Depois que a confirmação for realizada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição.
 
-Sua inscrição será feita pela organização do #{@conference_name} uma vez que sua presença for confirmada.
 
-
-Em breve, enviaremos mais instruções aos palestrantes. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email programa@agilebrazil.com.
+Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email programa@agilebrazil.com.
 
 
 Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em breve!

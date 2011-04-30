@@ -78,10 +78,10 @@ class Ability
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
+      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.author == @user && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
+      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
   end
 

@@ -4,7 +4,7 @@ Dear #{@session.authors.map(&:full_name).join(" & ")},
 We are pleased to inform you that your proposal '#{h(@session.title)}' has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
 
 
-We would like to ask you to confirm your attendance at the event by #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%H:%M of %B %dth, %Y')} by accessing the form at
+We would like to ask you to confirm your attendance at the event until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%H:%M of %B %dth, %Y')} by accessing the form at
 
 = session_confirm_url(@session, :locale => 'en')
 
@@ -14,23 +14,22 @@ If you can not attend the event, we kindly ask you to confirm your withdrawal us
 = session_withdraw_url(@session, :locale => 'en')
 
 
-Only the first author of the session (#{@session.author.full_name}) can confirm or withdraw the attendance.
+- if(@session.authors.size > 1)
+  Any of the two authors (#{@session.author.full_name} or #{@session.second_author.full_name}) may confirm or withdraw the attendance. Once the attendance is confirmed or withdrawn by any author, none can change the decision.
 
 
-The author who does not confirm or withdraw their attendance until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%B %dth, %Y')} will have their proposal automatically removed from the program and replaced immediately by other selected work.
+The sessions whose authors do not confirm or withdraw their attendance until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%B %dth, %Y')} will be automatically removed from the program and replaced immediately by other selected work.
 
 
-Once the attendance or withdraw has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing:
+After the attendance or withdrawal has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing:
 
 = session_reviews_url(@session, :locale => 'en')
 
 
-ATTENTION: THE FIRST AUTHOR OF EACH SESSION IS ENTITLED FOR FREE CONFERENCE REGISTRATION!
-
-Your registration will be processed by the organization of #{@conference_name} once your attendance is confirmed.
+If your attendance is confirmed, the organization of #{@conference_name} will contact you about your complementary registration#{@session.authors.size > 1 ? 's' : ''} for the event.
 
 
-We will soon be sending more instructions to the speakers. Should you have any queries, requests or comments, please contact the Program Committee at programa@agilebrazil.com.
+Should you have any queries, requests or comments, please contact the Program Committee at programa@agilebrazil.com.
 
 
 We hope to see you soon!

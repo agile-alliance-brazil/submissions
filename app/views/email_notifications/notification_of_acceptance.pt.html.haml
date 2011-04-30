@@ -1,4 +1,4 @@
-%p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" e "))},
 
 %p É com grande satisfação que comunicamos que seu trabalho <strong>'#{h(@session.title)}'</strong> foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference_name}!
 
@@ -12,10 +12,11 @@
   %br
   = link_to session_withdraw_url(@session, :locale => 'pt'), session_withdraw_url(@session, :locale => 'pt')
 
-%p
-  Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
+- if(@session.authors.size > 1)
+  %p
+    Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
 
-%p O autor que não confirmar ou cancelar sua presença até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
+%p A sessão que não for confirmada ou cancelada até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 %p
   Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
@@ -23,11 +24,13 @@
   = link_to session_reviews_url(@session, :locale => 'pt'), session_reviews_url(@session, :locale => 'pt')
 
 %p
-  ATENÇÃO: O PRIMEIRO AUTOR DE CADA SESSÃO ESTÁ ISENTO DE INSCRIÇÃO NO EVENTO!
-  %br
-  Sua inscrição será feita pela organização do #{@conference_name} uma vez que sua presença for confirmada.
+  - if(@session.authors.size > 1)
+    Caso a sessão seja confirmada, ambos autores serão beneficiados de isenção de inscrição.
+  - else
+    Caso a sessão seja confirmada, você será beneficiado de isenção de inscrição.
+  Depois que a confirmação for realizada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição.
 
-%p Em breve, enviaremos mais instruções a todos. Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+%p Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
 %p
   Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em breve!
@@ -37,3 +40,4 @@
   Comissão de Programa da #{@conference_name}
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]
+

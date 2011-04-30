@@ -330,6 +330,19 @@ describe Ability do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
       end
 
+      it "- user is second author" do
+        @session.stubs(:author).returns(@another_user)
+        @session.stubs(:second_author).returns(@user)
+        
+        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
+        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
+        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
+      end
+
       it "- session is pending confirmation" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
 
@@ -393,6 +406,19 @@ describe Ability do
 
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id nil
+      end
+      
+      it "- user is second author" do
+        @session.stubs(:author).returns(@another_user)
+        @session.stubs(:second_author).returns(@user)
+        
+        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+
+        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
+        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+
+        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
+        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
       end
 
       it "- session is pending confirmation" do
