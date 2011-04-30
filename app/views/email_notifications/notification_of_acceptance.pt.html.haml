@@ -3,7 +3,7 @@
 %p É com grande satisfação que comunicamos que seu trabalho <strong>'#{h(@session.title)}'</strong> foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference_name}!
 
 %p
-  Por gentileza, queira confirmar sua presença no evento até às 23h59min do dia 09/05/2010 acessando o formulário
+  Por gentileza, queira confirmar sua presença no evento até às #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
   %br
   = link_to session_confirm_url(@session, :locale => 'pt'), session_confirm_url(@session, :locale => 'pt')
 
@@ -15,7 +15,7 @@
 %p
   Apenas o primeiro autor da sessão (#{@session.author.full_name}) pode confirmar ou cancelar a presença.
 
-%p O autor que não confirmar ou cancelar sua presença até o dia 09/05/2010 terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
+%p O autor que não confirmar ou cancelar sua presença até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} terá sua proposta removida automaticamente da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 %p
   Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
