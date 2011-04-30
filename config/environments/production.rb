@@ -36,7 +36,6 @@ AgileBrazil::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.delivery_method = :ses
 
   # Enable threaded mode
   # config.threadsafe!

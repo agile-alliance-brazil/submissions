@@ -6,9 +6,6 @@
    :authentication: :login
    :user_name: no-reply@domain.com
    :password: password
- :ses:
-   :access_key_id: your_aws_access_key_id
-   :secret_access_key: your_aws_secret_access_key
  :host: localhost:3000
  :organizer:
    :name: Organizer
