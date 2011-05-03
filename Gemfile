@@ -35,7 +35,7 @@ end
 
 group :development do
   gem 'sqlite3-ruby', '~> 1.3.3', :require => 'sqlite3'
-  gem 'ruby-mysql', '~> 2.9.4'
+  gem 'mysql2', '~> 0.2.7'
   gem 'capistrano-ext', '~> 1.2.1'
 end
 
