@@ -160,12 +160,6 @@ describe EmailNotifications do
       lambda {EmailNotifications.notification_of_acceptance(@session).deliver}.should raise_error("Cannot accept a rejected session")
     end
     
-    it "should make review published" do
-      @decision.should_not be_published
-      EmailNotifications.notification_of_acceptance(@session).deliver
-      @decision.reload.should be_published
-    end
-    
     it "should be sent to first author" do
       mail = EmailNotifications.notification_of_acceptance(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
@@ -246,12 +240,6 @@ describe EmailNotifications do
       
       lambda {EmailNotifications.notification_of_rejection(@session).deliver}.should raise_error("Cannot reject an accepted session")
     end
-
-    it "should make review published" do
-      @decision.should_not be_published
-      EmailNotifications.notification_of_rejection(@session).deliver
-      @decision.reload.should be_published
-    end    
 
     it "should be sent to first author" do
       mail = EmailNotifications.notification_of_rejection(@session).deliver

@@ -43,6 +43,8 @@ describe ReviewPublisher do
   context "Sessions are all reviewed" do
     before(:each) do
       @sessions = [Factory(:session), Factory(:session)]
+      Factory(:review_decision, :session => @sessions[0])
+      Factory(:review_decision, :session => @sessions[1])
       Session.stubs(:all).returns(@sessions)
     end
   
@@ -66,6 +68,11 @@ describe ReviewPublisher do
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(stub(:deliver => true))
     
       @publisher.publish
+    end
+    
+    it "should mark review decisions as published" do
+      @publisher.publish
+      @sessions.map(&:review_decision).all? {|r| r.published?}.should be_true
     end
     
     it "should send reject e-mails before acceptance e-mails" do

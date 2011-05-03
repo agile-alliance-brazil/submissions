@@ -51,9 +51,7 @@ class EmailNotifications < ActionMailer::Base
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date     => sent_at).tap do
-      session.review_decision.update_attribute(:published, true)
-    end
+         :date     => sent_at)
   end
 
   def notification_of_rejection(session, sent_at = Time.now)
@@ -67,9 +65,7 @@ class EmailNotifications < ActionMailer::Base
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date     => sent_at).tap do
-      session.review_decision.update_attribute(:published, true)
-    end
+         :date     => sent_at)
   end
 
   def registration_pending(attendee, sent_at = Time.now)

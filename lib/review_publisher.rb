@@ -4,13 +4,18 @@ class ReviewPublisher
     ensure_all_decisions_made
     rejected_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("REJECT") { EmailNotifications.notification_of_rejection(session).deliver }
+      try_with("REJECT") do
+        EmailNotifications.notification_of_rejection(session).deliver
+        session.review_decision.update_attribute(:published, true)
+      end
     end
     accepted_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("ACCEPT") { EmailNotifications.notification_of_acceptance(session).deliver }
+      try_with("ACCEPT") do
+        EmailNotifications.notification_of_acceptance(session).deliver
+        session.review_decision.update_attribute(:published, true)
+      end
     end
-    Rails.logger.flush
   end
   
   private
@@ -48,6 +53,8 @@ class ReviewPublisher
   rescue => e
     HoptoadNotifier.notify(e)
     Rails.logger.info("  [FAILED #{action}] #{e.message}")
+  ensure
+    Rails.logger.flush
   end
   
   def sessions_with_outcome(outcome)
