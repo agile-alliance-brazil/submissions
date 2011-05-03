@@ -1,6 +1,14 @@
 Dear #{@session.authors.map(&:full_name).join(" & ")},
 
 
+Due to a problem in our server, not all email notifications were sent. Therefore, we decided it would be better to resend all notifications to avoid any further problems. If you have already received this email, please ignore it.
+
+
+Please refer to the comments and suggestions made by the evaluators accessing:
+
+= session_reviews_url(@session, :locale => 'en')
+
+
 We are pleased to inform you that your proposal '#{h(@session.title)}' has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
 
 
@@ -19,11 +27,6 @@ If you can not attend the event, we kindly ask you to confirm your withdrawal us
 
 
 The sessions whose authors do not confirm or withdraw their attendance until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%B %dth, %Y')} will be automatically removed from the program and replaced immediately by other selected work.
-
-
-After the attendance or withdrawal has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing:
-
-= session_reviews_url(@session, :locale => 'en')
 
 
 If your attendance is confirmed, the organization of #{@conference_name} will contact you about your complementary registration#{@session.authors.size > 1 ? 's' : ''} for the event.

@@ -1,5 +1,7 @@
 %p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
 
+%p Due to a problem in our server, not all email notifications were sent. Therefore, we decided it would be better to resend all notifications to avoid any further problems. If you have already received this email, please ignore it.
+
 %p We regret to inform you that your proposal <strong>'#{h(@session.title)}'</strong> has not been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}.
 
 %p

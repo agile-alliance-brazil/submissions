@@ -1,6 +1,13 @@
 %p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
 
+%p Due to a problem in our server, not all email notifications were sent. Therefore, we decided it would be better to resend all notifications to avoid any further problems. If you have already received this email, please ignore it.
+
 %p We are pleased to inform you that your proposal <strong>'#{h(@session.title)}'</strong> has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
+
+%p
+  Please refer to the comments and suggestions made by the evaluators accessing:
+  %br
+  = link_to session_reviews_url(@session, :locale => 'en'), session_reviews_url(@session, :locale => 'en')
 
 %p
   We would like to ask you to confirm your attendance at the event until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%H:%M of %B %dth, %Y')} by accessing the form at
@@ -17,11 +24,6 @@
     Any of the two authors (#{@session.author.full_name} or #{@session.second_author.full_name}) may confirm or withdraw the attendance. Once the attendance is confirmed or withdrawn by any author, none can change the decision.
 
 %p The sessions whose authors do not confirm or withdraw their attendance until #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%B %dth, %Y')} will be automatically removed from the program and replaced immediately by other selected work.
-
-%p
-  After the attendance or withdrawal has been confirmed for the event, you can refer to the comments and suggestions made by the evaluators accessing:
-  %br
-  = link_to session_reviews_url(@session, :locale => 'en'), session_reviews_url(@session, :locale => 'en')
 
 %p If your attendance is confirmed, the organization of #{@conference_name} will contact you about your complementary registration#{@session.authors.size > 1 ? 's' : ''} for the event.
 

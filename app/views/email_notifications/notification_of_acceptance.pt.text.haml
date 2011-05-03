@@ -1,7 +1,15 @@
 Caro#{@session.authors.size > 1 ? "s":""} #{@session.authors.map(&:full_name).join(" & ")},
 
 
+Devido a um problema em nosso servidor, nem todas as notificações por email foram enviadas. Para evitar mais problemas, decidimos reenviar todas as notificações. Se você já recebeu este email, por favor, desconsidere-o.
+
+
 É com grande satisfação que comunicamos que seu trabalho '#{h(@session.title)}' foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference_name}!
+
+
+Por favor, consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço:
+
+= session_reviews_url(@session, :locale => 'pt')
 
 
 Por gentileza, queira confirmar sua presença no evento até às #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
@@ -14,18 +22,11 @@ Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua
 = session_withdraw_url(@session, :locale => 'pt')
 
 
-
 - if(@session.authors.size > 1)
   Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
 
 
-
 A sessão que não for confirmada ou cancelada até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
-
-
-Uma vez confirmada a presença ou desistência do evento, você poderá consultar as críticas e sugestões feitas pelos avaliadores acessando o endereço:
-
-= session_reviews_url(@session, :locale => 'pt')
 
 
 - if(@session.authors.size > 1)
