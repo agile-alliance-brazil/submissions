@@ -148,3 +148,8 @@ delete from reviews where session_id NOT IN (288,285,303,153,325,318,280);
 delete from sessions where id NOT IN (288,285,303,153,325,318,280);
 update users set email = 'dtsato@hotmail.com' where id = 71;
 update users set email = 'danilo@dtsato.com' where id = 56;
+
+-- Find sessions that were accepted, but withdrawn by authors
+select * from review_decisions
+inner join sessions on review_decisions.session_id = sessions.id
+where outcome_id = 1 and sessions.state = 'rejected' and conference_id = 2
