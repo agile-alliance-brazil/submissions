@@ -7,7 +7,6 @@ KNOWN ISSUES AFTER UPGRADE:
 TODO:
 
  * Add delayed_job to guarantee email delivery
- * Migrate email from smtp to amazon SES
 
  * Group Confirmation
  * Comments for attendees
@@ -29,8 +28,6 @@ TODO:
  * Edit preferred language on user's profile
 
 --- 2010
- --- High priority
- * Visibility for author to know if he confirmed his presence or not (both authors)
  --- Medium term
  * Organizers can create program
  * Sort by author, second_author and track on reviewer_reviews
@@ -53,6 +50,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Visibility for author to know if he confirmed his presence or not (both authors) -- Danilo
+ * Migrate email from smtp to amazon SES -- Danilo
  * Filter registered attendees by status -- Danilo
  * Search registered attendees by name -- Danilo
  * Admin page to confirm registrations -- Danilo

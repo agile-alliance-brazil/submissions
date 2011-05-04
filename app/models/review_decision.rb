@@ -31,6 +31,10 @@ class ReviewDecision < ActiveRecord::Base
   
   scope :for_tracks, lambda { |track_ids| joins(:session).where('sessions.track_id IN(?)', track_ids) }
   
+  scope :accepted, where('outcome_id = ?', Outcome.find_by_title('outcomes.accept.title').id)
+  
+  scope :confirmed, joins(:session).where('sessions.state IN (?)', ['accepted', 'rejected'])
+  
   def accepted?
     outcome == Outcome.find_by_title('outcomes.accept.title')
   end

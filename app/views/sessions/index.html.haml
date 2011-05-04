@@ -16,6 +16,8 @@
       %th.author= t('formtastic.labels.session.second_author_id')
       - if @user == current_user
         %th.reviews= t('formtastic.labels.session.reviews')
+        %th.state= t('formtastic.labels.session.state')
+        %th.action
       %th.created_at= t('formtastic.labels.session.created_at')
   %tbody
     - @sessions.each do |session|
@@ -35,6 +37,11 @@
           %td.reviews
             - if can?(:index, Review, session) && session.reviews_count > 0
               = link_to t('formtastic.labels.session.reviews'), session_reviews_path(session)
+          %td.state
+            = t("session.state.#{session.state}")
+          %td.action
+            - if session.pending_confirmation? && Time.zone.now <= Ability::AUTHOR_CONFIRMATION_DEADLINE
+              = link_to t('formtastic.actions.confirm_session'), session_confirm_url(session)
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')

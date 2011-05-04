@@ -309,6 +309,7 @@ en:
     submission_date: "Submission deadline"
     review_date: "Review deadline"
     notification_date: "Author notification deadline"
+    author_confirmation_date: "Author confirmation deadline"
     review_goal: "Goal"
     submit_session: "Submit a session"
     browse_sessions: "Browse sessions"

@@ -1,11 +1,12 @@
 - if user_signed_in?
-  - if current_user.organizer?
+  - if current_user.author? || current_user.organizer?
     #date
-      %p= t('actions.notification_date')
-      %p <strong>#{l(Ability::AUTHOR_NOTIFICATION_DEADLINE.to_date)}</strong>
-      #review_progress_count
-        #{t('actions.review_goal')}:
-        %span.progress
+      %p= t('actions.author_confirmation_date')
+      %p <strong>#{l(Ability::AUTHOR_CONFIRMATION_DEADLINE.to_date)}</strong>
+      - if current_user.organizer?
+        #review_progress_count
+          #{t('actions.review_goal')}:
+          %span.progress
   %h3&= current_user.full_name
   
   - if can?(:create, Attendee) || can?(:create, RegistrationGroup) || can?(:read, 'registered_attendees')
@@ -64,9 +65,9 @@
           progressImages[yellow] = '/images/progressbg_yellow.gif';
           progressImages[green] = '/images/progressbg_green.gif';
 
-          $("#review_progress_count .progress").progressBar(data.total_decisions, {
+          $("#review_progress_count .progress").progressBar(data.total_confirmed, {
             boxImage : '/images/progressbar.gif',
-            max : data.required_decisions,
+            max : data.total_accepted,
             textFormat : 'fraction',
             barImage : progressImages
           });

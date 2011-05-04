@@ -11,7 +11,9 @@ class ReviewDecisionsController < InheritedResources::Base
       format.js do
         render :json => {
           'required_decisions' => Session.for_conference(current_conference).without_state(:cancelled).count,
-          'total_decisions' => ReviewDecision.for_conference(current_conference).count
+          'total_decisions' => ReviewDecision.for_conference(current_conference).count,
+          'total_accepted' => ReviewDecision.for_conference(current_conference).accepted.count,
+          'total_confirmed' => ReviewDecision.for_conference(current_conference).accepted.confirmed.count
         }
       end
     end

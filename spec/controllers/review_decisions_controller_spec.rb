@@ -19,7 +19,9 @@ describe ReviewDecisionsController do
     get :index, :format => 'js'
     response.body.should == {
       'required_decisions' => 2,
-      'total_decisions' => 1
+      'total_decisions' => 1,
+      'total_accepted' => 0,
+      'total_confirmed' => 0
     }.to_json
   end
   

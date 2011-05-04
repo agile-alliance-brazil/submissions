@@ -446,6 +446,7 @@ pt:
     submission_date: "Prazo para submissões"
     review_date: "Prazo para avaliações"
     notification_date: "Prazo para notificação aos autores"
+    author_confirmation_date: "Prazo para confirmação de participação"
     review_goal: "Meta"
     submit_session: "Envie uma proposta"
     browse_sessions: "Propostas de sessão submetidas"
