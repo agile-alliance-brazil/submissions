@@ -21,6 +21,7 @@ TODO:
  * Remove duplication between user/attendee
  * Refactor JS on attendee form
 
+ * Show a better error message if a 'second' author tries to confirm/withdraw an already confirmed/withdrawn proposal (currently - not authorized)
  * Stop adding review if review count is more than 75% of limit/person
  -- lower priority
  * Reviewer add/remove role on update/destroy
