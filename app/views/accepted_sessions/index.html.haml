@@ -15,8 +15,8 @@
       %h4.title= session.title
       %ul.spaced
         %li= link_to_function h(session.author.full_name), "toggle('bio_#{session.id}');", :class => "author"
-          - if session.second_author
-            %li= link_to_function h(session.second_author.full_name), "toggle('bio_#{session.id}');", :class => "author"
+        - if session.second_author
+          %li= link_to_function h(session.second_author.full_name), "toggle('bio_#{session.id}');", :class => "author"
       %ul.spaced
         %li
           %span.level{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
