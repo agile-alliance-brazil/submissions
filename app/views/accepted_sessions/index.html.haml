@@ -17,6 +17,7 @@
         %li= link_to_function h(session.author.full_name), "$('#bio_#{session.id}').toggle()", :class => "author"
         - if session.second_author
           %li= link_to_function h(session.second_author.full_name), "$('#bio_#{session.id}').toggle()", :class => "author"
+      %ul.spaced
         %li
           %span.level{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
         %li
