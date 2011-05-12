@@ -9,7 +9,7 @@
       - unless attendee.courses.empty?
         %ul
           - attendee.courses.each do |course|
-            %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
+            %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
 
 %p In order to complete the registration process, you must pay the total amount of #{number_to_currency(@group.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
 %ol

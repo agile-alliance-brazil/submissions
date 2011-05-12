@@ -9,7 +9,7 @@
       - unless attendee.courses.empty?
         %ul
           - attendee.courses.each do |course|
-            %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
+            %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
 
 %p Para completar o processo de inscrição, siga os seguintes passos:
 
