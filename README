@@ -50,6 +50,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Added Google config for tracking conversion -- Danilo
  * Visibility for author to know if he confirmed his presence or not (both authors) -- Danilo
  * Migrate email from smtp to amazon SES -- Danilo
  * Filter registered attendees by status -- Danilo

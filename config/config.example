@@ -17,3 +17,7 @@
    :cced_email: helper@domain.com
  :hoptoad:
    :access_key: xxx111xxx
+ :google:
+   :tracker_id: google_analytics_id
+   :conversion_id: google_ads_conversion_id
+   :conversion_label: google_ads_conversion_label
