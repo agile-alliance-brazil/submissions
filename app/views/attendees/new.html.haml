@@ -6,7 +6,7 @@
   = form.buttons do
     = form.commit_button :new_registration, :button_html => {:tabindex => autotab}
 
-- unless AppConfig[:google][:conversion_id].nil?
+- unless AppConfig[:google].nil?
   / Google Code for ver p&aacute;gina de inscri&ccedil;&atilde;o Conversion Page
   :javascript
     /* <![CDATA[ */
