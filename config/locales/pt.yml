@@ -184,7 +184,7 @@ pt:
           attributes:
             courses:
               compatible: "não é possível participar de todos os cursos escolhidos. Por favor verifique a <a href='http://www.agilebrazil.com/2011/pt/programacao.php' target='_blank'>programação dos cursos</a>."
-              limit_reached: "o curso %{course} já atingiu o limite de vagas disponível."
+              limit_reached: "vagas esgotadas para o curso %{course}."
 
   # Formtastic
   formtastic:
@@ -386,7 +386,7 @@ pt:
         email: "Preencha aqui o mesmo e-mail que usou no cadastro de pré-inscrição para acessar o desconto até 11/Abr. Se entrar seu email de pre-inscrição e nenhum desconto for adicionado, por favor, entre em contato pelo <a href='contato@agilebrazil.com'>contato@agilebrazil.com</a>."
         twitter_user: "Seu nome de usuário no <a href='http://www.twitter.com' target='_blank'>twitter</a> (sem o caracter '@' - exemplo 'agilebrazil'), se preenchido, constará no seu crachá. Deixe em branco se não quiser isso."
         email_confirmation: "Certifique-se que o e-mail está correto pois esse será o principal canal de comunicação a respeito de sua inscrição."
-        courses: "Selecione os cursos em que gostaria de se inscrever. Cada curso tem uma capacidade máxima de 30 participantes, que serão escolhidos por ordem de inscrição e confirmação de pagamento. Para garantir sua vaga no curso, será necessário realizar o pagamento e enviar o comprovante em, no máximo, 5 dias.<br/><br/>** Curso já atingiu o limite de vagas disponíveis."
+        courses: "Selecione os cursos em que gostaria de se inscrever. Cada curso tem uma capacidade máxima de 30 participantes, que serão escolhidos por ordem de inscrição e confirmação de pagamento. Para garantir sua vaga no curso, será necessário realizar o pagamento e enviar o comprovante em, no máximo, 5 dias.<br/><br/>** Vagas esgotadas."
         notes: "Deixe aqui qualquer anotação ou observação que considere relevante, para futura referência (por exemplo: número de confirmação do pagamento, ou alguma informação especial sobre essa inscrição)"
       registration_group:
         cnpj: "Deixe este campo em branco se não for uma empresa brasileira"
@@ -441,6 +441,7 @@ pt:
     registration: "Nova inscrição"
     registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) no grupo %{registration_group}"
     registration_group: "Nova inscrição em grupo"
+    attendee: "Detalhes da inscrição"
 
   actions:
     submission_date: "Prazo para submissões"
