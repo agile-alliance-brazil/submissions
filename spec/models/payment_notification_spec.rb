@@ -31,13 +31,19 @@ describe PaymentNotification do
     paypal_params = {
       :payment_status => "Completed",
       :txn_id => "AAABBBCCC",
-      :invoice => 2
+      :invoice => 2,
+      :settle_amount => 10.5,
+      :settle_currency => "USD",
+      :payer_email => "payer@paypal.com"
     }
     PaymentNotification.from_paypal_params(paypal_params).should == {
       :params => paypal_params,
       :status => "Completed",
       :transaction_id =>  "AAABBBCCC",
-      :attendee_id => 2
+      :attendee_id => 2,
+      :settle_amount => 10.5,
+      :settle_currency => "USD",
+      :payer_email => "payer@paypal.com"
     }
   end
 end
