@@ -12,6 +12,7 @@ TODO:
  * Comments for attendees
  * Admin page to expire registrations
  * Refactor sorting behaviour
+ * Refactor deadline logic into attendee/registration_group
 
  * Add a waiting list for courses
  * Text for wait list explanation on e-mail
@@ -47,6 +48,7 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Allow registration in future for registration organizer -- Danilo
+ * Integrating with PayPal for registration payment -- Danilo
  
 DONE:
 
@@ -226,6 +228,7 @@ BUGS:
 * Given I entered an invalid username and blank password, and I click on log in and see the error message, When I click on "English", Then I should not see a Google Oops page.  Then I should see the English version of the Agile Brazil home page.
 
 FIXED:
+* Fix public profile page when user is not logged in -- Danilo
 * Send registration e-mail on language based of chosen country -- Danilo
 * Users non-authors were having troubles resetting password as reviewer -- Danilo
 * When I have just submitted a session, the confirmation message "Sessão submetida com sucesso." should be in English -- Danilo

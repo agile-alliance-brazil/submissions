@@ -1,23 +1,24 @@
-- title @user.full_name
+- title @user_profile.full_name
 - show_actions!
 
-%ul.piped
-  %li= link_to t('title.user_sessions', :name => @user.first_name), user_my_sessions_path(@user)
-  - if can? :update, @user
-    %li= link_to t('actions.edit_profile'), edit_user_registration_path
+- if user_signed_in?
+  %ul.piped
+    %li= link_to t('title.user_sessions', :name => @user_profile.first_name), user_my_sessions_path(@user_profile)
+    - if can? :update, @user_profile
+      %li= link_to t('actions.edit_profile'), edit_user_registration_path
 
-= content_tag_for(:dl, @user) do
+= content_tag_for(:dl, @user_profile) do
   %dt= t('formtastic.labels.user.username')
-  %dd&= @user.username
+  %dd&= @user_profile.username
   
-  - unless @user.organization.blank?
+  - unless @user_profile.organization.blank?
     %dt= t('formtastic.labels.user.organization')
-    %dd&= @user.organization
+    %dd&= @user_profile.organization
   
-  - unless @user.website_url.blank?
+  - unless @user_profile.website_url.blank?
     %dt= t('formtastic.labels.user.website_url')
-    %dd= link_to(h(prepend_http(@user.website_url)), h(prepend_http(@user.website_url)), :target => '_blank')
+    %dd= link_to(h(prepend_http(@user_profile.website_url)), h(prepend_http(@user_profile.website_url)), :target => '_blank')
   
-  - unless @user.bio.blank?
+  - unless @user_profile.bio.blank?
     %dt= t('formtastic.labels.user.bio')
-    %dd= textilize(@user.bio)
+    %dd= textilize(@user_profile.bio)
