@@ -177,3 +177,10 @@ Factory.define :registration_group do |a|
   a.zipcode "12345000"
   a.total_attendees 5
 end
+
+Factory.define :payment_notification do |p|
+  p.params { {:some => 'params'} }
+  p.status "Completed"
+  p.transaction_id "9JU83038HS278211W"
+  p.association :attendee
+end

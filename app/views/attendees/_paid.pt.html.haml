@@ -1,6 +1,7 @@
 %h3 Instruções:
 
-  %p Pagamento efetuado com sucesso. Após revisarmos os detalhes da sua inscrição, enviaremos um e-mail de confirmação da sua inscrição no evento.
+%p Pagamento efetuado com sucesso. Após revisarmos os detalhes da sua inscrição, enviaremos um e-mail de confirmação da sua inscrição no evento.
+
 - if attendee.student?
   %p Para completar o processo de inscrição, envie um comprovante de estudo* para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
 

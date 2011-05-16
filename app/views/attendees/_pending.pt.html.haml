@@ -2,6 +2,8 @@
 
 %p Para completar o processo de inscrição, siga os seguintes passos:
 
+%p= link_to "Pagar com Paypal", paypal_url(attendee, attendee_status_url(attendee.uri_token), payment_notifications_url)
+
 %ol
   %li
     Faça um depósito identificado de #{number_to_currency(attendee.registration_fee, :locale => :pt)} na seguinte conta:

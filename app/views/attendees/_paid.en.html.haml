@@ -1,6 +1,7 @@
 %h3 Instructions:
 
-  %p We have received your payment. After reviewing your registration details, we will send a confirmation e-mail.
+%p We have received your payment. After reviewing your registration details, we will send a confirmation e-mail.
+
 - if attendee.student?
   %p In order to complete the registration process, you must send a student id* to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
 

@@ -1,6 +1,9 @@
 %h3 Instructions:
 
 %p In order to complete the registration process, you must pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
+
+%p= link_to "Pay with Paypal", paypal_url(attendee, attendee_status_url(attendee.uri_token), payment_notifications_url)
+
 %ol
   %li 
     If you are paying in USD:
