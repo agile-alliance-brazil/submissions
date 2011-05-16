@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem 'rack', '=1.2.1'
 gem 'haml', '~> 3.0.25'
 gem 'will_paginate', '~> 3.0.pre2'
