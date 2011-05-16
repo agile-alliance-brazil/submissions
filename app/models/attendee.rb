@@ -3,7 +3,6 @@ class Attendee < ActiveRecord::Base
                   :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
                   :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event, :conference_id,
                   :notes, :payment_agreement, :registration_date
-  attr_readonly   :uri_token
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode, :notes
   
