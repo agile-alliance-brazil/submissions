@@ -21,3 +21,8 @@
    :tracker_id: google_analytics_id
    :conversion_id: google_ads_conversion_id
    :conversion_label: google_ads_conversion_label
+ :paypal:
+   :email: seller@domain.com
+   :secret: xxx22xxx
+   :cert_id: ABCxxx
+   :url: https://www.sandbox.paypal.com/cgi-bin/webscr

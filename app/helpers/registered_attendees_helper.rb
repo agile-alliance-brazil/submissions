@@ -3,6 +3,7 @@ module RegisteredAttendeesHelper
     [
       [I18n.t('attendee.status.all'), nil],
       [I18n.t('attendee.status.pending'), 'pending'],
+      [I18n.t('attendee.status.paid'), 'paid'],
       [I18n.t('attendee.status.confirmed'), 'confirmed']
     ]
   end

@@ -559,7 +559,7 @@ en:
     status:
       pending: "Pending"
       confirmed: "Confirmed"
-      expired: "Expired"
+      paid: "Payment received"
       all: "All"
 
   generic:

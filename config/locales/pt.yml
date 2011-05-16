@@ -696,7 +696,7 @@ pt:
     status:
       pending: "Pendente"
       confirmed: "Confirmado"
-      expired: "Expirado"
+      paid: "Pagamento efetuado"
       all: "Todos"
     
   generic:

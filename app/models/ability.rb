@@ -47,6 +47,7 @@ class Ability
     can(:manage, 'reject_reviewers') do
       find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
     end
+    can(:show, Attendee)
     can do |action, subject_class, subject|
       expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class) &&
       Time.zone.now <= REGISTRATION_DEADLINE

@@ -75,6 +75,12 @@ describe Attendee do
       attendee = Factory.build(:attendee)
       attendee.registration_date.should == now
     end
+    
+    it "should set URI token after initialized" do
+      Attendee.expects(:generate_token).with(:uri_token).returns('abc123')
+      attendee = Factory.build(:attendee)
+      attendee.uri_token.should == 'abc123'
+    end
   end
   
   context "associations" do
@@ -228,17 +234,35 @@ describe Attendee do
         @attendee.should be_pending
       end
       
+      it "should allow paying" do
+        @attendee.pay.should be_true
+        @attendee.should_not be_pending
+        @attendee.should be_paid
+      end
+      
       it "should allow confirming" do
         @attendee.confirm.should be_true
         @attendee.should_not be_pending
-        @attendee.should_not be_expired
+        @attendee.should_not be_paid
       end
-
-      it "should allow expiring" do
-        @attendee.expire.should be_true
-        @attendee.should_not be_pending
-        @attendee.should_not be_confirmed
+    end
+    
+    context "State: paid" do
+      before(:each) do
+        @attendee.pay
+        @attendee.should be_paid
       end
+      
+      it "should allow confirming" do
+        @attendee.confirm.should be_true
+        @attendee.should_not be_paid
+        @attendee.should be_confirmed
+      end
+      
+      it "should not allow paying again" do
+        @attendee.pay.should be_false
+        @attendee.should be_paid
+      end      
     end
     
     context "State: confirmed" do
@@ -252,28 +276,10 @@ describe Attendee do
         @attendee.should be_confirmed
       end
       
-      it "should not allow expiring" do
-        @attendee.expire.should be_false
-        @attendee.should_not be_expired
+      it "should not allow paying" do
+        @attendee.pay.should be_false
         @attendee.should be_confirmed
       end
-    end
-
-    context "State: expired" do
-      before(:each) do
-        @attendee.expire
-        @attendee.should be_expired
-      end
-      
-      it "should not allow expiring again" do
-        @attendee.expire.should be_false
-        @attendee.should be_expired
-      end
-      
-      it "should not allow confirming" do
-        @attendee.confirm.should be_false
-        @attendee.should be_expired
-      end      
     end
   end
   

@@ -1,0 +1,38 @@
+%h3 Instructions:
+
+%p In order to complete the registration process, you must pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
+%ol
+  %li 
+    If you are paying in USD:
+    %pre
+      ~"            Bank: New York Citybank"
+      Account: 36026886 - Caixa Econômica Federal
+      SWIFT Code: CITIUS33
+    %br
+    %br
+    If you are paying in EUR:
+    %pre
+      ~"            Bank: CommerzBank Ag/Frankfurt"
+      Account: 400871228300EUR - Caixa Econômica Federal
+      SWIFT Code: COBADEFF
+    %br
+    %br
+    Otherwise please contact #{mail_to AppConfig[:organizer][:email]} to discuss other possible payment methods.
+  %li Write your registration number (#{attendee.id}) in your deposit voucher
+  %li Send your voucher #{attendee.student? ? "and a student id* " : ""}to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
+
+%h3 Important:
+
+- deadline = attendee.registration_date.to_date + 5
+- unless attendee.courses.empty?
+  %p You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the #{attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.
+
+%p After #{I18n.l([attendee.registration_period.end_at.to_date, deadline].max)}, the registration amount will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+
+- if attendee.student?
+  %p
+    * Valid student ids:
+    %ul
+      %li Student id with expiration date;
+      %li Payment proof for the institution;
+      %li Enrollment declaration from the institution.

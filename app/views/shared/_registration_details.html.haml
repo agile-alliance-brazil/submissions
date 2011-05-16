@@ -1,0 +1,17 @@
+%table
+  %tr
+    %th
+    %th= t('formtastic.labels.attendee.registration_date')
+    %th= t('formtastic.labels.attendee.total')
+  %tr
+    %td #{t('formtastic.labels.attendee.registration_type_id')}: #{t(attendee.registration_type.title)}
+    %td= l(attendee.registration_date.to_date)
+    %td= number_to_currency(attendee.base_price, :locale => :pt)
+  - attendee.courses.each do |course|
+    %tr
+      %td #{t('formtastic.labels.attendee.courses')}: #{t(course.name)}
+      %td= l(attendee.registration_date.to_date)
+      %td= number_to_currency(course.price(attendee.registration_date), :locale => :pt)
+  %tr.last
+    %th{:colspan => 2}= t('registration_total.total')
+    %th= number_to_currency(attendee.registration_fee, :locale => :pt)
