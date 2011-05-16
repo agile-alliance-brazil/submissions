@@ -35,6 +35,12 @@ class RegistrationGroup < ActiveRecord::Base
     attendees.map {|attendee| attendee.registration_fee}.sum(0.0)
   end
   
+  def registration_period
+    return nil if attendees.empty?
+    periods = RegistrationPeriod.for(attendees.first.registration_date)
+    attendees.any?(&:pre_registered?) ? periods.last : periods.first
+  end
+  
   def to_param
     name.blank? ? super : "#{id}-#{name.parameterize}"
   end

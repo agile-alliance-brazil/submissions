@@ -359,7 +359,7 @@ describe Attendee do
     end
   end
   
-  context "pre-registration" do
+  describe "pre-registration" do
     before :each do
       @attendee = Factory.build(:attendee)
     end
@@ -440,6 +440,42 @@ describe Attendee do
       @attendee.course_attendances.build(:course => @csm)
       @attendee.course_attendances.build(:course => @cspo)
       @attendee.courses_summary.should == "#{I18n.t(@csm.name)},#{I18n.t(@cspo.name)}"
+    end
+  end
+
+  describe "registration periods" do
+    context "attendee is pre-registered" do
+      before(:each) do
+        @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
+        @pre = PreRegistration.new(:email => @attendee.email, :used => false)
+        @pre.save!
+      end
+      
+      after(:each) do
+        @pre.destroy
+      end
+      
+      it "should not return pre-registration period for course" do
+        @attendee.course_registration_period.should == RegistrationPeriod.find_by_title('registration_period.early_bird')
+      end
+      
+      it "should return pre-registration period for registration" do
+        @attendee.registration_period.should == RegistrationPeriod.find_by_title('registration_period.pre_register')
+      end
+    end
+    
+    context "attendee not pre-registered" do
+      before(:each) do
+        @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
+      end
+
+      it "should return normal period for course" do
+        @attendee.course_registration_period.should == RegistrationPeriod.find_by_title('registration_period.early_bird')
+      end
+      
+      it "should return normal period for registration" do
+        @attendee.registration_period.should == RegistrationPeriod.find_by_title('registration_period.early_bird')
+      end
     end
   end
 end

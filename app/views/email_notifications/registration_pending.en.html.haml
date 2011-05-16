@@ -31,7 +31,7 @@
 %p
   - unless @attendee.courses.empty?
     You must send your deposit voucher until #{I18n.l(deadline)}. After that date, your place in the #{@attendee.courses.size > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, contact #{mail_to AppConfig[:organizer][:email]}.
-  %br After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration amount will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+  %br After #{I18n.l([@attendee.registration_period.end_at.to_date, deadline].max)}, the registration amount will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
 
 - if @attendee.student?
   %p

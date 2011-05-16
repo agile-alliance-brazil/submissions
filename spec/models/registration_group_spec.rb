@@ -126,4 +126,42 @@ describe RegistrationGroup do
       Factory(:registration_group, :name => "Some random name").to_param.ends_with?("-some-random-name").should be_true
     end
   end
+  
+  describe "registration period" do
+    before(:each) do
+      @group = Factory(:registration_group)
+    end
+    
+    context "no attendees" do
+      it "should be nil" do
+        @group.registration_period.should be_nil
+      end
+    end
+    
+    context "attendee is pre-registered" do
+      before(:each) do
+        attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+        @pre = PreRegistration.new(:email => attendee.email, :used => false)
+        @pre.save!
+      end
+      
+      after(:each) do
+        @pre.destroy
+      end
+      
+      it "should return pre-registration period for registration" do
+        @group.registration_period.should == RegistrationPeriod.find_by_title('registration_period.pre_register')
+      end
+    end
+    
+    context "attendee not pre-registered" do
+      before(:each) do
+        Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+      end
+
+      it "should return normal period for registration" do
+        @group.registration_period.should == RegistrationPeriod.find_by_title('registration_period.early_bird')
+      end
+    end
+  end
 end

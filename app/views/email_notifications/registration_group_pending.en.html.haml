@@ -35,7 +35,7 @@
 %p
   - if total_courses > 0
     You must send your deposit voucher until #{I18n.l(deadline)}. After that date, #{total_courses > 1 ? 'places' : 'a place'} in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
-  %br After #{I18n.l([@registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+  %br After #{I18n.l([@group.registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
 
 %p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
 
