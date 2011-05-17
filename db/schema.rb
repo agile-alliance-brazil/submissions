@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110516182659) do
+ActiveRecord::Schema.define(:version => 20110517031806) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20110516182659) do
     t.string   "payer_email"
     t.decimal  "settle_amount"
     t.string   "settle_currency"
+    t.text     "notes"
   end
 
   create_table "pre_registrations", :force => true do |t|

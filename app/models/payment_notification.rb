@@ -11,7 +11,8 @@ class PaymentNotification < ActiveRecord::Base
       :params => params,
       :attendee_id => params[:invoice],
       :status => params[:payment_status],
-      :transaction_id => params[:txn_id]
+      :transaction_id => params[:txn_id],
+      :notes => params[:memo]
     })
   end
   
@@ -19,6 +20,12 @@ class PaymentNotification < ActiveRecord::Base
   def mark_attendee_as_paid
     if status == "Completed" && params_valid?
       attendee.pay
+    else
+      HoptoadNotifier.notify(
+        :error_class   => "Failed Payment Notification",
+        :error_message => "Failed Payment Notification for attendee: #{attendee.inspect}",
+        :parameters    => params
+      )
     end
   end
   

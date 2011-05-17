@@ -77,7 +77,8 @@ describe PaymentNotification do
       :invoice => 2,
       :settle_amount => 10.5,
       :settle_currency => "USD",
-      :payer_email => "payer@paypal.com"
+      :payer_email => "payer@paypal.com",
+      :memo => "Some notes from the buyer"
     }
     PaymentNotification.from_paypal_params(paypal_params).should == {
       :params => paypal_params,
@@ -86,7 +87,8 @@ describe PaymentNotification do
       :attendee_id => 2,
       :settle_amount => 10.5,
       :settle_currency => "USD",
-      :payer_email => "payer@paypal.com"
+      :payer_email => "payer@paypal.com",
+      :notes => "Some notes from the buyer"
     }
   end
 end
