@@ -6,7 +6,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Registration e-mails should link to status page
  * E-mail to current pending users to use the status page
 
  * Status page for group registration
@@ -60,6 +59,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Registration e-mails should link to status page -- Danilo
  * Improve text on status pages (pending/paid/confirmed) -- Danilo
  * Display Log of Payment Notifications on registered attendees (for registrar) -- Danilo
  * Integrating with PayPal for registration payment -- Danilo
