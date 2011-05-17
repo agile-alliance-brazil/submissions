@@ -1,13 +1,14 @@
+- flash.now[:notice] = "Pagamento efetuado com sucesso. Por favor leia as instruções abaixo"
+
 %h3 Instruções:
 
 %p Pagamento efetuado com sucesso. Após revisarmos os detalhes da sua inscrição, enviaremos um e-mail de confirmação da sua inscrição no evento.
 
 - if attendee.student?
-  %p Para completar o processo de inscrição, envie um comprovante de estudo* para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+  %p Para completar o processo de inscrição, envie um comprovante de estudo para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
 
-  %p
-    * - Documentos válidos como comprovante de estudo:
-    %ul
-      %li Carteirinha da instituição com prazo de validade;
-      %li Boleto de mensalidade da instituição;
-      %li Declaração de matrícula da instituição.
+  %h6 Documentos válidos como comprovante de estudo:
+  %ul
+    %li Carteirinha da instituição com prazo de validade;
+    %li Boleto de mensalidade da instituição;
+    %li Declaração de matrícula da instituição.
