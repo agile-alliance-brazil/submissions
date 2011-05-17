@@ -10,20 +10,57 @@ describe PaymentNotification do
   end
   
   context "callbacks" do
-    it "should mark attendee as paid after create if status is Completed" do
-      attendee = Factory(:attendee)
-      attendee.should be_pending
+    describe "payment" do
+      before(:each) do
+        @attendee = Factory(:attendee)
+        @attendee.should be_pending
+        
+        @valid_params = {
+          :secret => AppConfig[:paypal][:secret],
+          :receiver_email => AppConfig[:paypal][:email],
+          :mc_gross => @attendee.registration_fee.to_s,
+          :mc_currency => AppConfig[:paypal][:currency]
+        }
+        @valid_args = {
+          :status => "Completed",
+          :attendee => @attendee,
+          :params => @valid_params
+        }
+      end
       
-      payment_notification = Factory(:payment_notification, :status => "Completed", :attendee => attendee)
-      attendee.should be_paid
-    end
+      it "succeed if status is Completed and secret matches" do
+        payment_notification = Factory(:payment_notification, @valid_args)
+        @attendee.should be_paid
+      end
 
-    it "should not mark attendee as paid after create if status is not Completed" do
-      attendee = Factory(:attendee)
-      attendee.should be_pending
+      it "fails if secret doesn't match" do
+        @valid_params.merge!(:secret => 'wrong_secret')
+        payment_notification = Factory(:payment_notification, @valid_args)
+        @attendee.should be_pending
+      end
+
+      it "fails if status is not Completed" do
+        payment_notification = Factory(:payment_notification, @valid_args.merge(:status => "Failed"))
+        @attendee.should be_pending
+      end
+
+      it "fails if receiver address doesn't match" do
+        @valid_params.merge!(:receiver_email => 'wrong@email.com')
+        payment_notification = Factory(:payment_notification, @valid_args)
+        @attendee.should be_pending
+      end
       
-      payment_notification = Factory(:payment_notification, :status => "Failed", :attendee => attendee)
-      attendee.should be_pending
+      it "fails if paid amount doesn't match" do
+        @valid_params.merge!(:mc_gross => '1.00')
+        payment_notification = Factory(:payment_notification, @valid_args)
+        @attendee.should be_pending
+      end
+
+      it "fails if currency doesn't match" do
+        @valid_params.merge!(:mc_currency => 'GBP')
+        payment_notification = Factory(:payment_notification, @valid_args)
+        @attendee.should be_pending
+      end
     end
   end
   

@@ -10,3 +10,4 @@ config/config*.yml
 bin/*
 turbulence
 tmp
+certs/*.pem

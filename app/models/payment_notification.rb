@@ -17,8 +17,15 @@ class PaymentNotification < ActiveRecord::Base
   
   private
   def mark_attendee_as_paid
-    if status == "Completed"
+    if status == "Completed" && params_valid?
       attendee.pay
     end
+  end
+  
+  def params_valid?
+    params[:secret] == AppConfig[:paypal][:secret] &&
+    params[:receiver_email] == AppConfig[:paypal][:email] &&
+    params[:mc_currency] == AppConfig[:paypal][:currency] &&
+    params[:mc_gross] == attendee.registration_fee.to_s
   end
 end
