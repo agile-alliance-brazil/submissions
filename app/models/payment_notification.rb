@@ -26,6 +26,6 @@ class PaymentNotification < ActiveRecord::Base
     params[:secret] == AppConfig[:paypal][:secret] &&
     params[:receiver_email] == AppConfig[:paypal][:email] &&
     params[:mc_currency] == AppConfig[:paypal][:currency] &&
-    params[:mc_gross] == attendee.registration_fee.to_s
+    BigDecimal.new(params[:mc_gross].to_s) == BigDecimal.new(attendee.registration_fee.to_s)
   end
 end
