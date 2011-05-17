@@ -6,6 +6,12 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
+ * Improve text on status pages (pending/paid/confirmed)
+ * Registration e-mails should link to status page
+ * E-mail to current pending users to use the status page
+ 
+ * Registration for authors
+
  * Add delayed_job to guarantee email delivery
 
  * Group Confirmation
@@ -48,10 +54,11 @@ IN PROGRESS:
 
  * [task] -- [person]
  * Allow registration in future for registration organizer -- Danilo
- * Integrating with PayPal for registration payment -- Danilo
  
 DONE:
 
+ * Display Log of Payment Notifications on registered attendees (for registrar) -- Danilo
+ * Integrating with PayPal for registration payment -- Danilo
  * Added Google config for tracking conversion -- Danilo
  * Visibility for author to know if he confirmed his presence or not (both authors) -- Danilo
  * Migrate email from smtp to amazon SES -- Danilo

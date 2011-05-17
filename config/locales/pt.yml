@@ -204,6 +204,7 @@ pt:
       attendee_personal: "Informações Pessoais"
       attendee_address: "Informações para Contato"
       attendee_courses: "Inscrição em Cursos"
+      attendee_payment: "Dados de Pagamento"
       registration_group_info: "Informações da Empresa"
       registration_group_contact: "Informações para Contato"
     labels:
@@ -344,6 +345,12 @@ pt:
         neighbourhood: "Bairro"
         zipcode: "CEP"
         total_attendees: "Quantidade de participantes"
+      payment_notification:
+        transaction_id: "Código da transação"
+        paid_at: "Data do pagamento"
+        payer_email: "E-mail do PayPal"
+        settle_amount: "Total pago"
+        notes: "Notas"
     hints:
       user:
         email: "Principal email de contato."

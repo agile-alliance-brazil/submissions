@@ -1,6 +1,10 @@
 - title @attendee.full_name
 - show_actions!
 
+%ul.spaced
+  %li.first #{t('formtastic.labels.attendee.status')}:
+  %li= t("attendee.status.#{@attendee.status}")
+
 %h4= t('formtastic.titles.attendee_personal')
 
 = content_tag_for(:dl, @attendee) do
@@ -42,6 +46,23 @@
   %dt= t('formtastic.labels.attendee.zipcode')
   %dd= @attendee.zipcode
 
+- if @attendee.paid?
+  %h3= t('formtastic.titles.attendee_payment')
+  
+  - @attendee.payment_notifications.each do |payment|
+    = content_tag_for(:dl, payment) do
+      %dt= t('formtastic.labels.payment_notification.transaction_id')
+      %dd= payment.transaction_id
+      %dt= t('formtastic.labels.payment_notification.paid_at')
+      %dd= l(payment.created_at)
+      %dt= t('formtastic.labels.payment_notification.payer_email')
+      %dd= payment.payer_email
+      %dt= t('formtastic.labels.payment_notification.settle_amount')
+      %dd= number_to_currency(payment.settle_amount, :unit => payment.settle_currency, :format => "%n %u")
+      - if payment.notes
+        %dt= t('formtastic.labels.payment_notification.notes')
+        %dd= payment.notes
+      
 = render :partial => 'shared/registration_details', :locals => {:attendee => @attendee}
 
 %hr/

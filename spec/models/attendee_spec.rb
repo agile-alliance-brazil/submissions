@@ -89,6 +89,7 @@ describe Attendee do
     should_belong_to :registration_group
     
     should_have_many :course_attendances
+    should_have_many :payment_notifications
   end
   
   context "validations" do

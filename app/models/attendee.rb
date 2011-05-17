@@ -11,6 +11,7 @@ class Attendee < ActiveRecord::Base
   belongs_to :registration_group
   
   has_many :course_attendances
+  has_many :payment_notifications
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
                         :gender, :address, :zipcode, :registration_type_id, :conference_id
