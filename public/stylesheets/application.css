@@ -731,3 +731,5 @@ span.bio {
     padding-left: 10px; }
   .payments .payment_type h4 {
     font-size: 14px; }
+  .payments .payment_type pre {
+    padding: 10px 0px 10px 10px; }
