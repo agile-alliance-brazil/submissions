@@ -1,26 +1,36 @@
 %h3 Instruções para completar o processo de inscrição
 
-%ol
-  %li
-    Efetue o pagamento no valor de #{number_to_currency(attendee.registration_fee, :locale => :pt)}
-    %p
-      = form_tag AppConfig[:paypal][:url] do
-        = hidden_field_tag :cmd, "_s-xclick"
-        = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
-        = image_submit_tag "https://www.paypal.com/pt_BR/i/btn/btn_paynow_SM.gif"
-        = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pague com PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
-    ou
-    %p
-      Faça um depósito identificado na conta:
-      %pre
-        Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
-        CNPJ: 10.784.390/0001-91
-        Banco: Caixa Econômica Federal (104)
-        Agência: 1560
-        Conta corrente: 113-8
-        Operação: 022
-  %li Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{attendee.id}) no comprovante de depósito
-  %li Envie o comprovante de depósito #{attendee.student? ? "e um comprovante de estudo " : ""}para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+.payments
+  .payment_type.left
+    %h4 Pague com PayPal
+    %ol
+      %li
+        Efetue o pagamento no valor de #{number_to_currency(attendee.registration_fee, :locale => :pt)}:
+        %p
+          = form_tag AppConfig[:paypal][:url] do
+            = hidden_field_tag :cmd, "_s-xclick"
+            = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
+            = image_submit_tag "https://www.paypal.com/pt_BR/i/btn/btn_paynow_SM.gif"
+            = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pague com PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
+      - if attendee.student?
+        %li Envie um comprovante de estudo para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+
+  .payment_type.right
+    %h4 Pague com depósito identificado
+    %ol
+      %li
+        Efetue o pagamento no valor de #{number_to_currency(attendee.registration_fee, :locale => :pt)}, fazendo um depósito identificado na conta:
+        %pre
+          Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
+          CNPJ: 10.784.390/0001-91
+          Banco: Caixa Econômica Federal (104)
+          Agência: 1560
+          Conta corrente: 113-8
+          Operação: 022
+      %li Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{attendee.id}) no comprovante de depósito
+      %li Envie o comprovante de depósito #{attendee.student? ? "e um comprovante de estudo " : ""}para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+
+%hr/
 
 %h3 Importante
 

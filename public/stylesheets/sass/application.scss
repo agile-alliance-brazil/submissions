@@ -525,3 +525,25 @@ span.bio {
 .placeholder {
   color: #999;
 }
+
+.payments {
+  margin: 20px 0px 20px;
+  overflow: hidden;
+  .payment_type {
+    &.left {
+      @include grid(4);
+      margin: 0px;
+      float: left;
+    }
+    &.right {
+      @include grid(8);
+      margin: 0px;
+      float: right;
+      border-left: 1px solid #cccccc;
+      padding-left: 10px;
+    }
+    h4 {
+      font-size: 14px;
+    }
+  }
+}

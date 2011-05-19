@@ -1,29 +1,39 @@
 %h3 Instructions to complete the registration process
 
-%ol
-  %li
-    Pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}
-    %p
-      = form_tag AppConfig[:paypal][:url] do
-        = hidden_field_tag :cmd, "_s-xclick"
-        = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
-        = image_submit_tag "https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif"
-        = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pay with PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
-    %p
-      Or if you are paying in USD, make a money transfer to:
-      %pre
-        Bank: New York Citybank
-        Account: 36026886 - Caixa Econômica Federal
-        SWIFT Code: CITIUS33
-    %p
-      Or if you are paying in EUR, make a money transfer to:
-      %pre
-        Bank: CommerzBank Ag/Frankfurt
-        Account: 400871228300EUR - Caixa Econômica Federal
-        SWIFT Code: COBADEFF
-    %p Otherwise please contact #{mail_to AppConfig[:organizer][:email]} to discuss other possible payment methods.
-  %li Write your registration number (#{attendee.id}) in your deposit confirmation receipt
-  %li Send your deposit confirmation receipt #{attendee.student? ? "and a student id " : ""}to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
+.payments
+  .payment_type.left
+    %h4 Pay with PayPal
+    %ol
+      %li
+        Pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}
+        %p
+          = form_tag AppConfig[:paypal][:url] do
+            = hidden_field_tag :cmd, "_s-xclick"
+            = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
+            = image_submit_tag "https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif"
+            = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pay with PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
+      - if attendee.student?
+        %li Send your student id to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
+        
+  .payment_type.right
+    %h4 Pay with a bank transfer
+    %ol
+      %li
+        Pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}:
+        %pre
+          PAYING IN USD:
+          Bank: New York Citybank
+          Account: 36026886 - Caixa Econômica Federal
+          SWIFT Code: CITIUS33
+        %pre
+          PAYING IN EUR:
+          Bank: CommerzBank Ag/Frankfurt
+          Account: 400871228300EUR - Caixa Econômica Federal
+          SWIFT Code: COBADEFF
+      %li Write your registration number (#{attendee.id}) in your deposit confirmation receipt
+      %li Send your deposit confirmation receipt #{attendee.student? ? "and a student id " : ""}to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
+
+%hr/
 
 %h3 Important
 

@@ -707,3 +707,27 @@ span.bio {
 
 .placeholder {
   color: #999; }
+
+.payments {
+  margin: 20px 0px 20px;
+  overflow: hidden; }
+  .payments .payment_type.left {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 300px;
+    margin: 0px;
+    float: left; }
+  .payments .payment_type.right {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 620px;
+    margin: 0px;
+    float: right;
+    border-left: 1px solid #cccccc;
+    padding-left: 10px; }
+  .payments .payment_type h4 {
+    font-size: 14px; }
