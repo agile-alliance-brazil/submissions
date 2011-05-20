@@ -2,7 +2,7 @@
 
 .payments
   .payment_type.left
-    %h4 Pay with PayPal
+    %h4 OPTION 1: Pay with PayPal
     %ol
       %li
         Pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}
@@ -16,7 +16,7 @@
         %li Send your student id to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
         
   .payment_type.right
-    %h4 Pay with a bank transfer
+    %h4 OPTION 2: Pay with a bank transfer
     %ol
       %li
         Pay the total amount of #{number_to_currency(attendee.registration_fee, :locale => :pt)}:

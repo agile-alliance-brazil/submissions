@@ -2,7 +2,7 @@
 
 .payments
   .payment_type.left
-    %h4 Pague com PayPal
+    %h4 OPÇÃO 1: Pague com PayPal
     %ol
       %li
         Efetue o pagamento no valor de #{number_to_currency(attendee.registration_fee, :locale => :pt)}:
@@ -16,7 +16,7 @@
         %li Envie um comprovante de estudo para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
 
   .payment_type.right
-    %h4 Pague com depósito identificado
+    %h4 OPÇÃO 2: Pague com depósito identificado
     %ol
       %li
         Efetue o pagamento no valor de #{number_to_currency(attendee.registration_fee, :locale => :pt)}, fazendo um depósito identificado na conta:
