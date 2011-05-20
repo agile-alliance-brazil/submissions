@@ -253,7 +253,6 @@ en:
         badge_name: "The name you want to print in your badge. If blank, your full name will be used instead."
         organization: "Name of the organization you represent or institution where you study. This information will appear in your badge."
         cpf: "Leave blank if you are not Brazilian."
-        email: "Fill in here the same e-mail you used for pre-registration in order to have access to discounted fees until April 11th. If you enter your pre-registered email and no discount is added, please contact us at <a href='contato@agilebrazil.com'>contato@agilebrazil.com</a>."
         twitter_user: "Your <a href='http://www.twitter.com' target='_blank'>twitter</a> username (without the '@' character - e.g. 'agilebrazil'), if given, will appear in your badge. Leave blank if you do not want that."
         email_confirmation: "Verify that your e-mail address is correct. This will be the main communication chanel about your registration."
         courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants."
