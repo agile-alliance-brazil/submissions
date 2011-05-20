@@ -12,7 +12,11 @@
 
 %p= link_to attendee_status_url(@attendee.uri_token, :locale => 'pt'), attendee_status_url(@attendee.uri_token, :locale => 'pt')
 
-%p Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da sua inscrição. Guarde esse e-mail e link para referência futura.
+%p Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da sua inscrição. Guarde esse e-mail e link para referência futura, assim como seu número de inscrição:
+
+%p
+  %strong Número de inscrição:
+  = @attendee.id
 
 %p Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}
 

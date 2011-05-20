@@ -15,7 +15,12 @@ Para completar o processo de inscrição, por favor siga as instruções descrit
 = attendee_status_url(@attendee.uri_token, :locale => 'pt')
 
 
-Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da sua inscrição. Guarde esse e-mail e link para referência futura.
+Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da sua inscrição. Guarde esse e-mail e link para referência futura, assim como seu número de inscrição:
+
+
+
+NÚMERO DE INSCRIÇÃO: #{@attendee.id}
+
 
 
 Qualquer dúvida, entre em contato através do email #{AppConfig[:organizer][:email]}

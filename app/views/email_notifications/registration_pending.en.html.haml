@@ -12,7 +12,11 @@
 
 %p= link_to attendee_status_url(@attendee.uri_token, :locale => 'en'), attendee_status_url(@attendee.uri_token, :locale => 'en')
 
-%p You can access this page at any time to make the payment and check the status of your registration, so keep this e-mail and link for future reference.
+%p You can access this page at any time to make the payment and check the status of your registration, so keep this e-mail and link for future reference. Your registration number is:
+
+%p
+  %strong Registration Number:
+  = @attendee.id
 
 %p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
 
