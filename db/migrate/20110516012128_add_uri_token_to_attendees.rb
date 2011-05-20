@@ -4,7 +4,7 @@ class AddUriTokenToAttendees < ActiveRecord::Migration
     
     Attendee.all.each do |attendee|
       attendee.send(:generate_uri_token)
-      attendee.save!
+      attendee.save!(:validate => false)
     end
   end
 
