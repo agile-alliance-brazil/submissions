@@ -59,6 +59,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Standardizing group name into company -- Danilo
  * Registration e-mails should link to status page -- Danilo
  * Improve text on status pages (pending/paid/confirmed) -- Danilo
  * Display Log of Payment Notifications on registered attendees (for registrar) -- Danilo

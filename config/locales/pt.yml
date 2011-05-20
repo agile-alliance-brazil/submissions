@@ -399,7 +399,7 @@ pt:
         cnpj: "Deixe este campo em branco se não for uma empresa brasileira"
         state_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
         municipal_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
-        total_attendees: "É preciso cadastrar no mínimo 5 participantes no grupo. Nenhum deles poderá ser cadastrado como estudante. Será necessário comprovar que todos os participantes trabalham na empresa cadastrada."
+        total_attendees: "É preciso cadastrar no mínimo 5 participantes por empresa. Nenhum deles poderá ser cadastrado como estudante. Será necessário comprovar que todos os participantes trabalham na empresa cadastrada."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -446,8 +446,8 @@ pt:
     review_decision: "Parecer da sessão '%{session}'"
     accepted_sessions: "Sessões aceitas"
     registration: "Nova inscrição"
-    registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) no grupo %{registration_group}"
-    registration_group: "Nova inscrição em grupo"
+    registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) na empresa %{registration_group}"
+    registration_group: "Nova inscrição de empresa"
     attendee: "Detalhes da inscrição"
 
   actions:
@@ -539,11 +539,11 @@ pt:
       mail:
         fail: "Ocorreu um problema para enviar o email de confirmação. Sua inscrição foi recebida mas não foi possível entregar o email de confirmação. Tentaremos mais tarde mas se não receber o email em 24 horas, entre em contato via contato@agilebrazil.com."
       registration_group:
-        complete: "Esse grupo já possui %{total_attendees} participantes inscritos."
+        complete: "Essa empresa já possui %{total_attendees} participantes inscritos."
         success: "Inscrição submetida com sucesso. Por favor cadastre o próximo participante."
     registration_group:
       create:
-        success: "Grupo criado com sucesso. Caso não tenha todas as informações para cadastrar os %{total_attendees} participantes agora, ou queira que cada participante preencha seu próprio formulário de cadastro separadamente, salve ou compartilhe a seguinte URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
+        success: "Empresa criada com sucesso. Caso não tenha todas as informações para cadastrar os %{total_attendees} participantes agora, ou queira que cada participante preencha seu próprio formulário de cadastro separadamente, salve ou compartilhe a seguinte URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
       news: "<a href='/attendees/new?locale=pt'>Clique aqui</a> para inscrições individuais."
     registration:
       attendee: "Ao me inscrever na conferência, declaro estar ciente que o meu nome e email poderá ser compartilhado com os patrocinadores da conferência."
@@ -609,7 +609,7 @@ pt:
     registration_confirmed:
       subject: "Inscrição na %{conference_name} confirmada"
     registration_group_pending:
-      subject: "Pedido de inscrição em grupo na %{conference_name} enviado"
+      subject: "Pedido de inscrição em empresa na %{conference_name} enviado"
 
   reviewer:
     state:
@@ -682,7 +682,7 @@ pt:
 
   registration_type:
     student: "Estudante"
-    group: "Grupo"
+    group: "Empresa"
     individual: "Individual"
   
   course:

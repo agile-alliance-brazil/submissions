@@ -189,7 +189,7 @@ en:
         zipcode: "Zip Code"
         status: "Status"
         courses: "Courses"
-        group: "Group"
+        group: "Company"
         registration_date: "Registration Date"
         payment_agreement: "I confirm that the participant made the payment of the above mentioned amount. The system will notify the participant that his/her registration to the conference is confirmed."
         notes: "Notes"
@@ -262,7 +262,7 @@ en:
         cnpj: "Leave blank if this is not a Brazilian company / organization."
         state_inscription: "Leave blank if this is not a Brazilian company / organization."
         municipal_inscription: "Leave blank if this is not a Brazilian company / organization."
-        total_attendees: "A minimum of 5 participants is required for group registration. They cannot be registered as students. Proof that all participants in this group work for the registered company will be required."
+        total_attendees: "A minimum of 5 participants is required for company registration. They cannot be registered as students. Proof that all participants in this group work for the registered company will be required."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -309,8 +309,8 @@ en:
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
     registration: "New registration"
-    registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on group %{registration_group}"
-    registration_group: "New group registration"
+    registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on company %{registration_group}"
+    registration_group: "New company registration"
     attendee: "Registration details"
   
   actions:
@@ -398,15 +398,15 @@ en:
     attendee:
       create:
         success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
-      news: "<a href='/registration_groups/new?locale=en'>Click here</a> for group registration."
+      news: "<a href='/registration_groups/new?locale=en'>Click here</a> for company registration."
       mail:
         fail: "There was a problem while sending your confirmation email. Your registration was received but we could not deliver the confirmation email. We will try later but if you do not receive it in 24 hours, please contact us at contato@agilebrazil.com."
       registration_group:
-        complete: "This group already have %{total_attendees} registered participants."
+        complete: "This company already has %{total_attendees} registered participants."
         success: "Registration submited successfully. Please register the next participant."
     registration_group:
       create:
-        success: "Group registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
+        success: "Company registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
       news: "<a href='/attendees/new?locale=en'>Click here</a> for individual registration."
     registration:
       attendee: "By registering for the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."
@@ -472,7 +472,7 @@ en:
     registration_confirmed:
       subject: "Registration confirmed for %{conference_name}"
     registration_group_pending:
-      subject: "Group registration request to %{conference_name} sent"
+      subject: "Company registration request to %{conference_name} sent"
   
   reviewer:
     state:
@@ -545,7 +545,7 @@ en:
   
   registration_type:
     student: "Student"
-    group: "Group"
+    group: "Company"
     individual: "Individual"
 
   course:

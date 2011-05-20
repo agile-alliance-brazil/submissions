@@ -382,7 +382,7 @@ describe EmailNotifications do
       mail.cc.should == [@registration_group.contact_email]
       mail.encoded.should =~ /Caro #{@attendee.full_name},/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
-      mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
+      mail.subject.should == "[localhost:3000] Pedido de inscrição em empresa na #{@conference.name} enviado"
     end
   
     it "should be sent to attendee according to country" do
@@ -393,7 +393,7 @@ describe EmailNotifications do
       mail.cc.should == [@registration_group.contact_email]
       mail.encoded.should =~ /Dear #{@attendee.full_name},/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
-      mail.subject.should == "[localhost:3000] Group registration request to #{@conference.name} sent"
+      mail.subject.should == "[localhost:3000] Company registration request to #{@conference.name} sent"
     end
   end
     
@@ -415,7 +415,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /#{@registration_group.contact_name},/
       mail.encoded.should =~ /R\$ 135,00/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
-      mail.subject.should == "[localhost:3000] Pedido de inscrição em grupo na #{@conference.name} enviado"
+      mail.subject.should == "[localhost:3000] Pedido de inscrição em empresa na #{@conference.name} enviado"
     end
   
     it "should be sent to group organizer according to country" do
@@ -427,7 +427,7 @@ describe EmailNotifications do
       mail.encoded.should =~ /Dear #{@registration_group.contact_name},/
       mail.encoded.should =~ /R\$ 135,00/
       mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
-      mail.subject.should == "[localhost:3000] Group registration request to #{@conference.name} sent"
+      mail.subject.should == "[localhost:3000] Company registration request to #{@conference.name} sent"
     end
   end
 end
