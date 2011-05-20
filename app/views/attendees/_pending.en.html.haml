@@ -9,7 +9,7 @@
         %p
           = form_tag AppConfig[:paypal][:url] do
             = hidden_field_tag :cmd, "_s-xclick"
-            = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
+            = hidden_field_tag :encrypted, paypal_encrypted(attendee, attendee_status_url(attendee.uri_token), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
             = image_submit_tag "https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif"
             = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pay with PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
       - if attendee.student?
