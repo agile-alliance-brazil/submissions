@@ -255,7 +255,7 @@ en:
         cpf: "Leave blank if you are not Brazilian."
         twitter_user: "Your <a href='http://www.twitter.com' target='_blank'>twitter</a> username (without the '@' character - e.g. 'agilebrazil'), if given, will appear in your badge. Leave blank if you do not want that."
         email_confirmation: "Verify that your e-mail address is correct. This will be the main communication chanel about your registration."
-        courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants."
+        courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants. To register interest in one of these courses, and add your nome to a wait list, please send an e-mail to <a href='mailto:atendimento@resultonline.com.br'>atendimento@resultonline.com.br</a> cc'ing <a href='mailto:result@resultonline.com.br'>result@resultonline.com.br</a>."
         notes: "Leave any notes or observations that you think are relevant, for future reference (e.g. payment confirmation number, or any special information about this participant)"
       registration_group:
         cnpj: "Leave blank if this is not a Brazilian company / organization."
