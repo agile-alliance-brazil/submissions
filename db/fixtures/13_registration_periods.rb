@@ -11,14 +11,14 @@ RegistrationPeriod.seed do |period|
   period.conference_id = 2
   period.title = 'registration_period.early_bird'
   period.start_at = Time.zone.local(2011, 4, 4)
-  period.end_at = Time.zone.local(2011, 5, 23).end_of_day
+  period.end_at = Time.zone.local(2011, 5, 25).end_of_day
 end
 
 RegistrationPeriod.seed do |period|
   period.id = 3
   period.conference_id = 2
   period.title = 'registration_period.regular'
-  period.start_at = Time.zone.local(2011, 5, 24)
+  period.start_at = Time.zone.local(2011, 5, 26)
   period.end_at = Time.zone.local(2011, 6, 21).end_of_day
 end
 
