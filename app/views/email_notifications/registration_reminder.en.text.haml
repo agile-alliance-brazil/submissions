@@ -1,7 +1,7 @@
 Dear #{h(@attendee.full_name)},
 
 
-Today is the last day of the early-bird registration price for #{@conference_name}! In order to make it easier for you to pay for your registration at #{@conference_name}, you now have the option to pay via Paypal, using your credit card or Paypal account. You can find more information about your registration (ID #{@attendee.id}) and make your online payment on the page:
+We have just postponed the deadline for the early-bird registration price for #{@conference_name} to Wednesday, May 25th! In order to make it easier for you to pay for your registration at #{@conference_name}, you now have the option to pay via Paypal, using your credit card or Paypal account. You can find more information about your registration (ID #{@attendee.id}) and make your online payment on the page:
 
 
 = attendee_status_url(@attendee.uri_token, :locale => 'en')

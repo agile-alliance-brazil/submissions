@@ -1,7 +1,7 @@
 Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
 
 
-Hoje é o último dia do preço com desconto na #{@conference_name}! Para facilitar o pagamento da sua inscrição na #{@conference_name}, a partir de agora é possível realizar o pagamento via Paypal, onde você poderá escolher cartão de crédito como forma de pagamento. Você pode encontrar mais detalhes sobre sua inscrição (ID #{@attendee.id}) e sobre como efetuar o pagamento online na seguinte página:
+Acabamos de adiar para quarta-feira (25/05) o prazo para pagar a inscrição da #{@conference_name} com desconto! Para facilitar o pagamento da sua inscrição na #{@conference_name}, a partir de agora é possível realizar o pagamento via Paypal, onde você poderá escolher cartão de crédito como forma de pagamento. Você pode encontrar mais detalhes sobre sua inscrição (ID #{@attendee.id}) e sobre como efetuar o pagamento online na seguinte página:
 
 
 = attendee_status_url(@attendee.uri_token, :locale => 'pt')
