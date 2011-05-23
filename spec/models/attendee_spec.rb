@@ -211,6 +211,19 @@ describe Attendee do
         end
       end
 
+      context "update user registered on course after course limit was reached" do
+        it "should be allowed" do
+          Course.any_instance.expects(:has_reached_limit?).times(3).returns(false, true)
+          attendee = Factory.build(:attendee, :courses => [@csm.id])
+          attendee.should be_valid
+          attendee.save
+          attendee.status='confirmed'
+          attendee.should be_valid
+          attendee.save!
+          attendee.destroy
+        end
+      end
+
       context "participants limit" do
         it "should not be allowed" do
           Course.any_instance.expects(:has_reached_limit?).returns(true)
