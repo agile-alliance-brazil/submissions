@@ -472,6 +472,8 @@ en:
       subject: "Registration confirmed for %{conference_name}"
     registration_group_pending:
       subject: "Company registration request to %{conference_name} sent"
+    registration_reminder:
+      subject: "New payment option via Paypal for registration for %{conference_name}"
   
   reviewer:
     state:

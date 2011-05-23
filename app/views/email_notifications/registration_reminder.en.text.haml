@@ -1,0 +1,19 @@
+Dear #{h(@attendee.full_name)},
+
+
+Today is the last day of the early-bird registration price for #{@conference_name}! In order to make it easier for you to pay for your registration at #{@conference_name}, you now have the option to pay via Paypal, using your credit card or Paypal account. You can find more information about your registration and make your online payment on the page:
+
+
+= attendee_status_url(@attendee.uri_token, :locale => 'en')
+
+
+You can access this page at any time to make the payment and check the status of your registration, so keep this e-mail and link for future reference.
+
+
+We would also like to remind you that some of the courses have no seats left anymore. However, there are still a chance that some seats will be vacated and you can add your name to a wait list, If you are interested in one of these courses and want your name added to the wait list, please send an e-mail to #{mail_to AppConfig[:organizer][:email]} cc'ing #{mail_to AppConfig[:organizer][:cced_email]}
+
+
+Don't miss your spot!
+
+
+[Please do not reply to this e-mail. It was sent from an unmonitored email address]

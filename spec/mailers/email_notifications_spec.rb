@@ -430,4 +430,32 @@ describe EmailNotifications do
       mail.subject.should == "[localhost:3000] Company registration request to #{@conference.name} sent"
     end
   end
+  
+  context "registration reminder" do
+    before(:each) do
+      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
+    end
+    
+    it "should be sent to attendee cc'ed to conference organizer" do
+      mail = EmailNotifications.registration_reminder(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
+      mail.encoded.should =~ /Caro #{@attendee.full_name},/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] Nova forma de pagamento por Paypal para inscrições na #{@conference.name}"
+    end
+    
+    it "should be sent to attendee using defult_locale" do
+      @attendee.default_locale = 'en'
+      mail = EmailNotifications.registration_reminder(@attendee).deliver
+      ActionMailer::Base.deliveries.size.should == 1
+      mail.to.should == [@attendee.email]
+      mail.cc.should == [AppConfig[:organizer][:email], AppConfig[:organizer][:cced_email]]
+      mail.encoded.should =~ /Dear #{@attendee.full_name},/
+      mail.encoded.should =~ /#{AppConfig[:organizer][:email]}/
+      mail.subject.should == "[localhost:3000] New payment option via Paypal for registration for #{@conference.name}"
+    end
+  end
+  
 end

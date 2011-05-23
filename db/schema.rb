@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517031806) do
+ActiveRecord::Schema.define(:version => 20110523123826) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20110517031806) do
     t.text     "notes"
     t.datetime "registration_date"
     t.string   "uri_token"
+    t.string   "default_locale",           :default => "pt"
   end
 
   create_table "audience_levels", :force => true do |t|

@@ -113,6 +113,18 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def registration_reminder(attendee, sent_at = Time.now)
+    @attendee = attendee
+    I18n.locale = @attendee.default_locale
+    @conference_name = current_conference.name
+    mail :subject => "[#{host}] #{I18n.t('email.registration_reminder.subject', :conference_name => current_conference.name)}",
+         :to      => "\"#{attendee.full_name}\" <#{attendee.email}>",
+         :cc       => conference_organizer,
+         :from     => "\"#{current_conference.name}\" <#{from_address}>",
+         :reply_to => "\"#{current_conference.name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
   private
   def from_address
     ActionMailer::Base.smtp_settings[:user_name]

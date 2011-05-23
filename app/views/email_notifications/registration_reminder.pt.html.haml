@@ -1,0 +1,13 @@
+%p Car#{@attendee.male? ? 'o' : 'a'} #{h(@attendee.full_name)},
+
+%p Hoje é o último dia do preço com desconto na #{@conference_name}! Para facilitar a efetivação do pagamento da sua inscrição na #{@conference_name}, a partir de agora, estamos realizando no site do evento o pagamento via Paypal, onde você poderá escolher o cartão de crédito comor forma de pagamento. Você pode encontrar mais detalhes sobre sua inscrição e efetuar o pagamento onine na seguinte página:
+
+%p= link_to attendee_status_url(@attendee.uri_token, :locale => 'pt'), attendee_status_url(@attendee.uri_token, :locale => 'pt')
+
+%p Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da sua inscrição. Guarde esse e-mail e link para referência futura.
+
+%p Lembramos que alguns cursos já estão lotados, porém, como ainda temos a possibilidade de surgirem vagas, estamos aceitando uma lista de espera. Caso tenha interesse em algum curso que já esteja lotado e deseje ser incluido na lista, envie um e-mail para #{AppConfig[:organizer][:email]} com cópia para #{AppConfig[:organizer][:cced_email]}.
+
+%p Garanta já a sua vaga!
+
+%small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]
