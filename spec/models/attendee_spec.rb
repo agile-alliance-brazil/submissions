@@ -55,6 +55,20 @@ describe Attendee do
       attendee.course_attendances.size.should == 2
     end
     
+    it "should provide courses currently registered from course_attendances" do
+      attendee = Factory(:attendee, :courses => [@csm.id])
+      attendee.registered_courses.should == [@csm]
+      attendee.courses = [@csm.id, @cspo.id]
+      attendee.registered_courses.should == [@csm]
+    end
+
+    it "should provide new courses" do
+      attendee = Factory(:attendee, :courses => [@csm.id])
+      attendee.new_courses.should == []
+      attendee.courses = [@csm.id, @cspo.id]
+      attendee.new_courses.should == [@cspo]
+    end
+    
     context "twitter user" do
       it "should remove @ from start if present" do
         attendee = Factory.build(:attendee, :twitter_user => '@agilebrazil')
@@ -211,19 +225,6 @@ describe Attendee do
         end
       end
 
-      context "update user registered on course after course limit was reached" do
-        it "should be allowed" do
-          Course.any_instance.expects(:has_reached_limit?).times(3).returns(false, true)
-          attendee = Factory.build(:attendee, :courses => [@csm.id])
-          attendee.should be_valid
-          attendee.save
-          attendee.status='confirmed'
-          attendee.should be_valid
-          attendee.save!
-          attendee.destroy
-        end
-      end
-
       context "participants limit" do
         it "should not be allowed" do
           Course.any_instance.expects(:has_reached_limit?).returns(true)
@@ -233,6 +234,14 @@ describe Attendee do
             I18n.t('activerecord.errors.models.attendee.attributes.courses.limit_reached',
                    :course => I18n.t(@csm.name))
           )
+        end
+        
+        it "should validate only new courses" do
+          attendee = Factory(:attendee, :courses => [@tdd.id])
+          @tdd.stubs(:has_reached_limit?).returns(true)
+          @lean.stubs(:has_reached_limit?).returns(false)
+          attendee.courses = [@tdd.id, @lean.id]
+          attendee.should be_valid
         end
       end
     end

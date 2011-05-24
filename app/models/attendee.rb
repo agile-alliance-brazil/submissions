@@ -40,7 +40,7 @@ class Attendee < ActiveRecord::Base
 
   validates_each :courses do |record, attr, courses|
     record.errors.add(attr, :compatible) if courses.size > 1 && !courses.all?(&:combine?)
-    courses.each do |course|
+    record.new_courses.each do |course|
       record.errors.add(attr, :limit_reached, :course => I18n.t(course.name)) if course.has_reached_limit?
     end
   end
@@ -122,6 +122,14 @@ class Attendee < ActiveRecord::Base
   
   def courses
     course_attendances.map { |attendance| attendance.course }
+  end
+  
+  def registered_courses
+    CourseAttendance.where(:attendee_id => self.id).joins(:course).all.map(&:course)
+  end
+  
+  def new_courses
+    courses - registered_courses
   end
   
   def courses_summary
