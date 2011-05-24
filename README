@@ -6,15 +6,17 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * E-mail to current pending users to use the status page
-
  * Status page for group registration
  
  * Registration for authors
  
  * E-mail accepted authors with registration instructions
 
- * Add delayed_job to guarantee email delivery
+ * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
+ 
+ * Allow registrar to update attributes of a pending attendee
+ 
+ * Change workflow to send e-mails after paid, and when confirmed
 
  * Group Confirmation
  * Comments for attendees
@@ -31,7 +33,6 @@ TODO:
 
  * Show a better error message if a 'second' author tries to confirm/withdraw an already confirmed/withdrawn proposal (currently - not authorized)
  * Stop adding review if review count is more than 75% of limit/person
- * Add a 'canceled' status to Attendees so that people can give up and inform us to that decision
  -- lower priority
  * Reviewer add/remove role on update/destroy
  * Remove hard-coded dates on deadlines for each phase of the conference
@@ -60,6 +61,7 @@ IN PROGRESS:
  
 DONE:
 
+ * E-mail to current pending users to use the status page -- Danilo
  * Standardizing group name into company -- Danilo
  * Registration e-mails should link to status page -- Danilo
  * Improve text on status pages (pending/paid/confirmed) -- Danilo
