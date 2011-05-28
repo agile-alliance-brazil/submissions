@@ -80,4 +80,8 @@ class User < ActiveRecord::Base
   def wants_to_submit=(wants_to_submit)
     self.add_role('author') if wants_to_submit == '1'
   end
+  
+  def has_approved_long_session?(conference)
+    sessions.for_conference(conference).select{|s| s.accepted?}.reject{|s| s.lightning_talk?}.size > 0
+  end
 end

@@ -31,11 +31,26 @@ describe AttendeesController do
         flash[:news].should_not be_nil
       end
       
-      it "should load registration types without groups" do
+      it "should load registration types without groups or free" do
         get :new
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.student'))
         assigns(:registration_types).size.should == 2
+      end
+    end
+
+    describe "for sponsors and speakers registration" do
+      it "should render flash news" do
+        get :new
+        flash[:news].should_not be_nil
+      end
+
+      it "should load registration types without groups but with free " do
+        get :new
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.student'))
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.free'))
+        assigns(:registration_types).size.should == 3
       end
     end
     
@@ -49,7 +64,7 @@ describe AttendeesController do
         flash[:news].should be_nil
       end
       
-      it "should load all registration types" do
+      it "should load registration types except free" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.group'))
@@ -112,6 +127,18 @@ describe AttendeesController do
         Attendee.any_instance.stubs(:valid?).returns(true)
         post :create
       end
+      
+      it "should not allow free registration type" do
+        post :create, :attendee => {:registration_type => 4}
+        response.should render_template(:new)
+      end
+    end
+    
+    describe "for sponsor and speaker registration" do    
+      it "should allow free registration type" do
+        post :create, :attendee => {:registration_type => 4}
+        response.should render_template(:new)
+      end
     end
     
     describe "for group registration" do
@@ -141,6 +168,11 @@ describe AttendeesController do
         RegistrationGroup.any_instance.stubs(:complete?).returns(true)
         post :create, :registration_group_id => @registration_group.id
         response.should redirect_to(root_path)
+      end
+
+      it "should not allow free registration type" do
+        post :create, :attendee => {:registration_type => 4}
+        response.should render_template(:new)
       end
     end
   end

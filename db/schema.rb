@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20110523123826) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "registration_type_id"
-    t.integer  "registration_group_id"
     t.boolean  "email_sent",               :default => false
+    t.integer  "registration_group_id"
     t.integer  "course_attendances_count", :default => 0
     t.text     "notes"
     t.datetime "registration_date"

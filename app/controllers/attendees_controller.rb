@@ -74,7 +74,10 @@ class AttendeesController < InheritedResources::Base
   end
   
   def load_registration_types
-    @registration_types ||= parent? ? RegistrationType.all : RegistrationType.without_group.all
+    unless @registration_type
+      @registration_types = parent? ? RegistrationType.to_public.all : RegistrationType.to_public.without_group.all
+      @registration_types << RegistrationType.find(4) if(current_user.has_approved_long_session?(Conference.current) || can?(:read, 'registered_attendees'))
+    end
   end
   
   def validate_total_attendees

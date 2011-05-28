@@ -14,8 +14,12 @@
     %ul
       - if can? :create, Attendee
         %li= link_to(t('actions.new_registration'), new_attendee_path)
+        - if current_user.has_approved_long_session?(Conference.current)
+          %li= link_to t('actions.new_speaker_registration'), new_attendee_path()
       - if can? :create, RegistrationGroup
         %li= link_to(t('actions.new_registration_group'), new_registration_group_path)
+      - if can? :read, 'registered_attendees'
+        %li= link_to(t('actions.sponsors_registration'), new_attendee_path)
       - if can? :read, 'registered_attendees'
         %li= link_to(t('actions.registered_attendees'), registered_attendees_path)
 

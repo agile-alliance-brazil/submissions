@@ -81,3 +81,31 @@ RegistrationPrice.seed do |registration_price|
   registration_price.registration_period_id = 4
   registration_price.value = 275.00
 end
+
+RegistrationPrice.seed do |registration_price|
+  registration_price.id = 13
+  registration_price.registration_type_id = 4
+  registration_price.registration_period_id = 1
+  registration_price.value = 0.00
+end
+
+RegistrationPrice.seed do |registration_price|
+  registration_price.id = 14
+  registration_price.registration_type_id = 4
+  registration_price.registration_period_id = 2
+  registration_price.value = 0.00
+end
+
+RegistrationPrice.seed do |registration_price|
+  registration_price.id = 15
+  registration_price.registration_type_id = 4
+  registration_price.registration_period_id = 3
+  registration_price.value = 0.00
+end
+
+RegistrationPrice.seed do |registration_price|
+  registration_price.id = 16
+  registration_price.registration_type_id = 4
+  registration_price.registration_period_id = 4
+  registration_price.value = 0.00
+end

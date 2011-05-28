@@ -97,6 +97,52 @@ describe User do
         user.organized_tracks(organizer.conference).should == [organizer.track]
       end
     end
+    
+    describe "approved long sessions for conference" do
+      it "should not have approved long sessions if never submited" do
+         user = Factory(:user)
+         user.has_approved_long_session?(Factory(:conference)).should be(false)
+      end
+      
+      it "should not have approved long sessions if accepted was on another conference" do
+         user = Factory(:user)
+         old_conference = Factory(:conference)
+         current = Factory(:conference)
+         session = Factory(:session, :author => user, :conference => old_conference)
+         user.sessions=[session]
+         user.has_approved_long_session?(current).should be(false)
+      end
+      
+      it "should not have approved long sessions if accepted was lightning talk" do
+         user = Factory(:user)
+         session = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
+         user.sessions=[session]
+         user.has_approved_long_session?(session.conference).should be(false)
+      end
+      
+      it "should have approved long sessions if accepted was not lightning talk" do
+         user = Factory(:user)
+         session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
+         user.sessions=[session]
+         user.has_approved_long_session?(session.conference).should be(true)
+      end
+
+      it "should have approved long sessions if accepted contains at least one non lightning talk" do
+        user = Factory(:user)
+        session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
+        lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'accepted')
+        user.sessions=[session, lightning_talk]
+        user.has_approved_long_session?(session.conference).should be(true)
+      end
+
+      it "should not have approved long sessions if no sessions was not accepted" do
+        user = Factory(:user)
+        session = Factory(:session, :author => user, :session_type_id => 1, :state => 'cancelled')
+        lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'rejected')
+        user.sessions=[session, lightning_talk]
+        user.has_approved_long_session?(session.conference).should be(false)
+      end
+    end
 
     describe "user preferences" do
       it "should return reviewer preferences based on conference" do
