@@ -6,9 +6,11 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Status page for group registration
+ * User signs out after going to registration page (being logged in)
  
- * Registration for authors
+ * Test scenarios for speaker registration within group
+
+ * Status page for group registration
  
  * E-mail accepted authors with registration instructions
 
@@ -61,6 +63,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Registration for authors -- Hugo & Danilo
+ * Registration for sponsors -- Hugo & Danilo
  * E-mail to current pending users to use the status page -- Danilo
  * Standardizing group name into company -- Danilo
  * Registration e-mails should link to status page -- Danilo
