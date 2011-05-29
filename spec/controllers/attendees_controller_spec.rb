@@ -25,6 +25,11 @@ describe AttendeesController do
       assigns(:attendee).conference.should == @conference
     end
     
+    it "should assign default locale to attendee registration" do
+      get :new
+      assigns(:attendee).default_locale.should == I18n.locale
+    end
+    
     describe "for individual registration" do
       it "should render flash news" do
         get :new
@@ -153,6 +158,12 @@ describe AttendeesController do
       assigns(:attendee).conference.should == @conference
     end
     
+    it "should assign default locale to attendee registration" do
+      Attendee.any_instance.stubs(:valid?).returns(true)
+      post :create
+      assigns(:attendee).default_locale.should == I18n.locale
+    end
+    
     describe "for individual registration" do    
       it "should send pending registration e-mail" do
         EmailNotifications.expects(:registration_pending).returns(@email)
@@ -207,19 +218,19 @@ describe AttendeesController do
       end
 
       it "should send pending registration e-mail when group is complete" do
-        RegistrationGroup.any_instance.stubs(:complete?).returns(false, true)
+        RegistrationGroup.any_instance.stubs(:complete).returns(true)
         EmailNotifications.expects(:registration_group_pending).returns(@email)
         post :create, :registration_group_id => @registration_group.id
       end
 
       it "should redirect to new attendee when group is incomplete" do
-        RegistrationGroup.any_instance.stubs(:complete?).returns(false)
+        RegistrationGroup.any_instance.stubs(:complete).returns(false)
         post :create, :registration_group_id => @registration_group.id
         response.should redirect_to(new_registration_group_attendee_path(@registration_group))
       end
 
       it "should redirect to root when group is complete" do
-        RegistrationGroup.any_instance.stubs(:complete?).returns(true)
+        RegistrationGroup.any_instance.stubs(:complete).returns(true)
         post :create, :registration_group_id => @registration_group.id
         response.should redirect_to(root_path)
       end

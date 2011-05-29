@@ -48,6 +48,7 @@ class Ability
       find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
     end
     can(:show, Attendee)
+    can(:show, RegistrationGroup)
     can do |action, subject_class, subject|
       expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class) &&
       Time.zone.now <= REGISTRATION_DEADLINE
@@ -125,6 +126,7 @@ class Ability
 
   def registrar
     can(:manage, 'registered_attendees')
+    can(:manage, 'registered_groups')
     can(:show, Attendee)
     can(:update, Attendee)
   end

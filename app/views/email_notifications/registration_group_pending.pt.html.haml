@@ -11,28 +11,15 @@
           - attendee.courses.each do |course|
             %li '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
 
-%p Para completar o processo de inscrição, siga os seguintes passos:
+%p Para completar o processo de inscrição, por favor siga as instruções descritas na seguinte página:
 
-%ol
-  %li
-    Faça um depósito identificado de #{number_to_currency(@group.registration_fee, :locale => :pt)} na seguinte conta:
-    %br Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
-    %br CNPJ: 10.784.390/0001-91
-    %br Banco: Caixa Econômica Federal (104)
-    %br Agência: 1560
-    %br Conta corrente: 113-8
-    %br Operação: 022
-  %li Caso não consiga identificar o depósito junto ao banco, escreva o número de inscrição do seu grupo (#{@group.to_param}) no comprovante de depósito
-  %li Envie o comprovante de depósito para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+%p= link_to registration_group_status_url(@group.uri_token, :locale => 'pt'), registration_group_status_url(@group.uri_token, :locale => 'pt')
 
-%h3 Importante:
+%p Você pode acessar essa página a qualquer momento para realizar o pagamento ou verificar o status da inscrição dessa empresa. Guarde esse e-mail e link para referência futura, assim como seu número de inscrição:
 
-- deadline = @group.attendees.first.registration_date.to_date + 5
-- total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
 %p
-  - if total_courses > 0
-    Você deve enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos não serão garantidas' : 'a vaga no curso não será garantida'}. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
-  %br Após o dia #{I18n.l([@group.registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.
+  %strong Número de inscrição:
+  = @group.to_param
 
 %p Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}
 

@@ -52,6 +52,10 @@ en:
             courses:
               compatible: "cannot attend all chosen courses. Please check the <a href='http://www.agilebrazil.com/2011/en/programacao.php' target='_blank'>program</a>."
               limit_reached: "the %{course} course has reached the limit number of participants."
+        registration_group:
+          attributes:
+            total_attendees:
+              incomplete: "doesn't have %{total} registered attendees"
             
   formtastic:
     :yes: "Yes"
@@ -208,6 +212,11 @@ en:
         neighbourhood: "Address 2"
         zipcode: "Zip Code"
         total_attendees: "Total number of participants"
+        registered_attendees: "Registered participants"
+        status: "Status"
+        payment_agreement: "I confirm that the company has paid the above amount. The system will notify all participants in this company that their registrations to the conference are confirmed."
+        notes: "Notes"
+        total: "Amount"
       payment_notification:
         transaction_id: "Transaction ID"
         paid_at: "Payment date"
@@ -349,6 +358,7 @@ en:
     new_registration_group: "Company"
     new_sponsor_group: "Sponsor"
     registered_attendees: "Manage registrations"
+    registered_groups: "Manage companies"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -416,6 +426,9 @@ en:
     registered_attendees:
       confirm:
         success: "Registration confirmed successfully. The participant was notified by email."
+    registered_groups:
+      confirm:
+        success: "Registration confirmed successfully. The company contact was notified by email."
   
   session_types:
     tutorial:
@@ -475,6 +488,8 @@ en:
       subject: "Registration confirmed for %{conference_name}"
     registration_group_pending:
       subject: "Company registration request to %{conference_name} sent"
+    registration_group_confirmed:
+      subject: "Registration confirmed for %{conference_name}"
     registration_reminder:
       subject: "New payment option via Paypal for registration for %{conference_name}"
   
@@ -574,6 +589,14 @@ en:
       paid: "Payment received"
       all: "All"
 
+  registration_group:
+    status:
+      incomplete: "Incomplete"
+      complete: "Pending"
+      paid: "Payment received"
+      confirmed: "Confirmed"
+      all: "All"
+
   generic:
     or: "or"
     and: "and"
@@ -590,6 +613,7 @@ en:
     sort_down: "descendent"
     show: "Show %{target}"
     hide: "Hide %{target}"
+    registration_id: "Registration number"
 
   tips:
     users_from_last_year: "<strong>Tip:</strong> Users from last year are still active. If you don't remember your username or password, use the link above to recover it."

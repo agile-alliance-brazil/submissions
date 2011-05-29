@@ -28,6 +28,10 @@ describe Ability do
       @ability.should be_able_to(:show, Attendee)
     end
     
+    it "can see registration group registration details" do
+      @ability.should be_able_to(:show, RegistrationGroup)
+    end
+    
     describe "can register a new attendee if:" do
       before(:each) do
         Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE - 3.days)
@@ -943,6 +947,10 @@ describe Ability do
     
     it "can manage registered attendees" do
       @ability.should be_able_to(:manage, 'registered_attendees')
+    end
+    
+    it "can manage registered groups" do
+      @ability.should be_able_to(:manage, 'registered_groups')
     end
     
     it "can show attendees" do

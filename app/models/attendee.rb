@@ -1,8 +1,9 @@
 class Attendee < ActiveRecord::Base
+  include TokenGenerator
   attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,
                   :country, :state, :city, :badge_name, :cpf, :gender, :twitter_user, :address,
-                  :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event, :conference_id,
-                  :notes, :payment_agreement, :registration_date
+                  :neighbourhood, :zipcode, :registration_type_id, :courses, :status_event,
+                  :conference_id, :notes, :payment_agreement, :registration_date, :default_locale
   attr_trimmed    :first_name, :last_name, :email, :organization, :phone, :country, :state, :city,
                   :badge_name, :twitter_user, :address, :neighbourhood, :zipcode, :notes
   
@@ -11,7 +12,7 @@ class Attendee < ActiveRecord::Base
   belongs_to :registration_group
   
   has_many :course_attendances
-  has_many :payment_notifications
+  has_many :payment_notifications, :as => :invoicer
   
   validates_presence_of :first_name, :last_name, :email, :phone, :country, :city,
                         :gender, :address, :zipcode, :registration_type_id, :conference_id
@@ -136,19 +137,8 @@ class Attendee < ActiveRecord::Base
     courses.map {|c| I18n.t(c.name)}.join(',')
   end
 
-  def self.generate_token(column)
-    loop do
-      token = ActiveSupport::SecureRandom.hex(5)
-      break token unless find(:first, :conditions => { column => token })
-    end
-  end
-
   private
   def set_default_registration_date
     self.registration_date ||= Time.zone.now
-  end
-  
-  def generate_uri_token
-    self.uri_token ||= Attendee.generate_token(:uri_token)
   end
 end

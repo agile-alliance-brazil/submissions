@@ -6,17 +6,21 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Status page for group registration
+ - Pending attendee status page should be different for group members
+ - Refactor email sending from controller into state transitions
  
  * E-mail accepted authors with registration instructions
 
  * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
  
  * Allow registrar to update attributes of a pending attendee
+   - Add course
+   - Remove course
+   - Change registration date
+   - Update attendee details
  
  * Change workflow to send e-mails after paid, and when confirmed
 
- * Group Confirmation
  * Comments for attendees
  * Admin page to expire registrations
  * Refactor sorting behaviour
@@ -59,6 +63,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Status page for group registration -- Danilo 
+ * Group Confirmation -- Danilo
  * Test scenarios for speaker registration within group -- Danilo
  * Registration for authors -- Hugo & Danilo
  * Registration for sponsors -- Hugo & Danilo

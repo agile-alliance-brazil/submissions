@@ -1,11 +1,15 @@
 class RegistrationGroup < ActiveRecord::Base
+  include TokenGenerator
   attr_accessible :name, :cnpj, :state_inscription, :municipal_inscription,
                   :contact_name, :contact_email, :contact_email_confirmation, :phone, :fax,
-                  :country, :state, :city, :address, :neighbourhood, :zipcode, :total_attendees
+                  :country, :state, :city, :address, :neighbourhood, :zipcode, :total_attendees,
+                  :payment_agreement, :status_event
   attr_trimmed    :name, :state_inscription, :municipal_inscription, :contact_name, :contact_email,
                   :phone, :fax, :country, :state, :city, :address, :neighbourhood, :zipcode
 
   has_many :attendees
+  has_many :course_attendances, :through => :attendees
+  has_many :payment_notifications, :as => :invoicer
 
   validates_presence_of :name, :contact_name, :contact_email, :phone, :fax,
                         :country, :city, :address, :zipcode, :total_attendees
@@ -27,8 +31,38 @@ class RegistrationGroup < ActiveRecord::Base
   
   validates_confirmation_of :contact_email
   
-  def complete?
-    attendees.size >= total_attendees
+  after_initialize :generate_uri_token
+
+  scope :for_conference, lambda { |c| select('DISTINCT registration_groups.*').joins(:attendees).where('attendees.conference_id = ?', c.id) }
+
+  state_machine :status, :initial => :incomplete do
+    event :complete do
+      transition :incomplete => :complete
+    end
+    
+    event :confirm do
+      transition [:complete, :paid] => :confirmed
+    end
+    after_transition :to => :confirmed do |registration_group|
+      registration_group.attendees.each(&:confirm)
+    end
+
+    event :pay do
+      transition :complete => :paid
+    end
+    after_transition :to => :paid do |registration_group|
+      registration_group.attendees.each(&:pay)
+    end
+    
+    state :confirmed do
+      validates_acceptance_of :payment_agreement
+    end
+    
+    state :complete do
+      validates_each :total_attendees do |record, attr, value|
+        record.errors.add(attr, :incomplete, :total => value) if record.attendees.size < value
+      end
+    end
   end
   
   def registration_fee

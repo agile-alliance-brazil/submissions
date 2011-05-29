@@ -182,5 +182,5 @@ Factory.define :payment_notification do |p|
   p.params { {:some => 'params'} }
   p.status "Completed"
   p.transaction_id "9JU83038HS278211W"
-  p.association :attendee
+  p.association :invoicer, :factory => :attendee
 end

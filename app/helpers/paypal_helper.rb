@@ -1,40 +1,33 @@
 module PaypalHelper
-  def paypal_params(attendee, return_url, notify_url)
-    values = {  
-      :business => AppConfig[:paypal][:email],
-      :cmd => '_cart',
-      :upload => 1,
-      :return => return_url,
-      :cancel_return => return_url,
-      :invoice => attendee.id,
-      :currency_code => AppConfig[:paypal][:currency],
-      :notify_url => notify_url,
-      :cert_id => AppConfig[:paypal][:cert_id]
-    }
-
-    # Registration
-    values.merge!({
-      "amount_1" => attendee.base_price,
-      "item_name_1" => CGI.escapeHTML("#{t('formtastic.labels.attendee.registration_type_id')}: #{t(attendee.registration_type.title)}"),
-      "item_number_1" => attendee.registration_type.id,
-      "quantity_1" => 1
-    })
-    
-    # Courses
-    attendee.courses.each_with_index do |course, index|
-      values.merge!({
-        "amount_#{index + 2}" => course.price(attendee.registration_date),
-        "item_name_#{index + 2}" => CGI.escapeHTML("#{t('formtastic.labels.attendee.courses')}: #{t(course.name)}"),
-        "item_number_#{index + 2}" => course.id,
-        "quantity_#{index + 2}" => 1
-      })
+  def add_config_vars(values, return_url, notify_url)
+    values.tap do |vars|
+      vars[:business] = AppConfig[:paypal][:email]
+      vars[:cmd] = '_cart'
+      vars[:upload] = 1
+      vars[:return] = return_url
+      vars[:cancel_return] = return_url
+      vars[:currency_code] = AppConfig[:paypal][:currency]
+      vars[:notify_url] = notify_url
+      vars[:cert_id] = AppConfig[:paypal][:cert_id]
     end
-
-    values
   end
   
-  def paypal_encrypted(attendee, return_url, notify_url)
-    encrypt_for_paypal(paypal_params(attendee, return_url, notify_url))
+  def paypal_encrypted_attendee(attendee, return_url, notify_url)
+    encrypt_for_paypal(
+      add_config_vars(
+        PaypalAdapter.from_attendee(attendee).to_variables,
+        return_url, notify_url
+      )
+    )
+  end
+
+  def paypal_encrypted_registration_group(registration_group, return_url, notify_url)
+    encrypt_for_paypal(
+      add_config_vars(
+        PaypalAdapter.from_registration_group(registration_group).to_variables,
+        return_url, notify_url
+      )
+    )
   end
   
   PAYPAL_CERT_PEM = File.read("#{Rails.root}/certs/paypal_cert.pem")

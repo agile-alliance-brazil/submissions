@@ -25,7 +25,7 @@ class AttendeesController < InheritedResources::Base
             EmailNotifications.registration_group_attendee(@attendee, parent).deliver
             @attendee.email_sent = true
             @attendee.save
-            if parent.complete?
+            if parent.complete
               flash[:notice] = t('flash.attendee.create.success')
               EmailNotifications.registration_group_pending(parent).deliver
               parent.email_sent = true
@@ -67,6 +67,7 @@ class AttendeesController < InheritedResources::Base
   def build_resource
     attributes = params[:attendee] || {}
     attributes[:conference_id] = current_conference.id
+    attributes[:default_locale] ||= I18n.locale
     if parent?
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.group').id
       attributes[:organization] = parent.name

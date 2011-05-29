@@ -6,7 +6,7 @@ describe PaymentNotificationsController do
       attendee = Factory(:attendee)
       
       lambda {
-        post :create, :txn_id => "ABCABC", :invoice => attendee.id, :payment_status => "Completed"
+        post :create, :txn_id => "ABCABC", :invoice => attendee.id, :custom => 'Attendee', :payment_status => "Completed"
       }.should change(PaymentNotification, :count).by(1)      
     end
   end
