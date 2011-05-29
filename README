@@ -6,8 +6,6 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- * Test scenarios for speaker registration within group
-
  * Status page for group registration
  
  * E-mail accepted authors with registration instructions
@@ -61,6 +59,7 @@ IN PROGRESS:
  
 DONE:
 
+ * Test scenarios for speaker registration within group -- Danilo
  * Registration for authors -- Hugo & Danilo
  * Registration for sponsors -- Hugo & Danilo
  * E-mail to current pending users to use the status page -- Danilo

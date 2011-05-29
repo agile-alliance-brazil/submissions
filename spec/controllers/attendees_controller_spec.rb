@@ -71,6 +71,11 @@ describe AttendeesController do
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.free'))
         assigns(:registration_types).size.should == 3
       end
+      
+      it "should pre select free registration group for attendee" do
+        get :new
+        assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
+      end
     end
     
     describe "for group registration" do
@@ -94,6 +99,14 @@ describe AttendeesController do
       it "should set registration_type to group" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
+      end
+      
+      it "should pre select free registration group for attendee with session approved" do
+        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        sign_in Factory(:user)
+        disable_authorization
+        get :new, :registration_group_id => @registration_group.id
+        assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
       end
       
       it "should set organization name from registration group" do
