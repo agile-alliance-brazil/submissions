@@ -1,0 +1,41 @@
+- title t('actions.registered_groups')
+- show_actions!
+
+= form_tag registered_groups_path, :method => :get, :id => 'registered_groups_form' do
+  = hidden_field_tag :direction, params[:direction]
+  = hidden_field_tag :column, params[:column]
+  %p
+    .right
+      = label_tag :status, t('formtastic.labels.registration_group.status') + ':'
+      = select_tag :status, options_for_select(registration_group_status_options, params[:status]), :tabindex => autotab
+
+%table
+  %thead
+    %tr
+      %th= sortable_column('ID', :id)
+      %th= sortable_column(t('formtastic.labels.registration_group.name'), :name)
+      %th= sortable_column(t('formtastic.labels.registration_group.status'), :status)
+      %th= sortable_column(t('formtastic.labels.registration_group.registered_attendees'), :registered_attendees)
+      %th= t('formtastic.labels.attendee.courses')
+      %th= t('formtastic.labels.registration_group.total')
+  %tbody
+    - @registration_groups.each do |group|
+      = content_tag_for(:tr, group, :class => cycle(:odd, :even)) do
+        %td= group.id
+        %td= link_to h(group.name), registered_group_path(group)
+        %td= t("registration_group.status.#{group.status}")
+        %td #{group.attendees.size} / #{group.total_attendees}
+        %td= group.course_attendances.size
+        %td= number_to_currency(group.registration_fee, :locale => :pt)
+
+- if @registration_groups.total_pages > 1
+  #pagination= will_paginate(@registration_groups)
+
+:javascript
+  $(function() {
+    $("#registered_groups_form select").change(submitFilter);
+  });
+  
+  function submitFilter() {
+    $("#registered_groups_form").submit();
+  }

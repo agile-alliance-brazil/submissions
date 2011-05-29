@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe PaymentNotification do
   context "associations" do
-    should_belong_to :attendee
+    should_belong_to :invoicer, :polymorphic => true
   end
   
   context "validations" do
-    should_validate_existence_of :attendee
+    should_validate_existence_of :invoicer
   end
   
   context "callbacks" do
@@ -23,7 +23,7 @@ describe PaymentNotification do
         }
         @valid_args = {
           :status => "Completed",
-          :attendee => @attendee,
+          :invoicer => @attendee,
           :params => @valid_params
         }
       end
@@ -78,13 +78,15 @@ describe PaymentNotification do
       :settle_amount => 10.5,
       :settle_currency => "USD",
       :payer_email => "payer@paypal.com",
-      :memo => "Some notes from the buyer"
+      :memo => "Some notes from the buyer",
+      :custom => 'Attendee'
     }
     PaymentNotification.from_paypal_params(paypal_params).should == {
       :params => paypal_params,
       :status => "Completed",
       :transaction_id =>  "AAABBBCCC",
-      :attendee_id => 2,
+      :invoicer_id => 2,
+      :invoicer_type => 'Attendee',
       :settle_amount => 10.5,
       :settle_currency => "USD",
       :payer_email => "payer@paypal.com",

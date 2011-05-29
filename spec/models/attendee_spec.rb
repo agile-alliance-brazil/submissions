@@ -26,6 +26,7 @@ describe Attendee do
     should_allow_mass_assignment_of :notes
     should_allow_mass_assignment_of :payment_agreement
     should_allow_mass_assignment_of :registration_date
+    should_allow_mass_assignment_of :default_locale
 
     should_not_allow_mass_assignment_of :id
   end
@@ -103,7 +104,7 @@ describe Attendee do
     should_belong_to :registration_group
     
     should_have_many :course_attendances
-    should_have_many :payment_notifications
+    should_have_many :payment_notifications, :as => :invoicer
   end
   
   context "validations" do

@@ -1,0 +1,16 @@
+Olá #{h(@registration_group.contact_name)},
+
+
+A inscrição da empresa <strong>#{h(@registration_group.name)}</strong> no valor de #{number_to_currency(@registration_group.registration_fee, :locale => :pt)} na #{@conference_name} foi confirmada. A inscrição inclui:
+
+
+- @registration_group.attendees.each do |attendee|
+  #{"-"} #{h(attendee.full_name)} no valor de #{number_to_currency(attendee.base_price, :locale => :pt)}
+  - attendee.courses.each do |course|
+    #{"  -"} '#{I18n.t(course.full_name)}' no valor de #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
+
+
+Qualquer dúvida, entre em contato através do email #{mail_to AppConfig[:organizer][:email]}
+
+
+[Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

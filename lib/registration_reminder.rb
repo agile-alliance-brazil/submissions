@@ -4,7 +4,7 @@ class RegistrationReminder
       Rails.logger.info("[ATTENDEE] #{attendee.to_param}")
       try_with("REMINDER") do
         EmailNotifications.registration_reminder(attendee).deliver
-        sleep(5)
+        sleep(5) unless Rails.env.test?
       end
     end
   end

@@ -1,0 +1,41 @@
+%h3 Instruções para completar o processo de inscrição
+
+.payments
+  .payment_type.left
+    %h4 OPÇÃO 1: Pague com PayPal
+    %ol
+      %li
+        Efetue o pagamento no valor de #{number_to_currency(registration_group.registration_fee, :locale => :pt)}:
+        %p
+          = form_tag AppConfig[:paypal][:url] do
+            = hidden_field_tag :cmd, "_s-xclick"
+            = hidden_field_tag :encrypted, paypal_encrypted_registration_group(registration_group, registration_group_status_url(registration_group.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
+            = image_submit_tag "https://www.paypal.com/pt_BR/i/btn/btn_paynow_SM.gif"
+            = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pague com PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
+
+  .payment_type.right
+    %h4 OPÇÃO 2: Pague com depósito identificado
+    %ol
+      %li
+        Efetue o pagamento no valor de #{number_to_currency(registration_group.registration_fee, :locale => :pt)}, fazendo um depósito identificado na conta:
+        %pre
+          Titular: RESULT SOLUÇÕES EMPRESARIAIS E EVENTOS
+          CNPJ: 10.784.390/0001-91
+          Banco: Caixa Econômica Federal (104)
+          Agência: 1560
+          Conta corrente: 113-8
+          Operação: 022
+      %li Caso não consiga identificar o depósito junto ao banco, escreva seu número de inscrição (#{registration_group.to_param}) no comprovante de depósito
+      %li Envie o comprovante de depósito para o email #{mail_to AppConfig[:organizer][:email]} com cópia para #{mail_to AppConfig[:organizer][:cced_email]}
+
+%hr/
+
+%h3 Importante
+
+- deadline = registration_group.attendees.first.registration_date.to_date + 5
+- total_courses = registration_group.course_attendances.size
+
+- if total_courses > 0
+  %p Você deve efetuar o pagamento online ou enviar o comprovante de depósito até o dia #{I18n.l(deadline)}. Após essa data, #{total_courses > 1 ? 'as vagas nos cursos não serão garantidas' : 'a vaga no curso não será garantida'}. Para verificar a disponibilidade de vagas no curso, entre em contato via #{mail_to AppConfig[:organizer][:email]}.
+  
+%p Após o dia #{I18n.l([registration_group.registration_period.end_at.to_date, deadline].max)}, o valor das inscrições será atualizado conforme a tabela disponível em #{link_to "http://www.agilebrazil.com.br/2011/pt/inscricoes.php", "http://www.agilebrazil.com.br/2011/pt/inscricoes.php"}.

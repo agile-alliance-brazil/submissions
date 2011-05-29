@@ -706,11 +706,11 @@ span.bio {
   #content div.total table td.negative {
     color: red; }
 
-#registered_attendees_form .left {
+#registered_attendees_form .left, #registered_groups_form .left {
   float: left; }
-#registered_attendees_form .middle {
+#registered_attendees_form .middle, #registered_groups_form .middle {
   display: inline; }
-#registered_attendees_form .right {
+#registered_attendees_form .right, #registered_groups_form .right {
   float: right; }
 
 .placeholder {

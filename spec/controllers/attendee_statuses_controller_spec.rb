@@ -3,10 +3,6 @@ require 'spec_helper'
 describe AttendeeStatusesController do
   render_views
   
-  before(:each) do
-    @conference ||= Factory(:conference)
-  end
-  
   describe "GET show" do
     it "should render show template" do
       attendee = Factory(:attendee)

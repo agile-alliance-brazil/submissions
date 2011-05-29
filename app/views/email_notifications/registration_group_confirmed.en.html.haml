@@ -1,0 +1,16 @@
+%p Dear #{h(@registration_group.contact_name)},
+
+%p The registration of company <strong>#{h(@registration_group.name)}</strong> priced #{number_to_currency(@registration_group.registration_fee, :locale => :pt)} at #{@conference_name} was confirmed successfully. The registration includes:
+
+%ul
+  - @registration_group.attendees.each do |attendee|
+    %li
+      #{h(attendee.full_name)} priced #{number_to_currency(attendee.base_price, :locale => :pt)}
+      - unless attendee.courses.empty?
+        %ul
+          - attendee.courses.each do |course|
+            %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
+
+%p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
+
+%small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

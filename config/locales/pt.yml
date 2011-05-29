@@ -189,6 +189,10 @@ pt:
               free_not_allowed: "Inscrição gratuita não está disponível."
             email:
               free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
+        registration_group:
+          attributes:
+            total_attendees:
+              incomplete: "não possui %{total} participantes cadastrados"
 
   # Formtastic
   formtastic:
@@ -350,6 +354,11 @@ pt:
         neighbourhood: "Bairro"
         zipcode: "CEP"
         total_attendees: "Quantidade de participantes"
+        registered_attendees: "Participantes incritos"
+        status: "Status"
+        payment_agreement: "Confirmo que a empresa realizou o pagamento no valor acima. O sistema notificará o responsável pela empresa por email de que a inscrição de todos os participantes foram confirmadas."
+        notes: "Anotações"
+        total: "Valor"
       payment_notification:
         transaction_id: "Código da transação"
         paid_at: "Data do pagamento"
@@ -494,6 +503,7 @@ pt:
     new_speaker_registration: "Palestrante"
     new_sponsor_registration: "Patrocinador"
     registered_attendees: "Gerenciar Inscrições"
+    registered_groups: "Gerenciar Empresas"
     pending_attendees: "Atualizar inscrições pendentes"
     attendees_summary: "Resumo das inscrições"
 
@@ -566,6 +576,9 @@ pt:
     pending_attendees:
       confirm:
         success: "Inscrição atualizada com sucesso."
+    registered_groups:
+      confirm:
+        success: "Inscrição confirmada com sucesso. O representante da empresa foi notificado por e-mail."
 
   session_types:
     tutorial:
@@ -625,6 +638,8 @@ pt:
       subject: "Inscrição na %{conference_name} confirmada"
     registration_group_pending:
       subject: "Pedido de inscrição em empresa na %{conference_name} enviado"
+    registration_group_confirmed:
+      subject: "Inscrição na %{conference_name} confirmada"
     registration_reminder:
       subject: "Nova forma de pagamento por Paypal para inscrições na %{conference_name}"
 
@@ -730,7 +745,15 @@ pt:
       confirmed: "Confirmado"
       paid: "Pagamento efetuado"
       all: "Todos"
-    
+  
+  registration_group:
+    status:
+      incomplete: "Incompleto"
+      complete: "Pendente"
+      paid: "Pagamento efetuado"
+      confirmed: "Confirmado"
+      all: "Todos"
+      
   generic:
     or: "ou"
     and: "e"
@@ -747,6 +770,7 @@ pt:
     sort_down: "descendente"
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
+    registration_id: "Número da inscrição"
     
   tips:
     users_from_last_year: "<strong>Dica:</strong> os usuários do ano passado ainda são válidos. Caso não lembre do nome do seu usuário ou sua senha, use o link acima para recuperá-la."

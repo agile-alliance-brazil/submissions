@@ -18,6 +18,8 @@ describe RegistrationGroup do
     should_allow_mass_assignment_of :neighbourhood
     should_allow_mass_assignment_of :zipcode
     should_allow_mass_assignment_of :total_attendees
+    should_allow_mass_assignment_of :payment_agreement
+    should_allow_mass_assignment_of :status_event
 
     should_not_allow_mass_assignment_of :id
   end
@@ -28,6 +30,8 @@ describe RegistrationGroup do
   
   context "associations" do
     should_have_many :attendees
+    should_have_many :payment_notifications, :as => :invoicer
+    should_have_many :course_attendances, :through => :attendees
   end
   
   context "validations" do
@@ -82,26 +86,157 @@ describe RegistrationGroup do
     should_not_allow_values_for :cnpj, "12345", "66.666.666/6666-66", "66666666666666"
     
     should_validate_numericality_of :total_attendees, :only_integer => true, :greater_than_or_equal_to => 5, :allow_blank => true
-  end
-  
-  describe "complete?" do
-    before do
-      @registration_group = Factory.build(:registration_group, :total_attendees => 5)
+        
+    it "should validate that payment agreement is checked on confirmation" do
+      registration_group = Factory(:registration_group, :payment_agreement => false)
+      registration_group.expects(:attendees).returns([1, 2, 3, 4, 5])
+      registration_group.complete.should be_true
+      registration_group.confirm.should be_false
+      registration_group.errors[:payment_agreement].should include("deve ser aceito")
     end
     
-    it "should not be complete while number of attendees is less than total" do
-      5.times do
-        @registration_group.should_not be_complete
-        @registration_group.attendees.build(Factory.attributes_for(:attendee))
+    it "should validate that number of attendees reaches total on completion" do
+      registration_group = Factory(:registration_group, :total_attendees => 5)
+      registration_group.complete.should be_false
+      registration_group.errors[:total_attendees].should include("não possui 5 participantes cadastrados")
+
+      registration_group.expects(:attendees).returns([1, 2, 3, 4, 5])
+      registration_group.complete.should be_true
+    end
+  end
+  
+  describe "callbacks" do
+    it "should set URI token after initialized" do
+      RegistrationGroup.expects(:generate_token).with(:uri_token).returns('abc123')
+      registration_group = Factory.build(:registration_group)
+      registration_group.uri_token.should == 'abc123'
+    end
+  end
+  
+  context "state machine" do
+    before(:each) do
+      @registration_group = Factory(:registration_group)
+    end
+    
+    context "State: incomplete" do
+      it "should be the initial state" do
+        @registration_group.should be_incomplete
+      end
+      
+      it "should not allow paying" do
+        @registration_group.pay.should be_false
+        @registration_group.should be_incomplete
+      end
+      
+      it "should not allow confirming" do
+        @registration_group.confirm.should be_false
+        @registration_group.should be_incomplete
+      end
+      
+      it "should allow completing" do
+        @registration_group.expects(:attendees).returns([1, 2, 3, 4, 5])
+        @registration_group.complete.should be_true
+        @registration_group.should be_complete
       end
     end
     
-    it "should be complete once number of attendees reaches total" do
-      5.times { @registration_group.attendees.build(Factory.attributes_for(:attendee)) }
-      @registration_group.should be_complete
+    context "State: complete" do
+      before(:each) do
+        @attendees = []
+        5.times { @attendees << Factory.build(:attendee) }
+        @registration_group.stubs(:attendees).returns(@attendees)
+        @registration_group.complete
+        @registration_group.should be_complete
+      end
+      
+      it "should allow confirming" do
+        @registration_group.confirm.should be_true
+        @registration_group.should_not be_complete
+        @registration_group.should be_confirmed
+      end
+      
+      it "should not allow completing again" do
+        @registration_group.complete.should be_false
+        @registration_group.should be_complete
+      end
+      
+      it "should allow pay" do
+        @registration_group.pay.should be_true
+        @registration_group.should be_paid
+      end
+      
+      it "should pay all attendees" do
+        @attendees.each {|a| a.expects(:pay).returns(true) }
+        @registration_group.pay.should be_true
+      end
+
+      it "should confirm all attendees" do
+        @attendees.each {|a| a.expects(:confirm).returns(true) }
+        @registration_group.confirm.should be_true
+      end
+      
+    end
+    
+    context "State: paid" do
+      before(:each) do
+        @attendees = []
+        5.times { @attendees << Factory.build(:attendee) }
+        @registration_group.stubs(:attendees).returns(@attendees)
+        @registration_group.complete
+        @registration_group.pay
+        @registration_group.should be_paid
+      end
+      
+      it "should allow confirming" do
+        @registration_group.confirm.should be_true
+        @registration_group.should_not be_paid
+        @registration_group.should be_confirmed
+      end
+      
+      it "should not allow paying again" do
+        @registration_group.pay.should be_false
+        @registration_group.should be_paid
+      end      
+
+      it "should not allow completing" do
+        @registration_group.complete.should be_false
+        @registration_group.should be_paid
+      end
+      
+      it "should confirm all attendees" do
+        @attendees.each {|a| a.expects(:confirm).returns(true) }
+        @registration_group.confirm.should be_true
+      end
+      
+    end
+    
+    context "State: confirmed" do
+      before(:each) do
+        @attendees = []
+        5.times { @attendees << Factory.build(:attendee) }
+        @registration_group.stubs(:attendees).returns(@attendees)
+        @registration_group.complete
+        @registration_group.confirm
+        @registration_group.should be_confirmed
+      end
+      
+      it "should not allow confirming again" do
+        @registration_group.confirm.should be_false
+        @registration_group.should be_confirmed
+      end
+      
+      it "should not allow paying" do
+        @registration_group.pay.should be_false
+        @registration_group.should be_confirmed
+      end
+      
+      it "should not allow completing" do
+        @registration_group.complete.should be_false
+        @registration_group.should be_confirmed
+      end
     end
   end
-  
+
   describe "registration fee" do
     before do
       @date = Time.zone.local(2011, 05, 01, 12, 0, 0)
@@ -159,4 +294,6 @@ describe RegistrationGroup do
       end
     end
   end
+  
+  # describe "course_attendances"
 end

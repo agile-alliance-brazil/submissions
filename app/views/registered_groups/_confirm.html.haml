@@ -1,0 +1,8 @@
+- if can?(:update, 'registered_groups')
+  = semantic_form_for(@registration_group, :url => registered_group_path(@registration_group), :method => :put) do |form|
+    = form.inputs do
+      - if @registration_group.complete? || @registration_group.paid?
+        = form.input :payment_agreement, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
+      = form.input :notes, :input_html => {:rows => 3, :tabindex => autotab, :disabled => @registration_group.confirmed?}
+    = form.buttons do
+      = form.commit_button :confirm_registered_attendee, :button_html => {:tabindex => autotab, :disabled => @registration_group.confirmed?}

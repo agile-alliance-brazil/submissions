@@ -1,0 +1,44 @@
+%h3 Instructions to complete the registration process
+
+.payments
+  .payment_type.left
+    %h4 OPTION 1: Pay with PayPal
+    %ol
+      %li
+        Pay the total amount of #{number_to_currency(registration_group.registration_fee, :locale => :pt)}
+        %p
+          = form_tag AppConfig[:paypal][:url] do
+            = hidden_field_tag :cmd, "_s-xclick"
+            = hidden_field_tag :encrypted, paypal_encrypted_registration_group(registration_group, registration_group_status_url(registration_group.uri_token, :protocol => 'https'), payment_notifications_url(:secret => AppConfig[:paypal][:secret]))
+            = image_submit_tag "https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif"
+            = link_to_function image_tag("https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif", :border => "0", :alt => "Pay with PayPal"), "javascript:window.open('https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/cps/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"
+        
+  .payment_type.right
+    %h4 OPTION 2: Pay with a bank transfer
+    %ol
+      %li
+        Pay the total amount of #{number_to_currency(registration_group.registration_fee, :locale => :pt)}:
+        %pre
+          PAYING IN USD:
+          Bank: New York Citybank
+          Account: 36026886 - Caixa Econômica Federal
+          SWIFT Code: CITIUS33
+        %pre
+          PAYING IN EUR:
+          Bank: CommerzBank Ag/Frankfurt
+          Account: 400871228300EUR - Caixa Econômica Federal
+          SWIFT Code: COBADEFF
+      %li Write your registration number (#{registration_group.to_param}) in your deposit confirmation receipt
+      %li Send your deposit confirmation receipt to the email #{mail_to AppConfig[:organizer][:email]} cc'ing to #{mail_to AppConfig[:organizer][:cced_email]}
+
+%hr/
+
+%h3 Important
+
+- deadline = registration_group.attendees.first.registration_date.to_date + 5
+- total_courses = registration_group.course_attendances.size
+
+- if total_courses > 0
+  %p You must make the online payment or send your deposit confirmation receipt until #{I18n.l(deadline)}. After that date, #{total_courses > 1 ? 'places' : 'a place'} in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
+  
+%p After #{I18n.l([registration_group.registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.

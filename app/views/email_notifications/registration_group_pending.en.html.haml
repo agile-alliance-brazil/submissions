@@ -11,31 +11,15 @@
           - attendee.courses.each do |course|
             %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(attendee.registration_date), :locale => :pt)}
 
-%p In order to complete the registration process, you must pay the total amount of #{number_to_currency(@group.registration_fee, :locale => :pt)}. In order to do so, please follow these steps:
-%ol
-  %li 
-    If you are paying in USD:
-    %br Bank: New York Citybank
-    %br Account: 36026886 - Caixa Econômica Federal
-    %br SWIFT Code: CITIUS33
-    %br
-    %br If you are paying in EUR:
-    %br Bank: CommerzBank Ag/Frankfurt
-    %br Account: 400871228300EUR - Caixa Econômica Federal
-    %br SWIFT Code: COBADEFF
-    %br
-    %br Otherwise please contact #{mail_to AppConfig[:organizer][:email]} to discuss other possible payment methods.
-  %li Write your registration number (#{@group.to_param}) in your deposit voucher
-  %li Send your voucher to the email #{mail_to AppConfig[:organizer][:email]} cc'ing #{mail_to AppConfig[:organizer][:cced_email]}
+%p In order to complete the registration process, please follow the instructions on the page:
 
-%h3 Important:
+%p= link_to registration_group_status_url(@group.uri_token, :locale => 'en'), registration_group_status_url(@group.uri_token, :locale => 'en')
 
-- deadline = @group.attendees.first.registration_date.to_date + 5
-- total_courses = @group.attendees.map {|attendee| attendee.courses.size}.sum
+%p You can access this page at any time to make the payment and check the status of this company's registrations, so keep this e-mail and link for future reference. Your registration number is:
+
 %p
-  - if total_courses > 0
-    You must send your deposit voucher until #{I18n.l(deadline)}. After that date, #{total_courses > 1 ? 'places' : 'a place'} in the #{total_courses > 1 ? 'courses' : 'course'} will no longer be guaranteed. To check place availability in any course, please contact #{mail_to AppConfig[:organizer][:email]}.
-  %br After #{I18n.l([@group.registration_period.end_at.to_date, deadline].max)}, the registration amounts will be updated according to the table available at #{link_to "http://www.agilebrazil.com.br/2011/en/inscricoes.php", "http://www.agilebrazil.com.br/2011/en/inscricoes.php"}.
+  %strong Registration Number:
+  = @group.to_param
 
 %p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
 
