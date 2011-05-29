@@ -7,9 +7,9 @@
       = content_for?(:title) ? yield(:title) : t('title.untitled')
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "/favicon.ico"}/
+    = csrf_meta_tag
     = include_stylesheets :application
     = include_javascripts :application
-    = csrf_meta_tag
 
     = yield(:head)
   

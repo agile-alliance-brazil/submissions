@@ -1,7 +1,7 @@
 javascripts:
   application:
     - public/javascripts/jquery.js
-    - public/javascripts/rails.js
+    - public/javascripts/jquery_ujs.js
     - public/javascripts/jquery.autocomplete.min.js
     - public/javascripts/jquery.textarearesizer.js
     - public/javascripts/jquery.progressbar.min.js

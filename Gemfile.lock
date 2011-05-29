@@ -70,8 +70,8 @@ GEM
     capistrano (2.5.20)
       highline
       highline
-      net-scp (>= 1.0.0)
       net-scp
+      net-scp (>= 1.0.0)
       net-sftp
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
@@ -127,6 +127,9 @@ GEM
     jammit (0.6.0)
       closure-compiler (>= 0.1.0)
       yui-compressor (>= 0.9.1)
+    jquery-rails (1.0.9)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json_pure (1.5.1)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -263,6 +266,7 @@ DEPENDENCIES
   hoptoad_notifier (~> 2.4.8)
   inherited_resources (~> 1.2.1)
   jammit (~> 0.6.0)
+  jquery-rails
   metric_fu (~> 2.1.1)
   mocha (~> 0.9.12)
   mysql2 (~> 0.2.7)
