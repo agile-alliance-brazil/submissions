@@ -345,7 +345,9 @@ en:
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
     new_registration: "Individual"
+    new_speaker_registration: "Speaker"
     new_registration_group: "Company"
+    new_sponsor_group: "Sponsor"
     registered_attendees: "Manage registrations"
   
   text:
@@ -397,6 +399,7 @@ en:
     attendee:
       create:
         success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
+        free_not_allowed: "Registration failed. Free registration is not available. Please select another registration type"
       news: "<a href='/registration_groups/new?locale=en'>Click here</a> for company registration."
       mail:
         fail: "There was a problem while sending your confirmation email. Your registration was received but we could not deliver the confirmation email. We will try later but if you do not receive it in 24 hours, please contact us at contato@agilebrazil.com."
@@ -548,6 +551,7 @@ en:
     student: "Student"
     group: "Company"
     individual: "Individual"
+    free: "Free"
 
   course:
     csm:

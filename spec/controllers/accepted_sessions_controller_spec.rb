@@ -18,7 +18,7 @@ describe AcceptedSessionsController do
   end
 
   it "index action should find accepted sessions" do
-    Session.expects(:for_conference).with(@conference).returns(Session)
+    Session.expects(:for_conference).at_least(1).with(@conference).returns(Session)
     Session.expects(:with_state).with(:accepted).returns([])
     get :index
     assigns(:sessions).should == []

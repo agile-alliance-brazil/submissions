@@ -483,6 +483,8 @@ pt:
     edit_review_decision: "Editar Parecer"
     new_registration: "Individual"
     new_registration_group: "Empresa"
+    new_speaker_registration: "Palestrante"
+    new_sponsor_registration: "Patrocinador"
     registered_attendees: "Gerenciar Inscrições"
 
   text:
@@ -534,6 +536,7 @@ pt:
     attendee:
       create:
         success: "Inscrição submetida com sucesso. Instruções para confirmação e pagamento foram enviadas por e-mail."
+        free_not_allowed: "Inscrição falhou. Inscrição gratuita não está disponível. Por favor escolha outro tipo de inscrição"
       news: "<a href='/registration_groups/new?locale=pt'>Clique aqui</a> para cadastro de empresa."
       mail:
         fail: "Ocorreu um problema para enviar o email de confirmação. Sua inscrição foi recebida mas não foi possível entregar o email de confirmação. Tentaremos mais tarde mas se não receber o email em 24 horas, entre em contato via contato@agilebrazil.com."
@@ -685,6 +688,7 @@ pt:
     student: "Estudante"
     group: "Empresa"
     individual: "Individual"
+    free: "Gratuita"
   
   course:
     csm:

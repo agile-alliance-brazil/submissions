@@ -39,18 +39,42 @@ describe AttendeesController do
       end
     end
 
-    describe "for sponsors and speakers registration" do
-      it "should render flash news" do
-        get :new
-        flash[:news].should_not be_nil
+    describe "for sponsors" do
+      before do
+        @user = Factory(:user)
+        @user.add_role :registrar
+        @user.save!
+        sign_in @user
+        disable_authorization
       end
-
-      it "should load registration types without groups but with free " do
+      
+      it "should load registration types without groups but with free" do
         get :new
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.student'))
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.free'))
         assigns(:registration_types).size.should == 3
+      end
+    end
+
+    describe "for speakers" do
+      before do
+        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        sign_in Factory(:user)
+        disable_authorization
+      end
+      
+      it "should load registration types without groups but with free" do
+        get :new
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.student'))
+        assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.free'))
+        assigns(:registration_types).size.should == 3
+      end
+      
+      it "should pre select free registration group for attendee" do
+        get :new
+        assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
       end
     end
     
@@ -75,6 +99,14 @@ describe AttendeesController do
       it "should set registration_type to group" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
+      end
+      
+      it "should pre select free registration group for attendee with session approved" do
+        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        sign_in Factory(:user)
+        disable_authorization
+        get :new, :registration_group_id => @registration_group.id
+        assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
       end
       
       it "should set organization name from registration group" do
@@ -129,14 +161,36 @@ describe AttendeesController do
       end
       
       it "should not allow free registration type" do
-        post :create, :attendee => {:registration_type => 4}
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
+        response.should render_template(:new)
+        flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
+      end
+    end
+    
+    describe "for sponsor registration" do    
+      before do
+        @user = Factory(:user)
+        @user.add_role :registrar
+        @user.save!
+        sign_in @user
+        disable_authorization
+      end
+
+      it "should allow free registration type" do
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         response.should render_template(:new)
       end
     end
     
-    describe "for sponsor and speaker registration" do    
+    describe "for speaker registration" do    
+      before do
+        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        sign_in Factory(:user)
+        disable_authorization
+      end
+
       it "should allow free registration type" do
-        post :create, :attendee => {:registration_type => 4}
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         response.should render_template(:new)
       end
     end
@@ -171,8 +225,9 @@ describe AttendeesController do
       end
 
       it "should not allow free registration type" do
-        post :create, :attendee => {:registration_type => 4}
-        response.should render_template(:new)
+        RegistrationGroup.any_instance.stubs(:complete?).returns(false)
+        post :create, :registration_group_id => @registration_group.id, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
+        assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
       end
     end
   end
