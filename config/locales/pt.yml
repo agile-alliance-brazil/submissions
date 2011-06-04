@@ -450,6 +450,7 @@ pt:
     registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) na empresa %{registration_group}"
     registration_group: "Nova inscrição de empresa"
     attendee: "Detalhes da inscrição"
+    attendees_summary: "Resumo das inscrições"
 
   actions:
     submission_date: "Prazo para submissões"

@@ -2,14 +2,19 @@ class AttendeesController < InheritedResources::Base
   belongs_to :registration_group, :optional => true
   
   skip_before_filter :authenticate_user!
-  actions :new, :create
+  actions :index, :new, :create
   
   before_filter :validate_total_attendees, :only => [:new, :create]
   before_filter :load_registration_types, :only => [:new, :create]
   before_filter :validate_free_registration, :only => [:create]
 
   def index
-    redirect_to new_attendee_path
+    if !current_user.blank? && current_user.registrar?
+      @attendees = Attendee.all
+      index!
+    else
+      redirect_to new_attendee_path
+    end
   end
   
   def new

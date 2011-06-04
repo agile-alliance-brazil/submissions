@@ -313,6 +313,7 @@ en:
     registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on company %{registration_group}"
     registration_group: "New company registration"
     attendee: "Registration details"
+    attendees_summary: "Registration summary"
   
   actions:
     submission_date: "Submission deadline"

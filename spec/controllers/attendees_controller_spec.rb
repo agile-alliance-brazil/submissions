@@ -8,9 +8,26 @@ describe AttendeesController do
   end
   
   describe "GET index" do
-    it "should redirect to new attendee form" do
+    it "should redirect to new attendee form when not authorized" do
       get :index
       response.should redirect_to(new_attendee_path)
+    end
+    
+    describe "should present a summary of all attendees states for authorized users" do
+      before do
+        @user = Factory(:user)
+        @user.add_role :registrar
+        @user.save!
+        sign_in @user
+        disable_authorization
+      end
+      
+      it "should assign all attendees" do
+        attendees = [Factory(:attendee)]
+        Attendee.should_receive(all).and_return(attendees)
+        get :index
+        assigns(:attendees).should == attendees
+      end
     end
   end
   
