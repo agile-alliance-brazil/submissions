@@ -177,8 +177,9 @@ describe AttendeesController do
       end
 
       it "should allow free registration type" do
+        Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
-        response.should render_template(:new)
+        response.should redirect_to(root_path)
       end
     end
     
@@ -190,8 +191,9 @@ describe AttendeesController do
       end
 
       it "should allow free registration type" do
+        Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
-        response.should render_template(:new)
+        response.should redirect_to(root_path)
       end
     end
     
@@ -228,6 +230,7 @@ describe AttendeesController do
         RegistrationGroup.any_instance.stubs(:complete?).returns(false)
         post :create, :registration_group_id => @registration_group.id, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
+        response.should render_template(:new)
       end
     end
   end

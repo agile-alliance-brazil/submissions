@@ -71,7 +71,7 @@ class AttendeesController < InheritedResources::Base
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.group').id
       attributes[:organization] = parent.name
     end
-    if user_signed_in? && current_user.has_approved_long_session?(current_conference)
+    if !current_user.blank? && current_user.has_approved_long_session?(current_conference)
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.free').id
     end
     @attendee ||= end_of_association_chain.send(method_for_build, attributes)
@@ -92,13 +92,14 @@ class AttendeesController < InheritedResources::Base
   end
   
   def validate_free_registration
-    if build_resource.registration_type == RegistrationType.find_by_title('registration_type.free')
-      flash.now[:error] = t('flash.attendee.create.free_not_allowed') unless allowed_free_registration?
+    if build_resource.registration_type == RegistrationType.find_by_title('registration_type.free') && !allowed_free_registration?
+      build_resource.errors[:registration_type_id] << t('activerecord.errors.models.attendee.attributes.registration_type_id')
+      flash.now[:error] = t('flash.attendee.create.free_not_allowed') 
       render :new and return false
     end
   end
   
   def allowed_free_registration?
-    user_signed_in? && (current_user.has_approved_long_session?(current_conference) || current_user.registrar?)
+    !current_user.blank? && (current_user.has_approved_long_session?(current_conference) || current_user.registrar?) && !parent?
   end
 end
