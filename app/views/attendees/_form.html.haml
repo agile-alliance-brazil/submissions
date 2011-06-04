@@ -150,6 +150,8 @@
         price += #{Course.find(3).price(@attendee.registration_date)};
       } else if($(courses[i]).val() == 4) {
         price += #{Course.find(4).price(@attendee.registration_date)};
+      } else if($(courses[i]).val() == 5) {
+        price += #{Course.find(5).price(@attendee.registration_date)};
       }
     }
   
@@ -165,8 +167,8 @@
       condition = function(current) { return true; };
     } else {
       var first_course = checked_courses[0];
-      if($(first_course).val() > 2) {
-        condition = function(current) { return $(current).val() < 3 };
+      if($(first_course).val() == 3 || $(first_course).val() == 4) {
+        condition = function(current) { return $(current).val() != 3 &&  $(current).val() != 4 };
       } else {
         condition = function(current) { return current != first_course };
       }

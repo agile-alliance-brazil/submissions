@@ -185,6 +185,8 @@ pt:
             courses:
               compatible: "não é possível participar de todos os cursos escolhidos. Por favor verifique a <a href='http://www.agilebrazil.com/2011/pt/programacao.php' target='_blank'>programação dos cursos</a>."
               limit_reached: "vagas esgotadas para o curso %{course}."
+            registration_type_id:
+              free_not_allowed: "Inscrição gratuita não está disponível."
 
   # Formtastic
   formtastic:
@@ -703,6 +705,9 @@ pt:
     tdd:
       name: "TDD"
       full_name: "TDD: do básico ao avançado"
+    psm:
+      name: "PSM"
+      full_name: "Professional Scrum Master"
   
   attendee:
     status:

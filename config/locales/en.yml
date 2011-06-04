@@ -52,6 +52,8 @@ en:
             courses:
               compatible: "cannot attend all chosen courses. Please check the <a href='http://www.agilebrazil.com/2011/en/programacao.php' target='_blank'>program</a>."
               limit_reached: "the %{course} course has reached the limit number of participants."
+            registration_type_id:
+              free_not_allowed: "Inscrição gratuita não está disponível."
             
   formtastic:
     :yes: "Yes"
@@ -566,6 +568,9 @@ en:
     tdd:
       name: "TDD"
       full_name: "TDD: from basic to advanced"
+    psm:
+      name: "PSM"
+      full_name: "Professional Scrum Master"
 
   attendee:
     status:
