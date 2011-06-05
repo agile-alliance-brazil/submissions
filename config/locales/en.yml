@@ -557,6 +557,10 @@ en:
     individual: "Individual"
     free: "Free"
 
+  registration:
+    amount: "Amount"
+    status: "Registration status on %{date}"
+
   course:
     csm:
       name: "CSM"

@@ -11,6 +11,7 @@ class AttendeesController < InheritedResources::Base
   def index
     if !current_user.blank? && current_user.registrar?
       @attendees = Attendee.all
+      @course_attendances = CourseAttendance.all
       index!
     else
       redirect_to new_attendee_path

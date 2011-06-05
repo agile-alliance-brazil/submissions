@@ -694,6 +694,10 @@ pt:
     individual: "Individual"
     free: "Gratuita"
   
+  registration:
+    amount: "Quantidade"
+    status: "Status das inscrição para %{date}"
+  
   course:
     csm:
       name: "CSM"
