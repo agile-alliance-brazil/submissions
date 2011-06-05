@@ -1,0 +1,26 @@
+- title t('title.attendees_summary')
+
+%table
+  %tr
+    %th= t('formtastic.labels.attendee.status')
+    %th= t('formtastic.labels.registration_group.total_attendees')
+    %th= t('formtastic.labels.attendee.total')
+  %tr
+    %th= t("attendee.status.pending")
+    %td= @attendees.select{|a| a.pending?}.size
+    %td= @attendees.select{|a| a.pending?}.inject(0){|s,a| s+=a.registration_fee}
+  %tr
+    %th= t("attendee.status.paid")
+    %td= @attendees.select{|a| a.paid?}.size
+    %td= @attendees.select{|a| a.paid?}.inject(0){|s,a| s+=a.registration_fee}
+  %tr
+    %th= t("attendee.status.confirmed")
+    %td= @attendees.select{|a| a.confirmed?}.size
+    %td= @attendees.select{|a| a.confirmed?}.inject(0){|s,a| s+=a.registration_fee}
+  %tr
+    %th= t("registration_total.total")
+    %td= @attendees.size
+    %td= @attendees.inject(0){|s,a| s+=a.registration_fee}
+  
+    
+    

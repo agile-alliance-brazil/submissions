@@ -489,6 +489,7 @@ pt:
     new_speaker_registration: "Palestrante"
     new_sponsor_registration: "Patrocinador"
     registered_attendees: "Gerenciar Inscrições"
+    attendees_summary: "Resumo das inscrições"
 
   text:
     for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"

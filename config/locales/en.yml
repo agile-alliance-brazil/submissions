@@ -352,6 +352,7 @@ en:
     new_registration_group: "Company"
     new_sponsor_group: "Sponsor"
     registered_attendees: "Manage registrations"
+    attendees_summary: "Registration summary"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
