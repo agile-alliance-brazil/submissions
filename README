@@ -7,7 +7,7 @@ KNOWN ISSUES AFTER UPGRADE:
 TODO:
 
  * Status page for group registration
- 
+ * Refactor the attendees summary page to put all logic into the model/controller instead of the view
  * E-mail accepted authors with registration instructions
 
  * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
