@@ -695,7 +695,7 @@ pt:
     free: "Gratuita"
   
   registration:
-    amount: "Quantidade"
+    quantity: "Quantidade"
     status: "Status das inscrição para %{date}"
   
   course:
