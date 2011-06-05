@@ -29,16 +29,17 @@
     %td= @attendees.size
     %td= number_to_currency(@attendees.inject(0){|s,a| s+=a.base_price})
   - RegistrationType.all.each do |registration_type|
+    - atendeees_for_type = @attendees.select{|a| a.registration_type == registration_type}
     %tr
       %td= t(registration_type.title)
-      %td= @attendees.select{|a| a.registration_type == registration_type && a.pending?}.size
-      %td= number_to_currency(@attendees.select{|a| a.registration_type == registration_type && a.pending?}.inject(0){|s,a| s+=a.base_price})
-      %td= @attendees.select{|a| a.registration_type == registration_type && a.paid?}.size
-      %td= number_to_currency(@attendees.select{|a| a.registration_type == registration_type && a.paid?}.inject(0){|s,a| s+=a.base_price})
-      %td= @attendees.select{|a| a.registration_type == registration_type && a.confirmed?}.size
-      %td= number_to_currency(@attendees.select{|a| a.registration_type == registration_type && a.confirmed?}.inject(0){|s,a| s+=a.base_price})
-      %td= @attendees.select{|a| a.registration_type == registration_type}.size
-      %td= number_to_currency(@attendees.select{|a| a.registration_type.title == "registration_type.student"}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.select{|a| a.pending?}.size
+      %td= number_to_currency(atendeees_for_type.select{|a| a.pending?}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.select{|a| a.paid?}.size
+      %td= number_to_currency(atendeees_for_type.select{|a| a.paid?}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.select{|a| a.confirmed?}.size
+      %td= number_to_currency(atendeees_for_type.select{|a| a.confirmed?}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.size
+      %td= number_to_currency(atendeees_for_type.inject(0){|s,a| s+=a.base_price})
   %tr.total
     %td= t('registration_total.courses')
     %td= @attendees.select{|a| a.pending? && a.courses.size > 0}.map{|a| a.courses}.size
@@ -50,16 +51,17 @@
     %td= @attendees.select{|a| a.courses.size > 0}.size
     %td= number_to_currency(@attendees.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
   - Course.all.each do |course|
+    - atendeees_for_course = @attendees.select{|a| a.courses.include?(course)}
     %tr
       %td= t(course.name)
-      %td= @attendees.select{|a| a.pending? && a.courses.include?(course) }.size
-      %td= number_to_currency( @attendees.select{|a| a.pending? && a.courses.include?(course)}.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
-      %td= @attendees.select{|a| a.paid? && a.courses.include?(course)}.size
-      %td= number_to_currency(@attendees.select{|a| a.paid?  && a.courses.include?(course)}.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
-      %td= @attendees.select{|a| a.confirmed? && a.courses.include?(course)}.size
-      %td= number_to_currency(@attendees.select{|a| a.confirmed?  && a.courses.include?(course)}.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
-      %td= @attendees.select{|a| a.courses.include?(course)}.size
-      %td= number_to_currency(@attendees.select{|a| a.courses.include?(course)}.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.select{|a| a.pending? }.size
+      %td= number_to_currency( atendeees_for_course.select{|a| a.pending? }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.select{|a| a.paid?}.size
+      %td= number_to_currency(atendeees_for_course.select{|a| a.paid? }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.select{|a| a.confirmed? }.size
+      %td= number_to_currency(atendeees_for_course.select{|a| a.confirmed?}.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.size
+      %td= number_to_currency(atendeees_for_course.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
   %tr.total
     %td= t("registration_total.total")
     %td
