@@ -28,6 +28,10 @@ describe Ability do
       @ability.should be_able_to(:show, Attendee)
     end
     
+    it "cannot see attendee summary" do
+      @ability.should_not be_able_to(:index, Attendee)
+    end
+    
     describe "can register a new attendee if:" do
       before(:each) do
         Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE - 3.days)

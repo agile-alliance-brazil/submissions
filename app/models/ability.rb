@@ -52,6 +52,7 @@ class Ability
       expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class) &&
       Time.zone.now <= REGISTRATION_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def admin
