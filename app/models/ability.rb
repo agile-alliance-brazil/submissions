@@ -4,7 +4,7 @@ class Ability
   SESSION_SUBMISSION_DEADLINE = Time.zone.local(2011, 3, 27, 23, 59, 59)
   REVIEW_DEADLINE = Time.zone.local(2011, 4, 17, 23, 59, 59)
   AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
-  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 5, 27, 23, 59, 59)
+  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 6, 07, 23, 59, 59)
   REGISTRATION_DEADLINE = Time.zone.local(2011, 6, 21, 23, 59, 59)
 
   def initialize(user, conference, params={})
