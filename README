@@ -7,6 +7,8 @@ KNOWN ISSUES AFTER UPGRADE:
 TODO:
 
  * Status page for group registration
+ * Automatically confirm attendees with valid paypal payments
+ * Do not email payment information for attendees with free registration and no courses
  * Refactor the attendees summary page to put all logic into the model/controller instead of the view
  * E-mail accepted authors with registration instructions
 
