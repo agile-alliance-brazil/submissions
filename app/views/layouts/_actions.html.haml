@@ -21,6 +21,7 @@
       - if can? :read, 'registered_attendees'
         %li= link_to(t('actions.new_sponsor_registration'), new_attendee_path)
         %li= link_to(t('actions.registered_attendees'), registered_attendees_path)
+      - if can? :index, Attendee
         %li= link_to(t('actions.attendees_summary'), attendees_path)
 
   %h4= t('actions.section.session')

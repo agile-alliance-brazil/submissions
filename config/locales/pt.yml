@@ -187,6 +187,8 @@ pt:
               limit_reached: "vagas esgotadas para o curso %{course}."
             registration_type_id:
               free_not_allowed: "Inscrição gratuita não está disponível."
+            email:
+              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
 
   # Formtastic
   formtastic:
@@ -695,8 +697,8 @@ pt:
     free: "Gratuita"
   
   registration:
-    quantity: "Quantidade"
-    status: "Status das inscrição para %{date}"
+    amount: "Quantidade"
+    status: "Status das inscrições para %{date}"
   
   course:
     csm:

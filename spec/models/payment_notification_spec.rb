@@ -30,13 +30,13 @@ describe PaymentNotification do
       
       it "succeed if status is Completed and params are valid" do
         payment_notification = Factory(:payment_notification, @valid_args)
-        @attendee.should be_paid
+        @attendee.should be_confirmed
       end
       
       it "succeed if amount paid in full" do
         @valid_params.merge!(:mc_gross => @attendee.registration_fee.to_i)
         payment_notification = Factory(:payment_notification, @valid_args)
-        @attendee.should be_paid
+        @attendee.should be_confirmed
       end
 
       it "fails if secret doesn't match" do

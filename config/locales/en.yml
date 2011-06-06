@@ -54,6 +54,8 @@ en:
               limit_reached: "the %{course} course has reached the limit number of participants."
             registration_type_id:
               free_not_allowed: "Inscrição gratuita não está disponível."
+            email:
+              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
             
   formtastic:
     :yes: "Yes"

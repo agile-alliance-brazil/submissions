@@ -9,7 +9,7 @@ class AttendeesController < InheritedResources::Base
   before_filter :validate_free_registration, :only => [:create]
 
   def index
-    if !current_user.blank? && current_user.registrar?
+    if !current_user.blank? && (current_user.admin? || current_user.registrar?)
       @attendees = Attendee.all
       @course_attendances = CourseAttendance.all
       index!
@@ -71,7 +71,12 @@ class AttendeesController < InheritedResources::Base
   
   private
   def build_resource
-    attributes = params[:attendee] || {}
+    attributes = params[:attendee]
+    if(allowed_free_registration? && !current_user.registrar?)
+      attributes ||= current_user.attributes
+    else
+      attributes ||= {}
+    end
     attributes[:conference_id] = current_conference.id
     if parent?
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.group').id
@@ -98,11 +103,21 @@ class AttendeesController < InheritedResources::Base
   end
   
   def validate_free_registration
-    if build_resource.registration_type == RegistrationType.find_by_title('registration_type.free') && !allowed_free_registration?
-      build_resource.errors[:registration_type_id] << t('activerecord.errors.models.attendee.attributes.registration_type_id')
+    if !is_free?(build_resource)
+      return true
+    elsif !allowed_free_registration?
+      build_resource.errors[:registration_type_id] << t('activerecord.errors.models.attendee.attributes.registration_type_id.free_not_allowed')
       flash.now[:error] = t('flash.attendee.create.free_not_allowed') 
       render :new and return false
+    elsif !current_user.registrar? && build_resource.email != current_user.email
+      build_resource.errors[:email] << t('activerecord.errors.models.attendee.attributes.email.free_not_allowed')
+      flash.now[:error] = t('flash.attendee.create.free_not_allowed')
+      render :new and return false
     end
+  end
+  
+  def is_free?(attendee)
+    attendee.registration_type == RegistrationType.find_by_title('registration_type.free')
   end
   
   def allowed_free_registration?

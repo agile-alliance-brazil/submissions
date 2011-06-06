@@ -159,6 +159,18 @@ Factory.define :attendee do |a|
   a.zipcode "12345000"
 end
 
+Factory.define :course do |c|
+  c.association :conference
+  c.name "Course"
+  c.full_name "That big course of ours"
+  c.combine false
+end
+
+Factory.define :course_attendance do |ca|
+  ca.association :course
+  ca.association :attendee  
+end
+
 Factory.define :registration_group do |a|
   a.name "Big Corp"
   a.contact_name "Contact Name"
