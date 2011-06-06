@@ -22,10 +22,10 @@
     %td Evento
     %td= @attendees.select{|a| a.pending?}.size
     %td= number_to_currency(@attendees.select{|a| a.pending?}.inject(0){|s,a| s+=a.base_price})
-    %td= @attendees.select{|a| a.paid? && a.payment_notifications.size > 0}.size
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.base_price})
-    %td= @attendees.select{|a| a.paid? && a.payment_notifications.size == 0}.size
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.base_price})
+    %td= @attendees.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.size
+    %td= number_to_currency(@attendees.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.base_price})
+    %td= @attendees.select{|a| a.confirmed? && a.payment_notifications.size == 0}.size
+    %td= number_to_currency(@attendees.select{|a| a.confirmed? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.base_price})
     %td= @attendees.size
     %td= number_to_currency(@attendees.inject(0){|s,a| s+=a.base_price})
   - RegistrationType.all.each do |registration_type|
@@ -34,20 +34,20 @@
       %td= t(registration_type.title)
       %td= atendeees_for_type.select{|a| a.pending?}.size
       %td= number_to_currency(atendeees_for_type.select{|a| a.pending?}.inject(0){|s,a| s+=a.base_price})
-      %td= atendeees_for_type.select{|a| a.paid? && a.payment_notifications.size > 0}.size
-      %td= number_to_currency(atendeees_for_type.select{|a| a.paid? && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.base_price})
-      %td= atendeees_for_type.select{|a| a.paid? && a.payment_notifications.size == 0}.size
-      %td= number_to_currency(atendeees_for_type.select{|a| a.paid? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.size
+      %td= number_to_currency(atendeees_for_type.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.base_price})
+      %td= atendeees_for_type.select{|a| a.confirmed? && a.payment_notifications.size == 0}.size
+      %td= number_to_currency(atendeees_for_type.select{|a| a.confirmed? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.base_price})
       %td= atendeees_for_type.size
       %td= number_to_currency(atendeees_for_type.inject(0){|s,a| s+=a.base_price})
   %tr.total
     %td= t('registration_total.courses')
     %td= @attendees.select{|a| a.pending? && a.courses.size > 0}.map{|a| a.courses}.size
     %td= number_to_currency(@attendees.select{|a| a.pending? && a.courses.size > 0}.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
-    %td= @attendees.select{|a| a.paid? && a.payment_notifications.size > 0 && a.courses.size > 0}.size
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size > 0 && a.courses.size > 0}.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
-    %td= @attendees.select{|a| a.paid? && a.payment_notifications.size == 0 && a.courses.size > 0}.size
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size == 0 && a.courses.size > 0}.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
+    %td= @attendees.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0 && a.courses.size > 0}.size
+    %td= number_to_currency(@attendees.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0 && a.courses.size > 0}.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
+    %td= @attendees.select{|a| a.confirmed? && a.payment_notifications.size == 0 && a.courses.size > 0}.size
+    %td= number_to_currency(@attendees.select{|a| a.confirmed? && a.payment_notifications.size == 0 && a.courses.size > 0}.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
     %td= @attendees.select{|a| a.courses.size > 0}.size
     %td= number_to_currency(@attendees.inject(0){|s,a| s+=(a.registration_fee-a.base_price)})
   - Course.all.each do |course|
@@ -56,10 +56,10 @@
       %td= t(course.name)
       %td= atendeees_for_course.select{|a| a.pending? }.size
       %td= number_to_currency( atendeees_for_course.select{|a| a.pending? }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
-      %td= atendeees_for_course.select{|a| a.paid? && a.payment_notifications.size > 0}.size
-      %td= number_to_currency(atendeees_for_course.select{|a| a.paid? && a.payment_notifications.size > 0 }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
-      %td= atendeees_for_course.select{|a| a.paid? && a.payment_notifications.size == 0 }.size
-      %td= number_to_currency(atendeees_for_course.select{|a| a.paid? && a.payment_notifications.size == 0 }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.size
+      %td= number_to_currency(atendeees_for_course.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0 }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
+      %td= atendeees_for_course.select{|a| a.confirmed? && a.payment_notifications.size == 0 }.size
+      %td= number_to_currency(atendeees_for_course.select{|a| a.confirmed? && a.payment_notifications.size == 0 }.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
       %td= atendeees_for_course.size
       %td= number_to_currency(atendeees_for_course.inject(0){|s,a| s+=RegistrationPeriod.for(a.registration_date).first.price_for_course(course) })
   %tr.total
@@ -67,8 +67,8 @@
     %td
     %td= number_to_currency(@attendees.select{|a| a.pending?}.inject(0){|s,a| s+=a.registration_fee})
     %td
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.registration_fee})
+    %td= number_to_currency(@attendees.select{|a| (a.paid? || a.confirmed?) && a.payment_notifications.size > 0}.inject(0){|s,a| s+=a.registration_fee})
     %td
-    %td= number_to_currency(@attendees.select{|a| a.paid? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.registration_fee})
+    %td= number_to_currency(@attendees.select{|a| a.confirmed? && a.payment_notifications.size == 0}.inject(0){|s,a| s+=a.registration_fee})
     %td
     %td= number_to_currency(@attendees.inject(0){|s,a| s+=a.registration_fee})

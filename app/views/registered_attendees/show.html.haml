@@ -46,7 +46,7 @@
   %dt= t('formtastic.labels.attendee.zipcode')
   %dd= @attendee.zipcode
 
-- if @attendee.paid?
+- if @attendee.payment_notifications.size > 0
   %h3= t('formtastic.titles.attendee_payment')
   
   - @attendee.payment_notifications.each do |payment|
