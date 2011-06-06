@@ -85,6 +85,7 @@ class Ability
     can(:manage, 'withdraw_sessions') do
       find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def organizer
@@ -110,6 +111,7 @@ class Ability
       expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
           !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def reviewer
@@ -122,6 +124,7 @@ class Ability
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
+    cannot(:index, Attendee)
   end
 
   def registrar

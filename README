@@ -8,7 +8,6 @@ TODO:
 
  * Status page for group registration
  * Automatically confirm attendees with valid paypal payments
- * Do not email payment information for attendees with free registration and no courses
  * Refactor the attendees summary page to put all logic into the model/controller instead of the view
  * E-mail accepted authors with registration instructions
 
@@ -61,6 +60,9 @@ IN PROGRESS:
  
 DONE:
 
+ * Do not email payment information for attendees with free registration and no courses -- Hugo
+ * Allow free registrations for speakers and sponsors -- Hugo
+ * Add a summary table showing payment informations for all registered users -- Hugo
  * Test scenarios for speaker registration within group -- Danilo
  * Registration for authors -- Hugo & Danilo
  * Registration for sponsors -- Hugo & Danilo

@@ -8,9 +8,9 @@ describe AttendeesController do
   end
   
   describe "GET index" do
-    it "should redirect to new attendee form when not authorized" do
+    it "should redirect to root when not authorized" do
       get :index
-      response.should redirect_to(new_attendee_path)
+      response.should redirect_to(root_path)
     end
     
     describe "should present a summary of all attendees states for authorized users" do
@@ -198,7 +198,7 @@ describe AttendeesController do
       it "should send pending registration e-mail" do
         EmailNotifications.expects(:registration_pending).returns(@email)
         Attendee.any_instance.stubs(:valid?).returns(true)
-        post :create
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.individual').id}
       end
       
       it "should not allow free registration type" do
@@ -222,6 +222,14 @@ describe AttendeesController do
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => "another"+@user.email}
         response.should redirect_to(root_path)
       end
+
+      it "should not send pending registration e-mail for free registration without courses" do
+        EmailNotifications.expects(:registration_pending).never
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+        
+        response.should redirect_to(root_path)
+      end
     end
     
     describe "for speaker registration" do    
@@ -243,6 +251,14 @@ describe AttendeesController do
       it "should allow free registration type only its email" do
         Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+        response.should redirect_to(root_path)
+      end
+      
+      it "should not send pending registration e-mail for free registration without courses" do
+        EmailNotifications.expects(:registration_pending).never
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+
         response.should redirect_to(root_path)
       end
     end

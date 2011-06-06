@@ -43,7 +43,7 @@ class AttendeesController < InheritedResources::Base
             end
           else
             flash[:notice] = t('flash.attendee.create.success')
-            EmailNotifications.registration_pending(@attendee).deliver
+            EmailNotifications.registration_pending(@attendee).deliver if @attendee.registration_fee > 0
             @attendee.email_sent = true
             @attendee.save
             redirect_to root_path

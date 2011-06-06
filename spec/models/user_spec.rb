@@ -113,11 +113,11 @@ describe User do
          user.has_approved_long_session?(current).should be(false)
       end
       
-      it "should not have approved long sessions if accepted was lightning talk" do
+      it "should have approved long sessions if accepted was lightning talk" do
          user = Factory(:user)
          session = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
          user.sessions=[session]
-         user.has_approved_long_session?(session.conference).should be(false)
+         user.has_approved_long_session?(session.conference).should be(true)
       end
       
       it "should have approved long sessions if accepted was not lightning talk" do
