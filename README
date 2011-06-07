@@ -11,6 +11,7 @@ TODO:
  * E-mail accepted authors with registration instructions
 
  * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
+ * Add an action to allow registrar to mark attendee as "paid" and send "payment received" e-mail
  
  * Allow registrar to update attributes of a pending attendee
  
