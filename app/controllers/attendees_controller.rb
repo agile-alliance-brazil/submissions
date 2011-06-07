@@ -82,7 +82,7 @@ class AttendeesController < InheritedResources::Base
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.group').id
       attributes[:organization] = parent.name
     end
-    if !current_user.blank? && current_user.has_approved_long_session?(current_conference)
+    if !current_user.blank? && current_user.has_approved_session?(current_conference)
       attributes[:registration_type_id] = RegistrationType.find_by_title('registration_type.free').id
     end
     @attendee ||= end_of_association_chain.send(method_for_build, attributes)
@@ -121,6 +121,6 @@ class AttendeesController < InheritedResources::Base
   end
   
   def allowed_free_registration?
-    !current_user.blank? && (current_user.has_approved_long_session?(current_conference) || current_user.registrar?) && !parent?
+    !current_user.blank? && (current_user.has_approved_session?(current_conference) || current_user.registrar?) && !parent?
   end
 end

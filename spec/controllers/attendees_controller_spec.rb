@@ -95,7 +95,7 @@ describe AttendeesController do
 
     describe "for speakers" do
       before do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
         @user = Factory(:user)
         sign_in @user
         disable_authorization
@@ -143,7 +143,7 @@ describe AttendeesController do
       end
       
       it "should pre select free registration group for attendee with session approved" do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
         sign_in Factory(:user)
         disable_authorization
         get :new, :registration_group_id => @registration_group.id
@@ -234,7 +234,7 @@ describe AttendeesController do
     
     describe "for speaker registration" do    
       before do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
         @user = Factory(:user)
         sign_in @user
         disable_authorization
