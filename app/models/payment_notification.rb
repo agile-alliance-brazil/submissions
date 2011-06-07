@@ -19,7 +19,7 @@ class PaymentNotification < ActiveRecord::Base
   private
   def mark_attendee_as_paid
     if status == "Completed" && params_valid?
-      attendee.pay
+      attendee.confirm
     else
       HoptoadNotifier.notify(
         :error_class   => "Failed Payment Notification",
