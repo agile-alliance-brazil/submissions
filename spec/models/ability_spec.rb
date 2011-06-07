@@ -132,6 +132,10 @@ describe Ability do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
 
+    it "cannot see attendee summary" do
+      @ability.should_not be_able_to(:index, Attendee)
+    end
+
     describe "can update reviewer if:" do
       before(:each) do
         @reviewer = Factory(:reviewer, :user => @user)
@@ -182,6 +186,10 @@ describe Ability do
     
     it "cannot read reviews" do
       @ability.should_not be_able_to(:read, Review)
+    end
+    
+    it "cannot see attendee summary" do
+      @ability.should_not be_able_to(:index, Attendee)
     end
     
     context "index reviews of" do
@@ -508,6 +516,10 @@ describe Ability do
 
     it "cannot read sessions to review" do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
+    end
+
+    it "cannot see attendee summary" do
+      @ability.should_not be_able_to(:index, Attendee)
     end
     
     context "organizer index reviews of" do
@@ -850,6 +862,10 @@ describe Ability do
       @ability.should be_able_to(:read, 'reviewer_sessions')
     end
     
+    it "cannot see attendee summary" do
+      @ability.should_not be_able_to(:index, Attendee)
+    end
+    
     it "can read reviews listing" do
       @ability.should be_able_to(:read, 'reviews_listing')
       @ability.should be_able_to(:reviewer, 'reviews_listing')
@@ -947,6 +963,10 @@ describe Ability do
     
     it "can manage registered attendees" do
       @ability.should be_able_to(:manage, 'registered_attendees')
+    end
+
+    it "can index attendees" do
+      @ability.should be_able_to(:index, Attendee)
     end
     
     it "can manage registered groups" do

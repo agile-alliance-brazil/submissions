@@ -165,6 +165,14 @@ table.reviewers {
     width: 5%; }
   th.actions {
     width: 10%; } }
+    
+table.summary {
+  th {
+    color: black;
+    font-size: 1em;}
+  tr.total {
+    background-color: yellow;
+  }}
 
 .commentCount {
   font-size: 8px;

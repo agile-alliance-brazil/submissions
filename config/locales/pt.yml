@@ -185,6 +185,10 @@ pt:
             courses:
               compatible: "não é possível participar de todos os cursos escolhidos. Por favor verifique a <a href='http://www.agilebrazil.com/2011/pt/programacao.php' target='_blank'>programação dos cursos</a>."
               limit_reached: "vagas esgotadas para o curso %{course}."
+            registration_type_id:
+              free_not_allowed: "Inscrição gratuita não está disponível."
+            email:
+              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
         registration_group:
           attributes:
             total_attendees:
@@ -457,6 +461,7 @@ pt:
     registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) na empresa %{registration_group}"
     registration_group: "Nova inscrição de empresa"
     attendee: "Detalhes da inscrição"
+    attendees_summary: "Resumo das inscrições"
 
   actions:
     submission_date: "Prazo para submissões"
@@ -496,6 +501,7 @@ pt:
     new_sponsor_registration: "Patrocinador"
     registered_attendees: "Gerenciar Inscrições"
     registered_groups: "Gerenciar Empresas"
+    attendees_summary: "Resumo das inscrições"
 
   text:
     for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
@@ -705,6 +711,10 @@ pt:
     individual: "Individual"
     free: "Gratuita"
   
+  registration:
+    quantity: "Quantidade"
+    status: "Status das inscrições para %{date}"
+  
   course:
     csm:
       name: "CSM"
@@ -718,6 +728,9 @@ pt:
     tdd:
       name: "TDD"
       full_name: "TDD: do básico ao avançado"
+    psm:
+      name: "PSM"
+      full_name: "Professional Scrum Master"
   
   attendee:
     status:

@@ -76,6 +76,14 @@ class Attendee < ActiveRecord::Base
     state :confirmed do
       validates_acceptance_of :payment_agreement
     end
+    
+    after_transition any => :confirmed do |attendee|
+      begin
+        EmailNotifications.registration_confirmed(attendee).deliver
+      rescue => ex
+        HoptoadNotifier.notify(ex)
+      end
+    end
   end
   
   def full_name

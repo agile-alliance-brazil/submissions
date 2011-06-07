@@ -9,9 +9,11 @@ TODO:
  - Pending attendee status page should be different for group members
  - Refactor email sending from controller into state transitions
  
+ * Refactor the attendees summary page to put all logic into the model/controller instead of the view
  * E-mail accepted authors with registration instructions
 
  * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
+ * Add an action to allow registrar to mark attendee as "paid" and send "payment received" e-mail
  
  * Allow registrar to update attributes of a pending attendee
    - Add course
@@ -65,6 +67,11 @@ DONE:
 
  * Status page for group registration -- Danilo 
  * Group Confirmation -- Danilo
+ * Change workflow to send e-mails after paid, and when confirmed -- Danilo
+ * Automatically confirm attendees with valid paypal payments -- Danilo
+ * Do not email payment information for attendees with free registration and no courses -- Hugo
+ * Allow free registrations for speakers and sponsors -- Hugo
+ * Add a summary table showing payment informations for all registered users -- Hugo
  * Test scenarios for speaker registration within group -- Danilo
  * Registration for authors -- Hugo & Danilo
  * Registration for sponsors -- Hugo & Danilo

@@ -29,3 +29,11 @@ Course.seed do |course|
   course.full_name = 'course.tdd.full_name'
   course.combine = true
 end
+
+Course.seed do |course|
+  course.id = 5
+  course.conference_id = 2
+  course.name = 'course.psm.name'
+  course.full_name = 'course.psm.full_name'
+  course.combine = false
+end

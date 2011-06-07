@@ -305,6 +305,21 @@ describe Attendee do
         @attendee.should be_confirmed
       end
     end
+    
+    context "Transition to confirmed" do
+      it "should send confirmation e-mail to attendee" do
+        email = stub(:deliver => true)
+        EmailNotifications.expects(:registration_confirmed).with(@attendee).returns(email)
+        @attendee.confirm
+      end
+      
+      it "should notify Hoptoad on error" do
+        error = StandardError.new('error')
+        EmailNotifications.expects(:registration_confirmed).with(@attendee).raises(error)
+        HoptoadNotifier.expects(:notify).with(error)
+        @attendee.confirm
+      end
+    end
   end
   
   it "should provide full name" do

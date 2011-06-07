@@ -8,9 +8,45 @@ describe AttendeesController do
   end
   
   describe "GET index" do
-    it "should redirect to new attendee form" do
+    it "should redirect to root when not authorized" do
       get :index
-      response.should redirect_to(new_attendee_path)
+      response.should redirect_to(root_path)
+    end
+    
+    describe "should present a summary of all attendees states for authorized users" do
+      before do
+        @user = Factory(:user)
+        sign_in @user
+        disable_authorization
+      end
+      
+      it "should assign all attendees and course attendances to registrar users" do
+        @user.add_role :registrar
+        @user.save!
+        
+        attendee = Factory(:attendee)
+        attendees = [attendee]
+        course_attendances = [Factory(:course_attendance, :attendee => attendee)]
+        Attendee.expects(:all).returns(attendees)
+        CourseAttendance.expects(:all).returns(course_attendances)
+        get :index
+        assigns(:attendees).should == attendees
+        assigns(:course_attendances).should == course_attendances
+      end
+      
+      it "should assign all attendees and course attendances to admin" do
+        @user.add_role :admin
+        @user.save!
+        
+        attendee = Factory(:attendee)
+        attendees = [attendee]
+        course_attendances = [Factory(:course_attendance, :attendee => attendee)]
+        Attendee.expects(:all).returns(attendees)
+        CourseAttendance.expects(:all).returns(course_attendances)
+        get :index
+        assigns(:attendees).should == attendees
+        assigns(:course_attendances).should == course_attendances
+      end
     end
   end
   
@@ -64,8 +100,9 @@ describe AttendeesController do
 
     describe "for speakers" do
       before do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
-        sign_in Factory(:user)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
+        @user = Factory(:user)
+        sign_in @user
         disable_authorization
       end
       
@@ -77,9 +114,13 @@ describe AttendeesController do
         assigns(:registration_types).size.should == 3
       end
       
-      it "should pre select free registration group for attendee" do
+      it "should pre select free registration group for attendee and fill email with speakers email" do
         get :new
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
+        assigns(:attendee).first_name.should == @user.first_name
+        assigns(:attendee).last_name.should == @user.last_name
+        assigns(:attendee).organization.should == @user.organization
+        assigns(:attendee).email.should == @user.email
       end
     end
     
@@ -107,7 +148,7 @@ describe AttendeesController do
       end
       
       it "should pre select free registration group for attendee with session approved" do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
         sign_in Factory(:user)
         disable_authorization
         get :new, :registration_group_id => @registration_group.id
@@ -168,7 +209,7 @@ describe AttendeesController do
       it "should send pending registration e-mail" do
         EmailNotifications.expects(:registration_pending).returns(@email)
         Attendee.any_instance.stubs(:valid?).returns(true)
-        post :create
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.individual').id}
       end
       
       it "should not allow free registration type" do
@@ -187,22 +228,49 @@ describe AttendeesController do
         disable_authorization
       end
 
-      it "should allow free registration type" do
-        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
-        response.should render_template(:new)
+      it "should allow free registration type no matter the email" do
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => "another"+@user.email}
+        response.should redirect_to(root_path)
+      end
+
+      it "should not send pending registration e-mail for free registration without courses" do
+        EmailNotifications.expects(:registration_pending).never
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+        
+        response.should redirect_to(root_path)
       end
     end
     
     describe "for speaker registration" do    
       before do
-        User.any_instance.stubs(:has_approved_long_session?).returns(true)
-        sign_in Factory(:user)
+        User.any_instance.stubs(:has_approved_session?).returns(true)
+        @user = Factory(:user)
+        sign_in @user
         disable_authorization
       end
 
-      it "should allow free registration type" do
-        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
+      it "should not allow free registration type for another email" do
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => "another"+@user.email}
+        
         response.should render_template(:new)
+        flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
+      end
+
+      it "should allow free registration type only its email" do
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+        response.should redirect_to(root_path)
+      end
+      
+      it "should not send pending registration e-mail for free registration without courses" do
+        EmailNotifications.expects(:registration_pending).never
+        Attendee.any_instance.stubs(:valid?).returns(true)
+        post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
+
+        response.should redirect_to(root_path)
       end
     end
     
@@ -239,6 +307,8 @@ describe AttendeesController do
         RegistrationGroup.any_instance.stubs(:complete?).returns(false)
         post :create, :registration_group_id => @registration_group.id, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
+        flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
+        response.should render_template(:new)
       end
     end
   end

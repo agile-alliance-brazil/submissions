@@ -4,7 +4,7 @@ class Ability
   SESSION_SUBMISSION_DEADLINE = Time.zone.local(2011, 3, 27, 23, 59, 59)
   REVIEW_DEADLINE = Time.zone.local(2011, 4, 17, 23, 59, 59)
   AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
-  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 5, 27, 23, 59, 59)
+  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 6, 07, 23, 59, 59)
   REGISTRATION_DEADLINE = Time.zone.local(2011, 6, 21, 23, 59, 59)
 
   def initialize(user, conference, params={})
@@ -53,6 +53,7 @@ class Ability
       expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class) &&
       Time.zone.now <= REGISTRATION_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def admin
@@ -85,6 +86,7 @@ class Ability
     can(:manage, 'withdraw_sessions') do
       find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def organizer
@@ -110,6 +112,7 @@ class Ability
       expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
           !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
     end
+    cannot(:index, Attendee)
   end
 
   def reviewer
@@ -122,11 +125,13 @@ class Ability
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
+    cannot(:index, Attendee)
   end
 
   def registrar
     can(:manage, 'registered_attendees')
     can(:manage, 'registered_groups')
+    can(:index, Attendee)
     can(:show, Attendee)
     can(:update, Attendee)
   end

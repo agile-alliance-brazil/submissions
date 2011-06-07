@@ -6,12 +6,7 @@ class RegisteredAttendeesController < InheritedResources::Base
     params[:attendee][:status_event] = 'confirm' if params[:attendee]
     update! do |success, failure|
       success.html do
-        begin
-          flash[:notice] = t('flash.registered_attendees.confirm.success')
-          EmailNotifications.registration_confirmed(@attendee).deliver
-        rescue => ex
-          notify_hoptoad(ex)
-        end
+        flash[:notice] = t('flash.registered_attendees.confirm.success')
         redirect_to registered_attendees_path
       end
       failure.html do

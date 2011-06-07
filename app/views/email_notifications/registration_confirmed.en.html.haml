@@ -8,6 +8,8 @@
     - @attendee.courses.each do |course|
       %li '#{I18n.t(course.full_name)}' priced #{number_to_currency(course.price(@attendee.registration_date), :locale => :pt)}
 
+%p Please look for the event registration desk starting June 27th at 7 A.M. to get your credentials. The event will take place at Fábrica de Negócios, Av. Monsenhor Tabosa 740, Iracema beach, with entrance through Rua João Cordeiro, at Fortaleza, Ceará.
+
 %p If you have any questions, please contact us at #{mail_to AppConfig[:organizer][:email]}
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

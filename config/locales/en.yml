@@ -52,6 +52,10 @@ en:
             courses:
               compatible: "cannot attend all chosen courses. Please check the <a href='http://www.agilebrazil.com/2011/en/programacao.php' target='_blank'>program</a>."
               limit_reached: "the %{course} course has reached the limit number of participants."
+            registration_type_id:
+              free_not_allowed: "Inscrição gratuita não está disponível."
+            email:
+              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
         registration_group:
           attributes:
             total_attendees:
@@ -320,6 +324,7 @@ en:
     registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on company %{registration_group}"
     registration_group: "New company registration"
     attendee: "Registration details"
+    attendees_summary: "Registration summary"
   
   actions:
     submission_date: "Submission deadline"
@@ -359,6 +364,7 @@ en:
     new_sponsor_group: "Sponsor"
     registered_attendees: "Manage registrations"
     registered_groups: "Manage companies"
+    attendees_summary: "Registration summary"
   
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -568,6 +574,10 @@ en:
     individual: "Individual"
     free: "Free"
 
+  registration:
+    quantity: "Quantity"
+    status: "Registration status on %{date}"
+
   course:
     csm:
       name: "CSM"
@@ -581,6 +591,9 @@ en:
     tdd:
       name: "TDD"
       full_name: "TDD: from basic to advanced"
+    psm:
+      name: "PSM"
+      full_name: "Professional Scrum Master"
 
   attendee:
     status:
