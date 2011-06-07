@@ -18,6 +18,9 @@ TODO:
  * Group Confirmation
  * Comments for attendees
  * Admin page to expire registrations
+ 
+ * Remove "email_sent" status fields and replace with Hoptoad notification
+ 
  * Refactor sorting behaviour
  * Refactor deadline logic into attendee/registration_group
 
