@@ -287,6 +287,8 @@ en:
       new_registration: "Submit registration"
       new_registration_group: "Register participants"
       confirm_registered_attendee: "Confirm Payment"
+      update_pending_attendee: "Update Price"
+      paid_pending_attendee: "Payment Received"
       search: "Search"
 
   # Custom messages
@@ -354,6 +356,7 @@ en:
     new_registration_group: "Company"
     new_sponsor_group: "Sponsor"
     registered_attendees: "Manage registrations"
+    pending_attendees: "Update pending registrations"
     attendees_summary: "Registration summary"
   
   text:
@@ -422,6 +425,9 @@ en:
     registered_attendees:
       confirm:
         success: "Registration confirmed successfully. The participant was notified by email."
+    pending_attendees:
+      confirm:
+        success: "Registration updated successfully."
   
   session_types:
     tutorial:

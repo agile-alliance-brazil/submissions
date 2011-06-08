@@ -1,0 +1,27 @@
+- title t('actions.pending_attendees')
+- show_actions!
+
+= render 'instructions'
+
+%table
+  %thead
+    %tr
+      %th= 'ID'
+      %th= t('formtastic.labels.attendee.full_name')
+      %th= t('formtastic.labels.attendee.registration_type_id')
+      %th= t('formtastic.labels.attendee.group')
+      %th= t('formtastic.labels.attendee.registration_date')
+      %th
+      %th
+  %tbody
+    - @attendees.each do |attendee|
+      = content_tag_for(:tr, attendee, :class => cycle(:odd, :even)) do
+        %td= attendee.id
+        %td= h(attendee.full_name)
+        %td= t(attendee.registration_type.title)
+        %td= attendee.registration_group.try(:name)
+        %td= l(attendee.registration_date, :format => :short)
+        %td
+          = link_to t('formtastic.actions.update_pending_attendee'), pending_attendee_path(attendee, :status => :update), :method => :put
+        %td
+          = link_to t('formtastic.actions.paid_pending_attendee'), pending_attendee_path(attendee, :status => :paid), :method => :put

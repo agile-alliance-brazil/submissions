@@ -21,6 +21,7 @@ AgileBrazil::Application.routes.draw do
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]
   resources :payment_notifications, :only => [:create]
+  resources :pending_attendees, :only => [:index, :update]
   resources :registered_attendees, :only => [:index, :show, :update]
   resources :registration_groups, :only => [:index, :new, :create] do
     resources :attendees, :only => [:index, :new, :create]

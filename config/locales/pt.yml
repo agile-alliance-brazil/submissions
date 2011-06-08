@@ -424,6 +424,8 @@ pt:
       new_registration: "Submeter inscrição"
       new_registration_group: "Inscrever participantes"
       confirm_registered_attendee: "Confirmar Pagamento"
+      update_pending_attendee: "Atualizar preço"
+      paid_pending_attendee: "Pagamento recebido"
       search: "Buscar"
 
   # Mensagens customizadas
@@ -491,6 +493,7 @@ pt:
     new_speaker_registration: "Palestrante"
     new_sponsor_registration: "Patrocinador"
     registered_attendees: "Gerenciar Inscrições"
+    pending_attendees: "Atualizar inscrições pendentes"
     attendees_summary: "Resumo das inscrições"
 
   text:
@@ -559,6 +562,9 @@ pt:
     registered_attendees:
       confirm:
         success: "Inscrição confirmada com sucesso. O participante foi notificado por e-mail."
+    pending_attendees:
+      confirm:
+        success: "Inscrição atualizada com sucesso."
 
   session_types:
     tutorial:

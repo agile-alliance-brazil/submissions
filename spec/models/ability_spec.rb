@@ -961,6 +961,10 @@ describe Ability do
       @ability.should be_able_to(:manage, 'registered_attendees')
     end
 
+    it "can manage pending attendees" do
+      @ability.should be_able_to(:manage, 'pending_attendees')
+    end
+
     it "can index attendees" do
       @ability.should be_able_to(:index, Attendee)
     end

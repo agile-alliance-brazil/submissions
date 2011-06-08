@@ -129,6 +129,7 @@ class Ability
 
   def registrar
     can(:manage, 'registered_attendees')
+    can(:manage, 'pending_attendees')
     can(:index, Attendee)
     can(:show, Attendee)
     can(:update, Attendee)

@@ -59,6 +59,8 @@ class Attendee < ActiveRecord::Base
   
   scope :search, lambda { |q| where("#{Attendee.sql_full_name} LIKE ?", "%#{q}%")}
   
+  scope :registered_before, lambda{ |d| where('registration_date < ?', d)}
+  
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
   end
