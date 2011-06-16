@@ -82,11 +82,6 @@ describe RegistrationGroup do
     should_not_allow_values_for :cnpj, "12345", "66.666.666/6666-66", "66666666666666"
     
     should_validate_numericality_of :total_attendees, :only_integer => true, :greater_than_or_equal_to => 5, :allow_blank => true
-    
-    context "uniqueness" do
-      before { Factory(:registration_group) }
-      should_validate_uniqueness_of :cnpj, :allow_blank => true
-    end
   end
   
   describe "complete?" do

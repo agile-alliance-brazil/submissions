@@ -23,8 +23,6 @@ class RegistrationGroup < ActiveRecord::Base
   
   validates_numericality_of :total_attendees, :only_integer => true, :greater_than_or_equal_to => 5, :allow_blank => true
   
-  validates_uniqueness_of :cnpj, :allow_blank => true
-  
   validates_confirmation_of :contact_email
   
   def complete?
