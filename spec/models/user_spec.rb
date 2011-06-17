@@ -109,21 +109,21 @@ describe User do
          old_conference = Factory(:conference)
          current = Factory(:conference)
          session = Factory(:session, :author => user, :conference => old_conference)
-         user.sessions=[session]
+
          user.should_not have_approved_session(current)
       end
       
       it "should have approved long sessions if accepted was lightning talk" do
          user = Factory(:user)
          session = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
-         user.sessions=[session]
+
          user.should have_approved_session(session.conference)
       end
       
       it "should have approved long sessions if accepted was not lightning talk" do
          user = Factory(:user)
          session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
-         user.sessions=[session]
+
          user.should have_approved_session(session.conference)
       end
 
@@ -131,7 +131,7 @@ describe User do
         user = Factory(:user)
         session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
         lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'accepted')
-        user.sessions=[session, lightning_talk]
+
         user.should have_approved_session(session.conference)
       end
 
@@ -139,8 +139,16 @@ describe User do
         user = Factory(:user)
         session = Factory(:session, :author => user, :session_type_id => 1, :state => 'cancelled')
         lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'rejected')
-        user.sessions=[session, lightning_talk]
+
         user.should_not have_approved_session(session.conference)
+      end
+
+      it "should have approved sessions as second author" do
+         user = Factory(:user)
+         user.add_role :author
+         session = Factory(:session, :second_author => user, :session_type_id => 1, :state => 'accepted')
+
+         user.should have_approved_session(session.conference)
       end
     end
 

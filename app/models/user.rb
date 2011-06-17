@@ -82,6 +82,6 @@ class User < ActiveRecord::Base
   end
   
   def has_approved_session?(conference)
-    sessions.for_conference(conference).with_state(:accepted).count > 0
+    Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
   end
 end
