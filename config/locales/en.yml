@@ -197,6 +197,7 @@ en:
         registration_date: "Registration Date"
         payment_agreement: "I confirm that the participant made the payment of the above mentioned amount. The system will notify the participant that his/her registration to the conference is confirmed."
         notes: "Notes"
+        only_with_notes: "Show only results with notes"
         total: "Amount"
       registration_group:
         name: "Organization / Institution name"

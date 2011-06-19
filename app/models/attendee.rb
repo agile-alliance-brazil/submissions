@@ -61,6 +61,8 @@ class Attendee < ActiveRecord::Base
   
   scope :registered_before, lambda{ |d| where('registration_date < ?', d)}
   
+  scope :with_notes, lambda{ |d| where('notes <> ""')}
+  
   def twitter_user=(value)
     self[:twitter_user] = value.start_with?("@") ? value[1..-1] : value
   end

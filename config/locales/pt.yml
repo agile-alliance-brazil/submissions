@@ -331,6 +331,7 @@ pt:
         registration_date: "Data de Inscrição"
         payment_agreement: "Confirmo que o participante realizou o pagamento no valor acima. O sistema notificará o participante por email de que sua inscrição foi confirmada."
         notes: "Anotações"
+        only_with_notes: "Exibir apenas resultados com anotações"
         total: "Valor"
       registration_group:
         name: "Razão social"

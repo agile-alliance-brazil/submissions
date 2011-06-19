@@ -708,6 +708,8 @@ span.bio {
 
 #registered_attendees_form .left {
   float: left; }
+#registered_attendees_form .middle {
+  display: inline; }
 #registered_attendees_form .right {
   float: right; }
 

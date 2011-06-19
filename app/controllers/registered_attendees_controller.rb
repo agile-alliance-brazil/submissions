@@ -30,6 +30,7 @@ class RegisteredAttendeesController < InheritedResources::Base
     scope = end_of_association_chain.for_conference(current_conference).with_full_name
     scope = scope.search(params[:q]) if params[:q].present?
     scope = scope.with_status(params[:status].to_sym) if params[:status].present?
+    scope = scope.with_notes() if params[:notes].present?
     
     @attendees ||= scope.paginate(paginate_options)
   end

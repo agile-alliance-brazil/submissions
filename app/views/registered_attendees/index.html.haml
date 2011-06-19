@@ -8,6 +8,9 @@
     .left
       = text_field_tag :q, params[:q], :placeholder => t('formtastic.labels.attendee.full_name'), :tabindex => autotab
       = submit_tag t('formtastic.actions.search')
+    .middle
+      = check_box_tag :notes, 'true', params[:notes], :tabindex => autotab
+      = label_tag :notes, t('formtastic.labels.attendee.only_with_notes')
     .right
       = label_tag :status, t('formtastic.labels.attendee.status') + ':'
       = select_tag :status, options_for_select(attendee_status_options, params[:status]), :tabindex => autotab
