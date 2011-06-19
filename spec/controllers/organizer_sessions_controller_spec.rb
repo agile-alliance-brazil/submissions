@@ -19,6 +19,7 @@ describe OrganizerSessionsController do
   end
   
   it "index action should find sessions on organizer's tracks" do
+    Session.stubs(:for_user).returns(Session)
     Session.expects(:for_conference).at_least(1).with(@conference).returns(Session)
     Session.expects(:for_tracks).with([@organizer.track.id]).returns([])
     get :index

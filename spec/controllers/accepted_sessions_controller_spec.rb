@@ -18,6 +18,7 @@ describe AcceptedSessionsController do
   end
 
   it "index action should find accepted sessions" do
+    Session.stubs(:for_user).returns(Session)
     Session.expects(:for_conference).at_least(1).with(@conference).returns(Session)
     Session.expects(:with_state).at_least(1).with(:accepted).returns([])
     get :index

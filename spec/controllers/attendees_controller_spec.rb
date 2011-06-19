@@ -303,8 +303,25 @@ describe AttendeesController do
         response.should redirect_to(root_path)
       end
 
+      context "author signed in" do
+        before do
+          @user = Factory(:user)
+          sign_in @user
+          disable_authorization
+          User.any_instance.stubs(:has_approved_session?).returns(true)
+        end
+
+        it "should not allow free registration type" do
+          # RegistrationGroup.any_instance.stubs(:complete).returns(false)
+          post :create, :registration_group_id => @registration_group.id
+          # assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
+          flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
+          response.should render_template(:new)
+        end
+      end
+      
       it "should not allow free registration type" do
-        RegistrationGroup.any_instance.stubs(:complete?).returns(false)
+        RegistrationGroup.any_instance.stubs(:complete).returns(true)
         post :create, :registration_group_id => @registration_group.id, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
         flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
