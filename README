@@ -6,6 +6,9 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
+ - Pending attendee status page should be different for group members
+ - Refactor email sending from controller into state transitions
+ 
  * Refactor the attendees summary page to put all logic into the model/controller instead of the view
 
  - Pending attendee status page should be different for group members
@@ -67,6 +70,8 @@ IN PROGRESS:
  
 DONE:
 
+ * Status page for group registration -- Danilo 
+ * Group Confirmation -- Danilo
  * Change workflow to send e-mails after paid, and when confirmed -- Danilo
  * Automatically confirm attendees with valid paypal payments -- Danilo
  * Do not email payment information for attendees with free registration and no courses -- Hugo
