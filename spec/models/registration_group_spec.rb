@@ -235,6 +235,28 @@ describe RegistrationGroup do
         @registration_group.should be_confirmed
       end
     end
+    
+    context "Transition to confirmed" do
+      before do
+        @attendees = []
+        5.times { @attendees << Factory.build(:attendee) }
+        @registration_group.stubs(:attendees).returns(@attendees)
+        @registration_group.complete
+      end
+      
+      it "should send confirmation e-mail to registration group owner" do
+        email = stub(:deliver => true)
+        EmailNotifications.expects(:registration_group_confirmed).with(@registration_group).returns(email)
+        @registration_group.confirm
+      end
+      
+      it "should notify Hoptoad on error" do
+        error = StandardError.new('error')
+        EmailNotifications.expects(:registration_group_confirmed).with(@registration_group).raises(error)
+        HoptoadNotifier.expects(:notify).with(error)
+        @registration_group.confirm
+      end
+    end
   end
 
   describe "registration fee" do

@@ -33,16 +33,13 @@ describe RegisteredGroupsController do
   describe "PUT update" do
     before do
       @registration_group ||= Factory(:registration_group)
-      @email = stub(:deliver => true)
-      EmailNotifications.stubs(:registration_group_confirmed).returns(@email)
     end
     
     it "update action should render show template when model is invalid" do
-      pending
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
       # if validation failed
-      put :update, :id => @registration_group.id, :attendee => {}
+      put :update, :id => @registration_group.id, :registration_group => {:payment_agreement => false}
       response.should render_template(:show)
     end
   
@@ -50,12 +47,6 @@ describe RegisteredGroupsController do
       @registration_group.stubs(:valid?).returns(true)
       put :update, :id => @registration_group.id
       response.should redirect_to(registered_groups_path)
-    end
-    
-    it "should send confirmed registration e-mail" do
-      EmailNotifications.expects(:registration_group_confirmed).returns(@email)
-      @registration_group.stubs(:valid?).returns(true)
-      post :update, :id => @registration_group.id
     end
   end
 end

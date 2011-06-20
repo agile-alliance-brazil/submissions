@@ -6,12 +6,7 @@ class RegisteredGroupsController < InheritedResources::Base
     params[:registration_group][:status_event] = 'confirm' if params[:registration_group]
     update! do |success, failure|
       success.html do
-        begin
-          flash[:notice] = t('flash.registered_groups.confirm.success')
-          EmailNotifications.registration_group_confirmed(@registration_group).deliver
-        rescue => ex
-          notify_hoptoad(ex)
-        end
+        flash[:notice] = t('flash.registered_groups.confirm.success')
         redirect_to registered_groups_path
       end
       failure.html do

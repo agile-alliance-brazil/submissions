@@ -43,6 +43,11 @@ class RegistrationGroup < ActiveRecord::Base
     end
     after_transition :to => :confirmed do |registration_group|
       registration_group.attendees.each(&:confirm)
+      begin
+        EmailNotifications.registration_group_confirmed(registration_group).deliver
+      rescue => ex
+        HoptoadNotifier.notify(ex)
+      end      
     end
 
     event :pay do
