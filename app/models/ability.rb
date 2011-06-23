@@ -135,6 +135,9 @@ class Ability
     can(:index, Attendee)
     can(:show, Attendee)
     can(:update, Attendee)
+    can do |action, subject_class, subject|
+      expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class)
+    end
   end
   
   def find_session
