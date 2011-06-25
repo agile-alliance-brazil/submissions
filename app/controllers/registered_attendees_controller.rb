@@ -3,14 +3,21 @@ class RegisteredAttendeesController < InheritedResources::Base
   actions :index, :show, :update
   
   def update
-    params[:attendee][:status_event] = 'confirm' if params[:attendee]
+    if params[:attendee]
+      attendee = Attendee.find(params[:id])
+      params[:attendee][:status_event] = 'confirm' unless attendee.confirmed?
+    end
     update! do |success, failure|
       success.html do
-        flash[:notice] = t('flash.registered_attendees.confirm.success')
+        if params[:attendee][:status_event] == 'confirm'
+          flash[:notice] = t('flash.registered_attendees.confirm.success') 
+        else
+          flash[:notice] = t('flash.registered_attendees.update.success') 
+        end
         redirect_to registered_attendees_path
       end
       failure.html do
-        flash.now[:error] = t('flash.failure')
+        flash.now[:error] = "#{t('flash.failure')} #{@attendee.errors}"
         render :show
       end
     end

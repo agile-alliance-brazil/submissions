@@ -573,6 +573,8 @@ pt:
     registered_attendees:
       confirm:
         success: "Inscrição confirmada com sucesso. O participante foi notificado por e-mail."
+      update:
+        success: "Inscrição atualizada com sucesso."
     pending_attendees:
       confirm:
         success: "Inscrição atualizada com sucesso."

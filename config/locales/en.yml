@@ -436,6 +436,8 @@ en:
     registered_attendees:
       confirm:
         success: "Registration confirmed successfully. The participant was notified by email."
+      update:
+        success: "Inscrição atualizada com sucesso."
     pending_attendees:
       confirm:
         success: "Registration updated successfully."
