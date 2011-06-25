@@ -58,7 +58,7 @@ class Attendee < ActiveRecord::Base
   end
   scope :with_full_name, select("*, #{Attendee.sql_full_name} as full_name")
   
-  scope :search, lambda { |q| where("#{Attendee.sql_full_name} LIKE ?", "%#{q}%")}
+  scope :search, lambda { |q| where("#{Attendee.sql_full_name} LIKE ? OR email LIKE ? ", "%#{q}%", "%#{q}%")}
   
   scope :registered_before, lambda{ |d| where('registration_date < ?', d)}
   

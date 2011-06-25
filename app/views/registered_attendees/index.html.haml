@@ -6,7 +6,7 @@
   = hidden_field_tag :column, params[:column]
   %p
     .left
-      = text_field_tag :q, params[:q], :placeholder => t('formtastic.labels.attendee.full_name'), :tabindex => autotab
+      = text_field_tag :q, params[:q], :placeholder => "#{t('formtastic.labels.attendee.full_name')} #{t('generic.or')} #{t('formtastic.labels.attendee.email')}", :tabindex => autotab
       = submit_tag t('formtastic.actions.search')
     .middle
       = check_box_tag :notes, 'true', params[:notes], :tabindex => autotab
