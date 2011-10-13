@@ -25,6 +25,7 @@ gem 'jammit', '~> 0.6.0'
 gem 'fastercsv', '~> 1.5.4'
 gem 'hoptoad_notifier', '~> 2.4.8'
 gem 'aws-ses', '~> 0.4.2', :require => 'aws/ses'
+gem 'mysql2', '~> 0.2.7'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', '~> 4.2.7', :require => 'redcloth', :platforms => :mswin
@@ -36,7 +37,6 @@ end
 
 group :development do
   gem 'sqlite3-ruby', '~> 1.3.3', :require => 'sqlite3'
-  gem 'mysql2', '~> 0.2.7'
   gem 'capistrano-ext', '~> 1.2.1'
 end
 
