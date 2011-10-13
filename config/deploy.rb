@@ -27,7 +27,7 @@ namespace :deploy do
   
   task :compile_sass, :roles => :app, :except => {:no_release => true} do
     rails_env = fetch(:rails_env, "production")
-    run "#{current_path}/script/rails runner -e #{rails_env} 'Sass::Plugin.update_stylesheets'"
+    run "cd #{current_path} && #{bundle_cmd} exec rails runner -e #{rails_env} 'Sass::Plugin.update_stylesheets'"
   end
   
   task :package_assets, :roles => :app, :except => {:no_release => true} do
