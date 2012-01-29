@@ -8,9 +8,8 @@ set :domain,              "ftp.dtsato.com"
 set :project,             "agilebrazil"
 set :application,         "agilebrazil.dtsato.com"
 set :applicationdir,      "/home/#{user}/#{application}"
-# set :gem_path,            "/home/#{user}/.gems"
-# set :bundle_cmd,          "#{gem_path}/bin/bundle"
-set :rake,                "bundle exec rake"
+set :bundle_cmd,          "/home/#{user}/.gems/bin/bundle"
+set :rake,                "#{bundle_cmd} exec rake"
 
 set :scm,                 :git
 set :repository,          "git@github.com:dtsato/agile_brazil.git"
