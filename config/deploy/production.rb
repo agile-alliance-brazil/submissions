@@ -11,7 +11,7 @@ set :applicationdir,      "/home/#{user}/#{application}"
 # set :gem_path,            "/home/#{user}/.gems"
 # set :bundle_cmd,          "#{gem_path}/bin/bundle"
 # set :bundle_flags,        "--deployment"
-set :rake,                "#{bundle_cmd} exec rake"
+set :rake,                "bundle exec rake"
 
 set :scm,                 :git
 set :repository,          "git@github.com:dtsato/agile_brazil.git"
