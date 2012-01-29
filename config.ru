@@ -1,5 +1,5 @@
 # This file is used by Rack-based servers to start the application.
-if Rails.env == 'production'
+if ENV['RAILS_ENV'] == 'production'
   ENV['GEM_HOME'] = "#{ENV['HOME']}/.gems"
   ENV['GEM_PATH'] = "#{ENV['HOME']}:/usr/lib/ruby/gems/1.8"
   require 'rubygems'
