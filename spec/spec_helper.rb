@@ -4,8 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'remarkable/active_record'
 require 'mocha/standalone'
-require "cancan/matchers"
-require 'validates_existence/rspec_macros'
+require 'cancan/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -22,8 +21,8 @@ RSpec.configure do |config|
   config.include(DisableAuthorization, :type => :controller)
   config.include(Devise::TestHelpers, :type => :controller)
   config.include(TrimmerMacros)
-  config.include(ValidatesExistence::RspecMacros)
-  
+  config.include(ValidatesExistenceMacros)
+
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

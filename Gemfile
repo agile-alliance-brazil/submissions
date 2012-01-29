@@ -19,13 +19,13 @@ gem 'acts-as-taggable-on', '~> 2.0.6'
 gem 'cancan', '~> 1.6.1'
 gem 'acts_as_commentable', '~> 3.0.1'
 gem 'state_machine', '~> 0.9.4'
-gem 'validates_existence', '~> 0.7.1'
+gem 'validates_existence'
 gem 'goalie', '~> 0.0.4'
 gem 'jammit', '~> 0.6.0'
 gem 'fastercsv', '~> 1.5.4'
 gem 'hoptoad_notifier', '~> 2.4.8'
 gem 'aws-ses', '~> 0.4.2', :require => 'aws/ses'
-gem 'mysql2', '~> 0.2.18'
+gem 'mysql2', '~> 0.2.7'
 
 platforms :mswin, :mingw do
   gem 'RedCloth', '~> 4.2.7', :require => 'redcloth', :platforms => :mswin

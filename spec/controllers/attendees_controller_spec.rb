@@ -2,28 +2,28 @@ require 'spec_helper'
 
 describe AttendeesController do
   render_views
-  
+
   before(:each) do
     @conference ||= Factory(:conference)
   end
-  
+
   describe "GET index" do
     it "should redirect to root when not authorized" do
       get :index
       response.should redirect_to(root_path)
     end
-    
+
     describe "should present a summary of all attendees states for authorized users" do
       before do
         @user = Factory(:user)
         sign_in @user
         disable_authorization
       end
-      
+
       it "should assign all attendees and course attendances to registrar users" do
         @user.add_role :registrar
         @user.save!
-        
+
         attendee = Factory(:attendee)
         attendees = [attendee]
         course_attendances = [Factory(:course_attendance, :attendee => attendee)]
@@ -33,11 +33,11 @@ describe AttendeesController do
         assigns(:attendees).should == attendees
         assigns(:course_attendances).should == course_attendances
       end
-      
+
       it "should assign all attendees and course attendances to admin" do
         @user.add_role :admin
         @user.save!
-        
+
         attendee = Factory(:attendee)
         attendees = [attendee]
         course_attendances = [Factory(:course_attendance, :attendee => attendee)]
@@ -49,29 +49,34 @@ describe AttendeesController do
       end
     end
   end
-  
+
+  before :each do
+    now = Time.zone.local(2011, 4, 25)
+    Time.zone.stubs(:now).returns(now)
+  end
+
   describe "GET new" do
     it "should render new template" do
       get :new
       response.should render_template(:new)
     end
-    
+
     it "should assign current conference to attendee registration" do
       get :new
       assigns(:attendee).conference.should == @conference
     end
-    
+
     it "should assign default locale to attendee registration" do
       get :new
       assigns(:attendee).default_locale.should == I18n.locale
     end
-    
+
     describe "for individual registration" do
       it "should render flash news" do
         get :new
         flash[:news].should_not be_nil
       end
-      
+
       it "should load registration types without groups or free" do
         get :new
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
@@ -88,7 +93,7 @@ describe AttendeesController do
         sign_in @user
         disable_authorization
       end
-      
+
       it "should load registration types without groups but with free" do
         get :new
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
@@ -105,7 +110,7 @@ describe AttendeesController do
         sign_in @user
         disable_authorization
       end
-      
+
       it "should load registration types without groups but with free" do
         get :new
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
@@ -113,7 +118,7 @@ describe AttendeesController do
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.free'))
         assigns(:registration_types).size.should == 3
       end
-      
+
       it "should pre select free registration group for attendee and fill email with speakers email" do
         get :new
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
@@ -123,7 +128,7 @@ describe AttendeesController do
         assigns(:attendee).email.should == @user.email
       end
     end
-    
+
     describe "for group registration" do
       before do
         @registration_group ||= Factory(:registration_group)
@@ -133,7 +138,7 @@ describe AttendeesController do
         get :new, :registration_group_id => @registration_group.id
         flash[:news].should be_nil
       end
-      
+
       it "should load registration types except free" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.individual'))
@@ -141,12 +146,12 @@ describe AttendeesController do
         assigns(:registration_types).should include(RegistrationType.find_by_title('registration_type.student'))
         assigns(:registration_types).size.should == 3
       end
-      
+
       it "should set registration_type to group" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.group')
       end
-      
+
       it "should pre select free registration group for attendee with session approved" do
         User.any_instance.stubs(:has_approved_session?).returns(true)
         sign_in Factory(:user)
@@ -154,12 +159,12 @@ describe AttendeesController do
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
       end
-      
+
       it "should set organization name from registration group" do
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).organization.should == @registration_group.name
       end
-      
+
       it "should not allow creating more attendees than allowed on registration group" do
         RegistrationGroup.any_instance.stubs(:total_attendees).returns(1)
         RegistrationGroup.any_instance.stubs(:attendees).returns([Factory.build(:attendee)])
@@ -168,9 +173,9 @@ describe AttendeesController do
         response.should redirect_to(root_path)
       end
     end
-    
+
   end
-  
+
   describe "POST create" do
     before(:each) do
       @email = stub(:deliver => true)
@@ -178,7 +183,7 @@ describe AttendeesController do
       EmailNotifications.stubs(:registration_group_attendee).returns(@email)
       EmailNotifications.stubs(:registration_group_pending).returns(@email)
     end
-    
+
     it "create action should render new template when model is invalid" do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
@@ -192,34 +197,34 @@ describe AttendeesController do
       post :create
       response.should redirect_to(root_path)
     end
-    
+
     it "should assign current conference to attendee registration" do
       Attendee.any_instance.stubs(:valid?).returns(true)
       post :create
       assigns(:attendee).conference.should == @conference
     end
-    
+
     it "should assign default locale to attendee registration" do
       Attendee.any_instance.stubs(:valid?).returns(true)
       post :create
       assigns(:attendee).default_locale.should == I18n.locale
     end
-    
-    describe "for individual registration" do    
+
+    describe "for individual registration" do
       it "should send pending registration e-mail" do
         EmailNotifications.expects(:registration_pending).returns(@email)
         Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.individual').id}
       end
-      
+
       it "should not allow free registration type" do
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}
         response.should render_template(:new)
         flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
       end
     end
-    
-    describe "for sponsor registration" do    
+
+    describe "for sponsor registration" do
       before do
         @user = Factory(:user)
         @user.add_role :registrar
@@ -238,12 +243,12 @@ describe AttendeesController do
         EmailNotifications.expects(:registration_pending).never
         Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
-        
+
         response.should redirect_to(root_path)
       end
     end
-    
-    describe "for speaker registration" do    
+
+    describe "for speaker registration" do
       before do
         User.any_instance.stubs(:has_approved_session?).returns(true)
         @user = Factory(:user)
@@ -254,7 +259,7 @@ describe AttendeesController do
       it "should not allow free registration type for another email" do
         Attendee.any_instance.stubs(:valid?).returns(true)
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => "another"+@user.email}
-        
+
         response.should render_template(:new)
         flash[:error].should == I18n.t('flash.attendee.create.free_not_allowed')
       end
@@ -264,7 +269,7 @@ describe AttendeesController do
         post :create, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id, :email => @user.email}
         response.should redirect_to(root_path)
       end
-      
+
       it "should not send pending registration e-mail for free registration without courses" do
         EmailNotifications.expects(:registration_pending).never
         Attendee.any_instance.stubs(:valid?).returns(true)
@@ -273,13 +278,13 @@ describe AttendeesController do
         response.should redirect_to(root_path)
       end
     end
-    
+
     describe "for group registration" do
       before do
         @registration_group ||= Factory(:registration_group)
         Attendee.any_instance.stubs(:valid?).returns(true)
       end
-    
+
       it "should send attendee registration e-mail" do
         EmailNotifications.expects(:registration_group_attendee).returns(@email)
         post :create, :registration_group_id => @registration_group.id
@@ -317,7 +322,7 @@ describe AttendeesController do
           response.should render_template(:new)
         end
       end
-      
+
       it "should force registration type to group" do
         RegistrationGroup.any_instance.stubs(:complete).returns(false)
         post :create, :registration_group_id => @registration_group.id, :attendee => {:registration_type_id => RegistrationType.find_by_title('registration_type.free').id}

@@ -102,18 +102,18 @@ Factory.define :review do |r|
   r.proposal_duration true
   r.proposal_limit true
   r.proposal_abstract true
-  
+
   r.association :proposal_quality_rating, :factory => :rating
   r.association :proposal_relevance_rating, :factory => :rating
-  
+
   r.association :recommendation
   r.justification "Fake"
-  
+
   r.association :reviewer_confidence_rating, :factory => :rating
-  
+
   r.comments_to_organizers "Fake"
   r.comments_to_authors "Fake " * 40
-  
+
   r.association :reviewer, :factory => :user
   r.association :session
 end
@@ -140,7 +140,7 @@ end
 Factory.define :attendee do |a|
   a.association :conference
   a.registration_type { RegistrationType.find_by_title('registration_type.individual') }
-  
+
   a.first_name "Attendee"
   a.sequence(:last_name) {|n| "Name#{n}"}
   a.email { |e| "#{e.last_name.parameterize}@example.com" }
@@ -168,7 +168,7 @@ end
 
 Factory.define :course_attendance do |ca|
   ca.association :course
-  ca.association :attendee  
+  ca.association :attendee
 end
 
 Factory.define :registration_group do |a|

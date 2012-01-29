@@ -4,17 +4,18 @@ describe PaymentNotification do
   context "associations" do
     should_belong_to :invoicer, :polymorphic => true
   end
-  
+
   context "validations" do
     should_validate_existence_of :invoicer
   end
-  
+
   context "callbacks" do
     describe "payment" do
       before(:each) do
         @attendee = Factory(:attendee)
+        @attendee.registration_date = Time.zone.local(2011, 4, 25)
         @attendee.should be_pending
-        
+
         @valid_params = {
           :secret => AppConfig[:paypal][:secret],
           :receiver_email => AppConfig[:paypal][:email],
@@ -27,12 +28,12 @@ describe PaymentNotification do
           :params => @valid_params
         }
       end
-      
+
       it "succeed if status is Completed and params are valid" do
         payment_notification = Factory(:payment_notification, @valid_args)
         @attendee.should be_confirmed
       end
-      
+
       it "succeed if amount paid in full" do
         @valid_params.merge!(:mc_gross => @attendee.registration_fee.to_i)
         payment_notification = Factory(:payment_notification, @valid_args)
@@ -55,7 +56,7 @@ describe PaymentNotification do
         payment_notification = Factory(:payment_notification, @valid_args)
         @attendee.should be_pending
       end
-      
+
       it "fails if paid amount doesn't match" do
         @valid_params.merge!(:mc_gross => '1.00')
         payment_notification = Factory(:payment_notification, @valid_args)
@@ -69,7 +70,7 @@ describe PaymentNotification do
       end
     end
   end
-  
+
   it "should translate params from paypal into attributes" do
     paypal_params = {
       :payment_status => "Completed",
