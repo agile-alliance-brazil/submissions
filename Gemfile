@@ -32,6 +32,10 @@ platforms :ruby do
   gem 'RedCloth', '=4.2.9', :require => 'redcloth'
 end
 
+group :production do
+  gem 'mysql2', '=0.3.11'
+end
+
 group :development do
   gem 'sqlite3-ruby', '=1.3.3', :require => 'sqlite3'
   gem 'capistrano-ext', '=1.2.1'
