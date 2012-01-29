@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '=3.1.3'
 gem 'jquery-rails', '=1.0.19'
-gem 'rack', '=1.3.5'
 gem 'haml', '=3.0.25'
 gem 'will_paginate', '=3.0.2'
 gem 'formtastic', '=1.2.4'
