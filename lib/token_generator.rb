@@ -7,7 +7,7 @@ module TokenGenerator
   module ClassMethods
     def generate_token(column)
       loop do
-        token = ActiveSupport::SecureRandom.hex(5)
+        token = SecureRandom.hex(5)
         break token unless find(:first, :conditions => { column => token })
       end
     end

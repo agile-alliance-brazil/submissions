@@ -1,5 +1,5 @@
 require 'capistrano/ext/multistage'
-require "bundler/capistrano"
+require 'bundler/capistrano'
 
 after "deploy:update_code", "deploy:symlink_configs"
 
@@ -53,5 +53,5 @@ set :default_stage, "staging"
 # NOTE: As of Capistrano 2.1, anyone using Windows should allocate a PTY explicitly.
 # Otherwise, you will see command prompts (such as requests for SVN passwords) act funny.
 default_run_options[:pty] = true
-        require './config/boot'
-        require 'hoptoad_notifier/capistrano'
+require './config/boot'
+require 'hoptoad_notifier/capistrano'
