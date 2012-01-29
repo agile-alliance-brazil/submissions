@@ -5,13 +5,13 @@ pt:
       default: "%d/%m/%Y"
       short: "%d de %B"
       long: "%d de %B de %Y"
-    
+
     day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
     abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
     month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
     abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
     order: [:day, :month, :year]
-  
+
   time:
     formats:
       default: "%A, %d de %B de %Y, %H:%M h"
@@ -19,7 +19,7 @@ pt:
       long: "%A, %d de %B de %Y, %H:%M h"
     am: ''
     pm: ''
-  
+
   # distancia do tempo em palavras
   datetime:
     distance_in_words:
@@ -27,15 +27,15 @@ pt:
       less_than_x_seconds:
         one: 'menos de 1 segundo'
         other: 'menos de %{count} segundos'
-      
+
       x_seconds:
         one: '1 segundo'
         other: '%{count} segundos'
-      
+
       less_than_x_minutes:
         one: 'menos de um minuto'
         other: 'menos de %{count} minutos'
-      
+
       x_minutes:
         one: '1 minuto'
         other: '%{count} minutos'
@@ -447,7 +447,7 @@ pt:
     change_password: "Escolha uma nova senha"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
-    user_sessions: "Sessões submetidas por %{name}"    
+    user_sessions: "Sessões submetidas por %{name}"
     new_session: "Proposta de sessão"
     tracks: "Trilhas de interesse"
     session_types: "Tipos de sessão"
@@ -545,7 +545,7 @@ pt:
       create:
         success: "Parecer submetido com sucesso."
       update:
-        success: "Parecer atualizado com sucesso."    
+        success: "Parecer atualizado com sucesso."
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
@@ -701,11 +701,11 @@ pt:
       title: "Aceita"
     reject:
       title: "Rejeitada"
-  
+
   gender:
     male: "Masculino"
     female: "Feminino"
-    
+
   registration_total:
     title: "Custo total da inscrição"
     title_partial: "Custo parcial da inscrição"
@@ -719,11 +719,11 @@ pt:
     group: "Empresa"
     individual: "Individual"
     free: "Gratuita"
-  
+
   registration:
     quantity: "Quantidade"
     status: "Status das inscrições para %{date}"
-  
+
   course:
     csm:
       name: "CSM"
@@ -740,14 +740,14 @@ pt:
     psm:
       name: "PSM"
       full_name: "Professional Scrum Master"
-  
+
   attendee:
     status:
       pending: "Pendente"
       confirmed: "Confirmado"
       paid: "Pagamento efetuado"
       all: "Todos"
-  
+
   registration_group:
     status:
       incomplete: "Incompleto"
@@ -755,15 +755,13 @@ pt:
       paid: "Pagamento efetuado"
       confirmed: "Confirmado"
       all: "Todos"
-      
+
   generic:
     or: "ou"
     and: "e"
     ago: "atrás"
     confirmed: "Sim"
     minutes: "minutos"
-    previous: "&laquo; Anterior"
-    next: "Próxima &raquo;"
     says: "diz"
     are_you_sure: "Você tem certeza que quer %{action}?"
     reviewed_by: "Avaliado por"
@@ -773,6 +771,10 @@ pt:
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
     registration_id: "Número da inscrição"
-    
+
+  will_paginate:
+    previous_label: "&laquo; Anterior"
+    next_label: "Próxima &raquo;"
+
   tips:
     users_from_last_year: "<strong>Dica:</strong> os usuários do ano passado ainda são válidos. Caso não lembre do nome do seu usuário ou sua senha, use o link acima para recuperá-la."

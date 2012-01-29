@@ -41,3 +41,4 @@ module AgileBrazil
   end
 end
 require 'goalie/rails'
+require 'will_paginate/array'
