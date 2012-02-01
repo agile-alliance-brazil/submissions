@@ -8,8 +8,6 @@ set :domain,              "ftp.dtsato.com"
 set :project,             "agilebrazil"
 set :application,         "agilebrazil.dtsato.com"
 set :applicationdir,      "/home/#{user}/#{application}"
-set :gem_home,            "#{applicationdir}/shared/bundle/ruby/1.8"
-set :gem_path,            "#{gem_home}:/usr/lib/ruby/gems/1.8"
 set :bundle_cmd,          "/home/#{user}/.gems/bin/bundle"
 set :rake,                "#{bundle_cmd} exec rake"
 
