@@ -41,10 +41,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'mocha', '=0.9.12'
-  gem 'rspec-rails', '=2.5.0'
+  gem 'mocha', '=0.10.4'
+  gem 'rspec-rails', '=2.8.1'
   gem 'remarkable_activerecord', '=4.0.0.alpha4'
   gem 'factory_girl_rails', '=1.6.0'
   gem 'metric_fu', '=2.1.1'
-  gem 'hoe', '=2.8.0'
 end
