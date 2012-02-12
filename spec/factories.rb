@@ -1,199 +1,201 @@
 # encoding: UTF-8
-# encoding: utf-8
-Factory.define :conference do |c|
-  c.sequence(:name) {|n| "Agile Brazil #{2000+n}"}
-end
 
-Factory.define :user do |u|
-  u.first_name "User"
-  u.sequence(:last_name) {|n| "Name#{n}"}
-  u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
-  u.email { |a| "#{a.username.parameterize}@example.com" }
-  u.password "secret"
-  u.password_confirmation "secret"
-  u.phone "(11) 3322-1234"
-  u.country "BR"
-  u.state "SP"
-  u.city "São Paulo"
-  u.organization "ThoughtWorks"
-  u.website_url "www.dtsato.com"
-  u.bio "Some text about me..."
-end
+FactoryGirl.define do
+  factory :conference do
+    sequence(:name) {|n| "Agile Brazil #{2000+n}"}
+  end
 
-Factory.define :simple_user, :class => User do |u|
-  u.first_name "User"
-  u.sequence(:last_name) {|n| "Name#{n}"}
-  u.username { |a| "#{a.first_name}.#{a.last_name}".downcase }
-  u.email { |a| "#{a.username.parameterize}@example.com" }
-  u.password "secret"
-  u.password_confirmation "secret"
-end
+  factory :user do
+    first_name "User"
+    sequence(:last_name) {|n| "Name#{n}"}
+    username { |a| "#{a.first_name}.#{a.last_name}".downcase }
+    email { |a| "#{a.username.parameterize}@example.com" }
+    password "secret"
+    password_confirmation "secret"
+    phone "(11) 3322-1234"
+    country "BR"
+    state "SP"
+    city "São Paulo"
+    organization "ThoughtWorks"
+    website_url "www.dtsato.com"
+    bio "Some text about me..."
+  end
 
-Factory.define :session_type do |t|
-  t.title "session_types.tutorial.title"
-  t.description "session_types.tutorial.description"
-end
+  factory :simple_user, :class => User do
+    first_name "User"
+    sequence(:last_name) {|n| "Name#{n}"}
+    username { |a| "#{a.first_name}.#{a.last_name}".downcase }
+    email { |a| "#{a.username.parameterize}@example.com" }
+    password "secret"
+    password_confirmation "secret"
+  end
 
-Factory.define :track do |t|
-  t.title "tracks.engineering.title"
-  t.description "tracks.engineering.description"
-end
+  factory :session_type do
+    title "session_types.tutorial.title"
+    description "session_types.tutorial.description"
+  end
 
-Factory.define :audience_level do |t|
-  t.title "audience_levels.beginner.title"
-  t.description "audience_levels.beginner.description"
-end
+  factory :track do
+    title "tracks.engineering.title"
+    description "tracks.engineering.description"
+  end
 
-Factory.define :session do |s|
-  s.association :track
-  s.association :session_type
-  s.association :audience_level
-  s.association :conference
-  s.duration_mins 50
-  s.title "Fake title"
-  s.summary "Summary details of session"
-  s.description "Full details of session"
-  s.mechanics "Process/Mechanics"
-  s.keyword_list "fake, tag"
-  s.benefits "Benefits for audience"
-  s.target_audience "Managers, developers, testers"
-  s.association :author, :factory => :user
-  s.experience "Description of author's experience on subject"
-end
+  factory :audience_level do
+    title "audience_levels.beginner.title"
+    description "audience_levels.beginner.description"
+  end
 
-Factory.define :comment do |c|
-  c.association :commentable, :factory => :session
-  c.association :user
-  c.comment "Fake comment body..."
-end
+  factory :session do
+    association :track
+    association :session_type
+    association :audience_level
+    association :conference
+    duration_mins 50
+    title "Fake title"
+    summary "Summary details of session"
+    description "Full details of session"
+    mechanics "Process/Mechanics"
+    keyword_list "fake, tag"
+    benefits "Benefits for audience"
+    target_audience "Managers, developers, testers"
+    association :author, :factory => :user
+    experience "Description of author's experience on subject"
+  end
 
-Factory.define :organizer do |o|
-  o.association :user
-  o.association :track
-  o.association :conference
-end
+  factory :comment do
+    association :commentable, :factory => :session
+    association :user
+    comment "Fake comment body..."
+  end
 
-Factory.define :reviewer do |r|
-  r.association :user
-  r.association :conference
-end
+  factory :organizer do
+    association :user
+    association :track
+    association :conference
+  end
 
-Factory.define :preference do |p|
-  p.association :reviewer
-  p.association :track
-  p.association :audience_level
-  p.accepted true
-end
+  factory :reviewer do
+    association :user
+    association :conference
+  end
 
-Factory.define :rating do |r|
-  r.title 'rating.high.title'
-end
+  factory :preference do
+    association :reviewer
+    association :track
+    association :audience_level
+    accepted true
+  end
 
-Factory.define :recommendation do |r|
-  r.title 'recommendation.strong_reject.title'
-end
+  factory :rating do
+    title 'rating.high.title'
+  end
 
-Factory.define :review do |r|
-  r.association :author_agile_xp_rating, :factory => :rating
-  r.association :author_proposal_xp_rating, :factory => :rating
+  factory :recommendation do
+    title 'recommendation.strong_reject.title'
+  end
 
-  r.proposal_track true
-  r.proposal_level true
-  r.proposal_type true
-  r.proposal_duration true
-  r.proposal_limit true
-  r.proposal_abstract true
+  factory :review do
+    association :author_agile_xp_rating, :factory => :rating
+    association :author_proposal_xp_rating, :factory => :rating
+    
+    proposal_track true
+    proposal_level true
+    proposal_type true
+    proposal_duration true
+    proposal_limit true
+    proposal_abstract true
+    
+    association :proposal_quality_rating, :factory => :rating
+    association :proposal_relevance_rating, :factory => :rating
+    
+    association :recommendation
+    justification "Fake"
+    
+    association :reviewer_confidence_rating, :factory => :rating
+    
+    comments_to_organizers "Fake"
+    comments_to_authors "Fake " * 40
+    
+    association :reviewer, :factory => :user
+    association :session
+  end
 
-  r.association :proposal_quality_rating, :factory => :rating
-  r.association :proposal_relevance_rating, :factory => :rating
+  factory :slot do
+    association :track
+    start_at Time.zone.local(2010, 1, 12, 9, 0, 0)
+    end_at Time.zone.local(2010, 1, 12, 9, 45, 0)
+    duration_mins 45
+  end
 
-  r.association :recommendation
-  r.justification "Fake"
+  factory :outcome do
+    title "outcomes.accept.title"
+  end
 
-  r.association :reviewer_confidence_rating, :factory => :rating
+  factory :review_decision do
+    association :organizer, :factory => :user
+    association :session
+    association :outcome
+    note_to_authors "Some note to the authors"
+    published false
+  end
 
-  r.comments_to_organizers "Fake"
-  r.comments_to_authors "Fake " * 40
+  factory :attendee do
+    association :conference
+    registration_type { RegistrationType.find_by_title('registration_type.individual') }
+    
+    first_name "Attendee"
+    sequence(:last_name) {|n| "Name#{n}"}
+    email { |e| "#{e.last_name.parameterize}@example.com" }
+    email_confirmation { |e| "#{e.last_name.parameterize}@example.com" }
+    phone "(11) 3322-1234"
+    country "BR"
+    state "SP"
+    city "São Paulo"
+    organization "ThoughtWorks"
+    badge_name {|e| "The Great #{e.first_name}" }
+    cpf "111.444.777-35"
+    gender 'M'
+    twitter_user {|e| "#{e.last_name.parameterize}"}
+    address "Rua dos Bobos, 0"
+    neighbourhood "Vila Perdida"
+    zipcode "12345000"
+  end
 
-  r.association :reviewer, :factory => :user
-  r.association :session
-end
+  factory :course do
+    association :conference
+    name "Course"
+    full_name "That big course of ours"
+    combine false
+  end
 
-Factory.define :slot do |s|
-  s.association :track
-  s.start_at Time.zone.local(2010, 1, 12, 9, 0, 0)
-  s.end_at Time.zone.local(2010, 1, 12, 9, 45, 0)
-  s.duration_mins 45
-end
+  factory :course_attendance do
+    association :course
+    association :attendee
+  end
 
-Factory.define :outcome do |o|
-  o.title "outcomes.accept.title"
-end
+  factory :registration_group do
+    name "Big Corp"
+    contact_name "Contact Name"
+    contact_email { |e| "contact@#{e.name.parameterize}.com" }
+    contact_email_confirmation { |e| "contact@#{e.name.parameterize}.com" }
+    phone "(11) 3322-1234"
+    fax "(11) 4422-1234"
+    country "BR"
+    state "SP"
+    city "São Paulo"
+    cnpj "69.103.604/0001-60"
+    state_inscription "110.042.490.114"
+    municipal_inscription "9999999"
+    address "Rua dos Bobos, 0"
+    neighbourhood "Vila Perdida"
+    zipcode "12345000"
+    total_attendees 5
+  end
 
-Factory.define :review_decision do |d|
-  d.association :organizer, :factory => :user
-  d.association :session
-  d.association :outcome
-  d.note_to_authors "Some note to the authors"
-  d.published false
-end
-
-Factory.define :attendee do |a|
-  a.association :conference
-  a.registration_type { RegistrationType.find_by_title('registration_type.individual') }
-
-  a.first_name "Attendee"
-  a.sequence(:last_name) {|n| "Name#{n}"}
-  a.email { |e| "#{e.last_name.parameterize}@example.com" }
-  a.email_confirmation { |e| "#{e.last_name.parameterize}@example.com" }
-  a.phone "(11) 3322-1234"
-  a.country "BR"
-  a.state "SP"
-  a.city "São Paulo"
-  a.organization "ThoughtWorks"
-  a.badge_name {|e| "The Great #{e.first_name}" }
-  a.cpf "111.444.777-35"
-  a.gender 'M'
-  a.twitter_user {|e| "#{e.last_name.parameterize}"}
-  a.address "Rua dos Bobos, 0"
-  a.neighbourhood "Vila Perdida"
-  a.zipcode "12345000"
-end
-
-Factory.define :course do |c|
-  c.association :conference
-  c.name "Course"
-  c.full_name "That big course of ours"
-  c.combine false
-end
-
-Factory.define :course_attendance do |ca|
-  ca.association :course
-  ca.association :attendee
-end
-
-Factory.define :registration_group do |a|
-  a.name "Big Corp"
-  a.contact_name "Contact Name"
-  a.contact_email { |e| "contact@#{e.name.parameterize}.com" }
-  a.contact_email_confirmation { |e| "contact@#{e.name.parameterize}.com" }
-  a.phone "(11) 3322-1234"
-  a.fax "(11) 4422-1234"
-  a.country "BR"
-  a.state "SP"
-  a.city "São Paulo"
-  a.cnpj "69.103.604/0001-60"
-  a.state_inscription "110.042.490.114"
-  a.municipal_inscription "9999999"
-  a.address "Rua dos Bobos, 0"
-  a.neighbourhood "Vila Perdida"
-  a.zipcode "12345000"
-  a.total_attendees 5
-end
-
-Factory.define :payment_notification do |p|
-  p.params { {:some => 'params'} }
-  p.status "Completed"
-  p.transaction_id "9JU83038HS278211W"
-  p.association :invoicer, :factory => :attendee
+  factory :payment_notification do
+    params { {:some => 'params'} }
+    status "Completed"
+    transaction_id "9JU83038HS278211W"
+    association :invoicer, :factory => :attendee
+  end
 end

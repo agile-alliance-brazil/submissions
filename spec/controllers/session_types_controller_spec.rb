@@ -6,7 +6,7 @@ describe SessionTypesController do
   render_views
 
   before(:each) do
-    Factory(:session_type)
+    FactoryGirl.build(:session_type)
   end
 
   it "index action should render index template" do

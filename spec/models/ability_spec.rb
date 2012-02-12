@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe Ability do
   before(:each) do
-    @user = Factory(:user)
-    @conference = Factory(:conference)
+    @user = FactoryGirl.create(:user)
+    @conference = FactoryGirl.create(:conference)
   end
   
   shared_examples_for "all users" do
@@ -139,7 +139,7 @@ describe Ability do
 
     describe "can update reviewer if:" do
       before(:each) do
-        @reviewer = Factory(:reviewer, :user => @user)
+        @reviewer = FactoryGirl.create(:reviewer, :user => @user)
         @reviewer.invite
       end
       
@@ -151,7 +151,7 @@ describe Ability do
       
       it "- reviewer is in invited state" do
         @ability.should be_able_to(:update, @reviewer)
-        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+        @reviewer.preferences.create(:accepted => true, :track_id => 1, :audience_level_id => 1)
         @reviewer.accept
         @ability.should_not be_able_to(:update, @reviewer)
       end
@@ -195,7 +195,7 @@ describe Ability do
     
     context "index reviews of" do
       before(:each) do
-        @decision = Factory(:review_decision, :published => true)
+        @decision = FactoryGirl.create(:review_decision, :published => true)
         @session = @decision.session
       end
       
@@ -243,7 +243,7 @@ describe Ability do
       end
       
       it "other people's sessions is forbidden" do
-        session = Factory(:session)
+        session = FactoryGirl.create(:session)
         @ability.should_not be_able_to(:index, Review) # no params
         @ability.should_not be_able_to(:index, Review, session)
         
@@ -287,7 +287,7 @@ describe Ability do
     
     describe "can update session if:" do
       before(:each) do
-        @session = Factory(:session, :conference => @conference)
+        @session = FactoryGirl.create(:session, :conference => @conference)
         Time.zone.stubs(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE - 3.days)
       end
       
@@ -318,17 +318,17 @@ describe Ability do
       it "- session on current conference" do
         @session.author = @user
         @ability.should be_able_to(:update, @session)
-        @session.conference = Factory(:conference)
+        @session.conference = FactoryGirl.create(:conference)
         @ability.should_not be_able_to(:update, @session)
       end
     end
 
     describe "can confirm session if:" do
       before(:each) do
-        @another_user = Factory(:user)
-        @session = Factory(:session, :author => @user)
+        @another_user = FactoryGirl.create(:user)
+        @session = FactoryGirl.create(:session, :author => @user)
         @session.reviewing
-        Factory(:review_decision, :session => @session)
+        FactoryGirl.create(:review_decision, :session => @session)
         @session.tentatively_accept
         Session.stubs(:find).returns(@session)
         Time.zone.stubs(:now).returns(Ability::AUTHOR_CONFIRMATION_DEADLINE - 1.week)
@@ -403,10 +403,10 @@ describe Ability do
 
     describe "can withdraw session if:" do
       before(:each) do
-        @another_user = Factory(:user)
-        @session = Factory(:session, :author => @user)
+        @another_user = FactoryGirl.create(:user)
+        @session = FactoryGirl.create(:session, :author => @user)
         @session.reviewing
-        Factory(:review_decision, :session => @session)
+        FactoryGirl.create(:review_decision, :session => @session)
         @session.tentatively_accept
         Session.stubs(:find).returns(@session)
         Time.zone.stubs(:now).returns(Ability::AUTHOR_CONFIRMATION_DEADLINE - 1.week)
@@ -484,7 +484,7 @@ describe Ability do
   context "- organizer" do
     before(:each) do
       @user.add_role "organizer"
-      Factory(:organizer, :user => @user, :conference => @conference)
+      FactoryGirl.create(:organizer, :user => @user, :conference => @conference)
       @ability = Ability.new(@user, @conference)
     end
 
@@ -525,11 +525,11 @@ describe Ability do
     
     context "organizer index reviews of" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.create(:session)
       end
       
       it "session on organizer's track is allowed" do
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:organizer, Review) # no params
         
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
@@ -552,21 +552,21 @@ describe Ability do
     
     context "can cancel session if:" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.create(:session)
       end
       
       it "- session on organizer's track" do
         @ability.should_not be_able_to(:cancel, @session)
 
-        Factory(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:cancel, @session)
 
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:cancel, @session)
       end
 
       it "- session is not already cancelled" do
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:cancel, @session)
         @session.cancel
         @ability.should_not be_able_to(:cancel, @session)
@@ -575,7 +575,7 @@ describe Ability do
 
     context "can create review decision if:" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.create(:session)
         @session.reviewing
         Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE + 1.day)
       end
@@ -590,7 +590,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
         
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
 
         @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
@@ -604,7 +604,7 @@ describe Ability do
       end
       
       it "- after review deadline" do
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE + 1.second)
 
         @ability = Ability.new(@user, @conference)
@@ -615,7 +615,7 @@ describe Ability do
       end
       
       it "- before review deadline can't create review decision" do
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE)
 
         @ability = Ability.new(@user, @conference)
@@ -637,7 +637,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
 
         @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
@@ -651,7 +651,7 @@ describe Ability do
       end
 
       it "- session is in review" do
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
         
@@ -677,7 +677,7 @@ describe Ability do
     
     context "can edit review decision session" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.create(:session)
         @session.reviewing
         Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE + 1.day)
       end
@@ -692,7 +692,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
         
-        Factory(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
@@ -717,7 +717,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        Factory(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
@@ -734,7 +734,7 @@ describe Ability do
         @session.tentatively_accept
         @session.accept
 
-        Factory(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -748,7 +748,7 @@ describe Ability do
       it "unless session was rejected by author" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.reject
@@ -761,7 +761,7 @@ describe Ability do
       it "unless session was accepted by author" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.accept
@@ -772,7 +772,7 @@ describe Ability do
       end
       
       it "if session has a review decision" do
-        Factory(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -786,7 +786,7 @@ describe Ability do
       it "if session is rejected" do
         @session.reject
         
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
         
@@ -800,7 +800,7 @@ describe Ability do
       it "if session is tentatively accepted" do
         @session.tentatively_accept
         
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
         
@@ -815,7 +815,7 @@ describe Ability do
         @session.tentatively_accept
 
         Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE + 1.second)
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
@@ -826,7 +826,7 @@ describe Ability do
         @session.tentatively_accept
 
         Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE)
-        Factory(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
@@ -838,7 +838,7 @@ describe Ability do
   context "- reviewer" do
     before(:each) do
       @user.add_role "reviewer"
-      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
+      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
@@ -881,7 +881,7 @@ describe Ability do
     end
 
     it "can show own reviews" do
-      review = Factory(:review)
+      review = FactoryGirl.create(:review)
       @ability.should_not be_able_to(:show, review)
       review.reviewer = @user
       @ability.should be_able_to(:show, review)
@@ -889,7 +889,7 @@ describe Ability do
 
     context "can create a new review if:" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.create(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
         Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE - 1.week)
       end

@@ -6,7 +6,7 @@ describe EmailNotifications do
   before do
     ActionMailer::Base.deliveries = []
     I18n.locale = I18n.default_locale
-    @conference = Conference.current || Factory(:conference)
+    @conference = Conference.current || FactoryGirl.create(:conference)
   end
 
   after do
@@ -15,7 +15,7 @@ describe EmailNotifications do
 
   context "user subscription" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
     
     it "should include account details" do
@@ -38,7 +38,7 @@ describe EmailNotifications do
 
   context "password reset" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
     
     it "should include link with perishable_token" do
@@ -65,7 +65,7 @@ describe EmailNotifications do
 
   context "session submission" do
     before(:each) do
-      @session = Factory(:session)
+      @session = FactoryGirl.create(:session)
     end
     
     it "should be sent to first author" do
@@ -79,7 +79,7 @@ describe EmailNotifications do
     end
     
     it "should be sent to second author, if available" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       @session.second_author = user
       
       mail = EmailNotifications.session_submitted(@session).deliver
@@ -104,7 +104,7 @@ describe EmailNotifications do
 
     it "should be sent to second author, if available (in system's locale)" do
       I18n.locale = 'en'
-      user = Factory(:user, :default_locale => 'fr')
+      user = FactoryGirl.create(:user, :default_locale => 'fr')
       @session.second_author = user
       
       mail = EmailNotifications.session_submitted(@session).deliver
@@ -119,7 +119,7 @@ describe EmailNotifications do
 
   context "reviewer invitation" do
     before(:each) do
-      @reviewer = Factory.build(:reviewer, :id => 3)
+      @reviewer = FactoryGirl.build(:reviewer, :id => 3)
     end
     
     it "should include link with invitation" do
@@ -144,14 +144,14 @@ describe EmailNotifications do
   
   context "notification of acceptance" do
     before(:each) do
-      @decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
+      @decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
       @decision.session.update_attribute(:state, "in_review")
       @decision.save
       @session = @decision.session
     end
     
     it "should not be sent if session has no decision" do
-      session = Factory(:session, :conference => @conference)
+      session = FactoryGirl.create(:session, :conference => @conference)
       lambda {EmailNotifications.notification_of_acceptance(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
@@ -175,7 +175,7 @@ describe EmailNotifications do
     end
     
     it "should be sent to second author, if available" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       @session.second_author = user
       
       mail = EmailNotifications.notification_of_acceptance(@session).deliver
@@ -206,7 +206,7 @@ describe EmailNotifications do
 
     it "should be the same to both authors, if second autor is available" do
       @session.author.default_locale = 'en'
-      user = Factory(:user, :default_locale => 'fr')
+      user = FactoryGirl.create(:user, :default_locale => 'fr')
       @session.second_author = user
       
       mail = EmailNotifications.notification_of_acceptance(@session).deliver
@@ -225,14 +225,14 @@ describe EmailNotifications do
   
   context "notification of rejection" do
     before(:each) do
-      @decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
+      @decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
       @decision.session.update_attribute(:state, "in_review")
       @decision.save
       @session = @decision.session
     end
     
     it "should not be sent if session has no decision" do
-      session = Factory(:session, :conference => @conference)
+      session = FactoryGirl.create(:session, :conference => @conference)
       lambda {EmailNotifications.notification_of_rejection(session).deliver}.should raise_error("Notification can't be sent before decision has been made")
     end
     
@@ -254,7 +254,7 @@ describe EmailNotifications do
     end
     
     it "should be sent to second author, if available" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       @session.second_author = user
       
       mail = EmailNotifications.notification_of_rejection(@session).deliver
@@ -281,7 +281,7 @@ describe EmailNotifications do
 
     it "should be the same to both authors, if second autor is available" do
       @session.author.default_locale = 'en'
-      user = Factory(:user, :default_locale => 'fr')
+      user = FactoryGirl.create(:user, :default_locale => 'fr')
       @session.second_author = user
       
       mail = EmailNotifications.notification_of_rejection(@session).deliver
@@ -297,7 +297,7 @@ describe EmailNotifications do
   
   context "registration pending" do
     before(:each) do
-      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
+      @attendee = FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
     end
     
     it "should be sent to attendee cc'ed to conference organizer" do
@@ -330,7 +330,7 @@ describe EmailNotifications do
 
   context "registration confirmed" do
     before(:each) do
-      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
+      @attendee = FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
     end
     
     it "should be sent to attendee" do
@@ -345,7 +345,7 @@ describe EmailNotifications do
     end
 
     it "should cc group contact if available" do
-      group = Factory(:registration_group)
+      group = FactoryGirl.create(:registration_group)
       @attendee.registration_group = group
       
       mail = EmailNotifications.registration_confirmed(@attendee).deliver
@@ -368,8 +368,8 @@ describe EmailNotifications do
 
   context "registration group attendee" do
     before(:each) do
-      @registration_group = Factory(:registration_group)
-      @attendee = Factory(:attendee,
+      @registration_group = FactoryGirl.create(:registration_group)
+      @attendee = FactoryGirl.create(:attendee,
         :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0),
         :registration_type => RegistrationType.find_by_title('registration_type.group'),
         :registration_group => @registration_group
@@ -400,8 +400,8 @@ describe EmailNotifications do
     
   context "registration group pending" do
     before(:each) do
-      @registration_group = Factory(:registration_group)
-      @attendee = Factory(:attendee,
+      @registration_group = FactoryGirl.create(:registration_group)
+      @attendee = FactoryGirl.create(:attendee,
         :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0),
         :registration_type => RegistrationType.find_by_title('registration_type.group'),
         :registration_group => @registration_group
@@ -434,7 +434,7 @@ describe EmailNotifications do
   
   context "registration group confirmed" do
     before(:each) do
-      @registration_group = Factory(:registration_group)
+      @registration_group = FactoryGirl.create(:registration_group)
     end
     
     it "should be sent to group contact" do
@@ -460,7 +460,7 @@ describe EmailNotifications do
 
   context "registration reminder" do
     before(:each) do
-      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
+      @attendee = FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 04, 25, 12, 0, 0))
     end
     
     it "should be sent to attendee cc'ed to conference organizer" do

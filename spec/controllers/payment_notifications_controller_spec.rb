@@ -4,7 +4,7 @@ require 'spec_helper'
 describe PaymentNotificationsController do
   describe "POST create" do
     it "should create PaymentNotification" do
-      attendee = Factory(:attendee)
+      attendee = FactoryGirl.create(:attendee)
       
       lambda {
         post :create, :txn_id => "ABCABC", :invoice => attendee.id, :custom => 'Attendee', :payment_status => "Completed"

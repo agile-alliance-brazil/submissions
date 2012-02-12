@@ -6,7 +6,7 @@ describe RegistrationsController do
   it_should_behave_like_a_devise_controller
 
   before(:each) do
-    @user = Factory(:user)
+    @user ||= FactoryGirl.create(:user)
   end
 
   it "new action should render new template" do

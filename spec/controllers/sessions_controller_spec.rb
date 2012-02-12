@@ -8,8 +8,7 @@ describe SessionsController do
   it_should_require_login_for_actions :index, :show, :new, :create, :edit, :update
 
   before(:each) do
-    @conference = Factory(:conference)
-    @session = Factory(:session, :conference => @conference)
+    @session ||= FactoryGirl.create(:session)
     sign_in @session.author
     disable_authorization
   end
@@ -27,8 +26,8 @@ describe SessionsController do
   end
 
   it "show action should display flash news if session from previous conference" do
-    old_session = Factory(:session)
-    Factory(:session)
+    old_session = FactoryGirl.create(:session)
+    FactoryGirl.create(:session)
     get :show, :id => old_session.id
     flash[:news].should == "Você está acessando uma proposta da #{old_session.conference.name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da #{Conference.current.name}."
   end
@@ -76,7 +75,7 @@ describe SessionsController do
   end
   
   it "cancel action should redirect to organizer sessions with error" do
-    session = Factory(:session, :conference => @conference)
+    session = FactoryGirl.create(:session, :conference => @session.conference)
     session.cancel
     delete :cancel, :id => session
     response.should redirect_to(organizer_sessions_path)

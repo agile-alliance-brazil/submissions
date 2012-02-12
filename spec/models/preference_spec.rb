@@ -16,7 +16,7 @@ describe Preference do
     should_validate_inclusion_of :accepted, :in => [true, false]
 
     describe "should validate audience level if accepted" do
-      subject {Factory(:preference, :accepted => true)}
+      subject {FactoryGirl.build(:preference, :accepted => true)}
       should_validate_presence_of :audience_level_id
       should_validate_existence_of :audience_level
     end
@@ -25,11 +25,11 @@ describe Preference do
 
     describe "should validate preference for organizer" do
       before(:each) do
-        @organizer = Factory(:organizer)
+        @organizer = FactoryGirl.create(:organizer)
       end
       
       it "cannot choose track that is being organized by him/her" do
-        preference = Factory.build(:preference)
+        preference = FactoryGirl.build(:preference)
         preference.should be_valid
         preference.reviewer.user = @organizer.user
         preference.reviewer.conference = @organizer.conference

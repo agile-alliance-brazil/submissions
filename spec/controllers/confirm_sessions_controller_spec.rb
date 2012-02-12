@@ -7,10 +7,10 @@ describe ConfirmSessionsController do
   it_should_require_login_for_actions :show, :update
 
   before(:each) do
-    @user = Factory(:user)
-    @session = Factory(:session, :author => @user)
+    @user = FactoryGirl.create(:user)
+    @session = FactoryGirl.create(:session, :author => @user)
     @session.reviewing
-    Factory(:review_decision, :session => @session)
+    FactoryGirl.create(:review_decision, :session => @session)
     @session.tentatively_accept
     Session.stubs(:find).returns(@session)
     sign_in @user

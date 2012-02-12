@@ -7,7 +7,7 @@ describe UserSessionsController do
   it_should_behave_like_a_devise_controller
   
   before do
-    Factory(:conference)
+    FactoryGirl.build(:conference)
   end
   
   it "new action should render new template" do

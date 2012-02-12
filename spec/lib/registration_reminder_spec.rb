@@ -8,14 +8,14 @@ describe RegistrationReminder do
     Rails.logger.stubs(:flush)
     HoptoadNotifier.stubs(:notify)
     
-    @conference = Factory(:conference)
+    @conference = FactoryGirl.create(:conference)
     
     @reminder = RegistrationReminder.new
   end
     
   describe "#publish" do
     before(:each) do
-      @attendees = [Factory(:attendee), Factory(:attendee, :cpf => '366.624.533-15')]
+      @attendees = [FactoryGirl.create(:attendee), FactoryGirl.create(:attendee, :cpf => '366.624.533-15')]
       Attendee.stubs(:all).returns(@attendees)
     end
   

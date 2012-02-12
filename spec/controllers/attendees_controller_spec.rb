@@ -5,7 +5,7 @@ describe AttendeesController do
   render_views
 
   before(:each) do
-    @conference ||= Factory(:conference)
+    @conference ||= FactoryGirl.create(:conference)
   end
 
   describe "GET index" do
@@ -16,7 +16,7 @@ describe AttendeesController do
 
     describe "should present a summary of all attendees states for authorized users" do
       before do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
         disable_authorization
       end
@@ -25,9 +25,9 @@ describe AttendeesController do
         @user.add_role :registrar
         @user.save!
 
-        attendee = Factory(:attendee)
+        attendee = FactoryGirl.create(:attendee)
         attendees = [attendee]
-        course_attendances = [Factory(:course_attendance, :attendee => attendee)]
+        course_attendances = [FactoryGirl.create(:course_attendance, :attendee => attendee)]
         Attendee.expects(:all).returns(attendees)
         CourseAttendance.expects(:all).returns(course_attendances)
         get :index
@@ -39,9 +39,9 @@ describe AttendeesController do
         @user.add_role :admin
         @user.save!
 
-        attendee = Factory(:attendee)
+        attendee = FactoryGirl.create(:attendee)
         attendees = [attendee]
-        course_attendances = [Factory(:course_attendance, :attendee => attendee)]
+        course_attendances = [FactoryGirl.create(:course_attendance, :attendee => attendee)]
         Attendee.expects(:all).returns(attendees)
         CourseAttendance.expects(:all).returns(course_attendances)
         get :index
@@ -88,7 +88,7 @@ describe AttendeesController do
 
     describe "for sponsors" do
       before do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         @user.add_role :registrar
         @user.save!
         sign_in @user
@@ -107,7 +107,7 @@ describe AttendeesController do
     describe "for speakers" do
       before do
         User.any_instance.stubs(:has_approved_session?).returns(true)
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
         disable_authorization
       end
@@ -132,7 +132,7 @@ describe AttendeesController do
 
     describe "for group registration" do
       before do
-        @registration_group ||= Factory(:registration_group)
+        @registration_group ||= FactoryGirl.create(:registration_group)
       end
 
       it "should not render flash news" do
@@ -155,7 +155,7 @@ describe AttendeesController do
 
       it "should pre select free registration group for attendee with session approved" do
         User.any_instance.stubs(:has_approved_session?).returns(true)
-        sign_in Factory(:user)
+        sign_in FactoryGirl.create(:user)
         disable_authorization
         get :new, :registration_group_id => @registration_group.id
         assigns(:attendee).registration_type.should == RegistrationType.find_by_title('registration_type.free')
@@ -168,7 +168,7 @@ describe AttendeesController do
 
       it "should not allow creating more attendees than allowed on registration group" do
         RegistrationGroup.any_instance.stubs(:total_attendees).returns(1)
-        RegistrationGroup.any_instance.stubs(:attendees).returns([Factory.build(:attendee)])
+        RegistrationGroup.any_instance.stubs(:attendees).returns([FactoryGirl.create(:attendee)])
         get :new, :registration_group_id => @registration_group.id
         flash[:error].should_not be_nil
         response.should redirect_to(root_path)
@@ -227,7 +227,7 @@ describe AttendeesController do
 
     describe "for sponsor registration" do
       before do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         @user.add_role :registrar
         @user.save!
         sign_in @user
@@ -252,7 +252,7 @@ describe AttendeesController do
     describe "for speaker registration" do
       before do
         User.any_instance.stubs(:has_approved_session?).returns(true)
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
         disable_authorization
       end
@@ -282,7 +282,7 @@ describe AttendeesController do
 
     describe "for group registration" do
       before do
-        @registration_group ||= Factory(:registration_group)
+        @registration_group ||= FactoryGirl.create(:registration_group)
         Attendee.any_instance.stubs(:valid?).returns(true)
       end
 
@@ -311,7 +311,7 @@ describe AttendeesController do
 
       context "when signed in" do
         before do
-          @user = Factory(:user)
+          @user = FactoryGirl.create(:user)
           sign_in @user
           disable_authorization
         end

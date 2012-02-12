@@ -21,36 +21,39 @@ describe Reviewer do
   it_should_trim_attributes Reviewer, :user_username
 
   context "validations" do
-    before { Factory(:reviewer) }
     should_validate_presence_of :user_username, :conference_id
-    should_validate_uniqueness_of :user_id, :scope => :conference_id
+    
+    context "uniqueness" do
+      before { FactoryGirl.create(:reviewer) }
+      should_validate_uniqueness_of :user_id, :scope => :conference_id
+    end
 
     should_validate_existence_of :user, :conference
     
     it "should validate that at least 1 preference was accepted" do
-      reviewer = Factory(:reviewer)
+      reviewer = FactoryGirl.create(:reviewer)
       reviewer.preferences.build(:accepted => false)
       reviewer.accept.should be_false
       reviewer.errors[:base].should include("pelo menos uma trilha deve ser aceita")
     end
 
     it "should validate that reviewer agreement was accepted" do
-      reviewer = Factory(:reviewer, :reviewer_agreement => false)
+      reviewer = FactoryGirl.create(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept.should be_false
       reviewer.errors[:reviewer_agreement].should include("deve ser aceito")
     end
     
     it "should copy user errors to user_username" do
-      reviewer = Factory(:reviewer)
-      new_reviewer = Factory.build(:reviewer, :user => reviewer.user, :conference => reviewer.conference)
+      reviewer = FactoryGirl.create(:reviewer)
+      new_reviewer = FactoryGirl.build(:reviewer, :user => reviewer.user, :conference => reviewer.conference)
       new_reviewer.should_not be_valid
       new_reviewer.errors[:user_username].should include("já está em uso")
     end
 
     context "user" do
       before(:each) do
-        @reviewer = Factory(:reviewer)
+        @reviewer = FactoryGirl.create(:reviewer)
       end
       
       it "should be a valid user" do
@@ -71,8 +74,8 @@ describe Reviewer do
 
     context "user association by username" do
       before(:each) do
-        @reviewer = Factory(:reviewer)
-        @user = Factory(:user)
+        @reviewer = FactoryGirl.create(:reviewer)
+        @user = FactoryGirl.create(:user)
       end
       
       it "should set by username" do
@@ -104,7 +107,7 @@ describe Reviewer do
   
   context "state machine" do
     before(:each) do
-      @reviewer = Factory.build(:reviewer)
+      @reviewer = FactoryGirl.build(:reviewer)
     end
     
     context "State: created" do
@@ -203,13 +206,13 @@ describe Reviewer do
   
   context "callbacks" do
     it "should invite after created" do
-      reviewer = Factory.build(:reviewer)
+      reviewer = FactoryGirl.build(:reviewer)
       reviewer.save
       reviewer.should be_invited
     end
     
     it "should not invite if validation failed" do
-      reviewer = Factory.build(:reviewer, :user_id => nil)
+      reviewer = FactoryGirl.build(:reviewer, :user_id => nil)
       reviewer.save
       reviewer.should_not be_invited
     end
@@ -217,11 +220,11 @@ describe Reviewer do
 
   shared_examples_for "reviewer role" do
     before do
-      @conference = Factory(:conference)
+      @conference = FactoryGirl.create(:conference)
     end
 
     it "should make given user reviewer role after invitation accepted" do
-      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
+      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
       @user.should_not be_reviewer
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
@@ -231,7 +234,7 @@ describe Reviewer do
     end
     
     it "should remove organizer role after destroyed" do
-      reviewer = Factory(:reviewer, :user => @user, :conference => @conference)
+      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
@@ -244,7 +247,7 @@ describe Reviewer do
   
   context "managing reviewer role for complete user" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
     
     it_should_behave_like "reviewer role"
@@ -252,7 +255,7 @@ describe Reviewer do
 
   context "managing reviewer role for simple user" do
     before(:each) do
-      @user = Factory(:simple_user)
+      @user = FactoryGirl.create(:simple_user)
     end
     
     it_should_behave_like "reviewer role"
@@ -260,12 +263,12 @@ describe Reviewer do
   
   context "checking if able to review a track" do
     before(:each) do
-      @organizer = Factory(:organizer)
-      @reviewer = Factory(:reviewer, :user => @organizer.user, :conference => @organizer.conference)
+      @organizer = FactoryGirl.create(:organizer)
+      @reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user, :conference => @organizer.conference)
     end
     
     it "can review track when not organizer" do
-      @reviewer.should be_can_review(Factory(:track))
+      @reviewer.should be_can_review(FactoryGirl.create(:track))
     end
     
     it "can not review track when organizer on the same conference" do
@@ -273,7 +276,7 @@ describe Reviewer do
     end
 
     it "can review track when organizer for different conference" do
-      reviewer = Factory(:reviewer, :user => @organizer.user)
+      reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user)
       reviewer.should be_can_review(@organizer.track)
     end
   end

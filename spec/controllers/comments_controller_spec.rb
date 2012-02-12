@@ -7,7 +7,7 @@ describe CommentsController do
   it_should_require_login_for_actions :index, :show, :create, :edit, :update, :destroy
 
   before(:each) do
-    @comment = Factory(:comment)
+    @comment = FactoryGirl.create(:comment)
     sign_in @comment.user
     disable_authorization
   end

@@ -37,7 +37,7 @@ describe RegistrationGroup do
 
   context "validations" do
     context "brazilians" do
-      subject { Factory.build(:registration_group) }
+      subject { FactoryGirl.build(:registration_group) }
       should_validate_presence_of :name
       should_validate_presence_of :contact_email
       should_validate_presence_of :contact_name
@@ -55,7 +55,7 @@ describe RegistrationGroup do
     end
 
     context "non brazilians" do
-      subject {Factory(:registration_group, :country => 'US')}
+      subject {FactoryGirl.build(:registration_group, :country => 'US')}
       should_not_validate_presence_of :cnpj
       should_not_validate_presence_of :state_inscription
       should_not_validate_presence_of :municipal_inscription
@@ -89,7 +89,7 @@ describe RegistrationGroup do
     should_validate_numericality_of :total_attendees, :only_integer => true, :greater_than_or_equal_to => 5, :allow_blank => true
 
     it "should validate that payment agreement is checked on confirmation" do
-      registration_group = Factory(:registration_group, :payment_agreement => false)
+      registration_group = FactoryGirl.build(:registration_group, :payment_agreement => false)
       registration_group.expects(:attendees).returns([1, 2, 3, 4, 5])
       registration_group.complete.should be_true
       registration_group.confirm.should be_false
@@ -97,7 +97,7 @@ describe RegistrationGroup do
     end
 
     it "should validate that number of attendees reaches total on completion" do
-      registration_group = Factory(:registration_group, :total_attendees => 5)
+      registration_group = FactoryGirl.build(:registration_group, :total_attendees => 5)
       registration_group.complete.should be_false
       registration_group.errors[:total_attendees].should include("não possui 5 participantes cadastrados")
 
@@ -109,14 +109,14 @@ describe RegistrationGroup do
   describe "callbacks" do
     it "should set URI token after initialized" do
       RegistrationGroup.expects(:generate_token).with(:uri_token).returns('abc123')
-      registration_group = Factory.build(:registration_group)
+      registration_group = FactoryGirl.build(:registration_group)
       registration_group.uri_token.should == 'abc123'
     end
   end
 
   context "state machine" do
     before(:each) do
-      @registration_group = Factory(:registration_group)
+      @registration_group = FactoryGirl.build(:registration_group)
     end
 
     context "State: incomplete" do
@@ -144,7 +144,7 @@ describe RegistrationGroup do
     context "State: complete" do
       before(:each) do
         @attendees = []
-        5.times { @attendees << Factory.build(:attendee) }
+        5.times { @attendees << FactoryGirl.build(:attendee) }
         @registration_group.stubs(:attendees).returns(@attendees)
         @registration_group.complete
         @registration_group.should be_complete
@@ -181,7 +181,7 @@ describe RegistrationGroup do
     context "State: paid" do
       before(:each) do
         @attendees = []
-        5.times { @attendees << Factory.build(:attendee) }
+        5.times { @attendees << FactoryGirl.build(:attendee) }
         @registration_group.stubs(:attendees).returns(@attendees)
         @registration_group.complete
         @registration_group.pay
@@ -214,7 +214,7 @@ describe RegistrationGroup do
     context "State: confirmed" do
       before(:each) do
         @attendees = []
-        5.times { @attendees << Factory.build(:attendee) }
+        5.times { @attendees << FactoryGirl.build(:attendee) }
         @registration_group.stubs(:attendees).returns(@attendees)
         @registration_group.complete
         @registration_group.confirm
@@ -240,7 +240,7 @@ describe RegistrationGroup do
     context "Transition to confirmed" do
       before do
         @attendees = []
-        5.times { @attendees << Factory.build(:attendee, :registration_date => Time.zone.local(2011, 4, 25)) }
+        5.times { @attendees << FactoryGirl.build(:attendee, :registration_date => Time.zone.local(2011, 4, 25)) }
         @registration_group.stubs(:attendees).returns(@attendees)
         @registration_group.complete
       end
@@ -266,9 +266,9 @@ describe RegistrationGroup do
     end
 
     it "should sum registration fees for all attendees" do
-      @registration_group = Factory(:registration_group)
-      Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
-      Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
+      @registration_group = FactoryGirl.create(:registration_group)
+      FactoryGirl.create(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+      FactoryGirl.create(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
 
       @registration_group.registration_fee.should == 135.00 * 2
     end
@@ -276,13 +276,13 @@ describe RegistrationGroup do
 
   describe "to_param" do
     it "should append group name" do
-      Factory(:registration_group, :name => "Some random name").to_param.ends_with?("-some-random-name").should be_true
+      FactoryGirl.build(:registration_group, :name => "Some random name").to_param.ends_with?("-some-random-name").should be_true
     end
   end
 
   describe "registration period" do
     before(:each) do
-      @group = Factory(:registration_group)
+      @group = FactoryGirl.create(:registration_group)
     end
 
     context "no attendees" do
@@ -293,7 +293,7 @@ describe RegistrationGroup do
 
     context "attendee is pre-registered" do
       before(:each) do
-        attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+        attendee = FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
         @pre = PreRegistration.new(:email => attendee.email, :used => false)
         @pre.save!
       end
@@ -309,7 +309,7 @@ describe RegistrationGroup do
 
     context "attendee not pre-registered" do
       before(:each) do
-        Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+        FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 4, 5), :registration_group => @group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
       end
 
       it "should return normal period for registration" do

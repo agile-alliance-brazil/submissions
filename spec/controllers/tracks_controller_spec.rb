@@ -6,7 +6,7 @@ describe TracksController do
   render_views
 
   before(:each) do
-    Factory(:track)
+    FactoryGirl.build(:track)
   end
 
   it "index action should render index template" do

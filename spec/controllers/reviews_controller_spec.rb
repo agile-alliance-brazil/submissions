@@ -7,7 +7,7 @@ describe ReviewsController do
   it_should_require_login_for_actions :index, :show, :new, :create
 
   before(:each) do
-    @review = Factory(:review)
+    @review ||= FactoryGirl.create(:review)
     sign_in @review.reviewer
     disable_authorization
   end

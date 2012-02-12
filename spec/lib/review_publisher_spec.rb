@@ -11,7 +11,7 @@ describe ReviewPublisher do
     Rails.logger.stubs(:flush)
     HoptoadNotifier.stubs(:notify)
     
-    @conference = Factory(:conference)
+    @conference = FactoryGirl.create(:conference)
     
     @publisher = ReviewPublisher.new
   end
@@ -43,9 +43,9 @@ describe ReviewPublisher do
   
   context "Sessions are all reviewed" do
     before(:each) do
-      @sessions = [Factory(:session), Factory(:session)]
-      Factory(:review_decision, :session => @sessions[0])
-      Factory(:review_decision, :session => @sessions[1])
+      @sessions = [FactoryGirl.create(:session), FactoryGirl.create(:session)]
+      FactoryGirl.create(:review_decision, :session => @sessions[0])
+      FactoryGirl.create(:review_decision, :session => @sessions[1])
       Session.stubs(:all).returns(@sessions)
     end
   

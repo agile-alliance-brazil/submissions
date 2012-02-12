@@ -45,7 +45,7 @@ describe Review do
 
   it "should determine if it's strong accept" do
     strong = Recommendation.new(:title => 'recommendation.strong_accept.title')
-    review = Factory(:review)
+    review = FactoryGirl.build(:review)
     review.should_not be_strong_accept
     review.recommendation = strong
     review.should be_strong_accept
@@ -74,12 +74,14 @@ describe Review do
 
     should_validate_length_of :comments_to_authors, :minimum => 150
 
-    before { Factory(:review) }
-    should_validate_uniqueness_of :reviewer_id, :scope => :session_id
+    context "uniqueness" do
+      before { FactoryGirl.create(:review) }
+      should_validate_uniqueness_of :reviewer_id, :scope => :session_id
+    end
 
     context "strong acceptance" do
       before(:each) do
-        @review = Factory(:review)
+        @review = FactoryGirl.build(:review)
         @review.recommendation.title = "recommendation.strong_accept.title"
       end
 
@@ -93,7 +95,7 @@ describe Review do
 
     context "weak acceptance" do
       before(:each) do
-        @review = Factory(:review)
+        @review = FactoryGirl.build(:review)
         @review.recommendation.title = "recommendation.weak_accept.title"
       end
 
@@ -109,7 +111,7 @@ describe Review do
 
     context "weak rejection" do
       before(:each) do
-        @review = Factory(:review)
+        @review = FactoryGirl.build(:review)
         @review.recommendation.title = "recommendation.weak_reject.title"
       end
 
@@ -125,7 +127,7 @@ describe Review do
 
     context "strong rejection" do
       before(:each) do
-        @review = Factory(:review)
+        @review = FactoryGirl.build(:review)
         @review.recommendation.title = "recommendation.strong_reject.title"
       end
 
@@ -142,13 +144,13 @@ describe Review do
 
   context "callbacks" do
     it "should set session in review after created" do
-      review = Factory.build(:review)
+      review = FactoryGirl.build(:review)
       review.save
       review.session.should be_in_review
     end
 
     it "should not set session in review if validation failed" do
-      review = Factory.build(:review, :reviewer_id => nil)
+      review = FactoryGirl.build(:review, :reviewer_id => nil)
       review.save
       review.session.should be_created
     end

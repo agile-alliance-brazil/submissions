@@ -7,8 +7,8 @@ describe OrganizersController do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user = Factory(:user)
+    @conference = FactoryGirl.create(:conference)
+    @user = FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -32,8 +32,8 @@ describe OrganizersController do
   end
   
   it "create action should redirect when model is valid" do
-    user = Factory(:user)
-    track = Factory(:track)
+    user = FactoryGirl.create(:user)
+    track = FactoryGirl.create(:track)
     post :create, :organizer => {:user_username => user.username, :track_id => track.id, :conference_id => @conference.id}
     response.should redirect_to(organizers_path)
   end
@@ -42,19 +42,19 @@ describe OrganizersController do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
-    organizer = Factory(:organizer, :user_id => @user.id)
+    organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
     post :update, :id => organizer.id, :organizer => { :track_id => nil }
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
-    organizer = Factory(:organizer, :user_id => @user.id)
+    organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
     post :update, :id => organizer.id
     response.should redirect_to(organizers_path)
   end
   
   it "destroy action should redirect" do
-    organizer = Factory(:organizer, :user_id => @user.id)
+    organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
     delete :destroy, :id => organizer.id
     response.should redirect_to(organizers_path)
   end

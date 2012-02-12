@@ -7,8 +7,8 @@ describe RegisteredGroupsController do
   it_should_require_login_for_actions :index#, :show, :update
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user ||= Factory(:user)
+    @conference ||= FactoryGirl.create(:conference)
+    @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -22,7 +22,7 @@ describe RegisteredGroupsController do
   
   describe "GET show" do
     before do
-      @registration_group ||= Factory(:registration_group)
+      @registration_group ||= FactoryGirl.create(:registration_group)
     end
     
     it "should render show template" do
@@ -33,7 +33,7 @@ describe RegisteredGroupsController do
   
   describe "PUT update" do
     before do
-      @registration_group ||= Factory(:registration_group)
+      @registration_group ||= FactoryGirl.create(:registration_group)
     end
     
     it "update action should render show template when model is invalid" do

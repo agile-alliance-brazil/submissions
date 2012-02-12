@@ -6,7 +6,7 @@ describe RegistrationGroupStatusesController do
   
   describe "GET show" do
     it "should render show template" do
-      registration_group = Factory(:registration_group)
+      registration_group = FactoryGirl.create(:registration_group)
       get :show, :id => registration_group.uri_token
       response.should render_template(:show)
       assigns(:registration_group).should == registration_group

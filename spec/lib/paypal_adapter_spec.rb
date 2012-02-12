@@ -4,7 +4,7 @@ require 'spec_helper'
 describe PaypalAdapter do
   describe "from_attendee" do
     before(:each) do
-      @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 5, 15))
+      @attendee ||= FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 5, 15))
     end
     
     it "should add item for base registration price" do
@@ -47,10 +47,10 @@ describe PaypalAdapter do
   describe "from_registration_group" do
     before(:each) do
       @date = Time.zone.local(2011, 5, 15)
-      @registration_group = Factory(:registration_group)
+      @registration_group ||= FactoryGirl.create(:registration_group)
       
-      @attendee_1 = Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
-      @attendee_2 = Factory(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
+      @attendee_1 = FactoryGirl.create(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'))
+      @attendee_2 = FactoryGirl.create(:attendee, :registration_date => @date, :registration_group => @registration_group, :registration_type => RegistrationType.find_by_title('registration_type.group'), :cpf => "366.624.533-15")
     end
     
     it "should add items for each attendee's registration" do
@@ -97,7 +97,7 @@ describe PaypalAdapter do
   
   describe "to_variables" do
     it "should map each item's variables" do
-      attendee = Factory.build(:attendee)
+      attendee = FactoryGirl.create(:attendee)
       adapter = PaypalAdapter.new([
         PaypalAdapter::PaypalItem.new('item 1', 2, 10.50),
         PaypalAdapter::PaypalItem.new('item 2', 3, 9.99, 2)
@@ -116,7 +116,7 @@ describe PaypalAdapter do
     end
     
     it "should add invoice id and custom field for invoice type" do
-      attendee = Factory(:attendee)
+      attendee = FactoryGirl.create(:attendee)
       adapter = PaypalAdapter.new([
         PaypalAdapter::PaypalItem.new('item 1', 2, 10.50),
         PaypalAdapter::PaypalItem.new('item 2', 3, 9.99, 2)

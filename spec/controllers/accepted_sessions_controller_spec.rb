@@ -7,8 +7,8 @@ describe AcceptedSessionsController do
   it_should_require_login_for_actions :index
 
   before(:each) do
-    @conference = Factory(:conference)
-    user = Factory(:user)
+    @conference = FactoryGirl.create(:conference)
+    user = FactoryGirl.create(:user)
     sign_in user
     disable_authorization
   end

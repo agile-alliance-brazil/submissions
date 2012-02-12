@@ -5,7 +5,7 @@ describe RegistrationGroupsController do
   render_views
 
   before(:each) do
-    @conference = Factory(:conference)
+    @conference = FactoryGirl.build(:conference)
     now = Time.zone.local(2011, 4, 25)
     Time.zone.stubs(:now).returns(now)
   end

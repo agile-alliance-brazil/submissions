@@ -8,13 +8,13 @@ describe ReviewsListingController do
 
   it "index action (JS) should render JSON" do
     # Login
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     sign_in user
     disable_authorization
 
     # 2 reviews (2 sessions)
-    review = Factory(:review)
-    Factory(:review, :session => Factory(:session, :conference => review.session.conference))
+    review = FactoryGirl.create(:review)
+    FactoryGirl.create(:review, :session => FactoryGirl.create(:session, :conference => review.session.conference))
     
     get :index, :format => 'js'
     response.body.should == {
@@ -25,7 +25,7 @@ describe ReviewsListingController do
   
   context "as a reviewer" do
     before(:each) do
-      @reviewer = Factory(:reviewer)
+      @reviewer = FactoryGirl.create(:reviewer)
       sign_in @reviewer.user
       disable_authorization
     end

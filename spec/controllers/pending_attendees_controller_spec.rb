@@ -7,8 +7,8 @@ describe PendingAttendeesController do
   it_should_require_login_for_actions :index, :update
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user ||= Factory(:user)
+    @conference ||= FactoryGirl.create(:conference)
+    @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -23,7 +23,7 @@ describe PendingAttendeesController do
 
   describe "PUT update" do
     before do
-      @attendee ||= Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
+      @attendee ||= FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
     end
 
     it "update action should redirect to pending attendees" do

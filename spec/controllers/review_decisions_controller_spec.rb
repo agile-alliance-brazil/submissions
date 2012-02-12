@@ -7,15 +7,15 @@ describe ReviewDecisionsController do
   it_should_require_login_for_actions :new, :create, :edit, :update, :index
 
   before(:each) do
-    @session = Factory(:session)
-    @organizer = Factory(:organizer, :track => @session.track, :conference => @session.conference)
+    @session ||= FactoryGirl.create(:session)
+    @organizer ||= FactoryGirl.create(:organizer, :track => @session.track, :conference => @session.conference)
     sign_in @organizer.user
     disable_authorization
   end
 
   it "index action (JS) should render JSON" do
-    Factory(:session, :track => @session.track, :conference => @session.conference)
-    Factory(:review_decision, :session => @session, :organizer => @organizer.user)
+    FactoryGirl.create(:session, :track => @session.track, :conference => @session.conference)
+    FactoryGirl.create(:review_decision, :session => @session, :organizer => @organizer.user)
 
     get :index, :format => 'js'
     response.body.should == {
@@ -48,7 +48,7 @@ describe ReviewDecisionsController do
   
   context "existing review decision" do
     before(:each) do
-      @decision = Factory(:review_decision, :session => @session, :organizer => @organizer.user)
+      @decision ||= FactoryGirl.create(:review_decision, :session => @session, :organizer => @organizer.user)
     end
     
     it "edit action should render edit template" do

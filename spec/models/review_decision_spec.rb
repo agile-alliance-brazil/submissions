@@ -23,13 +23,13 @@ describe ReviewDecision do
     should_validate_existence_of :organizer, :session, :outcome
 
     it "should validate outcome can transition session on acceptance" do
-      review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
+      review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
       review_decision.should_not be_valid
       review_decision.errors[:session_id].should include("não pode ser aceita")
     end
 
     it "should validate outcome can transition session on rejection" do
-      review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
+      review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
       review_decision.should_not be_valid
       review_decision.errors[:session_id].should include("não pode ser rejeitada")
     end
@@ -106,7 +106,7 @@ describe ReviewDecision do
   end
   
   def review_decision_with_outcome(outcome)
-    review_decision = Factory.build(:review_decision, :outcome => Outcome.find_by_title(outcome))
+    review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title(outcome))
     review_decision.session.update_attribute(:state, 'in_review')
     review_decision.save
     review_decision

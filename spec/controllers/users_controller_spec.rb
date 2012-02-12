@@ -5,7 +5,7 @@ describe UsersController do
   render_views
   
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.build(:user)
   end
 
   it "index should render JS with a list of matching usernames" do

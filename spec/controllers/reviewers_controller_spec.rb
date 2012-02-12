@@ -7,8 +7,8 @@ describe ReviewersController do
   it_should_require_login_for_actions :index, :new, :create, :update
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user = Factory(:user)
+    @conference ||= FactoryGirl.create(:conference)
+    @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -40,20 +40,20 @@ describe ReviewersController do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
-    reviewer = Factory(:reviewer)
+    reviewer = FactoryGirl.create(:reviewer)
     put :update, :id => reviewer.id, :reviewer => {}
     response.should render_template('accept_reviewers/show')
   end
 
   it "update action should redirect when model is valid" do
-    reviewer = Factory(:reviewer)
+    reviewer = FactoryGirl.create(:reviewer)
     reviewer.stubs(:valid?).returns(true)
     put :update, :id => reviewer.id
     response.should redirect_to(reviewer_sessions_path)
   end
 
   it "destroy action should redirect" do
-    reviewer = Factory(:reviewer, :user_id => @user.id)
+    reviewer = FactoryGirl.create(:reviewer, :user_id => @user.id)
     delete :destroy, :id => reviewer.id
     response.should redirect_to(reviewers_path)
   end

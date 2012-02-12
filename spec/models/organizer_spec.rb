@@ -15,17 +15,20 @@ describe Organizer do
   it_should_trim_attributes Organizer, :user_username
 
   context "validations" do
-    before { Factory(:organizer) }
     should_validate_presence_of :user_username
     should_validate_presence_of :track_id
     should_validate_presence_of :conference_id
-    should_validate_uniqueness_of :track_id, :scope => [:conference_id, :user_id]
+
+    context "uniqueness" do
+      before { FactoryGirl.create(:organizer) }      
+      should_validate_uniqueness_of :track_id, :scope => [:conference_id, :user_id]
+    end
 
     should_validate_existence_of :user, :track, :conference
 
     context "user" do
       it "should be a valid user" do
-        organizer = Factory(:organizer)
+        organizer = FactoryGirl.build(:organizer)
         organizer.user_username = 'invalid_username'
         organizer.should_not be_valid
         organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
@@ -40,8 +43,8 @@ describe Organizer do
 
     context "user association by username" do
       before(:each) do
-        @organizer = Factory(:organizer)
-        @user = Factory(:user)
+        @organizer = FactoryGirl.create(:organizer)
+        @user = FactoryGirl.create(:user)
       end
       
       it "should set by username" do
@@ -72,19 +75,15 @@ describe Organizer do
   end
   
   shared_examples_for "organizer role" do
-    before do
-      @conference = Factory(:conference)
-    end
-
     it "should make given user organizer role after created" do
       @user.should_not be_organizer
-      organizer = Factory(:organizer, :user => @user, :conference => @conference)
+      organizer = FactoryGirl.create(:organizer, :user => @user)
       @user.should be_organizer
       @user.reload.should be_organizer
     end
     
     it "should remove organizer role after destroyed" do
-      organizer = Factory(:organizer, :user => @user, :conference => @conference)
+      organizer = FactoryGirl.create(:organizer, :user => @user)
       @user.should be_organizer
       organizer.destroy
       @user.should_not be_organizer
@@ -92,8 +91,8 @@ describe Organizer do
     end
     
     it "should keep organizer role after destroyed if user organizes other tracks" do
-      Factory(:organizer, :user => @user, :conference => @conference)
-      organizer = Factory(:organizer, :user => @user, :conference => @conference)
+      other_organizer = FactoryGirl.create(:organizer, :user => @user)
+      organizer = FactoryGirl.create(:organizer, :user => @user, :conference => other_organizer.conference)
       @user.should be_organizer
       organizer.destroy
       @user.should be_organizer
@@ -101,8 +100,8 @@ describe Organizer do
     end
     
     it "should remove organizer role after update" do
-      organizer = Factory(:organizer, :user => @user, :conference => @conference)
-      another_user = Factory(:user)
+      organizer = FactoryGirl.create(:organizer, :user => @user)
+      another_user = FactoryGirl.create(:user)
       organizer.user = another_user
       organizer.save
       @user.reload.should_not be_organizer
@@ -110,9 +109,9 @@ describe Organizer do
     end
 
     it "should keep organizer role after update if user organizes other tracks" do
-      Factory(:organizer, :user => @user, :conference => @conference)
-      organizer = Factory(:organizer, :user => @user, :conference => @conference)
-      another_user = Factory(:user)
+      other_organizer = FactoryGirl.create(:organizer, :user => @user)
+      organizer = FactoryGirl.create(:organizer, :user => @user, :conference => other_organizer.conference)
+      another_user = FactoryGirl.build(:user)
       organizer.user = another_user
       organizer.save
       @user.reload.should be_organizer
@@ -122,7 +121,7 @@ describe Organizer do
   
   context "managing organizer role for normal user" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
     
     it_should_behave_like "organizer role"
@@ -130,7 +129,7 @@ describe Organizer do
 
   context "managing organizer role for simple user" do
     before(:each) do
-      @user = Factory(:simple_user)
+      @user = FactoryGirl.create(:simple_user)
     end
     
     it_should_behave_like "organizer role"

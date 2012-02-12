@@ -7,10 +7,8 @@ describe OrganizerSessionsController do
   it_should_require_login_for_actions :index
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user = Factory(:user)
-    @organizer = Factory(:organizer, :user => @user, :conference => @conference)
-    sign_in @user
+    @organizer = FactoryGirl.create(:organizer)
+    sign_in @organizer.user
     disable_authorization
   end
 
@@ -21,7 +19,7 @@ describe OrganizerSessionsController do
   
   it "index action should find sessions on organizer's tracks" do
     Session.stubs(:for_user).returns(Session)
-    Session.expects(:for_conference).at_least(1).with(@conference).returns(Session)
+    Session.expects(:for_conference).at_least(1).with(@organizer.conference).returns(Session)
     Session.expects(:for_tracks).with([@organizer.track.id]).returns([])
     get :index
     assigns(:sessions).should == []

@@ -13,7 +13,7 @@ describe PaymentNotification do
   context "callbacks" do
     describe "payment" do
       before(:each) do
-        @attendee = Factory(:attendee)
+        @attendee = FactoryGirl.create(:attendee)
         @attendee.registration_date = Time.zone.local(2011, 4, 25)
         @attendee.should be_pending
 
@@ -31,42 +31,42 @@ describe PaymentNotification do
       end
 
       it "succeed if status is Completed and params are valid" do
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_confirmed
       end
 
       it "succeed if amount paid in full" do
         @valid_params.merge!(:mc_gross => @attendee.registration_fee.to_i)
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_confirmed
       end
 
       it "fails if secret doesn't match" do
         @valid_params.merge!(:secret => 'wrong_secret')
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_pending
       end
 
       it "fails if status is not Completed" do
-        payment_notification = Factory(:payment_notification, @valid_args.merge(:status => "Failed"))
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args.merge(:status => "Failed"))
         @attendee.should be_pending
       end
 
       it "fails if receiver address doesn't match" do
         @valid_params.merge!(:receiver_email => 'wrong@email.com')
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_pending
       end
 
       it "fails if paid amount doesn't match" do
         @valid_params.merge!(:mc_gross => '1.00')
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_pending
       end
 
       it "fails if currency doesn't match" do
         @valid_params.merge!(:mc_currency => 'GBP')
-        payment_notification = Factory(:payment_notification, @valid_args)
+        payment_notification = FactoryGirl.create(:payment_notification, @valid_args)
         @attendee.should be_pending
       end
     end

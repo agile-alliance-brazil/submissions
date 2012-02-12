@@ -7,8 +7,8 @@ describe RejectReviewersController do
   it_should_require_login_for_actions :show, :update
 
   before(:each) do
-    @user = Factory(:user)
-    @reviewer = Factory(:reviewer, :user => @user)
+    @user ||= FactoryGirl.create(:user)
+    @reviewer ||= FactoryGirl.create(:reviewer, :user => @user)
     Reviewer.stubs(:find).returns(@reviewer)
     sign_in @user
     disable_authorization

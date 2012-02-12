@@ -7,8 +7,8 @@ describe RegisteredAttendeesController do
   it_should_require_login_for_actions :index, :show, :update
 
   before(:each) do
-    @conference = Factory(:conference)
-    @user ||= Factory(:user)
+    @conference ||= FactoryGirl.create(:conference)
+    @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -22,7 +22,7 @@ describe RegisteredAttendeesController do
 
   describe "GET show" do
     before do
-      @attendee ||= Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
+      @attendee ||= FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
     end
 
     it "should render show template" do
@@ -33,7 +33,7 @@ describe RegisteredAttendeesController do
 
   describe "PUT update" do
     before do
-      @attendee ||= Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
+      @attendee ||= FactoryGirl.create(:attendee, :registration_date => Time.zone.local(2011, 4, 25))
     end
 
     it "update action should render show template when model is invalid" do

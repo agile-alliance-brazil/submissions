@@ -45,8 +45,8 @@ describe Session do
 
     context "second author association by username" do
       before(:each) do
-        @session = Factory(:session)
-        @user = Factory(:user)
+        @session = FactoryGirl.create(:session)
+        @user = FactoryGirl.create(:user)
       end
 
       it "should set by username" do
@@ -108,7 +108,7 @@ describe Session do
 
     context "workshop" do
       it "should validate presence of mechanics" do
-        session = Factory(:session)
+        session = FactoryGirl.build(:session)
         session.mechanics = nil
         session.should be_valid
         session.session_type = SessionType.new(:title => 'session_types.workshop.title')
@@ -118,7 +118,7 @@ describe Session do
 
     context "second author" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.build(:session)
       end
 
       it "should be a valid user" do
@@ -134,7 +134,7 @@ describe Session do
       end
 
       it "should be author" do
-        guest = Factory(:user)
+        guest = FactoryGirl.create(:user)
         @session.second_author_username = guest.username
         @session.should_not be_valid
         @session.errors[:second_author_username].should include("usuário não possui perfil de autor completo")
@@ -143,7 +143,7 @@ describe Session do
 
     context "duration" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.build(:session)
       end
 
       it "should only allow duration of 50 or 110 minutes for talks" do
@@ -169,7 +169,7 @@ describe Session do
 
     context "experience report" do
       before(:each) do
-        @session = Factory(:session)
+        @session = FactoryGirl.build(:session)
         @session.track.title = 'tracks.experience_reports.title'
       end
 
@@ -193,15 +193,15 @@ describe Session do
     end
 
     it "should validate that author doesn't change" do
-      session = Factory(:session)
-      session.author_id = Factory(:user).id
+      session = FactoryGirl.create(:session)
+      session.author_id = FactoryGirl.create(:user).id
       session.should_not be_valid
       session.errors[:author_id].should == ["não pode mudar"]
     end
 
     context "confirming attendance:" do
       it "should validate that author agreement was accepted on acceptance" do
-        session = Factory(:session)
+        session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'accept', :author_agreement => false).should be_false
@@ -209,7 +209,7 @@ describe Session do
       end
 
       it "should validate that author agreement was accepted on withdraw" do
-        session = Factory(:session)
+        session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'reject', :author_agreement => false).should be_false
@@ -268,7 +268,7 @@ describe Session do
       end
 
       it "should combine criteria" do
-        reviewer = Factory(:reviewer)
+        reviewer = FactoryGirl.build(:reviewer)
         conference = reviewer.conference
         Session.expects(:for_conference).with(conference).returns(Session)
         Session.expects(:incomplete_reviews).with(3).returns(Session)
@@ -287,7 +287,7 @@ describe Session do
 
   it "should determine if it's workshop" do
     workshop = SessionType.new(:title => 'session_types.workshop.title')
-    session = Factory(:session)
+    session = FactoryGirl.build(:session)
     session.should_not be_workshop
     session.session_type = workshop
     session.should be_workshop
@@ -295,7 +295,7 @@ describe Session do
 
   it "should determine if it's lightning talk" do
     lightning_talk = SessionType.new(:title => 'session_types.lightning_talk.title')
-    session = Factory(:session)
+    session = FactoryGirl.build(:session)
     session.should_not be_lightning_talk
     session.session_type = lightning_talk
     session.should be_lightning_talk
@@ -303,14 +303,14 @@ describe Session do
 
   it "should determine if it's experience_report" do
     experience_report = Track.new(:title => 'tracks.experience_reports.title')
-    session = Factory(:session)
+    session = FactoryGirl.build(:session)
     session.should_not be_experience_report
     session.track = experience_report
     session.should be_experience_report
   end
 
   it "should overide to_param with session title" do
-    session = Factory(:session, :title => "refatoração e código limpo: na prática.")
+    session = FactoryGirl.create(:session, :title => "refatoração e código limpo: na prática.")
     session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_true
 
     session.title = nil
@@ -319,38 +319,38 @@ describe Session do
 
   context "authors" do
     it "should provide main author" do
-      session = Factory(:session)
+      session = FactoryGirl.build(:session)
       session.authors.should == [session.author]
     end
 
     it "should provide second author if available" do
-      user = Factory(:user)
+      user = FactoryGirl.build(:user)
       user.add_role(:author)
-      session = Factory(:session, :second_author => user)
+      session = FactoryGirl.build(:session, :second_author => user)
       session.authors.should == [session.author, user]
     end
 
     it "should be empty if no authors" do
-      session = Factory(:session)
+      session = FactoryGirl.build(:session)
       session.author = nil
       session.authors.should be_empty
     end
 
     it "should state that first author is author" do
-      user = Factory(:user)
+      user = FactoryGirl.build(:user)
       user.add_role(:author)
 
-      session = Factory(:session, :author => user)
+      session = FactoryGirl.build(:session, :author => user)
       session.is_author?(user).should be_true
       session.author = nil
       session.is_author?(user).should be_false
     end
 
     it "should state that second author is author" do
-      user = Factory(:user)
+      user = FactoryGirl.build(:user)
       user.add_role(:author)
 
-      session = Factory(:session, :second_author => user)
+      session = FactoryGirl.build(:session, :second_author => user)
       session.is_author?(user).should be_true
       session.second_author = nil
       session.is_author?(user).should be_false
@@ -359,7 +359,7 @@ describe Session do
 
   context "state machine" do
     before(:each) do
-      @session = Factory.build(:session)
+      @session = FactoryGirl.build(:session)
     end
 
     context "State: created" do

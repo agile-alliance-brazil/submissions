@@ -15,7 +15,7 @@ gem 'seed-fu', '=2.1.0'
 gem 'acts-as-taggable-on', '=2.0.6'
 gem 'cancan', '=1.6.7'
 gem 'acts_as_commentable', '=3.0.1'
-gem 'state_machine', '=1.1.1'
+gem 'state_machine', '=1.1.2'
 gem 'validates_existence', '=0.7.1'
 gem 'goalie', '=0.0.4'
 gem 'jammit', '=0.6.5'
@@ -42,7 +42,7 @@ group :production do
 end
 
 group :development do
-  gem 'sqlite3-ruby', '=1.3.3', :require => 'sqlite3'
+  gem 'sqlite3', '=1.3.5'
   gem 'capistrano-ext', '=1.2.1'
 end
 

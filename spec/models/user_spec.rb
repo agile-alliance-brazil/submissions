@@ -32,12 +32,12 @@ describe User do
     should_validate_presence_of :last_name
     
     context "brazilians" do
-      subject { Factory.build(:user, :country => "BR") }
+      subject { FactoryGirl.build(:user, :country => "BR") }
       should_not_validate_presence_of :state
     end
     
     context "author" do
-      subject { u = Factory.build(:user); u.add_role("author"); u }
+      subject { u = FactoryGirl.build(:user); u.add_role("author"); u }
       should_validate_presence_of :phone
       should_validate_presence_of :country
       should_validate_presence_of :city
@@ -47,7 +47,7 @@ describe User do
       should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
 
       context "brazilians" do
-        subject { u = Factory.build(:user, :country => "BR"); u.add_role("author"); u }
+        subject { u = FactoryGirl.build(:user, :country => "BR"); u.add_role("author"); u }
         should_validate_presence_of :state
       end
     end
@@ -75,7 +75,7 @@ describe User do
     should_validate_confirmation_of :password
     
     it "should validate that username doesn't change" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       user.username = 'new_username'
       user.should_not be_valid
       user.errors[:username].should == ["não pode mudar"]
@@ -91,9 +91,9 @@ describe User do
 
     describe "organized tracks for conference" do
       it "should narrow tracks based on conference" do
-        organizer = Factory(:organizer)
+        organizer = FactoryGirl.create(:organizer)
         user = organizer.user
-        Factory(:organizer, :user => user)
+        FactoryGirl.create(:organizer, :user => user)
 
         user.organized_tracks(organizer.conference).should == [organizer.track]
       end
@@ -101,53 +101,53 @@ describe User do
     
     describe "#has_approved_session?" do
       it "should not have approved long sessions if never submited" do
-         user = Factory(:user)
-         user.should_not have_approved_session(Factory(:conference))
+         user = FactoryGirl.build(:user)
+         user.should_not have_approved_session(FactoryGirl.build(:conference))
       end
       
       it "should not have approved long sessions if accepted was on another conference" do
-         user = Factory(:user)
-         old_conference = Factory(:conference)
-         current = Factory(:conference)
-         session = Factory(:session, :author => user, :conference => old_conference)
+         user = FactoryGirl.build(:user)
+         old_conference = FactoryGirl.build(:conference)
+         current = FactoryGirl.build(:conference)
+         session = FactoryGirl.build(:session, :author => user, :conference => old_conference)
 
          user.should_not have_approved_session(current)
       end
       
       it "should have approved long sessions if accepted was lightning talk" do
-         user = Factory(:user)
-         session = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
+         user = FactoryGirl.create(:user)
+         session = FactoryGirl.create(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end
       
       it "should have approved long sessions if accepted was not lightning talk" do
-         user = Factory(:user)
-         session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
+         user = FactoryGirl.create(:user)
+         session = FactoryGirl.create(:session, :author => user, :session_type_id => 1, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end
 
       it "should have approved long sessions if accepted contains at least one non lightning talk" do
-        user = Factory(:user)
-        session = Factory(:session, :author => user, :session_type_id => 1, :state => 'accepted')
-        lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'accepted')
+        user = FactoryGirl.create(:user)
+        session = FactoryGirl.create(:session, :author => user, :session_type_id => 1, :state => 'accepted')
+        lightning_talk = FactoryGirl.create(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'accepted')
 
         user.should have_approved_session(session.conference)
       end
 
       it "should not have approved long sessions if no sessions was not accepted" do
-        user = Factory(:user)
-        session = Factory(:session, :author => user, :session_type_id => 1, :state => 'cancelled')
-        lightning_talk = Factory(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'rejected')
+        user = FactoryGirl.build(:user)
+        session = FactoryGirl.build(:session, :author => user, :session_type_id => 1, :state => 'cancelled')
+        lightning_talk = FactoryGirl.build(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'rejected')
 
         user.should_not have_approved_session(session.conference)
       end
 
       it "should have approved sessions as second author" do
-         user = Factory(:user)
+         user = FactoryGirl.create(:user)
          user.add_role :author
-         session = Factory(:session, :second_author => user, :session_type_id => 1, :state => 'accepted')
+         session = FactoryGirl.create(:session, :second_author => user, :session_type_id => 1, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end
@@ -155,10 +155,10 @@ describe User do
 
     describe "user preferences" do
       it "should return reviewer preferences based on conference" do
-        preference = Factory(:preference)
+        preference = FactoryGirl.create(:preference)
         reviewer = preference.reviewer
         user = reviewer.user
-        Factory(:preference, :reviewer => Factory(:reviewer, :user => user))
+        FactoryGirl.create(:preference, :reviewer => FactoryGirl.build(:reviewer, :user => user))
 
         user.preferences(reviewer.conference).should == [preference] 
       end
@@ -189,7 +189,7 @@ describe User do
   end
   
   it "should overide to_param with username" do
-    user = Factory(:user, :username => 'danilo.sato 1990@2')
+    user = FactoryGirl.create(:user, :username => 'danilo.sato 1990@2')
     user.to_param.ends_with?("-danilo-sato-1990-2").should be_true
     
     user.username = nil
@@ -197,7 +197,7 @@ describe User do
   end
   
   it "should have 'pt' as default locale" do
-    user = Factory(:user)
+    user = FactoryGirl.build(:user)
     user.default_locale.should == 'pt'
   end
 end

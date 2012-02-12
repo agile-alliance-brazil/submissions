@@ -43,7 +43,7 @@ describe Attendee do
     end
     
     it "should provide courses from course_attendances" do
-      attendee = Factory.build(:attendee)
+      attendee = FactoryGirl.build(:attendee)
       attendee.course_attendances.build(:course => @csm)
       attendee.course_attendances.build(:course => @cspo)
 
@@ -51,21 +51,21 @@ describe Attendee do
     end
     
     it "should populate course_attendances from course ids" do
-      attendee = Factory.build(:attendee, :courses => [@csm.id, @cspo.id])
+      attendee = FactoryGirl.build(:attendee, :courses => [@csm.id, @cspo.id])
       attendee.course_attendances[0].course.should == @csm
       attendee.course_attendances[1].course.should == @cspo
       attendee.course_attendances.size.should == 2
     end
     
     it "should provide courses currently registered from course_attendances" do
-      attendee = Factory(:attendee, :courses => [@csm.id])
+      attendee = FactoryGirl.create(:attendee, :courses => [@csm.id])
       attendee.registered_courses.should == [@csm]
       attendee.courses = [@csm.id, @cspo.id]
       attendee.registered_courses.should == [@csm]
     end
 
     it "should provide new courses" do
-      attendee = Factory(:attendee, :courses => [@csm.id])
+      attendee = FactoryGirl.create(:attendee, :courses => [@csm.id])
       attendee.new_courses.should == []
       attendee.courses = [@csm.id, @cspo.id]
       attendee.new_courses.should == [@cspo]
@@ -73,12 +73,12 @@ describe Attendee do
     
     context "twitter user" do
       it "should remove @ from start if present" do
-        attendee = Factory.build(:attendee, :twitter_user => '@agilebrazil')
+        attendee = FactoryGirl.build(:attendee, :twitter_user => '@agilebrazil')
         attendee.twitter_user.should == 'agilebrazil'
       end
 
       it "should keep as given if doesnt start with @" do
-        attendee = Factory.build(:attendee, :twitter_user => 'agilebrazil')
+        attendee = FactoryGirl.build(:attendee, :twitter_user => 'agilebrazil')
         attendee.twitter_user.should == 'agilebrazil'
       end
     end
@@ -88,13 +88,13 @@ describe Attendee do
     it "should set registration_date to current time if not specified" do
       now = Time.zone.local(2011, 4, 25)
       Time.zone.stubs(:now).returns(now)
-      attendee = Factory.build(:attendee)
+      attendee = FactoryGirl.build(:attendee)
       attendee.registration_date.should == now
     end
     
     it "should set URI token after initialized" do
       Attendee.expects(:generate_token).with(:uri_token).returns('abc123')
-      attendee = Factory.build(:attendee)
+      attendee = FactoryGirl.build(:attendee)
       attendee.uri_token.should == 'abc123'
     end
   end
@@ -110,7 +110,7 @@ describe Attendee do
   
   context "validations" do
     context "brazilians" do
-      subject { Factory.build(:attendee) }
+      subject { FactoryGirl.build(:attendee) }
       should_validate_presence_of :first_name
       should_validate_presence_of :last_name
       should_validate_presence_of :email
@@ -128,13 +128,13 @@ describe Attendee do
     end
     
     context "non brazilians" do
-      subject {Factory(:attendee, :country => 'US')}
+      subject {FactoryGirl.build(:attendee, :country => 'US')}
       should_not_validate_presence_of :cpf
       should_not_validate_presence_of :state
     end
 
     context "student" do
-      subject {Factory(:attendee, :registration_type_id => 1)}
+      subject {FactoryGirl.build(:attendee, :registration_type_id => 1)}
       should_validate_presence_of :organization
     end
         
@@ -167,13 +167,13 @@ describe Attendee do
     should_validate_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
     
     context "uniqueness" do
-      before { Factory(:attendee) }
+      before { FactoryGirl.create(:attendee) }
       should_validate_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
       should_validate_uniqueness_of :cpf, :allow_blank => true
     end
     
     it "should validate that payment agreement is checked on confirmation" do
-      attendee = Factory(:attendee, :payment_agreement => false)
+      attendee = FactoryGirl.build(:attendee, :payment_agreement => false)
       attendee.confirm.should be_false
       attendee.errors[:payment_agreement].should include("deve ser aceito")
     end
@@ -188,49 +188,49 @@ describe Attendee do
 
       context "no courses" do
         it "should be allowed" do
-          Factory.build(:attendee, :courses => []).should be_valid
+          FactoryGirl.build(:attendee, :courses => []).should be_valid
         end
       end
       
       context "single course" do
         it "should allow any combination" do
-          Factory.build(:attendee, :courses => [@csm.id]).should be_valid
-          Factory.build(:attendee, :courses => [@cspo.id]).should be_valid
-          Factory.build(:attendee, :courses => [@tdd.id]).should be_valid
-          Factory.build(:attendee, :courses => [@lean.id]).should be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id]).should be_valid
+          FactoryGirl.build(:attendee, :courses => [@cspo.id]).should be_valid
+          FactoryGirl.build(:attendee, :courses => [@tdd.id]).should be_valid
+          FactoryGirl.build(:attendee, :courses => [@lean.id]).should be_valid
         end
       end
       
       context "two courses" do
         it "should only allow combining TDD and Lean" do
-          Factory.build(:attendee, :courses => [@tdd.id, @lean.id]).should be_valid
+          FactoryGirl.build(:attendee, :courses => [@tdd.id, @lean.id]).should be_valid
           
-          Factory.build(:attendee, :courses => [@csm.id, @cspo.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@csm.id, @tdd.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@csm.id, @lean.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@cspo.id, @tdd.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@cspo.id, @lean.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @cspo.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @tdd.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @lean.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@cspo.id, @tdd.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@cspo.id, @lean.id]).should_not be_valid
         end
       end
       
       context "three courses" do
         it "should not be allowed" do
-          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @lean.id]).should_not be_valid
-          Factory.build(:attendee, :courses => [@cspo.id, @tdd.id, @lean.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @cspo.id, @lean.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@cspo.id, @tdd.id, @lean.id]).should_not be_valid
         end
       end
 
       context "four courses" do
         it "should not be allowed" do
-          Factory.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id, @lean.id]).should_not be_valid
+          FactoryGirl.build(:attendee, :courses => [@csm.id, @cspo.id, @tdd.id, @lean.id]).should_not be_valid
         end
       end
 
       context "participants limit" do
         it "should not be allowed" do
           Course.any_instance.expects(:has_reached_limit?).returns(true)
-          attendee = Factory.build(:attendee, :courses => [@csm.id])
+          attendee = FactoryGirl.build(:attendee, :courses => [@csm.id])
           attendee.should_not be_valid
           attendee.errors[:courses].should include(
             I18n.t('activerecord.errors.models.attendee.attributes.courses.limit_reached',
@@ -239,7 +239,7 @@ describe Attendee do
         end
         
         it "should validate only new courses" do
-          attendee = Factory(:attendee, :courses => [@tdd.id])
+          attendee = FactoryGirl.build(:attendee, :courses => [@tdd.id])
           @tdd.stubs(:has_reached_limit?).returns(true)
           @lean.stubs(:has_reached_limit?).returns(false)
           attendee.courses = [@tdd.id, @lean.id]
@@ -251,7 +251,7 @@ describe Attendee do
   
   context "state machine" do
     before(:each) do
-      @attendee = Factory.build(:attendee)
+      @attendee = FactoryGirl.build(:attendee)
     end
     
     context "State: pending" do
@@ -324,27 +324,27 @@ describe Attendee do
   end
   
   it "should provide full name" do
-    attendee = Factory.build(:attendee, :first_name => "Danilo", :last_name => "Sato")
+    attendee = FactoryGirl.build(:attendee, :first_name => "Danilo", :last_name => "Sato")
     attendee.full_name.should == "Danilo Sato"
   end
   
   it "should be student when RegistrationType is student" do
-    attendee = Factory.build(:attendee, :registration_type_id => 1)
+    attendee = FactoryGirl.build(:attendee, :registration_type_id => 1)
     attendee.should be_student
   end
   
   it "should not be student when RegistrationType is individual" do
-    attendee = Factory.build(:attendee, :registration_type_id => 3)
+    attendee = FactoryGirl.build(:attendee, :registration_type_id => 3)
     attendee.should_not be_student
   end
     
   it "should be male for gender male" do
-    attendee = Factory.build(:attendee, :gender => 'M')
+    attendee = FactoryGirl.build(:attendee, :gender => 'M')
     attendee.should be_male
   end
   
   it "should not be male for gender female" do
-    attendee = Factory.build(:attendee, :gender => 'F')
+    attendee = FactoryGirl.build(:attendee, :gender => 'F')
     attendee.should_not be_male
   end
   
@@ -354,15 +354,15 @@ describe Attendee do
     end
 
     it "should calculate registration fee based on registration price and date" do
-      attendee = Factory.build(:attendee, :registration_date => @date)
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date)
       attendee.registration_fee.should == 165.00
 
-      attendee = Factory.build(:attendee, :registration_date => @date, :registration_type => RegistrationType.find_by_title('registration_type.student'))
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date, :registration_type => RegistrationType.find_by_title('registration_type.student'))
       attendee.registration_fee.should == 65.00
     end
   
     it "should calculate registration fee based on registration price and courses" do
-      attendee = Factory.build(:attendee, :registration_date => @date, :courses => [Course.find_by_name('course.csm.name').id])
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date, :courses => [Course.find_by_name('course.csm.name').id])
       attendee.registration_fee.should == 165.00 + 990.00
 
       attendee.registration_type = RegistrationType.find_by_title('registration_type.student')
@@ -379,7 +379,7 @@ describe Attendee do
     end
 
     it "should calculate base price based on date" do
-      attendee = Factory.build(:attendee, :registration_date => @date)
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date)
       attendee.base_price.should == 165.00
 
       attendee.registration_date = Time.zone.local(2011, 06, 01, 12, 0, 0)
@@ -387,15 +387,15 @@ describe Attendee do
     end
 
     it "should calculate base price based on type" do
-      attendee = Factory.build(:attendee, :registration_date => @date)
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date)
       attendee.base_price.should == 165.00
 
-      attendee = Factory.build(:attendee, :registration_date => @date, :registration_type => RegistrationType.find_by_title('registration_type.student'))
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date, :registration_type => RegistrationType.find_by_title('registration_type.student'))
       attendee.base_price.should == 65.00
     end
 
     it "should calculate base price based on pre-registration" do
-      attendee = Factory.build(:attendee, :registration_date => @date)
+      attendee = FactoryGirl.build(:attendee, :registration_date => @date)
       attendee.base_price.should == 165.00
 
       pre = PreRegistration.new(:email => attendee.email, :used => false)
@@ -407,7 +407,7 @@ describe Attendee do
   
   describe "pre-registration" do
     before :each do
-      @attendee = Factory.build(:attendee)
+      @attendee = FactoryGirl.build(:attendee)
     end
     
     it "should not be pre-registered if no pre-registration is found for attendee's email" do
@@ -431,7 +431,7 @@ describe Attendee do
   
   describe "pre-registered" do
     before :each do
-      @attendee = Factory.build(:attendee)
+      @attendee = FactoryGirl.build(:attendee)
       @pre = PreRegistration.new(:email => @attendee.email, :used => false)
       @pre.save!
     end
@@ -468,7 +468,7 @@ describe Attendee do
   
   describe "courses summary" do
     before do
-      @attendee = Factory.build(:attendee)
+      @attendee = FactoryGirl.build(:attendee)
       @csm = Course.find_by_name('course.csm.name')
       @cspo = Course.find_by_name('course.cspo.name')
     end
@@ -492,7 +492,7 @@ describe Attendee do
   describe "registration periods" do
     context "attendee is pre-registered" do
       before(:each) do
-        @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
+        @attendee = FactoryGirl.build(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
         @pre = PreRegistration.new(:email => @attendee.email, :used => false)
         @pre.save!
       end
@@ -512,7 +512,7 @@ describe Attendee do
     
     context "attendee not pre-registered" do
       before(:each) do
-        @attendee = Factory(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
+        @attendee = FactoryGirl.build(:attendee, :registration_date => Time.zone.local(2011, 4, 5))
       end
 
       it "should return normal period for course" do

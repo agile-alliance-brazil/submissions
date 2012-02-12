@@ -6,7 +6,7 @@ describe AudienceLevelsController do
   render_views
 
   before(:each) do
-    Factory(:audience_level)
+    FactoryGirl.build(:audience_level)
   end
 
   it "index action should render index template" do
