@@ -4,9 +4,6 @@ require 'bundler/capistrano'
 
 after "deploy:update_code", "deploy:symlink_configs"
 
-after "deploy:symlink",     "deploy:compile_sass"
-after "deploy:symlink",     "deploy:package_assets"
-
 after "deploy",             "deploy:cleanup"
 after "deploy:migrations",  "deploy:cleanup"
 
@@ -26,16 +23,6 @@ namespace :deploy do
     end
   end
   
-  task :compile_sass, :roles => :app, :except => {:no_release => true} do
-    rails_env = fetch(:rails_env, "production")
-    run "cd #{current_path} && #{bundle_cmd} exec rails runner -e #{rails_env} 'Sass::Plugin.update_stylesheets'"
-  end
-  
-  task :package_assets, :roles => :app, :except => {:no_release => true} do
-    bundle_cmd = fetch(:bundle_cmd, "bundle")
-    run "cd #{current_path} && #{bundle_cmd} exec jammit -f"
-  end
-
   task :symlink_configs, :roles => :app, :except => {:no_release => true} do
     run <<-CMD
       cd #{release_path} &&
