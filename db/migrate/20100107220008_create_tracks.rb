@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateTracks < ActiveRecord::Migration
   def self.up
     create_table :tracks do |t|

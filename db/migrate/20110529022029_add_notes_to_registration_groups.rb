@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddNotesToRegistrationGroups < ActiveRecord::Migration
   def self.up
     add_column :registration_groups, :notes, :text

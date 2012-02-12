@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Recommendation < ActiveRecord::Base
   validates_presence_of :title
   

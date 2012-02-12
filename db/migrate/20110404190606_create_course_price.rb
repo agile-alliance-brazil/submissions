@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateCoursePrice < ActiveRecord::Migration
   def self.up
     create_table :course_prices do |t|

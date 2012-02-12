@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateReviewers < ActiveRecord::Migration
   def self.up
     create_table :reviewers do |t|

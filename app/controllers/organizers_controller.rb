@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class OrganizersController < InheritedResources::Base
   actions :index, :new, :create, :update, :edit, :destroy
   respond_to :html

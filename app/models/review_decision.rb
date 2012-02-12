@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewDecision < ActiveRecord::Base
   attr_accessible :organizer_id, :session_id, :outcome_id, :note_to_authors
   attr_trimmed    :note_to_authors

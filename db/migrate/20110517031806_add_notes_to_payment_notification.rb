@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddNotesToPaymentNotification < ActiveRecord::Migration
   def self.up
     add_column :payment_notifications, :notes, :text

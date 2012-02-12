@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module ReviewersHelper
   def review_level(preferences, track)
     preference = preferences.select{ |pref| pref.track_id == track.id }.first

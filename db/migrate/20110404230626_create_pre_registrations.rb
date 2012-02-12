@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreatePreRegistrations < ActiveRecord::Migration
   def self.up
     create_table :pre_registrations do |t|

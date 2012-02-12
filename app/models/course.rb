@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Course < ActiveRecord::Base
   belongs_to :conference
   has_many :course_prices

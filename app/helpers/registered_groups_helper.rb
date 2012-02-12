@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module RegisteredGroupsHelper
   def registration_group_status_options
     [

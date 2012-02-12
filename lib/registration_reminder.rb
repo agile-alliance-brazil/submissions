@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegistrationReminder
   def publish
     pending_attendees.each do |attendee|

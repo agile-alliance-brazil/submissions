@@ -1,3 +1,4 @@
+# encoding: UTF-8
 RegistrationPrice.seed do |registration_price|
   registration_price.id = 1
   registration_price.registration_type_id = 1

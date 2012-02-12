@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddPublishedToReviewDecisions < ActiveRecord::Migration
   def self.up
     add_column :review_decisions, :published, :boolean, :default => false

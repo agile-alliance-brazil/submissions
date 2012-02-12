@@ -1,3 +1,4 @@
+# encoding: UTF-8
 namespace :registration_reminder do
 
   desc "Publish registration reminder for pending attendees"

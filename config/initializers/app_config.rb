@@ -1,3 +1,4 @@
+# encoding: UTF-8
 begin
   config = YAML.load_file("#{Rails.root}/config/config.yml")
 

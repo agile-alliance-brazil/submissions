@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ConfirmSessionsController < ApplicationController
   before_filter :load_session
 

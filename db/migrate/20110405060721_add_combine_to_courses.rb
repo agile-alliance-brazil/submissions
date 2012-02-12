@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddCombineToCourses < ActiveRecord::Migration
   def self.up
     add_column :courses, :combine, :boolean

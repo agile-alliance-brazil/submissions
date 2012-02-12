@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class SessionsController < InheritedResources::Base
   actions :all, :except => [:destroy]
   has_scope :for_user, :only => :index, :as => 'user_id'

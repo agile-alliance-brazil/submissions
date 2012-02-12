@@ -1,3 +1,4 @@
+# encoding: UTF-8
 Recommendation.seed do |recommendation|
   recommendation.id = 1
   recommendation.title = 'recommendation.strong_reject.title'

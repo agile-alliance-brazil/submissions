@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class PaypalAdapter
   class << self
     def from_attendee(attendee)

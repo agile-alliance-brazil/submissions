@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddPerishableTokenToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :perishable_token, :string

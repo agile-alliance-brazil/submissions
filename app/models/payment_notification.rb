@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class PaymentNotification < ActiveRecord::Base
   belongs_to :invoicer, :polymorphic => true
   serialize :params

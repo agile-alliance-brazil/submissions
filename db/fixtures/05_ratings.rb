@@ -1,3 +1,4 @@
+# encoding: UTF-8
 Rating.seed do |rating|
   rating.id = 1
   rating.title = 'rating.none.title'

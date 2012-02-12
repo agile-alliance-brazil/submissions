@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddStateToSessions < ActiveRecord::Migration
   def self.up
     add_column :sessions, :state, :string

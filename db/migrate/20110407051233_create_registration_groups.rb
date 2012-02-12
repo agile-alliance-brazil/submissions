@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateRegistrationGroups < ActiveRecord::Migration
   def self.up
     create_table :registration_groups do |t|

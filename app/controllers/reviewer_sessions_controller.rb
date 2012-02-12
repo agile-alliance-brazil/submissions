@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewerSessionsController < ApplicationController
   def index
     paginate_options ||= {}

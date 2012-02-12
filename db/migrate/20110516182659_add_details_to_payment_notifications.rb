@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddDetailsToPaymentNotifications < ActiveRecord::Migration
   def self.up
     add_column :payment_notifications, :payer_email, :string

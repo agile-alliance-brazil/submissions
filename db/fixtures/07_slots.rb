@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # General Interest
 
 Slot.seed do |slot|

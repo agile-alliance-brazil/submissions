@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module PaypalHelper
   def add_config_vars(values, return_url, notify_url)
     values.tap do |vars|

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddTrackIdToSessions < ActiveRecord::Migration
   def self.up
     add_column :sessions, :track_id, :integer

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class MigrateUsersFromAutholgicToDevise < ActiveRecord::Migration
   def self.up
     add_column :users, :reset_password_token, :string

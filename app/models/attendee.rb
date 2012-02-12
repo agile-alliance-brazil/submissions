@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Attendee < ActiveRecord::Base
   include TokenGenerator
   attr_accessible :first_name, :last_name, :email, :email_confirmation, :organization, :phone,

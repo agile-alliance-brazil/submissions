@@ -1,3 +1,4 @@
+# encoding: UTF-8
 CoursePrice.seed do |price|
   price.id = 1
   price.value = 990.00

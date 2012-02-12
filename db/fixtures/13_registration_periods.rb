@@ -1,3 +1,4 @@
+# encoding: UTF-8
 RegistrationPeriod.seed do |period|
   period.id = 1
   period.conference_id = 2

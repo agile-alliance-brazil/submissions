@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegisteredAttendeesController < InheritedResources::Base
   defaults :resource_class => Attendee, :collection_name => "attendees", :instance_name => "attendee"
   actions :index, :show, :update

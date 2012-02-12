@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Review < ActiveRecord::Base
   attr_accessible :author_agile_xp_rating_id, :author_proposal_xp_rating_id,
                   :proposal_track, :proposal_level, :proposal_type, :proposal_duration,

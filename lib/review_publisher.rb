@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewPublisher
   def publish
     ensure_all_sessions_reviewed

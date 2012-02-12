@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegistrationGroupsController < InheritedResources::Base
   skip_before_filter :authenticate_user!
   actions :new, :create

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Session < ActiveRecord::Base
   attr_accessible :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :audience_level_id, :audience_limit,

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CommentsController < InheritedResources::Base
   belongs_to :session
   

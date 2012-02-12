@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RenameRegistrationTypeOnAttendees < ActiveRecord::Migration
   def self.up
     rename_column :attendees, :registration_type, :registration_type_value

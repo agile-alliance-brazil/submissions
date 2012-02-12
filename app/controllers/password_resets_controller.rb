@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class PasswordResetsController < Devise::PasswordsController
 
   def create

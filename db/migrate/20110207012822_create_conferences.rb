@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateConferences < ActiveRecord::Migration
   def self.up
     create_table :conferences do |t|

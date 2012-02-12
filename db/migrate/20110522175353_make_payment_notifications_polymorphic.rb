@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class MakePaymentNotificationsPolymorphic < ActiveRecord::Migration
   def self.up
     rename_column :payment_notifications, :attendee_id, :invoicer_id

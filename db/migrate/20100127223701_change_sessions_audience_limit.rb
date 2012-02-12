@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ChangeSessionsAudienceLimit < ActiveRecord::Migration
   def self.up
     change_column :sessions, :audience_limit, :integer

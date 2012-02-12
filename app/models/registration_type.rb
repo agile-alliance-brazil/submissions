@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegistrationType < ActiveRecord::Base
   belongs_to :conference
   has_many :registration_prices

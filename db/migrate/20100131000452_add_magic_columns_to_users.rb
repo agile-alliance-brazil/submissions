@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddMagicColumnsToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :last_request_at, :datetime

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewDecisionsController < InheritedResources::Base
   belongs_to :session, :singleton => true
   

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class PublicErrorsController < ApplicationController
   skip_before_filter :authenticate_user!, :authorize_action
 

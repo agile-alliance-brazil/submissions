@@ -1,3 +1,4 @@
+# encoding: UTF-8
 set :rails_env,           "production"
 set :keep_releases,       5
 

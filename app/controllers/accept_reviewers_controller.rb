@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AcceptReviewersController < ApplicationController
   def show
     @reviewer = Reviewer.find(params[:reviewer_id])

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddCourseAttendancesCountToAttendees < ActiveRecord::Migration
   def self.up
     add_column :attendees, :course_attendances_count, :integer, :default => 0

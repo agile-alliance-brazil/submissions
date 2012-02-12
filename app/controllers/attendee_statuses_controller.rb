@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AttendeeStatusesController < InheritedResources::Base
   defaults :resource_class => Attendee, :instance_name => "attendee"
   skip_before_filter :authenticate_user!

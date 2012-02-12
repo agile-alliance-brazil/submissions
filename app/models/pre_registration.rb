@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class PreRegistration < ActiveRecord::Base
   belongs_to :conference
   

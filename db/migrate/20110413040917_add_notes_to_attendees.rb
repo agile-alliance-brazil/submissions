@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddNotesToAttendees < ActiveRecord::Migration
   def self.up
     add_column :attendees, :notes, :text

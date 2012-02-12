@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddRegistrationDateToAttendees < ActiveRecord::Migration
   def self.up
     add_column :attendees, :registration_date, :datetime

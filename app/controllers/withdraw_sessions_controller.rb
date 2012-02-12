@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class WithdrawSessionsController < ApplicationController
   before_filter :load_session
 

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module ValidatesExistenceMacros
   def self.included(base)
     base.extend(ClassMethods)

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateOrganizers < ActiveRecord::Migration
   def self.up
     create_table :organizers do |t|

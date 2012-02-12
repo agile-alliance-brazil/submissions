@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegistrationGroup < ActiveRecord::Base
   include TokenGenerator
   attr_accessible :name, :cnpj, :state_inscription, :municipal_inscription,

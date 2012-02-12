@@ -1,3 +1,4 @@
+# encoding: UTF-8
 RegistrationType.seed do |registration_type|
   registration_type.id = 1
   registration_type.title = 'registration_type.student'

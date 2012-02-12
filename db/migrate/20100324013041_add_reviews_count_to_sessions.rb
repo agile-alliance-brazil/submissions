@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddReviewsCountToSessions < ActiveRecord::Migration
   def self.up
     add_column :sessions, :reviews_count, :integer, :default => 0

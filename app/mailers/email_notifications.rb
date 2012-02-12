@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class EmailNotifications < ActionMailer::Base
   def welcome(user, sent_at = Time.now)
     @user = user

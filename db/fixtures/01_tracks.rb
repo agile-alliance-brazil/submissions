@@ -1,3 +1,4 @@
+# encoding: UTF-8
 Track.seed do |track|
   track.id = 1
   track.title = 'tracks.general_interest.title'

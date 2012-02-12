@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module TrimmerMacros
   def self.included(base)
     base.extend(ClassMethods)

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # encoding: utf-8
 Factory.define :conference do |c|
   c.sequence(:name) {|n| "Agile Brazil #{2000+n}"}

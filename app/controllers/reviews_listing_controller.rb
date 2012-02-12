@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewsListingController < ApplicationController
   def index
     respond_to do |format|

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddUriTokenAndStatusToRegistrationGroups < ActiveRecord::Migration
   def self.up
     add_column :registration_groups, :uri_token, :string

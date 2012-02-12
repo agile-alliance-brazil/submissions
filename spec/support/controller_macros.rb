@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module ControllerMacros
   def self.included(base)
     base.extend(ClassMethods)

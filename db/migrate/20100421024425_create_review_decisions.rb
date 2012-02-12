@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateReviewDecisions < ActiveRecord::Migration
   def self.up
     create_table :review_decisions do |t|

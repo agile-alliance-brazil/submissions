@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RegisteredGroupsController < InheritedResources::Base
   defaults :resource_class => RegistrationGroup, :collection_name => "registration_groups", :instance_name => "registration_group"
   actions :index, :show, :update

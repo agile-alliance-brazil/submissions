@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddDefaultLocaleToAttendee < ActiveRecord::Migration
   def self.up
     add_column :attendees, :default_locale, :string, :default => 'pt'

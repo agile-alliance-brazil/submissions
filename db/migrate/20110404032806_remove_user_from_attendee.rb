@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RemoveUserFromAttendee < ActiveRecord::Migration
   def self.up
     remove_column :attendees, :user_id

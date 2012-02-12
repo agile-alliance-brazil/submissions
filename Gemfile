@@ -19,7 +19,6 @@ gem 'state_machine', '=1.1.1'
 gem 'validates_existence', '=0.7.1'
 gem 'goalie', '=0.0.4'
 gem 'jammit', '=0.6.5'
-gem 'fastercsv', '=1.5.4'
 gem 'hoptoad_notifier', '=2.4.11'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 
@@ -45,5 +44,4 @@ group :development, :test do
   gem 'rspec-rails', '=2.8.1'
   gem 'remarkable_activerecord', '=4.0.0.alpha4'
   gem 'factory_girl_rails', '=1.6.0'
-  gem 'metric_fu', '=2.1.1'
 end

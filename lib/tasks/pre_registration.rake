@@ -1,3 +1,4 @@
+# encoding: UTF-8
 namespace :pre_registration do
 
   desc "Loads all pre-registrations from the csv specified in the 'filepath' variable to the current conference"

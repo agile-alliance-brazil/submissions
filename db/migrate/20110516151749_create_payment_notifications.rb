@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreatePaymentNotifications < ActiveRecord::Migration
   def self.up
     create_table :payment_notifications do |t|

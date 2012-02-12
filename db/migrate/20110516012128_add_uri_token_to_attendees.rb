@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddUriTokenToAttendees < ActiveRecord::Migration
   def self.up
     add_column :attendees, :uri_token, :string

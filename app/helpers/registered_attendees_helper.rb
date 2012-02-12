@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module RegisteredAttendeesHelper
   def attendee_status_options
     [

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 Course.seed do |course|
   course.id = 1
   course.conference_id = 2

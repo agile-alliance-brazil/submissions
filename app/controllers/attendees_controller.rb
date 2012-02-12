@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AttendeesController < InheritedResources::Base
   belongs_to :registration_group, :optional => true
   

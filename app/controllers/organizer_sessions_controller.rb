@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class OrganizerSessionsController < ApplicationController
   def index
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'

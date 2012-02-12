@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RejectReviewersController < ApplicationController
   before_filter :load_reviewer
 

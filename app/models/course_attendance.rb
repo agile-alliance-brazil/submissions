@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CourseAttendance < ActiveRecord::Base
   belongs_to :course
   belongs_to :attendee, :counter_cache => true

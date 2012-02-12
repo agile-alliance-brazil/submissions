@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ReviewersController < InheritedResources::Base
   actions :index, :new, :create, :destroy, :update
   respond_to :html

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class UserSessionsController < Devise::SessionsController
   skip_before_filter :authorize_action
   

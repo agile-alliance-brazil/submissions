@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AddAuthorAgreementToSessions < ActiveRecord::Migration
   def self.up
     add_column :sessions, :author_agreement, :boolean

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateRecommendation < ActiveRecord::Migration
   def self.up
     create_table :recommendations do |t|

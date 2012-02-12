@@ -1,3 +1,4 @@
+# encoding: UTF-8
 AgileBrazil::Application.routes.draw do
   root :to => 'static_pages#show', :page => 'home'
 

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CreateRegistrationPeriod < ActiveRecord::Migration
   def self.up
     create_table :registration_periods do |t|

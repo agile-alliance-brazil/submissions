@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Organizer < ActiveRecord::Base
   attr_accessible :user_id, :track_id, :conference_id, :user_username
   attr_trimmed    :user_username
