@@ -1,7 +1,14 @@
-@import "reset.scss";
-@import "text.scss";
-@import "grid.scss";
-@import "helper.scss";
+/*
+ *= require_self
+ *= require formtastic
+ *= require formtastic_changes
+ *= require jquery.autocomplete
+ */
+
+@import "mixins/reset.scss";
+@import "mixins/text.scss";
+@import "mixins/grid.scss";
+@import "mixins/helper.scss";
 
 $color1: #009933;
 $color2: #5ad295;
@@ -10,7 +17,7 @@ $color4: #ffffe0;
 $color5: #336699;
 
 html {
-  background: white url("/images/bg.png") repeat-x center top;
+  background: white url(image-path("bg.png")) repeat-x center top;
   color: #333333; }
 
 a {
@@ -165,7 +172,7 @@ table.reviewers {
     width: 5%; }
   th.actions {
     width: 10%; } }
-    
+
 table.summary {
   th {
     color: black;
@@ -178,7 +185,7 @@ table.summary {
   font-size: 8px;
   font-weight: bold;
   padding: 1px 5px 0;
-  background: url("/images/icon-comments.png") left top no-repeat;
+  background: url(image-path("icon-comments.png")) left top no-repeat;
   position: relative;
   overflow: hidden;
   display: inline;
@@ -295,7 +302,7 @@ ul.spaced {
     width: 95%;
     height: 20%; }
   .grippie {
-    background: #eeeeee url("/images/grippie.png") no-repeat scroll center 2px;
+    background: #eeeeee url(image-path("grippie.png")) no-repeat scroll center 2px;
     border-color: #dddddd;
     border-style: solid;
     border-width: 0pt 1px 1px;
@@ -520,7 +527,7 @@ span.bio {
       text-align: right; }
     td.negative {
       color: red; } } }
-      
+
 #registered_attendees_form, #registered_groups_form {
   .left {
     float: left;
@@ -556,7 +563,7 @@ span.bio {
     h4 {
       font-size: 14px;
     }
-    
+
     pre {
       padding: 10px 0px 10px 10px;
     }

@@ -1,6 +1,6 @@
 !!! 5
 %html{html_attrs(I18n.locale)}
-  
+
   %head
     %title
       #{current_conference.name} -
@@ -8,12 +8,12 @@
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "/favicon.ico"}/
     = csrf_meta_tag
-    = include_stylesheets :application
-    = include_javascripts :application
+    = stylesheet_link_tag :application
+    = javascript_include_tag :application
 
     = yield(:head)
-  
-  %body    
+
+  %body
     #container
       #header
         = link_to image_tag('logo.png'), root_path
@@ -23,20 +23,20 @@
         %ul#languages
           %li= link_to "Português", "?locale=pt"
           %li= link_to "English", "?locale=en"
-        
+
         = render :partial => 'layouts/menu'
-        
+
       - if show_actions?
         #actions.grid_3
           = render :partial => 'layouts/actions'
-    
+
       #content{ :class => show_actions? ? 'grid_9' : 'grid_12' }
         - flash.each do |name, msg|
           = content_tag :div, msg, :id => "flash_#{name}"
-      
+
         - if show_title?
           %h1= yield(:title)
-      
+
         = yield
 
       #footer Copyleft - Agile Brazil 2010-2011 - #{t('footer.help').html_safe}

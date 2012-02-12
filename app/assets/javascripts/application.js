@@ -1,3 +1,8 @@
+//= require jquery
+//= require jquery_ujs
+//= require_self
+//= require_tree .
+
 jQuery.fn.bindSelectUpdated = function() {
   return this.each(function() {
     $(this).change(function() {$(this).trigger('updated')});
@@ -27,6 +32,6 @@ jQuery.fn.filterOn = function(field, options_to_hide) {
         }
       });
       $(select).val($(select).data('selected')).trigger('updated');
-    });            
+    });
   });
 };

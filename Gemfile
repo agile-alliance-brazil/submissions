@@ -26,6 +26,13 @@ platforms :mswin, :mingw do
   gem 'RedCloth', '=4.2.9', :require => 'redcloth', :platforms => :mswin
 end
 
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', '=3.1.5'
+  gem 'uglifier'
+end
+
 platforms :ruby do
   gem 'RedCloth', '=4.2.9', :require => 'redcloth'
 end
