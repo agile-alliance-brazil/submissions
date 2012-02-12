@@ -69,13 +69,13 @@
           var yellow = Math.floor(parseInt(data.required_decisions) * 0.60);
           var green = Math.floor(parseInt(data.required_decisions) * 0.90);
           var progressImages = {};
-          progressImages[0] = '/images/progressbg_red.gif';
-          progressImages[orange] = '/images/progressbg_orange.gif';
-          progressImages[yellow] = '/images/progressbg_yellow.gif';
-          progressImages[green] = '/images/progressbg_green.gif';
+          progressImages[0] = '/assets/progressbg_red.gif';
+          progressImages[orange] = '/assets/progressbg_orange.gif';
+          progressImages[yellow] = '/assets/progressbg_yellow.gif';
+          progressImages[green] = '/assets/progressbg_green.gif';
 
           $("#review_progress_count .progress").progressBar(data.total_confirmed, {
-            boxImage : '/images/progressbar.gif',
+            boxImage : '/assets/progressbar.gif',
             max : data.total_accepted,
             textFormat : 'fraction',
             barImage : progressImages

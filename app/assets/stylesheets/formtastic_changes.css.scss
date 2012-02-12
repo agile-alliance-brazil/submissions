@@ -55,7 +55,7 @@ form.formtastic fieldset ol li p.inline-hints {
 }
 
 form.formtastic fieldset ol li ul.errors {
-  background: url('/images/error_bg.png') no-repeat;
+  background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
   float: right;
   width: 23%;
@@ -65,7 +65,7 @@ form.formtastic fieldset ol li ul.errors {
 }
 
 form.reviewer.formtastic fieldset ol ul.errors {
-  background: url('/images/error_bg.png') no-repeat;
+  background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
   float: left;
   width: 74%;
