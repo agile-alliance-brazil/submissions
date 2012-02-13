@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   before_filter :authenticate_user!
   before_filter :authorize_action
+  before_filter :set_conference
 
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
@@ -15,13 +16,12 @@ class ApplicationController < ActionController::Base
     redirect_to :back rescue redirect_to root_path
   end
 
-  def current_conference
-    @current_conference ||= Conference.current
+  def set_conference
+    @conference ||= Conference.find_by_year(params[:year]) || Conference.current
   end
-  helper_method :current_conference
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, current_conference, params)
+    @current_ability ||= Ability.new(current_user, Conference.current, params)
   end
 
   def default_url_options(options={})
@@ -33,7 +33,6 @@ class ApplicationController < ActionController::Base
     text.gsub(/[\s;'\"]/,'')
   end
 
-  protected
   private
   def set_locale
     # if params[:locale] is nil then I18n.default_locale will be used

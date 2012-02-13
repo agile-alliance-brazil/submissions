@@ -1,13 +1,10 @@
 # encoding: UTF-8
 class Ability
   include CanCan::Ability
-  
-  SESSION_SUBMISSION_DEADLINE = Time.zone.local(2011, 3, 27, 23, 59, 59)
-  REVIEW_DEADLINE = Time.zone.local(2011, 4, 17, 23, 59, 59)
-  AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
-  AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 6, 07, 23, 59, 59)
 
-  def initialize(user, conference, params={})
+  AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
+
+  def initialize(user, conference=Conference.current, params={})
     @user = user || User.new # guest
     @conference = conference || Conference.current
     @params = params
@@ -57,14 +54,14 @@ class Ability
     cannot(:manage, 'confirm_sessions')
     cannot(:manage, 'withdraw_sessions')
   end
-  
+
   def author
     can do |action, subject_class, subject|
       expand_actions([:create]).include?(action) && subject_class == Session &&
-          Time.zone.now <= SESSION_SUBMISSION_DEADLINE
+          Time.zone.now <= @conference.submissions_deadline
     end
     can(:update, Session) do |session|
-      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= SESSION_SUBMISSION_DEADLINE
+      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= @conference.submissions_deadline
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
@@ -73,10 +70,10 @@ class Ability
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
+      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= @conference.author_confirmation
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
+      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= @conference.author_confirmation
     end
   end
 
@@ -96,12 +93,12 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == ReviewDecision &&
-          session.try(:in_review?) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
+          session.try(:in_review?) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > @conference.review_deadline
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
-          !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
+          !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > @conference.review_deadline
     end
   end
 
@@ -111,7 +108,7 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == Review &&
-          Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= REVIEW_DEADLINE
+          Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= @conference.review_deadline
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')

@@ -1,0 +1,32 @@
+- title "Wiki Syntax Help"
+- show_actions!
+
+%p Some fields of your submission accept a syntax for adding simple markup. See below the markups allowed for use:
+
+- sample_stiles = "_italics_\n*bold*\n@fixed-width@\n-striked-\n+underlined+"
+
+- sample_lists = "# Ordered 1\n## Sub-item 1\n# Ordered 2\n# Ordered 3\n\n* Unordered\n* Unordered\n** Sub-item"
+
+- sample_others = "Link to \"Google\":http://google.com\nAnd an image\n!/images/logo.png!"
+
+#textile_help
+  %h5 Styles
+
+  .example
+    .raw
+      %pre~ sample_stiles
+    .preview= textilize(sample_stiles)
+    
+  %h5 Lists
+
+  .example
+    .raw
+      %pre~ sample_lists
+    .preview= textilize(sample_lists)
+
+  %h5 Links
+  .example
+    .raw
+      %pre~ sample_others
+    .preview= textilize(sample_others)
+
