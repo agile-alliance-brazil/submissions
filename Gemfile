@@ -30,7 +30,7 @@ end
 group :assets do
   gem 'sass-rails', '=3.1.5'
   gem 'uglifier', '=1.2.3'
-  gem 'therubyracer', '=0.9.9'
+  gem 'johnson'
 end
 
 platforms :ruby do
