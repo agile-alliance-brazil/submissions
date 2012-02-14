@@ -29,7 +29,7 @@ end
 # in production environments by default.
 group :assets do
   gem 'sass-rails', '=3.1.5'
-  gem 'uglifier', '=1.2.3'
+  gem 'yui-compressor'
   gem 'johnson', '=1.2.0'
 end
 
