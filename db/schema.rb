@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529022029) do
+ActiveRecord::Schema.define(:version => 20120214061753) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -332,10 +331,11 @@ ActiveRecord::Schema.define(:version => 20110529022029) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "default_locale",       :default => "pt"
+    t.string   "default_locale",         :default => "pt"
     t.string   "reset_password_token"
     t.string   "authentication_token"
     t.integer  "sign_in_count"
+    t.datetime "reset_password_sent_at"
   end
 
   create_table "votes", :force => true do |t|

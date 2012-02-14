@@ -4,6 +4,7 @@ class UserSessionsController < Devise::SessionsController
   
   def new
     build_resource
+    clean_up_passwords(resource)
     render :template => 'static_pages/home'
   end
 end

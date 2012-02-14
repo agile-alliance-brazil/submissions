@@ -8,7 +8,7 @@ gem 'formtastic', '=1.2.4' # 2.0.2
 gem 'inherited_resources', '=1.2.2' #1.3.0
 gem 'responders', '=0.6.5' # 0.7.0
 gem 'has_scope', '=0.5.1'
-gem 'devise', '=1.1.9' # 2.0.1
+gem 'devise', '=2.0.1'
 gem 'brhelper', '=3.0.8'
 gem 'brcpfcnpj', '=3.0.8'
 gem 'seed-fu', '=2.1.0' # 2.2.0
@@ -30,7 +30,7 @@ end
 group :assets do
   gem 'sass-rails', '=3.1.5'
   gem 'uglifier', '=1.2.3'
-  gem 'johnson'
+  gem 'johnson', '=1.2.0'
 end
 
 platforms :ruby do

@@ -23,6 +23,10 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   config.authentication_keys = [ :username ]
 
+  config.reset_password_within = 6.hours
+  
+  config.case_insensitive_keys = [:username]
+  
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
 
@@ -38,7 +42,7 @@ Devise.setup do |config|
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
   # using other encryptors, it sets how many times you want the password re-encrypted.
-  config.stretches = 20
+  config.stretches = Rails.env.test? ? 1 : 20
 
   # Define which will be the encryption algorithm. Devise also supports encryptors
   # from others authentication tools as :clearance_sha1, :authlogic_sha512 (then
@@ -61,6 +65,8 @@ Devise.setup do |config|
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
+  
+  config.use_salt_as_remember_token = true
 
   # If true, a valid remember token can be re-used between multiple browsers.
   # config.remember_across_browsers = true
