@@ -15,7 +15,7 @@ module ValidatesExistenceMacros
             object = subject
             object.send("#{association}=", nil)
             object.valid?
-            object.errors[reflection.primary_key_name.to_sym].should_not include(I18n.t("activerecord.errors.messages.existence"))
+            object.errors[reflection.foreign_key.to_sym].should_not include(I18n.t("activerecord.errors.messages.existence"))
           end
         end
       else
@@ -25,7 +25,7 @@ module ValidatesExistenceMacros
             object = subject
             object.send("#{association}=", nil)
             object.should_not be_valid
-            object.errors[reflection.primary_key_name.to_sym].should include(I18n.t("activerecord.errors.messages.existence"))
+            object.errors[reflection.foreign_key.to_sym].should include(I18n.t("activerecord.errors.messages.existence"))
           end
         end
       end

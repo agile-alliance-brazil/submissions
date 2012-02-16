@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe RegistrationType do  
   context "associations" do
-    should_belong_to :conference
-    should_have_many :registration_prices
+    it { should belong_to :conference }
+    it { should have_many :registration_prices }
   end
   
   describe "price" do

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe PaymentNotification do
   context "associations" do
-    should_belong_to :invoicer, :polymorphic => true
+    it { should belong_to :invoicer }
   end
 
   context "validations" do

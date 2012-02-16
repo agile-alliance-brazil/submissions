@@ -3,6 +3,6 @@ require 'spec_helper'
 
 describe Recommendation do
   context "validations" do
-    should_validate_presence_of :title
+    it { should validate_presence_of :title }
   end
 end

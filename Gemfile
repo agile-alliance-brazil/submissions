@@ -15,7 +15,7 @@ gem 'acts-as-taggable-on', '=2.2.2'
 gem 'cancan', '=1.6.7'
 gem 'acts_as_commentable', '=3.0.1'
 gem 'state_machine', '=1.1.2'
-gem 'validates_existence', '=0.7.1' # replace?
+gem 'validates_existence', '=0.7.1'
 gem 'goalie', '=0.0.4'
 gem 'hoptoad_notifier', '=2.4.11' # replace with airbrake
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
@@ -48,6 +48,6 @@ end
 group :development, :test do
   gem 'mocha', '=0.10.4'
   gem 'rspec-rails', '=2.8.1'
-  gem 'remarkable_activerecord', '=4.0.0.alpha4'
+  gem 'shoulda-matchers', '=1.0.0'
   gem 'factory_girl_rails', '=1.6.0'
 end

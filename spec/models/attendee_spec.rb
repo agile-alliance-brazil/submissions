@@ -4,32 +4,32 @@ require 'spec_helper'
 
 describe Attendee do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :first_name
-    should_allow_mass_assignment_of :last_name
-    should_allow_mass_assignment_of :email
-    should_allow_mass_assignment_of :email_confirmation
-    should_allow_mass_assignment_of :organization
-    should_allow_mass_assignment_of :phone
-    should_allow_mass_assignment_of :country
-    should_allow_mass_assignment_of :state
-    should_allow_mass_assignment_of :city
-    should_allow_mass_assignment_of :badge_name
-    should_allow_mass_assignment_of :cpf
-    should_allow_mass_assignment_of :gender
-    should_allow_mass_assignment_of :twitter_user
-    should_allow_mass_assignment_of :address
-    should_allow_mass_assignment_of :neighbourhood
-    should_allow_mass_assignment_of :zipcode
-    should_allow_mass_assignment_of :registration_type_id
-    should_allow_mass_assignment_of :courses
-    should_allow_mass_assignment_of :status_event
-    should_allow_mass_assignment_of :conference_id
-    should_allow_mass_assignment_of :notes
-    should_allow_mass_assignment_of :payment_agreement
-    should_allow_mass_assignment_of :registration_date
-    should_allow_mass_assignment_of :default_locale
+    it { should allow_mass_assignment_of :first_name }
+    it { should allow_mass_assignment_of :last_name }
+    it { should allow_mass_assignment_of :email }
+    it { should allow_mass_assignment_of :email_confirmation }
+    it { should allow_mass_assignment_of :organization }
+    it { should allow_mass_assignment_of :phone }
+    it { should allow_mass_assignment_of :country }
+    it { should allow_mass_assignment_of :state }
+    it { should allow_mass_assignment_of :city }
+    it { should allow_mass_assignment_of :badge_name }
+    it { should allow_mass_assignment_of :cpf }
+    it { should allow_mass_assignment_of :gender }
+    it { should allow_mass_assignment_of :twitter_user }
+    it { should allow_mass_assignment_of :address }
+    it { should allow_mass_assignment_of :neighbourhood }
+    it { should allow_mass_assignment_of :zipcode }
+    it { should allow_mass_assignment_of :registration_type_id }
+    it { should allow_mass_assignment_of :courses }
+    it { should allow_mass_assignment_of :status_event }
+    it { should allow_mass_assignment_of :conference_id }
+    it { should allow_mass_assignment_of :notes }
+    it { should allow_mass_assignment_of :payment_agreement }
+    it { should allow_mass_assignment_of :registration_date }
+    it { should allow_mass_assignment_of :default_locale }
 
-    should_not_allow_mass_assignment_of :id
+    it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes Attendee, :first_name, :last_name, :email, :organization, :phone,
@@ -100,76 +100,89 @@ describe Attendee do
   end
   
   context "associations" do
-    should_belong_to :conference
-    should_belong_to :registration_type
-    should_belong_to :registration_group
-    
-    should_have_many :course_attendances
-    should_have_many :payment_notifications, :as => :invoicer
+    it { should belong_to :conference }
+    it { should belong_to :registration_type }
+    it { should belong_to :registration_group }
+
+    it { should have_many :course_attendances }
+    it { should have_many :payment_notifications }
   end
   
   context "validations" do
     context "brazilians" do
       subject { FactoryGirl.build(:attendee) }
-      should_validate_presence_of :first_name
-      should_validate_presence_of :last_name
-      should_validate_presence_of :email
-      should_validate_presence_of :phone
-      should_validate_presence_of :country
-      should_validate_presence_of :state
-      should_validate_presence_of :city
-      should_validate_presence_of :address
-      should_validate_presence_of :gender
-      should_validate_presence_of :zipcode
-      should_validate_presence_of :registration_type_id
-      should_validate_presence_of :conference_id
-      should_validate_presence_of :cpf
-      should_not_validate_presence_of :organization
+      it { should validate_presence_of :first_name }
+      it { should validate_presence_of :last_name }
+      it { should validate_presence_of :email }
+      it { should validate_presence_of :phone }
+      it { should validate_presence_of :country }
+      it { should validate_presence_of :state }
+      it { should validate_presence_of :city }
+      it { should validate_presence_of :address }
+      it { should validate_presence_of :gender }
+      it { should validate_presence_of :zipcode }
+      it { should validate_presence_of :registration_type_id }
+      it { should validate_presence_of :conference_id }
+      it { should validate_presence_of :cpf }
+      it { should_not validate_presence_of :organization }
     end
     
     context "non brazilians" do
       subject {FactoryGirl.build(:attendee, :country => 'US')}
-      should_not_validate_presence_of :cpf
-      should_not_validate_presence_of :state
+      it { should_not validate_presence_of :cpf }
+      it { should_not validate_presence_of :state }
     end
 
     context "student" do
       subject {FactoryGirl.build(:attendee, :registration_type_id => 1)}
-      should_validate_presence_of :organization
+      it { should validate_presence_of :organization }
     end
         
     should_validate_existence_of :conference, :registration_type
     
-    should_validate_confirmation_of :email
+    xit { should validate_confirmation_of :email }
     
-    should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :badge_name, :maximum => 200, :allow_blank => true
-    should_validate_length_of :organization, :maximum => 100, :allow_blank => true
-    should_validate_length_of :country, :maximum => 100, :allow_blank => true
-    should_validate_length_of :state, :maximum => 100, :allow_blank => true
-    should_validate_length_of :city, :maximum => 100, :allow_blank => true
-    should_validate_length_of :address, :maximum => 300, :allow_blank => true
-    should_validate_length_of :neighbourhood, :maximum => 100, :allow_blank => true
-    should_validate_length_of :zipcode, :maximum => 10, :allow_blank => true
-    should_validate_length_of :twitter_user, :maximum => 100, :allow_blank => true
-    should_validate_length_of :email, :within => 6..100, :allow_blank => true
+    it { should ensure_length_of(:first_name).is_at_most(100) }
+    it { should ensure_length_of(:last_name).is_at_most(100) }
+    it { should ensure_length_of(:badge_name).is_at_most(200) }
+    it { should ensure_length_of(:organization).is_at_most(100) }
+    it { should ensure_length_of(:country).is_at_most(100) }
+    it { should ensure_length_of(:state).is_at_most(100) }
+    it { should ensure_length_of(:city).is_at_most(100) }
+    it { should ensure_length_of(:address).is_at_most(300) }
+    it { should ensure_length_of(:neighbourhood).is_at_most(100) }
+    it { should ensure_length_of(:zipcode).is_at_most(10) }
+    it { should ensure_length_of(:twitter_user).is_at_most(100) }
+    it { should ensure_length_of(:email).is_at_least(6).is_at_most(100) }
     
-    should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
-    should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
-    
-    should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
-    should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+    it { should allow_value("user@domain.com.br").for(:email) }
+    it { should allow_value("test_user.name@a.co.uk").for(:email) }
+    it { should_not allow_value("a").for(:email) }
+    it { should_not allow_value("a@").for(:email) }
+    it { should_not allow_value("a@a").for(:email) }
+    it { should_not allow_value("@12.com").for(:email) }
 
-    should_allow_values_for :cpf, "111.444.777-35", "11144477735"
-    should_not_allow_values_for :cpf, "12345", "111.111.111-11", "11111111111"
+    it { should allow_value("1234-2345").for(:phone) }
+    it { should allow_value("+55 11 5555 2234").for(:phone) }
+    it { should allow_value("+1 (304) 543.3333").for(:phone) }
+    it { should allow_value("07753423456").for(:phone) }
+    it { should_not allow_value("a").for(:phone) }
+    it { should_not allow_value("1234-bfd").for(:phone) }
+    it { should_not allow_value(")(*&^%$@!").for(:phone) }
+    it { should_not allow_value("[=+]").for(:phone) }
+
+    it { should allow_value("111.444.777-35").for(:cpf) }
+    it { should allow_value("11144477735").for(:cpf) }
+    it { should_not allow_value("12345").for(:cpf) }
+    it { should_not allow_value("111.111.111-11").for(:cpf) }
+    it { should_not allow_value("11111111111").for(:cpf) }
     
-    should_validate_inclusion_of :gender, :in => Gender.valid_values, :allow_blank => true
+    xit { should ensure_inclusion_of(:gender).in_range(Gender.valid_values) }
     
     context "uniqueness" do
       before { FactoryGirl.create(:attendee) }
-      should_validate_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
-      should_validate_uniqueness_of :cpf, :allow_blank => true
+      it { should validate_uniqueness_of(:email).case_insensitive }
+      it { should validate_uniqueness_of(:cpf) }
     end
     
     it "should validate that payment agreement is checked on confirmation" do

@@ -1,23 +1,22 @@
 # encoding: UTF-8
-# encoding: utf-8
 require 'spec_helper'
 
 describe Preference do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :reviewer_id
-    should_allow_mass_assignment_of :track_id
-    should_allow_mass_assignment_of :audience_level_id
-    should_allow_mass_assignment_of :accepted
-  
-    should_not_allow_mass_assignment_of :id
+    it { should allow_mass_assignment_of :reviewer_id }
+    it { should allow_mass_assignment_of :track_id }
+    it { should allow_mass_assignment_of :audience_level_id }
+    it { should allow_mass_assignment_of :accepted }
+
+    it { should_not allow_mass_assignment_of :id }
   end
   
   context "validations" do
-    should_validate_inclusion_of :accepted, :in => [true, false]
+    xit { should ensure_inclusion_of(:accepted).in_range([true, false]) }
 
     describe "should validate audience level if accepted" do
       subject {FactoryGirl.build(:preference, :accepted => true)}
-      should_validate_presence_of :audience_level_id
+      it { should validate_presence_of :audience_level_id }
       should_validate_existence_of :audience_level
     end
 
@@ -41,10 +40,10 @@ describe Preference do
   end
   
   context "associations" do
-    should_belong_to :reviewer
-    should_belong_to :track
-    should_belong_to :audience_level
+    it { should belong_to :reviewer }
+    it { should belong_to :track }
+    it { should belong_to :audience_level }
 
-    should_have_one :user, :through => :reviewer
+    it { should have_one(:user).through(:reviewer) }
   end
 end

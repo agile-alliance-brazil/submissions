@@ -1,47 +1,46 @@
 # encoding: UTF-8
-# encoding: utf-8
 require 'spec_helper'
 
 describe Session do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :title
-    should_allow_mass_assignment_of :summary
-    should_allow_mass_assignment_of :description
-    should_allow_mass_assignment_of :mechanics
-    should_allow_mass_assignment_of :benefits
-    should_allow_mass_assignment_of :target_audience
-    should_allow_mass_assignment_of :audience_limit
-    should_allow_mass_assignment_of :author_id
-    should_allow_mass_assignment_of :second_author_username
-    should_allow_mass_assignment_of :track_id
-    should_allow_mass_assignment_of :session_type_id
-    should_allow_mass_assignment_of :audience_level_id
-    should_allow_mass_assignment_of :duration_mins
-    should_allow_mass_assignment_of :experience
-    should_allow_mass_assignment_of :keyword_list
-    should_allow_mass_assignment_of :author_agreement
-    should_allow_mass_assignment_of :image_agreement
-    should_allow_mass_assignment_of :state_event
-    should_allow_mass_assignment_of :conference_id
+    it { should allow_mass_assignment_of :title }
+    it { should allow_mass_assignment_of :summary }
+    it { should allow_mass_assignment_of :description }
+    it { should allow_mass_assignment_of :mechanics }
+    it { should allow_mass_assignment_of :benefits }
+    it { should allow_mass_assignment_of :target_audience }
+    it { should allow_mass_assignment_of :audience_limit }
+    it { should allow_mass_assignment_of :author_id }
+    it { should allow_mass_assignment_of :second_author_username }
+    it { should allow_mass_assignment_of :track_id }
+    it { should allow_mass_assignment_of :session_type_id }
+    it { should allow_mass_assignment_of :audience_level_id }
+    it { should allow_mass_assignment_of :duration_mins }
+    it { should allow_mass_assignment_of :experience }
+    it { should allow_mass_assignment_of :keyword_list }
+    it { should allow_mass_assignment_of :author_agreement }
+    it { should allow_mass_assignment_of :image_agreement }
+    it { should allow_mass_assignment_of :state_event }
+    it { should allow_mass_assignment_of :conference_id }
 
-    should_not_allow_mass_assignment_of :id
+    it { should_not allow_mass_assignment_of :id }
   end
 
   it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
                                      :target_audience, :second_author_username, :experience
 
   context "associations" do
-    should_belong_to :author, :class_name => 'User'
-    should_belong_to :second_author, :class_name => 'User'
-    should_belong_to :track
-    should_belong_to :session_type
-    should_belong_to :audience_level
-    should_belong_to :conference
+    it { should belong_to(:author).class_name('User') }
+    it { should belong_to(:second_author).class_name('User') }
+    it { should belong_to :track }
+    it { should belong_to :session_type }
+    it { should belong_to :audience_level }
+    it { should belong_to :conference }
 
-    should_have_many :comments, :as => :commentable, :dependent => :destroy
+    it { should have_many(:comments).dependent(:destroy) }
 
-    should_have_many :reviews
-    should_have_one  :review_decision
+    it { should have_many :reviews }
+    it { should have_one  :review_decision }
 
     context "second author association by username" do
       before(:each) do
@@ -78,33 +77,33 @@ describe Session do
   end
 
   context "validations" do
-    should_validate_presence_of :title
-    should_validate_presence_of :summary
-    should_validate_presence_of :description
-    should_validate_presence_of :benefits
-    should_validate_presence_of :target_audience
-    should_validate_presence_of :author_id
-    should_validate_presence_of :track_id
-    should_validate_presence_of :conference_id
-    should_validate_presence_of :session_type_id
-    should_validate_presence_of :audience_level_id
-    should_validate_presence_of :experience
-    should_validate_presence_of :duration_mins
-    should_validate_presence_of :keyword_list
-    should_validate_inclusion_of :duration_mins, :in => [10, 50, 110], :allow_blank => true
+    it { should validate_presence_of :title }
+    it { should validate_presence_of :summary }
+    it { should validate_presence_of :description }
+    it { should validate_presence_of :benefits }
+    it { should validate_presence_of :target_audience }
+    it { should validate_presence_of :author_id }
+    it { should validate_presence_of :track_id }
+    it { should validate_presence_of :conference_id }
+    it { should validate_presence_of :session_type_id }
+    it { should validate_presence_of :audience_level_id }
+    it { should validate_presence_of :experience }
+    it { should validate_presence_of :duration_mins }
+    it { should validate_presence_of :keyword_list }
+    xit { should validate_inclusion_of(:duration_mins).in_range([10, 50, 110]) }
 
     should_validate_existence_of :conference, :author
     should_validate_existence_of :track, :session_type, :audience_level, :allow_nil => true
 
-    should_validate_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
+    it { should validate_numericality_of :audience_limit }
 
-    should_validate_length_of :title, :maximum => 100
-    should_validate_length_of :target_audience, :maximum => 200
-    should_validate_length_of :summary, :maximum => 800
-    should_validate_length_of :description, :maximum => 2400
-    should_validate_length_of :mechanics, :maximum => 2400, :allow_blank => true
-    should_validate_length_of :benefits, :maximum => 400
-    should_validate_length_of :experience, :maximum => 400
+    it { should ensure_length_of(:title).is_at_most(100) }
+    it { should ensure_length_of(:target_audience).is_at_most(200) }
+    it { should ensure_length_of(:summary).is_at_most(800) }
+    it { should ensure_length_of(:description).is_at_most(2400) }
+    it { should ensure_length_of(:mechanics).is_at_most(2400) }
+    it { should ensure_length_of(:benefits).is_at_most(400) }
+    it { should ensure_length_of(:experience).is_at_most(400) }
 
     context "workshop" do
       it "should validate presence of mechanics" do

@@ -8,24 +8,25 @@ describe Reviewer do
   end
   
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :user_id
-    should_allow_mass_assignment_of :conference_id
-    should_allow_mass_assignment_of :user_username
-    should_allow_mass_assignment_of :preferences_attributes
-    should_allow_mass_assignment_of :reviewer_agreement
-    should_allow_mass_assignment_of :state_event
-  
-    should_not_allow_mass_assignment_of :id
+    it { should allow_mass_assignment_of :user_id }
+    it { should allow_mass_assignment_of :conference_id }
+    it { should allow_mass_assignment_of :user_username }
+    it { should allow_mass_assignment_of :preferences_attributes }
+    it { should allow_mass_assignment_of :reviewer_agreement }
+    it { should allow_mass_assignment_of :state_event }
+
+    it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes Reviewer, :user_username
 
   context "validations" do
-    should_validate_presence_of :user_username, :conference_id
+    it { should validate_presence_of :user_username }
+    it { should validate_presence_of :conference_id }
     
     context "uniqueness" do
       before { FactoryGirl.create(:reviewer) }
-      should_validate_uniqueness_of :user_id, :scope => :conference_id
+      it { should validate_uniqueness_of(:user_id).scoped_to(:conference_id) }
     end
 
     should_validate_existence_of :user, :conference
@@ -65,12 +66,12 @@ describe Reviewer do
   end
   
   context "associations" do
-    should_belong_to :user
-    should_belong_to :conference
-    should_have_many :preferences
-    should_have_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
-    
-    should_accept_nested_attributes_for :preferences
+    it { should belong_to :user }
+    it { should belong_to :conference }
+    it { should have_many :preferences }
+    it { should have_many(:accepted_preferences).class_name('Preference') }
+
+    xit { should accept_nested_attributes_for :preferences }
 
     context "user association by username" do
       before(:each) do

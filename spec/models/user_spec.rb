@@ -4,23 +4,23 @@ require 'spec_helper'
 
 describe User do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :first_name
-    should_allow_mass_assignment_of :last_name
-    should_allow_mass_assignment_of :username
-    should_allow_mass_assignment_of :email
-    should_allow_mass_assignment_of :password
-    should_allow_mass_assignment_of :password_confirmation
-    should_allow_mass_assignment_of :phone
-    should_allow_mass_assignment_of :country
-    should_allow_mass_assignment_of :state
-    should_allow_mass_assignment_of :city
-    should_allow_mass_assignment_of :organization
-    should_allow_mass_assignment_of :website_url
-    should_allow_mass_assignment_of :bio
-    should_allow_mass_assignment_of :wants_to_submit
-    should_allow_mass_assignment_of :default_locale
-  
-    should_not_allow_mass_assignment_of :id
+    it { should allow_mass_assignment_of :first_name }
+    it { should allow_mass_assignment_of :last_name }
+    it { should allow_mass_assignment_of :username }
+    it { should allow_mass_assignment_of :email }
+    it { should allow_mass_assignment_of :password }
+    it { should allow_mass_assignment_of :password_confirmation }
+    it { should allow_mass_assignment_of :phone }
+    it { should allow_mass_assignment_of :country }
+    it { should allow_mass_assignment_of :state }
+    it { should allow_mass_assignment_of :city }
+    it { should allow_mass_assignment_of :organization }
+    it { should allow_mass_assignment_of :website_url }
+    it { should allow_mass_assignment_of :bio }
+    it { should allow_mass_assignment_of :wants_to_submit }
+    it { should allow_mass_assignment_of :default_locale }
+
+    it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes User, :first_name, :last_name, :username,
@@ -28,51 +28,71 @@ describe User do
                                   :website_url, :bio
 
   context "validations" do
-    should_validate_presence_of :first_name
-    should_validate_presence_of :last_name
+    it { should validate_presence_of :first_name }
+    it { should validate_presence_of :last_name }
     
     context "brazilians" do
       subject { FactoryGirl.build(:user, :country => "BR") }
-      should_not_validate_presence_of :state
+      it { should_not validate_presence_of :state }
     end
     
     context "author" do
-      subject { u = FactoryGirl.build(:user); u.add_role("author"); u }
-      should_validate_presence_of :phone
-      should_validate_presence_of :country
-      should_validate_presence_of :city
-      should_validate_presence_of :bio
-      
-      should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
-      should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+      subject { FactoryGirl.build(:user).tap {|u| u.add_role("author") } }
+      it { should validate_presence_of :phone }
+      it { should validate_presence_of :country }
+      it { should validate_presence_of :city }
+      it { should validate_presence_of :bio }
+
+      it { should allow_value("1234-2345").for(:phone) }
+      it { should allow_value("+55 11 5555 2234").for(:phone) }
+      it { should allow_value("+1 (304) 543.3333").for(:phone) }
+      it { should allow_value("07753423456").for(:phone) }
+      it { should_not allow_value("a").for(:phone) }
+      it { should_not allow_value("1234-bfd").for(:phone) }
+      it { should_not allow_value(")(*&^%$@!").for(:phone) }
+      it { should_not allow_value("[=+]").for(:phone) }
 
       context "brazilians" do
-        subject { u = FactoryGirl.build(:user, :country => "BR"); u.add_role("author"); u }
-        should_validate_presence_of :state
+        subject { FactoryGirl.build(:user, :country => "BR").tap {|u| u.add_role("author") } }
+        it { should validate_presence_of :state }
       end
     end
     
-    should_validate_length_of :username, :minimum => 3, :maximum => 30
-    should_validate_length_of :password, :within => 3..30
-    should_validate_length_of :email, :minimum => 6, :maximum => 100
-    should_validate_length_of :first_name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :last_name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :city, :maximum => 100, :allow_blank => true
-    should_validate_length_of :organization, :maximum => 100, :allow_blank => true
-    should_validate_length_of :website_url, :maximum => 100, :allow_blank => true
-    should_validate_length_of :phone, :maximum => 100, :allow_blank => true
-    should_validate_length_of :bio, :maximum => 1600, :allow_blank => true
-    
-    should_allow_values_for :username, "dtsato", "123", "a b c", "danilo.sato", "dt-sato@dt_sato.com"
-    should_not_allow_values_for :username, "dt$at0", "<>/?", ")(*&^%$@!", "[=+]"
-    
-    should_allow_values_for :email, "user@domain.com.br", "test_user.name@a.co.uk"
-    should_not_allow_values_for :email, "a", "a@", "a@a", "@12.com"
+    it { should ensure_length_of(:username).is_at_least(3).is_at_most(30) }
+    it { should ensure_length_of(:password).is_at_least(3).is_at_most(30) }
+    it { should ensure_length_of(:email).is_at_least(6).is_at_most(100) }
+    it { should ensure_length_of(:first_name).is_at_most(100) }
+    it { should ensure_length_of(:last_name).is_at_most(100) }
+    it { should ensure_length_of(:city).is_at_most(100) }
+    it { should ensure_length_of(:organization).is_at_most(100) }
+    it { should ensure_length_of(:website_url).is_at_most(100) }
+    it { should ensure_length_of(:phone).is_at_most(100) }
+    it { should ensure_length_of(:bio).is_at_most(1600) }
 
-    should_validate_uniqueness_of :email
-    should_validate_uniqueness_of :username, :case_sensitive => false
-        
-    should_validate_confirmation_of :password
+    it { should allow_value("dtsato").for(:username) }
+    it { should allow_value("123").for(:username) }
+    it { should allow_value("a b c").for(:username) }
+    it { should allow_value("danilo.sato").for(:username) }
+    it { should allow_value("dt-sato@dt_sato.com").for(:username) }
+    it { should_not allow_value("dt$at0").for(:username) }
+    it { should_not allow_value("<>/?").for(:username) }
+    it { should_not allow_value(")(*&^%$@!").for(:username) }
+    it { should_not allow_value("[=+]").for(:username) }
+
+    it { should allow_value("user@domain.com.br").for(:email) }
+    it { should allow_value("test_user.name@a.co.uk").for(:email) }
+    it { should_not allow_value("a").for(:email) }
+    it { should_not allow_value("a@").for(:email) }
+    it { should_not allow_value("a@a").for(:email) }
+    it { should_not allow_value("@12.com").for(:email) }
+
+    context "uniqueness" do
+      subject { FactoryGirl.create(:user, :country => "BR") }
+      it { should validate_uniqueness_of(:email).with_message("outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail") }
+      it { should validate_uniqueness_of(:username).case_insensitive }
+    end
+    
+    xit { should validate_confirmation_of :password }
     
     it "should validate that username doesn't change" do
       user = FactoryGirl.create(:user)
@@ -83,11 +103,11 @@ describe User do
   end
   
   context "associations" do
-    should_have_many :sessions, :foreign_key => 'author_id'
-    should_have_many :organizers
-    should_have_many :all_organized_tracks, :through => :organizers, :source => :track
-    should_have_many :reviewers
-    should_have_many :reviews, :foreign_key => 'reviewer_id'
+    it { should have_many :sessions }
+    it { should have_many :organizers }
+    it { should have_many(:all_organized_tracks).through(:organizers) }
+    it { should have_many :reviewers }
+    it { should have_many :reviews }
 
     describe "organized tracks for conference" do
       it "should narrow tracks based on conference" do

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe RegistrationPrice do
   context "associations" do
-    should_belong_to :registration_type
-    should_belong_to :registration_period
+    it { should belong_to :registration_type }
+    it { should belong_to :registration_period }
   end
 end

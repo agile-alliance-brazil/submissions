@@ -4,24 +4,24 @@ require 'spec_helper'
 
 describe Organizer do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :user_id
-    should_allow_mass_assignment_of :track_id
-    should_allow_mass_assignment_of :conference_id
-    should_allow_mass_assignment_of :user_username
-  
-    should_not_allow_mass_assignment_of :id
+    it { should allow_mass_assignment_of :user_id }
+    it { should allow_mass_assignment_of :track_id }
+    it { should allow_mass_assignment_of :conference_id }
+    it { should allow_mass_assignment_of :user_username }
+
+    it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes Organizer, :user_username
 
   context "validations" do
-    should_validate_presence_of :user_username
-    should_validate_presence_of :track_id
-    should_validate_presence_of :conference_id
+    it { should validate_presence_of :user_username }
+    it { should validate_presence_of :track_id }
+    it { should validate_presence_of :conference_id }
 
     context "uniqueness" do
       before { FactoryGirl.create(:organizer) }      
-      should_validate_uniqueness_of :track_id, :scope => [:conference_id, :user_id]
+      it { should validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message("usuário já organiza essa trilha") }
     end
 
     should_validate_existence_of :user, :track, :conference
@@ -37,9 +37,9 @@ describe Organizer do
   end
   
   context "associations" do
-    should_belong_to :user
-    should_belong_to :track
-    should_belong_to :conference
+    it { should belong_to :user }
+    it { should belong_to :track }
+    it { should belong_to :conference }
 
     context "user association by username" do
       before(:each) do

@@ -4,14 +4,14 @@ require 'spec_helper'
 
 describe Course do
   context "validations" do
-    should_validate_presence_of :name
-    should_validate_presence_of :full_name
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :full_name }
   end
   
   context "associations" do
-    should_belong_to :conference
-    should_have_many :course_prices
-    should_have_many :course_attendances
+    it { should belong_to :conference }
+    it { should have_many :course_prices }
+    it { should have_many :course_attendances }
   end
   
   describe "price" do

@@ -3,26 +3,26 @@ require 'spec_helper'
 
 describe RegistrationGroup do
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :name
-    should_allow_mass_assignment_of :cnpj
-    should_allow_mass_assignment_of :state_inscription
-    should_allow_mass_assignment_of :municipal_inscription
-    should_allow_mass_assignment_of :contact_name
-    should_allow_mass_assignment_of :contact_email
-    should_allow_mass_assignment_of :contact_email_confirmation
-    should_allow_mass_assignment_of :phone
-    should_allow_mass_assignment_of :country
-    should_allow_mass_assignment_of :state
-    should_allow_mass_assignment_of :city
-    should_allow_mass_assignment_of :fax
-    should_allow_mass_assignment_of :address
-    should_allow_mass_assignment_of :neighbourhood
-    should_allow_mass_assignment_of :zipcode
-    should_allow_mass_assignment_of :total_attendees
-    should_allow_mass_assignment_of :payment_agreement
-    should_allow_mass_assignment_of :status_event
+    it { should allow_mass_assignment_of :name }
+    it { should allow_mass_assignment_of :cnpj }
+    it { should allow_mass_assignment_of :state_inscription }
+    it { should allow_mass_assignment_of :municipal_inscription }
+    it { should allow_mass_assignment_of :contact_name }
+    it { should allow_mass_assignment_of :contact_email }
+    it { should allow_mass_assignment_of :contact_email_confirmation }
+    it { should allow_mass_assignment_of :phone }
+    it { should allow_mass_assignment_of :country }
+    it { should allow_mass_assignment_of :state }
+    it { should allow_mass_assignment_of :city }
+    it { should allow_mass_assignment_of :fax }
+    it { should allow_mass_assignment_of :address }
+    it { should allow_mass_assignment_of :neighbourhood }
+    it { should allow_mass_assignment_of :zipcode }
+    it { should allow_mass_assignment_of :total_attendees }
+    it { should allow_mass_assignment_of :payment_agreement }
+    it { should allow_mass_assignment_of :status_event }
 
-    should_not_allow_mass_assignment_of :id
+    it { should_not allow_mass_assignment_of :id }
   end
 
   it_should_trim_attributes RegistrationGroup, :name, :state_inscription, :municipal_inscription, :contact_email,
@@ -30,63 +30,82 @@ describe RegistrationGroup do
                                                :neighbourhood, :zipcode
 
   context "associations" do
-    should_have_many :attendees
-    should_have_many :payment_notifications, :as => :invoicer
-    should_have_many :course_attendances, :through => :attendees
+    it { should have_many :attendees }
+    it { should have_many :payment_notifications }
+    it { should have_many(:course_attendances).through(:attendees) }
   end
 
   context "validations" do
     context "brazilians" do
       subject { FactoryGirl.build(:registration_group) }
-      should_validate_presence_of :name
-      should_validate_presence_of :contact_email
-      should_validate_presence_of :contact_name
-      should_validate_presence_of :phone
-      should_validate_presence_of :fax
-      should_validate_presence_of :country
-      should_validate_presence_of :state
-      should_validate_presence_of :city
-      should_validate_presence_of :address
-      should_validate_presence_of :zipcode
-      should_validate_presence_of :cnpj
-      should_validate_presence_of :state_inscription
-      should_validate_presence_of :municipal_inscription
-      should_validate_presence_of :total_attendees
+      it { should validate_presence_of :name }
+      it { should validate_presence_of :contact_email }
+      it { should validate_presence_of :contact_name }
+      it { should validate_presence_of :phone }
+      it { should validate_presence_of :fax }
+      it { should validate_presence_of :country }
+      it { should validate_presence_of :state }
+      it { should validate_presence_of :city }
+      it { should validate_presence_of :address }
+      it { should validate_presence_of :zipcode }
+      it { should validate_presence_of :cnpj }
+      it { should validate_presence_of :state_inscription }
+      it { should validate_presence_of :municipal_inscription }
+      it { should validate_presence_of :total_attendees }
     end
 
     context "non brazilians" do
       subject {FactoryGirl.build(:registration_group, :country => 'US')}
-      should_not_validate_presence_of :cnpj
-      should_not_validate_presence_of :state_inscription
-      should_not_validate_presence_of :municipal_inscription
-      should_not_validate_presence_of :state
+      it { should_not validate_presence_of :cnpj }
+      it { should_not validate_presence_of :state_inscription }
+      it { should_not validate_presence_of :municipal_inscription }
+      it { should_not validate_presence_of :state }
     end
 
-    should_validate_confirmation_of :contact_email
+    xit { should validate_confirmation_of :contact_email }
 
-    should_validate_length_of :name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :country, :maximum => 100, :allow_blank => true
-    should_validate_length_of :state, :maximum => 100, :allow_blank => true
-    should_validate_length_of :city, :maximum => 100, :allow_blank => true
-    should_validate_length_of :address, :maximum => 300, :allow_blank => true
-    should_validate_length_of :neighbourhood, :maximum => 100, :allow_blank => true
-    should_validate_length_of :contact_name, :maximum => 100, :allow_blank => true
-    should_validate_length_of :zipcode, :maximum => 10, :allow_blank => true
-    should_validate_length_of :contact_email, :within => 6..100, :allow_blank => true
+    it { should ensure_length_of(:name).is_at_most(100) }
+    it { should ensure_length_of(:country).is_at_most(100) }
+    it { should ensure_length_of(:state).is_at_most(100) }
+    it { should ensure_length_of(:city).is_at_most(100) }
+    it { should ensure_length_of(:address).is_at_most(300) }
+    it { should ensure_length_of(:neighbourhood).is_at_most(100) }
+    it { should ensure_length_of(:contact_name).is_at_most(100) }
+    it { should ensure_length_of(:zipcode).is_at_most(10) }
+    it { should ensure_length_of(:contact_email).is_at_least(6).is_at_most(100) }
 
-    should_allow_values_for :contact_email, "user@domain.com.br", "test_user.name@a.co.uk"
-    should_not_allow_values_for :contact_email, "a", "a@", "a@a", "@12.com"
+    it { should allow_value("user@domain.com.br").for(:contact_email) }
+    it { should allow_value("test_user.name@a.co.uk").for(:contact_email) }
+    it { should_not allow_value("a").for(:contact_email) }
+    it { should_not allow_value("a@").for(:contact_email) }
+    it { should_not allow_value("a@a").for(:contact_email) }
+    it { should_not allow_value("@12.com").for(:contact_email) }
 
-    should_allow_values_for :phone, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
-    should_not_allow_values_for :phone, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+    it { should allow_value("1234-2345").for(:phone) }
+    it { should allow_value("+55 11 5555 2234").for(:phone) }
+    it { should allow_value("+1 (304) 543.3333").for(:phone) }
+    it { should allow_value("07753423456").for(:phone) }
+    it { should_not allow_value("a").for(:phone) }
+    it { should_not allow_value("1234-bfd").for(:phone) }
+    it { should_not allow_value(")(*&^%$@!").for(:phone) }
+    it { should_not allow_value("[=+]").for(:phone) }
 
-    should_allow_values_for :fax, "1234-2345", "+55 11 5555 2234", "+1 (304) 543.3333", "07753423456"
-    should_not_allow_values_for :fax, "a", "1234-bfd", ")(*&^%$@!", "[=+]"
+    it { should allow_value("1234-2345").for(:fax) }
+    it { should allow_value("+55 11 5555 2234").for(:fax) }
+    it { should allow_value("+1 (304) 543.3333").for(:fax) }
+    it { should allow_value("07753423456").for(:fax) }
+    it { should_not allow_value("a").for(:fax) }
+    it { should_not allow_value("1234-bfd").for(:fax) }
+    it { should_not allow_value(")(*&^%$@!").for(:fax) }
+    it { should_not allow_value("[=+]").for(:fax) }
 
-    should_allow_values_for :cnpj, "69.103.604/0001-60", "69103604000160"
-    should_not_allow_values_for :cnpj, "12345", "66.666.666/6666-66", "66666666666666"
+    it { should allow_value("69.103.604/0001-60").for(:cnpj) }
+    it { should allow_value("69103604000160").for(:cnpj) }
+    it { should_not allow_value("12345").for(:cnpj) }
+    it { should_not allow_value("66.666.666/6666-66").for(:cnpj) }
+    it { should_not allow_value("66666666666666").for(:cnpj) }
 
-    should_validate_numericality_of :total_attendees, :only_integer => true, :greater_than_or_equal_to => 5, :allow_blank => true
+    it { should validate_numericality_of :total_attendees }
 
     it "should validate that payment agreement is checked on confirmation" do
       registration_group = FactoryGirl.build(:registration_group, :payment_agreement => false)

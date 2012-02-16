@@ -5,21 +5,21 @@ require 'spec_helper'
 describe ReviewDecision do
   
   context "protect from mass assignment" do
-    should_allow_mass_assignment_of :organizer_id
-    should_allow_mass_assignment_of :session_id
-    should_allow_mass_assignment_of :outcome_id
-    should_allow_mass_assignment_of :note_to_authors
-  
-    should_not_allow_mass_assignment_of :id
+    it { should allow_mass_assignment_of :organizer_id }
+    it { should allow_mass_assignment_of :session_id }
+    it { should allow_mass_assignment_of :outcome_id }
+    it { should allow_mass_assignment_of :note_to_authors }
+
+    it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes ReviewDecision, :note_to_authors
 
   context "validations" do
-    should_validate_presence_of :organizer_id
-    should_validate_presence_of :session_id
-    should_validate_presence_of :outcome_id
-    should_validate_presence_of :note_to_authors
+    it { should validate_presence_of :organizer_id }
+    it { should validate_presence_of :session_id }
+    it { should validate_presence_of :outcome_id }
+    it { should validate_presence_of :note_to_authors }
     should_validate_existence_of :organizer, :session, :outcome
 
     it "should validate outcome can transition session on acceptance" do
@@ -36,9 +36,9 @@ describe ReviewDecision do
   end
   
   context "associations" do
-    should_belong_to :organizer, :class_name => "User"
-    should_belong_to :session
-    should_belong_to :outcome
+    it { should belong_to :organizer }
+    it { should belong_to :session }
+    it { should belong_to :outcome }
   end
 
   context "callbacks" do
