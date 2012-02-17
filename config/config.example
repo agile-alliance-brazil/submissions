@@ -15,7 +15,7 @@
    :email: organizer@domain.com
    :cced: Organizer Helper
    :cced_email: helper@domain.com
- :hoptoad:
+ :airbrake:
    :access_key: xxx111xxx
  :google:
    :tracker_id: google_analytics_id

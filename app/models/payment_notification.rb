@@ -23,7 +23,7 @@ class PaymentNotification < ActiveRecord::Base
     if status == "Completed" && params_valid?
       invoicer.confirm
     else
-      HoptoadNotifier.notify(
+      Airbrake.notify(
         :error_class   => "Failed Payment Notification",
         :error_message => "Failed Payment Notification for invoicer: #{invoicer.inspect}",
         :parameters    => params

@@ -327,10 +327,10 @@ describe Attendee do
         @attendee.confirm
       end
       
-      it "should notify Hoptoad on error" do
+      it "should notify Airbrake on error" do
         error = StandardError.new('error')
         EmailNotifications.expects(:registration_confirmed).with(@attendee).raises(error)
-        HoptoadNotifier.expects(:notify).with(error)
+        Airbrake.expects(:notify).with(error)
         @attendee.confirm
       end
     end

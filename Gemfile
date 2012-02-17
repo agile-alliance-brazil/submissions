@@ -17,7 +17,7 @@ gem 'acts_as_commentable', '=3.0.1'
 gem 'state_machine', '=1.1.2'
 gem 'validates_existence', '=0.7.1'
 gem 'goalie', '=0.0.4'
-gem 'hoptoad_notifier', '=2.4.11' # replace with airbrake
+gem 'airbrake', '=3.0.9'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 
 platforms :mswin, :mingw do

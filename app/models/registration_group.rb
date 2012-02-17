@@ -47,7 +47,7 @@ class RegistrationGroup < ActiveRecord::Base
       begin
         EmailNotifications.registration_group_confirmed(registration_group).deliver
       rescue => ex
-        HoptoadNotifier.notify(ex)
+        Airbrake.notify(ex)
       end      
     end
 

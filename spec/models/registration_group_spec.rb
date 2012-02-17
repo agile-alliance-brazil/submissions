@@ -270,10 +270,10 @@ describe RegistrationGroup do
         @registration_group.confirm
       end
 
-      it "should notify Hoptoad on error" do
+      it "should notify Airbrake on error" do
         error = StandardError.new('error')
         EmailNotifications.expects(:registration_group_confirmed).with(@registration_group).raises(error)
-        HoptoadNotifier.expects(:notify).with(error)
+        Airbrake.expects(:notify).with(error)
         @registration_group.confirm
       end
     end

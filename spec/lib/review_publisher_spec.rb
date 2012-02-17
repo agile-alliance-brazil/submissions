@@ -9,7 +9,7 @@ describe ReviewPublisher do
     EmailNotifications.stubs(:notification_of_acceptance).returns(stub(:deliver => true))
     Rails.logger.stubs(:info)
     Rails.logger.stubs(:flush)
-    HoptoadNotifier.stubs(:notify)
+    Airbrake.stubs(:notify)
     
     @conference = FactoryGirl.create(:conference)
     
@@ -116,7 +116,7 @@ describe ReviewPublisher do
       
       Rails.logger.expects(:info).with("  [FAILED ACCEPT] error")
       Rails.logger.expects(:info).with("  [ACCEPT] OK")
-      HoptoadNotifier.expects(:notify).with(error)
+      Airbrake.expects(:notify).with(error)
       
       @publisher.publish
     end
@@ -128,7 +128,7 @@ describe ReviewPublisher do
       
       Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       Rails.logger.expects(:info).with("  [REJECT] OK")
-      HoptoadNotifier.expects(:notify).with(error)
+      Airbrake.expects(:notify).with(error)
 
       @publisher.publish
     end

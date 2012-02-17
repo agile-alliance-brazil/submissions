@@ -10,7 +10,7 @@ require 'cancan/matchers'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-module HoptoadNotifier
+module Airbrake
   def self.notify(thing)
     # do nothing.
   end

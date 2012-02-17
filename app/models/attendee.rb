@@ -86,7 +86,7 @@ class Attendee < ActiveRecord::Base
       begin
         EmailNotifications.registration_confirmed(attendee).deliver
       rescue => ex
-        HoptoadNotifier.notify(ex)
+        Airbrake.notify(ex)
       end
     end
   end

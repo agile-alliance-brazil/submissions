@@ -6,7 +6,7 @@ describe RegistrationReminder do
     EmailNotifications.stubs(:registration_reminder).returns(stub(:deliver => true))
     Rails.logger.stubs(:info)
     Rails.logger.stubs(:flush)
-    HoptoadNotifier.stubs(:notify)
+    Airbrake.stubs(:notify)
     
     @conference = FactoryGirl.create(:conference)
     
@@ -42,7 +42,7 @@ describe RegistrationReminder do
       
       Rails.logger.expects(:info).with("  [FAILED REMINDER] error")
       Rails.logger.expects(:info).with("  [REMINDER] OK")
-      HoptoadNotifier.expects(:notify).with(error)
+      Airbrake.expects(:notify).with(error)
       
       @reminder.publish
     end

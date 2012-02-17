@@ -43,4 +43,4 @@ set :default_stage, "staging"
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 require './config/boot'
-require 'hoptoad_notifier/capistrano'
+require 'airbrake/capistrano'

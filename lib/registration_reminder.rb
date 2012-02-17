@@ -19,7 +19,7 @@ class RegistrationReminder
     blk.call
     Rails.logger.info("  [#{action}] OK")
   rescue => e
-    HoptoadNotifier.notify(e)
+    Airbrake.notify(e)
     Rails.logger.info("  [FAILED #{action}] #{e.message}")
   ensure
     Rails.logger.flush
