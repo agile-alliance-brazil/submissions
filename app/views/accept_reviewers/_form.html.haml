@@ -3,10 +3,10 @@
     = p.inputs :class => 'inputs preferences' do
       = p.input :track_id, :as => :hidden
       = p.input :accepted, :label => t(p.instance_variable_get("@object").track.title), :input_html => {:tabindex => autotab}
-      = p.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :label_method => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+      = p.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
       %p.inline-hints= t(p.instance_variable_get("@object").track.description)
   = form.inputs do
-    = form.errors_on :base
+    = form.semantic_errors :base
   %pre#reviewer_agreement= yield(:agreement)
   = form.inputs :class => 'inputs accept' do
     = form.input :reviewer_agreement, :as => :boolean, :input_html => {:tabindex => autotab}

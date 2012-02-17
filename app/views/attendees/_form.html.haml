@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :registration_type_id, :as => :radio, :collection => @registration_types, :label_method => Proc.new { |rt| "#{t(rt.title)} - #{number_to_currency(rt.price(@attendee.registration_date), :locale => :pt)}"}, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :registration_type_id, :as => :radio, :collection => @registration_types, :member_label => Proc.new { |rt| "#{t(rt.title)} - #{number_to_currency(rt.price(@attendee.registration_date), :locale => :pt)}"}, :required => true, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_personal do
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
@@ -19,7 +19,7 @@
   = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
   = form.input :zipcode, :required => true, :input_html => {:tabindex => autotab}
 = form.inputs :attendee_courses do
-  = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :label_method => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(@attendee.registration_date), :locale => :pt)} #{c.has_reached_limit? ? '**' : ''}"}, :input_html => {:tabindex => autotab}
+  = form.input :courses, :as => :check_boxes, :label => false, :collection => Course.for_conference(Conference.current), :member_label => Proc.new { |c| "#{t(c.full_name)} - #{number_to_currency(c.price(@attendee.registration_date), :locale => :pt)} #{c.has_reached_limit? ? '**' : ''}"}, :input_html => {:tabindex => autotab}
 
 %div.total
   %h6= parent? ? t('registration_total.title_partial') : t('registration_total.title')
