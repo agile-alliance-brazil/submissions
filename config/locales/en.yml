@@ -240,7 +240,7 @@ en:
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
-        wants_to_submit: "Leave this blank if you only want to vote or leave comments on other users' sessions. You can change your mind later, by editing your profile."
+        wants_to_submit: "Leave this blank if you only want to leave comments on other users' sessions. You can change your mind later, by editing your profile."
         current_password: "To make any changes to your profile, please confirm your current password."
       session:
         track_id: "A detailed description of each track can be found <a href='/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 50 minutes or Lightning Talks lasting 10 minutes will be accepted."

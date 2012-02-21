@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221010710) do
+ActiveRecord::Schema.define(:version => 20120221011648) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "registration_type_id"
-    t.integer  "registration_group_id"
     t.boolean  "email_sent",               :default => false
+    t.integer  "registration_group_id"
     t.integer  "course_attendances_count", :default => 0
     t.text     "notes"
     t.datetime "registration_date"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",          :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
   create_table "course_prices", :force => true do |t|
     t.integer  "course_id"
     t.integer  "registration_period_id"
-    t.decimal  "value"
+    t.decimal  "value",                  :precision => 10, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,12 +91,6 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "combine"
-  end
-
-  create_table "logos", :force => true do |t|
-    t.string   "format"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "organizers", :force => true do |t|
@@ -121,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "payer_email"
-    t.decimal  "settle_amount"
+    t.decimal  "settle_amount",   :precision => 10, :scale => 0
     t.string   "settle_currency"
     t.text     "notes"
     t.string   "invoicer_type"
@@ -192,7 +186,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
   create_table "registration_prices", :force => true do |t|
     t.integer  "registration_type_id"
     t.integer  "registration_period_id"
-    t.decimal  "value"
+    t.decimal  "value",                  :precision => 10, :scale => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -258,7 +252,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit",    :limit => 255
+    t.integer  "audience_limit"
     t.integer  "author_id"
     t.text     "experience"
     t.datetime "created_at"
@@ -269,7 +263,7 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "reviews_count",                    :default => 0
+    t.integer  "reviews_count",     :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"
@@ -325,14 +319,6 @@ ActiveRecord::Schema.define(:version => 20120221010710) do
     t.string   "authentication_token"
     t.integer  "sign_in_count"
     t.datetime "reset_password_sent_at"
-  end
-
-  create_table "votes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "logo_id"
-    t.string   "user_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
