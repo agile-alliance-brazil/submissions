@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120214061753) do
+ActiveRecord::Schema.define(:version => 20120221010710) do
 
   create_table "attendees", :force => true do |t|
     t.integer  "conference_id"
@@ -272,17 +272,6 @@ ActiveRecord::Schema.define(:version => 20120214061753) do
     t.integer  "reviews_count",                    :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
-    t.integer  "conference_id"
-  end
-
-  create_table "slots", :force => true do |t|
-    t.integer  "session_id"
-    t.integer  "track_id"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.integer  "duration_mins"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
   end
 

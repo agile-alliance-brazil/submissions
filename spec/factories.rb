@@ -120,13 +120,6 @@ FactoryGirl.define do
     association :session
   end
 
-  factory :slot do
-    association :track
-    start_at Time.zone.local(2010, 1, 12, 9, 0, 0)
-    end_at Time.zone.local(2010, 1, 12, 9, 45, 0)
-    duration_mins 45
-  end
-
   factory :outcome do
     title "outcomes.accept.title"
   end
