@@ -21,7 +21,7 @@ Devise.setup do |config|
   # authenticating an user, both parameters are required. Remember that those
   # parameters are used only when authenticating and not when retrieving from
   # session. If you need permissions, you should implement that in a before filter.
-  config.authentication_keys = [ :username ]
+  config.authentication_keys = [:username]
 
   config.reset_password_within = 6.hours
   

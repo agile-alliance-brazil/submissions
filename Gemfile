@@ -7,7 +7,7 @@ gem 'will_paginate', '=3.0.3'
 gem 'formtastic', '=2.0.2'
 gem 'inherited_resources', '=1.3.0'
 gem 'has_scope', '=0.5.1'
-gem 'devise', '=2.0.3'
+gem 'devise', '=2.0.4'
 gem 'brhelper', '=3.0.8'
 gem 'brcpfcnpj', '=3.0.8'
 gem 'seed-fu', '=2.2.0'
@@ -41,6 +41,7 @@ group :production do
 end
 
 group :development do
+  gem 'mysql2', '=0.3.11'
   gem 'sqlite3', '=1.3.5'
   gem 'capistrano-ext', '=1.2.1'
 end
