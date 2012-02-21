@@ -6,39 +6,12 @@ KNOWN ISSUES AFTER UPGRADE:
 
 TODO:
 
- - Pending attendee status page should be different for group members
+--- 2011
  - Refactor email sending from controller into state transitions
- 
- * Refactor the attendees summary page to put all logic into the model/controller instead of the view
-
- - Pending attendee status page should be different for group members
- - Refactor email sending from controller into state transitions
- 
- * E-mail accepted authors with registration instructions
-
- * Add a 'canceled' status to Attendees so that people can give up and inform us of that decision
- * Add an action to allow registrar to mark attendee as "paid" and send "payment received" e-mail
- 
- * Allow registrar to update attributes of a pending attendee
-   - Add course
-   - Remove course
-   - Change registration date
-   - Update attendee details
- 
- * Comments for attendees
- * Admin page to expire registrations
  
  * Remove "email_sent" status fields and replace with Hoptoad notification
  
  * Refactor sorting behaviour
- * Refactor deadline logic into attendee/registration_group
-
- * Add a waiting list for courses
- * Text for wait list explanation on e-mail
-
- * Set pre-registration to used once pre-registered attendee is created
- * Remove duplication between user/attendee
- * Refactor JS on attendee form
 
  * Show a better error message if a 'second' author tries to confirm/withdraw an already confirmed/withdrawn proposal (currently - not authorized)
  * Stop adding review if review count is more than 75% of limit/person
@@ -66,7 +39,6 @@ TODO:
 IN PROGRESS:
 
  * [task] -- [person]
- * Allow registration in future for registration organizer -- Danilo
  
 DONE:
 

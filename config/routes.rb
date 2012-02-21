@@ -14,21 +14,9 @@ AgileBrazil::Application.routes.draw do
                :sign_up       => 'signup'
              }
 
-  resources :attendees, :only => [:index, :new, :create]
-  match 'attendees/pre_registered' => 'attendees#pre_registered', :as => :pre_registered_attendee, :constraints => {:format => /js/}
-  resources :attendee_statuses, :only => [:show]
-
   resources :audience_levels, :only => [:index]
   resources :organizers, :except => [:show]
   resources :organizer_sessions, :only => [:index]
-  resources :payment_notifications, :only => [:create]
-  resources :pending_attendees, :only => [:index, :update]
-  resources :registered_attendees, :only => [:index, :show, :update]
-  resources :registered_groups, :only => [:index, :show, :update]
-  resources :registration_groups, :only => [:index, :new, :create] do
-    resources :attendees, :only => [:index, :new, :create]
-  end
-  resources :registration_group_statuses, :only => [:show]
   resources :review_decisions, :only => [:index]
   resources :reviewers, :only => [:index, :new, :create, :destroy, :update] do
     resource :accept, :only => [:show], :controller => :accept_reviewers

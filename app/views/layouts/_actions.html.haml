@@ -9,25 +9,6 @@
           %span.progress
   %h3&= current_user.full_name
   
-  - if can?(:create, Attendee) || can?(:create, RegistrationGroup) || can?(:read, 'registered_attendees')
-    %h4= t('actions.section.registration')
-    %ul
-      - if can? :create, Attendee
-        %li= link_to(t('actions.new_registration'), new_attendee_path)
-        - if current_user.has_approved_session?(Conference.current)
-          %li= link_to(t('actions.new_speaker_registration'), new_attendee_path)
-      - if can? :create, RegistrationGroup
-        %li= link_to(t('actions.new_registration_group'), new_registration_group_path)
-      - if can? :read, 'registered_attendees'
-        %li= link_to(t('actions.new_sponsor_registration'), new_attendee_path)
-        %li= link_to(t('actions.registered_attendees'), registered_attendees_path)
-      - if can? :read, 'registered_groups'
-        %li= link_to(t('actions.registered_groups'), registered_groups_path)
-      - if can? :read, 'pending_attendees'
-        %li= link_to(t('actions.pending_attendees'), pending_attendees_path)
-      - if can? :index, Attendee
-        %li= link_to(t('actions.attendees_summary'), attendees_path)
-
   %h4= t('actions.section.session')
   %ul
     - if can? :create, Session
@@ -95,14 +76,6 @@
     - if can? :create, User
       %li= link_to t('actions.signup'), new_user_registration_path
     %li= link_to t('title.lost_password'), new_user_password_path
-
-  - if can?(:create, Attendee) || can?(:create, RegistrationGroup)
-    %h4= t('actions.section.registration')
-    %ul
-      - if can? :create, Attendee
-        %li= link_to(t('actions.new_registration'), new_attendee_path)
-      - if can? :create, RegistrationGroup
-        %li= link_to(t('actions.new_registration_group'), new_registration_group_path)
 
   %br
   #warning

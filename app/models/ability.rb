@@ -6,7 +6,6 @@ class Ability
   REVIEW_DEADLINE = Time.zone.local(2011, 4, 17, 23, 59, 59)
   AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
   AUTHOR_CONFIRMATION_DEADLINE = Time.zone.local(2011, 6, 07, 23, 59, 59)
-  REGISTRATION_DEADLINE = Time.zone.local(2011, 6, 22, 23, 59, 59)
 
   def initialize(user, conference, params={})
     @user = user || User.new # guest
@@ -20,7 +19,6 @@ class Ability
     author if @user.author?
     organizer if @user.organizer?
     reviewer if @user.reviewer?
-    registrar if @user.registrar?
   end
 
   private
@@ -48,13 +46,6 @@ class Ability
     can(:manage, 'reject_reviewers') do
       find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
     end
-    can(:show, Attendee)
-    can(:show, RegistrationGroup)
-    can do |action, subject_class, subject|
-      expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class) &&
-      Time.zone.now <= REGISTRATION_DEADLINE
-    end
-    cannot(:index, Attendee)
   end
 
   def admin
@@ -87,7 +78,6 @@ class Ability
     can(:manage, 'withdraw_sessions') do
       find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= AUTHOR_CONFIRMATION_DEADLINE
     end
-    cannot(:index, Attendee)
   end
 
   def organizer
@@ -113,7 +103,6 @@ class Ability
       expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
           !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > REVIEW_DEADLINE
     end
-    cannot(:index, Attendee)
   end
 
   def reviewer
@@ -126,21 +115,8 @@ class Ability
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
-    cannot(:index, Attendee)
   end
 
-  def registrar
-    can(:manage, 'registered_attendees')
-    can(:manage, 'registered_groups')
-    can(:manage, 'pending_attendees')
-    can(:index, Attendee)
-    can(:show, Attendee)
-    can(:update, Attendee)
-    can do |action, subject_class, subject|
-      expand_actions([:create, :index, :pre_registered]).include?(action) && [Attendee, RegistrationGroup].include?(subject_class)
-    end
-  end
-  
   def find_session
     @session ||= Session.find(@params[:session_id]) if @params[:session_id].present?
   end

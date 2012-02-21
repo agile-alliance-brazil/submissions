@@ -10,20 +10,9 @@
    :access_key_id: your_aws_access_key_id
    :secret_access_key: your_aws_secret_access_key
  :host: localhost:3000
- :organizer:
-   :name: Organizer
-   :email: organizer@domain.com
-   :cced: Organizer Helper
-   :cced_email: helper@domain.com
  :airbrake:
    :access_key: xxx111xxx
  :google:
    :tracker_id: google_analytics_id
    :conversion_id: google_ads_conversion_id
    :conversion_label: google_ads_conversion_label
- :paypal:
-   :email: seller@domain.com
-   :currency: USD
-   :secret: xxx22xxx
-   :cert_id: ABCxxx
-   :url: https://www.sandbox.paypal.com/cgi-bin/webscr

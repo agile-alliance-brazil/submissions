@@ -27,10 +27,7 @@ namespace :deploy do
     run <<-CMD
       cd #{release_path} &&
       ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-      ln -nfs #{shared_path}/config/config.yml #{release_path}/config/config.yml &&
-      ln -nfs #{shared_path}/config/app_key.pem #{release_path}/certs/app_key.pem &&
-      ln -nfs #{shared_path}/config/app_cert.pem #{release_path}/certs/app_cert.pem &&
-      ln -nfs #{shared_path}/config/paypal_cert.pem #{release_path}/certs/paypal_cert.pem
+      ln -nfs #{shared_path}/config/config.yml #{release_path}/config/config.yml
     CMD
   end
 end

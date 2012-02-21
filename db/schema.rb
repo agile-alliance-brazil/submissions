@@ -10,37 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221011648) do
-
-  create_table "attendees", :force => true do |t|
-    t.integer  "conference_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "organization"
-    t.string   "phone"
-    t.string   "country"
-    t.string   "state"
-    t.string   "city"
-    t.string   "badge_name"
-    t.string   "cpf"
-    t.string   "gender"
-    t.string   "twitter_user"
-    t.string   "address"
-    t.string   "neighbourhood"
-    t.string   "zipcode"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "registration_type_id"
-    t.boolean  "email_sent",               :default => false
-    t.integer  "registration_group_id"
-    t.integer  "course_attendances_count", :default => 0
-    t.text     "notes"
-    t.datetime "registration_date"
-    t.string   "uri_token"
-    t.string   "default_locale",           :default => "pt"
-  end
+ActiveRecord::Schema.define(:version => 20120221051328) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -69,30 +39,6 @@ ActiveRecord::Schema.define(:version => 20120221011648) do
     t.datetime "updated_at"
   end
 
-  create_table "course_attendances", :force => true do |t|
-    t.integer  "course_id"
-    t.integer  "attendee_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "course_prices", :force => true do |t|
-    t.integer  "course_id"
-    t.integer  "registration_period_id"
-    t.decimal  "value",                  :precision => 10, :scale => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "courses", :force => true do |t|
-    t.integer  "conference_id"
-    t.string   "name"
-    t.string   "full_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "combine"
-  end
-
   create_table "organizers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "track_id"
@@ -103,28 +49,6 @@ ActiveRecord::Schema.define(:version => 20120221011648) do
 
   create_table "outcomes", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "payment_notifications", :force => true do |t|
-    t.text     "params"
-    t.string   "status"
-    t.string   "transaction_id"
-    t.integer  "invoicer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "payer_email"
-    t.decimal  "settle_amount",   :precision => 10, :scale => 0
-    t.string   "settle_currency"
-    t.text     "notes"
-    t.string   "invoicer_type"
-  end
-
-  create_table "pre_registrations", :force => true do |t|
-    t.integer  "conference_id"
-    t.string   "email"
-    t.boolean  "used"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -145,54 +69,6 @@ ActiveRecord::Schema.define(:version => 20120221011648) do
   end
 
   create_table "recommendations", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "registration_groups", :force => true do |t|
-    t.string   "name"
-    t.string   "cnpj"
-    t.string   "state_inscription"
-    t.string   "municipal_inscription"
-    t.string   "contact_email"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "address"
-    t.string   "neighbourhood"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
-    t.string   "country"
-    t.integer  "total_attendees"
-    t.boolean  "email_sent",            :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "contact_name"
-    t.string   "uri_token"
-    t.string   "status"
-    t.text     "notes"
-  end
-
-  create_table "registration_periods", :force => true do |t|
-    t.integer  "conference_id"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-  end
-
-  create_table "registration_prices", :force => true do |t|
-    t.integer  "registration_type_id"
-    t.integer  "registration_period_id"
-    t.decimal  "value",                  :precision => 10, :scale => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "registration_types", :force => true do |t|
-    t.integer  "conference_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -48,19 +48,6 @@ en:
         review_decision:
           cant_accept: "cannot be accepted"
           cant_reject: "cannot be rejected"
-        attendee:
-          attributes:
-            courses:
-              compatible: "cannot attend all chosen courses. Please check the <a href='http://www.agilebrazil.com/2011/en/programacao.php' target='_blank'>program</a>."
-              limit_reached: "the %{course} course has reached the limit number of participants."
-            registration_type_id:
-              free_not_allowed: "Inscrição gratuita não está disponível."
-            email:
-              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
-        registration_group:
-          attributes:
-            total_attendees:
-              incomplete: "doesn't have %{total} registered attendees"
 
   formtastic:
     :yes: "Yes"
@@ -76,12 +63,6 @@ en:
       to_authors: "Information to the authors"
       details: "Details"
       review_decision: "Final decision"
-      attendee_personal: "Personal details"
-      attendee_address: "Contact details"
-      attendee_courses: "Course registration"
-      attendee_payment: "Payment details"
-      registration_group_info: "Company details"
-      registration_group_contact: "Contact details"
     labels:
       user:
         first_name: "First name"
@@ -177,58 +158,6 @@ en:
       review_decision:
         outcome_id: "Organizer's decision"
         note_to_authors: "Comments to the authors"
-      attendee:
-        registration_type_id: "Type of Registration"
-        first_name: "First name"
-        last_name: "Last name"
-        full_name: "Name"
-        email: "E-mail address"
-        email_confirmation: "Confirm e-mail address"
-        phone: "Phone"
-        country: "Country"
-        state: "State"
-        city: "City"
-        organization: "Organization / Institution"
-        badge_name: "Name for badge"
-        cpf: "Identification number"
-        gender: "Gender"
-        twitter_user: "Twitter username"
-        address: "Address"
-        neighbourhood: "Address 2"
-        zipcode: "Zip Code"
-        status: "Status"
-        courses: "Courses"
-        group: "Company"
-        registration_date: "Registration Date"
-        payment_agreement: "I confirm that the participant made the payment of the above mentioned amount. The system will notify the participant that his/her registration to the conference is confirmed."
-        notes: "Notes"
-        only_with_notes: "Show only results with notes"
-        total: "Amount"
-      registration_group:
-        name: "Organization / Institution name"
-        contact_name: "Contact name"
-        contact_email: "E-mail address"
-        contact_email_confirmation: "Confirm e-mail address"
-        phone: "Contact phone"
-        fax: "Fax"
-        country: "Country"
-        state: "State"
-        city: "City"
-        address: "Address"
-        neighbourhood: "Address 2"
-        zipcode: "Zip Code"
-        total_attendees: "Total number of participants"
-        registered_attendees: "Registered participants"
-        status: "Status"
-        payment_agreement: "I confirm that the company has paid the above amount. The system will notify all participants in this company that their registrations to the conference are confirmed."
-        notes: "Notes"
-        total: "Amount"
-      payment_notification:
-        transaction_id: "Transaction ID"
-        paid_at: "Payment date"
-        payer_email: "PayPal e-mail"
-        settle_amount: "Total amount paid"
-        notes: "Notes"
     hints:
       user:
         email: "Main e-mail address for contact purposes."
@@ -263,20 +192,6 @@ en:
       review:
         comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
-      attendee:
-        registration_type_id: "Indicate whether your registration is normal or student. The student must prove his enrollment in an institution of higher education to have access to discounted values."
-        badge_name: "The name you want to print in your badge. If blank, your full name will be used instead."
-        organization: "Name of the organization you represent or institution where you study. This information will appear in your badge."
-        cpf: "Leave blank if you are not Brazilian."
-        twitter_user: "Your <a href='http://www.twitter.com' target='_blank'>twitter</a> username (without the '@' character - e.g. 'agilebrazil'), if given, will appear in your badge. Leave blank if you do not want that."
-        email_confirmation: "Verify that your e-mail address is correct. This will be the main communication chanel about your registration."
-        courses: "Please select the courses you would like to attend. Each course has a limit of 30 participants, that will be selected based on the order of registration and payment confirmation. To secure your place on the course, you must make the payment and send the voucher in a maximum of 5 days.<br/><br/>** Course has already reached the limit number of participants. To register interest in one of these courses, and add your nome to a wait list, please send an e-mail to <a href='mailto:atendimento@resultonline.com.br'>atendimento@resultonline.com.br</a> cc'ing <a href='mailto:result@resultonline.com.br'>result@resultonline.com.br</a>."
-        notes: "Leave any notes or observations that you think are relevant, for future reference (e.g. payment confirmation number, or any special information about this participant)"
-      registration_group:
-        cnpj: "Leave blank if this is not a Brazilian company / organization."
-        state_inscription: "Leave blank if this is not a Brazilian company / organization."
-        municipal_inscription: "Leave blank if this is not a Brazilian company / organization."
-        total_attendees: "A minimum of 5 participants is required for company registration. They cannot be registered as students. Proof that all participants in this group work for the registered company will be required."
     actions:
       signup: "Register new account"
       reset_password: "Reset password"
@@ -295,11 +210,6 @@ en:
       submit_review_decision: "Submit organizer's decision"
       confirm_session: "Confirm attendance"
       withdraw_session: "Withdraw session"
-      new_registration: "Submit registration"
-      new_registration_group: "Register participants"
-      confirm_registered_attendee: "Confirm Payment"
-      update_pending_attendee: "Update Price"
-      paid_pending_attendee: "Payment Received"
       search: "Search"
 
   # Custom messages
@@ -324,11 +234,6 @@ en:
     new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
-    registration: "New registration"
-    registration_group_new_attendee: "New registration (%{current_attendee}/%{total_attendees}) on company %{registration_group}"
-    registration_group: "New company registration"
-    attendee: "Registration details"
-    attendees_summary: "Registration summary"
 
   actions:
     submission_date: "Submission deadline"
@@ -358,18 +263,9 @@ en:
       session: "Sessions"
       review: "Review process"
       user: "Profile"
-      registration: "Registration"
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
-    new_registration: "Individual"
-    new_speaker_registration: "Speaker"
-    new_registration_group: "Company"
-    new_sponsor_group: "Sponsor"
-    registered_attendees: "Manage registrations"
-    registered_groups: "Manage companies"
-    pending_attendees: "Update pending registrations"
-    attendees_summary: "Registration summary"
 
   text:
     for_user: "Showing sessions for user: <strong>%{name}</strong>"
@@ -417,34 +313,6 @@ en:
     review:
       create:
         success: "Review recorded successfully."
-    attendee:
-      create:
-        success: "Registration submited successfully. Confirmation and payment instructions were sent to you via e-mail."
-        free_not_allowed: "Registration failed. Free registration is not available. Please select another registration type"
-      news: "<a href='/registration_groups/new?locale=en'>Click here</a> for company registration."
-      mail:
-        fail: "There was a problem while sending your confirmation email. Your registration was received but we could not deliver the confirmation email. We will try later but if you do not receive it in 24 hours, please contact us at contato@agilebrazil.com."
-      registration_group:
-        complete: "This company already has %{total_attendees} registered participants."
-        success: "Registration submited successfully. Please register the next participant."
-    registration_group:
-      create:
-        success: "Company registered successfully. If you do not have all information at hand to register all %{total_attendees} attendees, or if you would like each participant to fill out their own registration form, save or share the following URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
-      news: "<a href='/attendees/new?locale=en'>Click here</a> for individual registration."
-    registration:
-      attendee: "By registering for the conference, I acknowledge that my name and email will be shared with the sponsors of the conference."
-      group: "I acknowledge that the name and email of all participants that register for the conference will be shared with the sponsors of the conference."
-    registered_attendees:
-      confirm:
-        success: "Registration confirmed successfully. The participant was notified by email."
-      update:
-        success: "Inscrição atualizada com sucesso."
-    pending_attendees:
-      confirm:
-        success: "Registration updated successfully."
-    registered_groups:
-      confirm:
-        success: "Registration confirmed successfully. The company contact was notified by email."
 
   session_types:
     tutorial:
@@ -498,16 +366,6 @@ en:
       subject: "Notification from the Program Committee of %{conference_name}"
     session_rejected:
       subject: "Notification from the Program Committee of %{conference_name}"
-    registration_pending:
-      subject: "Registration request to %{conference_name} sent"
-    registration_confirmed:
-      subject: "Registration confirmed for %{conference_name}"
-    registration_group_pending:
-      subject: "Company registration request to %{conference_name} sent"
-    registration_group_confirmed:
-      subject: "Registration confirmed for %{conference_name}"
-    registration_reminder:
-      subject: "New payment option via Paypal for registration for %{conference_name}"
 
   reviewer:
     state:
@@ -570,56 +428,6 @@ en:
     male: "Male"
     female: "Female"
 
-  registration_total:
-    title: "Total Registration Amount"
-    title_partial: "Partial Registration Amount"
-    base_price: "Registration"
-    courses: "Courses"
-    discount: "Discount"
-    total: "Total"
-
-  registration_type:
-    student: "Student"
-    group: "Company"
-    individual: "Individual"
-    free: "Free"
-
-  registration:
-    quantity: "Quantity"
-    status: "Registration status on %{date}"
-
-  course:
-    csm:
-      name: "CSM"
-      full_name: "Certified Scrum Master"
-    cspo:
-      name: "CSPO"
-      full_name: "Certified Scrum Product Owner"
-    lean:
-      name: "Lean"
-      full_name: "Introduction to Lean Thinking"
-    tdd:
-      name: "TDD"
-      full_name: "TDD: from basic to advanced"
-    psm:
-      name: "PSM"
-      full_name: "Professional Scrum Master"
-
-  attendee:
-    status:
-      pending: "Pending"
-      confirmed: "Confirmed"
-      paid: "Payment received"
-      all: "All"
-
-  registration_group:
-    status:
-      incomplete: "Incomplete"
-      complete: "Pending"
-      paid: "Payment received"
-      confirmed: "Confirmed"
-      all: "All"
-
   generic:
     or: "or"
     and: "and"
@@ -634,7 +442,6 @@ en:
     sort_down: "descendent"
     show: "Show %{target}"
     hide: "Hide %{target}"
-    registration_id: "Registration number"
 
   will_paginate:
     previous_label: "&laquo; Previous"

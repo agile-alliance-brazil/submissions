@@ -184,19 +184,6 @@ pt:
         review_decision:
           cant_accept: "não pode ser aceita"
           cant_reject: "não pode ser rejeitada"
-        attendee:
-          attributes:
-            courses:
-              compatible: "não é possível participar de todos os cursos escolhidos. Por favor verifique a <a href='http://www.agilebrazil.com/2011/pt/programacao.php' target='_blank'>programação dos cursos</a>."
-              limit_reached: "vagas esgotadas para o curso %{course}."
-            registration_type_id:
-              free_not_allowed: "Inscrição gratuita não está disponível."
-            email:
-              free_not_allowed: "Inscrições gratuitas só estão disponíveis para o email do palestrante."
-        registration_group:
-          attributes:
-            total_attendees:
-              incomplete: "não possui %{total} participantes cadastrados"
 
   # Formtastic
   formtastic:
@@ -213,12 +200,6 @@ pt:
       to_authors: "Informações aos autores"
       details: "Detalhes"
       review_decision: "Parecer final"
-      attendee_personal: "Informações Pessoais"
-      attendee_address: "Informações para Contato"
-      attendee_courses: "Inscrição em Cursos"
-      attendee_payment: "Dados de Pagamento"
-      registration_group_info: "Informações da Empresa"
-      registration_group_contact: "Informações para Contato"
     labels:
       user:
         first_name: "Nome"
@@ -314,61 +295,6 @@ pt:
       review_decision:
         outcome_id: "Parecer do organizador"
         note_to_authors: "Comentários para os autores"
-      attendee:
-        registration_type_id: "Tipo de inscrição"
-        first_name: "Nome"
-        last_name: "Sobrenome"
-        full_name: "Nome"
-        email: "Email"
-        email_confirmation: "Confirmação de email"
-        phone: "Telefone para contato"
-        country: "País"
-        state: "Estado"
-        city: "Cidade"
-        organization: "Organização / Instituição de ensino"
-        badge_name: "Nome para crachá"
-        cpf: "CPF"
-        gender: "Sexo"
-        twitter_user: "Usuário no Twitter"
-        address: "Endereço"
-        neighbourhood: "Bairro"
-        zipcode: "CEP"
-        status: "Status"
-        courses: "Cursos"
-        group: "Empresa"
-        registration_date: "Data de Inscrição"
-        payment_agreement: "Confirmo que o participante realizou o pagamento no valor acima. O sistema notificará o participante por email de que sua inscrição foi confirmada."
-        notes: "Anotações"
-        only_with_notes: "Exibir apenas resultados com anotações"
-        total: "Valor"
-      registration_group:
-        name: "Razão social"
-        contact_name: "Nome para contato"
-        contact_email: "Email"
-        contact_email_confirmation: "Confirmação de email"
-        phone: "Telefone para contato"
-        fax: "Fax"
-        country: "País"
-        state: "Estado"
-        city: "Cidade"
-        cnpj: "CNPJ"
-        state_inscription: "Inscrição estadual"
-        municipal_inscription: "Inscrição municipal"
-        address: "Endereço"
-        neighbourhood: "Bairro"
-        zipcode: "CEP"
-        total_attendees: "Quantidade de participantes"
-        registered_attendees: "Participantes incritos"
-        status: "Status"
-        payment_agreement: "Confirmo que a empresa realizou o pagamento no valor acima. O sistema notificará o responsável pela empresa por email de que a inscrição de todos os participantes foram confirmadas."
-        notes: "Anotações"
-        total: "Valor"
-      payment_notification:
-        transaction_id: "Código da transação"
-        paid_at: "Data do pagamento"
-        payer_email: "E-mail do PayPal"
-        settle_amount: "Total pago"
-        notes: "Notas"
     hints:
       user:
         email: "Principal email de contato."
@@ -403,20 +329,6 @@ pt:
       review:
         comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
         justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
-      attendee:
-        registration_type_id: "Indique se sua inscrição é individual normal ou de estudante. O estudante deverá comprovar seu vínculo com uma instituição de ensino técnico ou superior para ter acesso aos valores com desconto."
-        badge_name: "Indique o nome que você deseja que apareça no seu crachá. Se deixar em branco, será utilizado seu nome completo."
-        organization: "Nome da empresa ou organização que representa ou nome da instituição de ensino onde estuda. Essa informação constará no seu crachá."
-        cpf: "Deixe este campo em branco se não for brasileiro."
-        twitter_user: "Seu nome de usuário no <a href='http://www.twitter.com' target='_blank'>twitter</a> (sem o caracter '@' - exemplo 'agilebrazil'), se preenchido, constará no seu crachá. Deixe em branco se não quiser isso."
-        email_confirmation: "Certifique-se que o e-mail está correto pois esse será o principal canal de comunicação a respeito de sua inscrição."
-        courses: "Selecione os cursos em que gostaria de se inscrever. Cada curso tem uma capacidade máxima de 30 participantes, que serão escolhidos por ordem de inscrição e confirmação de pagamento. Para garantir sua vaga no curso, será necessário realizar o pagamento e enviar o comprovante em, no máximo, 5 dias.<br/><br/>** Vagas esgotadas. Para registrar seu interesse e colocar seu nome numa lista de espera, mande um e-mail para <a href='mailto:atendimento@resultonline.com.br'>atendimento@resultonline.com.br</a> com cópia para <a href='mailto:result@resultonline.com.br'>result@resultonline.com.br</a>."
-        notes: "Deixe aqui qualquer anotação ou observação que considere relevante, para futura referência (por exemplo: número de confirmação do pagamento, ou alguma informação especial sobre essa inscrição)"
-      registration_group:
-        cnpj: "Deixe este campo em branco se não for uma empresa brasileira"
-        state_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
-        municipal_inscription: "Deixe este campo em branco se não for uma empresa brasileira"
-        total_attendees: "É preciso cadastrar no mínimo 5 participantes por empresa. Nenhum deles poderá ser cadastrado como estudante. Será necessário comprovar que todos os participantes trabalham na empresa cadastrada."
     actions:
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
@@ -435,11 +347,6 @@ pt:
       submit_review_decision: "Submeter parecer da organização"
       confirm_session: "Confirmar participação"
       withdraw_session: "Retirar sessão"
-      new_registration: "Submeter inscrição"
-      new_registration_group: "Inscrever participantes"
-      confirm_registered_attendee: "Confirmar Pagamento"
-      update_pending_attendee: "Atualizar preço"
-      paid_pending_attendee: "Pagamento recebido"
       search: "Buscar"
 
   # Mensagens customizadas
@@ -464,11 +371,6 @@ pt:
     new_review: "Nova avaliação da sessão '%{session}'"
     review_decision: "Parecer da sessão '%{session}'"
     accepted_sessions: "Sessões aceitas"
-    registration: "Nova inscrição"
-    registration_group_new_attendee: "Nova inscrição (%{current_attendee}/%{total_attendees}) na empresa %{registration_group}"
-    registration_group: "Nova inscrição de empresa"
-    attendee: "Detalhes da inscrição"
-    attendees_summary: "Resumo das inscrições"
 
   actions:
     submission_date: "Prazo para submissões"
@@ -498,18 +400,9 @@ pt:
       session: "Sessões"
       review: "Processo de avaliação"
       user: "Perfil"
-      registration: "Inscrições"
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
-    new_registration: "Individual"
-    new_registration_group: "Empresa"
-    new_speaker_registration: "Palestrante"
-    new_sponsor_registration: "Patrocinador"
-    registered_attendees: "Gerenciar Inscrições"
-    registered_groups: "Gerenciar Empresas"
-    pending_attendees: "Atualizar inscrições pendentes"
-    attendees_summary: "Resumo das inscrições"
 
   text:
     for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
@@ -557,34 +450,6 @@ pt:
     review:
       create:
         success: "Avaliação gravada com sucesso."
-    attendee:
-      create:
-        success: "Inscrição submetida com sucesso. Instruções para confirmação e pagamento foram enviadas por e-mail."
-        free_not_allowed: "Inscrição falhou. Inscrição gratuita não está disponível. Por favor escolha outro tipo de inscrição"
-      news: "<a href='/registration_groups/new?locale=pt'>Clique aqui</a> para cadastro de empresa."
-      mail:
-        fail: "Ocorreu um problema para enviar o email de confirmação. Sua inscrição foi recebida mas não foi possível entregar o email de confirmação. Tentaremos mais tarde mas se não receber o email em 24 horas, entre em contato via contato@agilebrazil.com."
-      registration_group:
-        complete: "Essa empresa já possui %{total_attendees} participantes inscritos."
-        success: "Inscrição submetida com sucesso. Por favor cadastre o próximo participante."
-    registration_group:
-      create:
-        success: "Empresa criada com sucesso. Caso não tenha todas as informações para cadastrar os %{total_attendees} participantes agora, ou queira que cada participante preencha seu próprio formulário de cadastro separadamente, salve ou compartilhe a seguinte URL: <a href='%{attendee_url}'>%{attendee_url}</a>"
-      news: "<a href='/attendees/new?locale=pt'>Clique aqui</a> para inscrições individuais."
-    registration:
-      attendee: "Ao me inscrever na conferência, declaro estar ciente que o meu nome e email poderá ser compartilhado com os patrocinadores da conferência."
-      group: "Declaro estar ciente que o nome e email de todos os participantes inscritos na conferência poderão ser compartilhados com os patrocinadores da conferência."
-    registered_attendees:
-      confirm:
-        success: "Inscrição confirmada com sucesso. O participante foi notificado por e-mail."
-      update:
-        success: "Inscrição atualizada com sucesso."
-    pending_attendees:
-      confirm:
-        success: "Inscrição atualizada com sucesso."
-    registered_groups:
-      confirm:
-        success: "Inscrição confirmada com sucesso. O representante da empresa foi notificado por e-mail."
 
   session_types:
     tutorial:
@@ -638,16 +503,6 @@ pt:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
     session_rejected:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
-    registration_pending:
-      subject: "Pedido de inscrição na %{conference_name} enviado"
-    registration_confirmed:
-      subject: "Inscrição na %{conference_name} confirmada"
-    registration_group_pending:
-      subject: "Pedido de inscrição em empresa na %{conference_name} enviado"
-    registration_group_confirmed:
-      subject: "Inscrição na %{conference_name} confirmada"
-    registration_reminder:
-      subject: "Nova forma de pagamento por Paypal para inscrições na %{conference_name}"
 
   reviewer:
     state:
@@ -710,56 +565,6 @@ pt:
     male: "Masculino"
     female: "Feminino"
 
-  registration_total:
-    title: "Custo total da inscrição"
-    title_partial: "Custo parcial da inscrição"
-    base_price: "Inscrição"
-    courses: "Cursos"
-    discount: "Desconto"
-    total: "Total"
-
-  registration_type:
-    student: "Estudante"
-    group: "Empresa"
-    individual: "Individual"
-    free: "Gratuita"
-
-  registration:
-    quantity: "Quantidade"
-    status: "Status das inscrições para %{date}"
-
-  course:
-    csm:
-      name: "CSM"
-      full_name: "Certified Scrum Master"
-    cspo:
-      name: "CSPO"
-      full_name: "Certified Scrum Product Owner"
-    lean:
-      name: "Lean"
-      full_name: "Curso de Introdução ao Lean Thinking"
-    tdd:
-      name: "TDD"
-      full_name: "TDD: do básico ao avançado"
-    psm:
-      name: "PSM"
-      full_name: "Professional Scrum Master"
-
-  attendee:
-    status:
-      pending: "Pendente"
-      confirmed: "Confirmado"
-      paid: "Pagamento efetuado"
-      all: "Todos"
-
-  registration_group:
-    status:
-      incomplete: "Incompleto"
-      complete: "Pendente"
-      paid: "Pagamento efetuado"
-      confirmed: "Confirmado"
-      all: "Todos"
-
   generic:
     or: "ou"
     and: "e"
@@ -774,7 +579,6 @@ pt:
     sort_down: "descendente"
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
-    registration_id: "Número da inscrição"
 
   will_paginate:
     previous_label: "&laquo; Anterior"

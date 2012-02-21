@@ -24,15 +24,7 @@ describe Ability do
     it "can create a new account" do
       @ability.should be_able_to(:create, User)
     end
-    
-    it "can see attendee registration details" do
-      @ability.should be_able_to(:show, Attendee)
-    end
-    
-    it "can see registration group registration details" do
-      @ability.should be_able_to(:show, RegistrationGroup)
-    end
-    
+        
     it "can update their own account" do
       @ability.should be_able_to(:update, @user)
       @ability.should_not be_able_to(:update, User.new)
@@ -95,48 +87,6 @@ describe Ability do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
 
-    it "cannot see attendee summary" do
-      @ability.should_not be_able_to(:index, Attendee)
-    end
-    
-    describe "can register a new attendee if:" do
-      before(:each) do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE - 3.days)
-      end
-      
-      it "- before deadline" do
-        Time.zone.expects(:now).returns(Ability::REGISTRATION_DEADLINE)
-        @ability.should be_able_to(:create, Attendee)
-        # @ability.should be_able_to(:index, Attendee) # This test doesn't work, but the functionality does :-/
-        # @ability.should be_able_to(:pre_registered, Attendee) # This test doesn't work, but the functionality does :-/
-      end
-      
-      it "- after deadline can't register" do
-        Time.zone.expects(:now).returns(Ability::REGISTRATION_DEADLINE + 1.second)
-        @ability.should_not be_able_to(:create, Attendee)
-        # @ability.should_not be_able_to(:index, Attendee) # This test doesn't work, but the functionality does :-/
-        # @ability.should_not be_able_to(:pre_registered, Attendee) # This test doesn't work, but the functionality does :-/
-      end
-    end
-    
-    describe "can register as a group if:" do
-      before(:each) do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE - 3.days)
-      end
-      
-      it "- before deadline" do
-        Time.zone.expects(:now).returns(Ability::REGISTRATION_DEADLINE)
-        @ability.should be_able_to(:create, RegistrationGroup)
-        # @ability.should be_able_to(:index, RegistrationGroup) # This test doesn't work, but the functionality does :-/
-      end
-      
-      it "- after deadline can't register" do
-        Time.zone.expects(:now).returns(Ability::REGISTRATION_DEADLINE + 1.second)
-        @ability.should_not be_able_to(:create, RegistrationGroup)
-        # @ability.should_not be_able_to(:index, RegistrationGroup) # This test doesn't work, but the functionality does :-/
-      end
-    end
-
     describe "can update reviewer if:" do
       before(:each) do
         @reviewer = FactoryGirl.create(:reviewer, :user => @user)
@@ -187,10 +137,6 @@ describe Ability do
     
     it "cannot read reviews" do
       @ability.should_not be_able_to(:read, Review)
-    end
-    
-    it "cannot see attendee summary" do
-      @ability.should_not be_able_to(:index, Attendee)
     end
     
     context "index reviews of" do
@@ -519,10 +465,6 @@ describe Ability do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
 
-    it "cannot see attendee summary" do
-      @ability.should_not be_able_to(:index, Attendee)
-    end
-    
     context "organizer index reviews of" do
       before(:each) do
         @session = FactoryGirl.create(:session)
@@ -863,10 +805,6 @@ describe Ability do
       @ability.should be_able_to(:read, 'reviewer_sessions')
     end
     
-    it "cannot see attendee summary" do
-      @ability.should_not be_able_to(:index, Attendee)
-    end
-    
     it "can read reviews listing" do
       @ability.should be_able_to(:read, 'reviews_listing')
       @ability.should be_able_to(:reviewer, 'reviews_listing')
@@ -950,69 +888,6 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)
-      end
-    end
-  end
-
-  context "- registrar" do
-    before(:each) do
-      @user.add_role "registrar"
-      @ability = Ability.new(@user, @conference)
-    end
-
-    it_should_behave_like "all users"
-    
-    it "can manage registered attendees" do
-      @ability.should be_able_to(:manage, 'registered_attendees')
-    end
-
-    it "can manage pending attendees" do
-      @ability.should be_able_to(:manage, 'pending_attendees')
-    end
-
-    it "can index attendees" do
-      @ability.should be_able_to(:index, Attendee)
-    end
-    
-    it "can manage registered groups" do
-      @ability.should be_able_to(:manage, 'registered_groups')
-    end
-    
-    it "can show attendees" do
-      @ability.should be_able_to(:show, Attendee)
-    end
-    
-    it "can update attendees" do
-      @ability.should be_able_to(:update, Attendee)
-    end
-    
-    describe "can register a new attendee if:" do
-      it "- before deadline" do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE)
-        @ability.should be_able_to(:create, Attendee)
-        # @ability.should be_able_to(:index, Attendee) # This test doesn't work, but the functionality does :-/
-        # @ability.should be_able_to(:pre_registered, Attendee) # This test doesn't work, but the functionality does :-/
-      end
-      
-      it "- after deadline" do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE + 1.second)
-        @ability.should be_able_to(:create, Attendee)
-        # @ability.should be_able_to(:index, Attendee) # This test doesn't work, but the functionality does :-/
-        # @ability.should be_able_to(:pre_registered, Attendee) # This test doesn't work, but the functionality does :-/
-      end
-    end
-    
-    describe "can register as a group if:" do
-      it "- before deadline" do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE)
-        @ability.should be_able_to(:create, RegistrationGroup)
-        # @ability.should be_able_to(:index, RegistrationGroup) # This test doesn't work, but the functionality does :-/
-      end
-      
-      it "- after deadline" do
-        Time.zone.stubs(:now).returns(Ability::REGISTRATION_DEADLINE + 1.second)
-        @ability.should be_able_to(:create, RegistrationGroup)
-        # @ability.should be_able_to(:index, RegistrationGroup) # This test doesn't work, but the functionality does :-/
       end
     end
   end
