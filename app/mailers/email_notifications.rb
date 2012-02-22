@@ -78,13 +78,6 @@ class EmailNotifications < ActionMailer::Base
     ActionMailer::Base.default_url_options[:host]
   end
   
-  def conference_organizer
-    [
-      "\"#{AppConfig[:organizer][:name]}\" <#{AppConfig[:organizer][:email]}>",
-      "\"#{AppConfig[:organizer][:cced]}\" <#{AppConfig[:organizer][:cced_email]}>"
-    ]
-  end
-
   def current_conference
     @current_conference ||= Conference.current
   end
