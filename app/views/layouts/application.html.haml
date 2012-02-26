@@ -3,7 +3,7 @@
 
   %head
     %title
-      #{current_conference.name} -
+      #{@conference.name} -
       = content_for?(:title) ? yield(:title) : t('title.untitled')
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "#{image_path('favicon.ico')}"}/
@@ -16,9 +16,9 @@
   %body
     #container
       #header
-        = link_to image_tag('logo.png'), root_path
+        = link_to image_tag(@conference.year+'_logo.png'), root_path
         .logo
-          %h1= current_conference.name
+          %h1= @conference.name
           %strong Fortaleza CE, 27/Jun - 1/Jul, 2011
         %ul#languages
           %li= link_to "Português", "?locale=pt"

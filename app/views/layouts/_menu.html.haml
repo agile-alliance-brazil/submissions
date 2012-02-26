@@ -1,6 +1,6 @@
 %ul#menu
-  = link_to_menu_item(:li, t('title.home'), root_path)
-  = link_to_menu_item(:li, t('title.guidelines'), static_page_path('guidelines'))
-  = link_to_menu_item(:li, t('title.tracks'), tracks_path)
-  = link_to_menu_item(:li, t('title.session_types'), session_types_path)
-  = link_to_menu_item(:li, t('title.audience_levels'), audience_levels_path)
+  = link_to_menu_item(:li, t('title.home'), conference_static_page_path(@conference.year, 'home'))
+  = link_to_menu_item(:li, t('title.guidelines'), conference_static_page_path(@conference.year, 'guidelines'))
+  = link_to_menu_item(:li, t('title.tracks'), conference_tracks_path(@conference.year))
+  = link_to_menu_item(:li, t('title.session_types'), conference_session_types_path(@conference.year))
+  = link_to_menu_item(:li, t('title.audience_levels'), conference_audience_levels_path(@conference.year))

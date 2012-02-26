@@ -8,8 +8,8 @@
 %p As submissões serão revisadas e avaliadas por pelo menos 3 membros do comitê de avaliação. Serão levados em consideração:
 
 %ul
-  %li A experiência do(s) autor(es) - tanto o mini-currículo preenchido no #{logged_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
-  %li Adequação da proposta no que diz respeito à #{link_to "trilha escolhida", tracks_path}, #{link_to "tipo de sessão", session_types_path} proposto, #{link_to "nível e perfil", audience_levels_path} do público;
+  %li A experiência do(s) autor(es) - tanto o mini-currículo preenchido no #{user_signed_in? ? link_to("perfil", conference_user_path(@conference, current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
+  %li Adequação da proposta no que diz respeito à #{link_to "trilha escolhida", conference_tracks_path(@conference)}, #{link_to "tipo de sessão", conference_session_types_path(@conference)} proposto, #{link_to "nível e perfil", conference_audience_levels_path(@conference)} do público;
   %li Relevância para o evento;
   %li Clareza e qualidade do material enviado.
 
