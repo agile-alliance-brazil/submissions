@@ -2,13 +2,13 @@
   - if current_user.author? || current_user.organizer?
     #date
       %p= t('actions.author_confirmation_date')
-      %p <strong>#{l(Ability::AUTHOR_CONFIRMATION_DEADLINE.to_date)}</strong>
+      %p <strong>#{l(@conference.author_confirmation)}</strong>
       - if current_user.organizer?
         #review_progress_count
           #{t('actions.review_goal')}:
           %span.progress
   %h3&= current_user.full_name
-  
+
   %h4= t('actions.section.session')
   %ul
     - if can? :create, Session
@@ -63,7 +63,7 @@
           });
         })
       })
-              
+
 - else
   = semantic_form_for "user", :url => user_session_path do |f|
     = f.inputs do

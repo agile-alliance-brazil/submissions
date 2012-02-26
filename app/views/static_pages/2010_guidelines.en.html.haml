@@ -9,7 +9,7 @@
 
 %ul
   %li The authors' experience - both the mini biography presented in #{user_signed_in? ? link_to("your user profile", user_path(current_user)) : "your user profile"} and the field about experience with the subject in the submission form;
-  %li Adequacy of your proposal in what concerns the chosen #{link_to "track", conference_tracks_path(@conference)}, #{link_to "session type", conference_session_types_path(@conference)}, #{link_to "audience level", conference_audience_levels_path(@conference)}, and target audience;
+  %li Adequacy of your proposal in what concerns the chosen #{link_to "track", conference_tracks_path(@conference.year)}, #{link_to "session type", conference_session_types_path(@conference.year)}, #{link_to "audience level", conference_audience_levels_path(@conference.year)}, and target audience;
   %li Relevance to event;
   %li Clarity and quality of the written material.
 
