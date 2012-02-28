@@ -8,13 +8,13 @@
     #{t('generic.says')}:
     %ul.piped
       - if can? :update, comment
-        %li= link_to t('actions.edit'), edit_session_comment_path(@session, comment)
+        %li= link_to t('actions.edit'), edit_session_comment_path(@conference, @session, comment)
       - if can? :destroy, comment
-        %li= link_to t('actions.destroy'), session_comment_path(@session, comment), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy_comment'))
+        %li= link_to t('actions.destroy'), session_comment_path(@conference, @session, comment), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy_comment'))
     = textilize(comment.comment)
 
 - if can? :create, Comment
-  = semantic_form_for(@comment, :url => session_comments_path(@session)) do |form|
+  = semantic_form_for(@comment, :url => session_comments_path(@conference, @session)) do |form|
     = render 'comments/form', :form => form
     = form.buttons do
       = form.commit_button :add_comment, :button_html => {:tabindex => autotab}

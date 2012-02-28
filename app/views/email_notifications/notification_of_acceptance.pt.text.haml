@@ -9,24 +9,24 @@ Devido a um problema em nosso servidor, nem todas as notificações por email fo
 
 Por favor, consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço:
 
-= session_reviews_url(@session, :locale => 'pt')
+= session_reviews_url(@conference, @session, :locale => 'pt')
 
 
-Por gentileza, queira confirmar sua presença no evento até às #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
+Por gentileza, queira confirmar sua presença no evento até às #{@conference.author_confirmation.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
 
-= session_confirm_url(@session, :locale => 'pt')
+= session_confirm_url(@conference, @session, :locale => 'pt')
 
 
 Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
 
-= session_withdraw_url(@session, :locale => 'pt')
+= session_withdraw_url(@conference, @session, :locale => 'pt')
 
 
 - if(@session.authors.size > 1)
   Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
 
 
-A sessão que não for confirmada ou cancelada até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
+A sessão que não for confirmada ou cancelada até o dia #{@conference.author_confirmation.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 
 - if(@session.authors.size > 1)

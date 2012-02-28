@@ -4,13 +4,13 @@ Olá #{h(@reviewer.user.full_name)},
 Gostaríamos de te convidar para fazer parte da equipe de avaliação do programa da #{@conference_name}. Caso você aceite este convite, clique no link abaixo:
 
 
-= link_to reviewer_accept_url(@reviewer, :locale => 'pt'), reviewer_accept_url(@reviewer, :locale => 'pt')
+= link_to reviewer_accept_url(@conference, @reviewer, :locale => 'pt'), reviewer_accept_url(@conference, @reviewer, :locale => 'pt')
 
 
 Caso você rejeite o convite, clique no link abaixo:
 
 
-= link_to reviewer_reject_url(@reviewer, :locale => 'pt'), reviewer_reject_url(@reviewer, :locale => 'pt')
+= link_to reviewer_reject_url(@conference, @reviewer, :locale => 'pt'), reviewer_reject_url(@conference, @reviewer, :locale => 'pt')
 
 
 Se alguma das URLs acima não funcionar tente copiar e colar o endereço completo no seu navegador.

@@ -32,7 +32,7 @@ describe ReviewsListingController do
     
     it "index action should redirect to reviewer action" do
       get :index
-      response.should redirect_to(reviewer_reviews_url)
+      response.should redirect_to(reviewer_reviews_url(Conference.current))
     end
 
     it "reviewer action should render reviewer template" do

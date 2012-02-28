@@ -2,5 +2,5 @@
 - show_actions!
 .auto_focus
   
-= semantic_form_for([@review_decision.session, @review_decision]) do |form|
+= semantic_form_for [@review_decision.session, @review_decision], :url => session_review_decision_path(@conference, @review_decision.session, @review_decision) do |form|
   = render 'form', :form => form

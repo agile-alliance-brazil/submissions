@@ -1,0 +1,18 @@
+- title "Sessions proposed to #{@conference.name}"
+- show_actions!
+.auto_focus
+
+%p The Brazilian Conference about Agile Methods – #{link_to(@conference.name, "http://www.agilebrazil.com/")} – is a non-profitable national conference organized by representatives of the main Brazilian agile communities. The event's goal is to promote communication and collaboration among its attendees aiming to disseminate the Agile culture in the whole country.
+
+%p #{@conference.name} will be held in São Paulo in July, and will feature courses, work presentations and experience reports from around Brazil, as well as the presence of international guests.
+
+%p Submit your proposal and come join us in São Paulo! Read the submission #{link_to(t('title.guidelines'), static_page_path(@conference, 'guidelines'))}, build your proposal and submit it. To do so, just enter your user and password, click on '#{t('actions.submit_session')}' and fill the form. Send your proposal, add comments to others and make #{@conference.name} the perfect conference for you.
+
+%h3 Important dates
+
+%ul
+  %li #{l(@conference.call_for_papers)}: Call for Submissions
+  %li #{l(@conference.submissions_open)}: Release of proposal submission form
+  %li #{l(@conference.submissions_deadline)}: Submission deadline
+  %li #{l(@conference.author_notification)}: Acceptance notification
+  %li #{l(@conference.author_confirmation)}: Session confirmation deadline to selected authors

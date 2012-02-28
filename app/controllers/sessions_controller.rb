@@ -14,7 +14,7 @@ class SessionsController < InheritedResources::Base
       success.html do
         EmailNotifications.session_submitted(@session).deliver
         flash[:notice] = t('flash.session.create.success')
-        redirect_to session_path(@session)
+        redirect_to session_path(@conference, @session)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -27,7 +27,7 @@ class SessionsController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         flash[:notice] = t('flash.session.update.success')
-        redirect_to session_path(@session)
+        redirect_to session_path(@conference, @session)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -38,13 +38,13 @@ class SessionsController < InheritedResources::Base
   
   def cancel
     flash[:error] = t('flash.session.cancel.failure') unless resource.cancel
-    redirect_to organizer_sessions_path
+    redirect_to organizer_sessions_path(@conference)
   end
   
   protected
   def build_resource
     attributes = params[:session] || {}
-    attributes[:conference_id] = current_conference.id
+    attributes[:conference_id] = @conference.id
     @session ||= end_of_association_chain.send(method_for_build, attributes)
   end
 
@@ -57,12 +57,12 @@ class SessionsController < InheritedResources::Base
   end
   
   def load_tracks
-    @tracks ||= current_conference.tracks
+    @tracks ||= @conference.tracks
   end
 
   def check_conference
-    if resource.conference != current_conference
-      flash.now[:news] = t('flash.news.session_different_conference', :conference_name => resource.conference.name, :current_conference_name => current_conference.name).html_safe
+    if resource.conference != @conference
+      flash.now[:news] = t('flash.news.session_different_conference', :conference_name => resource.conference.name, :current_conference_name => @conference.name).html_safe
     end
   end
 
@@ -71,7 +71,7 @@ class SessionsController < InheritedResources::Base
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= 'sessions.created_at DESC'
-    @sessions ||= end_of_association_chain.for_conference(current_conference).paginate(paginate_options)
+    @sessions ||= end_of_association_chain.for_conference(@conference).paginate(paginate_options)
   end
   
   def begin_of_association_chain

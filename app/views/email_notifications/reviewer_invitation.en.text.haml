@@ -4,13 +4,13 @@ Dear #{h(@reviewer.user.full_name)},
 We would like to invite you to be part of the #{@conference_name} review committee. If you accept this invitation, please click the link below:
 
 
-= link_to reviewer_accept_url(@reviewer, :locale => 'en'), reviewer_accept_url(@reviewer, :locale => 'en')
+= link_to reviewer_accept_url(@conference, @reviewer, :locale => 'en'), reviewer_accept_url(@conference, @reviewer, :locale => 'en')
 
 
 If you decline, please click on the link below:
 
 
-= link_to reviewer_reject_url(@reviewer, :locale => 'en'), reviewer_reject_url(@reviewer, :locale => 'en')
+= link_to reviewer_reject_url(@conference, @reviewer, :locale => 'en'), reviewer_reject_url(@conference, @reviewer, :locale => 'en')
 
 
 If any of the above URLs do not work try copying and pasting into your browser.

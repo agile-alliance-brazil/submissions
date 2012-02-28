@@ -9,7 +9,7 @@ class OrganizersController < InheritedResources::Base
     create! do |success, failure|
       success.html do
         flash[:notice] = t('flash.organizer.create.success')
-        redirect_to organizers_path
+        redirect_to organizers_path(@conference)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -22,7 +22,7 @@ class OrganizersController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         flash[:notice] = t('flash.organizer.update.success')
-        redirect_to organizers_path
+        redirect_to organizers_path(@conference)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -31,15 +31,19 @@ class OrganizersController < InheritedResources::Base
     end
   end
   
+  def destroy
+    destroy! { organizers_path(@conference) }
+  end
+  
   protected
   def build_resource
     attributes = params[:organizer] || {}
-    attributes[:conference_id] = current_conference.id
+    attributes[:conference_id] = @conference.id
     @organizer ||= end_of_association_chain.send(method_for_build, attributes)
   end
   
   def load_tracks
-    @tracks ||= current_conference.tracks
+    @tracks ||= @conference.tracks
   end
 
   def collection
@@ -47,6 +51,6 @@ class OrganizersController < InheritedResources::Base
     paginate_options[:page] ||= (params[:page] || 1)
     paginate_options[:per_page] ||= (params[:per_page] || 10)
     paginate_options[:order] ||= 'organizers.created_at DESC'
-    @organizers ||= end_of_association_chain.for_conference(current_conference).paginate(paginate_options)
+    @organizers ||= end_of_association_chain.for_conference(@conference).paginate(paginate_options)
   end
 end

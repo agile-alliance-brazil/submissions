@@ -21,7 +21,7 @@ class ReviewsController < InheritedResources::Base
     create! do |success, failure|
       success.html do
         flash[:notice] = t('flash.review.create.success')
-        redirect_to session_review_path(@session, @review)
+        redirect_to session_review_path(@conference, @session, @review)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')

@@ -2,7 +2,7 @@
 - show_actions!
 .auto_focus
   
-= semantic_form_for(@organizer) do |form|
+= semantic_form_for @organizer, :url => organizer_path(@conference, @organizer) do |form|
   = render 'form', :form => form
   = form.buttons do
     = form.commit_button :update_organizer, :button_html => {:tabindex => autotab}

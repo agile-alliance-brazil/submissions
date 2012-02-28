@@ -2,7 +2,7 @@
 
 %p Thank you for submitting the session proposal <strong>'#{h(@session.title)}'</strong> to the #{@conference_name} conference. You can access and amend the proposal until the session submission deadline on 19th Mar 2011 by accessing the link:
 
-%p= link_to session_url(@session, :locale => 'en'), session_url(@session, :locale => 'en')
+%p= link_to session_url(@conference, @session, :locale => 'en'), session_url(@conference, @session, :locale => 'en')
 
 %p Regards,
 

@@ -1,8 +1,8 @@
-- title "Retirada de sessão da #{current_conference.name}"
+- title "Retirada de sessão da #{@conference.name}"
 .auto_focus
 
 %p Olá #{current_user.full_name},
 
-%p Seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{current_conference.name}, mas você desistiu de apresentá-lo no evento. Por favor confirme sua desistência abaixo:
+%p Seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference.name}, mas você desistiu de apresentá-lo no evento. Por favor confirme sua desistência abaixo:
 
 = render 'withdraw_sessions/form'

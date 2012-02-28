@@ -44,6 +44,6 @@ describe ReviewsController do
   it "create action should redirect when model is valid" do
     Review.any_instance.stubs(:valid?).returns(true)
     post :create, :session_id => Session.first
-    response.should redirect_to(session_review_url(assigns(:session), assigns(:review)))
+    response.should redirect_to(session_review_url(Conference.current, assigns(:session), assigns(:review)))
   end
 end

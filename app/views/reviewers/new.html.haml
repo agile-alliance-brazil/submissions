@@ -2,7 +2,7 @@
 - show_actions!
 .auto_focus
 
-= semantic_form_for(@reviewer) do |form|
+= semantic_form_for @reviewer, :url => reviewers_path(@conference) do |form|
   = render 'form', :form => form
   = form.buttons do
     = form.commit_button :create_reviewer, :button_html => {:tabindex => autotab}

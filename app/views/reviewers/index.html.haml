@@ -17,10 +17,10 @@
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - @tracks.each do |track|
           %td.track&= t(review_level(reviewer.accepted_preferences, track))
-        %td.count&= reviewer.user.reviews.for_conference(current_conference).count
+        %td.count&= reviewer.user.reviews.for_conference(@conference).count
         %td.actions
           - if can? :destroy, reviewer
-            = link_to t('actions.destroy'), reviewer_path(reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
+            = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
 
 - if can? :create, Reviewer
-  = link_to t('actions.create_reviewer'), new_reviewer_path
+  = link_to t('actions.create_reviewer'), new_reviewer_path(@conference)

@@ -4,7 +4,7 @@ class ReviewersController < InheritedResources::Base
   respond_to :html
   
   def index
-    @tracks = current_conference.tracks
+    @tracks = @conference.tracks
     index!
   end
   
@@ -12,7 +12,7 @@ class ReviewersController < InheritedResources::Base
     create! do |success, failure|
       success.html do
         flash[:notice] = t('flash.reviewer.create.success')
-        redirect_to reviewers_path
+        redirect_to reviewers_path(@conference)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -26,7 +26,7 @@ class ReviewersController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         flash[:notice] = t('flash.reviewer.accept.success')
-        redirect_to reviewer_sessions_path
+        redirect_to reviewer_sessions_path(@conference)
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -35,14 +35,18 @@ class ReviewersController < InheritedResources::Base
     end
   end  
   
+  def destroy
+    destroy! { reviewers_path(@conference) }
+  end
+  
   protected
   def build_resource
     attributes = params[:reviewer] || {}
-    attributes[:conference_id] = current_conference.id
+    attributes[:conference_id] = @conference.id
     @reviewer ||= end_of_association_chain.send(method_for_build, attributes)
   end
 
   def collection
-    @reviewers ||= Reviewer.for_conference(current_conference).joins(:user).order('first_name, last_name')
+    @reviewers ||= Reviewer.for_conference(@conference).joins(:user).order('first_name, last_name')
   end
 end

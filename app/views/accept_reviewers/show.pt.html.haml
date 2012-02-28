@@ -1,17 +1,17 @@
-- title "Convite para participar da equipe de avaliação da #{current_conference.name}"
+- title "Convite para participar da equipe de avaliação da #{@conference.name}"
 .auto_focus
 
 %p Olá #{@reviewer.user.full_name},
 
-%p Obrigado por considerar fazer parte da equipe de avaliação da #{current_conference.name}. Para confirmar sua participação, por favor escolha as trilhas nas quais se julga apto a avaliar trabalhos, assim como seu nível de conhecimento na respectiva trilha:
+%p Obrigado por considerar fazer parte da equipe de avaliação da #{@conference.name}. Para confirmar sua participação, por favor escolha as trilhas nas quais se julga apto a avaliar trabalhos, assim como seu nível de conhecimento na respectiva trilha:
 
 - content_for :agreement do
-  %h3 TERMO DE COMPROMISSO COMO AVALIADOR DO #{current_conference.name.upcase}
+  %h3 TERMO DE COMPROMISSO COMO AVALIADOR DO #{@conference.name.upcase}
   Para confirmar sua participação e comprometimento como AVALIADOR dos trabalhos submetidos à trilha Indústria
-  da Conferência #{current_conference.name} você deve estar de acordo com os termos abaixo:
+  da Conferência #{@conference.name} você deve estar de acordo com os termos abaixo:
   %br
   (1) Como membro do Comitê de Avaliação, contribuirei para a seleção de um programa técnico de alto nível a
-  fim de tornar o #{current_conference.name} um evento de referência internacional em metodologias ágeis;
+  fim de tornar o #{@conference.name} um evento de referência internacional em metodologias ágeis;
   %br
   (2) Como avaliador, analisarei de forma crítica e imparcial trabalhos submetidos para a trilha Indústria,
   segundo diretrizes definidas pelo Comitê de Programa do evento;
@@ -34,16 +34,16 @@
   submissão a fim de evitar injustiças e contribuir com a garantia da qualidade do programa;
   %br
   (8) Como membro do Comitê de Avaliação, declaro estar ciente de que a seleção final dos trabalhos que irão
-  compor o programa do #{current_conference.name} será feito pelo Comitê de Programa, com base nos critérios e pareceres
+  compor o programa do #{@conference.name} será feito pelo Comitê de Programa, com base nos critérios e pareceres
   realizados pelos avaliadores;
   %br
   (9)Como membro do Comitê de Avaliação, reconheço ser este um trabalho voluntário e não remunerado, não
-  podendo transferir à organização do #{current_conference.name} despesas de qualquer natureza;
+  podendo transferir à organização do #{@conference.name} despesas de qualquer natureza;
   %br
   (10) Em caso de impedimento para o cumprimento de minhas metas, comunicarei imediatamente a Coordenação de
   Programa a necessidade de substituição e transferência de minhas responsabilidades.
   %br
-  E, por reconhecer que a Organização do #{current_conference.name} está depositando em mim total  confiança por uma
+  E, por reconhecer que a Organização do #{@conference.name} está depositando em mim total  confiança por uma
   conduta ética e profissional no processo de seleção dos trabalhos submetidos para a conferência, estou ciente
   das possíveis consequências de atos que possam conflitar com as responsabilidades que assumo aceitando os
   termos desse documento.

@@ -8,6 +8,6 @@ describe UserSessionsController do
   
   it "new action should render new template" do
     get :new
-    response.should render_template('static_pages/home')
+    response.should render_template("static_pages/#{Conference.current.year}_home")
   end
 end

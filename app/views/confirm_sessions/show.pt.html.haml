@@ -1,9 +1,9 @@
-- title "Confirmação de presença na #{current_conference.name}"
+- title "Confirmação de presença na #{@conference.name}"
 .auto_focus
 
 %p Olá #{current_user.full_name},
 
-%p É com grande satisfação que comunicamos que seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{current_conference.name}! Para confirmar sua participação no evento, você precisa realizar as alterações sugeridas pelos organizadores (se houverem), além de ler e assinar o termo de compromisso apresentado abaixo.
+%p É com grande satisfação que comunicamos que seu trabalho "#{@session.title}" foi selecionado para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference.name}! Para confirmar sua participação no evento, você precisa realizar as alterações sugeridas pelos organizadores (se houverem), além de ler e assinar o termo de compromisso apresentado abaixo.
 
 %p#review_decision
   %strong #{t('formtastic.labels.review_decision.note_to_authors')}:
@@ -11,17 +11,17 @@
   = @session.review_decision.note_to_authors
 
 - content_for :agreement do
-  %h3 TERMO DE COMPROMISSO COMO AUTOR - #{current_conference.name.upcase}
+  %h3 TERMO DE COMPROMISSO COMO AUTOR - #{@conference.name.upcase}
   Ao concordar com este termo, declaro:
   %br
-  (1) Estar apto a realizar minha apresentação no #{current_conference.name}, em data e local definidos pela organização
+  (1) Estar apto a realizar minha apresentação no #{@conference.name}, em data e local definidos pela organização
   do evento, com o compromisso pela alta qualidade do evento;
   %br
-  (2) Estar ciente de que devo notificar imediatamente a organização do #{current_conference.name} caso algum evento de
+  (2) Estar ciente de que devo notificar imediatamente a organização do #{@conference.name} caso algum evento de
   força maior venha a impedir minha participação na conferência, permitindo minha rápida substituição ou a resolução de
   problemas;
   %br
-  (3) Ceder à organização do #{current_conference.name} o direito de uso de minha imagem para fins não comerciais, políticos e
+  (3) Ceder à organização do #{@conference.name} o direito de uso de minha imagem para fins não comerciais, políticos e
   religiosos (tanto em foto quanto em vídeo), em atividades estritamente relacionadas à conferência e sem a reprodução
   de conteúdo intelectual registrado sem o meu consentimento;
   %br

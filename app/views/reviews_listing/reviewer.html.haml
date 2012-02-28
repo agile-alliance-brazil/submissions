@@ -13,7 +13,7 @@
     - @reviews.each do |review|
       = content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
         %td.title
-          = link_to h(review.session.try(:title)), session_path(review.session)
+          = link_to h(review.session.try(:title)), session_path(@conference, review.session)
           - if review.session.comments.size > 0
             .commentCount= review.session.comments.size
         %td.author= link_to h(review.session.author.full_name), user_path(review.session.author)
@@ -22,7 +22,7 @@
             = link_to h(review.session.second_author.full_name), user_path(review.session.second_author)
         %td.track
           = t(review.session.track.title)
-        %td.review= link_to t(review.recommendation.title), session_review_path(review.session, review)
+        %td.review= link_to t(review.recommendation.title), session_review_path(@conference, review.session, review)
 
 - if @reviews.total_pages > 1
   #pagination= will_paginate(@reviews)

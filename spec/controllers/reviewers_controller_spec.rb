@@ -37,7 +37,7 @@ describe ReviewersController do
   
   it "create action should redirect when model is valid" do
     post :create, :reviewer => {:user_id => @user.id, :conference_id => Conference.current.id}
-    response.should redirect_to(reviewers_path)
+    response.should redirect_to(reviewers_path(Conference.current))
   end
   
   it "update action should render accept_reviewers/show template when model is invalid" do
@@ -53,12 +53,12 @@ describe ReviewersController do
     reviewer = FactoryGirl.create(:reviewer)
     reviewer.stubs(:valid?).returns(true)
     put :update, :id => reviewer.id
-    response.should redirect_to(reviewer_sessions_path)
+    response.should redirect_to(reviewer_sessions_path(Conference.current))
   end
 
   it "destroy action should redirect" do
     reviewer = FactoryGirl.create(:reviewer, :user_id => @user.id)
     delete :destroy, :id => reviewer.id
-    response.should redirect_to(reviewers_path)
+    response.should redirect_to(reviewers_path(Conference.current))
   end
 end

@@ -24,7 +24,7 @@
       = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
-          = link_to h(session.try(:title)), session_path(session)
+          = link_to h(session.try(:title)), session_path(@conference, session)
           - if session.lightning_talk?
             = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
           - if session.comments.size > 0
@@ -36,12 +36,12 @@
         - if @user == current_user
           %td.reviews
             - if can?(:index, Review, session) && session.reviews_count > 0
-              = link_to t('formtastic.labels.session.reviews'), session_reviews_path(session)
+              = link_to t('formtastic.labels.session.reviews'), session_reviews_path(@conference, session)
           %td.state
             = t("session.state.#{session.state}")
           %td.action
             - if session.pending_confirmation? && Time.zone.now <= Ability::AUTHOR_CONFIRMATION_DEADLINE
-              = link_to t('formtastic.actions.confirm_session'), session_confirm_url(session)
+              = link_to t('formtastic.actions.confirm_session'), session_confirm_url(@conference, session)
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')

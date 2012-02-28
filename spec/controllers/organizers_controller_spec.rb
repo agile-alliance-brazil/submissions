@@ -39,7 +39,7 @@ describe OrganizersController do
     user = FactoryGirl.create(:user)
     track = FactoryGirl.create(:track)
     post :create, :organizer => {:user_username => user.username, :track_id => track.id, :conference_id => track.conference_id}
-    response.should redirect_to(organizers_path)
+    response.should redirect_to(organizers_path(Conference.current))
   end
 
   it "edit action should only load conference tracks" do
@@ -60,12 +60,12 @@ describe OrganizersController do
   it "update action should redirect when model is valid" do
     organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
     post :update, :id => organizer.id
-    response.should redirect_to(organizers_path)
+    response.should redirect_to(organizers_path(Conference.current))
   end
   
   it "destroy action should redirect" do
     organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
     delete :destroy, :id => organizer.id
-    response.should redirect_to(organizers_path)
+    response.should redirect_to(organizers_path(Conference.current))
   end
 end

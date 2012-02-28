@@ -1,9 +1,9 @@
-- title "Confirmation of attendance at #{current_conference.name}"
+- title "Confirmation of attendance at #{@conference.name}"
 .auto_focus
 
 %p Dear #{current_user.full_name},
 
-%p We are pleased to inform you that your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{current_conference.name}! To confirm your attendance at the event, please make the changes suggested by the organizers (if any), then read and sign the term of agreement presented below.
+%p We are pleased to inform you that your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference.name}! To confirm your attendance at the event, please make the changes suggested by the organizers (if any), then read and sign the term of agreement presented below.
 
 %p#review_decision
   %strong #{t('formtastic.labels.review_decision.note_to_authors')}:
@@ -11,16 +11,16 @@
   = @session.review_decision.note_to_authors
 
 - content_for :agreement do
-  %h3 AUTHOR TERM OF AGREEMENT - #{current_conference.name.upcase}
+  %h3 AUTHOR TERM OF AGREEMENT - #{@conference.name.upcase}
   On agreeing to these terms, I declare that I will:
   %br
-  (1) Be able to present my session at #{current_conference.name} at the date and place defined by the event organization,
+  (1) Be able to present my session at #{@conference.name} at the date and place defined by the event organization,
   committing to the high quality of the event;
   %br
-  (2) Be aware that I must immediately notify the organization of #{current_conference.name} should any unpredicted event prevent
+  (2) Be aware that I must immediately notify the organization of #{@conference.name} should any unpredicted event prevent
   me from participating in the conference, thus allowing my session to be replaced or the issue be solved in any way;
   %br
-  (3) Be granting the organization of #{current_conference.name} the consent to use my image, in picture or in any media form,
+  (3) Be granting the organization of #{@conference.name} the consent to use my image, in picture or in any media form,
   for non-commercial, non-political and non-religious purposes, in activities strictly related to the conference and
   without reproduction of the intellectual content without my acknowledgement;
   %br

@@ -4,7 +4,7 @@ Dear #{@session.authors.map(&:full_name).join(" & ")},
 Thank you for submitting the session proposal '#{@session.title}' to the #{@conference_name} conference. You can access and amend the proposal until the session submission deadline on 19th Mar 2011 by accessing the link:
 
 
-= session_url(@session, :locale => 'en')
+= session_url(@conference, @session, :locale => 'en')
 
 
 Regards,

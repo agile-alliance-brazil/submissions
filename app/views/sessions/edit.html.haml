@@ -2,7 +2,7 @@
 - show_actions!
 .auto_focus
   
-= semantic_form_for(@session) do |form|
+= semantic_form_for @session, :url => session_path(@conference, @session) do |form|
   = render 'form', :form => form
   = form.buttons do
     = form.commit_button :edit_session, :button_html => {:tabindex => autotab}

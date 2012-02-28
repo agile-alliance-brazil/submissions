@@ -7,23 +7,23 @@
 %p
   Por favor consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço:
   %br
-  = link_to session_reviews_url(@session, :locale => 'pt'), session_reviews_url(@session, :locale => 'pt')
+  = link_to session_reviews_url(@conference, @session, :locale => 'pt'), session_reviews_url(@conference, @session, :locale => 'pt')
 
 %p
-  Por gentileza, queira confirmar sua presença no evento até às #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
+  Por gentileza, queira confirmar sua presença no evento até às #{@conference.author_confirmation.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
   %br
-  = link_to session_confirm_url(@session, :locale => 'pt'), session_confirm_url(@session, :locale => 'pt')
+  = link_to session_confirm_url(@conference, @session, :locale => 'pt'), session_confirm_url(@conference, @session, :locale => 'pt')
 
 %p
   Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
   %br
-  = link_to session_withdraw_url(@session, :locale => 'pt'), session_withdraw_url(@session, :locale => 'pt')
+  = link_to session_withdraw_url(@conference, @session, :locale => 'pt'), session_withdraw_url(@conference, @session, :locale => 'pt')
 
 - if(@session.authors.size > 1)
   %p
     Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
 
-%p A sessão que não for confirmada ou cancelada até o dia #{Ability::AUTHOR_CONFIRMATION_DEADLINE.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
+%p A sessão que não for confirmada ou cancelada até o dia #{@conference.author_confirmation.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 %p
   - if(@session.authors.size > 1)

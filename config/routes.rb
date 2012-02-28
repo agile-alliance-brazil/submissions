@@ -1,6 +1,6 @@
 # encoding: UTF-8
 AgileBrazil::Application.routes.draw do
-  root :to => 'static_pages#show', :page => 'home', :year => Conference.current.year
+  root :to => 'static_pages#show', :page => 'home'
 
   devise_for :users,
              :controllers => {
@@ -14,7 +14,13 @@ AgileBrazil::Application.routes.draw do
                :sign_up       => 'signup'
              }
 
-  resources :conferences, :only => [:show] do
+  resources :users, :only => [:index, :show] do
+    match 'my_sessions' => 'sessions#index', :as => :my_sessions
+  end
+  
+  resources :tags, :only => [:index]
+
+  scope "(:year)", :constraints => { :year => /\d{4}/ } do
     resources :audience_levels, :only => [:index]
     resources :organizers, :except => [:show]
     resources :organizer_sessions, :only => [:index]
@@ -48,11 +54,7 @@ AgileBrazil::Application.routes.draw do
     end
 
     resources :session_types, :only => [:index]
-    resources :tags, :only => [:index]
     resources :tracks, :only => [:index]
-    resources :users, :only => [:index, :show] do
-      match 'my_sessions' => 'sessions#index', :as => :my_sessions
-    end
 
     match ':page' => 'static_pages#show', :as => :static_page, :page => /home|guidelines|syntax_help/
   end

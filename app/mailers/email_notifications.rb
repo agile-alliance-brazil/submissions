@@ -23,7 +23,7 @@ class EmailNotifications < ActionMailer::Base
   def session_submitted(session, sent_at = Time.now)
     @session = session
     @conference_name = current_conference.name
-    mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => current_conference.name)}",
+    mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => @conference_name)}",
          :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
@@ -34,7 +34,7 @@ class EmailNotifications < ActionMailer::Base
     I18n.locale = reviewer.user.try(:default_locale)
     @reviewer = reviewer
     @conference_name = current_conference.name
-    mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => current_conference.name)}",
+    mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => @conference_name)}",
          :to       => "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>",
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
@@ -48,7 +48,7 @@ class EmailNotifications < ActionMailer::Base
 
     @session = session
     @conference_name = current_conference.name
-    mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => current_conference.name)}",
+    mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => @conference_name)}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
@@ -62,7 +62,7 @@ class EmailNotifications < ActionMailer::Base
 
     @session = session
     @conference_name = current_conference.name
-    mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => current_conference.name)}",
+    mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => @conference_name)}",
          :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
@@ -79,6 +79,6 @@ class EmailNotifications < ActionMailer::Base
   end
   
   def current_conference
-    @current_conference ||= Conference.current
+    @conference ||= Conference.current
   end
 end

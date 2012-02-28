@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223053316) do
+ActiveRecord::Schema.define(:version => 20120226060212) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20120223053316) do
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "call_for_papers"
+    t.datetime "submissions_open"
+    t.datetime "submissions_deadline"
+    t.datetime "review_deadline"
+    t.datetime "author_notification"
+    t.datetime "author_confirmation"
+    t.string   "location_and_date"
   end
 
   create_table "organizers", :force => true do |t|

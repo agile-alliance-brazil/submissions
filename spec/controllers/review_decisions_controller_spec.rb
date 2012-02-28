@@ -43,7 +43,7 @@ describe ReviewDecisionsController do
   it "create action should redirect when model is valid" do
     ReviewDecision.any_instance.stubs(:valid?).returns(true)
     post :create, :session_id => Session.first
-    response.should redirect_to(organizer_sessions_url)
+    response.should redirect_to(organizer_sessions_url(Conference.current))
   end
   
   context "existing review decision" do
@@ -68,7 +68,7 @@ describe ReviewDecisionsController do
     it "update action should redirect when model is valid" do
       ReviewDecision.any_instance.stubs(:valid?).returns(true)
       post :update, :session_id => @session.id, :id => @decision.id
-      response.should redirect_to(organizer_sessions_url)
+      response.should redirect_to(organizer_sessions_url(Conference.current))
     end
   end
 end

@@ -1,8 +1,8 @@
-- title "Withdraw session from #{current_conference.name}"
+- title "Withdraw session from #{@conference.name}"
 .auto_focus
 
 %p Dear #{current_user.full_name},
 
-%p Your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{current_conference.name}, but you are declining to present it at the conference. To confirm your withdrawal, please confirm below:
+%p Your proposal "#{@session.title}" has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference.name}, but you are declining to present it at the conference. To confirm your withdrawal, please confirm below:
 
 = render 'withdraw_sessions/form'

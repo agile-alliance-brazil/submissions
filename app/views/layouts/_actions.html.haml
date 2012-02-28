@@ -12,9 +12,9 @@
   %h4= t('actions.section.session')
   %ul
     - if can? :create, Session
-      %li= link_to t('actions.submit_session'), new_session_path
+      %li= link_to t('actions.submit_session'), new_session_path(@conference)
     - if can? :read, Session
-      %li= link_to t('actions.browse_sessions'), sessions_path
+      %li= link_to t('actions.browse_sessions'), sessions_path(@conference)
       - if current_user.sessions.count > 0
         %li= link_to t('actions.my_sessions'), user_my_sessions_path(current_user)
 
@@ -22,17 +22,17 @@
     %h4= t('actions.section.review')
     %ul
       - if can? :read, Organizer
-        %li= link_to t('actions.manage_organizers'), organizers_path
+        %li= link_to t('actions.manage_organizers'), organizers_path(@conference)
       - if can? :read, Reviewer
-        %li= link_to t('actions.manage_reviewers'), reviewers_path
+        %li= link_to t('actions.manage_reviewers'), reviewers_path(@conference)
       - if can? :read, 'organizer_sessions'
-        %li= link_to t('actions.organizer_sessions'), organizer_sessions_path
+        %li= link_to t('actions.organizer_sessions'), organizer_sessions_path(@conference)
       - if can? :read, 'reviewer_sessions'
-        %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path
+        %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path(@conference)
       - if can? :reviewer, 'reviews_listing'
-        %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path
+        %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path(@conference)
       - if @session.present? && can?(:create, Review, @session)
-        %li= link_to t('actions.review_session'), new_session_review_path(@session)
+        %li= link_to t('actions.review_session'), new_session_review_path(@conference, @session)
 
   %h4= t('actions.section.user')
   %ul
@@ -45,7 +45,7 @@
   - if current_user.organizer?
     :javascript
       $(document).ready(function() {
-        $.getJSON('#{review_decisions_path(:format => :js)}', function(data) {
+        $.getJSON('#{review_decisions_path(@conference, :format => :js)}', function(data) {
           var orange = Math.floor(parseInt(data.required_decisions) * 0.30);
           var yellow = Math.floor(parseInt(data.required_decisions) * 0.60);
           var green = Math.floor(parseInt(data.required_decisions) * 0.90);

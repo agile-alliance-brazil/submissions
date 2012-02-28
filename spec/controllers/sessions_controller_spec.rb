@@ -52,7 +52,7 @@ describe SessionsController do
   it "create action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
     post :create
-    response.should redirect_to(session_url(assigns(:session)))
+    response.should redirect_to(session_url(Conference.current, assigns(:session)))
   end
   
   it "edit action should render edit template" do
@@ -75,19 +75,19 @@ describe SessionsController do
 
   it "update action should redirect when model is valid" do
     put :update, :id => Session.first
-    response.should redirect_to(session_path(assigns(:session)))
+    response.should redirect_to(session_path(Conference.current, assigns(:session)))
   end
 
   it "cancel action should cancel and redirect to organizer sessions" do
     delete :cancel, :id => Session.first
-    response.should redirect_to(organizer_sessions_path)
+    response.should redirect_to(organizer_sessions_path(Conference.current))
   end
   
   it "cancel action should redirect to organizer sessions with error" do
     session = FactoryGirl.create(:session, :track => @session.track)
     session.cancel
     delete :cancel, :id => session
-    response.should redirect_to(organizer_sessions_path)
+    response.should redirect_to(organizer_sessions_path(Conference.current))
     flash[:error].should == "Sessão já está cancelada."
   end
 end

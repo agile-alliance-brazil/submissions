@@ -7,7 +7,7 @@
 %p
   We have received around 200 proposals this year -- more proposals than any other Brazilian conference about agile methods. Sadly, this means that many good proposals could not be included in the program due to lack of space. In the end, around 85 sessions were selected, taking into consideration the need to create a balanced schedule, with high quality content and tailored to the conference attendees. You may see the feedback that your proposal has received from the reviewers and track organizers at:
   %br
-  = link_to session_reviews_url(@session, :locale => 'en'), session_reviews_url(@session, :locale => 'en')
+  = link_to session_reviews_url(@conference, @session, :locale => 'en'), session_reviews_url(@conference, @session, :locale => 'en')
 
 %p Should you have any queries, requests or comments, do not hesitate to contact the Program Committee at #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 

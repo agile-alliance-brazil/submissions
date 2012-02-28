@@ -9,7 +9,7 @@ Infelizmente, sua proposta '#{h(@session.title)}' não foi selecionada para inte
 
 Recebemos em torno de 200 propostas este ano -- mais sessões submetidas do que qualquer outra conferência brasileira de métodos ágeis. Infelizmente, isso significa que muitas boas propostas não puderam ser aceitas devido à falta de espaço. No final, foram aceitas cerca de 85 sessões, considerando a necessidade de criar um programa equilibrado, com um conteúdo de qualidade e efetivo aos participantes da conferência. Você#{@session.authors.size > 1 ? "s":""} pode#{@session.authors.size > 1 ? "m":""} ver o feedback sobre sua proposta fornecido pelos avaliadores e pelos organizadores de trilha acessando o endereço:
 
-= session_reviews_url(@session, :locale => 'pt')
+= session_reviews_url(@conference, @session, :locale => 'pt')
 
 
 Se tiver#{@session.authors.size > 1 ? "em":""} qualquer dúvida, comentário ou sugestão, não hesite#{@session.authors.size > 1 ? "m":""} em entrar em contato com a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.

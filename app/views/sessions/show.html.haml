@@ -8,14 +8,14 @@
   - if @session.second_author
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
   - if can? :update, @session
-    %li= link_to t('title.edit_session'), edit_session_path(@session)
+    %li= link_to t('title.edit_session'), edit_session_path(@conference, @session)
   %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
 
 %ul.spaced
   %li.first #{t('session.parameters')}:
-  %li= link_to t(@session.track.title), tracks_path
-  %li= link_to t(@session.audience_level.title), audience_levels_path
-  %li= link_to t(@session.session_type.title), session_types_path
+  %li= link_to t(@session.track.title), tracks_path(@conference)
+  %li= link_to t(@session.audience_level.title), audience_levels_path(@conference)
+  %li= link_to t(@session.session_type.title), session_types_path(@conference)
   %li
     &= @session.try(:duration_mins)
     = t('generic.minutes')
@@ -25,7 +25,7 @@
 %ul.spaced
   %li.first #{t('formtastic.labels.session.keyword_list')}:
   - @session.keyword_list.each do |keyword|
-    %li= link_to h(keyword), sessions_path(:tagged_with => keyword)
+    %li= link_to h(keyword), sessions_path(@conference, :tagged_with => keyword)
 
 = content_tag_for(:dl, @session) do
   %dt= t('formtastic.labels.session.target_audience')

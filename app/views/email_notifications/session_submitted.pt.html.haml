@@ -2,7 +2,7 @@
 
 %p Obrigado por submeter a proposta de sessão <strong>'#{h(@session.title)}'</strong> para a #{@conference_name}. Você pode acessar e alterar os detalhes de sua proposta até o fim do prazo de submissão no dia 19/03/2011, acessando o link:
 
-%p= link_to session_url(@session, :locale => 'pt'), session_url(@session, :locale => 'pt')
+%p= link_to session_url(@conference, @session, :locale => 'pt'), session_url(@conference, @session, :locale => 'pt')
 
 %p Gratos,
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe StaticPagesController do
   it "should route to guidelines page" do
-    {:get => '/guidelines', :year => 2010}.should route_to(:controller => 'static_pages', :action => 'show', :page => '2010_guidelines')
+    {:get => '/2010/guidelines'}.should route_to(:controller => 'static_pages', :action => 'show', :page => 'guidelines', :year => '2010')
   end
 
   it "should render template from page param" do

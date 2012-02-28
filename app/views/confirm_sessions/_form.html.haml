@@ -1,4 +1,4 @@
-= semantic_form_for @session, :url => session_confirm_path(@session), :html => {:class => 'review_decision_confirm'} do |form|
+= semantic_form_for @session, :url => session_confirm_path(@conference, @session), :html => {:class => 'review_decision_confirm'} do |form|
   = form.inputs do
     = form.semantic_errors :base
     = form.input :title, :required => true, :input_html => {:tabindex => autotab}
@@ -14,4 +14,4 @@
   = form.buttons do
     = form.commit_button :confirm_session, :button_html => {:tabindex => autotab}
     = t('generic.or')
-    = link_to t('formtastic.actions.withdraw_session'), session_withdraw_path(@session)
+    = link_to t('formtastic.actions.withdraw_session'), session_withdraw_path(@conference, @session)

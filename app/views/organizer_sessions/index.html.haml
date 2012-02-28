@@ -19,7 +19,7 @@
       = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
-          = link_to h(session.try(:title)), session_path(session)
+          = link_to h(session.try(:title)), session_path(@conference, session)
           - if session.comments.size > 0
             .commentCount= session.comments.size
         %td.author= link_to h(session.author.full_name), user_path(session.author)
@@ -28,7 +28,7 @@
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         %td.track
           = t(session.track.title)
-        %td.reviews= link_to_unless(session.reviews_count == 0, session.reviews_count, organizer_session_reviews_path(session))
+        %td.reviews= link_to_unless(session.reviews_count == 0, session.reviews_count, organizer_session_reviews_path(@conference, session))
         %td.status
           = t("session.state.#{session.state}")
         %td.author_confirmed
@@ -37,11 +37,11 @@
           = session.image_agreement ? t("generic.confirmed") : ""
         %td.action
           - if can?(:create, ReviewDecision, session)
-            = link_to t('actions.create_review_decision'), new_session_review_decision_path(session)
+            = link_to t('actions.create_review_decision'), new_session_review_decision_path(@conference, session)
           - if can?(:edit, ReviewDecision, session)
-            = link_to t('actions.edit_review_decision'), edit_session_review_decision_path(session, session.review_decision.id)
+            = link_to t('actions.edit_review_decision'), edit_session_review_decision_path(@conference, session, session.review_decision.id)
           - if can?(:cancel, session) && session.can_cancel?
-            = link_to t('actions.cancel'), cancel_session_path(session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
+            = link_to t('actions.cancel'), cancel_session_path(@conference, session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

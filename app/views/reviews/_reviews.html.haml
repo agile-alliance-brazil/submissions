@@ -9,9 +9,9 @@
 
 %ul.spaced
   %li.first #{t('session.parameters')}:
-  %li= link_to t(@session.track.title), tracks_path
-  %li= link_to t(@session.audience_level.title), audience_levels_path
-  %li= link_to t(@session.session_type.title), session_types_path
+  %li= link_to t(@session.track.title), tracks_path(@conference)
+  %li= link_to t(@session.audience_level.title), audience_levels_path(@conference)
+  %li= link_to t(@session.session_type.title), session_types_path(@conference)
   %li
     &= @session.try(:duration_mins)
     = t('generic.minutes')
@@ -19,7 +19,7 @@
     %li= t('session.audience_limit', :limit => @session.audience_limit)
 
 %p
-  = link_to t('review.view_session'), session_path(@session), :target => '_blank'
+  = link_to t('review.view_session'), session_path(@conference, @session), :target => '_blank'
 
 - if(@session.review_decision)
   %h2= t('formtastic.titles.review_decision')

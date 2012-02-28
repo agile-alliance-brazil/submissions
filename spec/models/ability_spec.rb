@@ -217,16 +217,16 @@ describe Ability do
     
     describe "can create sessions if:" do
       before(:each) do
-        Time.zone.stubs(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE - 3.days)
+        Time.zone.stubs(:now).returns(@conference.submissions_deadline - 3.days)
       end
       
       it "- before deadline" do
-        Time.zone.expects(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE)
+        Time.zone.expects(:now).returns(@conference.submissions_deadline)
         @ability.should be_able_to(:create, Session)
       end
       
       it "- after deadline author can't update" do
-        Time.zone.expects(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE + 1.second)
+        Time.zone.expects(:now).returns(@conference.submissions_deadline + 1.second)
         @ability.should_not be_able_to(:create, Session)
       end
     end
@@ -234,7 +234,7 @@ describe Ability do
     describe "can update session if:" do
       before(:each) do
         @session = FactoryGirl.create(:session, :conference => @conference)
-        Time.zone.stubs(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE - 3.days)
+        Time.zone.stubs(:now).returns(@conference.submissions_deadline - 3.days)
       end
       
       it "- user is first author" do
@@ -251,13 +251,13 @@ describe Ability do
       
       it "- before deadline" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE)
+        Time.zone.expects(:now).returns(@conference.submissions_deadline)
         @ability.should be_able_to(:update, @session)
       end
       
       it "- after deadline author can't update" do
         @session.author = @user
-        Time.zone.expects(:now).returns(Ability::SESSION_SUBMISSION_DEADLINE + 1.second)
+        Time.zone.expects(:now).returns(@conference.submissions_deadline + 1.second)
         @ability.should_not be_able_to(:update, @session)
       end
 
@@ -277,7 +277,7 @@ describe Ability do
         FactoryGirl.create(:review_decision, :session => @session)
         @session.tentatively_accept
         Session.stubs(:find).returns(@session)
-        Time.zone.stubs(:now).returns(Ability::AUTHOR_CONFIRMATION_DEADLINE - 1.week)
+        Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
       end
 
       it "- user is first author" do
@@ -332,7 +332,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::AUTHOR_CONFIRMATION_DEADLINE)
+        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
       end
 
@@ -342,7 +342,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::AUTHOR_CONFIRMATION_DEADLINE + 1.second)
+        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
         @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
       end
     end
@@ -355,7 +355,7 @@ describe Ability do
         FactoryGirl.create(:review_decision, :session => @session)
         @session.tentatively_accept
         Session.stubs(:find).returns(@session)
-        Time.zone.stubs(:now).returns(Ability::AUTHOR_CONFIRMATION_DEADLINE - 1.week)
+        Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
       end
 
       it "- user is first author" do
@@ -410,7 +410,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::AUTHOR_CONFIRMATION_DEADLINE)
+        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
       end
 
@@ -420,7 +420,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
         @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::AUTHOR_CONFIRMATION_DEADLINE + 1.second)
+        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
         @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
       end
     end
@@ -516,7 +516,7 @@ describe Ability do
       before(:each) do
         @session = FactoryGirl.create(:session)
         @session.reviewing
-        Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE + 1.day)
+        Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
       
       it "- session on organizer's track" do
@@ -544,7 +544,7 @@ describe Ability do
       
       it "- after review deadline" do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE + 1.second)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
 
         @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
@@ -555,7 +555,7 @@ describe Ability do
       
       it "- before review deadline can't create review decision" do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
@@ -618,7 +618,7 @@ describe Ability do
       before(:each) do
         @session = FactoryGirl.create(:session)
         @session.reviewing
-        Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE + 1.day)
+        Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
       
       it " if session on organizer's track" do
@@ -753,7 +753,7 @@ describe Ability do
       it "after review deadline" do
         @session.tentatively_accept
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE + 1.second)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
         
@@ -764,7 +764,7 @@ describe Ability do
       it "before review deadline can't update review decision" do
         @session.tentatively_accept
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         
@@ -826,7 +826,7 @@ describe Ability do
       before(:each) do
         @session = FactoryGirl.create(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
-        Time.zone.stubs(:now).returns(Ability::REVIEW_DEADLINE - 1.week)
+        Time.zone.stubs(:now).returns(@conference.review_deadline - 1.week)
       end
       
       it "has not created a review for this session" do
@@ -851,7 +851,7 @@ describe Ability do
       end
       
       it "before deadline" do
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should be_able_to(:create, Review)
         @ability.should be_able_to(:create, Review, nil)
@@ -864,7 +864,7 @@ describe Ability do
         @ability.should be_able_to(:create, Review, nil)
         @ability.should be_able_to(:create, Review, @session)
 
-        Time.zone.expects(:now).at_least_once.returns(Ability::REVIEW_DEADLINE + 1.second)
+        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should_not be_able_to(:create, Review)
         @ability.should_not be_able_to(:create, Review, nil)

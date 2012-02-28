@@ -6,6 +6,6 @@ class TracksController < InheritedResources::Base
 
   private
   def collection
-    @tracks ||= end_of_association_chain.for_conference(current_conference)
+    @tracks ||= end_of_association_chain.for_conference(@conference)
   end
 end
