@@ -25,7 +25,7 @@ describe SessionsController do
   end
 
   it "show action should display flash news if session from previous conference" do
-    old_session = FactoryGirl.create(:session)
+    old_session = FactoryGirl.create(:session, :track =>Track.first, :conference => Conference.first)
     FactoryGirl.create(:session)
     get :show, :id => old_session.id
     flash[:news].should == "Você está acessando uma proposta da #{old_session.conference.name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da #{Conference.current.name}."
@@ -34,6 +34,11 @@ describe SessionsController do
   it "new action should render new template" do
     get :new
     response.should render_template(:new)
+  end
+  
+  it "new action should only assign tracks for current conference" do
+    get :new
+    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
   end
 
   it "create action should render new template when model is invalid" do
@@ -55,6 +60,11 @@ describe SessionsController do
     response.should render_template(:edit)
   end
 
+  it "edit action should only assign tracks for current conference" do
+    get :edit, :id => Session.first
+    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+  end
+  
   it "update action should render edit template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
@@ -74,7 +84,7 @@ describe SessionsController do
   end
   
   it "cancel action should redirect to organizer sessions with error" do
-    session = FactoryGirl.create(:session, :conference => @session.conference)
+    session = FactoryGirl.create(:session, :track => @session.track)
     session.cancel
     delete :cancel, :id => session
     response.should redirect_to(organizer_sessions_path)

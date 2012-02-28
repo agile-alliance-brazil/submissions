@@ -32,7 +32,16 @@ describe Organizer do
         organizer.should_not be_valid
         organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
       end
-    end      
+    end
+    
+    context "track" do
+      it "should match the conference" do
+        track = FactoryGirl.create(:track)
+        organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
+        organizer.should_not be_valid
+        organizer.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+      end
+    end
   end
   
   context "associations" do
@@ -91,7 +100,8 @@ describe Organizer do
     
     it "should keep organizer role after destroyed if user organizes other tracks" do
       other_organizer = FactoryGirl.create(:organizer, :user => @user)
-      organizer = FactoryGirl.create(:organizer, :user => @user, :conference => other_organizer.conference)
+      track = FactoryGirl.create(:track, :conference => other_organizer.conference)
+      organizer = FactoryGirl.create(:organizer, :user => @user, :track => track, :conference => other_organizer.conference)
       @user.should be_organizer
       organizer.destroy
       @user.should be_organizer
@@ -109,7 +119,8 @@ describe Organizer do
 
     it "should keep organizer role after update if user organizes other tracks" do
       other_organizer = FactoryGirl.create(:organizer, :user => @user)
-      organizer = FactoryGirl.create(:organizer, :user => @user, :conference => other_organizer.conference)
+      track = FactoryGirl.create(:track, :conference => other_organizer.conference)
+      organizer = FactoryGirl.create(:organizer, :user => @user, :track => track, :conference => other_organizer.conference)
       another_user = FactoryGirl.build(:user)
       organizer.user = another_user
       organizer.save

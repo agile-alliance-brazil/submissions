@@ -1,10 +1,6 @@
 # encoding: UTF-8
 
 FactoryGirl.define do
-  factory :conference do
-    sequence(:name) {|n| "Agile Brazil #{2000+n}"}
-  end
-
   factory :user do
     first_name "User"
     sequence(:last_name) {|n| "Name#{n}"}
@@ -36,6 +32,7 @@ FactoryGirl.define do
   end
 
   factory :track do
+    conference { Conference.current }
     title "tracks.engineering.title"
     description "tracks.engineering.description"
   end
@@ -49,7 +46,7 @@ FactoryGirl.define do
     association :track
     association :session_type
     association :audience_level
-    association :conference
+    conference { Conference.current }
     duration_mins 50
     title "Fake title"
     summary "Summary details of session"
@@ -71,12 +68,12 @@ FactoryGirl.define do
   factory :organizer do
     association :user
     association :track
-    association :conference
+    conference { Conference.current }
   end
 
   factory :reviewer do
     association :user
-    association :conference
+    conference { Conference.current }
   end
 
   factory :preference do

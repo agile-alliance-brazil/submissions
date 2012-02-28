@@ -105,6 +105,14 @@ describe Session do
     it { should ensure_length_of(:benefits).is_at_most(400) }
     it { should ensure_length_of(:experience).is_at_most(400) }
 
+    context "track" do
+      it "should match the conference" do
+        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session.should_not be_valid
+        session.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+      end
+    end
+    
     context "workshop" do
       it "should validate presence of mechanics" do
         session = FactoryGirl.build(:session)

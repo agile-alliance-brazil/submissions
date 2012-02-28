@@ -477,7 +477,19 @@ pt:
       description: "Dedicada a profissionais que trabalham com metodologias ágeis ou estão interessados na qualidade técnica dos produtos de software. Você vai achar tutoriais, workshops e lições endereçando tópicos como programação, integração contínua, automação de testes e o uso de ferramentas eletrônicas para apoiar o desenvolvimento ágil."
     experience_reports:
       title: "Relatos de Experiência"
-      description: "Esta trilha é para aqueles que desejam compartilhar suas experiências reais com métodos ágeis, seja em projetos, transições, cursos ou comunidades. Estes relatos permitem que participantes compartilhem dicas práticas que possam inspirar outras pessoas e times."
+      description: "Esta trilha é para aqueles que desejam compartilhar suas experiências reais com métodos ágeis, seja projetos, transições, cursos ou comunidades. Estes relatos permitem que participantes compartilhem dicas práticas que possam inspirar outras pessoas e times."
+    development_tests:
+      title: "Desenvolvimento e Teste"
+      description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis de desenvolvimento e teste de software. São palestras e workshops sobre temas como programação, integração contínua, automação de testes, testes de aceitação, teste de integração e ferramentas de apoio. Sessões sobre a integração do desenvolvimento de software com as operações de TI (devops) também estão inclusas nesta trilha."
+    analysis_planning:
+      title: "Análise e Planejamento"
+      description: "Essa trilha tem como objetivo agrupar sessões sobre análise e planejamento de projetos ágeis. As sessões abordam temas como análise de negócio, análise de requisitos, técnicas de estimativa e priorização, planejamento de releases e estratégias de implementação de projetos."
+    management_culture:
+      title: "Gestão e Cultura"
+      description: "Essa trilha é dedicada à gestão de equipes e projetos. As sessões reúnem temas como formação de equipes, facilitação de projetos, coaching, cultura empresarial, valores e princípios ágeis, gestão democrática, auto-organização, gestão de produtos, processos e projetos."
+    innovation_entrepreneurship:
+      title: "Inovação e Empreendedorismo"
+      description: "Esta é a trilha para quem busca inovar ou empreender tanto como colaborador de uma empresa quanto em seu próprio negócio. Você vai encontrar sessões sobre Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping e diversos outros assuntos que relacionam os métodos ágeis ao processo de inovação."
 
   audience_levels:
     beginner:

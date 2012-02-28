@@ -67,7 +67,7 @@ describe Reviewer do
   context "associations" do
     it { should belong_to :user }
     it { should belong_to :conference }
-    it { should have_many :preferences }
+    it { should have_many(:preferences).dependent(:destroy) }
     it { should have_many(:accepted_preferences).class_name('Preference') }
 
     xit { should accept_nested_attributes_for :preferences }
@@ -219,12 +219,8 @@ describe Reviewer do
   end
 
   shared_examples_for "reviewer role" do
-    before do
-      @conference = FactoryGirl.create(:conference)
-    end
-
     it "should make given user reviewer role after invitation accepted" do
-      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
+      reviewer = FactoryGirl.create(:reviewer, :user => @user)
       reviewer.invite
       @user.should_not be_reviewer
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
@@ -234,7 +230,7 @@ describe Reviewer do
     end
     
     it "should remove organizer role after destroyed" do
-      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
+      reviewer = FactoryGirl.create(:reviewer, :user => @user)
       reviewer.invite
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept
@@ -264,7 +260,7 @@ describe Reviewer do
   context "checking if able to review a track" do
     before(:each) do
       @organizer = FactoryGirl.create(:organizer)
-      @reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user, :conference => @organizer.conference)
+      @reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user)
     end
     
     it "can review track when not organizer" do
@@ -276,7 +272,7 @@ describe Reviewer do
     end
 
     it "can review track when organizer for different conference" do
-      reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user)
+      reviewer = FactoryGirl.create(:reviewer, :user => @organizer.user, :conference => Conference.first)
       reviewer.should be_can_review(@organizer.track)
     end
   end

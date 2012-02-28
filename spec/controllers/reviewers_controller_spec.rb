@@ -7,7 +7,6 @@ describe ReviewersController do
   it_should_require_login_for_actions :index, :new, :create, :update
 
   before(:each) do
-    @conference ||= FactoryGirl.create(:conference)
     @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
@@ -16,6 +15,11 @@ describe ReviewersController do
   it "index action should render index template" do
     get :index
     response.should render_template(:index)
+  end
+  
+  it "index action should assign tracks for current conference" do
+    get :index
+    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
   end
 
   it "new action should render new template" do
@@ -32,7 +36,7 @@ describe ReviewersController do
   end
   
   it "create action should redirect when model is valid" do
-    post :create, :reviewer => {:user_id => @user.id, :conference_id => @conference.id}
+    post :create, :reviewer => {:user_id => @user.id, :conference_id => Conference.current.id}
     response.should redirect_to(reviewers_path)
   end
   

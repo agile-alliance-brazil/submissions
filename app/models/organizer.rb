@@ -14,6 +14,10 @@ class Organizer < ActiveRecord::Base
   validates_each :user_username, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :existence) if record.user.nil?
   end
+  
+  validates_each :track_id, :allow_blank => true do |record, attr, value|
+    record.errors.add(attr, :invalid) if record.track.conference_id != record.conference_id
+  end
 
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
   

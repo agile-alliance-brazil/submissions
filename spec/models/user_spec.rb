@@ -112,7 +112,8 @@ describe User do
       it "should narrow tracks based on conference" do
         organizer = FactoryGirl.create(:organizer)
         user = organizer.user
-        FactoryGirl.create(:organizer, :user => user)
+        old_track = FactoryGirl.create(:track, :conference => Conference.first)
+        FactoryGirl.create(:organizer, :user => user, :track => old_track, :conference => Conference.first)
 
         user.organized_tracks(organizer.conference).should == [organizer.track]
       end
@@ -121,16 +122,14 @@ describe User do
     describe "#has_approved_session?" do
       it "should not have approved long sessions if never submited" do
          user = FactoryGirl.build(:user)
-         user.should_not have_approved_session(FactoryGirl.build(:conference))
+         user.should_not have_approved_session(Conference.current)
       end
       
       it "should not have approved long sessions if accepted was on another conference" do
          user = FactoryGirl.build(:user)
-         old_conference = FactoryGirl.build(:conference)
-         current = FactoryGirl.build(:conference)
-         session = FactoryGirl.build(:session, :author => user, :conference => old_conference)
+         session = FactoryGirl.build(:session, :author => user, :conference => Conference.first)
 
-         user.should_not have_approved_session(current)
+         user.should_not have_approved_session(Conference.current)
       end
       
       it "should have approved long sessions if accepted was lightning talk" do

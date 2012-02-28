@@ -21,11 +21,11 @@ describe AcceptReviewersController do
   
   it "show action should populate preferences for each track when empty" do
     get :show, :reviewer_id => @reviewer.id
-    assigns(:reviewer).preferences.size.should == Track.count
+    assigns(:reviewer).preferences.size.should == Track.for_conference(Conference.current).count
   end
 
   it "show action should keep preferences when already present" do
-    @reviewer.preferences.build(:track_id => Track.first.id)
+    @reviewer.preferences.build(:track_id => Track.for_conference(Conference.current).first.id)
     get :show, :reviewer_id => @reviewer.id
     assigns(:reviewer).preferences.size.should == 1
   end

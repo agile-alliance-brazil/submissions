@@ -63,6 +63,9 @@ class Session < ActiveRecord::Base
   validates_each :author_id, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.author_id_changed?
   end
+  validates_each :track_id, :allow_blank => true do |record, attr, value|
+    record.errors.add(attr, :invalid) if record.track.conference_id != record.conference_id
+  end
 
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
 

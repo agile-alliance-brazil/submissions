@@ -7,8 +7,7 @@ describe OrganizersController do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   before(:each) do
-    @conference = FactoryGirl.create(:conference)
-    @user = FactoryGirl.create(:user)
+    @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
   end
@@ -22,6 +21,11 @@ describe OrganizersController do
     get :new
     response.should render_template(:new)
   end
+  
+  it "new action should only load conference tracks" do
+    get :new
+    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+  end
 
   it "create action should render new template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
@@ -34,8 +38,14 @@ describe OrganizersController do
   it "create action should redirect when model is valid" do
     user = FactoryGirl.create(:user)
     track = FactoryGirl.create(:track)
-    post :create, :organizer => {:user_username => user.username, :track_id => track.id, :conference_id => @conference.id}
+    post :create, :organizer => {:user_username => user.username, :track_id => track.id, :conference_id => track.conference_id}
     response.should redirect_to(organizers_path)
+  end
+
+  it "edit action should only load conference tracks" do
+    organizer = FactoryGirl.create(:organizer, :user_id => @user.id)
+    get :edit, :id => organizer.id
+    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
   end
   
   it "update action should render edit template when model is invalid" do

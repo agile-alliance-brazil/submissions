@@ -11,7 +11,7 @@ describe ReviewPublisher do
     Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
     
-    @conference = FactoryGirl.create(:conference)
+    @conference = Conference.current
     
     @publisher = ReviewPublisher.new
   end

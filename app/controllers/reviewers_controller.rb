@@ -4,7 +4,7 @@ class ReviewersController < InheritedResources::Base
   respond_to :html
   
   def index
-    @tracks = Track.all
+    @tracks = current_conference.tracks
     index!
   end
   

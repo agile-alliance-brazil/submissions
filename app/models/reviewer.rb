@@ -6,7 +6,7 @@ class Reviewer < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :conference
-  has_many :preferences
+  has_many :preferences, :dependent => :destroy
   has_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
   
   accepts_nested_attributes_for :preferences

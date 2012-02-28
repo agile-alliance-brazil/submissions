@@ -6,10 +6,6 @@ describe UserSessionsController do
   render_views
   it_should_behave_like_a_devise_controller
   
-  before do
-    FactoryGirl.build(:conference)
-  end
-  
   it "new action should render new template" do
     get :new
     response.should render_template('static_pages/home')

@@ -340,7 +340,19 @@ en:
       description: "Dedicated to professionals working with agile methodologies or are interested in the technical quality of software products. You will find tutorials, workshops and lectures addressing programming, continuous integration and automated testing topics and the use of electronic tools to support agile development."
     experience_reports:
       title: "Experience Reports"
-      description: "An experience report captures the story of a real agile experience, being projects, transitions, courses or communities. These reports allow practitioners to share their practical advice and guidance with other people and teams."
+      description: "Those who want to share their real experiences with agile methods in projects, transitions, courses or communities are welcome here. The reports on this track invite sharing pragmatic tips that can inspire other people and teams."
+    development_tests:
+      title: "Development and Tests"
+      description: "This track gathers sessions related to agile methods and practices for software development and testing. Programming, continuous integration, test automation, acceptance and integration testing and tools will be featured in this track's lectures and workshops. Devops sessions are also welcome in this category."
+    analysis_planning:
+      title: "Analysis and Planning"
+      description: "Agile project analysis and planning are the core of this track. Sessions will cover themes as business analysis, requirements analysis, estimation and prioritization techniques, release planning and implementation strategies for projects."
+    management_culture:
+      title: "Management and Culture"
+      description: "This track is about project and team management. Expected topics include building teams, project facilitation, coaching, organizational culture, agile values and principles, democratic management, self-organization, product, processes and projects management."
+    innovation_entrepreneurship:
+      title: "Innovation and Entrepreneurship"
+      description: "This is the track for those who seek innovating and endeavoring, be it as a collaborator or as an entrepreneur. On this track, you will find sessions about Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping and many other subjects that relate agile methods to innovation processes."
 
   audience_levels:
     beginner:

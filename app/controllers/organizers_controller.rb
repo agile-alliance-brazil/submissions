@@ -3,6 +3,8 @@ class OrganizersController < InheritedResources::Base
   actions :index, :new, :create, :update, :edit, :destroy
   respond_to :html
   
+  before_filter :load_tracks
+  
   def create
     create! do |success, failure|
       success.html do
@@ -34,6 +36,10 @@ class OrganizersController < InheritedResources::Base
     attributes = params[:organizer] || {}
     attributes[:conference_id] = current_conference.id
     @organizer ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+  
+  def load_tracks
+    @tracks ||= current_conference.tracks
   end
 
   def collection

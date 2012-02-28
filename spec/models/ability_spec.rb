@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Ability do
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @conference = FactoryGirl.create(:conference)
+    @conference = Conference.current
   end
   
   shared_examples_for "all users" do
@@ -264,7 +264,7 @@ describe Ability do
       it "- session on current conference" do
         @session.author = @user
         @ability.should be_able_to(:update, @session)
-        @session.conference = FactoryGirl.create(:conference)
+        @session.conference = Conference.first
         @ability.should_not be_able_to(:update, @session)
       end
     end
@@ -498,9 +498,6 @@ describe Ability do
       end
       
       it "- session on organizer's track" do
-        @ability.should_not be_able_to(:cancel, @session)
-
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:cancel, @session)
 
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)

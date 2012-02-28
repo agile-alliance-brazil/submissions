@@ -3,8 +3,10 @@ class SessionsController < InheritedResources::Base
   actions :all, :except => [:destroy]
   has_scope :for_user, :only => :index, :as => 'user_id'
   before_filter :load_user
+  before_filter :load_tracks
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
+  
   has_scope :tagged_with, :only => :index
   
   def create
@@ -52,6 +54,10 @@ class SessionsController < InheritedResources::Base
   
   def load_comment
     @comment = Comment.new(:user_id => current_user.id, :commentable_id => @session.id)
+  end
+  
+  def load_tracks
+    @tracks ||= current_conference.tracks
   end
 
   def check_conference
