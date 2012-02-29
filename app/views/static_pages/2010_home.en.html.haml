@@ -11,12 +11,12 @@
 %h3 Important dates
 
 %ul
-  %li #{l(Date.new(2010, 1, 31))}: Release of proposal submission form
-  %li #{l(Date.new(2010, 3, 7))}: Submission deadline
-  %li #{l(Date.new(2010, 5, 3))}: Acceptance notification
+  %li #{l(@conference.call_for_papers.to_date)}: Release of proposal submission form
+  %li #{l(@conference.submissions_deadline.to_date)}: Submission deadline
+  %li #{l(@conference.author_notification.to_date)}: Acceptance notification
   %li
     %strong
-      #{l(Date.new(2010, 5, 17))}: Inscription deadline to selected authors
+      #{l(@conference.author_confirmation.to_date)}: Inscription deadline to selected authors
 
 %p
   <strong>Supported by</strong>: Faculdade de Informática (FACIN) - PUCRS

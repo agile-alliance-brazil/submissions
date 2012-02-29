@@ -11,12 +11,12 @@
 %h3 Datas importantes
 
 %ul
-  %li #{l(Date.new(2010, 1, 31))}: Abertura do formulário de submissão de propostas
-  %li #{l(Date.new(2010, 3, 7))}: Submissão de propostas
-  %li #{l(Date.new(2010, 5, 3))}: Notificação aos autores selecionados
+  %li #{l(@conference.call_for_papers.to_date)}: Abertura do formulário de submissão de propostas
+  %li #{l(@conference.submissions_deadline.to_date)}: Submissão de propostas
+  %li #{l(@conference.author_notification.to_date)}: Notificação aos autores selecionados
   %li
     %strong
-      #{l(Date.new(2010, 5, 17))}: Limite para inscrição no evento dos autores selecionados
+      #{l(@conference.author_confirmation.to_date)}: Limite para inscrição no evento dos autores selecionados
 
 %p
   <strong>Realização</strong>: Faculdade de Informática (FACIN) - PUCRS

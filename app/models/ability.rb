@@ -2,8 +2,6 @@
 class Ability
   include CanCan::Ability
 
-  AUTHOR_NOTIFICATION_DEADLINE = Time.zone.local(2011, 4, 30, 23, 59, 59)
-
   def initialize(user, conference, params={})
     @user = user || User.new # guest
     @conference = conference

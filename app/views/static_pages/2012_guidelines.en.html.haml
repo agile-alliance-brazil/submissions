@@ -28,9 +28,9 @@
 %p See the important dates below:
 
 %ul
-  %li #{l(@conference.call_for_papers)}: Call for Submissions
-  %li #{l(@conference.submissions_open)}: Release of proposal submission form
-  %li #{l(@conference.submissions_deadline)}: Submission deadline
-  %li #{l(@conference.author_notification)}: Acceptance notification
+  %li #{l(@conference.call_for_papers.to_date)}: Call for Submissions
+  %li #{l(@conference.submissions_open.to_date)}: Release of proposal submission form
+  %li #{l(@conference.submissions_deadline.to_date)}: Submission deadline
+  %li #{l(@conference.author_notification.to_date)}: Acceptance notification
   %li
-    %strong #{l(@conference.author_confirmation)}: Inscription deadline to selected authors
+    %strong #{l(@conference.author_confirmation.to_date)}: Inscription deadline to selected authors

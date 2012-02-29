@@ -2,7 +2,7 @@
   - if current_user.author? || current_user.organizer?
     #date
       %p= t('actions.author_confirmation_date')
-      %p <strong>#{l(@conference.author_confirmation)}</strong>
+      %p <strong>#{l(@conference.author_confirmation.to_date)}</strong>
       - if current_user.organizer?
         #review_progress_count
           #{t('actions.review_goal')}:
