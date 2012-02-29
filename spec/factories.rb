@@ -38,6 +38,7 @@ FactoryGirl.define do
   end
 
   factory :audience_level do
+    conference { Conference.current }
     title "audience_levels.beginner.title"
     description "audience_levels.beginner.description"
   end

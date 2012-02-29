@@ -109,7 +109,15 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first)
         session.should_not be_valid
-        session.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        session.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+      end
+    end
+
+    context "audience level" do
+      it "should match the conference" do
+        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session.should_not be_valid
+        session.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
     

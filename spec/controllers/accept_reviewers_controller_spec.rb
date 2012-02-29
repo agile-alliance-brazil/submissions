@@ -29,4 +29,9 @@ describe AcceptReviewersController do
     get :show, :reviewer_id => @reviewer.id
     assigns(:reviewer).preferences.size.should == 1
   end
+  
+  it "show action should only assign audience levels for current conference" do
+    get :show, :reviewer_id => @reviewer.id
+    (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
+  end
 end

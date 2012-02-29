@@ -4,6 +4,7 @@ class SessionsController < InheritedResources::Base
   has_scope :for_user, :only => :index, :as => 'user_id'
   before_filter :load_user
   before_filter :load_tracks
+  before_filter :load_audience_levels
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
   
@@ -58,6 +59,10 @@ class SessionsController < InheritedResources::Base
   
   def load_tracks
     @tracks ||= @conference.tracks
+  end
+
+  def load_audience_levels
+    @audience_levels ||= @conference.audience_levels
   end
 
   def check_conference

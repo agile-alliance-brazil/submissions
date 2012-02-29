@@ -15,5 +15,9 @@ class Preference < ActiveRecord::Base
   
   validates_each :track_id, :allow_blank => true, :if => :accepted? do |record, attr, value|
     record.errors.add(:accepted, :organizer_track) unless record.reviewer.can_review?(record.track)
+    record.errors.add(attr, :invalid) if record.track.conference_id != record.reviewer.conference_id
+  end
+  validates_each :audience_level_id, :allow_blank => true, :if => :accepted? do |record, attr, value|
+    record.errors.add(attr, :invalid) if record.audience_level.conference_id != record.reviewer.conference_id
   end
 end

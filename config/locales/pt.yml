@@ -215,6 +215,8 @@ pt:
 
   activerecord:
     errors:
+      messages:
+        existence: não existe
       models:
         user:
           attributes:

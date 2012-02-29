@@ -4,6 +4,7 @@ require 'spec_helper'
 describe Conference do
   context "associations" do
     it { should have_many :tracks }
+    it { should have_many :audience_levels }
   end
 
   it "should overide to_param with year" do

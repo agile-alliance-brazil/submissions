@@ -30,7 +30,7 @@ describe Organizer do
         organizer = FactoryGirl.build(:organizer)
         organizer.user_username = 'invalid_username'
         organizer.should_not be_valid
-        organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
+        organizer.errors[:user_username].should include(I18n.t("errors.messages.existence"))
       end
     end
     
@@ -39,7 +39,7 @@ describe Organizer do
         track = FactoryGirl.create(:track)
         organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
         organizer.should_not be_valid
-        organizer.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        organizer.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
   end

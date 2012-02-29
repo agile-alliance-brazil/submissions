@@ -1,7 +1,7 @@
 = form.inputs do
   = form.input :author_id, :as => :hidden, :input_html => {:tabindex => autotab}
   = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
-  = form.input :audience_level_id, :required => true, :as => :select, :collection => AudienceLevel.all, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+  = form.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
   = form.input :session_type_id, :required => true, :as => :select, :collection => SessionType.all, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}
   = form.input :duration_mins, :required => true, :as => :select, :collection => [["10 #{t('generic.minutes')}", 10], ["50 #{t('generic.minutes')}", 50], ["110 #{t('generic.minutes')}", 110]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}

@@ -10,6 +10,10 @@ describe AudienceLevel do
   
   context "associations" do
     it { should have_many :sessions }
+    it { should belong_to :conference }
   end
-
+  
+  context "named scopes" do
+    xit {should have_scope(:for_conference, :with => '1').where('conference_id = 1') }
+  end
 end

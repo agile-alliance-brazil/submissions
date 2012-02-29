@@ -22,6 +22,24 @@ describe Preference do
 
     should_validate_existence_of :reviewer, :track
 
+    context "track" do
+      it "should match the conference" do
+        reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
+        preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
+        preference.should_not be_valid
+        preference.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+      end
+    end
+
+    context "audience level" do
+      it "should match the conference" do
+        reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
+        preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
+        preference.should_not be_valid
+        preference.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
+      end
+    end
+
     describe "should validate preference for organizer" do
       before(:each) do
         @organizer = FactoryGirl.create(:organizer)

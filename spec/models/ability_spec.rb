@@ -101,7 +101,8 @@ describe Ability do
       
       it "- reviewer is in invited state" do
         @ability.should be_able_to(:update, @reviewer)
-        @reviewer.preferences.create(:accepted => true, :track_id => 1, :audience_level_id => 1)
+        conference = @reviewer.conference
+        @reviewer.preferences.create(:accepted => true, :track_id => conference.tracks.first.id, :audience_level_id => conference.audience_levels.first.id, :conference_id => conference.id)
         @reviewer.accept
         @ability.should_not be_able_to(:update, @reviewer)
       end
@@ -779,7 +780,7 @@ describe Ability do
       @user.add_role "reviewer"
       reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
       reviewer.invite
-      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+      reviewer.preferences.build(:accepted => true, :track_id => @conference.tracks.first.id, :audience_level_id => @conference.audience_levels.first.id, :conference_id => @conference.id)
       reviewer.accept
       @ability = Ability.new(@user, @conference)
     end

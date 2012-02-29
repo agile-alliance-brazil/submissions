@@ -25,7 +25,7 @@ describe SessionsController do
   end
 
   it "show action should display flash news if session from previous conference" do
-    old_session = FactoryGirl.create(:session, :track =>Track.first, :conference => Conference.first)
+    old_session = FactoryGirl.create(:session, :audience_level => AudienceLevel.first, :track =>Track.first, :conference => Conference.first)
     FactoryGirl.create(:session)
     get :show, :id => old_session.id
     flash[:news].should == "Você está acessando uma proposta da #{old_session.conference.name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da #{Conference.current.name}."
@@ -38,7 +38,12 @@ describe SessionsController do
   
   it "new action should only assign tracks for current conference" do
     get :new
-    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+    (assigns(:tracks) - Conference.current.tracks).should be_empty
+  end
+
+  it "new action should only assign audience_levels for current conference" do
+    get :new
+    (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
   end
 
   it "create action should render new template when model is invalid" do
@@ -62,7 +67,12 @@ describe SessionsController do
 
   it "edit action should only assign tracks for current conference" do
     get :edit, :id => Session.first
-    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+    (assigns(:tracks) - Conference.current.tracks).should be_empty
+  end
+  
+  it "edit action should only assign audience levels for current conference" do
+    get :edit, :id => Session.first
+    (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
   end
   
   it "update action should render edit template when model is invalid" do

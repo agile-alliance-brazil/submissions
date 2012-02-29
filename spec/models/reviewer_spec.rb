@@ -149,7 +149,7 @@ describe Reviewer do
       end
       
       it "should allow accepting" do
-        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id, :conference_id => @reviewer.conference.id)
         @reviewer.accept.should be_true
         @reviewer.should_not be_invited
         @reviewer.should be_accepted
@@ -165,7 +165,7 @@ describe Reviewer do
     context "State: accepted" do
       before(:each) do
         @reviewer.invite
-        @reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id, :conference_id => @reviewer.conference.id)
         @reviewer.accept
         @reviewer.should be_accepted
       end
@@ -223,7 +223,7 @@ describe Reviewer do
       reviewer = FactoryGirl.create(:reviewer, :user => @user)
       reviewer.invite
       @user.should_not be_reviewer
-      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id, :conference_id => reviewer.conference.id)
       reviewer.accept
       @user.should be_reviewer
       @user.reload.should be_reviewer
@@ -232,7 +232,7 @@ describe Reviewer do
     it "should remove organizer role after destroyed" do
       reviewer = FactoryGirl.create(:reviewer, :user => @user)
       reviewer.invite
-      reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
+      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id, :conference_id => reviewer.conference.id)
       reviewer.accept
       @user.should be_reviewer
       reviewer.destroy
