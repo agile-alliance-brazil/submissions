@@ -5,6 +5,7 @@ class SessionsController < InheritedResources::Base
   before_filter :load_user
   before_filter :load_tracks
   before_filter :load_audience_levels
+  before_filter :load_session_types
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
   
@@ -63,6 +64,10 @@ class SessionsController < InheritedResources::Base
 
   def load_audience_levels
     @audience_levels ||= @conference.audience_levels
+  end
+
+  def load_session_types
+    @session_types ||= @conference.session_types
   end
 
   def check_conference

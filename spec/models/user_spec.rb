@@ -120,6 +120,11 @@ describe User do
     end
     
     describe "#has_approved_session?" do
+      before(:each) do
+        @lightning_talk = Conference.current.session_types.find {|st| st.lightning_talk? }
+        @non_lightning_talk = Conference.current.session_types.find {|st| !st.lightning_talk? }
+      end
+
       it "should not have approved long sessions if never submited" do
          user = FactoryGirl.build(:user)
          user.should_not have_approved_session(Conference.current)
@@ -134,30 +139,30 @@ describe User do
       
       it "should have approved long sessions if accepted was lightning talk" do
          user = FactoryGirl.create(:user)
-         session = FactoryGirl.create(:session, :author => user, :session_type_id => 4, :duration_mins => 10, :state => 'accepted')
+         session = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end
       
       it "should have approved long sessions if accepted was not lightning talk" do
          user = FactoryGirl.create(:user)
-         session = FactoryGirl.create(:session, :author => user, :session_type_id => 1, :state => 'accepted')
+         session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end
 
       it "should have approved long sessions if accepted contains at least one non lightning talk" do
         user = FactoryGirl.create(:user)
-        session = FactoryGirl.create(:session, :author => user, :session_type_id => 1, :state => 'accepted')
-        lightning_talk = FactoryGirl.create(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'accepted')
+        session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk, :state => 'accepted')
+        lightning_talk = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10,  :state => 'accepted')
 
         user.should have_approved_session(session.conference)
       end
 
       it "should not have approved long sessions if no sessions was not accepted" do
         user = FactoryGirl.build(:user)
-        session = FactoryGirl.build(:session, :author => user, :session_type_id => 1, :state => 'cancelled')
-        lightning_talk = FactoryGirl.build(:session, :author => user, :session_type_id => 4, :duration_mins => 10,  :state => 'rejected')
+        session = FactoryGirl.build(:session, :author => user, :session_type => @non_lightning_talk, :state => 'cancelled')
+        lightning_talk = FactoryGirl.build(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10,  :state => 'rejected')
 
         user.should_not have_approved_session(session.conference)
       end
@@ -165,7 +170,7 @@ describe User do
       it "should have approved sessions as second author" do
          user = FactoryGirl.create(:user)
          user.add_role :author
-         session = FactoryGirl.create(:session, :second_author => user, :session_type_id => 1, :state => 'accepted')
+         session = FactoryGirl.create(:session, :second_author => user, :state => 'accepted')
 
          user.should have_approved_session(session.conference)
       end

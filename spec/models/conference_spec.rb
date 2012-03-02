@@ -5,6 +5,7 @@ describe Conference do
   context "associations" do
     it { should have_many :tracks }
     it { should have_many :audience_levels }
+    it { should have_many :session_types }
   end
 
   it "should overide to_param with year" do

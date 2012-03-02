@@ -120,14 +120,30 @@ describe Session do
         session.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
+
+    context "session type" do
+      it "should match the conference" do
+        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session.should_not be_valid
+        session.errors[:session_type_id].should include(I18n.t("errors.messages.invalid"))
+      end
+    end
     
-    context "workshop" do
-      it "should validate presence of mechanics" do
-        session = FactoryGirl.build(:session)
-        session.mechanics = nil
+    context "mechanics" do
+      it "should be present for workshops" do
+        session = FactoryGirl.build(:session, :mechanics => nil)
         session.should be_valid
         session.session_type = SessionType.new(:title => 'session_types.workshop.title')
         session.should_not be_valid
+        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
+      end
+
+      it "should be present for hands on" do
+        session = FactoryGirl.build(:session, :mechanics => nil)
+        session.should be_valid
+        session.session_type = SessionType.new(:title => 'session_types.hands_on.title')
+        session.should_not be_valid
+        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
       end
     end
 
@@ -298,14 +314,6 @@ describe Session do
         Session.for_reviewer(reviewer.user, conference).should == [1, 4]
       end
     end
-  end
-
-  it "should determine if it's workshop" do
-    workshop = SessionType.new(:title => 'session_types.workshop.title')
-    session = FactoryGirl.build(:session)
-    session.should_not be_workshop
-    session.session_type = workshop
-    session.should be_workshop
   end
 
   it "should determine if it's lightning talk" do

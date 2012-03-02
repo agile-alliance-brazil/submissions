@@ -27,6 +27,7 @@ FactoryGirl.define do
   end
 
   factory :session_type do
+    conference { Conference.current }
     title "session_types.tutorial.title"
     description "session_types.tutorial.description"
   end

@@ -521,10 +521,13 @@ pt:
       description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para discutir novas idéias a serem compartilhadas com a comunidade."
     talk:
       title: "Palestra"
-      description: "Palestras direcionadas àqueles procurando por tópicos a fim de aumentar seus conhecimentos sobre metodologias Ágeis e as melhores práticas usadas pela comunidade Ágil."
+      description: "Palestras são sessões com assuntos específicos e direcionadas àqueles que tem como objetivo aumentar seu conhecimento sobre os métodos ágeis e as melhores práticas usadas pela comunidade ágil. "
     lightning_talk:
       title: "Lightning Talk"
-      description: "Lightning talks são palestras de no máximo 8 minutos com 2 minutos para perguntar (sem slides) que têm o objetivo de transmitir uma ideia de forma rápida e concisa. O uso de slides é opcional. Um dos formatos conhecidos para lightning talk é o Pecha Kucha, no qual o apresentador tem 20 slides mudando automaticamente a cada 20 segundos, totalizando 6 minutos e 40 segundos de apresentação."
+      description: "Lightning talks são palestras curtas (8 minutos de apresentação e 2 minutos para perguntas)  que tem o objetivo de transmitir uma ideia de forma rápida e concisa. O uso de slides é opcional. Um dos formatos conhecidos para lightning talk é o Pecha Kucha, no qual o apresentador tem 20 slides mudando automaticamente a cada 20 segundos, totalizando 6 minutos e 40 segundos de apresentação. "
+    hands_on:
+      title: "Mão na Massa"
+      description: 'Sessões "mão na massa" são workshops e tutoriais com atividades práticas e participação do público. O objetivo principal é transmitir o conhecimento aos participantes de uma maneira prática. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias a fim de expandir uma nova técnica ou para discutir novas idéias a serem compartilhadas com a comunidade. Tutoriais são aulas guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos ágeis.'
 
   tracks:
     general_interest:

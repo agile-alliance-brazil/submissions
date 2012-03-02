@@ -25,7 +25,7 @@ class Session < ActiveRecord::Base
                         :audience_level_id, :author_id, :track_id, :session_type_id,
                         :experience, :duration_mins, :keyword_list, :conference_id
 
-  validates_presence_of :mechanics, :if => :workshop?
+  validates_presence_of :mechanics, :if => :requires_mechanics?
   validates_inclusion_of :duration_mins, :in => [10, 50, 110], :allow_blank => true
   validates_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
 
@@ -68,6 +68,9 @@ class Session < ActiveRecord::Base
   end
   validates_each :audience_level_id, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :invalid) if record.audience_level.conference_id != record.conference_id
+  end
+  validates_each :session_type_id, :allow_blank => true do |record, attr, value|
+    record.errors.add(attr, :invalid) if record.session_type.conference_id != record.conference_id
   end
 
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
@@ -156,15 +159,15 @@ class Session < ActiveRecord::Base
   end
 
   def lightning_talk?
-    self.session_type.try(:title) == 'session_types.lightning_talk.title'
+    self.session_type.try(:lightning_talk?)
   end
 
   private
-  def workshop?
-    self.session_type.try(:title) == 'session_types.workshop.title'
+  def requires_mechanics?
+    session_type.try(:workshop?) || session_type.try(:hands_on?)
   end
 
   def experience_report?
-    self.track.try(:title) == 'tracks.experience_reports.title'
+    track.try(:experience_report?)
   end
 end

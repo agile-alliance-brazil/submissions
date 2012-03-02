@@ -8,4 +8,8 @@ class Track < ActiveRecord::Base
   validates_presence_of :title, :description
 
   scope :for_conference, lambda { |c| where(:conference_id => c.id) }
+
+  def experience_report?
+    self.title == 'tracks.experience_reports.title'
+  end
 end

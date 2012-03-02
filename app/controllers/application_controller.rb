@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_conference
-    @conference ||= params[:year].present? ? Conference.find_by_year(params[:year]) : Conference.current
+    @conference ||= Conference.find_by_year(params[:year]) || Conference.current
   end
 
   def authorize_action

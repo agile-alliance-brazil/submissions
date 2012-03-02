@@ -326,11 +326,14 @@ en:
       title: "Workshop"
       description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or discuss new ideas to be shared with the community."
     talk:
-      title: "Talk"
-      description: "Presentations aimed at those people who are looking for a topic to increase their knowledge about the Agile methodologies and the best practices used by the Agile community."
+      title: "Lecture"
+      description: "Lectures are sessions addressing specific topics and directed to those who want to enhance their knowledge in agile methods and best practices."
     lightning_talk:
       title: "Lightning Talk"
       description: "Lightning talks are short talks with, at most, 8 minutes length plus 2 minutes for questions (without slides) whose objective is to present an idea in a quick and concise way. The use of slides is optional. A well-known format for lightning talks is Pecha Kucha, in which the presenter has 20 slides switching automatically every 20 seconds, summing up to a 6 minutes and 40 seconds presentation."
+    hands_on:
+      title: "Hands On"
+      description: "Hands on sessions are workshops and tutorials where the attendants are expected to take part in an activity and learn from practice. A workshop is an opportunity to learn from other attendees or to discuss new ideas that will be shared with the community. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects."
 
   tracks:
     general_interest:
