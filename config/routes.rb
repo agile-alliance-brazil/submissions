@@ -1,7 +1,5 @@
 # encoding: UTF-8
 AgileBrazil::Application.routes.draw do
-  root :to => 'static_pages#show', :page => 'home'
-
   devise_for :users,
              :controllers => {
                :sessions      => "user_sessions",
@@ -14,13 +12,12 @@ AgileBrazil::Application.routes.draw do
                :sign_up       => 'signup'
              }
 
-  resources :users, :only => [:index, :show] do
-    match 'my_sessions' => 'sessions#index', :as => :my_sessions
-  end
-  
+  resources :users, :only => [:index, :show]
   resources :tags, :only => [:index]
 
   scope "(:year)", :constraints => { :year => /\d{4}/ } do
+    root :to => 'static_pages#show', :page => 'home'
+    
     resources :audience_levels, :only => [:index]
     resources :organizers, :except => [:show]
     resources :organizer_sessions, :only => [:index]
@@ -44,6 +41,9 @@ AgileBrazil::Application.routes.draw do
       resources :review_decisions, :only => [:new, :create, :edit, :update]
       resource :confirm, :only => [:show, :update], :controller => :confirm_sessions
       resource :withdraw, :only => [:show, :update], :controller => :withdraw_sessions
+    end
+    resources :users, :except => [:index, :show, :new, :create, :update, :edit, :destroy] do
+      resources :sessions, :only => [:index]
     end
 
     resources :accepted_sessions, :only => [:index]

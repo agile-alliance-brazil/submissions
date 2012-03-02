@@ -3,7 +3,7 @@
 
 - if user_signed_in?
   %ul.piped
-    %li= link_to t('title.user_sessions', :name => @user_profile.first_name), user_my_sessions_path(@user_profile)
+    %li= link_to t('title.user_sessions', :name => @user_profile.first_name), user_sessions_path(@conference, @user_profile)
     - if can? :update, @user_profile
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
 

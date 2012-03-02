@@ -33,6 +33,6 @@ describe ConfirmSessionsController do
   it "update action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
     put :update, :session_id => @session.id, :session => {}
-    response.should redirect_to(user_my_sessions_path(@user))
+    response.should redirect_to(user_sessions_path(Conference.current, @user))
   end  
 end
