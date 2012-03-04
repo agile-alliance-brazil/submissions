@@ -30,6 +30,7 @@ group :assets do
   gem 'sass-rails', '=3.1.5'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
+  gem 'jquery-ui-rails', '=0.2.2'
 end
 
 platforms :ruby do

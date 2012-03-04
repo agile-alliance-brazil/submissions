@@ -3,5 +3,7 @@
 
 :javascript
   $(document).ready(function() {
-    $("#reviewer_user_username").autocomplete("#{users_path(:format => :js)}");
+    $("#reviewer_user_username").autocomplete({
+      source: "#{users_path(:format => :js)}"
+    });
   })

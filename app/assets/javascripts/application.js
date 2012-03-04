@@ -1,7 +1,10 @@
-//= require jquery
-//= require jquery_ujs
-//= require_self
-//= require_tree .
+/*
+*= require jquery
+*= require jquery_ujs
+*= require jquery.ui.autocomplete
+*= require_self
+*= require_tree .
+*/
 
 jQuery.fn.bindSelectUpdated = function() {
   return this.each(function() {

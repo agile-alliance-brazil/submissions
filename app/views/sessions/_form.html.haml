@@ -17,10 +17,45 @@
 
 :javascript
   $(document).ready(function() {
-    $("#session_second_author_username").autocomplete("#{users_path(:format => :js)}");
-    $("#session_keyword_list").autocomplete("#{tags_path(:format => :js)}", {
-      multiple: true
+    $("#session_second_author_username").autocomplete({
+      source: "#{users_path(:format => :js)}"
     });
+    function split(val) {
+      return val.split(/,\s*/);
+    }
+    function extractLast(term) {
+      return split(term).pop();
+    }
+
+    $("#session_keyword_list")
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        source: function(request, response) {
+          $.getJSON("#{tags_path(:format => :js)}", {
+            term: extractLast(request.term)
+          }, response);
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function(event, ui) {
+          var terms = split(this.value);
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push(ui.item.value);
+          // add placeholder to get the comma-and-space at the end
+          terms.push("");
+          this.value = terms.join(", ");
+          return false;
+        }
+      });
     
     $("#session_session_type_id").filterOn("#session_track_id", {
       "4":  ["", "1", "2"],

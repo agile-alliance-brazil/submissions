@@ -1,8 +1,9 @@
 /*
  *= require_self
+ *= require jquery.ui.autocomplete
+ *= require jquery.ui.autocomplete_changes
  *= require formtastic
  *= require formtastic_changes
- *= require jquery.autocomplete
  */
 
 @import "mixins/reset.scss";
