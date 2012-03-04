@@ -1,12 +1,12 @@
 - if user_signed_in?
-  - if current_user.author? || current_user.organizer?
-    #date
-      %p= t('actions.author_confirmation_date')
-      %p <strong>#{l(@conference.author_confirmation.to_date)}</strong>
-      - if current_user.organizer?
-        #review_progress_count
-          #{t('actions.review_goal')}:
-          %span.progress
+  / - if current_user.author? || current_user.organizer?
+  #date
+    %p= t('actions.submission_date')
+    %p <strong>#{l(@conference.submissions_deadline.to_date)}</strong>
+    / - if current_user.organizer?
+    /   #review_progress_count
+    /     #{t('actions.review_goal')}:
+    /     %span.progress
   %h3&= current_user.full_name
 
   %h4= t('actions.section.session')
