@@ -2,8 +2,9 @@
 class AddRegistrationDateToAttendees < ActiveRecord::Migration
   def self.up
     add_column :attendees, :registration_date, :datetime
-    
-    Attendee.update_all('registration_date = created_at')
+
+    # There no attendee anymore
+    # Attendee.update_all('registration_date = created_at')
   end
 
   def self.down

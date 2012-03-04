@@ -19,8 +19,9 @@ class CreateConferences < ActiveRecord::Migration
       Organizer.update_all :conference_id => agile_brazil_2010.id
       Reviewer.update_all :conference_id => agile_brazil_2010.id
       Session.update_all :conference_id => agile_brazil_2010.id
-      Slot.update_all :conference_id => agile_brazil_2010.id
+      # Slot.update_all :conference_id => agile_brazil_2010.id // slot no longer exists
     end
+    Conference.create!(:name => "Agile Brazil 2011", :year => 2011)
   end
 
   def self.down
