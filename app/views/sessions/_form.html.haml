@@ -1,19 +1,19 @@
 = form.inputs do
   = form.input :author_id, :as => :hidden, :input_html => {:tabindex => autotab}
-  = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
-  = form.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
-  = form.input :session_type_id, :required => true, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}
+  = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.track_id', :year => "/#{@conference.year}")
+  = form.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.audience_level_id', :year => "/#{@conference.year}")
+  = form.input :session_type_id, :required => true, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.session_type_id', :year => "/#{@conference.year}")
   = form.input :duration_mins, :required => true, :as => :select, :collection => [["10 #{t('generic.minutes')}", 10], ["50 #{t('generic.minutes')}", 50], ["110 #{t('generic.minutes')}", 110]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
   = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab}
   = form.input :second_author_username, :input_html => {:tabindex => autotab}
   = form.input :target_audience, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
-  = form.input :description, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :mechanics, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :benefits, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
-  = form.input :experience, :required => true, :input_html => {:rows => 10, :tabindex => autotab}
+  = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}, :hint => t('formtastic.hints.session.summary', :year => "/#{@conference.year}")
+  = form.input :description, :required => true, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.description', :year => "/#{@conference.year}")
+  = form.input :mechanics, :required => true, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.mechanics', :year => "/#{@conference.year}")
+  = form.input :benefits, :required => true, :input_html => {:rows => 10, :tabindex => autotab}, :hint => t('formtastic.hints.session.benefits', :year => "/#{@conference.year}")
+  = form.input :experience, :required => true, :input_html => {:rows => 10, :tabindex => autotab}, :hint => t('formtastic.hints.session.experience', :year => "/#{@conference.year}")
 
 :javascript
   $(document).ready(function() {
@@ -56,7 +56,7 @@
           return false;
         }
       });
-    
+
     $("#session_session_type_id").filterOn("#session_track_id", {
       "4":  ["", "1", "2"],
       "8":  ["", "4", "5"],
@@ -80,10 +80,10 @@
 
     $("#session_session_type_id").bind('updated', sessionTypeActions);
     $("#session_session_type_id").bindSelectUpdated();
-    
+
     $("#session_session_type_id, #session_track_id").trigger('updated');
   })
-  
+
   function sessionTypeActions() {
     // Workshops, Tutorials, or Hands On
     if ($.inArray($(this).val(), ['1', '2', '4', '5', '9']) !== -1) {

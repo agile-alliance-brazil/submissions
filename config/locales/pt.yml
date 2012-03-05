@@ -10,7 +10,7 @@ pt:
     - Sex
     - Sáb
     abbr_month_names:
-    - 
+    -
     - Jan
     - Fev
     - Mar
@@ -36,7 +36,7 @@ pt:
       long: ! '%d de %B de %Y'
       short: ! '%d de %B'
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março
@@ -164,7 +164,7 @@ pt:
       long: ! '%A, %d de %B de %Y, %H:%M h'
       short: ! '%d/%m, %H:%M h'
     pm: ''
-        
+
   # ActiveRecord
   errors:
     format: ! '%{attribute} %{message}'
@@ -370,21 +370,21 @@ pt:
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
         current_password: "Para qualquer alteração no perfil é preciso confirmar sua senha atual."
       session:
-        track_id: "A descrição de cada trilha pode ser consultada <a href='/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 50 minutos de duração ou Lightning Talks com 10 minutos de duração."
-        session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='/session_types?locale=pt' target='_blank'>aqui</a>."
+        track_id: "A descrição de cada trilha pode ser consultada <a href='%{year}/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 50 minutos de duração ou Lightning Talks com 10 minutos de duração."
+        session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='%{year}/session_types?locale=pt' target='_blank'>aqui</a>."
         duration_mins: "Palestras devem ter duração de 50 minutos, sessões Mão na Massa 110 minutos e Lightning Talks 10 minutos."
-        audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='/audience_levels?locale=pt' target='_blank'>aqui</a>."
+        audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='%{year}/audience_levels?locale=pt' target='_blank'>aqui</a>."
         audience_limit: "Se a sua sessão for Mão na Massa, indique se ela tem um número máximo de participantes."
         target_audience: "Descreva um pouco sobre o público-alvo, por exemplo: desenvolvedores, iniciantes em Métodos Ágeis, analistas, arquitetos, QAs, gerentes de projeto, executivos."
-        summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        description: "Descreva o conteúdo completo de sua sessão. Deixe bem claro o tema a ser abordado e seus objetivos. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        mechanics: "Obrigatório para sessões Mão na Massa. Descreva com detalhes como você pretende realizar a sessão e sua interação com o público. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        benefits: "Escreva quais serão os benefícios obtidos pelo público ao assistir sua palestra. O que eles aprenderão, o que experimentarão, como poderão utilizar, o que vão disseminar. Descreva também quais os diferenciais de sua sessão e sua relevância para a comunidade. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
-        experience: "Descreva suas experiências com o assunto que deseja apresentar. Enfoque nas suas ações, no ambiente e suas inspirações. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        summary: "Informações sobre a sessão para veiculação no programa. Devem estar de acordo com a descrição completa da atividade. Este campo não será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        description: "Descreva o conteúdo completo de sua sessão. Deixe bem claro o tema a ser abordado e seus objetivos. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        mechanics: "Obrigatório para sessões Mão na Massa. Descreva com detalhes como você pretende realizar a sessão e sua interação com o público. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        benefits: "Escreva quais serão os benefícios obtidos pelo público ao assistir sua palestra. O que eles aprenderão, o que experimentarão, como poderão utilizar, o que vão disseminar. Descreva também quais os diferenciais de sua sessão e sua relevância para a comunidade. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        experience: "Descreva suas experiências com o assunto que deseja apresentar. Enfoque nas suas ações, no ambiente e suas inspirações. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         second_author_username: "Digite o nome de usuário do segundo palestrante neste campo. O segundo palestrante também precisa ser um usuário registrado. Se você não sabe o nome de usuário do segundo palestrante ou ele(a) ainda não se cadastrou, deixe este campo em branco e edite sua proposta antes do prazo de submissão."
         keyword_list: "Digite as palavras-chave separadas por vírgula."
       comment:
-        comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
       reviewer:
         user_username: "Digite o nome de usuário do avaliador neste campo."
       review:

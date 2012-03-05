@@ -20,13 +20,13 @@
 
 :javascript
   $(document).ready(function() {
-    $("#user_country").bind('updated', countryTriggered);  
+    $("#user_country").bind('updated', countryTriggered);
     $("#user_country").bindSelectUpdated();
-    
+
     $("#user_wants_to_submit").change(wantsToSubmitTriggered).trigger('change');
     $("#user_country").trigger('updated');
   })
-  
+
   function countryTriggered() {
     if ($(this).val() != "BR") {
       $('#user_state').val('').attr('disabled', 'disabled');
@@ -36,7 +36,7 @@
       $('#user_state_input').find('label abbr').show();
     }
   }
-  
+
   function wantsToSubmitTriggered() {
     if ($(this).is(":checked")) {
       $("#user_country").removeAttr('disabled').trigger('updated');
