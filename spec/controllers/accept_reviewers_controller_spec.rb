@@ -1,18 +1,27 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe AcceptReviewersController do
-  render_views
-
-  it_should_require_login_for_actions :show
-
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @reviewer = FactoryGirl.create(:reviewer, :user => @user)
+    @reviewer = FactoryGirl.create(:reviewer)
     Reviewer.stubs(:find).returns(@reviewer)
-    sign_in @user
+    sign_in @reviewer.user
     disable_authorization
   end
+  
+  describe "with view rendering", :render_views => true do
+    render_views
+  
+    it "show pt should work" do
+      get :show, :reviewer_id => @reviewer.id, :locale => :pt
+    end
+  
+    it "show en should work" do
+      get :show, :reviewer_id => @reviewer.id, :locale => :en
+    end
+  end
+
+  it_should_require_login_for_actions :show
 
   it "show action should render show template" do
     get :show, :reviewer_id => @reviewer.id
