@@ -15,7 +15,7 @@
       %li= link_to t('actions.submit_session'), new_session_path(@conference)
     - if can? :read, Session
       %li= link_to t('actions.browse_sessions'), sessions_path(@conference)
-      - if current_user.sessions.count > 0
+      - if current_user.sessions_for_conference(@conference).count > 0
         %li= link_to t('actions.my_sessions'), user_sessions_path(@conference, current_user)
 
   - if current_user.reviewer? || current_user.organizer? || current_user.admin?

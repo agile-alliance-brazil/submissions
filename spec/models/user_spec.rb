@@ -119,6 +119,27 @@ describe User do
       end
     end
     
+    describe "sessions for conference" do
+      it "should narrow sessions based on conference for user" do
+        session = FactoryGirl.create(:session)
+        FactoryGirl.create(:session)
+        FactoryGirl.create(:session, :conference => Conference.first, :track => Track.first, :audience_level => AudienceLevel.first, :session_type => SessionType.first, :author => session.author)
+        user = session.author
+        
+        user.sessions_for_conference(Conference.current).should == [session]
+      end
+      
+      it "should return session where user is second author" do
+        session = FactoryGirl.create(:session)
+        user = session.author
+        user.add_role :author
+        
+        another_session = FactoryGirl.create(:session, :second_author => user)
+        
+        user.sessions_for_conference(Conference.current).should == [session, another_session]
+      end
+    end
+    
     describe "#has_approved_session?" do
       before(:each) do
         @lightning_talk = Conference.current.session_types.find {|st| st.lightning_talk? }

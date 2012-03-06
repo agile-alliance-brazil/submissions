@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
         :user_id => self.id
     })
   end
+  
+  def sessions_for_conference(conference)
+    Session.for_user(self.id).for_conference(conference)
+  end
 
   # Overriding role check to take current conference into account
   def reviewer_with_conference?
