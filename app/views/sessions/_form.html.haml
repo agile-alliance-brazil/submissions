@@ -82,6 +82,15 @@
     $("#session_session_type_id").bindSelectUpdated();
 
     $("#session_session_type_id, #session_track_id").trigger('updated');
+
+    $('#session_title').charCount({allowed: 100});
+    $('#session_keyword_list').charCount({allowed: 10, separator: ','});
+    $('#session_target_audience').charCount({allowed: 200});
+    $('#session_summary').charCount({allowed: 800});
+    $('#session_description').charCount({allowed: 2400});
+    $('#session_mechanics').charCount({allowed: 2400});
+    $('#session_benefits').charCount({allowed: 400});
+    $('#session_experience').charCount({allowed: 400});
   })
 
   function sessionTypeActions() {

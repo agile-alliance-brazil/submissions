@@ -34,6 +34,21 @@ form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.pass
   padding: 2px;
 }
 
+form.formtastic fieldset ol li span.counter {
+  float: right;
+  margin-right: 26%;
+  margin-top: -3ex
+}
+
+form.formtastic fieldset ol li span.counter.warning,span.counter.exceeded {
+  color: red;
+  font-weight: bold;
+}
+
+form.formtastic fieldset ol li span.counter.exceeded + input {
+  color: red;
+}
+
 form.formtastic fieldset ol li.check_boxes fieldset ol {
   padding: 15px;
 }
