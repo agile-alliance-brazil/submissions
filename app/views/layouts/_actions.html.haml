@@ -1,8 +1,9 @@
 - if user_signed_in?
   / - if current_user.author? || current_user.organizer?
   #date
-    %p= t('actions.submission_date')
-    %p <strong>#{l(@conference.submissions_deadline.to_date)}</strong>
+    - if (current_date = current_date(@conference))
+      %p= t("conference.dates.#{current_date.last}")
+      %p <strong>#{l(current_date.first)}</strong>
     / - if current_user.organizer?
     /   #review_progress_count
     /     #{t('actions.review_goal')}:

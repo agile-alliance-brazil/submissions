@@ -11,9 +11,5 @@
 %h3 Important dates
 
 %ul
-  %li #{l(@conference.call_for_papers.to_date)}: Call for Submissions
-  %li
-    %strong #{l(@conference.submissions_open.to_date)}: Release of proposal submission form
-  %li #{l(@conference.submissions_deadline.to_date)}: Submission deadline
-  %li #{l(@conference.author_notification.to_date)}: Acceptance notification
-  %li #{l(@conference.author_confirmation.to_date)}: Session confirmation deadline to selected authors
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

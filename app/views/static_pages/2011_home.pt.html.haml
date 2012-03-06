@@ -11,8 +11,5 @@
 %h3 Datas importantes
 
 %ul
-  %li #{l(@conference.call_for_papers.to_date)}: Divulgação da chamada de trabalhos
-  %li #{l(@conference.submissions_open.to_date)}: Abertura do formulário de submissão de propostas
-  %li #{l(@conference.submissions_deadline.to_date)}: Submissão de propostas - Leia as regras de submissao
-  %li #{l(@conference.author_notification.to_date)}: Notificação aos autores selecionados
-  %li #{l(@conference.author_confirmation.to_date)}: Limite para confirmação das palestras dos autores selecionados
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

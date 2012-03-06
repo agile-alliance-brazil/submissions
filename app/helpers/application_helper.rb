@@ -29,4 +29,15 @@ module ApplicationHelper
   def textilize(text)
     ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
   end
+
+  def present_date(conference, date_map)
+    content = raw "#{l(date_map.first)}: #{t("conference.dates.#{date_map.last}")}"
+    content = content_tag('strong'){content} if date_map.first == current_date(conference).try(:first)
+    content
+  end
+
+  def current_date(conference)
+    now = DateTime.now
+    conference.dates.select{|date_map| now < date_map.first}.first
+  end
 end

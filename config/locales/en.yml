@@ -318,6 +318,14 @@ en:
       create:
         success: "Review recorded successfully."
 
+  conference:
+    dates:
+      call_for_papers: "Call for Submissions"
+      submissions_open: "Release of proposal submission form"
+      submissions_deadline: "Submission deadline"
+      author_notification: "Acceptance notification"
+      author_confirmation: "Session confirmation deadline to selected authors"
+
   session_types:
     tutorial:
       title: "Tutorial"

@@ -512,6 +512,14 @@ pt:
       create:
         success: "Avaliação gravada com sucesso."
 
+  conference:
+    dates:
+      call_for_papers: "Divulgação da chamada de trabalhos"
+      submissions_open: "Abertura do formulário de submissão de propostas"
+      submissions_deadline: "Submissão de propostas - Leia as regras de submissao"
+      author_notification: "Notificação aos autores selecionados"
+      author_confirmation: "Limite para confirmação das palestras dos autores selecionados"
+
   session_types:
     tutorial:
       title: "Tutorial"
