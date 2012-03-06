@@ -5,7 +5,7 @@ describe EmailNotifications do
   before do
     ActionMailer::Base.deliveries = []
     I18n.locale = I18n.default_locale
-    @conference = Conference.current || FactoryGirl.create(:conference)
+    @conference = Conference.current
   end
 
   after do
@@ -74,6 +74,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{I18n.l(@conference.submissions_deadline.to_date, :format => :long)}/
   	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para #{@conference.name}"
     end
     
@@ -87,6 +88,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /#{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{I18n.l(@conference.submissions_deadline.to_date, :format => :long)}/
   	  mail.subject.should == "[localhost:3000] Proposta de sessão submetida para #{@conference.name}"
     end
     
@@ -98,6 +100,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{I18n.l(@conference.submissions_deadline.to_date, :format => :long)}/
   	  mail.subject.should == "[localhost:3000] #{@conference.name} session proposal submitted"
     end
 
@@ -112,6 +115,7 @@ describe EmailNotifications do
   	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
+  	  mail.encoded.should =~ /#{I18n.l(@conference.submissions_deadline.to_date, :format => :long)}/
   	  mail.subject.should == "[localhost:3000] #{@conference.name} session proposal submitted"
     end
   end
