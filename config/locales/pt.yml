@@ -359,7 +359,7 @@ pt:
     hints:
       user:
         email: "Principal email de contato."
-        password: "Pelo menos 4 caracteres."
+        password: "Pelo menos 3 caracteres."
         phone: "De preferência um celular."
         country: "País de residência, para fins estatísticos."
         state: "Estado de residência, para fins estatísticos."

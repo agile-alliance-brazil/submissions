@@ -166,7 +166,7 @@ en:
       user:
         email: "Main e-mail address for contact purposes."
         phone: "Preferably your mobile cellphone number."
-        password: "At least 4 characters."
+        password: "At least 3 characters."
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
