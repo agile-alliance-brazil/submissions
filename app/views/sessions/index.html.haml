@@ -29,9 +29,12 @@
             = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
           - if session.comments.size > 0
             .commentCount= session.comments.size
-        %td.author= link_to h(session.author.full_name), user_path(session.author)
+        %td.author
+          = render_avatar(session.author, :size => :mini)
+          = link_to h(session.author.full_name), user_path(session.author)
         %td.author
           - if session.second_author
+            = render_avatar(session.second_author, :size => :mini)
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         - if @user == current_user
           %td.reviews

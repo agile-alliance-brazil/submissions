@@ -14,6 +14,7 @@
   = form.input :city, :required => true, :input_html => {:tabindex => autotab}
   = form.input :organization, :input_html => {:tabindex => autotab}
   = form.input :website_url, :input_html => {:tabindex => autotab}
+  = form.input :twitter_username, :input_html => {:tabindex => autotab}
   = form.input :bio, :required => true, :input_html => {:tabindex => autotab}
   - if !@user.new_record?
     = form.input :current_password, :required => true, :input_html => {:tabindex => autotab}

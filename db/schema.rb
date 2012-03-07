@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301051732) do
+ActiveRecord::Schema.define(:version => 20120306143159) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20120301051732) do
     t.string   "authentication_token"
     t.integer  "sign_in_count"
     t.datetime "reset_password_sent_at"
+    t.string   "twitter_username"
   end
 
 end

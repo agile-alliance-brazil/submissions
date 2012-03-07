@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :username, :email, :password,
                   :password_confirmation, :phone, :country, :state, :city,
-                  :organization, :website_url, :bio, :wants_to_submit, :default_locale
-  attr_trimmed    :first_name, :last_name, :username, :email,
+                  :organization, :website_url, :bio, :wants_to_submit, :default_locale, :twitter_username
+  attr_trimmed    :first_name, :last_name, :username, :email, :twitter_username,
                   :phone, :state, :city, :organization, :website_url, :bio
   
   has_many :sessions, :foreign_key => 'author_id'
@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
   
   validates_each :username, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.username_changed?
+  end
+  
+  before_validation do |user|
+    user.twitter_username = user.twitter_username[1..-1] if user.twitter_username =~ /^@/
   end
 
   scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }

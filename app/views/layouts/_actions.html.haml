@@ -8,7 +8,9 @@
     /   #review_progress_count
     /     #{t('actions.review_goal')}:
     /     %span.progress
-  %h3&= current_user.full_name
+  %h3
+    = render_avatar(current_user)
+    &= current_user.full_name
 
   %h4= t('actions.section.session')
   %ul

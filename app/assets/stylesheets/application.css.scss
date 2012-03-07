@@ -506,3 +506,12 @@ span.bio {
 .placeholder {
   color: #999;
 }
+
+.avatar {
+  float: right;
+  img {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+}

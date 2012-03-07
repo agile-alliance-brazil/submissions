@@ -84,6 +84,7 @@ en:
         wants_to_submit: "I want to submit sessions for the conference"
         password: "Password"
         current_password: "Current password"
+        twitter_username: "Twitter username"
         new:
           password: "Password"
           password_confirmation: "Confirm password"
@@ -175,6 +176,7 @@ en:
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         wants_to_submit: "Leave this blank if you only want to leave comments on other users' sessions. You can change your mind later, by editing your profile."
         current_password: "To make any changes to your profile, please confirm your current password."
+        twitter_username: "Your twitter username, without the '@' prefix (e.g. 'dtsato' instead of '@dtsato')"
       session:
         title: "(at most 100 characters)"
         track_id: "A detailed description of each track can be found <a href='%{year}/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 50 minutes or Lightning Talks lasting 10 minutes will be accepted."

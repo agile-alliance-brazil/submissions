@@ -5,6 +5,19 @@ module ApplicationHelper
     return url if url.blank?
     !!( url !~ /\A(?:http:\/\/)/i ) ? "http://#{url}" : url
   end
+  
+  def twitter_avatar(user, options={})
+    return unless user.twitter_username.present?
+    options = options.with_indifferent_access
+    "https://twitter.com/api/users/profile_image/#{user.twitter_username}?size=#{options[:size] || :normal}"
+  end
+  
+  def render_avatar(user, options={})
+    return unless user.twitter_username.present?
+    content_tag(:div, :class => 'avatar') do
+      image_tag(twitter_avatar(user, options), :alt => user.full_name)
+    end
+  end
 
   def link_to_menu_item(tag, name, url)
     content_tag(tag, :class => (current_page?(url) ? "selected" : "")) do

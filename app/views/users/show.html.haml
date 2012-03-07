@@ -7,6 +7,8 @@
     - if can? :update, @user_profile
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
 
+= render_avatar(@user_profile, :size => :bigger)
+
 = content_tag_for(:dl, @user_profile) do
   %dt= t('formtastic.labels.user.username')
   %dd&= @user_profile.username
@@ -18,7 +20,11 @@
   - unless @user_profile.website_url.blank?
     %dt= t('formtastic.labels.user.website_url')
     %dd= link_to(h(prepend_http(@user_profile.website_url)), h(prepend_http(@user_profile.website_url)), :target => '_blank')
-  
+
+  - unless @user_profile.twitter_username.blank?
+    %dt= t('formtastic.labels.user.twitter_username')
+    %dd= link_to("@#{@user_profile.twitter_username}", "http://www.twitter.com/#{h(@user_profile.twitter_username)}", :target => '_blank')
+
   - unless @user_profile.bio.blank?
     %dt= t('formtastic.labels.user.bio')
     %dd= textilize(@user_profile.bio)

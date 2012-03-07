@@ -18,13 +18,36 @@ describe User do
     it { should allow_mass_assignment_of :bio }
     it { should allow_mass_assignment_of :wants_to_submit }
     it { should allow_mass_assignment_of :default_locale }
+    it { should allow_mass_assignment_of :twitter_username }
 
     it { should_not allow_mass_assignment_of :id }
   end
   
   it_should_trim_attributes User, :first_name, :last_name, :username,
                                   :email, :phone, :state, :city, :organization,
-                                  :website_url, :bio
+                                  :website_url, :bio, :twitter_username
+  
+  context "before validations" do
+    it "should trim @ from twitter username if present" do
+      user = FactoryGirl.build(:user, :twitter_username => '@dtsato')
+      user.should be_valid
+      user.twitter_username.should == 'dtsato'
+
+      user = FactoryGirl.build(:user, :twitter_username => '  @dtsato  ')
+      user.should be_valid
+      user.twitter_username.should == 'dtsato'
+    end
+    
+    it "should not change twitter username if @ is not present" do
+      user = FactoryGirl.build(:user, :twitter_username => 'dtsato')
+      user.should be_valid
+      user.twitter_username.should == 'dtsato'
+
+      user = FactoryGirl.build(:user, :twitter_username => '  dtsato  ')
+      user.should be_valid
+      user.twitter_username.should == 'dtsato'
+    end    
+  end
 
   context "validations" do
     it { should validate_presence_of :first_name }
