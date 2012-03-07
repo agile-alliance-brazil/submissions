@@ -205,6 +205,10 @@ table.summary {
   border-top: 1px solid #cccccc;
   padding: 5px;
   margin: 10px 0;
+  .avatar {
+    float: none;
+    display: inline;
+  }
   cite {
     font-weight: bold;
     clear: both; }
