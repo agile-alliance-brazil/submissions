@@ -279,6 +279,7 @@ en:
     tagged_with: "Showing sessions tagged with: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
+    private_field: "Private field: not visible in the public profile"
 
   footer:
     help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"

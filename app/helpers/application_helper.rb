@@ -42,6 +42,16 @@ module ApplicationHelper
   def textilize(text)
     ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
   end
+  
+  def translated_country(country_code)
+    I18n.translate('countries')[country_code.to_s.upcase.to_sym]
+  end
+  
+  def translated_state(state_code)
+    states = ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS.map { |name, code| [code, name] }
+    state_map = Hash[states]
+    state_map[state_code.to_s.upcase]
+  end
 
   def present_date(conference, date_map)
     content = raw "#{l(date_map.first)}: #{t("conference.dates.#{date_map.last}")}"

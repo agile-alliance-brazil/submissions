@@ -75,6 +75,21 @@ describe ApplicationHelper do
     end
   end
 
+  describe "translated_country" do
+    it "should return translated country from code" do
+      helper.translated_country(:BR).should == 'Brasil'
+      helper.translated_country('US').should == 'Estados Unidos'
+      helper.translated_country('fr').should == 'França'
+    end
+  end
+  
+  describe "translated_state" do
+    it "should return translated state from code" do
+      helper.translated_state(:SP).should == 'São Paulo'
+      helper.translated_state('RJ').should == 'Rio de Janeiro'
+    end
+  end
+  
   describe "present_date" do
     before :each do
       @date = Time.zone.now

@@ -473,6 +473,7 @@ pt:
     tagged_with: "Mostrando sessões com a palavra-chave: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
+    private_field: "Campo privado: não visível no perfil público"
 
   footer:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
