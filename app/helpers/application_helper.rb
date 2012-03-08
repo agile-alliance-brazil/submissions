@@ -5,13 +5,13 @@ module ApplicationHelper
     return url if url.blank?
     !!( url !~ /\A(?:http:\/\/)/i ) ? "http://#{url}" : url
   end
-  
+
   def twitter_avatar(user, options={})
     return unless user.twitter_username.present?
     options = options.with_indifferent_access
     "https://twitter.com/api/users/profile_image/#{user.twitter_username}?size=#{options[:size] || :normal}"
   end
-  
+
   def render_avatar(user, options={})
     return unless user.twitter_username.present?
     content_tag(:div, :class => 'avatar') do
@@ -42,11 +42,11 @@ module ApplicationHelper
   def textilize(text)
     ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
   end
-  
+
   def translated_country(country_code)
     I18n.translate('countries')[country_code.to_s.upcase.to_sym]
   end
-  
+
   def translated_state(state_code)
     states = ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS.map { |name, code| [code, name] }
     state_map = Hash[states]
@@ -55,12 +55,7 @@ module ApplicationHelper
 
   def present_date(conference, date_map)
     content = raw "#{l(date_map.first)}: #{t("conference.dates.#{date_map.last}")}"
-    content = content_tag('strong'){content} if date_map.first == current_date(conference).try(:first)
+    content = content_tag('strong'){content} if date_map.first == conference.current_date.try(:first)
     content
-  end
-
-  def current_date(conference)
-    now = DateTime.now
-    conference.dates.select{|date_map| now < date_map.first}.first
   end
 end

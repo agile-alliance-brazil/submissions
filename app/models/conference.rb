@@ -17,4 +17,9 @@ class Conference < ActiveRecord::Base
       [send(name).to_date, name]
     end
   end
+
+  def current_date
+    now = DateTime.now
+    dates.select{|date_map| now < date_map.first}.first
+  end
 end

@@ -1,7 +1,7 @@
 - if user_signed_in?
   / - if current_user.author? || current_user.organizer?
-  #date
-    - if (current_date = current_date(@conference))
+  - if (current_date = @conference.current_date)
+    #date
       %p= t("conference.dates.#{current_date.last}")
       %p <strong>#{l(current_date.first)}</strong>
     / - if current_user.organizer?
