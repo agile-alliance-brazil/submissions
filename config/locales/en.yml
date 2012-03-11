@@ -11,6 +11,8 @@ en:
       incomplete: "user is currently not an author"
       experience_report_talk_duration: "can only be 50 minutes"
       non_lightning_talk_duration: "can only be 50 or 110 minutes"
+      talk_duration: "can only be 50 minutes"
+      hands_on_duration: "can only be 110 minutes"
       lightning_talk_duration: "can only be 10 minutes"
       experience_report_session_type: "can only be a Talk"
       email_format: "should look like an email address"

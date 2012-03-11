@@ -53,4 +53,5 @@ group :development, :test do
   gem 'shoulda-matchers', '=1.0.0'
   gem 'factory_girl_rails', '=1.6.0'
   gem 'rcov'
+  gem 'spork', '=0.9.0'
 end

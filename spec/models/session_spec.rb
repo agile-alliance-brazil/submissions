@@ -128,7 +128,7 @@ describe Session do
         session.errors[:session_type_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
-    
+
     context "mechanics" do
       it "should be present for workshops" do
         session = FactoryGirl.build(:session, :mechanics => nil)
@@ -177,16 +177,6 @@ describe Session do
         @session = FactoryGirl.build(:session)
       end
 
-      it "should only allow duration of 50 or 110 minutes for talks" do
-        @session.session_type.title = 'session_types.talk.title'
-        @session.duration_mins = 50
-        @session.should be_valid
-        @session.duration_mins = 110
-        @session.should be_valid
-        @session.duration_mins = 10
-        @session.should_not be_valid
-      end
-
       it "should only have duration of 10 minutes for lightning talks" do
         @session.session_type.title = 'session_types.lightning_talk.title'
         @session.duration_mins = 10
@@ -195,6 +185,26 @@ describe Session do
         @session.should_not be_valid
         @session.duration_mins = 110
         @session.should_not be_valid
+      end
+
+      it "should only allow duration of 50 minutes for talks" do
+        @session.session_type.title = 'session_types.talk.title'
+        @session.duration_mins = 50
+        @session.should be_valid
+        @session.duration_mins = 110
+        @session.should_not be_valid
+        @session.duration_mins = 10
+        @session.should_not be_valid
+      end
+
+      it "should only have duration of 110 minutes for hands on" do
+        @session.session_type.title = 'session_types.hands_on.title'
+        @session.duration_mins = 10
+        @session.should_not be_valid
+        @session.duration_mins = 50
+        @session.should_not be_valid
+        @session.duration_mins = 110
+        @session.should be_valid
       end
     end
 

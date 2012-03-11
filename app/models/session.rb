@@ -51,11 +51,14 @@ class Session < ActiveRecord::Base
   validates_each :duration_mins, :if => :experience_report?, :allow_blank => true do |record, attr, value|
     record.errors.add(attr, :experience_report_talk_duration) if record.session_type.try(:title) == 'session_types.talk.title' && value != 50
   end
-  validates_each :duration_mins, :unless => :lightning_talk?, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :non_lightning_talk_duration) unless [50, 110].include?(value)
-  end
-  validates_each :duration_mins, :if => :lightning_talk?, :allow_blank => true do |record, attr, value|
+  validates_each :duration_mins, :if => :lightning_talk? do |record, attr, value|
     record.errors.add(attr, :lightning_talk_duration) if value != 10
+  end
+  validates_each :duration_mins, :if => :talk?, :allow_blank => true do |record, attr, value|
+    record.errors.add(attr, :talk_duration) if value != 50
+  end
+  validates_each :duration_mins, :if => :hands_on?, :allow_blank => true do |record, attr, value|
+    record.errors.add(attr, :hands_on_duration) if value != 110
   end
   validates_each :session_type_id, :if => :experience_report? do |record, attr, value|
     record.errors.add(attr, :experience_report_session_type) unless ['session_types.talk.title', 'session_types.lightning_talk.title'].include?(record.session_type.try(:title))
@@ -160,6 +163,14 @@ class Session < ActiveRecord::Base
 
   def lightning_talk?
     self.session_type.try(:lightning_talk?)
+  end
+
+  def hands_on?
+    self.session_type.try(:hands_on?)
+  end
+
+  def talk?
+    self.session_type.try(:talk?)
   end
 
   private
