@@ -21,8 +21,8 @@
           %h1= @conference.name
           %strong= @conference.location_and_date
         %ul#languages
-          %li= link_to "Português", "?locale=pt"
-          %li= link_to "English", "?locale=en"
+          - ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.each do |language|
+            %li= link_to language.first, "?locale=#{language.last}"
 
         = render :partial => 'layouts/menu'
 

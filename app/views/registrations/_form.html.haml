@@ -1,5 +1,4 @@
 = form.inputs :user_login do
-  = form.input :default_locale, :as => :hidden
   = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}
@@ -16,6 +15,7 @@
   = form.input :website_url, :input_html => {:tabindex => autotab}
   = form.input :twitter_username, :input_html => {:tabindex => autotab}
   = form.input :bio, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :default_locale, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES, :input_html => {:tabindex => autotab}
   - if !@user.new_record?
     = form.input :current_password, :required => true, :input_html => {:tabindex => autotab}
 
