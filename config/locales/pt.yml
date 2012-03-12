@@ -281,6 +281,7 @@ pt:
         password: "Senha"
         current_password: "Senha atual"
         twitter_username: "Usuário no Twitter"
+        default_locale: "Idioma preferido"
         new:
           password: "Senha"
           password_confirmation: "Confirmação de senha"
@@ -372,7 +373,8 @@ pt:
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
         current_password: "Para qualquer alteração no perfil é preciso confirmar sua senha atual."
-        twitter_username: "Seu nome de usuário no twitter, sem o prefixo '@' (por exemplo: 'dtsato' ao invés de '@dtsato')"
+        twitter_username: "Seu nome de usuário no twitter, sem o prefixo '@' (por exemplo: 'twitter_user' ao invés de '@twitter_user')"
+        default_locale: "Nós mostraremos o site e enviaremos e-mail no seu idioma preferido"
       session:
         title: '(máximo 100 caracteres)'
         track_id: "A descrição de cada trilha pode ser consultada <a href='%{year}/tracks?locale=pt' target='_blank'>aqui</a>. Para Relatos de Experiência, só serão aceitas Palestras com 50 minutos de duração ou Lightning Talks com 10 minutos de duração."

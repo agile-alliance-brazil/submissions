@@ -19,15 +19,17 @@
       = image_tag('icon-private.png', :alt => t('text.private_field'))
     %dd&= @user_profile.email
 
-    %dt
-      = t('formtastic.labels.user.phone')
-      = image_tag('icon-private.png', :alt => t('text.private_field'))
-    %dd&= @user_profile.phone
+    - unless @user_profile.phone.blank?
+      %dt
+        = t('formtastic.labels.user.phone')
+        = image_tag('icon-private.png', :alt => t('text.private_field'))
+      %dd&= @user_profile.phone
 
-    %dt
-      = t('formtastic.labels.user.country')
-      = image_tag('icon-private.png', :alt => t('text.private_field'))
-    %dd&= translated_country(@user_profile.country)
+    - unless @user_profile.country.blank?
+      %dt
+        = t('formtastic.labels.user.country')
+        = image_tag('icon-private.png', :alt => t('text.private_field'))
+      %dd&= translated_country(@user_profile.country)
 
     - unless @user_profile.state.blank?
       %dt
@@ -35,10 +37,11 @@
         = image_tag('icon-private.png', :alt => t('text.private_field'))
       %dd&= translated_state(@user_profile.state)
 
-    %dt
-      = t('formtastic.labels.user.city')
-      = image_tag('icon-private.png', :alt => t('text.private_field'))
-    %dd&= @user_profile.city
+    - unless @user_profile.city.blank?
+      %dt
+        = t('formtastic.labels.user.city')
+        = image_tag('icon-private.png', :alt => t('text.private_field'))
+      %dd&= @user_profile.city
     
   - unless @user_profile.organization.blank?
     %dt= t('formtastic.labels.user.organization')
