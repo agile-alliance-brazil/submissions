@@ -1,3 +1,4 @@
+
 # encoding: UTF-8
 require 'spec_helper'
 
@@ -81,12 +82,25 @@ describe ApplicationHelper do
       helper.translated_country('US').should == 'Estados Unidos'
       helper.translated_country('fr').should == 'França'
     end
+    
+    it "should return empty if country is invalid" do
+      helper.translated_country('').should be_empty
+      helper.translated_country(nil).should be_empty
+      helper.translated_country(' ').should be_empty
+    end
   end
 
   describe "translated_state" do
     it "should return translated state from code" do
       helper.translated_state(:SP).should == 'São Paulo'
       helper.translated_state('RJ').should == 'Rio de Janeiro'
+    end
+
+    it "should return empty if state is invalid" do
+      helper.translated_state('').should be_empty
+      helper.translated_state(nil).should be_empty
+      helper.translated_state(' ').should be_empty
+      helper.translated_state('SS').should be_empty
     end
   end
 

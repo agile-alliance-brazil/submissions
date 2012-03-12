@@ -44,13 +44,14 @@ module ApplicationHelper
   end
 
   def translated_country(country_code)
+    return '' if country_code.blank?
     I18n.translate('countries')[country_code.to_s.upcase.to_sym]
   end
 
   def translated_state(state_code)
     states = ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS.map { |name, code| [code, name] }
     state_map = Hash[states]
-    state_map[state_code.to_s.upcase]
+    state_map[state_code.to_s.upcase] || ''
   end
 
   def present_date(conference, date_map)
