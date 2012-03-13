@@ -1,0 +1,14 @@
+%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+
+%p A new comment has been posted to your session <strong>'#{h(@session.title)}'</strong>:
+= raw textilize(@comment.comment)
+
+%p You can reply to the comment by adding your own comment on your session's page:
+
+= link_to session_url(@conference, @session, :locale => 'en'), session_url(@conference, @session, :locale => 'en')
+
+%p Regards,
+
+%p Program Committee of #{@conference_name} Conference
+
+%small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

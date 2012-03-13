@@ -589,6 +589,8 @@ pt:
       subject: "Recuperação de senha"
     session_submitted:
       subject: "Proposta de sessão submetida para %{conference_name}"
+    comment_submitted:
+      subject: "Novo comentário para sua sessão '%{session_name}'"
     reviewer_invitation:
       subject: "Convite para equipe de avaliação da %{conference_name}"
     session_accepted:

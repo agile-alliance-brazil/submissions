@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe SessionsController do
   render_views
 
@@ -16,7 +16,7 @@ describe SessionsController do
     get :index
     response.should render_template(:index)
   end
-  
+
   it "show action should render show template" do
     get :show, :id => Session.first
     response.should render_template(:show)
@@ -35,12 +35,12 @@ describe SessionsController do
     get :show, :id => old_session.id
     flash[:news].should == "Você está acessando uma proposta da #{old_session.conference.name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da #{Conference.current.name}."
   end
-  
+
   it "new action should render new template" do
     get :new
     response.should render_template(:new)
   end
-  
+
   it "new action should only assign tracks for current conference" do
     get :new
     (assigns(:tracks) - Conference.current.tracks).should be_empty
@@ -63,13 +63,19 @@ describe SessionsController do
     post :create, :session => {}
     response.should render_template(:new)
   end
-  
+
   it "create action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
     post :create
     response.should redirect_to(session_url(Conference.current, assigns(:session)))
   end
-  
+
+  it "create action should send an email when model is valid" do
+    Session.any_instance.stubs(:valid?).returns(true)
+    EmailNotifications.expects(:session_submitted).once.returns(OpenStruct.new(:deliver => nil))
+    post :create
+  end
+
   it "edit action should render edit template" do
     get :edit, :id => Session.first
     response.should render_template(:edit)
@@ -79,17 +85,17 @@ describe SessionsController do
     get :edit, :id => Session.first
     (assigns(:tracks) - Conference.current.tracks).should be_empty
   end
-  
+
   it "edit action should only assign audience levels for current conference" do
     get :edit, :id => Session.first
     (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
   end
-  
+
   it "edit action should only assign session types for current conference" do
     get :edit, :id => Session.first
     (assigns(:session_types) - Conference.current.session_types).should be_empty
   end
-  
+
   it "update action should render edit template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
@@ -107,7 +113,7 @@ describe SessionsController do
     delete :cancel, :id => Session.first
     response.should redirect_to(organizer_sessions_path(Conference.current))
   end
-  
+
   it "cancel action should redirect to organizer sessions with error" do
     session = FactoryGirl.create(:session, :track => @session.track)
     session.cancel
