@@ -362,7 +362,7 @@ pt:
         note_to_authors: "Comentários para os autores"
     hints:
       user:
-        email: "Principal email de contato."
+        email: "Principal email de contato. Nós também usamos seu email para exibir a foto no seu perfil. Para criar ou alterar sua foto, <a href='http://en.gravatar.com/site/signup/' target='_blank'>acesse o Gravatar</a>."
         password: "Pelo menos 3 caracteres."
         phone: "De preferência um celular."
         country: "País de residência, para fins estatísticos."
@@ -680,3 +680,4 @@ pt:
 
   tips:
     users_from_last_year: "<strong>Dica:</strong> os usuários do ano passado ainda são válidos. Caso não lembre do nome do seu usuário ou sua senha, use o link acima para recuperá-la."
+    change_gravatar: "Para criar ou alterar sua foto, <a href='http://en.gravatar.com/site/signup/%{email}' target='_blank'>acesse o Gravatar</a>."

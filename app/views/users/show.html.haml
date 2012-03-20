@@ -7,7 +7,7 @@
     - if can? :update, @user_profile
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
 
-= render_avatar(@user_profile, :size => :bigger)
+= render_avatar(@user_profile, :size => :bigger, :display_tip => (current_user == @user_profile))
 
 = content_tag_for(:dl, @user_profile) do
   %dt= t('formtastic.labels.user.username')

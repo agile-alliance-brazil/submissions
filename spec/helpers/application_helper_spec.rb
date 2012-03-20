@@ -58,21 +58,34 @@ describe ApplicationHelper do
     end
   end
 
-  describe "twitter_avatar" do
-    it "should be blank if user has no twitter username" do
-      user = FactoryGirl.build(:user)
-      helper.twitter_avatar(user).should be_blank
+  describe "gravatar_url" do
+    it "should use digest of user's email to generate URL" do
+      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
+      helper.gravatar_url(user).should =~ /http:\/\/gravatar.com\/avatar\/9681863a56f1e1ac9562c72b297f6c2d\.png/
     end
 
-    it "should use user's twitter username to make API call" do
-      user = FactoryGirl.build(:user, :twitter_username => 'dtsato')
-      helper.twitter_avatar(user).should =~ /https:\/\/twitter.com\/api\/users\/profile_image\/dtsato/
+    it "should have default size of normal" do
+      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
+      helper.gravatar_url(user).should =~ /s=48/
     end
 
     it "should allow customized sizes" do
-      user = FactoryGirl.build(:user, :twitter_username => 'dtsato')
-      helper.twitter_avatar(user, :size => :mini).should =~ /dtsato\?size=mini/
-      helper.twitter_avatar(user, "size" => :mini).should =~ /dtsato\?size=mini/
+      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
+      helper.gravatar_url(user, :size => :mini).should =~ /s=24/
+      helper.gravatar_url(user, "size" => :normal).should =~ /s=48/
+      helper.gravatar_url(user, :size => "bigger").should =~ /s=150/
+    end
+
+    it "should have use default mistery man if gravatar not available" do
+      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
+      helper.gravatar_url(user).should =~ /d=mm/
+    end
+
+    it "should allow customized default images" do
+      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
+      helper.gravatar_url(user, :default => :retro).should =~ /d=retro/
+      helper.gravatar_url(user, "default" => :retro).should =~ /d=retro/
+      helper.gravatar_url(user, :default => "retro").should =~ /d=retro/
     end
   end
 

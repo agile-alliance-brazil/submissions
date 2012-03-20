@@ -513,10 +513,19 @@ span.bio {
 
 .avatar {
   float: right;
+  text-align: right;
+  
   img {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+  }
+  
+  .tip {
+    color: #999;
+    font-style: italic;
+    font-size: 8pt;
+    width: 150px;
   }
 }
 

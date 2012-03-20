@@ -6,19 +6,30 @@ module ApplicationHelper
     !!( url !~ /\A(?:http:\/\/)/i ) ? "http://#{url}" : url
   end
 
-  def twitter_avatar(user, options={})
-    return unless user.twitter_username.present?
+  AVATAR_SIZES = {
+    :mini => 24,
+    :normal => 48,
+    :bigger => 150
+  }.with_indifferent_access
+  
+  def gravatar_url(user, options={})
     options = options.with_indifferent_access
-    "https://twitter.com/api/users/profile_image/#{user.twitter_username}?size=#{options[:size] || :normal}"
+    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    size = options[:size] || :normal
+    default = options[:default] || :mm
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
   end
 
   def render_avatar(user, options={})
-    return unless user.twitter_username.present?
     content_tag(:div, :class => 'avatar') do
-      image_tag(twitter_avatar(user, options), :alt => user.full_name)
+      avatar = link_to(image_tag(gravatar_url(user, options), :alt => user.full_name), user_path(user))
+      tip = content_tag(:div, :class => 'tip') do
+        I18n.t('tips.change_gravatar', :email => CGI.escape(user.email)).html_safe 
+      end
+      options[:display_tip] ? avatar + tip : avatar
     end
   end
-
+  
   def link_to_menu_item(tag, name, url)
     content_tag(tag, :class => (current_page?(url) ? "selected" : "")) do
       link_to name, url

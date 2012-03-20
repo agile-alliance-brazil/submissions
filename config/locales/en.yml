@@ -168,7 +168,7 @@ en:
         note_to_authors: "Comments to the authors"
     hints:
       user:
-        email: "Main e-mail address for contact purposes."
+        email: "Main e-mail address for contact purposes. We also use your e-mail to fetch your profile image from Gravatar. If you want to change your profile picture, <a href='http://en.gravatar.com/site/signup/' target='_blank'>get your gravatar</a>."
         phone: "Preferably your mobile cellphone number."
         password: "At least 3 characters."
         country: "Country of residence, collected for statistical purpose."
@@ -486,3 +486,4 @@ en:
 
   tips:
     users_from_last_year: "<strong>Tip:</strong> Users from last year are still active. If you don't remember your username or password, use the link above to recover it."
+    change_gravatar: "To create or change your picture, <a href='http://en.gravatar.com/site/signup/%{email}' target='_blank'>get your Gravatar</a>."
