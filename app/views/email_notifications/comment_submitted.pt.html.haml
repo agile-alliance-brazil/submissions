@@ -1,11 +1,13 @@
 %p Olá #{h(@session.authors.map(&:full_name).join(" & "))},
 
 %p Um novo comentário foi feito na sua sessão <strong>'#{h(@session.title)}'</strong>:
-= raw textilize(@comment.comment)
+
+%blockquote
+  %em= raw textilize(@comment.comment)
 
 %p Você pode responder ao comentário adicionando o seu próprio comentário na página da sua sessão:
 
-= link_to session_url(@conference, @session, :locale => 'en'), session_url(@conference, @session, :locale => 'en')
+= link_to session_url(@conference, @session, :locale => 'pt', :anchor => 'comments'), session_url(@conference, @session, :locale => 'pt', :anchor => 'comments')
 
 %p Gratos,
 
