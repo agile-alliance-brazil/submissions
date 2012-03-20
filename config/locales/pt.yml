@@ -223,7 +223,7 @@ pt:
         user:
           attributes:
             phone:
-              invalid: "deve usar apenas números, espaços e .-+()"
+              invalid: "formato de telefone inválido. Use apenas números, espaços e .-+() (exemplo: \"+55 11 2222-3333\")"
             email:
               taken: "outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail"
               invalid: "deve ter um formato de e-mail válido"

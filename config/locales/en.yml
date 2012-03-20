@@ -28,7 +28,7 @@ en:
         user:
           attributes:
             phone:
-              invalid: "please use only number, spaces, and .-+()"
+              invalid: "invalid phone number. Please use only number, spaces, and .-+() (e.g. \"+55 11 2222-3333\")"
             email:
               taken: "another user has an account with the same e-mail address. Please enter another"
               invalid: "should be a valid e-mail address"
