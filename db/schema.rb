@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306143159) do
+ActiveRecord::Schema.define(:version => 20120321034301) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20120306143159) do
     t.datetime "author_notification"
     t.datetime "author_confirmation"
     t.string   "location_and_date"
+    t.datetime "presubmissions_deadline"
+    t.datetime "prereview_deadline"
   end
 
   create_table "organizers", :force => true do |t|

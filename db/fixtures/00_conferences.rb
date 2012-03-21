@@ -26,14 +26,16 @@ Conference.seed do |conference|
 end
 
 Conference.seed do |conference|
-  conference.id                   = 3
-  conference.name                 = 'Agile Brazil 2012'
-  conference.year                 = 2012
-  conference.location_and_date    = 'São Paulo SP, 3-7 Set, 2012'
-  conference.call_for_papers      = Time.zone.local(2012, 2, 5)
-  conference.submissions_open     = Time.zone.local(2012, 3, 22)
-  conference.submissions_deadline = Time.zone.local(2012, 4, 22, 23, 59, 59)
-  conference.review_deadline      = Time.zone.local(2012, 5, 13, 23, 59, 59)
-  conference.author_notification  = Time.zone.local(2012, 6, 3, 23, 59, 59)
-  conference.author_confirmation  = Time.zone.local(2012, 6, 17, 23, 59, 59)
+  conference.id                        = 3
+  conference.name                      = 'Agile Brazil 2012'
+  conference.year                      = 2012
+  conference.location_and_date         = 'São Paulo SP, 3-7 Set, 2012'
+  conference.call_for_papers           = Time.zone.local(2012, 2, 5)
+  conference.submissions_open          = Time.zone.local(2012, 3, 21)
+  conference.presubmissions_deadline   = Time.zone.local(2012, 4, 15, 23, 59, 59)
+  conference.prereview_deadline        = Time.zone.local(2012, 4, 29, 23, 59, 59)
+  conference.submissions_deadline      = Time.zone.local(2012, 5, 13, 23, 59, 59)
+  conference.review_deadline           = Time.zone.local(2012, 6, 3, 23, 59, 59)
+  conference.author_notification       = Time.zone.local(2012, 6, 17, 23, 59, 59)
+  conference.author_confirmation       = Time.zone.local(2012, 7, 4, 23, 59, 59)
 end

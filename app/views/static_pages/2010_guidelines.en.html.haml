@@ -18,8 +18,5 @@
 %p See below the important dates:
 
 %ul
-  %li #{l(@conference.call_for_papers.to_date)}: Release of proposal submission form
-  %li #{l(@conference.submissions_deadline.to_date)}: Submission deadline
-  %li
-    %strong #{l(@conference.author_notification.to_date)}: Acceptance notification
-  %li #{l(@conference.author_confirmation.to_date)}: Inscription deadline to selected authors
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

@@ -18,8 +18,5 @@
 %p Confira abaixo as datas importantes:
 
 %ul
-  %li #{l(@conference.call_for_papers.to_date)}: Abertura do formulário de submissão de propostas
-  %li #{l(@conference.submissions_deadline.to_date)}: Submissão de propostas
-  %li
-    %strong #{l(@conference.author_notification.to_date)}: Notificação aos autores selecionados
-  %li #{l(@conference.author_confirmation.to_date)}: Limite para inscrição no evento dos autores selecionados
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

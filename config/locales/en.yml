@@ -330,7 +330,9 @@ en:
     dates:
       call_for_papers: "Call for Submissions"
       submissions_open: "Release of session submission form"
-      submissions_deadline: "Submission deadline"
+      presubmissions_deadline: "Submission deadline for pre-review"
+      prereview_deadline: "Feedback to authors from pre-review"
+      submissions_deadline: "Final submission deadline"
       author_notification: "Acceptance notification"
       author_confirmation: "Session confirmation deadline to selected authors"
 

@@ -524,7 +524,9 @@ pt:
     dates:
       call_for_papers: "Divulgação da chamada de trabalhos"
       submissions_open: "Abertura do formulário de submissão de propostas"
-      submissions_deadline: "Submissão de propostas"
+      presubmissions_deadline: "Prazo para submissões com pré-avaliação"
+      prereview_deadline: "Feedback para os autores da pré-avaliação"
+      submissions_deadline: "Prazo final para submissão de propostas"
       author_notification: "Notificação aos autores selecionados"
       author_confirmation: "Limite para confirmação das palestras dos autores selecionados"
 

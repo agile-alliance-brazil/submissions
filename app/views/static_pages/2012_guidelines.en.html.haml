@@ -3,9 +3,9 @@
 
 %p To submit your proposal, create an account in the submission system and fill out the submission form with the details of your proposal. <strong>If you submitted proposals last year, your account is still active</strong>. Until the submission deadline, you will be able to edit your profile, create session proposals and edit existing proposals of which you are one of the authors. You may submit as many proposals as you wish. It is not possible to remove a proposal.
 
-%p Note that you will also be able to read proposals submitted by other users, as they will be able to read yours, even after the submission deadline.
+%p Note that you will also be able to read proposals submitted by other users, as they will be able to read yours, even after the submission deadline. Users can also add comments to any session submitted in the system.
 
-%p The submissions will be reviewed and evaluated by at least 3 members of the Reviewing Committee. For that, they will consider:
+%p In order to provide early feedback and allow iterative improvement of proposals, we will have a <strong>two stage review process</strong> - besides the public commenting mechanism. If you submit your proposal before the pre-review deadline, it will be reviewed and evaluated by at least 1 member of the Reviewing Committee. Reviewers won't provide any acceptance/rejection recommendation during the first review stage, but we encourage you to read their feedback and improve your session as necessary. By the end of the submission deadline, all submissions will be reviewed and evaluated by at least 3 members of the Reviewing Committee. For both review stages, they will consider:
 
 %ul
   %li The authors' experience - both the mini biography presented in #{user_signed_in? ? link_to("your user profile", user_path(current_user)) : "your user profile"} and the field about experience with the subject in the submission form;
@@ -28,9 +28,5 @@
 %p See the important dates below:
 
 %ul
-  %li #{l(@conference.call_for_papers.to_date)}: Call for Submissions
-  %li #{l(@conference.submissions_open.to_date)}: Release of proposal submission form
-  %li
-    %strong #{l(@conference.submissions_deadline.to_date)}: Submission deadline
-  %li #{l(@conference.author_notification.to_date)}: Acceptance notification
-  %li #{l(@conference.author_confirmation.to_date)}: Inscription deadline to selected authors
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

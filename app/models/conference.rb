@@ -12,10 +12,18 @@ class Conference < ActiveRecord::Base
     year.to_s
   end
 
+  DEADLINES = [
+    :call_for_papers, 
+    :submissions_open,
+    :presubmissions_deadline,
+    :prereview_deadline,
+    :submissions_deadline,
+    :author_notification,
+    :author_confirmation
+  ]
+  
   def dates
-    @dates ||= [:call_for_papers, :submissions_open, :submissions_deadline, :author_notification, :author_confirmation].map do |name|
-      [send(name).to_date, name]
-    end
+    @dates ||= DEADLINES.map { |name| send(name) ? [send(name).to_date, name] : nil}.compact
   end
 
   def current_date

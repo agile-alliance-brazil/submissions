@@ -14,17 +14,32 @@ describe Conference do
     Conference.find_by_year(2012).to_param.should == "2012"
   end
 
-  it "dates should return a hash with dates and symbols" do
-    conference = Conference.find_by_year(2010)
-    conference.dates.should == [
-      [conference.call_for_papers.to_date, :call_for_papers],
-      [conference.submissions_open.to_date, :submissions_open],
-      [conference.submissions_deadline.to_date, :submissions_deadline],
-      [conference.author_notification.to_date, :author_notification],
-      [conference.author_confirmation.to_date, :author_confirmation]
-    ]
+  describe "dates" do
+    it "should return a hash with dates and symbols" do
+      conference = Conference.find_by_year(2010)
+      conference.dates.should == [
+        [conference.call_for_papers.to_date, :call_for_papers],
+        [conference.submissions_open.to_date, :submissions_open],
+        [conference.submissions_deadline.to_date, :submissions_deadline],
+        [conference.author_notification.to_date, :author_notification],
+        [conference.author_confirmation.to_date, :author_confirmation]
+      ]
+    end
+    
+    it "should include pre-submission and pre-review deadlines when available" do
+      conference = Conference.find_by_year(2012)
+      conference.dates.should == [
+        [conference.call_for_papers.to_date, :call_for_papers],
+        [conference.submissions_open.to_date, :submissions_open],
+        [conference.presubmissions_deadline.to_date, :presubmissions_deadline],
+        [conference.prereview_deadline.to_date, :prereview_deadline],
+        [conference.submissions_deadline.to_date, :submissions_deadline],
+        [conference.author_notification.to_date, :author_notification],
+        [conference.author_confirmation.to_date, :author_confirmation]
+      ]
+    end
   end
-
+  
   describe "current_date" do
     before :each do
       @date = DateTime.now
