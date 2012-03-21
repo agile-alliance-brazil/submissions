@@ -3,7 +3,7 @@
 # several methods available to handle roles for authorization.
 # The can-can gem is being used for implementing the authorization rules
 module Authorization
-  ROLES = %w[admin author reviewer organizer registrar]
+  ROLES = %w[admin author reviewer organizer]
   
   def roles=(roles)
     self.roles_mask = ([*roles].map(&:to_s) & ROLES).map { |r| role_index(r) }.sum  

@@ -1,4 +1,0 @@
-- migrations
-- config.yml (hoptoad/airbrake config; remove organizer section)
-- remove certs from shared/config
-- remove role registrar after deploying migration

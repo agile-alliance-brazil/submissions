@@ -44,13 +44,6 @@ describe Authorization do
       @user.roles_mask.should == 8
     end
     
-    it "- registrar" do
-      @user.roles = "registrar"
-      @user.roles_mask.should == 16
-      @user.roles = :registrar
-      @user.roles_mask.should == 16
-    end
-    
     it "- multiple" do
       @user.roles = ["admin", "reviewer"]
       @user.roles_mask.should == 5
@@ -95,9 +88,6 @@ describe Authorization do
 
       @user.roles = "organizer"
       @user.roles.should == ["organizer"]
-
-      @user.roles = "registrar"
-      @user.roles.should == ["registrar"]
     end
     
     it "- multiple roles" do
@@ -132,12 +122,6 @@ describe Authorization do
       @user.should_not be_organizer
       @user.roles = "organizer"
       @user.should be_organizer
-    end
-    
-    it "- registrar" do
-      @user.should_not be_registrar
-      @user.roles = "registrar"
-      @user.should be_registrar
     end
     
     it "- multiple" do
