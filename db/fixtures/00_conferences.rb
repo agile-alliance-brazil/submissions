@@ -31,7 +31,7 @@ Conference.seed do |conference|
   conference.year                      = 2012
   conference.location_and_date         = 'São Paulo SP, 3-7 Set, 2012'
   conference.call_for_papers           = nil # No official call for papers
-  conference.submissions_open          = Time.zone.local(2012, 3, 21)
+  conference.submissions_open          = Time.zone.local(2012, 3, 22)
   conference.presubmissions_deadline   = Time.zone.local(2012, 4, 15, 23, 59, 59)
   conference.prereview_deadline        = Time.zone.local(2012, 4, 29, 23, 59, 59)
   conference.submissions_deadline      = Time.zone.local(2012, 5, 13, 23, 59, 59)
