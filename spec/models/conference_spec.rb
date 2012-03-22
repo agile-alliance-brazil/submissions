@@ -29,7 +29,6 @@ describe Conference do
     it "should include pre-submission and pre-review deadlines when available" do
       conference = Conference.find_by_year(2012)
       conference.dates.should == [
-        [conference.call_for_papers.to_date, :call_for_papers],
         [conference.submissions_open.to_date, :submissions_open],
         [conference.presubmissions_deadline.to_date, :presubmissions_deadline],
         [conference.prereview_deadline.to_date, :prereview_deadline],
