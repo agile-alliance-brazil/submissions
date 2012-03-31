@@ -10,6 +10,7 @@ describe EmailNotifications do
 
   after do
     ActionMailer::Base.deliveries.clear
+    I18n.locale = I18n.default_locale
   end
 
   context "user subscription" do

@@ -123,7 +123,12 @@ describe User do
 
     context "uniqueness" do
       subject { FactoryGirl.create(:user, :country => "BR") }
-      it { should validate_uniqueness_of(:email).with_message("outro usuário já usou o mesmo e-mail. Por favor escolha outro e-mail") }
+
+      it do
+        message = I18n.t("activerecord.errors.models.user.attributes.email.taken")
+        should validate_uniqueness_of(:email).with_message(message)
+      end
+
       it { should validate_uniqueness_of(:username).case_insensitive }
     end
 
@@ -133,7 +138,7 @@ describe User do
       user = FactoryGirl.create(:user)
       user.username = 'new_username'
       user.should_not be_valid
-      user.errors[:username].should == ["não pode mudar"]
+      user.errors[:username].should include(I18n.t("errors.messages.constant"))
     end
   end
 
