@@ -7,51 +7,48 @@
 
 - content_for :agreement do
   %h3 TERM OF AGREEMENT AS REVIEWER OF #{@conference.name.upcase}
-
-  %p
-    To confirm your participation and commitment as REVIEWER of the submitted proposals to the
-    Industrial track of #{@conference.name} Conference, you must agree with the following terms:
-  %ol
-    %li
-      As a Reviewing Committee member, I will contribute to the selection of a high level
-      technical program in order to transform #{@conference.name} in an internacional reference
-      event about agile methods;
-    %li
-      As a reviewer, I will analyse critically and impartially proposals submitted to the
-      Industrial track, following the guidelines defined by the event Program Committee;
-    %li
-      As a reviewer, I will follow the orientations from the Program Committee during the
-      execution of this activity, trying to fullfil the goals and targets (schedule and
-      quantity of reviews) presented by the reviewing system;
-    %li
-      As a reviewer, I will not announce the review results until those are published by the
-      Program Committee;
-    %li
-      As a reviewer, I commit myself to refuse the review of works that can fit personal
-      interest, such as my own submissions or those of my clients, relatives, friends and
-      business partners; or still of works too similar to those I submitted;
-    %li
-      As a reviewer, I will comply with the requests from the Track Organizers in order to
-      ensure a good distribution of works and flow of the proposal review process;
-    %li
-      As a reviewer, I may request more information and clarifications to the respective
-      authors of each proposal in order to avoid injustices and contribute with the program
-      quality ensurance;
-    %li
-      As a member of the Review Committee, I acknowledge that the final selection of proposals
-      that will compose #{@conference.name}'s program will be performed by the Program Committee,
-      based on the criteria and reviews provided by the reviewers;
-    %li
-      As a member of the Review Committee, I acknowledge that this is a voluntary and not
-      remunerated work, not being allowed to transfer any expenses to #{@conference.name}'s
-      organization;
-    %li
-      If there is any impediment to accomplish my targets, I will communicate immediatly to
-      the Program Coordinators the need of replacement and transfer of my responsibilities.
-  %p 
-    And, acknowledging that #{@conference.name}'s Organization team is providing me complete
-    trust for an ethical and professional behavior in the selection process of the submitted
-    proposal to the conference, I acknowledge the possible consequences of atitudes that may
-    conflict with the responsibilities that I assume by accepting the terms of this document.
+  To confirm your participation and commitment as REVIEWER of the submitted proposals to the
+  Industrial track of #{@conference.name} Conference, you must agree with the following terms:
+  %br
+  (1) As a Reviewing Committee member, I will contribute to the selection of a high level
+  technical program in order to transform #{@conference.name} in an international reference
+  event about agile methods;
+  %br
+  (2) As a reviewer, I will analyze critically and impartially proposals submitted to the
+  Industrial track, following the guidelines defined by the event Program Committee;
+  %br
+  (3) As a reviewer, I will follow the orientations from the Program Committee during the
+  execution of this activity, trying to fulfill the goals and targets (schedule and
+  quantity of reviews) presented by the reviewing system;
+  %br
+  (4) As a reviewer, I will not announce the review results until those are published by the
+  Program Committee;
+  %br
+  (5) As a reviewer, I commit to refuse reviewing any work that could be considered personal
+  interest, such as my own submissions or those of my clients, relatives, friends and
+  business partners; or still of works too similar to those I submitted;
+  %br
+  (6) As a reviewer, I will comply with the requests from the Track Organizers in order to
+  ensure a good distribution of works and flow of the proposal review process;
+  %br
+  (7) As a reviewer, I may request more information and clarifications to the respective
+  authors of each proposal in order to avoid injustices and contribute with the program
+  quality assurance;
+  %br
+  (8) As a member of the Review Committee, I acknowledge that the final selection of proposals
+  that will compose #{@conference.name}'s program will be performed by the Program Committee,
+  based on the criteria and reviews provided by the reviewers;
+  %br
+  (9) As a member of the Review Committee, I acknowledge that this is a voluntary and not
+  remunerated work, not being allowed to transfer any expenses to #{@conference.name}'s
+  organization;
+  %br
+  (10) If there is any impediment to accomplish my targets, I will communicate immediately to
+  the Program Coordinators the need of replacement and transfer of my responsibilities.
+  %br
+  And, acknowledging that #{@conference.name}'s Organization team is providing me complete
+  trust for an ethical and professional behavior in the selection process of the submitted
+  proposal to the conference, I acknowledge the possible consequences of attitudes that may
+  conflict with the responsibilities that I assume by accepting the terms of this document.
     
 = render 'accept_reviewers/form'
