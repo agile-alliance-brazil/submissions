@@ -6,21 +6,24 @@ module ValidatesExistenceMacros
 
   module ClassMethods
     def should_validate_existence_of(*associations)
-      allow_nil = associations.extract_options![:allow_nil]
+      allow_nil = associations.extract_options![:allow_blank]
 
       if allow_nil
         associations.each do |association|
-          it "allows #{association} to be nil" do
+          it "reqiores #{association} to exist, allowing blank" do
             reflection = subject.class.reflect_on_association(association)
             object = subject
             object.send("#{association}=", nil)
+            object.valid?
+            object.errors[reflection.foreign_key.to_sym].should_not include(I18n.t("activerecord.errors.messages.existence"))
+            object.send("build_#{association}")
             object.valid?
             object.errors[reflection.foreign_key.to_sym].should_not include(I18n.t("activerecord.errors.messages.existence"))
           end
         end
       else
         associations.each do |association|
-          it "requires #{association} exists" do
+          it "requires #{association} to exist" do
             reflection = subject.class.reflect_on_association(association)
             object = subject
             object.send("#{association}=", nil)

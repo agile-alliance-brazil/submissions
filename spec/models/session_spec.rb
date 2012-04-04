@@ -93,7 +93,7 @@ describe Session do
     xit { should validate_inclusion_of(:duration_mins).in_range([10, 50, 110]) }
 
     should_validate_existence_of :conference, :author
-    should_validate_existence_of :track, :session_type, :audience_level, :allow_nil => true
+    should_validate_existence_of :track, :session_type, :audience_level, :allow_blank => true
 
     it { should validate_numericality_of :audience_limit }
 

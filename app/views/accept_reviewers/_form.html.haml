@@ -1,4 +1,4 @@
-= semantic_form_for @reviewer, :url => reviewers_path(@conference) do |form|
+= semantic_form_for @reviewer, :url => reviewer_accept_path(@conference, @reviewer) do |form|
   = form.semantic_fields_for :preferences do |p|
     = p.inputs :class => 'inputs preferences' do
       = p.input :track_id, :as => :hidden
@@ -9,7 +9,7 @@
     = form.semantic_errors :base
   %pre#reviewer_agreement= yield(:agreement)
   = form.inputs :class => 'inputs accept' do
-    = form.input :reviewer_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
+    = form.input :reviewer_agreement, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
   = form.buttons do
     = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
     = t('generic.or')

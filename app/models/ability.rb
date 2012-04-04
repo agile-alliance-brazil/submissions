@@ -32,9 +32,6 @@ class Ability
     can(:update, User, :id => @user.id)
     can(:create, Comment)
     can(:modify, Comment, :user_id => @user.id)
-    can(:update, Reviewer) do |reviewer|
-      reviewer.try(:user) == @user && reviewer.invited?
-    end
     can(:manage, 'accept_reviewers') do
       find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
     end

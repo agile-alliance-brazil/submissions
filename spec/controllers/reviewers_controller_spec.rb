@@ -4,7 +4,7 @@ require 'spec_helper'
 describe ReviewersController do
   render_views
 
-  it_should_require_login_for_actions :index, :new, :create, :update
+  it_should_require_login_for_actions :index, :new, :create
 
   before(:each) do
     @user ||= FactoryGirl.create(:user)
@@ -40,22 +40,6 @@ describe ReviewersController do
     response.should redirect_to(reviewers_path(Conference.current))
   end
   
-  it "update action should render accept_reviewers/show template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    reviewer = FactoryGirl.create(:reviewer)
-    put :update, :id => reviewer.id, :reviewer => {}
-    response.should render_template('accept_reviewers/show')
-  end
-
-  it "update action should redirect when model is valid" do
-    reviewer = FactoryGirl.create(:reviewer)
-    reviewer.stubs(:valid?).returns(true)
-    put :update, :id => reviewer.id
-    response.should redirect_to(reviewer_sessions_path(Conference.current))
-  end
-
   it "destroy action should redirect" do
     reviewer = FactoryGirl.create(:reviewer, :user_id => @user.id)
     delete :destroy, :id => reviewer.id

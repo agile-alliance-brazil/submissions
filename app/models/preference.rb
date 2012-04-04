@@ -11,7 +11,7 @@ class Preference < ActiveRecord::Base
   validates_presence_of :audience_level_id, :if => :accepted?
   
   validates_existence_of :reviewer, :track
-  validates_existence_of :audience_level, :if => :accepted?
+  validates_existence_of :audience_level, :if => :accepted?, :allow_blank => true
   
   validates_each :track_id, :allow_blank => true, :if => :accepted? do |record, attr, value|
     record.errors.add(:accepted, :organizer_track) unless record.reviewer.can_review?(record.track)

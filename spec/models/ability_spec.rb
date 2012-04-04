@@ -86,27 +86,6 @@ describe Ability do
     it "cannot read sessions to review" do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
-
-    describe "can update reviewer if:" do
-      before(:each) do
-        @reviewer = FactoryGirl.create(:reviewer, :user => @user)
-        @reviewer.invite
-      end
-      
-      it "- user is the same" do
-        @ability.should be_able_to(:update, @reviewer)
-        @reviewer.user = nil
-        @ability.should_not be_able_to(:update, @reviewer)
-      end
-      
-      it "- reviewer is in invited state" do
-        @ability.should be_able_to(:update, @reviewer)
-        conference = @reviewer.conference
-        @reviewer.preferences.create(:accepted => true, :track_id => conference.tracks.first.id, :audience_level_id => conference.audience_levels.first.id, :conference_id => conference.id)
-        @reviewer.accept
-        @ability.should_not be_able_to(:update, @reviewer)
-      end
-    end
   end
   
   context "- admin" do

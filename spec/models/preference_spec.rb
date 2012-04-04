@@ -17,10 +17,10 @@ describe Preference do
     describe "should validate audience level if accepted" do
       subject {FactoryGirl.build(:preference, :accepted => true)}
       it { should validate_presence_of :audience_level_id }
-      should_validate_existence_of :audience_level
     end
 
     should_validate_existence_of :reviewer, :track
+    should_validate_existence_of :audience_level, :allow_blank => true
 
     context "track" do
       it "should match the conference" do
