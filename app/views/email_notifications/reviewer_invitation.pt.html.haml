@@ -5,12 +5,12 @@
 %p Antes de aceitar o convite, é importante saber da responsabilidade e do compromisso que você está assumindo. Participar do processo de avaliação requer tempo e imparcialidade, para que possamos montar um evento com palestras da melhor qualidade. Este ano o processo de avaliação será diferente dos anteriores, na tentativa de oferecer aos autores a possibilidade de melhorar suas propostas antes do prazo final, de acordo com o feedback recebido. A avaliação, portanto, será feita em duas etapas:
 
 %ul
-  %li Na primeira etapa, que deve ir de #{l(Date.today)} até #{l(@conference.prereview_deadline)}, cada proposta realizada até #{l(@conference.presubmissions_deadline)} deverá receber 1 avaliação parcial.
-  %li Na segunda etapa, que deve ir de #{l(@conference.presubmissions_deadline)} até #{l(@conference.submissions_deadline)}, cada proposta deverá receber 3 avaliações independentes.
+  %li Na primeira etapa, que deve ir de #{l(Time.zone.local(2012, 04, 04), :format => :short)} até #{l(@conference.prereview_deadline, :format => :short)}, cada proposta realizada até #{l(@conference.presubmissions_deadline, :format => :short)} deverá receber 1 avaliação parcial.
+  %li Na segunda etapa, que deve ir de #{l(@conference.presubmissions_deadline, :format => :short)} até #{l(@conference.submissions_deadline, :format => :short)}, cada proposta deverá receber 3 avaliações independentes.
 
 %p Até o presente momento, é impossível prever quantas propostas receberemos, mas esperamos que cada avaliador reserve em torno de 2 horas por semana ao longo de cada etapa para realizar as avaliações. As avaliações não precisam ser feitas de uma vez - elas serão online e fica a seu critério definir como o tempo será alocado.
 
-%p Vale ressaltar que fazer parte do comitê não o impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{link_to root_path(:year => @conference.year), root_path(:year => @conference.year)}.
+%p Vale ressaltar que fazer parte do comitê não o impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{link_to root_url(:year => @conference.year), root_url(:year => @conference.year)}.
 
 %p Para aceitar este convite, clique no link abaixo:
 
@@ -22,7 +22,7 @@
 
 %p Se alguma das URLs acima não funcionar tente copiar e colar o endereço completo no seu navegador.
 
-%p Por favor, responda a esse convite até #{l(Date.today + 7)}. Contamos com sua colaboração para montar uma programação excelente para a #{@conference_name}. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
+%p Por favor, responda a esse convite até #{l(Time.zone.local(2012, 04, 11), :format => :short)}. Contamos com sua colaboração para montar uma programação excelente para a #{@conference_name}. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 %p Gratos,
 

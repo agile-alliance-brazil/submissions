@@ -5,13 +5,13 @@
 %p Before accepting your invitation, it is important to acknowledge the commitment that you are about to take. To participate in the evaluation process requires time and impartiality to create a conference with the best possible program. This year's review process will be different from previous years in an attempt to offer authors the opportunity to improve their proposals before the deadline, according to the feedback received. The review consists of two stages:
 
 %ul
-  %li During the first stage, which starts on #{l(Date.today)} and ends on #{l(@conference.prereview_deadline)}, each submitted proposal until  #{l(@conference.presubmissions_deadline)} must receive 1 partial review.
-  %li For the second stage, which starts on #{l(@conference.presubmissions_deadline)} and ends on #{l(@conference.submissions_deadline)}, each submitted proposal will receive 3 independent reviews.
+  %li During the first stage, which starts on #{l(Time.zone.local(2012, 04, 04), :format => :short)} and ends on #{l(@conference.prereview_deadline, :format => :short)}, each submitted proposal until  #{l(@conference.presubmissions_deadline, :format => :short)} must receive 1 partial review.
+  %li For the second stage, which starts on #{l(@conference.presubmissions_deadline, :format => :short)} and ends on #{l(@conference.submissions_deadline, :format => :short)}, each submitted proposal will receive 3 independent reviews.
 
 
 %p To date, we are not able to predict how many proposals we are expected to receive, but we do ask each reviewer to dedicate about 2 hours per week during each stage to conduct the reviews. The reviews themselves do not need to be delivered all at once - they will be delivered online and it is up to you to organize your schedule to meet the deadlines.
 
-%p A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via #{link_to root_path(:year => @conference.year), root_path(:year => @conference.year)}.
+%p A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via #{link_to root_url(:year => @conference.year), root_url(:year => @conference.year)}.
 
 %p To accept this invitation, please click on the link below:
 
@@ -23,7 +23,7 @@
 
 %p If any of the above URLs do not work try copying and pasting into your browser.
 
-%p Please respond this invitation by #{l(Date.today + 7)}. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
+%p Please respond this invitation by #{l(Time.zone.local(2012, 04, 11), :format => :short)}. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 %p Regards,
 
