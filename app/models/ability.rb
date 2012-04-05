@@ -104,6 +104,7 @@ class Ability
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == Review &&
           Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= @conference.review_deadline
+          && Time.zone.now > @conference.review_deadline # Ugly always false condition just to block people from sending reviews while we don't deploy the presubmission code
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
