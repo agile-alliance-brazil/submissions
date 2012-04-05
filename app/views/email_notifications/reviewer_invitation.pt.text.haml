@@ -7,14 +7,14 @@ O Comitê Organizador da #{@conference_name} (http://www.agilebrazil.com/#{@conf
 Antes de aceitar o convite, é importante saber da responsabilidade e do compromisso que você está assumindo. Participar do processo de avaliação requer tempo e imparcialidade, para que possamos montar um evento com palestras da melhor qualidade. Este ano o processo de avaliação será diferente dos anteriores, na tentativa de oferecer aos autores a possibilidade de melhorar suas propostas antes do prazo final, de acordo com o feedback recebido. A avaliação, portanto, será feita em duas etapas:
 
 
-    Na primeira etapa, que deve ir de #{l(Date.today)} até #{l(@conference.prereview_deadline)}, cada proposta realizada até #{l(@conference.presubmissions_deadline)} deverá receber 1 avaliação parcial.
-    Na segunda etapa, que deve ir de #{l(@conference.presubmissions_deadline)} até #{l(@conference.submissions_deadline)}, cada proposta deverá receber 3 avaliações independentes.
+\- Na primeira etapa, que deve ir de #{l(Date.today)} até #{l(@conference.prereview_deadline)}, cada proposta realizada até #{l(@conference.presubmissions_deadline)} deverá receber 1 avaliação parcial.
+\- Na segunda etapa, que deve ir de #{l(@conference.presubmissions_deadline)} até #{l(@conference.submissions_deadline)}, cada proposta deverá receber 3 avaliações independentes.
 
 
 Até o presente momento, é impossível prever quantas propostas receberemos, mas esperamos que cada avaliador reserve em torno de 2 horas por semana ao longo de cada etapa para realizar as avaliações. As avaliações não precisam ser feitas de uma vez - elas serão online e fica a seu critério definir como o tempo será alocado.
 
 
-Vale ressaltar que fazer parte do comitê não o impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{root_path}.
+Vale ressaltar que fazer parte do comitê não o impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{root_path(:year => @conference.year)}.
 
 
 Para aceitar este convite, vá para o seguinte endereço:

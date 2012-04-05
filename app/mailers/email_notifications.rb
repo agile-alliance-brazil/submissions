@@ -23,6 +23,7 @@ class EmailNotifications < ActionMailer::Base
   def session_submitted(session, sent_at = Time.now)
     @session = session
     @conference_name = current_conference.name
+    @conference = current_conference
     mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => @conference_name)}",
          :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
          :from     => "\"#{@conference_name}\" <#{from_address}>",
