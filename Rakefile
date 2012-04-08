@@ -16,4 +16,5 @@ begin
 rescue LoadError
 end
 
-task :default => ["db:test:load", "spec"]
+Rake::Task[:spec].clear
+RSpec::Core::RakeTask.new(:spec => "db:test:load")
