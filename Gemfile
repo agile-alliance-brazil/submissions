@@ -45,6 +45,7 @@ group :development do
   gem 'mysql2', '=0.3.11'
   gem 'sqlite3', '=1.3.5'
   gem 'capistrano-ext', '=1.2.1'
+  gem 'travis-lint', '=1.4.0'
 end
 
 group :development, :test do
