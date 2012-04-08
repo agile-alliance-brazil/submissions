@@ -43,13 +43,13 @@ end
 
 group :development do
   gem 'mysql2', '=0.3.11'
-  gem 'sqlite3', '=1.3.5'
   gem 'capistrano-ext', '=1.2.1'
   gem 'travis-lint', '=1.4.0'
 end
 
 group :development, :test do
   gem 'mocha', '=0.10.4'
+  gem 'sqlite3', '=1.3.5'
   gem 'rspec-rails', '=2.8.1'
   gem 'shoulda-matchers', '=1.0.0'
   gem 'factory_girl_rails', '=1.6.0'
