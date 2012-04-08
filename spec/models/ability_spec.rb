@@ -200,17 +200,13 @@ describe Ability do
     end
 
     describe "can create sessions if:" do
-      before(:each) do
-        Time.zone.stubs(:now).returns(@conference.submissions_deadline - 3.days)
-      end
-
-      it "- before deadline" do
-        Time.zone.expects(:now).returns(@conference.submissions_deadline)
+      it "- in submissions phase" do
+        @conference.expects(:in_submissions_phase?).returns(true)
         @ability.should be_able_to(:create, Session)
       end
 
-      it "- after deadline author can't update" do
-        Time.zone.expects(:now).returns(@conference.submissions_deadline + 1.second)
+      it "- out of submissions phase" do
+        @conference.expects(:in_submissions_phase?).returns(false)
         @ability.should_not be_able_to(:create, Session)
       end
     end
@@ -218,7 +214,7 @@ describe Ability do
     describe "can update session if:" do
       before(:each) do
         @session = FactoryGirl.create(:session, :conference => @conference)
-        Time.zone.stubs(:now).returns(@conference.submissions_deadline - 3.days)
+        @conference.stubs(:in_submissions_phase?).returns(true)
       end
 
       it "- user is first author" do
@@ -233,15 +229,15 @@ describe Ability do
         @ability.should be_able_to(:update, @session)
       end
 
-      it "- before deadline" do
+      it "- in submissions phase" do
         @session.author = @user
-        Time.zone.expects(:now).returns(@conference.submissions_deadline)
+        @conference.expects(:in_submissions_phase?).returns(true)
         @ability.should be_able_to(:update, @session)
       end
 
-      it "- after deadline author can't update" do
+      it "- out of submissions phase can't update" do
         @session.author = @user
-        Time.zone.expects(:now).returns(@conference.submissions_deadline + 1.second)
+        @conference.expects(:in_submissions_phase?).returns(false)
         @ability.should_not be_able_to(:update, @session)
       end
 
@@ -816,7 +812,7 @@ describe Ability do
       before(:each) do
         @session = FactoryGirl.create(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
-        Time.zone.stubs(:now).returns(@conference.review_deadline - 1.week)
+        @conference.stubs(:in_final_review_phase?).returns(true)
       end
 
       it "has not created a final review for this session" do
@@ -841,7 +837,7 @@ describe Ability do
       end
 
       it "before final review deadline" do
-        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
+        @conference.expects(:in_final_review_phase?).returns(true)
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should be_able_to(:create, FinalReview)
         @ability.should be_able_to(:create, FinalReview, nil)
@@ -849,12 +845,7 @@ describe Ability do
       end
 
       it "after final review deadline can't review" do
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
-        @ability.should be_able_to(:create, FinalReview)
-        @ability.should be_able_to(:create, FinalReview, nil)
-        @ability.should be_able_to(:create, FinalReview, @session)
-
-        Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
+        @conference.stubs(:in_final_review_phase?).returns(false)
         @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
         @ability.should_not be_able_to(:create, FinalReview)
         @ability.should_not be_able_to(:create, FinalReview, nil)

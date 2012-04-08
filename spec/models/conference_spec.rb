@@ -26,7 +26,7 @@ describe Conference do
           [conference.author_confirmation.to_date, :author_confirmation]
         ]
       end
-    
+
       it "should include pre-submission and pre-review deadlines when available" do
         conference = Conference.find_by_year(2012)
         conference.dates.should == [
@@ -39,9 +39,9 @@ describe Conference do
         ]
       end
     end
-      
+
     describe "next_deadline" do
-      before :each do
+      before(:each) do
         @date = DateTime.now
         @conference = Conference.new
         @dates = [[@date, :submissions], [@date + 1.day, :notification]]
@@ -63,6 +63,56 @@ describe Conference do
         @conference.next_deadline.should be_nil
       end
     end
+
+    {
+      :submission_phase   => [:submissions_open, :submissions_deadline],
+      :early_review_phase => [:presubmissions_deadline, :prereview_deadline],
+      :final_review_phase => [:submissions_deadline, :review_deadline]
+    }.each do |phase, deadlines|
+      describe "in_#{phase}?" do
+        before(:each) do
+          @conference = Conference.find_by_year(2012)
+          @start = @conference.send(deadlines[0])
+          @end = @conference.send(deadlines[1])
+        end
+
+        it "should return true if date is on start deadline" do
+          DateTime.expects(:now).returns(@start)
+          @conference.send(:"in_#{phase}?").should be_true
+        end
+
+        it "should return false if date is before start deadline" do
+          DateTime.expects(:now).returns(@start - 1.second)
+          @conference.send(:"in_#{phase}?").should be_false
+        end
+
+        it "should return true if date is after start deadline" do
+          DateTime.expects(:now).returns(@start + 1.second)
+          @conference.send(:"in_#{phase}?").should be_true
+        end
+
+        it "should return true if date is prior to end deadline" do
+          DateTime.expects(:now).returns(@end - 1.second)
+          @conference.send(:"in_#{phase}?").should be_true
+        end
+
+        it "should return true if date is on end deadline" do
+          DateTime.expects(:now).returns(@end)
+          @conference.send(:"in_#{phase}?").should be_true
+        end
+
+        it "should return false if date is after end deadline" do
+          DateTime.expects(:now).returns(@end + 1.second)
+          @conference.send(:"in_#{phase}?").should be_false
+        end
+      end
+    end
+
+    it "should not fail if conference doesn't have early review" do
+      conference = Conference.find_by_year(2011)
+      DateTime.stubs(:now).returns(conference.submissions_open)
+      conference.should_not be_in_early_review_phase
+    end
   end
-  
+
 end

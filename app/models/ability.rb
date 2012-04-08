@@ -54,11 +54,10 @@ class Ability
 
   def author
     can do |action, subject_class, subject|
-      expand_actions([:create]).include?(action) && subject_class == Session &&
-          Time.zone.now <= @conference.submissions_deadline
+      expand_actions([:create]).include?(action) && subject_class == Session && @conference.in_submissions_phase?
     end
     can(:update, Session) do |session|
-      session.try(:conference) == @conference && session.try(:is_author?, @user) && Time.zone.now <= @conference.submissions_deadline
+      session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submissions_phase?
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
@@ -109,8 +108,7 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:create]).include?(action) && subject_class == FinalReview &&
-          Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= @conference.review_deadline &&
-          Time.zone.now > @conference.submissions_deadline
+          Session.for_reviewer(@user, @conference).include?(session) && @conference.in_final_review_phase?
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
