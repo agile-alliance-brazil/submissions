@@ -13,8 +13,8 @@ describe ReviewsListingController do
     disable_authorization
 
     # 2 reviews (2 sessions)
-    review = FactoryGirl.create(:review)
-    FactoryGirl.create(:review, :session => FactoryGirl.create(:session, :conference => review.session.conference))
+    review = FactoryGirl.create(:final_review)
+    FactoryGirl.create(:final_review, :session => FactoryGirl.create(:session, :conference => review.session.conference))
     
     get :index, :format => 'js'
     response.body.should == {

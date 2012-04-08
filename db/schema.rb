@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321034301) do
+ActiveRecord::Schema.define(:version => 20120408182018) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20120321034301) do
     t.integer  "session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "session_types", :force => true do |t|
@@ -139,7 +140,7 @@ ActiveRecord::Schema.define(:version => 20120321034301) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit",    :limit => 255
+    t.integer  "audience_limit",      :limit => 255
     t.integer  "author_id"
     t.text     "experience"
     t.datetime "created_at"
@@ -150,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20120321034301) do
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "reviews_count",                    :default => 0
+    t.integer  "final_reviews_count",                :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"

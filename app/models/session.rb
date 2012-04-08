@@ -18,7 +18,7 @@ class Session < ActiveRecord::Base
   belongs_to :audience_level
   belongs_to :conference
 
-  has_many :reviews
+  has_many :reviews, :class_name => 'FinalReview'
   has_one :review_decision
 
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
@@ -93,7 +93,7 @@ class Session < ActiveRecord::Base
     where(clause, *args)
   }
 
-  scope :incomplete_reviews, lambda { |limit| where('reviews_count < ?', limit) }
+  scope :incomplete_reviews, lambda { |limit| where('final_reviews_count < ?', limit) }
 
   def self.for_reviewer(user, conference)
     for_conference(conference).

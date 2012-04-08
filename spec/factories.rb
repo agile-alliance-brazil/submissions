@@ -93,28 +93,28 @@ FactoryGirl.define do
     title 'recommendation.strong_reject.title'
   end
 
-  factory :review do
+  factory :final_review, :class => FinalReview do
     association :author_agile_xp_rating, :factory => :rating
     association :author_proposal_xp_rating, :factory => :rating
-    
+
     proposal_track true
     proposal_level true
     proposal_type true
     proposal_duration true
     proposal_limit true
     proposal_abstract true
-    
+
     association :proposal_quality_rating, :factory => :rating
     association :proposal_relevance_rating, :factory => :rating
-    
+
     association :recommendation
     justification "Fake"
-    
+
     association :reviewer_confidence_rating, :factory => :rating
-    
+
     comments_to_organizers "Fake"
     comments_to_authors "Fake " * 40
-    
+
     association :reviewer, :factory => :user
     association :session
   end

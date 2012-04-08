@@ -39,7 +39,7 @@ describe Session do
 
     it { should have_many(:comments).dependent(:destroy) }
 
-    it { should have_many :reviews }
+    it { should have_many(:reviews).class_name('FinalReview') }
     it { should have_one  :review_decision }
 
     context "second author association by username" do
@@ -297,7 +297,7 @@ describe Session do
       end
 
       xit "with less than 3 reviews" do
-        should have_scope(:incomplete_reviews, :with => 3).where('reviews_count < 3')
+        should have_scope(:incomplete_reviews, :with => 3).where('final_reviews_count < 3')
       end
 
       xit "if not already reviewed by user" do

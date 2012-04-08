@@ -46,6 +46,8 @@ class Ability
     cannot(:create, ReviewDecision)
     cannot(:update, ReviewDecision)
     cannot(:create, Review)
+    cannot(:create, FinalReview)
+    cannot(:create, EarlyReview)
     cannot(:manage, 'confirm_sessions')
     cannot(:manage, 'withdraw_sessions')
   end
@@ -61,7 +63,7 @@ class Ability
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
       expand_actions([:index]).include?(action) &&
-          subject_class == Review &&
+          subject_class == FinalReview &&
           session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
@@ -81,8 +83,10 @@ class Ability
       session.can_cancel? && @user.organized_tracks(@conference).include?(session.track)
     end
     can(:show, Review)
+    can(:show, FinalReview)
+    can(:show, EarlyReview)
     can do |action, subject_class, subject|
-      expand_actions([:organizer]).include?(action) && subject_class == Review &&
+      expand_actions([:organizer]).include?(action) && subject_class == FinalReview &&
           @user.organized_tracks(@conference).include?(find_session.try(:track))
     end
     can do |action, subject_class, subject, session|
@@ -100,9 +104,11 @@ class Ability
   def reviewer
     can(:read, 'reviewer_sessions')
     can(:show, Review, :reviewer_id => @user.id)
+    can(:show, FinalReview, :reviewer_id => @user.id)
+    can(:show, EarlyReview, :reviewer_id => @user.id)
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?
-      expand_actions([:create]).include?(action) && subject_class == Review &&
+      expand_actions([:create]).include?(action) && subject_class == FinalReview &&
           Session.for_reviewer(@user, @conference).include?(session) && Time.zone.now <= @conference.review_deadline &&
           Time.zone.now > @conference.submissions_deadline
     end

@@ -1,22 +1,23 @@
 # encoding: UTF-8
 class ReviewsController < InheritedResources::Base
+  defaults :resource_class => FinalReview
   actions :all, :except => [:edit, :update, :destroy]
   respond_to :html
 
   belongs_to :session
-  
+
   def index
     index! do |format|
       format.html { render :author }
     end
   end
-  
+
   def organizer
     index! do |format|
       format.html { render :organizer }
     end
   end
-  
+
   def create
     create! do |success, failure|
       success.html do

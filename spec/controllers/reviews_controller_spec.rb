@@ -7,7 +7,7 @@ describe ReviewsController do
   it_should_require_login_for_actions :index, :show, :new, :create
 
   before(:each) do
-    @review ||= FactoryGirl.create(:review)
+    @review ||= FactoryGirl.create(:final_review)
     sign_in @review.reviewer
     disable_authorization
   end
@@ -23,7 +23,7 @@ describe ReviewsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => Review.first, :session_id => Session.first
+    get :show, :id => FinalReview.first, :session_id => Session.first
     response.should render_template(:show)
   end
   
@@ -42,7 +42,7 @@ describe ReviewsController do
   end
   
   it "create action should redirect when model is valid" do
-    Review.any_instance.stubs(:valid?).returns(true)
+    FinalReview.any_instance.stubs(:valid?).returns(true)
     post :create, :session_id => Session.first
     response.should redirect_to(session_review_url(Conference.current, assigns(:session), assigns(:review)))
   end
