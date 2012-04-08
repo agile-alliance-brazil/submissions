@@ -18,6 +18,7 @@ class Conference < ActiveRecord::Base
     :presubmissions_deadline,
     :prereview_deadline,
     :submissions_deadline,
+    # :review_deadline, # Internal deadline
     :author_notification,
     :author_confirmation
   ]
