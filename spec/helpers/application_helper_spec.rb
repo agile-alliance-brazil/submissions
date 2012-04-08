@@ -124,18 +124,18 @@ describe ApplicationHelper do
       helper = mock(helper)
     end
 
-    it "should make date bold if current date matches" do
-      @conference.expects(:current_date).returns([@date, :submissions])
+    it "should make date bold if next deadline matches" do
+      @conference.expects(:next_deadline).returns([@date, :submissions])
       helper.present_date(@conference, [@date, :submissions]).should == "<strong>#{l(@date)}: #{t('conference.dates.submissions')}</strong>"
     end
 
-    it "should leave date if current date doesn't matches" do
-      @conference.expects(:current_date).returns([@date + 1, :notifications])
+    it "should leave date if next deadline doesn't matches" do
+      @conference.expects(:next_deadline).returns([@date + 1, :notifications])
       helper.present_date(@conference, [@date, :submissions]).should == "#{l(@date)}: #{t('conference.dates.submissions')}"
     end
 
-    it "should leave date if current date is nil" do
-      @conference.expects(:current_date).returns(nil)
+    it "should leave date if next deadline is nil" do
+      @conference.expects(:next_deadline).returns(nil)
       helper.present_date(@conference, [@date, :submissions]).should == "#{l(@date)}: #{t('conference.dates.submissions')}"
     end
   end

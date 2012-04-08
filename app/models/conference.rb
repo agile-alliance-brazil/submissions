@@ -26,7 +26,7 @@ class Conference < ActiveRecord::Base
     @dates ||= DEADLINES.map { |name| send(name) ? [send(name).to_date, name] : nil}.compact
   end
 
-  def current_date
+  def next_deadline
     now = DateTime.now
     dates.select{|date_map| now < date_map.first}.first
   end
