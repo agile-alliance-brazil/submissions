@@ -54,10 +54,10 @@ class Ability
 
   def author
     can do |action, subject_class, subject|
-      expand_actions([:create]).include?(action) && subject_class == Session && @conference.in_submissions_phase?
+      expand_actions([:create]).include?(action) && subject_class == Session && @conference.in_submission_phase?
     end
     can(:update, Session) do |session|
-      session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submissions_phase?
+      session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submission_phase?
     end
     can do |action, subject_class, subject, session|
       session = find_session if session.nil?

@@ -201,12 +201,12 @@ describe Ability do
 
     describe "can create sessions if:" do
       it "- in submissions phase" do
-        @conference.expects(:in_submissions_phase?).returns(true)
+        @conference.expects(:in_submission_phase?).returns(true)
         @ability.should be_able_to(:create, Session)
       end
 
       it "- out of submissions phase" do
-        @conference.expects(:in_submissions_phase?).returns(false)
+        @conference.expects(:in_submission_phase?).returns(false)
         @ability.should_not be_able_to(:create, Session)
       end
     end
@@ -214,7 +214,7 @@ describe Ability do
     describe "can update session if:" do
       before(:each) do
         @session = FactoryGirl.create(:session, :conference => @conference)
-        @conference.stubs(:in_submissions_phase?).returns(true)
+        @conference.stubs(:in_submission_phase?).returns(true)
       end
 
       it "- user is first author" do
@@ -231,13 +231,13 @@ describe Ability do
 
       it "- in submissions phase" do
         @session.author = @user
-        @conference.expects(:in_submissions_phase?).returns(true)
+        @conference.expects(:in_submission_phase?).returns(true)
         @ability.should be_able_to(:update, @session)
       end
 
       it "- out of submissions phase can't update" do
         @session.author = @user
-        @conference.expects(:in_submissions_phase?).returns(false)
+        @conference.expects(:in_submission_phase?).returns(false)
         @ability.should_not be_able_to(:update, @session)
       end
 

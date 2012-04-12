@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20120408182018) do
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",          :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(:version => 20120408182018) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit",      :limit => 255
+    t.integer  "audience_limit"
     t.integer  "author_id"
     t.text     "experience"
     t.datetime "created_at"
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20120408182018) do
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "final_reviews_count",                :default => 0
+    t.integer  "final_reviews_count", :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"

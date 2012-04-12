@@ -38,7 +38,7 @@
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         - if @user == current_user
           %td.reviews
-            - if can?(:index, Review, session) && session.reviews_count > 0
+            - if can?(:index, Review, session) && session.final_reviews_count > 0
               = link_to t('formtastic.labels.session.reviews'), session_reviews_path(@conference, session)
           %td.state
             = t("session.state.#{session.state}")

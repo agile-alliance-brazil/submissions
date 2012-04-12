@@ -53,5 +53,6 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  load "#{Rails.root}/config/initializers/in_memory_database.rb"
   AgileBrazil::Application.reload_routes!
 end

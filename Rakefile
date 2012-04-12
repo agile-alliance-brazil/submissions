@@ -17,4 +17,4 @@ rescue LoadError
 end
 
 Rake::Task[:spec].clear
-RSpec::Core::RakeTask.new(:spec => "db:test:load")
+RSpec::Core::RakeTask.new(:spec)
