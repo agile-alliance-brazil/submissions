@@ -8,9 +8,9 @@ class SessionsController < InheritedResources::Base
   before_filter :load_session_types
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
-  
+
   has_scope :tagged_with, :only => :index
-  
+
   def create
     create! do |success, failure|
       success.html do
@@ -24,7 +24,7 @@ class SessionsController < InheritedResources::Base
       end
     end
   end
-  
+
   def update
     update! do |success, failure|
       success.html do
@@ -37,12 +37,12 @@ class SessionsController < InheritedResources::Base
       end
     end
   end
-  
+
   def cancel
     flash[:error] = t('flash.session.cancel.failure') unless resource.cancel
     redirect_to organizer_sessions_path(@conference)
   end
-  
+
   protected
   def build_resource
     attributes = params[:session] || {}
@@ -53,11 +53,11 @@ class SessionsController < InheritedResources::Base
   def load_user
     @user = User.find(params[:user_id]) if params[:user_id]
   end
-  
+
   def load_comment
     @comment = Comment.new(:user_id => current_user.id, :commentable_id => @session.id)
   end
-  
+
   def load_tracks
     @tracks ||= @conference.tracks
   end
@@ -77,15 +77,11 @@ class SessionsController < InheritedResources::Base
   end
 
   def collection
-    paginate_options ||= {}
-    paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 10)
-    paginate_options[:order] ||= 'sessions.created_at DESC'
-    @sessions ||= end_of_association_chain.for_conference(@conference).paginate(paginate_options)
+    @sessions ||= end_of_association_chain.for_conference(@conference).page(params[:page]).order('sessions.created_at DESC')
   end
-  
+
   def begin_of_association_chain
     action_name == 'new' ? current_user : nil
   end
-        
+
 end

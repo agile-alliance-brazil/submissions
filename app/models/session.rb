@@ -84,7 +84,10 @@ class Session < ActiveRecord::Base
 
   scope :not_author, lambda { |u| where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i) }
 
-  scope :reviewed_by, lambda { |u, c| where('reviewer_id = ? AND conference_id = ?', u.id, c.id).joins(:reviews) }
+  scope :not_reviewed_by, lambda { |u|
+    joins('LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id').
+    where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', u.id)
+  }
 
   scope :for_preferences, lambda { |*preferences|
     return where('1 = 2') if preferences.empty?
@@ -100,7 +103,8 @@ class Session < ActiveRecord::Base
     incomplete_reviews(3).
     not_author(user.id).
     without_state(:cancelled).
-    for_preferences(*user.preferences(conference)).all - reviewed_by(user, conference).all
+    for_preferences(*user.preferences(conference)).
+    not_reviewed_by(user)
   end
 
   state_machine :initial => :created do

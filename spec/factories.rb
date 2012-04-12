@@ -15,6 +15,10 @@ FactoryGirl.define do
     organization "ThoughtWorks"
     website_url "www.dtsato.com"
     bio "Some text about me..."
+
+    factory :author do
+      after_build { |u| u.add_role(:author) }
+    end
   end
 
   factory :simple_user, :class => User do

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe ReviewerSessionsController do
   render_views
 
@@ -16,10 +16,11 @@ describe ReviewerSessionsController do
     get :index
     response.should render_template(:index)
   end
-  
+
   it "index action should find sessions for reviewer" do
-    Session.expects(:for_reviewer).with(@reviewer.user, @reviewer.conference).returns([])
+    session = FactoryGirl.create(:session)
+    FactoryGirl.create(:preference, :reviewer => @reviewer, :track => session.track, :audience_level => session.audience_level)
     get :index
-    assigns(:sessions).should == []
+    assigns(:sessions).should == [session]
   end
 end

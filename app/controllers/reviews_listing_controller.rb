@@ -18,10 +18,6 @@ class ReviewsListingController < ApplicationController
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'
     column = sanitize(params[:column].presence || 'created_at')
     order = "reviews.#{column} #{direction}"
-    paginate_options ||= {}
-    paginate_options[:page] ||= (params[:page] || 1)
-    paginate_options[:per_page] ||= (params[:per_page] || 10)
-    paginate_options[:order] ||= order
-    @reviews = current_user.reviews.for_conference(@conference).paginate(paginate_options)
+    @reviews = current_user.reviews.for_conference(@conference).page(params[:page]).order(order)
   end
 end

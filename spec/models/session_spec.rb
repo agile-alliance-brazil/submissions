@@ -268,60 +268,91 @@ describe Session do
     xit {should have_scope(:for_tracks, :with => [1, 2]).where('track_id IN (1, 2)') }
 
     context "for reviewer" do
-      context "on accepted preferences" do
-        xit "no preferences" do
-          # If user has no preference, no sessions to review
-          should have_scope(:for_preferences).where('1 = 2')
+      before(:each) do
+        @reviewer = FactoryGirl.create(:reviewer)
+        @user = @reviewer.user
+        @conference = @reviewer.conference
+        @track = @conference.tracks.first
+        @audience_level = @conference.audience_levels.first
+
+        @session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level)
+      end
+
+      context "preferences" do
+        it "if user has no preferences, no sessions to review" do
+          Session.for_reviewer(@user, @conference).should be_empty
         end
 
-        xit "one preference" do
-          should have_scope(:for_preferences,
-                            :with => Preference.new(:track_id => 1, :audience_level_id => 2)).
-                 where('(track_id = 1 AND audience_level_id <= 2)')
+        it "one preference" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          Session.for_reviewer(@user, @conference).should == [@session]
         end
 
-        xit "multiple preferences" do
-          should have_scope(:for_preferences, :with [
-            Preference.new(:track_id => 1, :audience_level_id => 2),
-            Preference.new(:track_id => 3, :audience_level_id => 4)
-          ]).where('(track_id = 1 AND audience_level_id <= 2) OR (track_id = 3 AND audience_level_id <= 4)')
+        it "multiple preferences" do
+          audience_level = @conference.audience_levels.second
+          session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => audience_level)
+
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => audience_level)
+
+          (Session.for_reviewer(@user, @conference) - [session, @session]).should be_empty
         end
       end
 
-      xit "non cancelled" do
-        should have_scope(:without_states, :with => :cancelled).where("state NOT IN ('cancelled')")
+      context "cancelled" do
+        before(:each) do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+        end
+
+        it "non-cancelled should be returned" do
+          Session.for_reviewer(@user, @conference).should == [@session]
+        end
+
+        it "cancelled should not be returned" do
+          @session.cancel
+          Session.for_reviewer(@user, @conference).should be_empty
+        end
       end
 
-      xit "if not author" do
-        should have_scope(:not_author, :with => '3').where("author_id <> 3 AND (second_author_id IS NULL OR second_author_id <> 3)")
+      context "author" do
+        before(:each) do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+        end
+
+        it "if reviewer is first author, should not be returned" do
+          FactoryGirl.create(:reviewer, :user => @session.author)
+
+          Session.for_reviewer(@session.author, @conference).should be_empty
+        end
+
+        it "if reviewer is second author, should not be returned" do
+          second_author = FactoryGirl.create(:author)
+          @session.update_attributes!(:second_author => second_author)
+
+          Session.for_reviewer(second_author, @conference).should be_empty
+        end
       end
 
-      xit "with less than 3 reviews" do
-        should have_scope(:incomplete_reviews, :with => 3).where('final_reviews_count < 3')
+      context "number of reviews" do
+        before(:each) do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+        end
+
+        it "with less than 3 reviews, should be returned" do
+          FactoryGirl.create(:final_review, :session => @session)
+          Session.for_reviewer(@user, @conference).should == [@session]
+        end
+
+        it "when session reaches 3 reviews, should not be returned" do
+          FactoryGirl.create_list(:final_review, 3, :session => @session)
+          Session.for_reviewer(@user, @conference).should == []
+        end
       end
 
-      xit "if not already reviewed by user" do
-        should have_scope(:reviewed_by, :with => '3').joins(:reviews).where('reviewer_id = 3')
-      end
-
-      xit "accepted" do
-        should have_scope(:with_state, :with => :accepted).where({:state => ['accepted']})
-      end
-
-      it "should combine criteria" do
-        reviewer = FactoryGirl.build(:reviewer)
-        conference = reviewer.conference
-        Session.expects(:for_conference).with(conference).returns(Session)
-        Session.expects(:incomplete_reviews).with(3).returns(Session)
-        Session.expects(:not_author).with(reviewer.user.id).returns(Session)
-        Session.expects(:without_state).with(:cancelled).returns(Session)
-        Session.expects(:for_preferences).with(*reviewer.preferences).returns(Session)
-
-        Session.expects(:reviewed_by).with(reviewer.user, conference).returns(Session)
-
-        Session.expects(:all).times(2).then.returns([1, 2, 3, 4]).then.returns([2, 3, 6])
-
-        Session.for_reviewer(reviewer.user, conference).should == [1, 4]
+      it "if already reviewed by user, it should not be returned" do
+        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+        FactoryGirl.create(:final_review, :session => @session, :reviewer => @user)
+        Session.for_reviewer(@user, @conference).should == []
       end
     end
   end
