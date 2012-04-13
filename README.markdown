@@ -1,4 +1,4 @@
-# Conference Submission System [![Build Status](https://secure.travis-ci.org/dtsato/agile_brazil.png?branch=master)](http://travis-ci.org/dtsato/agile_brazil)
+# Conference Submission System [![Build Status](https://secure.travis-ci.org/dtsato/agile_brazil.png?branch=master)](http://travis-ci.org/dtsato/agile_brazil) [![Dependency Status](https://gemnasium.com/dtsato/agile_brazil.png)](https://gemnasium.com/dtsato/agile_brazil)
 
 This is an open-source conference submission system, built in Rails and has been used for the [Agile Brazil](http://www.agilebrazil.com) conference since 2010. Some of the features supported are:
 
@@ -31,3 +31,7 @@ Thanks to everyone involved in building and maintaining this system:
 * Francisco Trindade (Contributor)
 * Giovanni Bassi (Contributor)
 * Mariana Bravo (Contributor)
+
+# License
+
+The conference submission system is released under the [MIT license](http://www.opensource.org/licenses/MIT). See LICENSE for details.
