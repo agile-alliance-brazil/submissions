@@ -511,6 +511,7 @@ en:
   will_paginate:
     previous_label: "&laquo; Previous"
     next_label: "Next &raquo;"
+    page_gap: "&hellip;"
 
   tips:
     users_from_last_year: "<strong>Tip:</strong> Users from last year are still active. If you don't remember your username or password, use the link above to recover it."

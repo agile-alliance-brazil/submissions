@@ -705,6 +705,7 @@ pt:
   will_paginate:
     previous_label: "&laquo; Anterior"
     next_label: "Próxima &raquo;"
+    page_gap: "&hellip;"
 
   tips:
     users_from_last_year: "<strong>Dica:</strong> os usuários do ano passado ainda são válidos. Caso não lembre do nome do seu usuário ou sua senha, use o link acima para recuperá-la."
