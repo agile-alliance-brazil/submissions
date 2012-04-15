@@ -44,6 +44,10 @@ form.formtastic fieldset ol li span.counter {
     color: #d20000;
     font-weight: bold;
   }
+  &.achieved {
+    color: #66cc66;
+    font-weight: bold;
+  }
 }
 
 form.formtastic fieldset ol li span.counter.exceeded + input {

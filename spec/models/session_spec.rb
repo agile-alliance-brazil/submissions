@@ -39,7 +39,8 @@ describe Session do
 
     it { should have_many(:comments).dependent(:destroy) }
 
-    it { should have_many(:reviews).class_name('FinalReview') }
+    it { should have_many :early_reviews }
+    it { should have_many :final_reviews }
     it { should have_one  :review_decision }
 
     context "second author association by username" do
@@ -267,6 +268,10 @@ describe Session do
 
     xit {should have_scope(:for_tracks, :with => [1, 2]).where('track_id IN (1, 2)') }
 
+    xit {should have_scope(:with_incomplete_final_reviews).where('final_reviews_count < 3') }
+
+    xit {should have_scope(:with_incomplete_early_reviews).where('final_reviews_count < 1') }
+
     context "for reviewer" do
       before(:each) do
         @reviewer = FactoryGirl.create(:reviewer)
@@ -333,26 +338,42 @@ describe Session do
         end
       end
 
-      context "number of reviews" do
-        before(:each) do
-          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
-        end
-
-        it "with less than 3 reviews, should be returned" do
-          FactoryGirl.create(:final_review, :session => @session)
-          Session.for_reviewer(@user, @conference).should == [@session]
-        end
-
-        it "when session reaches 3 reviews, should not be returned" do
-          FactoryGirl.create_list(:final_review, 3, :session => @session)
-          Session.for_reviewer(@user, @conference).should == []
-        end
-      end
-
       it "if already reviewed by user, it should not be returned" do
         FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
         FactoryGirl.create(:final_review, :session => @session, :reviewer => @user)
         Session.for_reviewer(@user, @conference).should == []
+      end
+    end
+
+    context "with incomplete early reviews" do
+      before(:each) do
+        @reviewer = FactoryGirl.create(:reviewer)
+        @user = @reviewer.user
+        @conference = @reviewer.conference
+
+        @session = FactoryGirl.create(:session, :conference => @conference, :created_at => @conference.presubmissions_deadline - 1.day)
+        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
+      end
+
+      it "should return sessions without early reviews" do
+        Session.incomplete_early_reviews_for(@conference).should == [@session]
+      end
+
+      it "should not return sessions already reviewed" do
+        FactoryGirl.create(:early_review, :session => @session, :reviewer => @user)
+        Session.incomplete_early_reviews_for(@conference).should == []
+      end
+
+      it "should return session created at the pre submissions deadline" do
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline)
+        @session.save!
+        Session.incomplete_early_reviews_for(@conference).should == [@session]
+      end
+
+      it "should not return sessions created after the pre submissions deadline" do
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 1.second)
+        @session.save!
+        Session.incomplete_early_reviews_for(@conference).should == []
       end
     end
   end

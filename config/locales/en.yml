@@ -49,7 +49,9 @@ en:
           preferences: "at least one track has to be accepted"
         preference:
           organizer_track: "cannot review track that is organizing"
-        review:
+        early_review:
+          inclusion: "cannot be blank"
+        final_review:
           inclusion: "cannot be blank"
         review_decision:
           cant_accept: "cannot be accepted"
@@ -142,7 +144,26 @@ en:
         reviewer_agreement: "I read the terms and acknowledge my responsibilities as a reviewer"
       preference:
         audience_level_id: "Knowledge level"
-      review:
+      early_review:
+        author_agile_xp_rating_id: "How do you rate the author(s)' experience with agile methods?"
+        author_proposal_xp_rating_id: "How do you rate the author(s)' experience with the proposal subject?"
+        proposal_track: "Is the track adequate?"
+        proposal_level: "Is the audience level adequate?"
+        proposal_type: "Is the session type adequate?"
+        proposal_duration: "Is the duration adequate?"
+        proposal_limit: "Is the participants limit adequate?"
+        proposal_abstract: "Is the summary coherent with the full description?"
+        proposal_quality_rating_id: "How do you rate the given material's clarity, objectivity and writing?"
+        proposal_relevance_rating_id: "How do you rate the relevance of the subject to the event?"
+        reviewer_confidence_rating_id: "How confident are you to review the subject of this proposal?"
+        comments_to_organizers: "Please enter any comments relevant to the program committee."
+        comments_to_authors: "Please enter any comments relevant to the authors."
+        authors: "Authors"
+        session: "Session"
+        recommendation: "Recommendation"
+        confidence: "Reviewer's confidence"
+        reviewer: "Reviewer"
+      final_review:
         author_agile_xp_rating_id: "How do you rate the author(s)' experience with agile methods?"
         author_proposal_xp_rating_id: "How do you rate the author(s)' experience with the proposal subject?"
         proposal_track: "Is the track adequate?"
@@ -200,7 +221,9 @@ en:
         comment: "In this field, a limited markup syntax is allowed. See the <a href='%{year}/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
       reviewer:
         user_username: "Please provide the reviewer's username in this field."
-      review:
+      early_review:
+        comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
+      final_review:
         comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
     actions:
@@ -436,6 +459,8 @@ en:
     proposal_relevance_rating: "Relevance to the event"
     comments_to_organizers: "Comments to organizers"
     comments_to_authors: "Comments to authors"
+    early_review: "Early Review"
+    final_review: "Final Review"
 
   rating:
     high:
@@ -481,6 +506,7 @@ en:
     sort_down: "descendent"
     show: "Show %{target}"
     hide: "Hide %{target}"
+    char_remaining: "remaining: "
 
   will_paginate:
     previous_label: "&laquo; Previous"

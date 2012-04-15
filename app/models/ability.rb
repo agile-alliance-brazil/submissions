@@ -2,23 +2,24 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, conference, params={})
+  def initialize(user, conference, session=nil, reviewer=nil)
     @user = user || User.new # guest
     @conference = conference
-    @params = params
+    @session = session
+    @reviewer = reviewer
 
     alias_action :edit, :update, :destroy, :to => :modify
 
-    guest
-    admin if @user.admin?
-    author if @user.author?
-    organizer if @user.organizer?
-    reviewer if @user.reviewer?
+    guest_privileges
+    admin_privileges if @user.admin?
+    author_privileges if @user.author?
+    organizer_privileges if @user.organizer?
+    reviewer_privileges if @user.reviewer?
   end
 
   private
 
-  def guest
+  def guest_privileges
     can(:read, User)
     can(:read, Comment)
     can(:read, Session)
@@ -33,14 +34,14 @@ class Ability
     can(:create, Comment)
     can(:modify, Comment, :user_id => @user.id)
     can(:manage, 'accept_reviewers') do
-      find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
+      @reviewer.present? && @reviewer.user == @user && @reviewer.invited?
     end
     can(:manage, 'reject_reviewers') do
-      find_reviewer.try(:user) == @user && find_reviewer.try(:invited?)
+      @reviewer.present? && @reviewer.user == @user && @reviewer.invited?
     end
   end
 
-  def admin
+  def admin_privileges
     can(:manage, :all)
     # Revoke these actions, to use the ones appropriate for each role, below
     cannot(:create, ReviewDecision)
@@ -52,7 +53,7 @@ class Ability
     cannot(:manage, 'withdraw_sessions')
   end
 
-  def author
+  def author_privileges
     can do |action, subject_class, subject|
       expand_actions([:create]).include?(action) && subject_class == Session && @conference.in_submission_phase?
     end
@@ -60,20 +61,29 @@ class Ability
       session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submission_phase?
     end
     can do |action, subject_class, subject, session|
-      session = find_session if session.nil?
+      session ||= @session
       expand_actions([:index]).include?(action) &&
-          subject_class == FinalReview &&
-          session.try(:is_author?, @user) && session.review_decision.try(:published?)
+      subject_class == FinalReview &&
+      session.try(:is_author?, @user) &&
+      session.review_decision.try(:published?)
     end
     can(:manage, 'confirm_sessions') do
-      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= @conference.author_confirmation
+      @session.present? &&
+      @session.is_author?(@user) &&
+      @session.pending_confirmation? &&
+      @session.review_decision &&
+      Time.zone.now <= @conference.author_confirmation
     end
     can(:manage, 'withdraw_sessions') do
-      find_session && find_session.try(:is_author?, @user) && find_session.pending_confirmation? && find_session.review_decision && Time.zone.now <= @conference.author_confirmation
+      @session.present? &&
+      @session.is_author?(@user) &&
+      @session.pending_confirmation? &&
+      @session.review_decision &&
+      Time.zone.now <= @conference.author_confirmation
     end
   end
 
-  def organizer
+  def organizer_privileges
     can(:manage, Reviewer)
     can(:read, "organizer_sessions")
     can(:read, 'reviews_listing')
@@ -85,40 +95,49 @@ class Ability
     can(:show, FinalReview)
     can(:show, EarlyReview)
     can do |action, subject_class, subject|
-      expand_actions([:organizer]).include?(action) && subject_class == FinalReview &&
-          @user.organized_tracks(@conference).include?(find_session.try(:track))
+      expand_actions([:organizer]).include?(action) &&
+      subject_class == FinalReview &&
+      @user.organized_tracks(@conference).include?(@session.try(:track))
     end
     can do |action, subject_class, subject, session|
-      session = find_session if session.nil?
-      expand_actions([:create]).include?(action) && subject_class == ReviewDecision &&
-          session.try(:in_review?) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > @conference.review_deadline
+      session ||= @session
+      expand_actions([:create]).include?(action) &&
+      subject_class == ReviewDecision &&
+      session.try(:in_review?) &&
+      @user.organized_tracks(@conference).include?(session.track) &&
+      Time.zone.now > @conference.review_deadline
     end
     can do |action, subject_class, subject, session|
-      session = find_session if session.nil?
-      expand_actions([:update]).include?(action) && subject_class == ReviewDecision &&
-          !session.try(:author_agreement) && (session.try(:pending_confirmation?) || session.try(:rejected?)) && @user.organized_tracks(@conference).include?(session.track) && Time.zone.now > @conference.review_deadline
+      session ||= @session
+      expand_actions([:update]).include?(action) &&
+      subject_class == ReviewDecision &&
+      !session.try(:author_agreement) &&
+      (session.try(:pending_confirmation?) || session.try(:rejected?)) &&
+      @user.organized_tracks(@conference).include?(session.track) &&
+      Time.zone.now > @conference.review_deadline
     end
   end
 
-  def reviewer
+  def reviewer_privileges
     can(:read, 'reviewer_sessions')
     can(:show, Review, :reviewer_id => @user.id)
     can(:show, FinalReview, :reviewer_id => @user.id)
     can(:show, EarlyReview, :reviewer_id => @user.id)
     can do |action, subject_class, subject, session|
-      session = find_session if session.nil?
-      expand_actions([:create]).include?(action) && subject_class == FinalReview &&
-          Session.for_reviewer(@user, @conference).include?(session) && @conference.in_final_review_phase?
+      session ||= @session
+      expand_actions([:create]).include?(action) &&
+      subject_class == EarlyReview &&
+      Session.for_reviewer(@user, @conference).incomplete_early_reviews_for(@conference).include?(session) &&
+      @conference.in_early_review_phase?
+    end
+    can do |action, subject_class, subject, session|
+      session ||= @session
+      expand_actions([:create]).include?(action) &&
+      subject_class == FinalReview &&
+      Session.for_reviewer(@user, @conference).with_incomplete_final_reviews.include?(session) &&
+      @conference.in_final_review_phase?
     end
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
-  end
-
-  def find_session
-    @session ||= Session.find(@params[:session_id]) if @params[:session_id].present?
-  end
-
-  def find_reviewer
-    @reviewer ||= Reviewer.find(@params[:reviewer_id]) if @params[:reviewer_id].present?
   end
 end

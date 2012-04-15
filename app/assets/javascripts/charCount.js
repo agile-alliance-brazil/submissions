@@ -23,7 +23,8 @@
       cssWarning: 'warning',
       cssExceeded: 'exceeded',
       counterText: '',
-      separator: ''
+      separator: '',
+      setMaxLength: true
     };
 
     var options = $.extend(defaults, options);
@@ -45,7 +46,7 @@
     };
 
     this.each(function() {
-      if (options.separator === '') {
+      if (options.separator === '' && options.setMaxLength) {
         $(this).attr('maxlength', options['allowed']);
       }
       $(this).before('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');

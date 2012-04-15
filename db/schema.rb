@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120408182018) do
+ActiveRecord::Schema.define(:version => 20120415025628) do
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20120408182018) do
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"
+    t.integer  "early_reviews_count", :default => 0
   end
 
   create_table "taggings", :force => true do |t|

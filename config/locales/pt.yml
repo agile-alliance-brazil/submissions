@@ -242,7 +242,9 @@ pt:
           preferences: "pelo menos uma trilha deve ser aceita"
         preference:
           organizer_track: "não pode avaliar trilha que está organizando"
-        review:
+        early_review:
+          inclusion: "não pode ficar em branco"
+        final_review:
           inclusion: "não pode ficar em branco"
         review_decision:
           cant_accept: "não pode ser aceita"
@@ -336,7 +338,26 @@ pt:
         reviewer_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
       preference:
         audience_level_id: "Nível de conhecimento"
-      review:
+      early_review:
+        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com métodos ágeis?"
+        author_proposal_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com o assunto da proposta?"
+        proposal_track: "A trilha está adequada?"
+        proposal_level: "O nível está adequado?"
+        proposal_type: "O tipo da sessão está adequado?"
+        proposal_duration: "A duração está adequada?"
+        proposal_limit: "O limite de participantes está adequado?"
+        proposal_abstract: "O resumo da palestra está coerente com a descrição completa?"
+        proposal_quality_rating_id: "Como você avalia a clareza, objetividade e escrita do trabalho?"
+        proposal_relevance_rating_id: "Como você avalia a relevância do trabalho pro evento?"
+        reviewer_confidence_rating_id: "Como você avalia seu próprio conhecimento sobre o assunto dessa proposta?"
+        comments_to_organizers: "Por favor entre qualquer comentário relevante para o comitê de programa."
+        comments_to_authors: "Por favor entre qualquer comentário relevante para os autores."
+        authors: "Autores"
+        session: "Sessão"
+        recommendation: "Recomendação"
+        confidence: "Confiança do avaliador"
+        reviewer: "Avaliador"
+      final_review:
         author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com métodos ágeis?"
         author_proposal_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com o assunto da proposta?"
         proposal_track: "A trilha está adequada?"
@@ -394,7 +415,9 @@ pt:
         comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
       reviewer:
         user_username: "Digite o nome de usuário do avaliador neste campo."
-      review:
+      early_review:
+        comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
+      final_review:
         comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
         justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
     actions:
@@ -630,6 +653,8 @@ pt:
     proposal_relevance_rating: "Relevância pro evento"
     comments_to_organizers: "Comentários aos organizadores"
     comments_to_authors: "Comentários aos autores"
+    early_review: "Pré-Avaliação"
+    final_review: "Avaliação Final"
 
   rating:
     high:
@@ -675,6 +700,7 @@ pt:
     sort_down: "descendente"
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
+    char_remaining: "faltando: "
 
   will_paginate:
     previous_label: "&laquo; Anterior"

@@ -2,9 +2,6 @@
 require 'spec_helper'
 
 describe ReviewerSessionsController do
-  render_views
-
-  it_should_require_login_for_actions :index
 
   before(:each) do
     @reviewer ||= FactoryGirl.create(:reviewer)
@@ -12,15 +9,47 @@ describe ReviewerSessionsController do
     disable_authorization
   end
 
-  it "index action should render index template" do
-    get :index
-    response.should render_template(:index)
+  describe "with view rendering", :render_views => true do
+    render_views
+
+    it "index should work" do
+      get :index
+    end
   end
 
-  it "index action should find sessions for reviewer" do
-    session = FactoryGirl.create(:session)
-    FactoryGirl.create(:preference, :reviewer => @reviewer, :track => session.track, :audience_level => session.audience_level)
-    get :index
-    assigns(:sessions).should == [session]
+  it_should_require_login_for_actions :index
+
+  describe "#index" do
+    before(:each) do
+      @session = FactoryGirl.create(:session)
+      FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
+      @conference = Conference.current
+    end
+
+    it "should list sessions for reviewer with incomplete early reviews" do
+      @conference.expects(:in_early_review_phase?).returns(true)
+      get :index
+      assigns(:sessions).should == [@session]
+    end
+
+    it "should hide sessions for reviewer with complete early reviews" do
+      @conference.expects(:in_early_review_phase?).returns(true)
+      FactoryGirl.create(:early_review, :session => @session)
+      get :index
+      assigns(:sessions).should == []
+    end
+
+    it "should list sessions for reviewer with incomplete final reviews" do
+      @conference.expects(:in_early_review_phase?).returns(false)
+      get :index
+      assigns(:sessions).should == [@session]
+    end
+
+    it "should hide sessions for reviewer with complete final reviews" do
+      @conference.expects(:in_early_review_phase?).returns(false)
+      FactoryGirl.create_list(:final_review, 3, :session => @session)
+      get :index
+      assigns(:sessions).should == []
+    end
   end
 end

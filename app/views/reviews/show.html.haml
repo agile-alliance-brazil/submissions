@@ -9,8 +9,9 @@
   %li #{l(@review.created_at, :format => :short)}
 
 = content_tag_for(:dl, @review) do
-  %dt= t('formtastic.labels.review.recommendation_id')
-  %dd&= t(@review.try(:recommendation).title)
+  - if @review.respond_to?(:recommendation)
+    %dt= t('formtastic.labels.review.recommendation_id')
+    %dd&= t(@review.try(:recommendation).title)
   - unless @review.justification.blank?
     %dt= t('formtastic.labels.review.justification')
     %dd&= @review.try(:justification)

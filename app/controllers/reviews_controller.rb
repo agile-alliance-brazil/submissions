@@ -1,6 +1,5 @@
 # encoding: UTF-8
 class ReviewsController < InheritedResources::Base
-  defaults :resource_class => FinalReview
   actions :all, :except => [:edit, :update, :destroy]
   respond_to :html
 
@@ -33,8 +32,20 @@ class ReviewsController < InheritedResources::Base
 
   protected
   def build_resource
-    attributes = params[:review] || {}
+    attributes = params[:early_review] || params[:final_review] || {}
     attributes[:reviewer_id] = current_user.id
     @review ||= end_of_association_chain.send(method_for_build, attributes)
+  end
+
+  def resource
+    @review ||= Review.find(params[:id])
+  end
+
+  def resource_class
+    @conference.in_early_review_phase? ? EarlyReview : FinalReview
+  end
+
+  def method_for_association_chain
+    @conference.in_early_review_phase? ? :early_reviews : :final_reviews
   end
 end

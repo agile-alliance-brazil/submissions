@@ -88,6 +88,26 @@ describe Ability do
     it "cannot read sessions to review" do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
+
+    it "can accept reviewer invitation if invited" do
+      reviewer = FactoryGirl.build(:reviewer, :user => @user)
+
+      @ability = Ability.new(@user, @conference, nil, reviewer)
+      @ability.should_not be_able_to(:manage, 'accept_reviewers')
+
+      reviewer.state = 'invited'
+      @ability.should be_able_to(:manage, 'accept_reviewers')
+    end
+
+    it "can reject reviewer invitation if invited" do
+      reviewer = FactoryGirl.build(:reviewer, :user => @user)
+
+      @ability = Ability.new(@user, @conference, nil, reviewer)
+      @ability.should_not be_able_to(:manage, 'reject_reviewers')
+
+      reviewer.state = 'invited'
+      @ability.should be_able_to(:manage, 'reject_reviewers')
+    end
   end
 
   context "- admin" do
@@ -130,38 +150,22 @@ describe Ability do
       end
 
       it "his sessions as first author is allowed" do
-        @ability.should_not be_able_to(:index, FinalReview) # no params
-        @ability.should_not be_able_to(:index, FinalReview, @session)
-
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should_not be_able_to(:index, FinalReview) # session id provided
-        @ability.should_not be_able_to(:index, FinalReview, @session)
-
         @session.reload.update_attribute(:author_id, @user.id)
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:index, FinalReview) # session id provided
+        @ability.should_not be_able_to(:index, FinalReview) # session id nil
         @ability.should be_able_to(:index, FinalReview, @session)
 
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:index, FinalReview) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:index, FinalReview) # session id provided
         @ability.should be_able_to(:index, FinalReview, @session)
       end
 
       it "his sessions as second author is allowed" do
-        @ability.should_not be_able_to(:index, FinalReview) # no params
-        @ability.should_not be_able_to(:index, FinalReview, @session)
-
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should_not be_able_to(:index, FinalReview) # session id provided
-        @ability.should_not be_able_to(:index, FinalReview, @session)
-
         @session.reload.update_attribute(:second_author_id, @user.id)
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:index, FinalReview) # session id provided
+        @ability.should_not be_able_to(:index, FinalReview) # session id nil
         @ability.should be_able_to(:index, FinalReview, @session)
 
-        @ability = Ability.new(@user, @conference,  {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:index, FinalReview) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:index, FinalReview) # session id provided
         @ability.should be_able_to(:index, FinalReview, @session)
       end
 
@@ -177,12 +181,8 @@ describe Ability do
         @ability.should_not be_able_to(:index, FinalReview) # no params
         @ability.should_not be_able_to(:index, FinalReview, session)
 
-        @ability = Ability.new(@user, @conference, :session_id => session.to_param)
+        @ability = Ability.new(@user, @conference, session)
         @ability.should_not be_able_to(:index, FinalReview) # session id provided
-        @ability.should_not be_able_to(:index, FinalReview, session)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:index, FinalReview) # session id nil
         @ability.should_not be_able_to(:index, FinalReview, session)
       end
     end
@@ -261,69 +261,63 @@ describe Ability do
       end
 
       it "- user is first author" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
 
         @session.stubs(:author).returns(@another_user)
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- user is second author" do
         @session.stubs(:author).returns(@another_user)
         @session.stubs(:second_author).returns(@user)
 
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- session is pending confirmation" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
 
         @session.stubs(:pending_confirmation?).returns(false)
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- session has a review decision" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
 
         @session.stubs(:review_decision).returns(nil)
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- before deadline" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
 
         Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability.should be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- after deadline can't confirm" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
 
         Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
     end
 
@@ -339,69 +333,63 @@ describe Ability do
       end
 
       it "- user is first author" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
 
         @session.stubs(:author).returns(@another_user)
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id nil
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
       it "- user is second author" do
         @session.stubs(:author).returns(@another_user)
         @session.stubs(:second_author).returns(@user)
 
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'confirm_sessions') # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:manage, 'confirm_sessions') # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- session is pending confirmation" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
 
         @session.stubs(:pending_confirmation?).returns(false)
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
       it "- session has a review decision" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
 
         @session.stubs(:review_decision).returns(nil)
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
       it "- before deadline" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
 
         Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
       end
 
       it "- after deadline can't withdraw" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # no params
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
-        @ability = Ability.new(@user, @conference, {:session_id => @session.to_param})
-        @ability.should be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:manage, 'withdraw_sessions')
 
         Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions') # session id provided
+        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
     end
 
@@ -454,23 +442,17 @@ describe Ability do
 
       it "session on organizer's track is allowed" do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
-        @ability.should_not be_able_to(:organizer, FinalReview) # no params
+        @ability.should_not be_able_to(:organizer, FinalReview)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
-        @ability.should be_able_to(:organizer, FinalReview) # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:organizer, FinalReview) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:organizer, FinalReview)
       end
 
       it "session outside of organizer's track is forbidden" do
-        @ability.should_not be_able_to(:organizer, FinalReview) # no params
+        @ability.should_not be_able_to(:organizer, FinalReview)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
-        @ability.should_not be_able_to(:organizer, FinalReview) # session id provided
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:organizer, FinalReview) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should_not be_able_to(:organizer, FinalReview)
       end
     end
 
@@ -505,22 +487,15 @@ describe Ability do
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
 
-        @ability = Ability.new(@user, @conference)
-        @ability.should be_able_to(:create, ReviewDecision, @session)
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
         @ability.should be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference)
+        @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
 
@@ -528,10 +503,9 @@ describe Ability do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
 
-        @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:create, ReviewDecision)
       end
 
@@ -539,10 +513,9 @@ describe Ability do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
 
-        @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
 
@@ -552,22 +525,14 @@ describe Ability do
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @ability.should be_able_to(:create, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
         @ability.should be_able_to(:create, ReviewDecision, @session)
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
 
@@ -576,22 +541,14 @@ describe Ability do
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:create, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
         @session.reject
+        @ability.should_not be_able_to(:create, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:create, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:create, ReviewDecision)
       end
     end
@@ -607,22 +564,14 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        @ability.should_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
@@ -632,22 +581,14 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        @ability.should_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
@@ -659,10 +600,7 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
@@ -673,7 +611,7 @@ describe Ability do
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.reject
-        @session.author_agreement = true;
+        @session.author_agreement = true
         @session.save
 
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
@@ -686,7 +624,7 @@ describe Ability do
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.accept
-        @session.author_agreement = true;
+        @session.author_agreement = true
         @session.save
 
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
@@ -697,10 +635,7 @@ describe Ability do
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
-        @ability.should_not be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
@@ -711,11 +646,8 @@ describe Ability do
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
-        @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
       it "if session is tentatively accepted" do
@@ -725,11 +657,8 @@ describe Ability do
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:update, ReviewDecision)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil}) # session id nil
-        @ability.should_not be_able_to(:update, ReviewDecision)
       end
 
       it "after review deadline" do
@@ -739,7 +668,7 @@ describe Ability do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:update, ReviewDecision)
       end
 
@@ -750,7 +679,7 @@ describe Ability do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param) # session id provided
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
       end
     end
@@ -811,14 +740,15 @@ describe Ability do
     context "can create a new final review if:" do
       before(:each) do
         @session = FactoryGirl.create(:session)
-        Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
+        Session.stubs(:for_reviewer).with(@user, @conference).returns(Session)
+        Session.stubs(:with_incomplete_final_reviews).returns([@session])
         @conference.stubs(:in_final_review_phase?).returns(true)
       end
 
       it "has not created a final review for this session" do
         @ability.should be_able_to(:create, FinalReview, @session)
 
-        Session.expects(:for_reviewer).with(@user, @conference).returns([])
+        Session.expects(:with_incomplete_final_reviews).returns([])
         @ability.should_not be_able_to(:create, FinalReview, @session)
       end
 
@@ -826,19 +756,15 @@ describe Ability do
         @ability.should_not be_able_to(:create, FinalReview)
         @ability.should_not be_able_to(:create, FinalReview, nil)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:create, FinalReview)
         @ability.should be_able_to(:create, FinalReview, nil)
         @ability.should be_able_to(:create, FinalReview, @session)
-
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:create, FinalReview)
-        @ability.should_not be_able_to(:create, FinalReview, nil)
       end
 
       it "before final review deadline" do
         @conference.expects(:in_final_review_phase?).returns(true)
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:create, FinalReview)
         @ability.should be_able_to(:create, FinalReview, nil)
         @ability.should be_able_to(:create, FinalReview, @session)
@@ -846,7 +772,7 @@ describe Ability do
 
       it "after final review deadline can't review" do
         @conference.stubs(:in_final_review_phase?).returns(false)
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, FinalReview)
         @ability.should_not be_able_to(:create, FinalReview, nil)
         @ability.should_not be_able_to(:create, FinalReview, @session)
@@ -858,14 +784,65 @@ describe Ability do
         @ability.should_not be_able_to(:create, FinalReview)
         @ability.should_not be_able_to(:create, FinalReview, nil)
 
-        @ability = Ability.new(@user, @conference, :session_id => @session.to_param)
+        @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:create, FinalReview)
         @ability.should be_able_to(:create, FinalReview, nil)
         @ability.should be_able_to(:create, FinalReview, @session)
+      end
+    end
 
-        @ability = Ability.new(@user, @conference, {:locale => 'pt', :session_id => nil})
-        @ability.should_not be_able_to(:create, FinalReview)
-        @ability.should_not be_able_to(:create, FinalReview, nil)
+    context "can create a new early review if:" do
+      before(:each) do
+        @session = FactoryGirl.create(:session)
+        Session.stubs(:for_reviewer).with(@user, @conference).returns(Session)
+        Session.stubs(:incomplete_early_reviews_for).returns([@session])
+        @conference.stubs(:in_early_review_phase?).returns(true)
+      end
+
+      it "has not created an early review for this session" do
+        @ability.should be_able_to(:create, EarlyReview, @session)
+
+        Session.expects(:incomplete_early_reviews_for).with(@conference).returns([])
+
+        @ability.should_not be_able_to(:create, EarlyReview, @session)
+      end
+
+      it "has a session available to add the early review to" do
+        @ability.should_not be_able_to(:create, EarlyReview)
+        @ability.should_not be_able_to(:create, EarlyReview, nil)
+
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:create, EarlyReview)
+        @ability.should be_able_to(:create, EarlyReview, nil)
+        @ability.should be_able_to(:create, EarlyReview, @session)
+      end
+
+      it "before early review deadline" do
+        @conference.expects(:in_early_review_phase?).returns(true)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:create, EarlyReview)
+        @ability.should be_able_to(:create, EarlyReview, nil)
+        @ability.should be_able_to(:create, EarlyReview, @session)
+      end
+
+      it "after early review deadline can't review" do
+        @conference.stubs(:in_early_review_phase?).returns(false)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should_not be_able_to(:create, EarlyReview)
+        @ability.should_not be_able_to(:create, EarlyReview, nil)
+        @ability.should_not be_able_to(:create, EarlyReview, @session)
+      end
+
+      it "overrides admin privileges to check if session available" do
+        @user.add_role('admin')
+
+        @ability.should_not be_able_to(:create, EarlyReview)
+        @ability.should_not be_able_to(:create, EarlyReview, nil)
+
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:create, EarlyReview)
+        @ability.should be_able_to(:create, EarlyReview, nil)
+        @ability.should be_able_to(:create, EarlyReview, @session)
       end
     end
   end

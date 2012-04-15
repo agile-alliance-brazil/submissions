@@ -440,7 +440,7 @@ p#review_decision {
   padding: 10px;
   width: 90%; }
 
-form.review.formtastic {
+form.early_review.formtastic, form.final_review.formtastic {
   fieldset.inputs {
     legend {
       font-size: 14pt;

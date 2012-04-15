@@ -34,7 +34,7 @@
         %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path(@conference)
       - if can? :reviewer, 'reviews_listing'
         %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path(@conference)
-      - if @session.present? && can?(:create, Review, @session)
+      - if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
         %li= link_to t('actions.review_session'), new_session_review_path(@conference, @session)
 
   %h4= t('actions.section.user')

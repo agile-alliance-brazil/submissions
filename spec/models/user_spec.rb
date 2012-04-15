@@ -147,7 +147,7 @@ describe User do
     it { should have_many :organizers }
     it { should have_many(:all_organized_tracks).through(:organizers) }
     it { should have_many :reviewers }
-    it { should have_many(:reviews).class_name('FinalReview') }
+    it { should have_many :reviews }
 
     describe "organized tracks for conference" do
       it "should narrow tracks based on conference" do

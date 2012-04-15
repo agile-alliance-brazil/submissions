@@ -18,7 +18,8 @@ class Session < ActiveRecord::Base
   belongs_to :audience_level
   belongs_to :conference
 
-  has_many :reviews, :class_name => 'FinalReview'
+  has_many :early_reviews
+  has_many :final_reviews
   has_one :review_decision
 
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,
@@ -96,15 +97,20 @@ class Session < ActiveRecord::Base
     where(clause, *args)
   }
 
-  scope :incomplete_reviews, lambda { |limit| where('final_reviews_count < ?', limit) }
+  scope :with_incomplete_final_reviews, where('final_reviews_count < ?', 3)
+  scope :with_incomplete_early_reviews, where('early_reviews_count < ?', 1)
+  scope :submitted_before, lambda { |date| where('sessions.created_at <= ?', date) }
 
   def self.for_reviewer(user, conference)
     for_conference(conference).
-    incomplete_reviews(3).
     not_author(user.id).
     without_state(:cancelled).
     for_preferences(*user.preferences(conference)).
     not_reviewed_by(user)
+  end
+
+  def self.incomplete_early_reviews_for(conference)
+    with_incomplete_early_reviews.submitted_before(conference.presubmissions_deadline)
   end
 
   state_machine :initial => :created do

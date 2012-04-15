@@ -17,7 +17,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, @conference, params)
+    session = Session.find(params[:session_id]) if params[:session_id].present?
+    reviewer = Reviewer.find(params[:reviewer_id]) if params[:reviewer_id].present?
+    @current_ability ||= Ability.new(current_user, @conference, session, reviewer)
   end
 
   def default_url_options(options={})
