@@ -14,22 +14,23 @@ describe ReviewsListingController do
       @conference = Conference.current
     end
 
-    it "index action (JS) should render JSON for final reviews" do
-      @conference.expects(:in_final_review_phase?).returns(false)
+    it "index action (JS) should render JSON for early reviews" do
       @conference.expects(:in_early_review_phase?).returns(true)
 
-      FactoryGirl.create_list(:early_review, 2)
+      sessions = FactoryGirl.create_list(:session, 2, :created_at => @conference.presubmissions_deadline - 1.day)
+      FactoryGirl.create(:session, :created_at => @conference.presubmissions_deadline + 1.day)
+
+      FactoryGirl.create(:early_review, :session => sessions[0])
 
       get :index, :format => 'js'
 
       response.body.should == {
         'required_reviews' => 2,
-        'total_reviews' => 2
+        'total_reviews' => 1
       }.to_json
     end
 
     it "index action (JS) should render JSON for final reviews" do
-      @conference.expects(:in_final_review_phase?).returns(true)
       @conference.expects(:in_early_review_phase?).returns(false)
       FactoryGirl.create_list(:final_review, 2)
 
