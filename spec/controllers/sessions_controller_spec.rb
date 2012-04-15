@@ -17,6 +17,12 @@ describe SessionsController do
     response.should render_template(:index)
   end
 
+  it "index action shouldn't display cancelled sessions" do
+    @session.cancel
+    get :index
+    assigns(:sessions).should be_empty
+  end
+
   it "show action should render show template" do
     get :show, :id => Session.first
     response.should render_template(:show)
