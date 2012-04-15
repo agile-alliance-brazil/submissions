@@ -1,5 +1,5 @@
 - if user_signed_in?
-  - if current_user.reviewer? || current_user.organizer? && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
+  - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     - if (next_deadline = @conference.next_deadline(:reviewer))
       #date
         %p= t("conference.dates.#{next_deadline.last}")
@@ -49,7 +49,7 @@
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
     %li= link_to "Logout", destroy_user_session_path
 
-  - if current_user.reviewer? || current_user.organizer? && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
+  - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     :javascript
       $(document).ready(function() {
         $.getJSON('#{reviews_path(@conference, :format => :js)}', function(data) {
