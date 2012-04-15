@@ -48,10 +48,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'mocha', '=0.10.4'
+  gem 'mocha', '=0.10.5'
   gem 'sqlite3', '=1.3.5'
-  gem 'rspec-rails', '=2.8.1'
-  gem 'shoulda-matchers', '=1.0.0'
+  gem 'rspec-rails', '=2.9.0'
+  gem 'shoulda-matchers', '=1.1.0'
   gem 'factory_girl_rails', '=1.6.0'
   gem 'rcov', '=1.0.0'
   gem 'spork', '=0.9.0'
