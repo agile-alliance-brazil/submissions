@@ -2,7 +2,7 @@
 - show_actions!
 
 %ul.spaced
-  %li.first #{t('formtastic.labels.review.authors')}:
+  %li.first #{t('formtastic.labels.final_review.authors')}:
   %li= link_to h(@session.author.full_name), user_path(@session.author)
   - if @session.second_author
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
@@ -32,36 +32,36 @@
     %br
     = @session.review_decision.note_to_authors
 
-%h2= t('formtastic.titles.conclusion')
+- if @reviews.all? {|r| r.is_a?(FinalReview) }
+  %h2= t('formtastic.titles.conclusion')
 
-%table#conclusions.reviews
-  %thead
-    %tr
-      %th.reviewer= t('formtastic.labels.review.reviewer')
-      %th.recommendation= t('formtastic.labels.review.recommendation')
-      %th.confidence= t('formtastic.labels.review.confidence')
-      %th.action
-  %tbody
-    - @reviews.each do |review|
-      - class_name = cycle(:odd, :even)
-      = content_tag_for(:tr, review, :class => class_name) do
-        %td.reviewer&= reviewers[review]
-        %td.recommendation= t(review.recommendation.title)
-        %td.confidence= t(review.reviewer_confidence_rating.title)
-        %td.action
-      - if should_justify
-        = content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
-          %td{:class => "justification", :colspan => 4}
-            %strong= t('review.justification') + ": "
-            = review.justification
-
+  %table#conclusions.reviews
+    %thead
+      %tr
+        %th.reviewer= t('formtastic.labels.final_review.reviewer')
+        %th.recommendation= t('formtastic.labels.final_review.recommendation')
+        %th.confidence= t('formtastic.labels.final_review.confidence')
+        %th.action
+    %tbody
+      - @reviews.each do |review|
+        - class_name = cycle(:odd, :even)
+        = content_tag_for(:tr, review, :class => class_name) do
+          %td.reviewer&= reviewers[review]
+          %td.recommendation= t(review.recommendation.title)
+          %td.confidence= t(review.reviewer_confidence_rating.title)
+          %td.action
+        - if should_justify
+          = content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
+            %td{:class => "justification", :colspan => 4}
+              %strong= t('review.justification') + ": "
+              = review.justification
 
 %h2= t('formtastic.titles.details')
 
 %table#comments.reviews
   %thead
     %tr
-      %th.reviewer= t('formtastic.labels.review.reviewer')
+      %th.reviewer= t('formtastic.labels.final_review.reviewer')
       %th.comment= comments_label
   %tbody
     - @reviews.each do |review|
@@ -97,27 +97,27 @@
         %th.reviewer&= reviewers[review]
   %tbody
     %tr.odd
-      %th= t('formtastic.labels.review.proposal_abstract')
+      %th= t('formtastic.labels.final_review.proposal_abstract')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_abstract ? 'yes.png' : 'no.png')
     %tr.even
-      %th= t('formtastic.labels.review.proposal_track')
+      %th= t('formtastic.labels.final_review.proposal_track')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_track ? 'yes.png' : 'no.png')
     %tr.odd
-      %th= t('formtastic.labels.review.proposal_level')
+      %th= t('formtastic.labels.final_review.proposal_level')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_level ? 'yes.png' : 'no.png')
     %tr.even
-      %th= t('formtastic.labels.review.proposal_type')
+      %th= t('formtastic.labels.final_review.proposal_type')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_type ? 'yes.png' : 'no.png')
     %tr.odd
-      %th= t('formtastic.labels.review.proposal_duration')
+      %th= t('formtastic.labels.final_review.proposal_duration')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_duration ? 'yes.png' : 'no.png')
     %tr.even
-      %th= t('formtastic.labels.review.proposal_limit')
+      %th= t('formtastic.labels.final_review.proposal_limit')
       - @reviews.each do |review|
         %td= image_tag(review.proposal_limit ? 'yes.png' : 'no.png')
 

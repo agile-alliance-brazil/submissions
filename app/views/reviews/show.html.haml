@@ -10,41 +10,41 @@
 
 = content_tag_for(:dl, @review) do
   - if @review.respond_to?(:recommendation)
-    %dt= t('formtastic.labels.review.recommendation_id')
+    %dt= t('formtastic.labels.final_review.recommendation_id')
     %dd&= t(@review.try(:recommendation).title)
   - unless @review.justification.blank?
-    %dt= t('formtastic.labels.review.justification')
+    %dt= t('formtastic.labels.final_review.justification')
     %dd&= @review.try(:justification)
 
-  %dt= t('formtastic.labels.review.reviewer_confidence_rating_id')
+  %dt= t('formtastic.labels.final_review.reviewer_confidence_rating_id')
   %dd&= t(@review.try(:reviewer_confidence_rating).title)
   - unless @review.comments_to_organizers.blank?
-    %dt= t('formtastic.labels.review.comments_to_organizers')
+    %dt= t('formtastic.labels.final_review.comments_to_organizers')
     %dd&= @review.try(:comments_to_organizers)
 
-  %dt= t('formtastic.labels.review.author_agile_xp_rating_id')
+  %dt= t('formtastic.labels.final_review.author_agile_xp_rating_id')
   %dd&= t(@review.try(:author_agile_xp_rating).title)
-  %dt= t('formtastic.labels.review.author_proposal_xp_rating_id')
+  %dt= t('formtastic.labels.final_review.author_proposal_xp_rating_id')
   %dd&= t(@review.try(:author_proposal_xp_rating).title)
 
-  %dt= t('formtastic.labels.review.proposal_track')
+  %dt= t('formtastic.labels.final_review.proposal_track')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_track) ? :yes : :no)
-  %dt= t('formtastic.labels.review.proposal_level')
+  %dt= t('formtastic.labels.final_review.proposal_level')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_level) ? :yes : :no)
-  %dt= t('formtastic.labels.review.proposal_type')
+  %dt= t('formtastic.labels.final_review.proposal_type')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_type) ? :yes : :no)
-  %dt= t('formtastic.labels.review.proposal_duration')
+  %dt= t('formtastic.labels.final_review.proposal_duration')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_duration) ? :yes : :no)
-  %dt= t('formtastic.labels.review.proposal_limit')
+  %dt= t('formtastic.labels.final_review.proposal_limit')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_limit) ? :yes : :no)
-  %dt= t('formtastic.labels.review.proposal_abstract')
+  %dt= t('formtastic.labels.final_review.proposal_abstract')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_abstract) ? :yes : :no)
 
-  %dt= t('formtastic.labels.review.proposal_quality_rating_id')
+  %dt= t('formtastic.labels.final_review.proposal_quality_rating_id')
   %dd&= t(@review.try(:proposal_quality_rating).title)
-  %dt= t('formtastic.labels.review.proposal_relevance_rating_id')
+  %dt= t('formtastic.labels.final_review.proposal_relevance_rating_id')
   %dd&= t(@review.try(:proposal_relevance_rating).title)
 
   - unless @review.comments_to_authors.blank?
-    %dt= t('formtastic.labels.review.comments_to_authors')
+    %dt= t('formtastic.labels.final_review.comments_to_authors')
     %dd&= @review.try(:comments_to_authors)

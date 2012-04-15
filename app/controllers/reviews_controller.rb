@@ -42,10 +42,16 @@ class ReviewsController < InheritedResources::Base
   end
 
   def resource_class
-    @conference.in_early_review_phase? ? EarlyReview : FinalReview
+    in_early_review_phase? ? EarlyReview : FinalReview
   end
 
   def method_for_association_chain
-    @conference.in_early_review_phase? ? :early_reviews : :final_reviews
+    in_early_review_phase? ? :early_reviews : :final_reviews
+  end
+
+  private
+  def in_early_review_phase?
+    return params[:type] == 'early' if params[:type].present?
+    @conference.in_early_review_phase?
   end
 end

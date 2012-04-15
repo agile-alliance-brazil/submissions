@@ -16,15 +16,19 @@ describe ReviewsController do
   describe "with view rendering", :render_views => true do
     render_views
 
-    it "index should work" do
-      get :index, :session_id => Session.first
+    it "index early reviews for organizer should work" do
+      get :organizer, :session_id => Session.first, :type => 'early'
     end
 
-    it "organizer should work" do
+    it "index final reviews for organizer should work" do
       get :organizer, :session_id => Session.first
     end
 
-    it "index for author should work" do
+    it "index early reviews for author should work" do
+      get :index, :session_id => Session.first, :type => 'early'
+    end
+
+    it "index final reviews for author should work" do
       get :index, :session_id => Session.first
     end
 

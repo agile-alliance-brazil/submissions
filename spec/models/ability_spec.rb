@@ -143,6 +143,42 @@ describe Ability do
       @ability.should_not be_able_to(:read, EarlyReview)
     end
 
+    context "index early reviews of" do
+      before(:each) do
+        @session = FactoryGirl.create(:session)
+      end
+
+      it "his sessions as first author is allowed" do
+        @session.reload.update_attribute(:author_id, @user.id)
+        @ability.should_not be_able_to(:index, EarlyReview)
+        @ability.should be_able_to(:index, EarlyReview, @session)
+
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:index, EarlyReview)
+        @ability.should be_able_to(:index, EarlyReview, @session)
+      end
+
+      it "his sessions as second author is allowed" do
+        @session.reload.update_attribute(:second_author_id, @user.id)
+        @ability.should_not be_able_to(:index, EarlyReview)
+        @ability.should be_able_to(:index, EarlyReview, @session)
+
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:index, EarlyReview)
+        @ability.should be_able_to(:index, EarlyReview, @session)
+      end
+
+      it "other people's sessions is forbidden" do
+        session = FactoryGirl.create(:session)
+        @ability.should_not be_able_to(:index, EarlyReview)
+        @ability.should_not be_able_to(:index, EarlyReview, session)
+
+        @ability = Ability.new(@user, @conference, session)
+        @ability.should_not be_able_to(:index, EarlyReview)
+        @ability.should_not be_able_to(:index, EarlyReview, session)
+      end
+    end
+
     context "index final reviews of" do
       before(:each) do
         @decision = FactoryGirl.create(:review_decision, :published => true)
@@ -151,21 +187,21 @@ describe Ability do
 
       it "his sessions as first author is allowed" do
         @session.reload.update_attribute(:author_id, @user.id)
-        @ability.should_not be_able_to(:index, FinalReview) # session id nil
+        @ability.should_not be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
 
         @ability = Ability.new(@user, @conference, @session)
-        @ability.should be_able_to(:index, FinalReview) # session id provided
+        @ability.should be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
       end
 
       it "his sessions as second author is allowed" do
         @session.reload.update_attribute(:second_author_id, @user.id)
-        @ability.should_not be_able_to(:index, FinalReview) # session id nil
+        @ability.should_not be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
 
         @ability = Ability.new(@user, @conference, @session)
-        @ability.should be_able_to(:index, FinalReview) # session id provided
+        @ability.should be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
       end
 
@@ -178,11 +214,11 @@ describe Ability do
 
       it "other people's sessions is forbidden" do
         session = FactoryGirl.create(:session)
-        @ability.should_not be_able_to(:index, FinalReview) # no params
+        @ability.should_not be_able_to(:index, FinalReview)
         @ability.should_not be_able_to(:index, FinalReview, session)
 
         @ability = Ability.new(@user, @conference, session)
-        @ability.should_not be_able_to(:index, FinalReview) # session id provided
+        @ability.should_not be_able_to(:index, FinalReview)
         @ability.should_not be_able_to(:index, FinalReview, session)
       end
     end

@@ -88,7 +88,7 @@ form.formtastic fieldset ol li ul.errors {
   padding-left: 19px;
 }
 
-form.reviewer.formtastic fieldset ol ul.errors {
+form.reviewer.formtastic fieldset ol ul.errors, form.early_review.formtastic fieldset ol ul.errors, form.final_review.formtastic fieldset ol ul.errors {
   background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
   float: left;

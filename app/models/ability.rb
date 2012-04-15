@@ -63,6 +63,12 @@ class Ability
     can do |action, subject_class, subject, session|
       session ||= @session
       expand_actions([:index]).include?(action) &&
+      subject_class == EarlyReview &&
+      session.try(:is_author?, @user)
+    end
+    can do |action, subject_class, subject, session|
+      session ||= @session
+      expand_actions([:index]).include?(action) &&
       subject_class == FinalReview &&
       session.try(:is_author?, @user) &&
       session.review_decision.try(:published?)

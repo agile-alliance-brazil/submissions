@@ -63,7 +63,7 @@
     = form.input :reviewer_id, :as => :hidden, :input_html => {:tabindex => autotab}
     .session_info
       %p
-        %strong #{t('formtastic.labels.review.authors')}:
+        %strong #{t('formtastic.labels.final_review.authors')}:
         = link_to h(@review.session.author.full_name), user_path(@review.session.author)
         - if @review.session.second_author
           = t('generic.and')

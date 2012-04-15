@@ -38,8 +38,11 @@
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         - if @user == current_user
           %td.reviews
+            - if can?(:index, EarlyReview, session) && session.early_reviews_count > 0
+              = link_to t('review.early_review'), session_reviews_path(@conference, session, :type => :early)
             - if can?(:index, FinalReview, session) && session.final_reviews_count > 0
-              = link_to t('formtastic.labels.session.reviews'), session_reviews_path(@conference, session)
+              %br
+              = link_to t('review.final_review'), session_reviews_path(@conference, session, :type => :final)
           %td.state
             = t("session.state.#{session.state}")
           %td.action

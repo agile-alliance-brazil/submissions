@@ -28,6 +28,8 @@ describe ReviewerSessionsController do
 
     it "should list sessions for reviewer with incomplete early reviews" do
       @conference.expects(:in_early_review_phase?).returns(true)
+      @session.update_attribute :created_at, @conference.presubmissions_deadline - 1.day
+      @session.save!
       get :index
       assigns(:sessions).should == [@session]
     end
