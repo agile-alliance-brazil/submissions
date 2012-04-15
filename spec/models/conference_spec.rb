@@ -19,48 +19,81 @@ describe Conference do
       it "should return a hash with dates and symbols" do
         conference = Conference.find_by_year(2010)
         conference.dates.should == [
-          [conference.call_for_papers.to_date, :call_for_papers],
-          [conference.submissions_open.to_date, :submissions_open],
-          [conference.submissions_deadline.to_date, :submissions_deadline],
-          [conference.author_notification.to_date, :author_notification],
-          [conference.author_confirmation.to_date, :author_confirmation]
+          [conference.call_for_papers, :call_for_papers],
+          [conference.submissions_open, :submissions_open],
+          [conference.submissions_deadline, :submissions_deadline],
+          [conference.author_notification, :author_notification],
+          [conference.author_confirmation, :author_confirmation]
         ]
       end
 
       it "should include pre-submission and pre-review deadlines when available" do
         conference = Conference.find_by_year(2012)
         conference.dates.should == [
-          [conference.submissions_open.to_date, :submissions_open],
-          [conference.presubmissions_deadline.to_date, :presubmissions_deadline],
-          [conference.prereview_deadline.to_date, :prereview_deadline],
-          [conference.submissions_deadline.to_date, :submissions_deadline],
-          [conference.author_notification.to_date, :author_notification],
-          [conference.author_confirmation.to_date, :author_confirmation]
+          [conference.submissions_open, :submissions_open],
+          [conference.presubmissions_deadline, :presubmissions_deadline],
+          [conference.prereview_deadline, :prereview_deadline],
+          [conference.submissions_deadline, :submissions_deadline],
+          [conference.author_notification, :author_notification],
+          [conference.author_confirmation, :author_confirmation]
         ]
       end
     end
 
     describe "next_deadline" do
       before(:each) do
-        @date = DateTime.now
-        @conference = Conference.new
-        @dates = [[@date, :submissions], [@date + 1.day, :notification]]
-        @conference.expects(:dates).returns(@dates)
+        @conference = Conference.current
       end
 
-      it "should find the first date if conference's first date is previous to now" do
-        DateTime.expects(:now).returns(@date - 1.day)
-        @conference.next_deadline.should == @dates.first
+      context "for authors" do
+        it "should show pre submissions deadline first" do
+          DateTime.expects(:now).returns(@conference.presubmissions_deadline - 1.second)
+          @conference.next_deadline(:author).should == [@conference.presubmissions_deadline, :presubmissions_deadline]
+        end
+
+        it "should show submissions deadline first if conference doesn't have pre submissions" do
+          conference = Conference.first
+          DateTime.expects(:now).returns(conference.submissions_deadline - 1.second)
+          conference.next_deadline(:author).should == [conference.submissions_deadline, :submissions_deadline]
+        end
+
+        it "should show submissions deadline second" do
+          DateTime.expects(:now).returns(@conference.submissions_deadline - 1.second)
+          @conference.next_deadline(:author).should == [@conference.submissions_deadline, :submissions_deadline]
+        end
+
+        it "should show author notification deadline third" do
+          DateTime.expects(:now).returns(@conference.author_notification - 1.second)
+          @conference.next_deadline(:author).should == [@conference.author_notification, :author_notification]
+        end
+
+        it "should show author confirmation deadline last" do
+          DateTime.expects(:now).returns(@conference.author_confirmation - 1.second)
+          @conference.next_deadline(:author).should == [@conference.author_confirmation, :author_confirmation]
+        end
+
+        it "should be nil after author confirmation" do
+          DateTime.expects(:now).returns(@conference.author_confirmation + 1.second)
+          @conference.next_deadline(:author).should be_nil
+        end
       end
 
-      it "should find the second date if conference's second date is previous to now" do
-        DateTime.expects(:now).returns(@date + 1.minute)
-        @conference.next_deadline.should == @dates.last
-      end
+      context "for reviewers" do
+        it "should show pre review deadline first" do
+          DateTime.expects(:now).returns(@conference.prereview_deadline - 1.second)
+          @conference.next_deadline(:reviewer).should == [@conference.prereview_deadline, :prereview_deadline]
+        end
 
-      it "should find nil if current conference's last date is before now" do
-        DateTime.expects(:now).returns(@date + 2.days)
-        @conference.next_deadline.should be_nil
+        it "should show review deadline first if conference doesn't have pre submissions" do
+          conference = Conference.first
+          DateTime.expects(:now).returns(conference.review_deadline - 1.second)
+          conference.next_deadline(:reviewer).should == [conference.review_deadline, :review_deadline]
+        end
+
+        it "should be nil after review deadline" do
+          DateTime.expects(:now).returns(@conference.review_deadline + 1.second)
+          @conference.next_deadline(:reviewer).should be_nil
+        end
       end
     end
 

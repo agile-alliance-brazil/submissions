@@ -12,6 +12,19 @@ class Conference < ActiveRecord::Base
     year.to_s
   end
 
+  def in_submission_phase?
+    (self.submissions_open..self.submissions_deadline).include? DateTime.now
+  end
+
+  def in_early_review_phase?
+    return false if self.prereview_deadline.blank?
+    (self.presubmissions_deadline..self.prereview_deadline).include? DateTime.now
+  end
+
+  def in_final_review_phase?
+    (self.submissions_deadline..self.review_deadline).include? DateTime.now
+  end
+
   DEADLINES = [
     :call_for_papers,
     :submissions_open,
@@ -24,24 +37,28 @@ class Conference < ActiveRecord::Base
   ]
 
   def dates
-    @dates ||= DEADLINES.map { |name| send(name) ? [send(name).to_date, name] : nil}.compact
+    @dates ||= to_deadlines(DEADLINES)
   end
 
-  def next_deadline
+  def next_deadline(role)
     now = DateTime.now
-    dates.select{|date_map| now < date_map.first}.first
+    deadlines_for(role).select{|deadline| now < deadline.first}.first
   end
 
-  def in_submission_phase?
-    (self.submissions_open..self.submissions_deadline).include? DateTime.now
+  private
+  def deadlines_for(role)
+    deadlines = case role.to_sym
+    when :author
+      [:presubmissions_deadline, :submissions_deadline, :author_notification, :author_confirmation]
+    when :reviewer
+      [:prereview_deadline, :review_deadline]
+    when :organizer, :all
+      DEADLINES
+    end
+    to_deadlines(deadlines)
   end
 
-  def in_early_review_phase?
-    return false if self.prereview_deadline.blank?
-    (self.presubmissions_deadline..self.prereview_deadline).include? DateTime.now
-  end
-
-  def in_final_review_phase?
-    (self.submissions_deadline..self.review_deadline).include? DateTime.now
+  def to_deadlines(deadlines)
+    deadlines.map { |name| send(name) ? [send(name), name] : nil}.compact
   end
 end

@@ -95,7 +95,7 @@ describe ApplicationHelper do
       helper.translated_country('US').should == 'Estados Unidos'
       helper.translated_country('fr').should == 'França'
     end
-    
+
     it "should return empty if country is invalid" do
       helper.translated_country('').should be_empty
       helper.translated_country(nil).should be_empty
@@ -121,22 +121,21 @@ describe ApplicationHelper do
     before :each do
       @date = Time.zone.now
       @conference = Conference.new
-      helper = mock(helper)
     end
 
     it "should make date bold if next deadline matches" do
-      @conference.expects(:next_deadline).returns([@date, :submissions])
-      helper.present_date(@conference, [@date, :submissions]).should == "<strong>#{l(@date)}: #{t('conference.dates.submissions')}</strong>"
+      @conference.expects(:next_deadline).returns([@date, :submissions_deadline])
+      helper.present_date(@conference, [@date, :submissions_deadline]).should == "<strong>#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}</strong>"
     end
 
     it "should leave date if next deadline doesn't matches" do
-      @conference.expects(:next_deadline).returns([@date + 1, :notifications])
-      helper.present_date(@conference, [@date, :submissions]).should == "#{l(@date)}: #{t('conference.dates.submissions')}"
+      @conference.expects(:next_deadline).returns([@date + 1, :author_notification])
+      helper.present_date(@conference, [@date, :submissions_deadline]).should == "#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}"
     end
 
     it "should leave date if next deadline is nil" do
       @conference.expects(:next_deadline).returns(nil)
-      helper.present_date(@conference, [@date, :submissions]).should == "#{l(@date)}: #{t('conference.dates.submissions')}"
+      helper.present_date(@conference, [@date, :submissions_deadline]).should == "#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}"
     end
   end
 end
