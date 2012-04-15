@@ -13,8 +13,10 @@ begin
     config.rcov[:rcov_opts] << "-Ispec" # Needed to find spec_helper
     config.metrics -= [:rails_best_practices]
   end
+
+  require 'rspec'
+  Rake::Task[:spec].clear
+  RSpec::Core::RakeTask.new(:spec)
 rescue LoadError
 end
 
-Rake::Task[:spec].clear
-RSpec::Core::RakeTask.new(:spec)
