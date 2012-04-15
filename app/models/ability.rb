@@ -102,7 +102,7 @@ class Ability
     can(:show, EarlyReview)
     can do |action, subject_class, subject|
       expand_actions([:organizer]).include?(action) &&
-      subject_class == FinalReview &&
+      (subject_class == EarlyReview || subject_class == FinalReview) &&
       @user.organized_tracks(@conference).include?(@session.try(:track))
     end
     can do |action, subject_class, subject, session|

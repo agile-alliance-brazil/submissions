@@ -9,7 +9,8 @@
       %th.author= sortable_column(t('formtastic.labels.session.author_id'), :author_id)
       %th.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author_id)
       %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
-      %th.reviews= sortable_column(t('formtastic.labels.session.reviews'), :final_reviews_count)
+      %th.early_reviews= sortable_column(t('review.early_review'), :early_reviews_count)
+      %th.final_reviews= sortable_column(t('review.final_review'), :final_reviews_count)
       %th.status= sortable_column(t('formtastic.labels.session.state'), :state)
       %th.author_confirmed= t('formtastic.labels.session.author_confirmed')
       %th.author_image_agreement= t('formtastic.labels.session.author_image_agreement')
@@ -28,7 +29,8 @@
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         %td.track
           = t(session.track.title)
-        %td.reviews= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session))
+        %td.early_reviews= link_to_unless(session.early_reviews_count == 0, session.early_reviews_count, organizer_session_reviews_path(@conference, session, :type => :early))
+        %td.final_reviews= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session, :type => :final))
         %td.status
           = t("session.state.#{session.state}")
         %td.author_confirmed

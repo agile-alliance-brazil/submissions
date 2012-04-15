@@ -479,16 +479,20 @@ describe Ability do
       it "session on organizer's track is allowed" do
         FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
         @ability.should_not be_able_to(:organizer, FinalReview)
+        @ability.should_not be_able_to(:organizer, EarlyReview)
 
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:organizer, FinalReview)
+        @ability.should be_able_to(:organizer, EarlyReview)
       end
 
       it "session outside of organizer's track is forbidden" do
         @ability.should_not be_able_to(:organizer, FinalReview)
+        @ability.should_not be_able_to(:organizer, EarlyReview)
 
         @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:organizer, FinalReview)
+        @ability.should_not be_able_to(:organizer, EarlyReview)
       end
     end
 
