@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Ability do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user ||= FactoryGirl.build(:user)
     @conference = Conference.current
   end
 
@@ -27,7 +27,8 @@ describe Ability do
 
     it "can update their own account" do
       @ability.should be_able_to(:update, @user)
-      @ability.should_not be_able_to(:update, User.new)
+      @user.id = 0
+      @ability.should_not be_able_to(:update, @user)
     end
 
     it "can create comments" do
@@ -35,24 +36,24 @@ describe Ability do
     end
 
     it "can edit their comments" do
-      comment = Comment.new
-      @ability.should_not be_able_to(:edit, comment)
-      comment.user = @user
+      comment = FactoryGirl.build(:comment, :user => @user)
       @ability.should be_able_to(:edit, comment)
+      comment.user_id = 0
+      @ability.should_not be_able_to(:edit, comment)
     end
 
     it "can update their comments" do
-      comment = Comment.new
-      @ability.should_not be_able_to(:update, comment)
-      comment.user = @user
+      comment = FactoryGirl.build(:comment, :user => @user)
       @ability.should be_able_to(:update, comment)
+      comment.user_id = 0
+      @ability.should_not be_able_to(:update, comment)
     end
 
     it "can destroy their comments" do
-      comment = Comment.new
-      @ability.should_not be_able_to(:destroy, comment)
-      comment.user = @user
+      comment = FactoryGirl.build(:comment, :user => @user)
       @ability.should be_able_to(:destroy, comment)
+      comment.user_id = 0
+      @ability.should_not be_able_to(:destroy, comment)
     end
   end
 
@@ -145,11 +146,11 @@ describe Ability do
 
     context "index early reviews of" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
       end
 
       it "his sessions as first author is allowed" do
-        @session.reload.update_attribute(:author_id, @user.id)
+        @session.author = @user
         @ability.should_not be_able_to(:index, EarlyReview)
         @ability.should be_able_to(:index, EarlyReview, @session)
 
@@ -159,7 +160,7 @@ describe Ability do
       end
 
       it "his sessions as second author is allowed" do
-        @session.reload.update_attribute(:second_author_id, @user.id)
+        @session.second_author = @user
         @ability.should_not be_able_to(:index, EarlyReview)
         @ability.should be_able_to(:index, EarlyReview, @session)
 
@@ -169,7 +170,7 @@ describe Ability do
       end
 
       it "other people's sessions is forbidden" do
-        session = FactoryGirl.create(:session)
+        session = FactoryGirl.build(:session)
         @ability.should_not be_able_to(:index, EarlyReview)
         @ability.should_not be_able_to(:index, EarlyReview, session)
 
@@ -181,12 +182,11 @@ describe Ability do
 
     context "index final reviews of" do
       before(:each) do
-        @decision = FactoryGirl.create(:review_decision, :published => true)
-        @session = @decision.session
+        @session = FactoryGirl.build(:session, :review_decision => FactoryGirl.build(:review_decision, :published => true))
       end
 
       it "his sessions as first author is allowed" do
-        @session.reload.update_attribute(:author_id, @user.id)
+        @session.author = @user
         @ability.should_not be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
 
@@ -196,7 +196,7 @@ describe Ability do
       end
 
       it "his sessions as second author is allowed" do
-        @session.reload.update_attribute(:second_author_id, @user.id)
+        @session.second_author = @user
         @ability.should_not be_able_to(:index, FinalReview)
         @ability.should be_able_to(:index, FinalReview, @session)
 
@@ -213,7 +213,7 @@ describe Ability do
       end
 
       it "other people's sessions is forbidden" do
-        session = FactoryGirl.create(:session)
+        session = FactoryGirl.build(:session)
         @ability.should_not be_able_to(:index, FinalReview)
         @ability.should_not be_able_to(:index, FinalReview, session)
 
@@ -249,7 +249,7 @@ describe Ability do
 
     describe "can update session if:" do
       before(:each) do
-        @session = FactoryGirl.create(:session, :conference => @conference)
+        @session = FactoryGirl.build(:session, :conference => @conference)
         @conference.stubs(:in_submission_phase?).returns(true)
       end
 
@@ -287,12 +287,12 @@ describe Ability do
 
     describe "can confirm session if:" do
       before(:each) do
-        @another_user = FactoryGirl.create(:user)
-        @session = FactoryGirl.create(:session, :author => @user)
-        @session.reviewing
-        FactoryGirl.create(:review_decision, :session => @session)
-        @session.tentatively_accept
-        Session.stubs(:find).returns(@session)
+        @another_user = FactoryGirl.build(:user)
+        @session = FactoryGirl.build(:session,
+          :author => @user,
+          :state => 'pending_confirmation',
+          :review_decision => FactoryGirl.build(:review_decision)
+        )
         Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
       end
 
@@ -302,13 +302,13 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'confirm_sessions')
 
-        @session.stubs(:author).returns(@another_user)
+        @session.author = @another_user
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
       it "- user is second author" do
-        @session.stubs(:author).returns(@another_user)
-        @session.stubs(:second_author).returns(@user)
+        @session.author = @another_user
+        @session.second_author = @user
 
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
@@ -322,7 +322,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'confirm_sessions')
 
-        @session.stubs(:pending_confirmation?).returns(false)
+        @session.state = 'rejected'
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
@@ -332,7 +332,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'confirm_sessions')
 
-        @session.stubs(:review_decision).returns(nil)
+        @session.review_decision = nil
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
@@ -359,12 +359,12 @@ describe Ability do
 
     describe "can withdraw session if:" do
       before(:each) do
-        @another_user = FactoryGirl.create(:user)
-        @session = FactoryGirl.create(:session, :author => @user)
-        @session.reviewing
-        FactoryGirl.create(:review_decision, :session => @session)
-        @session.tentatively_accept
-        Session.stubs(:find).returns(@session)
+        @another_user = FactoryGirl.build(:user)
+        @session = FactoryGirl.build(:session,
+          :author => @user,
+          :state => 'pending_confirmation',
+          :review_decision => FactoryGirl.build(:review_decision)
+        )
         Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
       end
 
@@ -374,13 +374,13 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'withdraw_sessions')
 
-        @session.stubs(:author).returns(@another_user)
+        @session.author = @another_user
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
       it "- user is second author" do
-        @session.stubs(:author).returns(@another_user)
-        @session.stubs(:second_author).returns(@user)
+        @session.author = @another_user
+        @session.second_author = @user
 
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
@@ -394,7 +394,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'withdraw_sessions')
 
-        @session.stubs(:pending_confirmation?).returns(false)
+        @session.state = 'rejected'
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
@@ -404,7 +404,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'withdraw_sessions')
 
-        @session.stubs(:review_decision).returns(nil)
+        @session.review_decision = nil
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
@@ -434,7 +434,7 @@ describe Ability do
   context "- organizer" do
     before(:each) do
       @user.add_role "organizer"
-      FactoryGirl.create(:organizer, :user => @user, :conference => @conference)
+      Organizer.stubs(:user_organizing_conference?).with(@user, @conference).returns(true)
       @ability = Ability.new(@user, @conference)
     end
 
@@ -473,11 +473,11 @@ describe Ability do
 
     context "organizer index reviews of" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
       end
 
       it "session on organizer's track is allowed" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should_not be_able_to(:organizer, FinalReview)
         @ability.should_not be_able_to(:organizer, EarlyReview)
 
@@ -498,18 +498,18 @@ describe Ability do
 
     context "can cancel session if:" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
       end
 
       it "- session on organizer's track" do
         @ability.should_not be_able_to(:cancel, @session)
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:cancel, @session)
       end
 
       it "- session is not already cancelled" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:cancel, @session)
         @session.cancel
         @ability.should_not be_able_to(:cancel, @session)
@@ -518,7 +518,7 @@ describe Ability do
 
     context "can create review decision if:" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
         @session.reviewing
         Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
@@ -530,7 +530,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
 
         @ability.should be_able_to(:create, ReviewDecision)
 
@@ -540,7 +540,7 @@ describe Ability do
       end
 
       it "- after review deadline" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
 
         @ability.should be_able_to(:create, ReviewDecision, @session)
@@ -550,7 +550,7 @@ describe Ability do
       end
 
       it "- before review deadline can't create review decision" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
 
         @ability.should_not be_able_to(:create, ReviewDecision, @session)
@@ -568,7 +568,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:create, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
@@ -577,7 +577,7 @@ describe Ability do
       end
 
       it "- session is in review" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:create, ReviewDecision, @session)
         @ability.should_not be_able_to(:create, ReviewDecision)
 
@@ -595,7 +595,7 @@ describe Ability do
 
     context "can edit review decision session" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
         @session.reviewing
         Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
@@ -607,7 +607,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.build(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
@@ -624,7 +624,7 @@ describe Ability do
         @ability = Ability.new(@user, @conference, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.build(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
@@ -636,7 +636,7 @@ describe Ability do
         @session.tentatively_accept
         @session.accept
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        FactoryGirl.build(:organizer, :track => @session.track, :user => @user)
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -647,7 +647,7 @@ describe Ability do
       it "unless session was rejected by author" do
         @session.tentatively_accept
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.reject
@@ -660,7 +660,7 @@ describe Ability do
       it "unless session was accepted by author" do
         @session.tentatively_accept
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @session.accept
@@ -671,7 +671,7 @@ describe Ability do
       end
 
       it "if session has a review decision" do
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -682,7 +682,7 @@ describe Ability do
       it "if session is rejected" do
         @session.reject
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -693,7 +693,7 @@ describe Ability do
       it "if session is tentatively accepted" do
         @session.tentatively_accept
 
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:update, ReviewDecision, @session)
         @ability.should_not be_able_to(:update, ReviewDecision)
 
@@ -705,7 +705,7 @@ describe Ability do
         @session.tentatively_accept
 
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline + 1.second)
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should be_able_to(:update, ReviewDecision, @session)
 
         @ability = Ability.new(@user, @conference, @session)
@@ -716,7 +716,7 @@ describe Ability do
         @session.tentatively_accept
 
         Time.zone.expects(:now).at_least_once.returns(@conference.review_deadline)
-        FactoryGirl.create(:organizer, :track => @session.track, :user => @user, :conference => @conference)
+        @user.stubs(:organized_tracks).with(@conference).returns([@session.track])
         @ability.should_not be_able_to(:update, ReviewDecision, @session)
 
         @ability = Ability.new(@user, @conference, @session)
@@ -728,10 +728,9 @@ describe Ability do
   context "- reviewer" do
     before(:each) do
       @user.add_role "reviewer"
-      reviewer = FactoryGirl.create(:reviewer, :user => @user, :conference => @conference)
-      reviewer.invite
+      Reviewer.stubs(:user_reviewing_conference?).returns(true)
+      reviewer = FactoryGirl.build(:reviewer, :user => @user, :conference => @conference, :state => 'accepted')
       reviewer.preferences.build(:accepted => true, :track_id => @conference.tracks.first.id, :audience_level_id => @conference.audience_levels.first.id, :conference_id => @conference.id)
-      reviewer.accept
       @ability = Ability.new(@user, @conference)
     end
 
@@ -770,8 +769,15 @@ describe Ability do
       @ability.should_not be_able_to(:organizer, EarlyReview)
     end
 
-    it "can show own reviews" do
-      review = FactoryGirl.create(:final_review)
+    it "can show own early reviews" do
+      review = FactoryGirl.build(:early_review)
+      @ability.should_not be_able_to(:show, review)
+      review.reviewer = @user
+      @ability.should be_able_to(:show, review)
+    end
+
+    it "can show own final reviews" do
+      review = FactoryGirl.build(:final_review)
       @ability.should_not be_able_to(:show, review)
       review.reviewer = @user
       @ability.should be_able_to(:show, review)
@@ -779,7 +785,7 @@ describe Ability do
 
     context "can create a new final review if:" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns(Session)
         Session.stubs(:with_incomplete_final_reviews).returns([@session])
         @conference.stubs(:in_final_review_phase?).returns(true)
@@ -833,7 +839,7 @@ describe Ability do
 
     context "can create a new early review if:" do
       before(:each) do
-        @session = FactoryGirl.create(:session)
+        @session = FactoryGirl.build(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns(Session)
         Session.stubs(:incomplete_early_reviews_for).returns([@session])
         @conference.stubs(:in_early_review_phase?).returns(true)
