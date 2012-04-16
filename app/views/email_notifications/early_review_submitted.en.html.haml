@@ -1,0 +1,17 @@
+%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+
+%p
+  An early review has been submitted to your session <strong>'#{h(@session.title)}'</strong>. It can be found at:
+  %br
+  = link_to session_review_url(@session.conference, @session, @review, :locale => 'en'), session_review_url(@session.conference, @session, @review, :locale => 'en')
+
+%p
+  This review will NOT be considered for the final selection of proposals. It is only meant to provide you an early feedback to improve your proposal before the final deadline. Feel free to change whatever you consider necessary on your proposal before the final deadline (#{l(@conference.submissions_deadline, :format => :short)}):
+  %br
+  = link_to edit_session_url(@session.conference, @session, :locale => 'en'), edit_session_url(@session.conference, @session, :locale => 'en')
+
+%p Regards,
+
+%p Program Committee of #{@conference_name} Conference
+
+%small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

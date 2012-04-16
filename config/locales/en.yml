@@ -422,6 +422,8 @@ en:
       subject: "%{conference_name} session proposal submitted"
     comment_submitted:
       subject: "New comment for your session '%{session_name}'"
+    early_review_submitted:
+      subject: "Early review submitted for your session '%{session_name}'"
     reviewer_invitation:
       subject: "Invitation to be part of %{conference_name} review committee"
     session_accepted:

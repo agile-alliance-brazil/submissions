@@ -616,6 +616,8 @@ pt:
       subject: "Proposta de sessão submetida para %{conference_name}"
     comment_submitted:
       subject: "Novo comentário para sua sessão '%{session_name}'"
+    early_review_submitted:
+      subject: "Pré-avaliação da sua sessão '%{session_name}'"
     reviewer_invitation:
       subject: "Convite para equipe de avaliação da %{conference_name}"
     session_accepted:

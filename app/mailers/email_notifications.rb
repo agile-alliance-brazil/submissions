@@ -42,6 +42,17 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def early_review_submitted(session, review, sent_at = Time.now)
+    @session = session
+    @review = review
+    @conference_name = current_conference.name
+    mail :subject => "[#{host}] #{I18n.t('email.early_review_submitted.subject', :session_name => @session.title)}",
+         :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
+         :from     => "\"#{@conference_name}\" <#{from_address}>",
+         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
+         :date => sent_at
+  end
+
   def reviewer_invitation(reviewer, sent_at = Time.now)
     I18n.locale = reviewer.user.try(:default_locale)
     @reviewer = reviewer

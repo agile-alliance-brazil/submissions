@@ -65,4 +65,15 @@ describe EarlyReview do
       it { should validate_uniqueness_of(:reviewer_id).scoped_to(:session_id) }
     end
   end
+
+  context "notifications" do
+    it "should notify session author(s) after creation" do
+      review = FactoryGirl.build(:early_review)
+      EarlyReview.send(:public, :notify)
+
+      EmailNotifications.expects(:early_review_submitted).with(review.session, review).once.returns(stub(:deliver => true))
+
+      review.notify
+    end
+  end
 end
