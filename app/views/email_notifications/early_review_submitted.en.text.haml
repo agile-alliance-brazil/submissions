@@ -4,7 +4,7 @@ Dear #{@session.authors.map(&:full_name).join(" & ")},
 An early review has been submitted to your session '#{h(@session.title)}'. It can be found at:
 
 
-= session_review_url(@session.conference, @session, @review, :locale => 'en')
+= session_reviews_url(@session.conference, @session, :locale => 'en', :type => 'early')
 
 
 This review will NOT be considered for the final selection of proposals. It is only meant to provide you an early feedback to improve your proposal before the final deadline. Feel free to change whatever you consider necessary on your proposal before the final deadline (#{l(@conference.submissions_deadline, :format => :short)}):

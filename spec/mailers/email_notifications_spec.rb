@@ -184,18 +184,16 @@ describe EmailNotifications do
     before(:each) do
       @session = FactoryGirl.build(:session)
       @session.id = 123
-      @early_review = FactoryGirl.build(:early_review, :session => @session)
-      @early_review.id = 213
     end
 
     it "should be sent to first author" do
-      mail = EmailNotifications.early_review_submitted(@session, @early_review).deliver
+      mail = EmailNotifications.early_review_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
   	  mail.encoded.should =~ /#{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews\/#{@early_review.to_param}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews.*early/m
   	  mail.subject.should == "[localhost:3000] Pré-avaliação da sua sessão '#{@session.title}'"
     end
 
@@ -203,25 +201,25 @@ describe EmailNotifications do
       user = FactoryGirl.build(:user)
       @session.second_author = user
 
-      mail = EmailNotifications.early_review_submitted(@session, @early_review).deliver
+      mail = EmailNotifications.early_review_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
   	  mail.encoded.should =~ /#{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews\/#{@early_review.to_param}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews.*early/m
   	  mail.subject.should == "[localhost:3000] Pré-avaliação da sua sessão '#{@session.title}'"
     end
 
     it "should be sent to first author in system's locale" do
       I18n.locale = 'en'
-      mail = EmailNotifications.early_review_submitted(@session, @early_review).deliver
+      mail = EmailNotifications.early_review_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email]
   	  mail.encoded.should =~ /Dear #{@session.author.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews\/#{@early_review.to_param}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews.*early/m
   	  mail.subject.should == "[localhost:3000] Early review submitted for your session '#{@session.title}'"
     end
 
@@ -230,13 +228,13 @@ describe EmailNotifications do
       user = FactoryGirl.build(:user, :default_locale => 'fr')
       @session.second_author = user
 
-      mail = EmailNotifications.early_review_submitted(@session, @early_review).deliver
+      mail = EmailNotifications.early_review_submitted(@session).deliver
       ActionMailer::Base.deliveries.size.should == 1
       mail.to.should == [@session.author.email, user.email]
   	  mail.encoded.should =~ /Dear #{@session.author.full_name} &amp; #{user.full_name},/
   	  mail.encoded.should =~ /#{@session.title}/
   	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}/
-  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews\/#{@early_review.to_param}/
+  	  mail.encoded.should =~ /\/sessions\/#{@session.to_param}\/reviews.*early/m
   	  mail.subject.should == "[localhost:3000] Early review submitted for your session '#{@session.title}'"
     end
   end

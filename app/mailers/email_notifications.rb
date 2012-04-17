@@ -42,9 +42,8 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
-  def early_review_submitted(session, review, sent_at = Time.now)
+  def early_review_submitted(session, sent_at = Time.now)
     @session = session
-    @review = review
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.early_review_submitted.subject', :session_name => @session.title)}",
          :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
