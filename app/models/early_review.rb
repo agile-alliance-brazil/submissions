@@ -8,6 +8,6 @@ class EarlyReview < Review
 
   private
   def notify
-    EmailNotifications.early_review_submitted(self.session, self).deliver
+    EmailNotifications.early_review_submitted(self.session).deliver
   end
 end
