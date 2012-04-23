@@ -1,4 +1,4 @@
-%p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" e "))},
+%p Caro#{@session.authors.size > 1 ? "s":""} #{h(@session.authors.map(&:full_name).join(" & "))},
 
 %p Devido a um problema em nosso servidor, nem todas as notificações por email foram enviadas. Para evitar mais problemas, decidimos reenviar todas as notificações. Se você já recebeu este email, por favor, desconsidere-o.
 

@@ -38,7 +38,7 @@ describe CommentsController do
 
   it "create action should send an email when model is valid" do
     Comment.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:comment_submitted).once.returns(OpenStruct.new(:deliver => nil))
+    EmailNotifications.expects(:send_comment_submitted)
     post :create, :session_id => @comment.commentable
   end
 

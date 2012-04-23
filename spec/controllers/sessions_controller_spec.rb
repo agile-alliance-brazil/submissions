@@ -78,7 +78,7 @@ describe SessionsController do
 
   it "create action should send an email when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:session_submitted).once.returns(OpenStruct.new(:deliver => nil))
+    EmailNotifications.expects(:send_session_submitted)
     post :create
   end
 

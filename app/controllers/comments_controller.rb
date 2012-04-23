@@ -15,7 +15,7 @@ class CommentsController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        EmailNotifications.comment_submitted(@comment.commentable, @comment).deliver
+        EmailNotifications.send_comment_submitted(@comment.commentable, @comment)
         redirect_to session_path(@conference, @comment.commentable, :anchor => 'comments')
       end
       failure.html do

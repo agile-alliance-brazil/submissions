@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource
 
     if resource.save
-      EmailNotifications.welcome(@user).deliver
+      EmailNotifications.send_welcome(@user)
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       respond_with resource
     end
-    
+
   end
 
   def update
@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
       u.default_locale = I18n.locale
     end
   end
-  
+
   def after_update_path_for(resource)
     user_path(resource)
   end

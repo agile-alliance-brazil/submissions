@@ -71,7 +71,7 @@ describe EarlyReview do
       review = FactoryGirl.build(:early_review)
       EarlyReview.send(:public, :notify)
 
-      EmailNotifications.expects(:early_review_submitted).with(review.session).once.returns(stub(:deliver => true))
+      EmailNotifications.expects(:send_early_review_submitted).with(review.session)
 
       review.notify
     end

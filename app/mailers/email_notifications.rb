@@ -1,5 +1,12 @@
 # encoding: UTF-8
 class EmailNotifications < ActionMailer::Base
+
+  def self.send_welcome(user, sent_at = Time.now)
+    I18n.with_locale(user.default_locale) do
+      welcome(user, sent_at).deliver
+    end
+  end
+
   def welcome(user, sent_at = Time.now)
     @user = user
     @conference_name = current_conference.name
@@ -10,6 +17,12 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def self.send_reset_password_instructions(user, sent_at = Time.now)
+    I18n.with_locale(user.default_locale) do
+      reset_password_instructions(user, sent_at).deliver
+    end
+  end
+
   def reset_password_instructions(user, sent_at = Time.now)
     @user = user
     @conference_name = current_conference.name
@@ -18,6 +31,12 @@ class EmailNotifications < ActionMailer::Base
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
+  end
+
+  def self.send_session_submitted(session, sent_at = Time.now)
+    I18n.with_locale(session.author.try(:default_locale)) do
+      session_submitted(session, sent_at).deliver
+    end
   end
 
   def session_submitted(session, sent_at = Time.now)
@@ -31,6 +50,12 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def self.send_comment_submitted(session, comment, sent_at = Time.now)
+    I18n.with_locale(session.author.try(:default_locale)) do
+      comment_submitted(session, comment, sent_at).deliver
+    end
+  end
+
   def comment_submitted(session, comment, sent_at = Time.now)
     @session = session
     @comment = comment
@@ -40,6 +65,12 @@ class EmailNotifications < ActionMailer::Base
          :from     => "\"#{@conference_name}\" <#{from_address}>",
          :reply_to => "\"#{@conference_name}\" <#{from_address}>",
          :date => sent_at
+  end
+
+  def self.send_early_review_submitted(session, sent_at = Time.now)
+    I18n.with_locale(session.author.try(:default_locale)) do
+      early_review_submitted(session, sent_at).deliver
+    end
   end
 
   def early_review_submitted(session, sent_at = Time.now)
@@ -52,8 +83,13 @@ class EmailNotifications < ActionMailer::Base
          :date => sent_at
   end
 
+  def self.send_reviewer_invitation(reviewer, sent_at = Time.now)
+    I18n.with_locale(reviewer.user.try(:default_locale)) do
+      reviewer_invitation(reviewer, sent_at).deliver
+    end
+  end
+
   def reviewer_invitation(reviewer, sent_at = Time.now)
-    I18n.locale = reviewer.user.try(:default_locale)
     @reviewer = reviewer
     @conference_name = current_conference.name
     mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => @conference_name)}",
@@ -63,11 +99,15 @@ class EmailNotifications < ActionMailer::Base
          :date     => sent_at
   end
 
-  def notification_of_acceptance(session, sent_at = Time.now)
+  def self.send_notification_of_acceptance(session, sent_at = Time.now)
     raise "Notification can't be sent before decision has been made" unless session.review_decision
     raise "Cannot accept a rejected session" if session.review_decision.rejected?
-    I18n.locale = session.author.try(:default_locale)
+    I18n.with_locale(session.author.try(:default_locale)) do
+      notification_of_acceptance(session, sent_at).deliver
+    end
+  end
 
+  def notification_of_acceptance(session, sent_at = Time.now)
     @session = session
     @conference_name = current_conference.name
     mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => @conference_name)}",
@@ -77,11 +117,15 @@ class EmailNotifications < ActionMailer::Base
          :date     => sent_at)
   end
 
-  def notification_of_rejection(session, sent_at = Time.now)
+  def self.send_notification_of_rejection(session, sent_at = Time.now)
     raise "Notification can't be sent before decision has been made" unless session.review_decision
     raise "Cannot reject an accepted session" if session.review_decision.accepted?
-    I18n.locale = session.author.try(:default_locale)
+    I18n.with_locale(session.author.try(:default_locale)) do
+      notification_of_rejection(session, sent_at).deliver
+    end
+  end
 
+  def notification_of_rejection(session, sent_at = Time.now)
     @session = session
     @conference_name = current_conference.name
     mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => @conference_name)}",
