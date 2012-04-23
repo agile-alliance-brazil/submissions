@@ -1,4 +1,11 @@
 ---
+ # Your secret key for verifying the integrity of signed cookies. If you change this key,
+ # all old signed cookies will become invalid! Make sure the secret is at least 30
+ # characters and all random, no regular words or you'll be exposed to dictionary attacks.
+ #
+ # You can use "rake secret" to generate a new secret token.
+ :secret_token: cd8960c2cf59235252ed56d75e354598729e4eecfdd7fce80e22b88e5b79a630f2a65cb67465411079931adad1fd416ed82d69fa1d941f9f4ad4f905e47a1ef
+
  # Host used to configure ActionMailer::Base.default_url_options[:host] as described in:
  # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
  :host: localhost:3000
@@ -8,7 +15,7 @@
  # described in:
  #
  # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Configuration+options
- # 
+ #
  # Example:
  # :smtp_settings:
  #   :address: smtp.domain.com
@@ -22,7 +29,7 @@
 
  # You can use Amazon Simple E-mail Service (SES) to send e-mails too. If you decide
  # to use it, please provide your SES access key and secret key as follows:
- #   
+ #
  # :ses:
  #   :access_key_id: your_aws_access_key_id
  #   :secret_access_key: your_aws_secret_access_key
@@ -37,7 +44,7 @@
  #
  # :airbrake:
  #   :access_key: xxx111xxx
- 
+
  # To track user access using Google Analytics, please provide your details as follows:
  #
  # :google:
