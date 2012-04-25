@@ -53,9 +53,9 @@
     :javascript
       $(document).ready(function() {
         $.getJSON('#{reviews_path(@conference, :format => :js)}', function(data) {
-          var orange = Math.floor(parseInt(data.required_decisions) * 0.30);
-          var yellow = Math.floor(parseInt(data.required_decisions) * 0.60);
-          var green = Math.floor(parseInt(data.required_decisions) * 0.90);
+          var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
+          var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
+          var green = Math.floor(parseInt(data.required_reviews) * 0.90);
           var progressImages = {};
           progressImages[0] = '/assets/progressbg_red.gif';
           progressImages[orange] = '/assets/progressbg_orange.gif';
