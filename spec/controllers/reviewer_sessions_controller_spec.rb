@@ -21,24 +21,25 @@ describe ReviewerSessionsController do
 
   describe "#index" do
     before(:each) do
-      @session = FactoryGirl.create(:session)
-      FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
       @conference = Conference.current
+      @session = FactoryGirl.create(:session, :created_at => @conference.presubmissions_deadline - 1.day)
+      FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
     end
 
-    it "should list sessions for reviewer with incomplete early reviews" do
+    it "should list sessions for reviewer that didn't review them" do
       @conference.expects(:in_early_review_phase?).returns(true)
-      @session.update_attribute :created_at, @conference.presubmissions_deadline - 1.day
-      @session.save!
       get :index
       assigns(:sessions).should == [@session]
     end
 
-    it "should hide sessions for reviewer with complete early reviews" do
+    it "should order sessions for reviewer from less reviewed to more reviewed" do
       @conference.expects(:in_early_review_phase?).returns(true)
-      FactoryGirl.create(:early_review, :session => @session)
+      @session.update_attribute :early_reviews_count, @conference.presubmissions_deadline - 1.day
+      @session.save!
+      other_session = FactoryGirl.create(:session, :track => @session.track, :audience_level => @session.audience_level,
+                                         :created_at => @conference.presubmissions_deadline - 1.day)
       get :index
-      assigns(:sessions).should == []
+      assigns(:sessions).should == [other_session, @session]
     end
 
     it "should list sessions for reviewer with incomplete final reviews" do

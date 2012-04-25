@@ -7,11 +7,11 @@ class ReviewsListingController < ApplicationController
       end
       format.js do
         if @conference.in_early_review_phase?
+          sessions_to_review = Session.early_reviewable_for(@conference).count
+          sessions_without_reviews = Session.early_reviewable_for(@conference).with_incomplete_early_reviews.count
           stats = {
-            'required_reviews' => Session.for_conference(@conference).
-                                          without_state(:cancelled).
-                                          submitted_before(@conference.presubmissions_deadline).count,
-            'total_reviews' => EarlyReview.for_conference(@conference).count
+            'required_reviews' => sessions_to_review,
+            'total_reviews' => sessions_to_review - sessions_without_reviews
           }
         else
           stats = {

@@ -109,8 +109,14 @@ class Session < ActiveRecord::Base
     not_reviewed_by(user)
   end
 
-  def self.incomplete_early_reviews_for(conference)
-    with_incomplete_early_reviews.submitted_before(conference.presubmissions_deadline)
+  def self.early_reviewable_by(user, conference)
+    early_reviewable_for(conference).for_reviewer(user, conference)
+  end
+
+  def self.early_reviewable_for(conference)
+    for_conference(conference).
+    without_state(:cancelled).
+    submitted_before(conference.presubmissions_deadline)
   end
 
   state_machine :initial => :created do

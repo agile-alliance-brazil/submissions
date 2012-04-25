@@ -133,7 +133,7 @@ class Ability
       session ||= @session
       expand_actions([:create]).include?(action) &&
       subject_class == EarlyReview &&
-      Session.for_reviewer(@user, @conference).incomplete_early_reviews_for(@conference).include?(session) &&
+      Session.early_reviewable_by(@user, @conference).include?(session) &&
       @conference.in_early_review_phase?
     end
     can do |action, subject_class, subject, session|

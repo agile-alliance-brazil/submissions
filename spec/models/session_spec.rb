@@ -345,7 +345,7 @@ describe Session do
       end
     end
 
-    context "with incomplete early reviews" do
+    context "early reviewable by some reviewer" do
       before(:each) do
         @reviewer = FactoryGirl.create(:reviewer)
         @user = @reviewer.user
@@ -355,25 +355,40 @@ describe Session do
         FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
       end
 
-      it "should return sessions without early reviews" do
-        Session.incomplete_early_reviews_for(@conference).should == [@session]
+      it "should return sessions that were not reviewed by the reviewer" do
+        Session.early_reviewable_by(@user, @conference).should == [@session]
       end
 
-      it "should not return sessions already reviewed" do
+      it "should not return sessions already reviewed by that reviewer" do
         FactoryGirl.create(:early_review, :session => @session, :reviewer => @user)
-        Session.incomplete_early_reviews_for(@conference).should == []
+        Session.early_reviewable_by(@user, @conference).should == []
+      end
+    end
+
+    context "early reviewable for a conference" do
+      before(:each) do
+        @session = FactoryGirl.create(:session)
+        @conference = @session.conference
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline - 1.day)
       end
 
-      it "should return session created at the pre submissions deadline" do
+      it "should return session created at pre submissions deadline" do
         @session.update_attribute(:created_at, @conference.presubmissions_deadline)
         @session.save!
-        Session.incomplete_early_reviews_for(@conference).should == [@session]
+        Session.early_reviewable_for(@conference).should == [@session]
       end
 
-      it "should not return sessions created after the pre submissions deadline" do
+      it "should not return sessions created after pre submissions deadline" do
         @session.update_attribute(:created_at, @conference.presubmissions_deadline + 1.second)
         @session.save!
-        Session.incomplete_early_reviews_for(@conference).should == []
+        Session.early_reviewable_for(@conference).should == []
+      end
+
+      it "should not return canceled sessions before pre submissions deadline" do
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline)
+        @session.cancel
+        @session.save!
+        Session.early_reviewable_for(@conference).should == []
       end
     end
   end
