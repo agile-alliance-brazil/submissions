@@ -9,13 +9,14 @@
       %th.track= t('formtastic.labels.session.track_id')
       %th.type= t('formtastic.labels.session.session_type_id')
       %th.audience_level= t('formtastic.labels.session.audience_level_id')
+      %th.reviews= t('formtastic.labels.session.reviews')
       %th.action
   %tbody
     - @sessions.each do |session|
       = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
-          = session.try(:title)
+          = link_to session.try(:title), session_path(@conference, session)
           - if session.comments.size > 0
             .commentCount= session.comments.size
         %td.track
@@ -24,6 +25,11 @@
           = t(session.session_type.title)
         %td.audience_level
           = t(session.audience_level.title)
+        %td.reviews
+          - if can?(:create, EarlyReview, session)
+            = session.early_reviews_count
+          - elsif can?(:create, FinalReview, session)
+            = session.final_reviews_count
         %td.action
           - if can?(:create, EarlyReview, session) || can?(:create, FinalReview, session)
             = link_to t('actions.review_session'), new_session_review_path(@conference, session)
