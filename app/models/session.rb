@@ -103,8 +103,8 @@ class Session < ActiveRecord::Base
 
   def self.for_reviewer(user, conference)
     for_conference(conference).
-    not_author(user.id).
     without_state(:cancelled).
+    not_author(user.id).
     for_preferences(*user.preferences(conference)).
     not_reviewed_by(user)
   end
@@ -116,7 +116,7 @@ class Session < ActiveRecord::Base
   def self.early_reviewable_for(conference)
     for_conference(conference).
     without_state(:cancelled).
-    submitted_before(conference.presubmissions_deadline)
+    submitted_before(conference.presubmissions_deadline + 3.hours)
   end
 
   state_machine :initial => :created do

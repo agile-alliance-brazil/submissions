@@ -378,8 +378,14 @@ describe Session do
         Session.early_reviewable_for(@conference).should == [@session]
       end
 
-      it "should not return sessions created after pre submissions deadline" do
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 1.second)
+      it "should return sessions created before 3 hours after pre submissions deadline" do
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 3.hours)
+        @session.save!
+        Session.early_reviewable_for(@conference).should == [@session]
+      end
+
+      it "should not return sessions created after 3 hours after pre submissions deadline" do
+        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 3.hours + 1.second)
         @session.save!
         Session.early_reviewable_for(@conference).should == []
       end
