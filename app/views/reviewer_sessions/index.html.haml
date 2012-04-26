@@ -28,7 +28,7 @@
         %td.reviews
           - if can?(:create, EarlyReview, session)
             = session.early_reviews_count
-          - elsif can?(:create, FinalReview, session)
+          - else
             = session.final_reviews_count
         %td.action
           - if can?(:create, EarlyReview, session) || can?(:create, FinalReview, session)
