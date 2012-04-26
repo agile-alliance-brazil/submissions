@@ -34,12 +34,10 @@ describe ReviewerSessionsController do
 
     it "should order sessions for reviewer from less reviewed to more reviewed" do
       @conference.expects(:in_early_review_phase?).returns(true)
-      @session.update_attribute :early_reviews_count, @conference.presubmissions_deadline - 1.day
-      @session.save!
       other_session = FactoryGirl.create(:session, :track => @session.track, :audience_level => @session.audience_level,
-                                         :created_at => @conference.presubmissions_deadline - 1.day)
+                                         :created_at => @conference.presubmissions_deadline - 1.day, :early_reviews_count => 1)
       get :index
-      assigns(:sessions).should == [other_session, @session]
+      assigns(:sessions).should == [@session, other_session]
     end
 
     it "should list sessions for reviewer with incomplete final reviews" do
