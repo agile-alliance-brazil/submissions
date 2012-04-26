@@ -283,6 +283,13 @@ describe Session do
         @session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level)
       end
 
+      it "if reviewed multiple times, it should only be returned once" do
+        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+        FactoryGirl.create(:final_review, :session => @session)
+        FactoryGirl.create(:final_review, :session => @session)
+        Session.for_reviewer(@user, @conference).should == [@session]
+      end
+
       context "preferences" do
         it "if user has no preferences, no sessions to review" do
           Session.for_reviewer(@user, @conference).should be_empty

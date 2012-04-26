@@ -86,7 +86,7 @@ class Session < ActiveRecord::Base
   scope :not_author, lambda { |u| where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i) }
 
   scope :not_reviewed_by, lambda { |u|
-    joins('LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id').
+    joins('LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id').group('sessions.id').
     where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', u.id)
   }
 
