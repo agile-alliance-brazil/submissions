@@ -6,8 +6,8 @@
   = form.input :duration_mins, :required => true, :as => :select, :collection => [["10 #{t('generic.minutes')}", 10], ["50 #{t('generic.minutes')}", 50], ["110 #{t('generic.minutes')}", 110]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :second_author_username, :input_html => {:tabindex => autotab}
+  = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
+  = form.input :second_author_username, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => users_path(:format => :js)}
   = form.input :target_audience, :required => true, :input_html => {:tabindex => autotab}
   = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}, :hint => t('formtastic.hints.session.summary', :year => "/#{@conference.year}")
   = form.input :description, :required => true, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.description', :year => "/#{@conference.year}")
@@ -17,46 +17,6 @@
 
 :javascript
   $(document).ready(function() {
-    $("#session_second_author_username").autocomplete({
-      source: "#{users_path(:format => :js)}"
-    });
-    function split(val) {
-      return val.split(/,\s*/);
-    }
-    function extractLast(term) {
-      return split(term).pop();
-    }
-
-    $("#session_keyword_list")
-      // don't navigate away from the field on tab when selecting an item
-      .bind( "keydown", function( event ) {
-        if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
-          event.preventDefault();
-        }
-      })
-      .autocomplete({
-        source: function(request, response) {
-          $.getJSON("#{tags_path(:format => :js)}", {
-            term: extractLast(request.term)
-          }, response);
-        },
-        focus: function() {
-          // prevent value inserted on focus
-          return false;
-        },
-        select: function(event, ui) {
-          var terms = split(this.value);
-          // remove the current input
-          terms.pop();
-          // add the selected item
-          terms.push(ui.item.value);
-          // add placeholder to get the comma-and-space at the end
-          terms.push("");
-          this.value = terms.join(", ");
-          return false;
-        }
-      });
-
     $("#session_session_type_id").filterOn("#session_track_id", {
       "4":  ["", "1", "2"],
       "8":  ["", "4", "5"],

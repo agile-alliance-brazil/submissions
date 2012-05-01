@@ -1,11 +1,13 @@
 - title t('title.sessions')
 - show_actions!
 
-%ul
-  - if params[:tagged_with]
-    %li= t('text.tagged_with', :tag => h(params[:tagged_with])).html_safe
-  - if params[:user_id]
-    %li= t('text.for_user', :name => h(@user.try(:full_name))).html_safe
+= semantic_form_for @session_filter, :url => sessions_path(@conference), :method => :get do |f|
+  = f.inputs do
+    = f.input :tags, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
+    = f.input :username, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => users_path(:format => :js)}
+    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :prompt => t("generic.all")
+  = f.buttons do
+    = f.commit_button :filter_session, :button_html => {:tabindex => autotab}
 
 %table.sessions
   %thead

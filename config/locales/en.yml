@@ -131,6 +131,10 @@ en:
         image_agreement: "By accepting this term, I grant the organization of Agile Brazil the right of recording and reproducing all or part of the technical content presented by me during the conference for non-commercial purposes, in any form or medium, without any cost for the event."
         author_confirmed: "Author confirmation"
         author_image_agreement: "Image rights"
+      session_filter:
+        tags: "Tags"
+        username: "Author (username)"
+        track_id: "Track"
       comment:
         comment: "Your comment"
       organizer:
@@ -245,6 +249,7 @@ en:
       confirm_session: "Confirm attendance"
       withdraw_session: "Withdraw session"
       search: "Search"
+      filter_session: "Filter sessions"
 
   # Custom messages
   title:
@@ -302,8 +307,6 @@ en:
     edit_review_decision: "Edit Decision"
 
   text:
-    for_user: "Showing sessions for user: <strong>%{name}</strong>"
-    tagged_with: "Showing sessions tagged with: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
     private_field: "Private field: not visible in the public profile"
@@ -509,6 +512,7 @@ en:
     show: "Show %{target}"
     hide: "Hide %{target}"
     char_remaining: "remaining: "
+    all: "All"
 
   will_paginate:
     previous_label: "&laquo; Previous"

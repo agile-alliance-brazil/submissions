@@ -1,15 +1,18 @@
 # encoding: UTF-8
 class SessionsController < InheritedResources::Base
   actions :all, :except => [:destroy]
-  has_scope :for_user, :only => :index, :as => 'user_id'
   before_filter :load_user
   before_filter :load_tracks
   before_filter :load_audience_levels
   before_filter :load_session_types
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
+  before_filter :load_session_filter, :only => :index
 
-  has_scope :tagged_with, :only => :index
+  has_scope :for_user, :only => :index, :as => :user_id
+  has_scope :filtered, :only => :index, :as => :session_filter, :type => :hash do |controller, scope, value|
+    controller.send(:load_session_filter).apply(scope)
+  end
 
   def create
     create! do |success, failure|
@@ -68,6 +71,10 @@ class SessionsController < InheritedResources::Base
 
   def load_session_types
     @session_types ||= @conference.session_types
+  end
+
+  def load_session_filter
+    @session_filter ||= SessionFilter.new(params)
   end
 
   def check_conference

@@ -325,6 +325,10 @@ pt:
         image_agreement: "Ao aceitar este termo, concedo à organização do Agile Brazil o direito de gravação e reprodução total ou parcial do conteúdo técnico apresentado por mim durante a conferência para fins não comerciais, em qualquer formato e veículo de comunicação, sem qualquer tipo de ônus para a organização do evento."
         author_confirmed: "Confirmação do autor"
         author_image_agreement: "Direito de imagem"
+      session_filter:
+        tags: "Tags"
+        username: "Autor (nome de usuário)"
+        track_id: "Trilha de interesse"
       comment:
         comment: "Seu comentário"
       organizer:
@@ -439,6 +443,7 @@ pt:
       confirm_session: "Confirmar participação"
       withdraw_session: "Retirar sessão"
       search: "Buscar"
+      filter_session: "Filtrar sessões"
 
   # Mensagens customizadas
   title:
@@ -496,8 +501,6 @@ pt:
     edit_review_decision: "Editar Parecer"
 
   text:
-    for_user: "Mostrando sessões do usuário: <strong>%{name}</strong>"
-    tagged_with: "Mostrando sessões com a palavra-chave: <strong>%{tag}</strong>"
     lost_password:
       instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
     private_field: "Campo privado: não visível no perfil público"
@@ -703,6 +706,7 @@ pt:
     show: "Exibir %{target}"
     hide: "Esconder %{target}"
     char_remaining: "faltando: "
+    all: "Todas"
 
   will_paginate:
     previous_label: "&laquo; Anterior"

@@ -438,7 +438,8 @@ p#review_decision {
   -webkit-border-radius: 10px;
   border: 1px dashed #1c8c1c;
   padding: 10px;
-  width: 90%; }
+  width: 90%;
+}
 
 form.early_review.formtastic, form.final_review.formtastic {
   fieldset.inputs {
@@ -446,23 +447,32 @@ form.early_review.formtastic, form.final_review.formtastic {
       font-size: 14pt;
       color: black;
       border-bottom: 1px solid black;
-      width: 100%; }
+      width: 100%;
+    }
     ol {
       float: none;
       li fieldset legend.label {
         border-bottom: 0;
         label {
-          font-size: 10pt; } }
+          font-size: 10pt;
+        }
+      }
       li.hidden {
-        display: inline; }
+        display: inline;
+      }
       li label {
-        display: inline; }
+        display: inline;
+      }
       li.radio fieldset {
         legend.label {
           position: relative; }
         ol {
           padding-top: 1.5em;
-          padding-left: 0px; } } } }
+          padding-left: 0px;
+        }
+      }
+    }
+  }
   .session_info {
     background-color: $color4;
     border-radius: 10px;
@@ -476,20 +486,59 @@ form.early_review.formtastic, form.final_review.formtastic {
       li {
         margin-bottom: 0px;
         display: list-item;
-        margin-left: 0.5em; } }
+        margin-left: 0.5em;
+      }
+    }
     ul {
       list-style: disc outside;
       padding-left: 1em;
       li {
         margin-bottom: 0px;
         display: list-item;
-        margin-left: 0.5em; } }
+        margin-left: 0.5em;
+      }
+    }
     p strong {
-      font-weight: bold; } }
+      font-weight: bold;
+    }
+  }
   select {
-    display: inline; }
+    display: inline;
+  }
   fieldset ol li ul.errors {
-    float: none; } }
+    float: none;
+  }
+}
+
+form.session_filter.formtastic fieldset {
+  &.inputs {
+    float: left;
+    width: 85%;
+  }
+
+  &.buttons {
+    float: right;
+  }
+
+  ol li {
+    width: 30%;
+    margin: 0;
+
+    &.input {
+      padding-right: 19px;
+      float: left;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    &.commit {
+      margin-top: 20px;
+      padding-right: 0;
+    }
+  }
+}
 
 #review_progress_count {
   font-size: 8pt;
@@ -514,13 +563,13 @@ span.bio {
 .avatar {
   float: right;
   text-align: right;
-  
+
   img {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
   }
-  
+
   .tip {
     color: #999;
     font-style: italic;
