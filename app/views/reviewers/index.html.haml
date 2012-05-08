@@ -8,7 +8,8 @@
       %th.state= t('formtastic.labels.reviewer.state')
       - @tracks.each do |track|
         %th.track= t(track.title)
-      %th.count= t('formtastic.labels.session.reviews')
+      %th.count= t('review.early_review')
+      %th.count= t('review.final_review')
       %th.actions
   %tbody
     - @reviewers.each do |reviewer|
@@ -17,7 +18,8 @@
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - @tracks.each do |track|
           %td.track&= t(review_level(reviewer.accepted_preferences, track))
-        %td.count&= reviewer.user.reviews.for_conference(@conference).count
+        %td.count&= reviewer.user.early_reviews.for_conference(@conference).count
+        %td.count&= reviewer.user.final_reviews.for_conference(@conference).count
         %td.actions
           - if can? :destroy, reviewer
             = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))

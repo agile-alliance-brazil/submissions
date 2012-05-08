@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :all_organized_tracks, :through => :organizers, :source => :track
   has_many :reviewers
   has_many :reviews, :foreign_key => 'reviewer_id'
+  has_many :early_reviews, :foreign_key => 'reviewer_id'
+  has_many :final_reviews, :foreign_key => 'reviewer_id'
 
   validates_presence_of :first_name, :last_name
   validates_presence_of [:phone, :country, :city, :bio], :if => :author?
