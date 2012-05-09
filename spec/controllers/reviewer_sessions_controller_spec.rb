@@ -22,35 +22,59 @@ describe ReviewerSessionsController do
   describe "#index" do
     before(:each) do
       @conference = Conference.current
-      @session = FactoryGirl.create(:session, :created_at => @conference.presubmissions_deadline - 1.day)
-      FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
+      @session = FactoryGirl.build(:session)
+      Session.stubs(:for_reviewer).returns(Session)
+      Session.stubs(:order).returns(Session)
+      Session.stubs(:page).returns([@session])
     end
 
-    it "should list sessions for reviewer that didn't review them" do
-      @conference.expects(:in_early_review_phase?).returns(true)
-      get :index
-      assigns(:sessions).should == [@session]
+    context "during early review phase" do
+      before(:each) do
+        @conference.expects(:in_early_review_phase?).returns(true)
+      end
+
+      it "should list sessions for reviewer" do
+        Session.expects(:for_reviewer).with(@reviewer.user, @conference).returns(Session)
+        get :index
+        assigns(:sessions).should == [@session]
+      end
+
+      it "should order sessions for reviewer from less reviewed to more reviewed" do
+        Session.expects(:order).with('sessions.early_reviews_count ASC').returns(Session)
+        get :index
+        assigns(:sessions).should == [@session]
+      end
     end
 
-    it "should order sessions for reviewer from less reviewed to more reviewed" do
-      @conference.expects(:in_early_review_phase?).returns(true)
-      other_session = FactoryGirl.create(:session, :track => @session.track, :audience_level => @session.audience_level,
-                                         :created_at => @conference.presubmissions_deadline - 1.day, :early_reviews_count => 1)
-      get :index
-      assigns(:sessions).should == [@session, other_session]
+    context "during final review phase" do
+      before(:each) do
+        @conference.expects(:in_early_review_phase?).returns(false)
+        @conference.expects(:in_final_review_phase?).returns(true)
+      end
+
+      it "should list sessions for reviewer" do
+        Session.expects(:for_reviewer).with(@reviewer.user, @conference).returns(Session)
+        get :index
+        assigns(:sessions).should == [@session]
+      end
+
+      it "should order sessions for reviewer from less reviewed to more reviewed" do
+        Session.expects(:order).with('sessions.final_reviews_count ASC').returns(Session)
+        get :index
+        assigns(:sessions).should == [@session]
+      end
     end
 
-    it "should list sessions for reviewer with incomplete final reviews" do
-      @conference.expects(:in_early_review_phase?).returns(false)
-      get :index
-      assigns(:sessions).should == [@session]
-    end
+    context "outside of review phase" do
+      before(:each) do
+        @conference.expects(:in_early_review_phase?).returns(false)
+        @conference.expects(:in_final_review_phase?).returns(false)
+      end
 
-    it "should hide sessions for reviewer with complete final reviews" do
-      @conference.expects(:in_early_review_phase?).returns(false)
-      FactoryGirl.create_list(:final_review, 3, :session => @session)
-      get :index
-      assigns(:sessions).should == []
+      it "should return no sessions" do
+        get :index
+        assigns(:sessions).should be_empty
+      end
     end
   end
 end

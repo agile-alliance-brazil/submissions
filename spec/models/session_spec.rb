@@ -272,7 +272,7 @@ describe Session do
 
     xit {should have_scope(:with_incomplete_early_reviews).where('final_reviews_count < 1') }
 
-    context "for reviewer" do
+    context "for_reviewer / for_review_in" do
       before(:each) do
         @reviewer = FactoryGirl.create(:reviewer)
         @user = @reviewer.user
@@ -280,14 +280,73 @@ describe Session do
         @track = @conference.tracks.first
         @audience_level = @conference.audience_levels.first
 
-        @session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level)
+        @session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level, :created_at => @conference.presubmissions_deadline - 1.day)
       end
 
-      it "if reviewed multiple times, it should only be returned once" do
-        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
-        FactoryGirl.create(:final_review, :session => @session)
-        FactoryGirl.create(:final_review, :session => @session)
-        Session.for_reviewer(@user, @conference).should == [@session]
+      context "during early review phase" do
+        before(:each) do
+          @conference.stubs(:in_early_review_phase?).returns(true)
+          @conference.stubs(:in_final_review_phase?).returns(false)
+        end
+
+        it "if reviewed multiple times, it should only be returned once" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:early_review, :session => @session)
+          FactoryGirl.create(:early_review, :session => @session)
+          Session.for_reviewer(@user, @conference).should == [@session]
+        end
+
+        it "if already reviewed by user, it should not be returned" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:early_review, :session => @session, :reviewer => @user)
+          Session.for_reviewer(@user, @conference).should == []
+        end
+
+        context "early review deadline" do
+          it "if submitted at the early review deadline, it should be returned" do
+            FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+            session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level, :created_at => @conference.presubmissions_deadline)
+            Session.for_reviewer(@user, @conference).should include(session)
+          end
+
+          it "if submitted 3 hours past the early review deadline, it should be returned" do
+            FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+            session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level, :created_at => @conference.presubmissions_deadline + 3.hours)
+            Session.for_reviewer(@user, @conference).should include(session)
+          end
+
+          it "if submitted after 3 hours past the early review deadline, it should not be returned" do
+            FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+            session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level, :created_at => @conference.presubmissions_deadline + 3.hours + 1.second)
+            Session.for_reviewer(@user, @conference).should_not include(session)
+          end
+        end
+      end
+
+      context "during final review phase" do
+        before(:each) do
+          @conference.stubs(:in_early_review_phase?).returns(false)
+          @conference.stubs(:in_final_review_phase?).returns(true)
+        end
+
+        it "if reviewed multiple times, it should only be returned once" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:final_review, :session => @session)
+          FactoryGirl.create(:final_review, :session => @session)
+          Session.for_reviewer(@user, @conference).should == [@session]
+        end
+
+        it "if already reviewed by user, it should not be returned" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:final_review, :session => @session, :reviewer => @user)
+          Session.for_reviewer(@user, @conference).should == []
+        end
+
+        it "if already reviewed 3 times, it should not be returned" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create_list(:final_review, 3, :session => @session)
+          Session.for_reviewer(@user, @conference).should == []
+        end
       end
 
       context "preferences" do
@@ -343,65 +402,6 @@ describe Session do
 
           Session.for_reviewer(second_author, @conference).should be_empty
         end
-      end
-
-      it "if already reviewed by user, it should not be returned" do
-        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
-        FactoryGirl.create(:final_review, :session => @session, :reviewer => @user)
-        Session.for_reviewer(@user, @conference).should == []
-      end
-    end
-
-    context "early reviewable by some reviewer" do
-      before(:each) do
-        @reviewer = FactoryGirl.create(:reviewer)
-        @user = @reviewer.user
-        @conference = @reviewer.conference
-
-        @session = FactoryGirl.create(:session, :conference => @conference, :created_at => @conference.presubmissions_deadline - 1.day)
-        FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @session.track, :audience_level => @session.audience_level)
-      end
-
-      it "should return sessions that were not reviewed by the reviewer" do
-        Session.early_reviewable_by(@user, @conference).should == [@session]
-      end
-
-      it "should not return sessions already reviewed by that reviewer" do
-        FactoryGirl.create(:early_review, :session => @session, :reviewer => @user)
-        Session.early_reviewable_by(@user, @conference).should == []
-      end
-    end
-
-    context "early reviewable for a conference" do
-      before(:each) do
-        @session = FactoryGirl.create(:session)
-        @conference = @session.conference
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline - 1.day)
-      end
-
-      it "should return session created at pre submissions deadline" do
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline)
-        @session.save!
-        Session.early_reviewable_for(@conference).should == [@session]
-      end
-
-      it "should return sessions created before 3 hours after pre submissions deadline" do
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 3.hours)
-        @session.save!
-        Session.early_reviewable_for(@conference).should == [@session]
-      end
-
-      it "should not return sessions created after 3 hours after pre submissions deadline" do
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline + 3.hours + 1.second)
-        @session.save!
-        Session.early_reviewable_for(@conference).should == []
-      end
-
-      it "should not return canceled sessions before pre submissions deadline" do
-        @session.update_attribute(:created_at, @conference.presubmissions_deadline)
-        @session.cancel
-        @session.save!
-        Session.early_reviewable_for(@conference).should == []
       end
     end
   end

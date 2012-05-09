@@ -97,26 +97,31 @@ class Session < ActiveRecord::Base
     where(clause, *args)
   }
 
+  scope :none, where('1 = 0')
+
   scope :with_incomplete_final_reviews, where('final_reviews_count < ?', 3)
   scope :with_incomplete_early_reviews, where('early_reviews_count < ?', 1)
   scope :submitted_before, lambda { |date| where('sessions.created_at <= ?', date) }
 
+  def self.for_review_in(conference)
+    sessions = for_conference(conference).without_state(:cancelled)
+    if conference.in_early_review_phase?
+      sessions.submitted_before(conference.presubmissions_deadline + 3.hours)
+    else
+      sessions
+    end
+  end
+
   def self.for_reviewer(user, conference)
-    for_conference(conference).
-    without_state(:cancelled).
-    not_author(user.id).
-    for_preferences(*user.preferences(conference)).
-    not_reviewed_by(user)
-  end
-
-  def self.early_reviewable_by(user, conference)
-    early_reviewable_for(conference).for_reviewer(user, conference)
-  end
-
-  def self.early_reviewable_for(conference)
-    for_conference(conference).
-    without_state(:cancelled).
-    submitted_before(conference.presubmissions_deadline + 3.hours)
+    sessions = for_review_in(conference).
+      not_author(user.id).
+      for_preferences(*user.preferences(conference)).
+      not_reviewed_by(user)
+    if conference.in_final_review_phase?
+      sessions.with_incomplete_final_reviews
+    else
+      sessions
+    end
   end
 
   state_machine :initial => :created do

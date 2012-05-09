@@ -786,16 +786,8 @@ describe Ability do
     context "can create a new final review if:" do
       before(:each) do
         @session = FactoryGirl.build(:session)
-        Session.stubs(:for_reviewer).with(@user, @conference).returns(Session)
-        Session.stubs(:with_incomplete_final_reviews).returns([@session])
+        Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
         @conference.stubs(:in_final_review_phase?).returns(true)
-      end
-
-      it "has not created a final review for this session" do
-        @ability.should be_able_to(:create, FinalReview, @session)
-
-        Session.expects(:with_incomplete_final_reviews).returns([])
-        @ability.should_not be_able_to(:create, FinalReview, @session)
       end
 
       it "has a session available to add the final review to" do
@@ -840,16 +832,8 @@ describe Ability do
     context "can create a new early review if:" do
       before(:each) do
         @session = FactoryGirl.build(:session)
-        Session.stubs(:early_reviewable_by).with(@user, @conference).returns([@session])
+        Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
         @conference.stubs(:in_early_review_phase?).returns(true)
-      end
-
-      it "has not created an early review for this session" do
-        @ability.should be_able_to(:create, EarlyReview, @session)
-
-        Session.expects(:early_reviewable_by).with(@user, @conference).returns([])
-
-        @ability.should_not be_able_to(:create, EarlyReview, @session)
       end
 
       it "has a session available to add the early review to" do
