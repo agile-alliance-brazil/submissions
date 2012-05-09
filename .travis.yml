@@ -3,4 +3,4 @@ rvm:
   - 1.8.7
 before_script:
   - cp ./config/config.{example,yml}
-bundler_args: --local --without development production
+bundler_args: --local --without development production assets
