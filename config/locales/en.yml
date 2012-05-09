@@ -149,7 +149,7 @@ en:
       preference:
         audience_level_id: "Knowledge level"
       early_review:
-        author_agile_xp_rating_id: "How do you rate the author(s)' experience with agile methods?"
+        author_agile_xp_rating_id: "How do you rate the author(s)' experience with the topics relevant to the chosen track?"
         author_proposal_xp_rating_id: "How do you rate the author(s)' experience with the proposal subject?"
         proposal_track: "Is the track adequate?"
         proposal_level: "Is the audience level adequate?"
@@ -168,7 +168,7 @@ en:
         confidence: "Reviewer's confidence"
         reviewer: "Reviewer"
       final_review:
-        author_agile_xp_rating_id: "How do you rate the author(s)' experience with agile methods?"
+        author_agile_xp_rating_id: "How do you rate the author(s)' experience with the topics relevant to the chosen track?"
         author_proposal_xp_rating_id: "How do you rate the author(s)' experience with the proposal subject?"
         proposal_track: "Is the track adequate?"
         proposal_level: "Is the audience level adequate?"

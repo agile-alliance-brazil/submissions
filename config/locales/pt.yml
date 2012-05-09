@@ -343,7 +343,7 @@ pt:
       preference:
         audience_level_id: "Nível de conhecimento"
       early_review:
-        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com métodos ágeis?"
+        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) nos tópicos relevantes à trilha escolhida?"
         author_proposal_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com o assunto da proposta?"
         proposal_track: "A trilha está adequada?"
         proposal_level: "O nível está adequado?"
@@ -362,7 +362,7 @@ pt:
         confidence: "Confiança do avaliador"
         reviewer: "Avaliador"
       final_review:
-        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com métodos ágeis?"
+        author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) nos tópicos relevantes à trilha escolhida?"
         author_proposal_xp_rating_id: "Como você avalia a experiência do(s) autor(es) com o assunto da proposta?"
         proposal_track: "A trilha está adequada?"
         proposal_level: "O nível está adequado?"

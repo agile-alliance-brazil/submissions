@@ -36,11 +36,12 @@
         #{t(@review.session.session_type.title)}
     = form.input :proposal_type, :as => :radio, :input_html => {:tabindex => autotab}
 
-    .session_info
-      %p
-        %strong #{t('formtastic.labels.session.duration_mins')}:
-        #{@review.session.duration_mins.to_s} #{t('generic.minutes')}
-    = form.input :proposal_duration, :as => :radio, :input_html => {:tabindex => autotab}
+    -#
+      .session_info
+        %p
+          %strong #{t('formtastic.labels.session.duration_mins')}:
+          #{@review.session.duration_mins.to_s} #{t('generic.minutes')}
+      = form.input :proposal_duration, :as => :radio, :input_html => {:tabindex => autotab}
 
     .session_info
       %p
