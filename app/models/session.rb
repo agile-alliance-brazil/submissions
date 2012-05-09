@@ -83,15 +83,18 @@ class Session < ActiveRecord::Base
 
   scope :for_tracks, lambda { |track_ids| where('track_id IN (?)', track_ids) }
 
-  scope :not_author, lambda { |u| where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i) }
+  scope :not_author, lambda { |u|
+    where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
+  }
 
-  scope :not_reviewed_by, lambda { |u|
-    joins('LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id').group('sessions.id').
-    where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', u.id)
+  scope :not_reviewed_by, lambda { |user, review_type|
+    joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
+    group('sessions.id').
+    where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id)
   }
 
   scope :for_preferences, lambda { |*preferences|
-    return where('1 = 2') if preferences.empty?
+    return none if preferences.empty?
     clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
     args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
     where(clause, *args)
@@ -116,7 +119,7 @@ class Session < ActiveRecord::Base
     sessions = for_review_in(conference).
       not_author(user.id).
       for_preferences(*user.preferences(conference)).
-      not_reviewed_by(user)
+      not_reviewed_by(user, conference.in_early_review_phase? ? 'EarlyReview' : 'FinalReview')
     if conference.in_final_review_phase?
       sessions.with_incomplete_final_reviews
     else

@@ -29,7 +29,7 @@ class Review < ActiveRecord::Base
 
   validates_length_of :comments_to_authors, :minimum => 150
 
-  validates_uniqueness_of :reviewer_id, :scope => :session_id
+  validates_uniqueness_of :reviewer_id, :scope => [:session_id, :type]
 
   scope :for_conference, lambda { |c| joins(:session).where(:sessions => {:conference_id => c.id})}
 end

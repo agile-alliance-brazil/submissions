@@ -342,6 +342,12 @@ describe Session do
           Session.for_reviewer(@user, @conference).should == []
         end
 
+        it "if reviewed by user during early review, it should be returned" do
+          FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
+          FactoryGirl.create(:early_review, :session => @session, :reviewer => @user)
+          Session.for_reviewer(@user, @conference).should == [@session]
+        end
+
         it "if already reviewed 3 times, it should not be returned" do
           FactoryGirl.create(:preference, :reviewer => @reviewer, :track => @track, :audience_level => @audience_level)
           FactoryGirl.create_list(:final_review, 3, :session => @session)

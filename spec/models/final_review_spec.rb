@@ -76,7 +76,7 @@ describe FinalReview do
 
     context "uniqueness" do
       before { FactoryGirl.create(:final_review) }
-      it { should validate_uniqueness_of(:reviewer_id).scoped_to(:session_id) }
+      it { should validate_uniqueness_of(:reviewer_id).scoped_to(:session_id, :type) }
     end
 
     context "strong acceptance" do
