@@ -44,6 +44,7 @@ class Ability
   def admin_privileges
     can(:manage, :all)
     # Revoke these actions, to use the ones appropriate for each role, below
+    cannot(:create, Session)
     cannot(:create, ReviewDecision)
     cannot(:update, ReviewDecision)
     cannot(:create, Review)

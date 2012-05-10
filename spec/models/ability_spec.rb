@@ -236,14 +236,23 @@ describe Ability do
     end
 
     describe "can create sessions if:" do
-      it "- in submissions phase" do
+      it "in submissions phase" do
         @conference.expects(:in_submission_phase?).returns(true)
         @ability.should be_able_to(:create, Session)
       end
 
-      it "- out of submissions phase" do
+      it "out of submissions phase" do
         @conference.expects(:in_submission_phase?).returns(false)
         @ability.should_not be_able_to(:create, Session)
+      end
+
+      it "overides admin privileges to check for deadlines" do
+        @user.add_role('admin')
+        @conference.stubs(:in_submission_phase?).returns(false)
+
+        @ability = Ability.new(@user, @conference)
+        @ability.should_not be_able_to(:create, Session)
+        @ability.should_not be_able_to(:new, Session)
       end
     end
 
