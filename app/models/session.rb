@@ -90,6 +90,7 @@ class Session < ActiveRecord::Base
   scope :not_reviewed_by, lambda { |user, review_type|
     joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
     group('sessions.id').
+    having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count").
     where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id)
   }
 
