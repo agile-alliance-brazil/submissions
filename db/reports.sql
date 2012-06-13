@@ -1,5 +1,6 @@
 -- Reviews Report
-select    sessions.id,
+select    reviews.type,
+          sessions.id,
           sessions.title,
           first_author.first_name,
           first_author.last_name,
@@ -80,8 +81,8 @@ inner join
           users AS reviewer
           on reviewer.id = reviews.reviewer_id
 where     sessions.state <> 'cancelled'
-          AND conference_id = 2
-order by sessions.id
+          AND sessions.conference_id = 3
+order by sessions.id, reviews.type DESC
 
 -- Reviewer experience on track
 select    reviewer.first_name,
