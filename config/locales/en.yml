@@ -509,8 +509,8 @@ en:
     sort_by: "Sort %{direction}"
     sort_up: "ascendent"
     sort_down: "descendent"
-    show: "Show %{target}"
-    hide: "Hide %{target}"
+    show: "Show"
+    hide: "Hide"
     char_remaining: "remaining: "
     all: "All"
 

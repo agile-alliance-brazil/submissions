@@ -41,7 +41,8 @@
         %th.reviewer= t('formtastic.labels.final_review.reviewer')
         %th.recommendation= t('formtastic.labels.final_review.recommendation')
         %th.confidence= t('formtastic.labels.final_review.confidence')
-        %th.action
+        - if should_justify
+          %th.action= t('review.justification')
     %tbody
       - @reviews.each do |review|
         - class_name = cycle(:odd, :even)
@@ -49,10 +50,13 @@
           %td.reviewer&= reviewers[review]
           %td.recommendation= t(review.recommendation.title)
           %td.confidence= t(review.reviewer_confidence_rating.title)
-          %td.action
+          - if should_justify
+            %td.action
+              = link_to t('generic.show'), '#', :class => 'show'
+              = link_to t('generic.hide'), '#', :class => 'hide'
         - if should_justify
-          = content_tag(:tr, :id => "review_#{review.id}_justification", :class => "#{class_name} justification") do
-            %td{:class => "justification", :colspan => 4}
+          = content_tag_for(:tr, review, :class => class_name) do
+            %td.justification{:colspan => 4}
               %strong= t('review.justification') + ": "
               = review.justification
 

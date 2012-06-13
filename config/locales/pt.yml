@@ -703,8 +703,8 @@ pt:
     sort_by: "Ordernar %{direction}"
     sort_up: "ascendente"
     sort_down: "descendente"
-    show: "Exibir %{target}"
-    hide: "Esconder %{target}"
+    show: "Exibir"
+    hide: "Esconder"
     char_remaining: "faltando: "
     all: "Todas"
 
