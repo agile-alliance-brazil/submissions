@@ -79,14 +79,14 @@ class Ability
       @session.is_author?(@user) &&
       @session.pending_confirmation? &&
       @session.review_decision &&
-      Time.zone.now <= @conference.author_confirmation
+      @conference.in_author_confirmation_phase?
     end
     can(:manage, 'withdraw_sessions') do
       @session.present? &&
       @session.is_author?(@user) &&
       @session.pending_confirmation? &&
       @session.review_decision &&
-      Time.zone.now <= @conference.author_confirmation
+      @conference.in_author_confirmation_phase?
     end
   end
 

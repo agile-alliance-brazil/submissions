@@ -18,8 +18,9 @@
       %th.author= t('formtastic.labels.session.second_author_id')
       - if @user == current_user
         %th.reviews= t('formtastic.labels.session.reviews')
-        %th.state= t('formtastic.labels.session.state')
-        %th.action
+        - if @conference.in_author_confirmation_phase?
+          %th.state= t('formtastic.labels.session.state')
+          %th.action
       %th.created_at= t('formtastic.labels.session.created_at')
   %tbody
     - @sessions.each do |session|
@@ -45,11 +46,12 @@
             - if can?(:index, FinalReview, session) && session.final_reviews_count > 0
               %br
               = link_to t('review.final_review'), session_reviews_path(@conference, session, :type => :final)
-          %td.state
-            = t("session.state.#{session.state}")
-          %td.action
-            - if session.pending_confirmation? && Time.zone.now <= @conference.author_confirmation
-              = link_to t('formtastic.actions.confirm_session'), session_confirm_url(@conference, session)
+          - if @conference.in_author_confirmation_phase?
+            %td.state
+              = t("session.state.#{session.state}")
+            %td.action
+              - if session.pending_confirmation?
+                = link_to t('formtastic.actions.confirm_session'), session_confirm_url(@conference, session)
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')

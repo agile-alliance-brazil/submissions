@@ -25,6 +25,10 @@ class Conference < ActiveRecord::Base
     (self.submissions_deadline..self.review_deadline).include? DateTime.now
   end
 
+  def in_author_confirmation_phase?
+    (self.author_notification..self.author_confirmation).include? DateTime.now
+  end
+
   DEADLINES = [
     :call_for_papers,
     :submissions_open,

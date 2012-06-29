@@ -100,7 +100,8 @@ describe Conference do
     {
       :submission_phase   => [:submissions_open, :submissions_deadline],
       :early_review_phase => [:presubmissions_deadline, :prereview_deadline],
-      :final_review_phase => [:submissions_deadline, :review_deadline]
+      :final_review_phase => [:submissions_deadline, :review_deadline],
+      :author_confirmation_phase => [:author_notification, :author_confirmation]
     }.each do |phase, deadlines|
       describe "in_#{phase}?" do
         before(:each) do

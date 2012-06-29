@@ -302,7 +302,7 @@ describe Ability do
           :state => 'pending_confirmation',
           :review_decision => FactoryGirl.build(:review_decision)
         )
-        Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
+        @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
       it "- user is first author" do
@@ -345,23 +345,13 @@ describe Ability do
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
 
-      it "- before deadline" do
+      it "- outside of author confirmation phase can't confirm" do
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
 
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'confirm_sessions')
 
-        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
-        @ability.should be_able_to(:manage, 'confirm_sessions')
-      end
-
-      it "- after deadline can't confirm" do
-        @ability.should_not be_able_to(:manage, 'confirm_sessions')
-
-        @ability = Ability.new(@user, @conference, @session)
-        @ability.should be_able_to(:manage, 'confirm_sessions')
-
-        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
+        @conference.expects(:in_author_confirmation_phase?).returns(false)
         @ability.should_not be_able_to(:manage, 'confirm_sessions')
       end
     end
@@ -374,7 +364,7 @@ describe Ability do
           :state => 'pending_confirmation',
           :review_decision => FactoryGirl.build(:review_decision)
         )
-        Time.zone.stubs(:now).returns(@conference.author_confirmation - 1.week)
+        @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
       it "- user is first author" do
@@ -417,23 +407,13 @@ describe Ability do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
 
-      it "- before deadline" do
+      it "- outside of author confirmation phase can't withdraw" do
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
 
         @ability = Ability.new(@user, @conference, @session)
         @ability.should be_able_to(:manage, 'withdraw_sessions')
 
-        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation)
-        @ability.should be_able_to(:manage, 'withdraw_sessions')
-      end
-
-      it "- after deadline can't withdraw" do
-        @ability.should_not be_able_to(:manage, 'withdraw_sessions')
-
-        @ability = Ability.new(@user, @conference, @session)
-        @ability.should be_able_to(:manage, 'withdraw_sessions')
-
-        Time.zone.expects(:now).at_least_once.returns(@conference.author_confirmation + 1.second)
+        @conference.expects(:in_author_confirmation_phase?).returns(false)
         @ability.should_not be_able_to(:manage, 'withdraw_sessions')
       end
     end
