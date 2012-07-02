@@ -1,7 +1,7 @@
 Dear #{@session.authors.map(&:full_name).join(" & ")},
 
 
-Due to a problem in our server, not all email notifications were sent. Therefore, we decided it would be better to resend all notifications to avoid any further problems. If you have already received this email, please ignore it.
+We are pleased to inform you that your proposal '#{h(@session.title)}' has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
 
 
 Please refer to the comments and suggestions made by the evaluators accessing:
@@ -9,13 +9,11 @@ Please refer to the comments and suggestions made by the evaluators accessing:
 = session_reviews_url(@conference, @session, :locale => 'en')
 
 
-We are pleased to inform you that your proposal '#{h(@session.title)}' has been selected to be part of the program of the Brazilian Conference about Agile Methods – #{@conference_name}!
-
-
 We would like to ask you to confirm your attendance at the event until #{@conference.author_confirmation.strftime('%H:%M of %B %dth, %Y')} by accessing the form at
 
 = session_confirm_url(@conference, @session, :locale => 'en')
 
+Note that evaluators and track organizers may have added suggestions of changes in your proposal. If so, you will only be able to make those changes when completing the form mentioned above. Please read the comments and suggestions before completing this form so you can make all changes suggested.
 
 If you can not attend the event, we kindly ask you to confirm your withdrawal using the form at
 
@@ -29,7 +27,7 @@ If you can not attend the event, we kindly ask you to confirm your withdrawal us
 The sessions whose authors do not confirm or withdraw their attendance until #{@conference.author_confirmation.strftime('%B %dth, %Y')} will be automatically removed from the program and replaced immediately by other selected work.
 
 
-If your attendance is confirmed, the organization of #{@conference_name} will contact you about your complementary registration#{@session.authors.size > 1 ? 's' : ''} for the event.
+If your attendance is confirmed, the organization of #{@conference_name} will contact you about the complementary registration earned by proposal for the event. #{@session.authors.size > 1 ? 'Note that, although you have two presenters for your proposal, there is only one complementary registration per proposal. Once the organization contacts you, you will have to chose which presenter will use the registration. The other one will have to register as a regular attendee.' : ''}
 
 
 Should you have any queries, requests or comments, please contact the Program Committee at programa@agilebrazil.com.
