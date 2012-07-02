@@ -5,28 +5,33 @@
 %p
   Por favor consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço:
   %br
-  = link_to session_reviews_url(@conference, @session, :locale => 'pt'), session_reviews_url(@conference, @session, :locale => 'pt')
+  = link_to session_reviews_url(@conference, @session, :type => :final, :locale => 'pt'), session_reviews_url(@conference, @session, :type => :final, :locale => 'pt')
 
 %p
   Por gentileza, queira confirmar sua presença no evento até às #{@conference.author_confirmation.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
   %br
   = link_to session_confirm_url(@conference, @session, :locale => 'pt'), session_confirm_url(@conference, @session, :locale => 'pt')
   %br
-  Note que avaliadores e coordenadores de trilha podem ter feito sugestões de mudanças na sua proposta. Se o fizeram, só será possível efetuar essas mudanças ao completar o formulário mencionado acima. Por favor, leia os comentários e sugestões antes de completar o fomrulário para poder levar em considerações as mudanças sugeridas.
+  Note que avaliadores e coordenadores de trilha podem ter feito sugestões de mudanças na sua proposta. Se o fizeram, só será possível efetuar essas mudanças ao completar o formulário mencionado acima. Por favor, leia os comentários e sugestões antes de completar o formulário para poder levar em considerações as mudanças sugeridas.
 
 %p
   Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
   %br
   = link_to session_withdraw_url(@conference, @session, :locale => 'pt'), session_withdraw_url(@conference, @session, :locale => 'pt')
 
-- if(@session.authors.size > 1)
-  %p
-    Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Uma vez que a proposta for confirmada ou cancelada por qualquer autor, nenhum deles poderá mudar essa decisão.
+%p
+  - if(@session.authors.size > 1)
+    Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta.
+  Uma vez que a proposta for confirmada ou cancelada, a decisão é final e não pode ser mudada.
+
 
 %p A sessão que não for confirmada ou cancelada até o dia #{@conference.author_confirmation.strftime('%d/%m/%Y')} será automaticamente removida da programação, sendo substituída imediatamente por outro trabalho selecionado.
 
 
-%p Caso sua sessão seja confirmada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição. #{@session.authors.size > 1 ? 'Note que, apesar de sua proposta ter dois autores, há apenas uma inscrição gratuita por proposta. Quando a organização entrar em contato, será necessário escolher qual dos autores usará a inscrição gratuita. O outro autor deverá se inscrever como conferencista normal.' : ''}
+%p
+  Caso sua sessão seja confirmada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição.
+  - if @session.authors.size > 1
+    Note que, apesar de sua proposta ter dois autores, há apenas uma inscrição gratuita por proposta. Quando a organização entrar em contato, será necessário escolher qual dos autores usará a inscrição gratuita. O outro autor deverá se inscrever como conferencista normal.
 
 %p Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 

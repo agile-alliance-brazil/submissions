@@ -3,9 +3,9 @@
 %p Infelizmente, sua proposta <strong>'#{h(@session.title)}'</strong> não foi selecionada para integrar o programa da Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{@conference_name}.
 
 %p
-  Recebemos 283 propostas este ano -- mais sessões submetidas do que qualquer outra conferência brasileira de métodos ágeis. Infelizmente, isso significa que muitas boas propostas não puderam ser aceitas devido à falta de espaço. No final, foram aceitas cerca de 96 sessões, considerando a necessidade de criar um programa equilibrado, com um conteúdo de qualidade e efetivo aos participantes da conferência. Você#{@session.authors.size > 1 ? "s":""} pode#{@session.authors.size > 1 ? "m":""} ver o feedback sobre sua proposta fornecido pelos avaliadores e pelos organizadores de trilha acessando o endereço:
+  Recebemos 282 propostas este ano -- mais sessões submetidas do que qualquer outra conferência brasileira de métodos ágeis. Infelizmente, isso significa que muitas boas propostas não puderam ser aceitas devido à falta de espaço. No final, foram aceitas cerca de 96 sessões, considerando a necessidade de criar um programa equilibrado, com um conteúdo de qualidade e efetivo aos participantes da conferência. Você#{@session.authors.size > 1 ? "s":""} pode#{@session.authors.size > 1 ? "m":""} ver o feedback sobre sua proposta fornecido pelos avaliadores e pelos organizadores de trilha acessando o endereço:
   %br
-  = link_to session_reviews_url(@conference, @session, :locale => 'pt'), session_reviews_url(@conference, @session, :locale => 'pt')
+  = link_to session_reviews_url(@conference, @session, :type => :final, :locale => 'pt'), session_reviews_url(@conference, @session, :type => :final, :locale => 'pt')
 
 %p Se tiver#{@session.authors.size > 1 ? "em":""} qualquer dúvida, comentário ou sugestão, não hesite#{@session.authors.size > 1 ? "m":""} em entrar em contato com a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
