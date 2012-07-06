@@ -7,7 +7,7 @@
         #review_progress_count
           #{t('actions.review_goal')}:
           %span.progress
-  - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification)
+  - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification || next_deadline.last == :author_confirmation)
     #date
       %p= t("conference.dates.#{next_deadline.last}")
       %p <strong>#{l(next_deadline.first.to_date)}</strong>
@@ -77,22 +77,24 @@
           });
         })
       })
-  - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification)
+  - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification || next_deadline.last == :author_confirmation)
+    - goal = next_deadline.last == :author_notification ? "data.required_decisions" : "data.total_accepted"
+    - progress = next_deadline.last == :author_notification ? "data.total_decisions" : "data.total_confirmed"
     :javascript
       $(document).ready(function() {
         $.getJSON('#{review_decisions_path(@conference, :format => :js)}', function(data) {
-          var orange = Math.floor(parseInt(data.required_decisions) * 0.30);
-          var yellow = Math.floor(parseInt(data.required_decisions) * 0.60);
-          var green = Math.floor(parseInt(data.required_decisions) * 0.90);
+          var orange = Math.floor(parseInt(#{goal}) * 0.30);
+          var yellow = Math.floor(parseInt(#{goal}) * 0.60);
+          var green = Math.floor(parseInt(#{goal}) * 0.90);
           var progressImages = {};
           progressImages[0] = '/assets/progressbg_red.gif';
           progressImages[orange] = '/assets/progressbg_orange.gif';
           progressImages[yellow] = '/assets/progressbg_yellow.gif';
           progressImages[green] = '/assets/progressbg_green.gif';
 
-          $("#review_decisions_progress_count .progress").progressBar(data.total_decisions, {
+          $("#review_decisions_progress_count .progress").progressBar(#{progress}, {
             boxImage : '/assets/progressbar.gif',
-            max : data.required_decisions,
+            max : #{goal},
             textFormat : 'fraction',
             barImage : progressImages
           });
