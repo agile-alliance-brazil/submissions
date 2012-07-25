@@ -37,7 +37,7 @@ GEM
     acts-as-taggable-on (2.2.2)
       rails (~> 3.0)
     acts_as_commentable (3.0.1)
-    airbrake (3.0.9)
+    airbrake (3.1.2)
       activesupport
       builder
     arel (2.2.3)
@@ -203,7 +203,7 @@ DEPENDENCIES
   RedCloth (= 4.2.9)
   acts-as-taggable-on (= 2.2.2)
   acts_as_commentable (= 3.0.1)
-  airbrake (= 3.0.9)
+  airbrake (= 3.1.2)
   aws-ses (= 0.4.4)
   brcpfcnpj (= 3.1.0)
   brhelper (= 3.1.0)
