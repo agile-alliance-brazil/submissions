@@ -78,6 +78,7 @@ FactoryGirl.define do
   end
 
   factory :reviewer do
+    to_create { |instance| EmailNotifications.stubs(:send_reviewer_invitation); instance.save! }
     association :user
     conference { Conference.current }
   end

@@ -2,9 +2,6 @@
 require 'spec_helper'
 
 describe Reviewer do
-  before(:each) do
-    EmailNotifications.stubs(:send_reviewer_invitation)
-  end
 
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :user_id }
