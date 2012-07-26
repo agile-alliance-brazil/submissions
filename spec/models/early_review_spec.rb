@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe EarlyReview do
+  before(:each) do
+    EmailNotifications.stubs(:send_early_review_submitted)
+  end
+
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :author_agile_xp_rating_id }
     it { should allow_mass_assignment_of :author_proposal_xp_rating_id }

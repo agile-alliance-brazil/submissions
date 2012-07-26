@@ -49,7 +49,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'mocha', '=0.12.1', :require => false
+  gem 'mocha', '=0.10.5', :require => false
   gem 'sqlite3', '=1.3.6'
   gem 'rspec-rails', '=2.11.0'
   gem 'shoulda-matchers', '=1.2.0'

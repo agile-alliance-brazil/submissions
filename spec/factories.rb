@@ -121,7 +121,9 @@ FactoryGirl.define do
     association :session
   end
 
-  factory :early_review, :class => EarlyReview, :traits => [:review]
+  factory :early_review, :class => EarlyReview, :traits => [:review] do
+    to_create { |instance| EmailNotifications.stubs(:send_early_review_submitted); instance.save! }
+  end
 
   factory :final_review, :class => FinalReview, :traits => [:review] do
     association :recommendation

@@ -24,15 +24,13 @@ describe ReviewDecision do
     it "should validate outcome can transition session on acceptance" do
       review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))
       review_decision.should_not be_valid
-      message = I18n.t("activerecord.errors.models.review_decision.cant_accept")
-      review_decision.errors[:session_id].should include(message)
+      review_decision.errors[:session_id].should include(I18n.t("activerecord.errors.models.review_decision.cant_accept"))
     end
 
     it "should validate outcome can transition session on rejection" do
       review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title'))
       review_decision.should_not be_valid
-      message = I18n.t("activerecord.errors.models.review_decision.cant_reject")
-      review_decision.errors[:session_id].should include(message)
+      review_decision.errors[:session_id].should include(I18n.t("activerecord.errors.models.review_decision.cant_reject"))
     end
   end
 

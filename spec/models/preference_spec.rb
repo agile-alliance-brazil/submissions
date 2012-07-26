@@ -10,7 +10,7 @@ describe Preference do
 
     it { should_not allow_mass_assignment_of :id }
   end
-  
+
   context "validations" do
     xit { should ensure_inclusion_of(:accepted).in_range([true, false]) }
 
@@ -44,7 +44,7 @@ describe Preference do
       before(:each) do
         @organizer = FactoryGirl.create(:organizer)
       end
-      
+
       it "cannot choose track that is being organized by him/her" do
         preference = FactoryGirl.build(:preference)
         preference.should be_valid
@@ -52,11 +52,11 @@ describe Preference do
         preference.reviewer.conference = @organizer.conference
         preference.track = @organizer.track
         preference.should_not be_valid
-        preference.errors[:accepted].should include("não pode avaliar trilha que está organizando")
+        preference.errors[:accepted].should include(I18n.t("activerecord.errors.models.preference.organizer_track"))
       end
     end
   end
-  
+
   context "associations" do
     it { should belong_to :reviewer }
     it { should belong_to :track }

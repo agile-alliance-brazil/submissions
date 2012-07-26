@@ -156,20 +156,20 @@ describe Session do
       it "should be a valid user" do
         @session.second_author_username = 'invalid_username'
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include("não existe")
+        @session.errors[:second_author_username].should include(I18n.t("errors.messages.existence"))
       end
 
       it "should not be the same as first author" do
         @session.second_author_username = @session.author.username
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include("não pode ser o mesmo autor")
+        @session.errors[:second_author_username].should include(I18n.t("errors.messages.same_author"))
       end
 
       it "should be author" do
         guest = FactoryGirl.create(:user)
         @session.second_author_username = guest.username
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include("usuário não possui perfil de autor completo")
+        @session.errors[:second_author_username].should include(I18n.t("errors.messages.incomplete"))
       end
     end
 
@@ -238,7 +238,7 @@ describe Session do
       session = FactoryGirl.create(:session)
       session.author_id = FactoryGirl.create(:user).id
       session.should_not be_valid
-      session.errors[:author_id].should == ["não pode mudar"]
+      session.errors[:author_id].should include(I18n.t("errors.messages.constant"))
     end
 
     context "confirming attendance:" do
@@ -247,7 +247,7 @@ describe Session do
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'accept', :author_agreement => false).should be_false
-        session.errors[:author_agreement].should == ["deve ser aceito"]
+        session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
 
       it "should validate that author agreement was accepted on withdraw" do
@@ -255,7 +255,7 @@ describe Session do
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'reject', :author_agreement => false).should be_false
-        session.errors[:author_agreement].should == ["deve ser aceito"]
+        session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
     end
 

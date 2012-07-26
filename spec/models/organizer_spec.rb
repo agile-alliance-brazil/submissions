@@ -10,7 +10,7 @@ describe Organizer do
 
     it { should_not allow_mass_assignment_of :id }
   end
-  
+
   it_should_trim_attributes Organizer, :user_username
 
   context "validations" do
@@ -19,8 +19,8 @@ describe Organizer do
     it { should validate_presence_of :conference_id }
 
     context "uniqueness" do
-      before { FactoryGirl.create(:organizer) }      
-      it { should validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message("usuário já organiza essa trilha") }
+      before { FactoryGirl.create(:organizer) }
+      it { should validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message(I18n.t("activerecord.errors.models.organizer.attributes.track_id.taken")) }
     end
 
     should_validate_existence_of :user, :track, :conference
@@ -33,7 +33,7 @@ describe Organizer do
         organizer.errors[:user_username].should include(I18n.t("errors.messages.existence"))
       end
     end
-    
+
     context "track" do
       it "should match the conference" do
         track = FactoryGirl.create(:track)
@@ -43,7 +43,7 @@ describe Organizer do
       end
     end
   end
-  
+
   context "associations" do
     it { should belong_to :user }
     it { should belong_to :track }
@@ -54,12 +54,12 @@ describe Organizer do
         @organizer = FactoryGirl.create(:organizer)
         @user = FactoryGirl.create(:user)
       end
-      
+
       it "should set by username" do
         @organizer.user_username = @user.username
         @organizer.user.should == @user
       end
-    
+
       it "should not set if username is nil" do
         @organizer.user_username = nil
         @organizer.user.should be_nil
@@ -74,14 +74,14 @@ describe Organizer do
         @organizer.user_username = "  "
         @organizer.user.should be_nil
       end
-      
+
       it "should provide username from association" do
         @organizer.user_username = @user.username
         @organizer.user_username.should == @user.username
       end
     end
   end
-  
+
   shared_examples_for "organizer role" do
     it "should make given user organizer role after created" do
       @user.should_not be_organizer
@@ -89,7 +89,7 @@ describe Organizer do
       @user.should be_organizer
       @user.reload.should be_organizer
     end
-    
+
     it "should remove organizer role after destroyed" do
       organizer = FactoryGirl.create(:organizer, :user => @user)
       @user.should be_organizer
@@ -97,7 +97,7 @@ describe Organizer do
       @user.should_not be_organizer
       @user.reload.should_not be_organizer
     end
-    
+
     it "should keep organizer role after destroyed if user organizes other tracks" do
       other_organizer = FactoryGirl.create(:organizer, :user => @user)
       track = FactoryGirl.create(:track, :conference => other_organizer.conference)
@@ -107,7 +107,7 @@ describe Organizer do
       @user.should be_organizer
       @user.reload.should be_organizer
     end
-    
+
     it "should remove organizer role after update" do
       organizer = FactoryGirl.create(:organizer, :user => @user)
       another_user = FactoryGirl.create(:user)
@@ -128,12 +128,12 @@ describe Organizer do
       another_user.should be_organizer
     end
   end
-  
+
   context "managing organizer role for normal user" do
     before(:each) do
       @user = FactoryGirl.create(:user)
     end
-    
+
     it_should_behave_like "organizer role"
   end
 
@@ -141,7 +141,7 @@ describe Organizer do
     before(:each) do
       @user = FactoryGirl.create(:simple_user)
     end
-    
+
     it_should_behave_like "organizer role"
   end
 end

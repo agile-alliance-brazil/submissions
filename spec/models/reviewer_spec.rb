@@ -2,6 +2,9 @@
 require 'spec_helper'
 
 describe Reviewer do
+  before(:each) do
+    EmailNotifications.stubs(:send_reviewer_invitation)
+  end
 
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :user_id }
@@ -31,21 +34,21 @@ describe Reviewer do
       reviewer = FactoryGirl.create(:reviewer)
       reviewer.preferences.build(:accepted => false)
       reviewer.accept.should be_false
-      reviewer.errors[:base].should include("pelo menos uma trilha deve ser aceita")
+      reviewer.errors[:base].should include(I18n.t("activerecord.errors.models.reviewer.preferences"))
     end
 
     it "should validate that reviewer agreement was accepted" do
       reviewer = FactoryGirl.create(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept.should be_false
-      reviewer.errors[:reviewer_agreement].should include("deve ser aceito")
+      reviewer.errors[:reviewer_agreement].should include(I18n.t("errors.messages.accepted"))
     end
 
     it "should copy user errors to user_username" do
       reviewer = FactoryGirl.create(:reviewer)
       new_reviewer = FactoryGirl.build(:reviewer, :user => reviewer.user, :conference => reviewer.conference)
       new_reviewer.should_not be_valid
-      new_reviewer.errors[:user_username].should include("já está em uso")
+      new_reviewer.errors[:user_username].should include(I18n.t("errors.messages.taken"))
     end
 
     context "user" do
@@ -56,7 +59,7 @@ describe Reviewer do
       it "should be a valid user" do
         @reviewer.user_username = 'invalid_username'
         @reviewer.should_not be_valid
-        @reviewer.errors[:user_username].should include("não existe")
+        @reviewer.errors[:user_username].should include(I18n.t("errors.messages.existence"))
       end
     end
   end
