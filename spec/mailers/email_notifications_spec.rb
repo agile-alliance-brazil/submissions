@@ -4,15 +4,13 @@ require 'spec_helper'
 describe EmailNotifications do
   subject { EmailNotifications }
 
-  before do
-    ActionMailer::Base.deliveries = []
-    I18n.locale = I18n.default_locale
-    @conference = Conference.current
-  end
-
-  after do
-    ActionMailer::Base.deliveries.clear
-    I18n.locale = I18n.default_locale
+  around do |example|
+    I18n.with_locale(I18n.default_locale) do
+      ActionMailer::Base.deliveries = []
+      @conference = Conference.current
+      example.run
+      ActionMailer::Base.deliveries.clear
+    end
   end
 
   describe "user subscription e-mail" do
