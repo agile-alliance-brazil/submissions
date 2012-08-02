@@ -53,7 +53,7 @@ group :development, :test do
   gem 'sqlite3', '=1.3.6'
   gem 'rspec-rails', '=2.11.0'
   gem 'shoulda-matchers', '=1.2.0'
-  gem 'factory_girl_rails', '=1.6.0'
+  gem 'factory_girl_rails', '=1.7.0'
   gem 'rcov', '=1.0.0'
   gem 'spork', '=0.9.0'
 end
