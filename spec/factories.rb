@@ -49,9 +49,10 @@ FactoryGirl.define do
   end
 
   factory :session do
-    association :track
-    association :session_type
-    association :audience_level
+    track
+    session_type
+    audience_level
+    author
     conference { Conference.current }
     duration_mins 50
     title "Fake title"
@@ -61,7 +62,6 @@ FactoryGirl.define do
     keyword_list "fake, tag"
     benefits "Benefits for audience"
     target_audience "Managers, developers, testers"
-    association :author, :factory => :user
     experience "Description of author's experience on subject"
   end
 
