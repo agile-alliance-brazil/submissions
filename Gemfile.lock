@@ -54,7 +54,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     builder (3.0.0)
-    cancan (1.6.7)
+    cancan (1.6.8)
     capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
@@ -207,7 +207,7 @@ DEPENDENCIES
   aws-ses (= 0.4.4)
   brcpfcnpj (= 3.1.0)
   brhelper (= 3.1.0)
-  cancan (= 1.6.7)
+  cancan (= 1.6.8)
   capistrano-ext (= 1.2.1)
   devise (= 2.0.4)
   factory_girl_rails (= 1.7.0)
