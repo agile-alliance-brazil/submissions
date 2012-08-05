@@ -1,15 +1,7 @@
 /*
- *= require_self
  *= require jquery.ui.autocomplete
- *= require jquery.ui.autocomplete_changes
- *= require formtastic
- *= require formtastic_changes
  */
-
-@import "mixins/reset.scss";
-@import "mixins/text.scss";
-@import "mixins/grid.scss";
-@import "mixins/helper.scss";
+@import "**/*";
 
 $color1: #009933;
 $color2: #5ad295;
