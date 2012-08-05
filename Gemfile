@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '=3.1.3'
+gem 'rails', '=3.1.7'
 gem 'jquery-rails', '=1.0.19'
 gem 'haml', '=3.1.4'
 gem 'will_paginate', '=3.0.3'
@@ -27,10 +27,10 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '=3.1.5'
+  gem 'sass-rails', '=3.1.6'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
-  gem 'jquery-ui-rails', '=0.2.2'
+  gem 'jquery-ui-rails', '=1.1.0'
 end
 
 platforms :ruby do

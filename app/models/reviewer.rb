@@ -12,7 +12,8 @@ class Reviewer < ActiveRecord::Base
   accepts_nested_attributes_for :preferences
 
   validates_presence_of :user_username, :conference_id
-  validates_existence_of :user, :conference
+  validates_existence_of :conference
+  validates_existence_of :user, :allow_blank => true
   validates_uniqueness_of :user_id, :scope => :conference_id
 
   validates_each :user_username, :allow_blank => true do |record, attr, value|

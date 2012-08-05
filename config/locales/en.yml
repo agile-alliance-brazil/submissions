@@ -1,29 +1,21 @@
 # encoding: UTF-8
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
 
-  errors:
-    messages:
-      existence: "does not exist"
-      same_author: "can't be the same as author"
-      incomplete: "user is currently not an author"
-      experience_report_talk_duration: "can only be 50 minutes"
-      non_lightning_talk_duration: "can only be 50 or 110 minutes"
-      talk_duration: "can only be 50 minutes"
-      hands_on_duration: "can only be 110 minutes"
-      lightning_talk_duration: "can only be 10 minutes"
-      experience_report_session_type: "can only be a Talk"
-      email_format: "should look like an email address"
-      username_format: "please use only letters, numbers, spaces, and .-_@"
-      constant: "can't be changed"
-
-  # ActiveRecord
   activerecord:
     errors:
       messages:
         existence: "does not exist"
+        same_author: "can't be the same as author"
+        incomplete: "user is currently not an author"
+        experience_report_talk_duration: "can only be 50 minutes"
+        non_lightning_talk_duration: "can only be 50 or 110 minutes"
+        talk_duration: "can only be 50 minutes"
+        hands_on_duration: "can only be 110 minutes"
+        lightning_talk_duration: "can only be 10 minutes"
+        experience_report_session_type: "can only be a Talk"
+        email_format: "should look like an email address"
+        username_format: "please use only letters, numbers, spaces, and .-_@"
+        constant: "can't be changed"
       models:
         user:
           attributes:

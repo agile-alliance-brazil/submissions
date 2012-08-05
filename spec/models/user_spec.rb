@@ -134,7 +134,7 @@ describe User do
       user = FactoryGirl.create(:user)
       user.username = 'new_username'
       user.should_not be_valid
-      user.errors[:username].should include(I18n.t("errors.messages.constant"))
+      user.errors[:username].should include(I18n.t("activerecord.errors.messages.constant"))
     end
   end
 

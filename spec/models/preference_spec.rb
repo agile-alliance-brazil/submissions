@@ -27,7 +27,7 @@ describe Preference do
         reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
         preference.should_not be_valid
-        preference.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+        preference.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
     end
 
@@ -36,7 +36,7 @@ describe Preference do
         reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
         preference.should_not be_valid
-        preference.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
+        preference.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
     end
 

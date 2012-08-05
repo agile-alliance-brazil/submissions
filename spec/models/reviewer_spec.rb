@@ -28,7 +28,8 @@ describe Reviewer do
       it { should validate_uniqueness_of(:user_id).scoped_to(:conference_id) }
     end
 
-    should_validate_existence_of :user, :conference
+    should_validate_existence_of :conference
+    should_validate_existence_of :user, :allow_blank => true
 
     it "should validate that at least 1 preference was accepted" do
       reviewer = FactoryGirl.create(:reviewer)
@@ -41,14 +42,14 @@ describe Reviewer do
       reviewer = FactoryGirl.create(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept.should be_false
-      reviewer.errors[:reviewer_agreement].should include(I18n.t("errors.messages.accepted"))
+      reviewer.errors[:reviewer_agreement].should include(I18n.t("activerecord.errors.messages.accepted"))
     end
 
     it "should copy user errors to user_username" do
       reviewer = FactoryGirl.create(:reviewer)
       new_reviewer = FactoryGirl.build(:reviewer, :user => reviewer.user, :conference => reviewer.conference)
       new_reviewer.should_not be_valid
-      new_reviewer.errors[:user_username].should include(I18n.t("errors.messages.taken"))
+      new_reviewer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.taken"))
     end
 
     context "user" do
@@ -59,7 +60,7 @@ describe Reviewer do
       it "should be a valid user" do
         @reviewer.user_username = 'invalid_username'
         @reviewer.should_not be_valid
-        @reviewer.errors[:user_username].should include(I18n.t("errors.messages.existence"))
+        @reviewer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
       end
     end
   end

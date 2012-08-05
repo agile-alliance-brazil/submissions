@@ -23,14 +23,15 @@ describe Organizer do
       it { should validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message(I18n.t("activerecord.errors.models.organizer.attributes.track_id.taken")) }
     end
 
-    should_validate_existence_of :user, :track, :conference
+    should_validate_existence_of :user, :conference
+    should_validate_existence_of :track, :allow_blank => true
 
     context "user" do
       it "should be a valid user" do
         organizer = FactoryGirl.build(:organizer)
         organizer.user_username = 'invalid_username'
         organizer.should_not be_valid
-        organizer.errors[:user_username].should include(I18n.t("errors.messages.existence"))
+        organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
       end
     end
 
@@ -39,7 +40,7 @@ describe Organizer do
         track = FactoryGirl.create(:track)
         organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
         organizer.should_not be_valid
-        organizer.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+        organizer.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
     end
   end
