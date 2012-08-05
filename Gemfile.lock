@@ -87,6 +87,7 @@ GEM
     hashr (0.0.21)
     highline (1.6.13)
     hike (1.2.1)
+    hpricot (0.8.6)
     i18n (0.6.0)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
@@ -99,6 +100,10 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.4)
+    magic-localized_country_select (0.2.0)
+      hpricot (~> 0.8)
+      magic-localized_country_select
+      rails (~> 3)
     mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -220,6 +225,7 @@ DEPENDENCIES
   johnson (= 1.2.0)
   jquery-rails (= 1.0.19)
   jquery-ui-rails (= 1.1.0)
+  magic-localized_country_select (= 0.2.0)
   mocha (= 0.10.5)
   mysql2 (= 0.3.11)
   rails (= 3.1.7)
