@@ -21,7 +21,11 @@ gem 'validates_existence', '=0.7.1'
 gem 'goalie', '=0.0.4'
 gem 'airbrake', '=3.1.2'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
+gem 'mysql2', '=0.3.11'
 
+platforms :ruby do
+  gem 'RedCloth', '=4.2.9', :require => 'redcloth'
+end
 platforms :mswin, :mingw do
   gem 'RedCloth', '=4.2.9', :require => 'redcloth', :platforms => :mswin
 end
@@ -35,16 +39,7 @@ group :assets do
   gem 'jquery-ui-rails', '=1.1.0'
 end
 
-platforms :ruby do
-  gem 'RedCloth', '=4.2.9', :require => 'redcloth'
-end
-
-group :production do
-  gem 'mysql2', '=0.3.11'
-end
-
 group :development do
-  gem 'mysql2', '=0.3.11'
   gem 'capistrano-ext', '=1.2.1'
   gem 'travis-lint', '=1.4.0'
   gem 'foreman', '=0.53.0'
