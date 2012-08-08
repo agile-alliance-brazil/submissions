@@ -718,8 +718,9 @@ describe Ability do
     before(:each) do
       @user.add_role "reviewer"
       Reviewer.stubs(:user_reviewing_conference?).returns(true)
+      # TODO: review this
       reviewer = FactoryGirl.build(:reviewer, :user => @user, :conference => @conference, :state => 'accepted')
-      reviewer.preferences.build(:accepted => true, :track_id => @conference.tracks.first.id, :audience_level_id => @conference.audience_levels.first.id, :conference_id => @conference.id)
+      reviewer.preferences.build(:accepted => true, :track_id => @conference.tracks.first.id, :audience_level_id => @conference.audience_levels.first.id)
       @ability = Ability.new(@user, @conference)
     end
 

@@ -2,7 +2,7 @@
 - show_actions!
 .auto_focus
 
-= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name) do |form|
+= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put} do |form|
   = render 'form', :form => form
-  = form.buttons do
-    = form.commit_button :edit_profile, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :edit_profile, :button_html => {:tabindex => autotab}

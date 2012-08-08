@@ -36,8 +36,8 @@ describe RegistrationsController do
 
   it "create action should login new user" do
     User.any_instance.stubs(:valid?).returns(true)
-#    UserSession.expects(:create).with(instance_of(User))
     post :create
+    controller.current_user.should_not be_nil
   end
 
   it "create action should send welcome e-mail" do

@@ -93,8 +93,8 @@
     = form.input :comments_to_organizers, :input_html => {:rows => 3, :tabindex => autotab}
   = form.inputs :to_authors do
     = form.input :comments_to_authors, :required => true, :input_html => {:rows => 3, :tabindex => autotab, :'data-remaining' => t('generic.char_remaining')}
-  = form.buttons do
-    = form.commit_button :submit_review, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :submit_review, :button_html => {:tabindex => autotab}
 
 :javascript
   $(document).ready(function() {

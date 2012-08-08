@@ -11,7 +11,7 @@
   = form.inputs :class => 'inputs accept' do
     %p= t('formtastic.labels.session.image_agreement_description')
     = form.input :image_agreement, :as => :boolean, :input_html => {:tabindex => autotab}
-  = form.buttons do
-    = form.commit_button :confirm_session, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :confirm_session, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.withdraw_session'), session_withdraw_path(@conference, @session)

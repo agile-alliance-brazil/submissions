@@ -85,64 +85,58 @@ describe Organizer do
 
   shared_examples_for "organizer role" do
     it "should make given user organizer role after created" do
-      @user.should_not be_organizer
-      organizer = FactoryGirl.create(:organizer, :user => @user)
-      @user.should be_organizer
-      @user.reload.should be_organizer
+      subject.should_not be_organizer
+      organizer = FactoryGirl.create(:organizer, :user => subject)
+      subject.should be_organizer
+      subject.reload.should be_organizer
     end
 
     it "should remove organizer role after destroyed" do
-      organizer = FactoryGirl.create(:organizer, :user => @user)
-      @user.should be_organizer
+      organizer = FactoryGirl.create(:organizer, :user => subject)
+      subject.should be_organizer
       organizer.destroy
-      @user.should_not be_organizer
-      @user.reload.should_not be_organizer
+      subject.should_not be_organizer
+      subject.reload.should_not be_organizer
     end
 
     it "should keep organizer role after destroyed if user organizes other tracks" do
-      other_organizer = FactoryGirl.create(:organizer, :user => @user)
+      other_organizer = FactoryGirl.create(:organizer, :user => subject)
       track = FactoryGirl.create(:track, :conference => other_organizer.conference)
-      organizer = FactoryGirl.create(:organizer, :user => @user, :track => track, :conference => other_organizer.conference)
-      @user.should be_organizer
+      organizer = FactoryGirl.create(:organizer, :user => subject, :track => track, :conference => other_organizer.conference)
+      subject.should be_organizer
       organizer.destroy
-      @user.should be_organizer
-      @user.reload.should be_organizer
+      subject.should be_organizer
+      subject.reload.should be_organizer
     end
 
     it "should remove organizer role after update" do
-      organizer = FactoryGirl.create(:organizer, :user => @user)
+      organizer = FactoryGirl.create(:organizer, :user => subject)
       another_user = FactoryGirl.create(:user)
       organizer.user = another_user
       organizer.save
-      @user.reload.should_not be_organizer
+      subject.reload.should_not be_organizer
       another_user.should be_organizer
     end
 
     it "should keep organizer role after update if user organizes other tracks" do
-      other_organizer = FactoryGirl.create(:organizer, :user => @user)
+      other_organizer = FactoryGirl.create(:organizer, :user => subject)
       track = FactoryGirl.create(:track, :conference => other_organizer.conference)
-      organizer = FactoryGirl.create(:organizer, :user => @user, :track => track, :conference => other_organizer.conference)
-      another_user = FactoryGirl.build(:user)
+      organizer = FactoryGirl.create(:organizer, :user => subject, :track => track, :conference => other_organizer.conference)
+      another_user = FactoryGirl.create(:user)
       organizer.user = another_user
       organizer.save
-      @user.reload.should be_organizer
+      subject.reload.should be_organizer
       another_user.should be_organizer
     end
   end
 
   context "managing organizer role for normal user" do
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-    end
-
+    subject { FactoryGirl.create(:user) }
     it_should_behave_like "organizer role"
   end
 
   context "managing organizer role for simple user" do
-    before(:each) do
-      @user = FactoryGirl.create(:simple_user)
-    end
-
+    subject { FactoryGirl.create(:simple_user) }
     it_should_behave_like "organizer role"
   end
 end

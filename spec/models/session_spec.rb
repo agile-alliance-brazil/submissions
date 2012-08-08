@@ -91,7 +91,8 @@ describe Session do
     it { should validate_presence_of :experience }
     it { should validate_presence_of :duration_mins }
     it { should validate_presence_of :keyword_list }
-    xit { should validate_inclusion_of(:duration_mins).in_range([10, 50, 110]) }
+
+    it { should ensure_inclusion_of(:duration_mins).in_array([10, 50, 110]) }
 
     should_validate_existence_of :conference, :author
     should_validate_existence_of :track, :session_type, :audience_level, :allow_blank => true
@@ -108,7 +109,7 @@ describe Session do
 
     context "track" do
       it "should match the conference" do
-        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session = FactoryGirl.build(:session, :conference => Conference.first, :track => Conference.current.tracks.first)
         session.should_not be_valid
         session.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
@@ -116,7 +117,7 @@ describe Session do
 
     context "audience level" do
       it "should match the conference" do
-        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session = FactoryGirl.build(:session, :conference => Conference.first, :audience_level => Conference.current.audience_levels.first)
         session.should_not be_valid
         session.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
@@ -124,7 +125,7 @@ describe Session do
 
     context "session type" do
       it "should match the conference" do
-        session = FactoryGirl.build(:session, :conference => Conference.first)
+        session = FactoryGirl.build(:session, :conference => Conference.first, :session_type => Conference.current.session_types.first)
         session.should_not be_valid
         session.errors[:session_type_id].should include(I18n.t("activerecord.errors.messages.invalid"))
       end
@@ -134,7 +135,7 @@ describe Session do
       it "should be present for workshops" do
         session = FactoryGirl.build(:session, :mechanics => nil)
         session.should be_valid
-        session.session_type = SessionType.new(:title => 'session_types.workshop.title')
+        session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.workshop.title')
         session.should_not be_valid
         session.errors[:mechanics].should include(I18n.t("activerecord.errors.messages.blank"))
       end
@@ -142,7 +143,7 @@ describe Session do
       it "should be present for hands on" do
         session = FactoryGirl.build(:session, :mechanics => nil)
         session.should be_valid
-        session.session_type = SessionType.new(:title => 'session_types.hands_on.title')
+        session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title')
         session.should_not be_valid
         session.errors[:mechanics].should include(I18n.t("activerecord.errors.messages.blank"))
       end
@@ -274,6 +275,7 @@ describe Session do
 
     context "for_reviewer / for_review_in" do
       before(:each) do
+        # TODO: review this
         @reviewer = FactoryGirl.create(:reviewer)
         @user = @reviewer.user
         @conference = @reviewer.conference
@@ -411,7 +413,7 @@ describe Session do
 
         it "if reviewer is second author, should not be returned" do
           second_author = FactoryGirl.create(:author)
-          @session.update_attributes!(:second_author => second_author)
+          @session.update_attributes!(:second_author_username => second_author.username)
 
           Session.for_reviewer(second_author, @conference).should be_empty
         end
@@ -420,7 +422,7 @@ describe Session do
   end
 
   it "should determine if it's lightning talk" do
-    lightning_talk = SessionType.new(:title => 'session_types.lightning_talk.title')
+    lightning_talk = FactoryGirl.build(:session_type, :title => 'session_types.lightning_talk.title')
     session = FactoryGirl.build(:session)
     session.should_not be_lightning_talk
     session.session_type = lightning_talk
@@ -428,7 +430,7 @@ describe Session do
   end
 
   it "should determine if it's experience_report" do
-    experience_report = Track.new(:title => 'tracks.experience_reports.title')
+    experience_report = FactoryGirl.build(:track, :title => 'tracks.experience_reports.title')
     session = FactoryGirl.build(:session)
     session.should_not be_experience_report
     session.track = experience_report

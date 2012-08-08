@@ -17,7 +17,7 @@ AgileBrazil::Application.routes.draw do
 
   scope "(:year)", :constraints => { :year => /\d{4}/ } do
     root :to => 'static_pages#show', :page => 'home'
-    
+
     resources :audience_levels, :only => [:index]
     resources :organizers, :except => [:show]
     resources :organizer_sessions, :only => [:index]

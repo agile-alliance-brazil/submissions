@@ -2,7 +2,7 @@
   = form.inputs :class => 'inputs accept' do
     = form.semantic_errors :base
     = form.input :author_agreement, :label => t('formtastic.labels.session.withdraw.author_agreement'), :required => true, :as => :boolean, :input_html => {:tabindex => autotab}
-  = form.buttons do
-    = form.commit_button :withdraw_session, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :withdraw_session, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.confirm_session'), session_confirm_path(@conference, @session)

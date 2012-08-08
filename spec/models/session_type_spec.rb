@@ -18,30 +18,30 @@ describe SessionType do
   end
 
   it "should determine if it's lightning talk" do
-    session_type = SessionType.new(:title => 'session_types.lightning_talk.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.lightning_talk.title')
     session_type.should be_lightning_talk
-    session_type = SessionType.new(:title => 'session_types.talk.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.talk.title')
     session_type.should_not be_lightning_talk
   end
 
   it "should determine if it's workshop" do
-    session_type = SessionType.new(:title => 'session_types.workshop.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.workshop.title')
     session_type.should be_workshop
-    session_type = SessionType.new(:title => 'session_types.talk.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.talk.title')
     session_type.should_not be_workshop
   end
 
   it "should determine if it's hands on" do
-    session_type = SessionType.new(:title => 'session_types.hands_on.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title')
     session_type.should be_hands_on
-    session_type = SessionType.new(:title => 'session_types.talk.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.talk.title')
     session_type.should_not be_hands_on
   end
 
   it "should determine if it's talk" do
-    session_type = SessionType.new(:title => 'session_types.talk.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.talk.title')
     session_type.should be_talk
-    session_type = SessionType.new(:title => 'session_types.hands_on.title')
+    session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title')
     session_type.should_not be_talk
   end
 end

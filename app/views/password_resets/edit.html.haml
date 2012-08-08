@@ -6,5 +6,5 @@
     = form.input :reset_password_token, :as => :hidden
     = form.input :password, :required => true, :input_html => {:tabindex => autotab}
     = form.input :password_confirmation, :required => true, :input_html => {:tabindex => autotab}
-  = form.buttons do
-    = form.commit_button :change_password, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :change_password, :button_html => {:tabindex => autotab}

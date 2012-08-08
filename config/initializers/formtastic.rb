@@ -1,13 +1,5 @@
 # encoding: UTF-8
 
-# --------------------------------------------------------------------------------------------------
-# Please note: If you're subclassing Formtastic::FormBuilder, Formtastic uses
-# class_attribute for these configuration attributes instead of the deprecated
-# class_inheritable_attribute. The behaviour is slightly different with subclasses (especially
-# around attributes with Hash or Array) values, so make sure you understand what's happening.
-# See the documentation for class_attribute in ActiveSupport for more information.
-# --------------------------------------------------------------------------------------------------
-
 # Set the default text field size when input is a string. Default is nil.
 # Formtastic::FormBuilder.default_text_field_size = 50
 
@@ -57,20 +49,14 @@ Formtastic::FormBuilder.inline_errors = :list
 # Formtastic::FormBuilder.collection_label_methods = [
 #   "to_label", "display_name", "full_name", "name", "title", "username", "login", "value", "to_s"]
 
-# Additionally, you can customize the order for specific types of inputs.
-# This is configured on a type basis and if a type is not found it will
-# fall back to the default order as defined by #inline_order
-# Formtastic::FormBuilder.custom_inline_order[:checkbox] = [:errors, :hints, :input]
-# Formtastic::FormBuilder.custom_inline_order[:select] = [:hints, :input, :errors]
-
 # Specifies if labels/hints for input fields automatically be looked up using I18n.
 # Default value: true. Overridden for specific fields by setting value to true,
 # i.e. :label => true, or :hint => true (or opposite depending on initialized value)
 # Formtastic::FormBuilder.i18n_lookups_by_default = false
 
 # Specifies if I18n lookups of the default I18n Localizer should be cached to improve performance.
-# Defaults to false.
-# Formtastic::FormBuilder.i18n_cache_lookups = true
+# Defaults to true.
+# Formtastic::FormBuilder.i18n_cache_lookups = false
 
 # Specifies the class to use for localization lookups. You can create your own
 # class and use it instead by subclassing Formtastic::Localizer (which is the default).
@@ -80,7 +66,7 @@ Formtastic::FormBuilder.inline_errors = :list
 # specifying that class here.  Defaults to Formtastic::FormBuilder.
 # Formtastic::Helpers::FormHelper.builder = MyCustomBuilder
 
-# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>` 
+# You can opt-in to Formtastic's use of the HTML5 `required` attribute on `<input>`, `<select>`
 # and `<textarea>` tags by setting this to false (defaults to true).
 # Formtastic::FormBuilder.use_required_attribute = true
 

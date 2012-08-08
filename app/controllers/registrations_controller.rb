@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class RegistrationsController < Devise::RegistrationsController
+
+  # POST /resource
   def create
     build_resource
 
@@ -19,13 +21,15 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       respond_with resource
     end
-
   end
 
+  # PUT /resource
+  # We need to use a copy of the resource because we don't want to change
+  # the current user in place.
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 
-    if resource.update_with_password(params[resource_name])
+    if resource.update_with_password(resource_params)
       if is_navigational_format?
         if resource.respond_to?(:pending_reconfirmation?) && resource.pending_reconfirmation?
           flash_key = :update_needs_confirmation

@@ -12,33 +12,28 @@ describe Preference do
   end
 
   context "validations" do
-    xit { should ensure_inclusion_of(:accepted).in_range([true, false]) }
+    it { should ensure_inclusion_of(:accepted).in_array([true, false]) }
 
-    describe "should validate audience level if accepted" do
+    describe "when accepted" do
       subject {FactoryGirl.build(:preference, :accepted => true)}
       it { should validate_presence_of :audience_level_id }
+
+      should_validate_existence_of :audience_level, :allow_blank => true
+
+      it "track should match the conference" do
+        subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
+        subject.should_not be_valid
+        subject.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+      end
+
+      it "audience level should match the conference" do
+        subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
+        subject.should_not be_valid
+        subject.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+      end
     end
 
     should_validate_existence_of :reviewer, :track
-    should_validate_existence_of :audience_level, :allow_blank => true
-
-    context "track" do
-      it "should match the conference" do
-        reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
-        preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
-        preference.should_not be_valid
-        preference.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
-      end
-    end
-
-    context "audience level" do
-      it "should match the conference" do
-        reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
-        preference = FactoryGirl.build(:preference, :reviewer => reviewer, :accepted => true)
-        preference.should_not be_valid
-        preference.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
-      end
-    end
 
     describe "should validate preference for organizer" do
       before(:each) do

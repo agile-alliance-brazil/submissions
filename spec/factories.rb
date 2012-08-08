@@ -1,9 +1,11 @@
 # encoding: UTF-8
 
 FactoryGirl.define do
+  sequence(:last_name) {|n| "Name#{n}"}
+
   factory :user do
     first_name "User"
-    sequence(:last_name) {|n| "Name#{n}"}
+    last_name
     username { |a| "#{a.first_name}.#{a.last_name}".downcase }
     email { |a| "#{a.username.parameterize}@example.com" }
     password "secret"
@@ -23,7 +25,7 @@ FactoryGirl.define do
 
   factory :simple_user, :class => User do
     first_name "User"
-    sequence(:last_name) {|n| "Name#{n}"}
+    last_name
     username { |a| "#{a.first_name}.#{a.last_name}".downcase }
     email { |a| "#{a.username.parameterize}@example.com" }
     password "secret"
@@ -49,11 +51,11 @@ FactoryGirl.define do
   end
 
   factory :session do
+    conference { Conference.current }
     track
     session_type
     audience_level
     author
-    conference { Conference.current }
     duration_mins 50
     title "Fake title"
     summary "Summary details of session"
@@ -67,26 +69,26 @@ FactoryGirl.define do
 
   factory :comment do
     association :commentable, :factory => :session
-    association :user
+    user
     comment "Fake comment body..."
   end
 
   factory :organizer do
-    association :user
-    association :track
+    user
     conference { Conference.current }
+    track { |o| o.conference.tracks.first }
   end
 
   factory :reviewer do
     to_create { |instance| EmailNotifications.stubs(:send_reviewer_invitation); instance.save! }
-    association :user
+    user
     conference { Conference.current }
   end
 
   factory :preference do
-    association :reviewer
-    association :track
-    association :audience_level
+    reviewer
+    track { |p| p.reviewer.conference.tracks.first }
+    audience_level { |p| p.reviewer.conference.audience_levels.first }
     accepted true
   end
 
@@ -118,7 +120,7 @@ FactoryGirl.define do
     comments_to_authors "Fake " * 40
 
     association :reviewer, :factory => :user
-    association :session
+    session
   end
 
   factory :early_review, :class => EarlyReview, :traits => [:review] do
@@ -126,7 +128,7 @@ FactoryGirl.define do
   end
 
   factory :final_review, :class => FinalReview, :traits => [:review] do
-    association :recommendation
+    recommendation
     justification "Fake"
   end
 
@@ -136,8 +138,8 @@ FactoryGirl.define do
 
   factory :review_decision do
     association :organizer, :factory => :user
-    association :session
-    association :outcome
+    session
+    outcome
     note_to_authors "Some note to the authors"
     published false
   end

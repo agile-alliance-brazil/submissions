@@ -10,8 +10,8 @@
   %pre#reviewer_agreement= yield(:agreement)
   = form.inputs :class => 'inputs accept' do
     = form.input :reviewer_agreement, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
-  = form.buttons do
-    = form.commit_button :accept_reviewer, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :accept_reviewer, :button_html => {:tabindex => autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.reject_reviewer'), reviewer_reject_path(@conference, @reviewer)
 

@@ -150,7 +150,8 @@ describe Reviewer do
       end
 
       it "should allow accepting" do
-        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id, :conference_id => @reviewer.conference.id)
+        # TODO: review this
+        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id)
         @reviewer.accept.should be_true
         @reviewer.should_not be_invited
         @reviewer.should be_accepted
@@ -166,7 +167,8 @@ describe Reviewer do
     context "State: accepted" do
       before(:each) do
         @reviewer.invite
-        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id, :conference_id => @reviewer.conference.id)
+        # TODO: review this
+        @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id)
         @reviewer.accept
         @reviewer.should be_accepted
       end
@@ -221,40 +223,36 @@ describe Reviewer do
 
   shared_examples_for "reviewer role" do
     it "should make given user reviewer role after invitation accepted" do
-      reviewer = FactoryGirl.create(:reviewer, :user => @user)
+      reviewer = FactoryGirl.create(:reviewer, :user => subject)
       reviewer.invite
-      @user.should_not be_reviewer
-      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id, :conference_id => reviewer.conference.id)
+      subject.should_not be_reviewer
+      # TODO: review this
+      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id)
       reviewer.accept
-      @user.should be_reviewer
-      @user.reload.should be_reviewer
+      subject.should be_reviewer
+      subject.reload.should be_reviewer
     end
 
     it "should remove organizer role after destroyed" do
-      reviewer = FactoryGirl.create(:reviewer, :user => @user)
+      reviewer = FactoryGirl.create(:reviewer, :user => subject)
       reviewer.invite
-      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id, :conference_id => reviewer.conference.id)
+      # TODO: review this
+      reviewer.preferences.build(:accepted => true, :track_id => reviewer.conference.tracks.first.id, :audience_level_id => reviewer.conference.audience_levels.first.id)
       reviewer.accept
-      @user.should be_reviewer
+      subject.should be_reviewer
       reviewer.destroy
-      @user.should_not be_reviewer
-      @user.reload.should_not be_reviewer
+      subject.should_not be_reviewer
+      subject.reload.should_not be_reviewer
     end
   end
 
   context "managing reviewer role for complete user" do
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-    end
-
+    subject { FactoryGirl.create(:user) }
     it_should_behave_like "reviewer role"
   end
 
   context "managing reviewer role for simple user" do
-    before(:each) do
-      @user = FactoryGirl.create(:simple_user)
-    end
-
+    subject { FactoryGirl.create(:simple_user) }
     it_should_behave_like "reviewer role"
   end
 

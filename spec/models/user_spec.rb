@@ -241,7 +241,8 @@ describe User do
         preference = FactoryGirl.create(:preference)
         reviewer = preference.reviewer
         user = reviewer.user
-        FactoryGirl.create(:preference, :reviewer => FactoryGirl.build(:reviewer, :user => user))
+        FactoryGirl.create(:preference,
+          :reviewer => FactoryGirl.create(:reviewer, :user => user, :conference => Conference.first))
 
         user.preferences(reviewer.conference).should == [preference]
       end

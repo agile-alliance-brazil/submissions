@@ -1,9 +1,7 @@
 # encoding: UTF-8
 module TrimmerMacros
-  def self.included(base)
-    base.extend(ClassMethods)
-  end
-  
+  extend ActiveSupport::Concern
+
   module ClassMethods
     def it_should_trim_attributes(model_class, *attrs)
       context "trimming" do
@@ -16,6 +14,6 @@ module TrimmerMacros
         end
       end
     end
-  end  
-  
+  end
+
 end

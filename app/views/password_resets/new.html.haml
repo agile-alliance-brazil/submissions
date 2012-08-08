@@ -3,8 +3,8 @@
 
 %p= t('text.lost_password.instructions')
 
-= semantic_form_for resource, :as => resource_name, :url => password_path(resource_name) do |form|
+= semantic_form_for resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post} do |form|
   = form.inputs do
     = form.input :email, :hint => false, :input_html => {:tabindex => autotab}
-  = form.buttons do
-    = form.commit_button :reset_password, :button_html => {:tabindex => autotab}
+  = form.actions do
+    = form.action :submit, :label => :reset_password, :button_html => {:tabindex => autotab}

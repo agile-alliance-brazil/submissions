@@ -54,7 +54,7 @@
       %li= link_to t('actions.profile'), user_path(current_user)
     - if can? :update, current_user
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
-    %li= link_to "Logout", destroy_user_session_path
+    %li= link_to "Logout", destroy_user_session_path, :method => :delete
 
   - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     :javascript
@@ -102,12 +102,12 @@
       })
 
 - else
-  = semantic_form_for "user", :url => user_session_path do |f|
+  = semantic_form_for :user, :url => user_session_path do |f|
     = f.inputs do
       = f.input :username, :required => true, :input_html => {:tabindex => autotab}
       = f.input :password, :required => true, :hint => false, :input_html => {:tabindex => autotab}
-    = f.buttons do
-      = f.commit_button "Log in", :button_html => {:tabindex => autotab}
+    = f.actions do
+      = f.action :submit, :label => "Log in", :button_html => {:tabindex => autotab}
 
   %ul
     - if can? :create, User

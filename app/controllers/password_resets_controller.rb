@@ -3,7 +3,7 @@ class PasswordResetsController < Devise::PasswordsController
 
   # PUT /resource/password
   def update
-    self.resource = resource_class.reset_password_by_token(params[resource_name])
+    self.resource = resource_class.reset_password_by_token(resource_params)
 
     if resource.errors.empty?
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
