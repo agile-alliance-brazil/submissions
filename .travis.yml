@@ -3,4 +3,8 @@ rvm:
   - 1.8.7
 before_script:
   - cp ./config/config.{example,yml}
+  - cp ./config/database.{travis,yml}
+  - mysql -e 'create database agilebrazil_test;'
+script:
+  - bundle exec rake db:test:prepare spec
 bundler_args: --local --without development production assets
