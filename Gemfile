@@ -33,12 +33,12 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'therubyracer', '=0.10.2'
   gem 'sass-rails', '=3.2.5'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=1.1.0'
   gem 'coffee-rails', '=3.2.2'
-  gem 'therubyracer', '=0.10.2'
 end
 
 group :development do
