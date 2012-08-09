@@ -1,7 +1,10 @@
 /*
  *= require jquery.ui.autocomplete
  */
-@import "**/*";
+@import "mixins/*";
+@import "formtastic";
+@import "formtastic_changes";
+@import "jquery.ui.autocomplete_changes";
 
 $color1: #009933;
 $color2: #5ad295;
