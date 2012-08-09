@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '=3.2.8.rc2'
+gem 'rails', '=3.2.8'
 gem 'jquery-rails', '=2.0.2'
 gem 'haml', '=3.1.4'
 gem 'will_paginate', '=3.0.3'
@@ -37,6 +37,7 @@ group :assets do
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=1.1.0'
+  gem 'coffee-rails', '=3.2.2'
 end
 
 group :development do
@@ -53,4 +54,7 @@ group :development, :test do
   gem 'factory_girl_rails', '=1.7.0'
   gem 'rcov', '=1.0.0'
   gem 'spork-rails', '=3.2.0'
+  gem 'jasminerice', '=0.0.9'
+  gem 'guard-jasmine', '=1.6.1'
+  gem 'jasmine-jquery-rails', '=1.3.1'
 end
