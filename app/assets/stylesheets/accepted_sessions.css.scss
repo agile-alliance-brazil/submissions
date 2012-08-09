@@ -8,11 +8,12 @@ body {
 
 a, a:visited {
   text-decoration: none;
-  color: #009;
+  color: #0088cc;
 }
 
 a:hover {
   text-decoration: underline;
+  color: #005580;
 }
 
 ul.tabs {
@@ -40,6 +41,12 @@ ul.tabs {
     }
     &.audience_level_9 {
       background-color: #54FF9F;
+    }
+
+    &.back {
+      background-color: transparent;
+      border: 0px;
+      text-transform: none;
     }
   }
 }

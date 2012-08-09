@@ -296,6 +296,7 @@ pt:
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
+    back_to_program: "Voltar ao Programa"
 
   text:
     lost_password:

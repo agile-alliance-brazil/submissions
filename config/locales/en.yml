@@ -297,6 +297,7 @@ en:
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
+    back_to_program: "Back to Program"
 
   text:
     lost_password:

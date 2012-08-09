@@ -21,6 +21,7 @@
             = t('generic.minutes')
           - if session.audience_limit.present?
             %li= t('session.audience_limit', :limit => session.audience_limit)
+          %li{:class => "back"}= link_to t('actions.back_to_program'), "http://www.agilebrazil.com/2012/#{I18n.locale}/grade/"
         .session
           %h3= session.title
           %ul
