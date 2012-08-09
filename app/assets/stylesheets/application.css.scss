@@ -19,7 +19,7 @@ a {
 a:hover {
   color: $color5 + #333333; }
 
-.auto_focus {
+.auto_focus, .hidden {
   display: none; }
 
 #header {
@@ -546,7 +546,7 @@ span.bio {
   width: 90%;
   display: block;
   * {
-    font-size: smaller; } }
+    font-size: smaller; }}
 
 .placeholder {
   color: #999;
