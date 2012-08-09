@@ -1,32 +1,34 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
-describe AcceptedSessionsController do
+
+describe AcceptedSessionsController, :render_views => true do
   render_views
 
-  it_should_require_login_for_actions :index
-
-  before(:each) do
-    user = FactoryGirl.create(:user)
-    sign_in user
-    disable_authorization
-  end
-
-  it "index action should render index template" do
+  it "index should work" do
+    FactoryGirl.create_list(:session, 3)
     get :index
-    response.should render_template(:index)
   end
+end
 
-  it "index action should find accepted sessions" do
-    Session.stubs(:for_user).returns(Session)
-    Session.expects(:for_conference).at_least(1).with(Conference.current).returns(Session)
-    Session.expects(:with_state).at_least(1).with(:accepted).returns([])
-    get :index
-    assigns(:sessions).should == []
-  end
-  
-  it "index action should use conference's tracks" do
-    get :index
-    (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+describe AcceptedSessionsController do
+  describe "#index" do
+    it "should only display accepted sessions" do
+      session = FactoryGirl.create(:session)
+      accepted_session = FactoryGirl.create(:session, :state => :accepted)
+
+      get :index
+      assigns(:sessions).should == [accepted_session]
+    end
+
+    it "should group sessions by track" do
+      session_1 = FactoryGirl.create(:session, :state => :accepted, :track => Conference.current.tracks.first)
+      session_2 = FactoryGirl.create(:session, :state => :accepted, :track => Conference.current.tracks.second)
+
+      get :index
+      assigns(:sessions_by_track).should == {
+        Conference.current.tracks.first => [session_1],
+        Conference.current.tracks.second => [session_2]
+      }
+    end
   end
 end

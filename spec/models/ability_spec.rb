@@ -18,6 +18,7 @@ describe Ability do
       @ability.should be_able_to(:read, ActsAsTaggableOn::Tag)
 
       @ability.should be_able_to(:read, 'static_pages')
+      @ability.should be_able_to(:read, 'accepted_sessions')
       @ability.should be_able_to(:manage, 'password_resets')
     end
 

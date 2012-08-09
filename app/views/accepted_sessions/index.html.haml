@@ -1,18 +1,14 @@
 - title t('title.accepted_sessions')
-- show_actions!
 
-%ul#tabs
-  - @tracks.each do |track|
+- @sessions_by_track.each do |track, sessions|
+  %ul#tabs
     %li= link_to t(track.title), "#track_#{track.id}", :class => "javascript_link"
 
-- @tracks.each do |track|
+- @sessions_by_track.each do |track, sessions|
   %div.tab{:id => "track_#{track.id}"}
-    %a{:name => "track_#{track.id}"}
-    %h3.track= t(track.title)
-    - sessions = @sessions.select{|s| s.track == track}
+    %h3.track{:id => "track_#{track.id}"}= t(track.title)
     - sessions.each do |session|
-      %a{:name => session.id} 
-      %h4.title= session.title
+      %h4.title{:id => "session_#{session.id}"}= session.title
       %ul.spaced
         %li= link_to_function h(session.author.full_name), "toggle('bio_#{session.id}')", :class => "author"
         - if session.second_author

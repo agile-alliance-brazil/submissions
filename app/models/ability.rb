@@ -28,6 +28,7 @@ class Ability
     can(:read, AudienceLevel)
     can(:read, ActsAsTaggableOn::Tag)
     can(:read, 'static_pages')
+    can(:read, 'accepted_sessions')
     can(:manage, 'password_resets')
     can(:create, User)
     can(:update, User, :id => @user.id)
