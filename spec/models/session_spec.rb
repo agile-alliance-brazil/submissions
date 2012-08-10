@@ -111,7 +111,7 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :track => Conference.current.tracks.first)
         session.should_not be_valid
-        session.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        session.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
 
@@ -119,7 +119,7 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :audience_level => Conference.current.audience_levels.first)
         session.should_not be_valid
-        session.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        session.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
 
@@ -127,7 +127,7 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :session_type => Conference.current.session_types.first)
         session.should_not be_valid
-        session.errors[:session_type_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        session.errors[:session_type_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
 
@@ -137,7 +137,7 @@ describe Session do
         session.should be_valid
         session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.workshop.title')
         session.should_not be_valid
-        session.errors[:mechanics].should include(I18n.t("activerecord.errors.messages.blank"))
+        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
       end
 
       it "should be present for hands on" do
@@ -145,7 +145,7 @@ describe Session do
         session.should be_valid
         session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title')
         session.should_not be_valid
-        session.errors[:mechanics].should include(I18n.t("activerecord.errors.messages.blank"))
+        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
       end
     end
 
@@ -163,14 +163,14 @@ describe Session do
       it "should not be the same as first author" do
         @session.second_author_username = @session.author.username
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include(I18n.t("activerecord.errors.messages.same_author"))
+        @session.errors[:second_author_username].should include(I18n.t("errors.messages.same_author"))
       end
 
       it "should be author" do
         guest = FactoryGirl.create(:user)
         @session.second_author_username = guest.username
         @session.should_not be_valid
-        @session.errors[:second_author_username].should include(I18n.t("activerecord.errors.messages.incomplete"))
+        @session.errors[:second_author_username].should include(I18n.t("errors.messages.incomplete"))
       end
     end
 
@@ -239,7 +239,7 @@ describe Session do
       session = FactoryGirl.create(:session)
       session.author_id = FactoryGirl.create(:user).id
       session.should_not be_valid
-      session.errors[:author_id].should include(I18n.t("activerecord.errors.messages.constant"))
+      session.errors[:author_id].should include(I18n.t("errors.messages.constant"))
     end
 
     context "confirming attendance:" do
@@ -248,7 +248,7 @@ describe Session do
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'accept', :author_agreement => false).should be_false
-        session.errors[:author_agreement].should include(I18n.t("activerecord.errors.messages.accepted"))
+        session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
 
       it "should validate that author agreement was accepted on withdraw" do
@@ -256,7 +256,7 @@ describe Session do
         session.reviewing
         session.tentatively_accept
         session.update_attributes(:state_event => 'reject', :author_agreement => false).should be_false
-        session.errors[:author_agreement].should include(I18n.t("activerecord.errors.messages.accepted"))
+        session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
     end
 

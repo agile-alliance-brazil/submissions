@@ -40,7 +40,7 @@ describe Organizer do
         track = FactoryGirl.create(:track)
         organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
         organizer.should_not be_valid
-        organizer.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        organizer.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
   end

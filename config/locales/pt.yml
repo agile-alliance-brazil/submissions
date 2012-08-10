@@ -1,21 +1,23 @@
 # encoding: UTF-8
 pt:
 
+  errors:
+    messages:
+      same_author: não pode ser o mesmo autor
+      incomplete: usuário não possui perfil de autor completo
+      experience_report_talk_duration: só pode ser 50 minutos
+      non_lightning_talk_duration: só pode ser 50 ou 110 minutos
+      talk_duration: só pode ser 50 minutos
+      hands_on_duration: só pode ser 110 minutos
+      lightning_talk_duration: só pode ser 10 minutos
+      experience_report_session_type: só pode ser uma Palestra
+      email_format: deve ter um formato de e-mail válido
+      username_format: ! 'deve usar apenas letras, números, espaços e .-_@'
+      constant: não pode mudar
   activerecord:
     errors:
       messages:
         existence: não existe
-        same_author: não pode ser o mesmo autor
-        incomplete: usuário não possui perfil de autor completo
-        experience_report_talk_duration: só pode ser 50 minutos
-        non_lightning_talk_duration: só pode ser 50 ou 110 minutos
-        talk_duration: só pode ser 50 minutos
-        hands_on_duration: só pode ser 110 minutos
-        lightning_talk_duration: só pode ser 10 minutos
-        experience_report_session_type: só pode ser uma Palestra
-        email_format: deve ter um formato de e-mail válido
-        username_format: ! 'deve usar apenas letras, números, espaços e .-_@'
-        constant: não pode mudar
       models:
         user:
           attributes:

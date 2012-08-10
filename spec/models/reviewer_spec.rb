@@ -42,7 +42,7 @@ describe Reviewer do
       reviewer = FactoryGirl.create(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
       reviewer.accept.should be_false
-      reviewer.errors[:reviewer_agreement].should include(I18n.t("activerecord.errors.messages.accepted"))
+      reviewer.errors[:reviewer_agreement].should include(I18n.t("errors.messages.accepted"))
     end
 
     it "should copy user errors to user_username" do

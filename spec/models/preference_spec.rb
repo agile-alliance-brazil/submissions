@@ -23,13 +23,13 @@ describe Preference do
       it "track should match the conference" do
         subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         subject.should_not be_valid
-        subject.errors[:track_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        subject.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
       end
 
       it "audience level should match the conference" do
         subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         subject.should_not be_valid
-        subject.errors[:audience_level_id].should include(I18n.t("activerecord.errors.messages.invalid"))
+        subject.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
       end
     end
 
