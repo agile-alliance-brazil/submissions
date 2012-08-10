@@ -7,5 +7,7 @@ before_script:
   - mysql -e 'create database agilebrazil_test;'
 script:
   - RAILS_ENV=test bundle exec rake db:migrate
-  - bundle exec rake ci
+  - bundle exec rake spec
+after_script:
+  - bundle exec guard-jasmine
 bundler_args: --local --without development production assets
