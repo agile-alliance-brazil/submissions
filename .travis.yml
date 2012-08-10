@@ -5,8 +5,6 @@ before_script:
   - cp ./config/config.{example,yml}
   - cp ./config/database.{travis,yml}
   - mysql -e 'create database agilebrazil_test;'
-	- "export DISPLAY=:99.0"
-	- "sh -e /etc/init.d/xvfb start"
 script:
   - RAILS_ENV=test bundle exec rake db:migrate
   - bundle exec rake ci
