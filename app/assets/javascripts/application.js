@@ -1,12 +1,6 @@
 /*
-*= require jquery
-*= require jquery_ujs
-*= require jquery.ui.autocomplete
+*= require vendor_libs
 *= require_self
-*= require charCount
-*= require jquery.placeholder
-*= require jquery.progressbar.min
-*= require jquery.textarearesizer
 */
 
 jQuery.fn.bindSelectUpdated = function() {
