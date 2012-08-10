@@ -6,7 +6,7 @@ class AcceptedSessions
   load: ->
     $(".bio").hide()
 
-(exports ? this).AcceptedSessions = AcceptedSessions
-
 jQuery ->
   new AcceptedSessions().load()
+
+(exports ? this).AcceptedSessions = AcceptedSessions
