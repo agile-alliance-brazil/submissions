@@ -55,6 +55,7 @@ group :development, :test do
   gem 'factory_girl_rails', '=1.7.0'
   gem 'rcov', '=1.0.0'
   gem 'spork-rails', '=3.2.0'
+  gem 'coffee-rails', '=3.2.2'
   gem 'jasminerice', '=0.0.9'
   gem 'guard-jasmine', '=1.7.0'
   gem 'jasmine-jquery-rails', '=1.3.1'
