@@ -59,11 +59,6 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
-
-    config.after(:each) do
-      # Resets the "singleton" instance cache
-      Conference.class_eval { @current_conference = nil }
-    end
   end
 end
 

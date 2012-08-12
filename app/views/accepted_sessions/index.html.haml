@@ -10,29 +10,30 @@
     = javascript_include_tag :accepted_sessions
 
   %body
-    - @sessions_by_track.each do |track, sessions|
-      %h2{:id => "track_#{track.id}"}= t(track.title)
-      - sessions.each do |session|
-        %ul.tabs{:id => "session_#{session.id}"}
-          %li{:class => "session_type_#{session.session_type.id}"}= t(session.session_type.title)
-          %li{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
-          %li
-            &= session.try(:duration_mins)
-            = t('generic.minutes')
-          - if session.audience_limit.present?
-            %li= t('session.audience_limit', :limit => session.audience_limit)
-          %li{:class => "back"}= link_to t('actions.back_to_program'), "http://www.agilebrazil.com/2012/#{I18n.locale}/grade/"
-        .session
-          %h3= session.title
-          %ul
-            - session.authors.each do |author|
-              %li
-                = link_to_function (image_tag(gravatar_url(author, :size => :mini)) + content_tag(:span, h(author.full_name))), "$('#bio_#{session.id}').toggle('fast')"
-          .bio{:id => "bio_#{session.id}"}
-            - session.authors.each do |author|
-              .author
-                = image_tag(gravatar_url(author, :size => :bigger))
-                %h3= author.full_name
-                = textilize(author.try(:bio))
+    #navigation
+      - @conference.tracks.each
+    - @sessions.each do |session|
+      %ul.tabs{:id => "session_#{session.id}"}
+        %li{:class => "track_#{session.track.id}"}= t(session.track.title)
+        %li{:class => "session_type_#{session.session_type.id}"}= t(session.session_type.title)
+        %li{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
+        %li
+          &= session.try(:duration_mins)
+          = t('generic.minutes')
+        - if session.audience_limit.present?
+          %li= t('session.audience_limit', :limit => session.audience_limit)
+        %li{:class => "back"}= link_to t('actions.back_to_program'), "http://www.agilebrazil.com/2012/#{I18n.locale}/grade/"
+      .session
+        %h3= session.title
+        %ul
+          - session.authors.each do |author|
+            %li
+              = link_to_function (image_tag(gravatar_url(author, :size => :mini)) + content_tag(:span, h(author.full_name))), "$('#bio_#{session.id}').toggle('fast')"
+        .bio{:id => "bio_#{session.id}"}
+          - session.authors.each do |author|
+            .author
+              = image_tag(gravatar_url(author, :size => :bigger))
+              %h3= author.full_name
+              = textilize(author.try(:bio))
 
-          = textilize(session.try(:summary))
+        = textilize(session.try(:summary))

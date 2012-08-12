@@ -19,16 +19,5 @@ describe AcceptedSessionsController do
       get :index
       assigns(:sessions).should == [accepted_session]
     end
-
-    it "should group sessions by track" do
-      session_1 = FactoryGirl.create(:session, :state => :accepted, :track => Conference.current.tracks.first)
-      session_2 = FactoryGirl.create(:session, :state => :accepted, :track => Conference.current.tracks.second)
-
-      get :index
-      assigns(:sessions_by_track).should == {
-        Conference.current.tracks.first => [session_1],
-        Conference.current.tracks.second => [session_2]
-      }
-    end
   end
 end

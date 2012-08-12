@@ -5,7 +5,7 @@ class Conference < ActiveRecord::Base
   has_many :session_types
 
   def self.current
-    @current_conference ||= Conference.order('year desc').first
+    order('year desc').first
   end
 
   def to_param

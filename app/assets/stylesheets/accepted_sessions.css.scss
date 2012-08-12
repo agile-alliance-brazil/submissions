@@ -27,7 +27,7 @@ ul.tabs {
     background-color: #eee;
     border: 1px solid #ccc;
     border-bottom: 0px;
-    width: 120px;
+    width: 180px;
     margin: 0px 0px;
     font-size: 0.7em;
     text-align: center;
@@ -41,6 +41,11 @@ ul.tabs {
     }
     &.audience_level_9 {
       background-color: #54FF9F;
+    }
+
+    &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
+      background-color: #555;
+      color: white;
     }
 
     &.back {
