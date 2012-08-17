@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '=3.2.8'
-gem 'jquery-rails', '=2.0.2'
+gem 'jquery-rails', '=2.1.0'
 gem 'haml', '=3.1.4'
 gem 'will_paginate', '=3.0.3'
 gem 'formtastic', '=2.2.1'
@@ -37,14 +37,14 @@ group :assets do
   gem 'sass-rails', '=3.2.5'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
-  gem 'jquery-ui-rails', '=1.1.0'
+  gem 'jquery-ui-rails', '=1.1.1'
   gem 'coffee-rails', '=3.2.2'
 end
 
 group :development do
   gem 'capistrano-ext', '=1.2.1'
   gem 'travis-lint', '=1.4.0'
-  gem 'foreman', '=0.53.0'
+  gem 'foreman', '=0.55.0'
 end
 
 group :development, :test do

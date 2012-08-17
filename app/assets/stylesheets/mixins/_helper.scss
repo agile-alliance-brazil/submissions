@@ -1,5 +1,5 @@
 @mixin clearfix {
-  *display                 inline-block {}
+  * {display: inline-block }
   &:after {
     content: " ";
     display: block;
