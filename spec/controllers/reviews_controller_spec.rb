@@ -10,6 +10,7 @@ describe ReviewsController do
     disable_authorization
 
     @conference = Conference.current
+    Conference.stubs(:current).returns(@conference)
     @conference.stubs(:in_early_review_phase?).returns(false)
   end
 

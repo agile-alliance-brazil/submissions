@@ -22,6 +22,7 @@ describe ReviewerSessionsController do
   describe "#index" do
     before(:each) do
       @conference = Conference.current
+      Conference.stubs(:current).returns(@conference)
       @session = FactoryGirl.build(:session)
       Session.stubs(:for_reviewer).returns(Session)
       Session.stubs(:order).returns(Session)

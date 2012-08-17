@@ -12,6 +12,7 @@ describe ReviewsListingController do
       sign_in user
       disable_authorization
       @conference = Conference.current
+      Conference.stubs(:current).returns(@conference)
     end
 
     it "index action (JS) should render JSON for early reviews" do

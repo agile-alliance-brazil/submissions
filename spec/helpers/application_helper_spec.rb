@@ -91,9 +91,11 @@ describe ApplicationHelper do
 
   describe "translated_country" do
     it "should return translated country from code" do
-      helper.translated_country(:BR).should == 'Brasil'
-      helper.translated_country('US').should == 'Estados Unidos'
-      helper.translated_country('fr').should == 'França'
+      I18n.with_locale('pt') do
+        helper.translated_country(:BR).should == 'Brasil'
+        helper.translated_country('US').should == 'Estados Unidos'
+        helper.translated_country('fr').should == 'França'
+      end
     end
 
     it "should return empty if country is invalid" do
@@ -105,8 +107,10 @@ describe ApplicationHelper do
 
   describe "translated_state" do
     it "should return translated state from code" do
-      helper.translated_state(:SP).should == 'São Paulo'
-      helper.translated_state('RJ').should == 'Rio de Janeiro'
+      I18n.with_locale('pt') do
+        helper.translated_state(:SP).should == 'São Paulo'
+        helper.translated_state('RJ').should == 'Rio de Janeiro'
+      end
     end
 
     it "should return empty if state is invalid" do
