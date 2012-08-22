@@ -298,7 +298,6 @@ pt:
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
-    back_to_program: "Voltar ao Programa"
 
   text:
     lost_password:
@@ -398,6 +397,8 @@ pt:
     innovation_entrepreneurship:
       title: "Inovação e Empreendedorismo"
       description: "Esta é a trilha para quem busca inovar ou empreender tanto como colaborador de uma empresa quanto em seu próprio negócio. Você vai encontrar sessões sobre Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping e diversos outros assuntos que relacionam os métodos ágeis ao processo de inovação."
+    guest_session:
+      title: "Convidado Especial"
 
   audience_levels:
     beginner:
@@ -487,6 +488,16 @@ pt:
     reject:
       title: "Rejeitada"
 
+  all_hands:
+    opening:
+      title: "Abertura"
+    closing:
+      title: "Encerramento"
+    lunch:
+      title: "Almoço"
+    coffee_break:
+      title: "Coffee Break"
+
   gender:
     male: "Masculino"
     female: "Feminino"
@@ -507,6 +518,11 @@ pt:
     hide: "Esconder"
     char_remaining: "faltando: "
     all: "Todas"
+    room: "Sala"
+
+  time:
+    formats:
+      hour_minute: "%H:%M"
 
   will_paginate:
     previous_label: "&laquo; Anterior"

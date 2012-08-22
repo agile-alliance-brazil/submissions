@@ -1,0 +1,35 @@
+.details
+  %strong
+    = link_to "Lightning Talks #{lightning_talk_group.id}", "#lightning_talk_group_#{lightning_talk_group.id}", :class => "fancybox"
+  %br
+  %span
+    = lightning_talk_group.lightning_talks.map(&:authors).flatten.map(&:full_name).join(", ")
+
+.tab.bottom{:class => "session_type_lightning_talk"}= t('session_types.lightning_talk.title')
+
+.hidden
+  %div{:id => "lightning_talk_group_#{lightning_talk_group.id}"}
+    - lightning_talk_group.lightning_talks.each do |lightning_talk|
+      .session_details
+        %ul.tabs
+          %li{:class => "track_#{lightning_talk.track.id}"}= t(lightning_talk.track.title)
+          %li{:class => "session_type_#{lightning_talk.session_type.id}"}= t(lightning_talk.session_type.title)
+          %li{:class => "audience_level_#{lightning_talk.audience_level.id}"}= t(lightning_talk.audience_level.title)
+          %li
+            &= lightning_talk.try(:duration_mins)
+            = t('generic.minutes')
+        .session_description
+          .timeframe #{l(activity.start_at, :format => :short)} - #{l(activity.end_at, :format => :hour_minute)}
+          %h3= lightning_talk.title
+          %ul.authors
+            - lightning_talk.authors.each do |author|
+              %li
+                = link_to_function (image_tag(gravatar_url(author, :size => :mini)) + content_tag(:span, h(author.full_name))), "$('#bio_#{lightning_talk.id}').toggle('fast')"
+          .bio{:id => "bio_#{lightning_talk.id}"}
+            - lightning_talk.authors.each do |author|
+              .author
+                = image_tag(gravatar_url(author, :size => :bigger))
+                %h3= author.full_name
+                = textilize(author.try(:bio))
+
+          = textilize(lightning_talk.try(:summary))

@@ -1,0 +1,107 @@
+# encoding: UTF-8
+require 'spec_helper'
+
+describe Activity do
+  context "protect from mass assignment" do
+    it { should allow_mass_assignment_of :start_at }
+    it { should allow_mass_assignment_of :end_at }
+    it { should allow_mass_assignment_of :room_id }
+    it { should allow_mass_assignment_of :detail_type }
+    it { should allow_mass_assignment_of :detail_id }
+
+    it { should_not allow_mass_assignment_of :id }
+  end
+
+  context "associations" do
+    it { should belong_to :room }
+    it { should belong_to :detail }
+  end
+
+  describe "#starts_in?" do
+    let(:activity) { FactoryGirl.build(:activity, :start_at => Time.parse("08:00"))}
+    let(:room) { activity.room }
+    subject { activity.starts_in?(slot, room) }
+
+    context "starting along with slot, on same room" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
+      it { should be_true }
+    end
+
+    context "starting along with slot, on a different room" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
+      let(:room) { FactoryGirl.build(:room) }
+      it { should be_false }
+    end
+
+    context "starting prior to slot" do
+      let(:slot) { Slot.from(Time.parse("08:30"), 30.minutes) }
+      it { should be_false }
+    end
+
+    context "starting after slot" do
+      let(:slot) { Slot.from(Time.parse("07:30"), 30.minutes) }
+      it { should be_false }
+    end
+  end
+
+  describe "#slots_remaining" do
+    let(:activity) { FactoryGirl.build(:activity, :start_at => Time.parse("08:00"), :end_at => Time.parse("09:00")) }
+    subject { activity.slots_remaining(slot) }
+
+    context "single slot" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 1.hour) }
+      it { should == 1 }
+    end
+
+    context "multiple slots" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
+      it { should == 2 }
+    end
+
+    context "irregular-sized slots" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 40.minutes) }
+      it { should == 2 }
+    end
+
+    context "larger slot" do
+      let(:slot) { Slot.from(Time.parse("08:00"), 2.hours) }
+      it { should == 1 }
+    end
+  end
+
+  describe "normal session" do
+    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:session)) }
+
+    it { should_not be_all_rooms }
+    it { should_not be_keynote }
+    it { should_not be_all_hands }
+    its(:css_classes) { should == ["activity", "session"] }
+  end
+
+  describe "normal guest session" do
+    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:guest_session, :keynote => false)) }
+
+    it { should_not be_all_rooms }
+    it { should_not be_keynote }
+    it { should_not be_all_hands }
+    its(:css_classes) { should == ["activity", "guest_session"] }
+  end
+
+  describe "keynote guest session" do
+    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:guest_session, :keynote => true)) }
+
+    it { should be_all_rooms }
+    it { should be_keynote }
+    it { should_not be_all_hands }
+    its(:css_classes) { should == ["activity", "keynote"] }
+  end
+
+  describe "all hands session" do
+    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:all_hands)) }
+
+    it { should be_all_rooms }
+    it { should_not be_keynote }
+    it { should be_all_hands }
+    its(:css_classes) { should == ["activity", "all_hands"] }
+  end
+end

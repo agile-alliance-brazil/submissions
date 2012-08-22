@@ -143,4 +143,33 @@ FactoryGirl.define do
     note_to_authors "Some note to the authors"
     published false
   end
+
+  factory :room do
+    name "Room 1"
+    capacity 200
+    conference { Conference.current }
+  end
+
+  factory :guest_session do
+    title "Guest session title"
+    author "Guest session author"
+    summary "Longer description and summary for guest session"
+    conference { Conference.current }
+    keynote true
+  end
+
+  factory :all_hands do
+    title "all_hands.lunch.title"
+  end
+
+  factory :lightning_talk_group do
+    lightning_talk_ids []
+  end
+
+  factory :activity do
+    start_at { DateTime.now }
+    end_at { |a| a.start_at + 1.hour }
+    room
+    association :detail, :factory => :session
+  end
 end

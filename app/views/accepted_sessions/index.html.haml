@@ -9,31 +9,21 @@
     = stylesheet_link_tag :accepted_sessions
     = javascript_include_tag :accepted_sessions
 
-  %body
-    #navigation
-      - @conference.tracks.each
-    - @sessions.each do |session|
-      %ul.tabs{:id => "session_#{session.id}"}
-        %li{:class => "track_#{session.track.id}"}= t(session.track.title)
-        %li{:class => "session_type_#{session.session_type.id}"}= t(session.session_type.title)
-        %li{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
-        %li
-          &= session.try(:duration_mins)
-          = t('generic.minutes')
-        - if session.audience_limit.present?
-          %li= t('session.audience_limit', :limit => session.audience_limit)
-        %li{:class => "back"}= link_to t('actions.back_to_program'), "http://www.agilebrazil.com/2012/#{I18n.locale}/grade/"
-      .session
-        %h3= session.title
-        %ul
-          - session.authors.each do |author|
-            %li
-              = link_to_function (image_tag(gravatar_url(author, :size => :mini)) + content_tag(:span, h(author.full_name))), "$('#bio_#{session.id}').toggle('fast')"
-        .bio{:id => "bio_#{session.id}"}
-          - session.authors.each do |author|
-            .author
-              = image_tag(gravatar_url(author, :size => :bigger))
-              %h3= author.full_name
-              = textilize(author.try(:bio))
-
-        = textilize(session.try(:summary))
+  %body#accepted_sessions
+    - @activities.group_by(&:date).each do |date, activities|
+      %h2= l(date, :format => :short)
+      %table
+        %thead
+          %tr
+            %td
+            - @rooms.each do |room|
+              %th{:style => "width: #{100.0 / @rooms.size}%"} #{t("generic.room")} #{room.name}
+        %tbody
+          - Slot.divide(activities.map(&:start_at).min, activities.map(&:end_at).max, 30.minutes).each do |slot|
+            %tr
+              %th= l(slot.start, :format => :hour_minute)
+              - @rooms.each do |room|
+                - activities.select { |activity| activity.starts_in?(slot, room) }.each do |activity|
+                  %td{:rowspan => activity.slots_remaining(slot), :colspan => (activity.all_rooms? ? @rooms.size : 1), :class => activity.css_classes}
+                    - if activity.detail.present?
+                      .content= render activity.detail, :activity => activity

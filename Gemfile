@@ -39,6 +39,7 @@ group :assets do
   gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=1.1.1'
   gem 'coffee-rails', '=3.2.2'
+  gem 'fancybox-rails', '=0.1.4'
 end
 
 group :development do

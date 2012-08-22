@@ -12,12 +12,14 @@ end
 
 describe AcceptedSessionsController do
   describe "#index" do
-    it "should only display accepted sessions" do
-      session = FactoryGirl.create(:session)
-      accepted_session = FactoryGirl.create(:session, :state => :accepted)
-
+    it "should fetch all activities" do
       get :index
-      assigns(:sessions).should == [accepted_session]
+      assigns(:activities).should == Activity.all
+    end
+
+    it "should fetch all rooms for current conference" do
+      get :index
+      assigns(:rooms).should == Room.for_conference(Conference.current)
     end
   end
 end

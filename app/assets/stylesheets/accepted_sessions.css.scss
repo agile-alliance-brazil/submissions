@@ -1,113 +1,266 @@
-body {
+/*
+*= require fancybox
+*/
+
+#accepted_sessions {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
   color: #333;
   background-color: white;
-}
 
-a, a:visited {
-  text-decoration: none;
-  color: #0088cc;
-}
 
-a:hover {
-  text-decoration: underline;
-  color: #005580;
-}
-
-ul.tabs {
-  overflow: hidden;
-  margin: 10px 0px 0px 0px;
-  padding: 0px;
-  li {
-    float: left;
-    list-style: none;
-
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-bottom: 0px;
-    width: 180px;
-    margin: 0px 0px;
-    font-size: 0.7em;
-    text-align: center;
-    text-transform: uppercase;
-
-    &.audience_level_7 {
-      background-color: #FFF68F;
-    }
-    &.audience_level_8 {
-      background-color: lightSkyBlue;
-    }
-    &.audience_level_9 {
-      background-color: #54FF9F;
-    }
-
-    &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
-      background-color: #555;
-      color: white;
-    }
-
-    &.back {
-      background-color: transparent;
-      border: 0px;
-      text-transform: none;
-    }
-  }
-}
-
-.session {
-  border: 1px solid #ccc;
-  margin: 0px;
-  padding: 10px;
-
-  h3 {
-    margin: 10px 0px;
+  a, a:visited {
+    text-decoration: none;
+    color: #0088cc;
   }
 
-  ul {
+  a:hover {
+    text-decoration: underline;
+    color: #005580;
+  }
+
+  table {
+    width: 1030px;
+    border-spacing: 5px;
+
+    thead {
+      th {
+        color: #999;
+      }
+    }
+
+    tbody {
+      tr {
+        height: 60px;
+      }
+
+      th {
+        color: #999;
+      }
+
+      tr {
+        position: relative;
+      }
+
+      td {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        vertical-align: middle;
+
+        .content {
+          position: relative;
+
+          .details {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+
+            strong {
+              padding: 3px;
+            }
+          }
+        }
+
+        &.activity {
+          border: 1px solid #ccc;
+        }
+
+        &.all_hands {
+          background-color: #eee;
+        }
+
+        &.keynote {
+          background-color: #4699d6;
+          color: #fff;
+          text-transform: uppercase;
+          font-size: 1em;
+
+          a, a:visited, a:hover {
+            color: white;
+          }
+        }
+
+        &.session, &.guest_session, &.lightning_talk_group {
+          font-size: 0.8em;
+        }
+
+        .tab {
+          background-color: #eee;
+          font-size: 0.9em;
+          height: 15px;
+          line-height: 15px;
+          text-transform: uppercase;
+
+          &.left {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+
+          &.right {
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
+
+          &.bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+          }
+
+          &.audience_level_7 {
+            width: 50%;
+            background-color: #FFF68F;
+          }
+          &.audience_level_8 {
+            width: 50%;
+            background-color: lightSkyBlue;
+          }
+          &.audience_level_9 {
+            width: 50%;
+            background-color: #54FF9F;
+          }
+
+          &.session_type_8, &.session_type_9, &.session_type_10 {
+            width: 50%;
+          }
+
+          &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
+            background-color: #555;
+            color: white;
+          }
+
+          &.track_guest_session, &.session_type_lightning_talk {
+            background-color: #FF8C69;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .session_details {
+    width: 910px;
+  }
+
+  ul.tabs {
     overflow: hidden;
-    margin: 0px;
+    margin: 10px 0px 0px 0px;
     padding: 0px;
-
     li {
       float: left;
       list-style: none;
-      margin-right: 10px;
 
-      img {
-        vertical-align:middle;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-bottom: 0px;
+      width: 180px;
+      margin: 0px 0px;
+      font-size: 0.7em;
+      text-align: center;
+      text-transform: uppercase;
+
+      &.audience_level_7 {
+        background-color: #FFF68F;
+      }
+      &.audience_level_8 {
+        background-color: lightSkyBlue;
+      }
+      &.audience_level_9 {
+        background-color: #54FF9F;
       }
 
-      span {
-        vertical-align:middle;
-        margin-left: 5px;
+      &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
+        background-color: #555;
+        color: white;
+      }
+
+      &.track_guest_session {
+        background-color: #FF8C69;
+        color: white;
+      }
+
+      &.session_type_keynote {
+        background-color: #4699d6;
+        color: white;
+      }
+
+      &.back {
+        background-color: transparent;
+        border: 0px;
+        text-transform: none;
       }
     }
   }
 
-  .bio {
-    background-color: #eee;
-    border: 1px dashed #ccc;
-    margin: 5px;
+  .session_description {
+    border: 1px solid #ccc;
+    margin: 0px;
+    padding: 10px;
 
-    .author {
-      min-height: 150px;
-      margin: 10px;
+    .timeframe {
+      float: right;
+      font-weight: bold;
+      color: #999;
+      margin-top: 10px;
+    }
 
-      h4 {
-        margin: 0px;
-      }
+    h3 {
+      margin: 10px 0px;
+    }
 
-      img {
+    ul.authors {
+      overflow: hidden;
+      margin: 0px;
+      padding: 0px;
+
+      li {
         float: left;
-        margin: 0px 10px 10px 0px;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
+        list-style: none;
+        margin-right: 10px;
+
+        img {
+          vertical-align:middle;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+        }
+
+        span {
+          vertical-align:middle;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .bio {
+      background-color: #eee;
+      border: 1px dashed #ccc;
+      margin: 5px;
+
+      .author {
+        min-height: 150px;
+        margin: 10px;
+
+        h4 {
+          margin: 0px;
+        }
+
+        img {
+          float: left;
+          margin: 0px 10px 10px 0px;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+        }
       }
     }
   }

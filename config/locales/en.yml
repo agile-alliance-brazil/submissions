@@ -299,7 +299,6 @@ en:
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
-    back_to_program: "Back to Program"
 
   text:
     lost_password:
@@ -399,6 +398,8 @@ en:
     innovation_entrepreneurship:
       title: "Innovation and Entrepreneurship"
       description: "This is the track for those who seek innovating and endeavoring, be it as a collaborator or as an entrepreneur. On this track, you will find sessions about Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping and many other subjects that relate agile methods to innovation processes."
+    guest_session:
+      title: "Special Guest"
 
   audience_levels:
     beginner:
@@ -488,6 +489,16 @@ en:
     reject:
       title: "Rejected"
 
+  all_hands:
+    opening:
+      title: "Opening"
+    closing:
+      title: "Closing"
+    lunch:
+      title: "Lunch"
+    coffee_break:
+      title: "Coffee Break"
+
   gender:
     male: "Male"
     female: "Female"
@@ -508,6 +519,11 @@ en:
     hide: "Hide"
     char_remaining: "remaining: "
     all: "All"
+    room: "Room"
+
+  time:
+    formats:
+      hour_minute: "%H:%M"
 
   will_paginate:
     previous_label: "&laquo; Previous"

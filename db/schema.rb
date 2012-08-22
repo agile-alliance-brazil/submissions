@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120415025628) do
+ActiveRecord::Schema.define(:version => 20120821041038) do
+
+  create_table "activities", :force => true do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer  "room_id"
+    t.integer  "detail_id"
+    t.string   "detail_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "all_hands", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
@@ -47,6 +63,22 @@ ActiveRecord::Schema.define(:version => 20120415025628) do
     t.string   "location_and_date"
     t.datetime "presubmissions_deadline"
     t.datetime "prereview_deadline"
+  end
+
+  create_table "guest_sessions", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.text     "summary"
+    t.integer  "conference_id"
+    t.boolean  "keynote",       :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "lightning_talk_groups", :force => true do |t|
+    t.string   "lightning_talk_ids"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "organizers", :force => true do |t|
@@ -123,6 +155,14 @@ ActiveRecord::Schema.define(:version => 20120415025628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
+  end
+
+  create_table "rooms", :force => true do |t|
+    t.string   "name"
+    t.integer  "capacity"
+    t.integer  "conference_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "session_types", :force => true do |t|
