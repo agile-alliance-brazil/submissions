@@ -163,7 +163,7 @@ FactoryGirl.define do
   end
 
   factory :lightning_talk_group do
-    lightning_talk_ids []
+    lightning_talk_info {}
   end
 
   factory :activity do

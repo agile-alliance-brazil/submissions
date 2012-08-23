@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(:version => 20120821041038) do
   end
 
   create_table "lightning_talk_groups", :force => true do |t|
-    t.string   "lightning_talk_ids"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.string   "lightning_talk_info"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "organizers", :force => true do |t|

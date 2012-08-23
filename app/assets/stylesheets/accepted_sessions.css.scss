@@ -5,10 +5,9 @@
 #accepted_sessions {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 18px;
+  line-height: 15px;
   color: #333;
   background-color: white;
-
 
   a, a:visited {
     text-decoration: none;
@@ -21,8 +20,9 @@
   }
 
   table {
-    width: 1030px;
+    width: 1050px;
     border-spacing: 5px;
+    border-collapse: separate;
 
     thead {
       th {
@@ -51,6 +51,7 @@
 
         .content {
           position: relative;
+          z-index: 10;
 
           .details {
             position: absolute;
@@ -59,6 +60,7 @@
 
             strong {
               padding: 3px;
+              font-weight: bold;
             }
           }
         }
@@ -146,9 +148,22 @@
   .hidden {
     display: none;
   }
+}
 
-  .session_details {
-    width: 910px;
+#fancybox-wrap {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 15px;
+  color: #333;
+
+  a, a:visited {
+    text-decoration: none;
+    color: #0088cc;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: #005580;
   }
 
   ul.tabs {

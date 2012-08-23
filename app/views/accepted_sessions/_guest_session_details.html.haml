@@ -1,0 +1,13 @@
+.session_details{:id => "guest_session_#{guest_session.id}"}
+  %ul.tabs
+    - if guest_session.keynote?
+      %li{:class => "session_type_keynote"} Keynote
+    - else
+      %li{:class => "track_guest_session"}= t('tracks.guest_session.title')
+  .session_description
+    .timeframe #{l(activity.start_at, :format => :short)} - #{l(activity.end_at, :format => :hour_minute)}
+    %h3= guest_session.title
+    %ul.authors
+      %li= guest_session.author
+
+    = textilize(guest_session.try(:summary))

@@ -9,21 +9,22 @@
     = stylesheet_link_tag :accepted_sessions
     = javascript_include_tag :accepted_sessions
 
-  %body#accepted_sessions
-    - @activities.group_by(&:date).each do |date, activities|
-      %h2= l(date, :format => :short)
-      %table
-        %thead
-          %tr
-            %td
-            - @rooms.each do |room|
-              %th{:style => "width: #{100.0 / @rooms.size}%"} #{t("generic.room")} #{room.name}
-        %tbody
-          - Slot.divide(activities.map(&:start_at).min, activities.map(&:end_at).max, 30.minutes).each do |slot|
+  %body
+    #accepted_sessions
+      - @activities.group_by(&:date).each do |date, activities|
+        %h2= l(date, :format => :short)
+        %table
+          %thead
             %tr
-              %th= l(slot.start, :format => :hour_minute)
+              %td
               - @rooms.each do |room|
-                - activities.select { |activity| activity.starts_in?(slot, room) }.each do |activity|
-                  %td{:rowspan => activity.slots_remaining(slot), :colspan => (activity.all_rooms? ? @rooms.size : 1), :class => activity.css_classes}
-                    - if activity.detail.present?
-                      .content= render activity.detail, :activity => activity
+                %th{:style => "width: #{100.0 / @rooms.size}%"} #{t("generic.room")} #{room.name}
+          %tbody
+            - Slot.divide(activities.map(&:start_at).min, activities.map(&:end_at).max, 30.minutes).each do |slot|
+              %tr
+                %th= l(slot.start, :format => :hour_minute)
+                - @rooms.each do |room|
+                  - activities.select { |activity| activity.starts_in?(slot, room) }.each do |activity|
+                    %td{:rowspan => activity.slots_remaining(slot), :colspan => (activity.all_rooms? ? @rooms.size : 1), :class => activity.css_classes}
+                      - if activity.detail.present?
+                        .content= render activity.detail, :activity => activity

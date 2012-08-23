@@ -14,25 +14,4 @@
 .tab.bottom{:class => "track_#{session.track.id}"}= t(session.track.title)
 
 .hidden
-  .session_details{:id => "session_#{session.id}"}
-    %ul.tabs
-      %li{:class => "track_#{session.track.id}"}= t(session.track.title)
-      %li{:class => "session_type_#{session.session_type.id}"}= t(session.session_type.title)
-      %li{:class => "audience_level_#{session.audience_level.id}"}= t(session.audience_level.title)
-      - if session.audience_limit.present?
-        %li= t('session.audience_limit', :limit => session.audience_limit)
-    .session_description
-      .timeframe #{l(activity.start_at, :format => :short)} - #{l(activity.end_at, :format => :hour_minute)}
-      %h3 #{session.title}
-      %ul.authors
-        - session.authors.each do |author|
-          %li
-            = link_to_function (image_tag(gravatar_url(author, :size => :mini)) + content_tag(:span, h(author.full_name))), "$('#bio_#{session.id}').toggle('fast')"
-      .bio{:id => "bio_#{session.id}"}
-        - session.authors.each do |author|
-          .author
-            = image_tag(gravatar_url(author, :size => :bigger))
-            %h3= author.full_name
-            = textilize(author.try(:bio))
-
-      = textilize(session.try(:summary))
+  = render :partial => "session_details", :locals => {:session => session, :activity => activity}

@@ -139,3 +139,32 @@ Tempos fugit, como diziam os romanos, ou se você quiser, numa versão mais mode
   guest_session.conference_id = 3
   guest_session.keynote = false
 end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 10
+  guest_session.title = "Scrum and Entrepreneurism"
+  guest_session.author = "Laszlo Szalvay"
+  guest_session.summary = "Four years since the Lehman Brothers demise and our global economy remains in the depths of despair. Large Multinational Corporations have received controversial bailouts and the burden of economic growth has shifted to be firmly on the shoulders of the Entrepreneur and her spirit. That responsibility is something that Entrepreneur Laszlo Szalvay, founder of Danube authors of ScrumWorks, has been contemplating since founding Danube in 2000. Starting with a simple outsourcing services organization and then maturing into the largest Scrum consultancy in the world (over 16,500 Certified ScrumMasters trained) Laszlo leveraged a number of Scrum based organizational tactics to help manage, measure, and grow Danube. In 2010, CollabNet authors of the leading industry Application Lifecycle Management platform TeamForge acquired Danube. In this seminar – Laszlo will be walking through his thought processes around how to set up your business to thrive in today’s turbulent market while underscoring what Business Agility really means."
+  guest_session.conference_id = 3
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 11
+  guest_session.title = "Product Owner, Inovação e Feedback"
+  guest_session.author = "Rafael Sabbagh"
+  guest_session.summary = "A inovação é um ingrediente essencial no trabalho do Product Owner para diversos tipos de produtos. No entanto, somente um feedback real sobre o incremento de produto desenvolvido - ou seja, pelos clientes ou usuários do produto - pode mostrar ao Product Owner que ele está no caminho certo e aumentar as chances de sucesso do projeto. Esse feedback pode ser obtido a partir da revisão desse incremento (participação nas reuniões de Review, por exemplo) e, melhor ainda, do uso desse incremento.
+
+Quais os limites da inovação do produto no trabalho do Product Owner? Até que ponto e com que frequência os Product Owners têm conseguido feedback real sobre o produto em desenvolvimento? Que fatores podem aumentar a qualidade e frequência desse feedback?"
+  guest_session.conference_id = 3
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 12
+    guest_session.title = "Coding Dojo"
+    guest_session.author = "Mariana Bravo"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
