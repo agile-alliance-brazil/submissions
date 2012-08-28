@@ -84,7 +84,7 @@
           background-color: #4699d6;
           color: #fff;
           text-transform: uppercase;
-          font-size: 1em;
+          font-size: 13px;
 
           a, a:visited, a:hover {
             color: white;
@@ -92,12 +92,12 @@
         }
 
         &.session, &.guest_session, &.lightning_talk_group {
-          font-size: 0.8em;
+          font-size: 10px;
         }
 
         .tab {
           background-color: #eee;
-          font-size: 0.9em;
+          font-size: 11px;
           height: 15px;
           line-height: 15px;
           text-transform: uppercase;
@@ -186,7 +186,7 @@
       border-bottom: 0px;
       width: 180px;
       margin: 0px 0px;
-      font-size: 0.7em;
+      font-size: 10px;
       text-align: center;
       text-transform: uppercase;
 
