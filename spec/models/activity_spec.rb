@@ -19,18 +19,11 @@ describe Activity do
 
   describe "#starts_in?" do
     let(:activity) { FactoryGirl.build(:activity, :start_at => Time.parse("08:00"))}
-    let(:room) { activity.room }
-    subject { activity.starts_in?(slot, room) }
+    subject { activity.starts_in?(slot) }
 
-    context "starting along with slot, on same room" do
+    context "starting along with slot" do
       let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
       it { should be_true }
-    end
-
-    context "starting along with slot, on a different room" do
-      let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
-      let(:room) { FactoryGirl.build(:room) }
-      it { should be_false }
     end
 
     context "starting prior to slot" do
@@ -40,6 +33,21 @@ describe Activity do
 
     context "starting after slot" do
       let(:slot) { Slot.from(Time.parse("07:30"), 30.minutes) }
+      it { should be_false }
+    end
+  end
+
+  describe "#in_room?" do
+    let(:activity) { FactoryGirl.build(:activity)}
+    subject { activity.in_room?(room) }
+
+    context "on same room" do
+      let(:room) { activity.room }
+      it { should be_true }
+    end
+
+    context "on a different room" do
+      let(:room) { FactoryGirl.build(:room) }
       it { should be_false }
     end
   end
@@ -75,6 +83,7 @@ describe Activity do
     it { should_not be_all_rooms }
     it { should_not be_keynote }
     it { should_not be_all_hands }
+    it { should_not be_wbma }
     its(:css_classes) { should == ["activity", "session"] }
   end
 
@@ -84,6 +93,7 @@ describe Activity do
     it { should_not be_all_rooms }
     it { should_not be_keynote }
     it { should_not be_all_hands }
+    it { should_not be_wbma }
     its(:css_classes) { should == ["activity", "guest_session"] }
   end
 
@@ -93,6 +103,7 @@ describe Activity do
     it { should be_all_rooms }
     it { should be_keynote }
     it { should_not be_all_hands }
+    it { should_not be_wbma }
     its(:css_classes) { should == ["activity", "keynote"] }
   end
 
@@ -102,6 +113,17 @@ describe Activity do
     it { should be_all_rooms }
     it { should_not be_keynote }
     it { should be_all_hands }
+    it { should_not be_wbma }
     its(:css_classes) { should == ["activity", "all_hands"] }
+  end
+
+  describe "wbma session" do
+    subject { FactoryGirl.build(:activity, :room => Room.find(6), :detail => FactoryGirl.build(:guest_session)) }
+
+    it { should be_all_rooms }
+    it { should be_keynote }
+    it { should_not be_all_hands }
+    it { should be_wbma }
+    its(:css_classes) { should == ["activity", "keynote"] }
   end
 end

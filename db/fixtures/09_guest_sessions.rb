@@ -168,3 +168,102 @@ GuestSession.seed do |guest_session|
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 13
+    guest_session.title = "Abertura"
+    guest_session.author = "Fabio Kon (IME-USP), Teresa Maciel (UFRPE)"
+    guest_session.summary = "Abertura: Fabio Kon (IME-USP) e Teresa Maciel (UFPRPE)"
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 14
+    guest_session.title = "Keynote: Mind the Gap: on crossing the gap between academia and industry"
+    guest_session.author = "Angela Martin"
+    guest_session.summary = "Agile software development is a fascinating space to be working in today, whether you are in industry or academia. But. We do need to \"Mind the Gap\" between industry and academia. We work in the same space, but we are not the same. We are different. This talk explores some of the gaps between academia and industry, and how we can work together (and separately) to push the world of agile software development forward."
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 15
+    guest_session.title = "User eXperience e desenvolvimento Ágil: lições aprendidas"
+    guest_session.author = "Tiago S. Da Silva, Milene Silveira"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 16
+    guest_session.title = "Studying agile organizational design to sustain innovation"
+    guest_session.author = "Celina Takemura, Claudia Melo"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 17
+    guest_session.title = "Uma Análise de Dívida Técnica em uma Empresa de Tecnologia com Desenvolvimento baseado em Scrum"
+    guest_session.author = "Graziela Simone Tonin, Rogerio Chaves, Alfredo Goldman, Viviane Santos"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 18
+    guest_session.title = "Pesquisa Experimental e Programação em Par: ameaças à validade de um experimento envolvendo uma prática ágil"
+    guest_session.author = "Vagner Carlos Marcolino Lima, Adolfo G. S. Seca Neto, Maria Claudia F. P. Emer"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 19
+    guest_session.title = "Desafios de Requisitos em Métodos Ágeis: Uma Revisão Sistemática"
+    guest_session.author = "Aline Jaqueira, Elisa Andreotti, Marcia Lucena, Eduardo Aranha"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 20
+    guest_session.title = "Incremental Tests: An Approach to Improve Software Tests in Agile Teams"
+    guest_session.author = "Gabriela Patuci, Regina Moraes"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 21
+    guest_session.title = "Estudo sobre dependências e suas consequências no cenário Scrum and Scrum (SandS)"
+    guest_session.author = "Diego Souza, Rodrigo Toledo, Jonice Oliveira"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 22
+    guest_session.title = "Proposta de um plano de métricas para o monitoramento de projetos Scrum"
+    guest_session.author = "Eduardo Spies, Duncan Dubugras. A. Ruiz"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 23
+    guest_session.title = "Discussion around results, agile methods research in Brazil and collaboration. Best paper announcement."
+    guest_session.author = "Fabio Kon (IME-USP), Teresa Maciel (UFRPE)"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end

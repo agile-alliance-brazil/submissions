@@ -16,10 +16,5 @@ describe AcceptedSessionsController do
       get :index
       assigns(:activities).should == Activity.all
     end
-
-    it "should fetch all rooms for current conference" do
-      get :index
-      assigns(:rooms).should == Room.for_conference(Conference.current)
-    end
   end
 end

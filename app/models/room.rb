@@ -4,6 +4,4 @@ class Room < ActiveRecord::Base
 
   belongs_to :conference
   has_many :activities
-
-  scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
 end

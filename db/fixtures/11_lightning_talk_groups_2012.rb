@@ -40,7 +40,7 @@ end
 LightningTalkGroup.seed do |lightning_talk_group|
   lightning_talk_group.id = 3
   lightning_talk_group.lightning_talk_info = [{
-    :id => 477,
+    :id => 357,
     :type => "Session",
     :order => 1
   },{
@@ -70,8 +70,8 @@ LightningTalkGroup.seed do |lightning_talk_group|
     :type => "Session",
     :order => 1
   },{
-    :id => 382,
-    :type => "Session",
+    :id => 11,
+    :type => "GuestSession",
     :order => 2
   }]
 end
@@ -96,7 +96,7 @@ LightningTalkGroup.seed do |lightning_talk_group|
     :type => "Session",
     :order => 1
   },{
-    :id => 357,
+    :id => 552,
     :type => "Session",
     :order => 2
   },{
@@ -107,10 +107,6 @@ LightningTalkGroup.seed do |lightning_talk_group|
     :id => 398,
     :type => "Session",
     :order => 4
-  },{
-    :id => 11,
-    :type => "GuestSession",
-    :order => 5
   }]
 end
 
@@ -142,7 +138,7 @@ LightningTalkGroup.seed do |lightning_talk_group|
     :type => "Session",
     :order => 1
   },{
-    :id => 552,
+    :id => 477,
     :type => "Session",
     :order => 2
   },{

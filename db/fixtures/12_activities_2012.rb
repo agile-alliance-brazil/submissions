@@ -43,7 +43,7 @@ Activity.seed do |activity|
   activity.room_id = 2
   activity.start_at = "2012-09-05 11:00:00"
   activity.end_at = "2012-09-05 12:00:00"
-  activity.detail_id = 593
+  activity.detail_id = 406
   activity.detail_type = 'Session'
 end
 
@@ -79,7 +79,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-05 12:00:00"
   activity.end_at = "2012-09-05 13:00:00"
-  activity.detail_id = 607
+  activity.detail_id = 516
   activity.detail_type = 'Session'
 end
 
@@ -151,7 +151,7 @@ Activity.seed do |activity|
   activity.room_id = 5
   activity.start_at = "2012-09-05 14:30:00"
   activity.end_at = "2012-09-05 16:30:00"
-  activity.detail_id = 405
+  activity.detail_id = 394
   activity.detail_type = 'Session'
 end
 
@@ -169,7 +169,7 @@ Activity.seed do |activity|
   activity.room_id = 2
   activity.start_at = "2012-09-05 15:30:00"
   activity.end_at = "2012-09-05 16:30:00"
-  activity.detail_id = 406
+  activity.detail_id = 454
   activity.detail_type = 'Session'
 end
 
@@ -178,8 +178,8 @@ Activity.seed do |activity|
   activity.room_id = 3
   activity.start_at = "2012-09-05 15:30:00"
   activity.end_at = "2012-09-05 16:30:00"
-  activity.detail_id = 12
-  activity.detail_type = 'GuestSession'
+  activity.detail_id = 602
+  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
@@ -187,7 +187,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-05 15:30:00"
   activity.end_at = "2012-09-05 16:30:00"
-  activity.detail_id = 602
+    activity.detail_id = 392
   activity.detail_type = 'Session'
 end
 
@@ -205,7 +205,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-05 17:00:00"
   activity.end_at = "2012-09-05 18:00:00"
-  activity.detail_id = 516
+  activity.detail_id = 590
   activity.detail_type = 'Session'
 end
 
@@ -223,7 +223,7 @@ Activity.seed do |activity|
   activity.room_id = 3
   activity.start_at = "2012-09-05 17:00:00"
   activity.end_at = "2012-09-05 18:00:00"
-  activity.detail_id = 495
+  activity.detail_id = 363
   activity.detail_type = 'Session'
 end
 
@@ -232,7 +232,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-05 17:00:00"
   activity.end_at = "2012-09-05 18:00:00"
-  activity.detail_id = 545
+  activity.detail_id = 498
   activity.detail_type = 'Session'
 end
 
@@ -342,7 +342,7 @@ Activity.seed do |activity|
   activity.room_id = 5
   activity.start_at = "2012-09-06 10:30:00"
   activity.end_at = "2012-09-06 12:30:00"
-  activity.detail_id = 573
+  activity.detail_id = 476
   activity.detail_type = 'Session'
 end
 
@@ -495,7 +495,7 @@ Activity.seed do |activity|
   activity.room_id = 2
   activity.start_at = "2012-09-06 15:30:00"
   activity.end_at = "2012-09-06 16:30:00"
-  activity.detail_id = 380
+  activity.detail_id = 612
   activity.detail_type = 'Session'
 end
 
@@ -531,7 +531,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-06 17:00:00"
   activity.end_at = "2012-09-06 18:00:00"
-  activity.detail_id = 454
+  activity.detail_id = 593
   activity.detail_type = 'Session'
 end
 
@@ -567,7 +567,7 @@ Activity.seed do |activity|
   activity.room_id = 5
   activity.start_at = "2012-09-06 17:00:00"
   activity.end_at = "2012-09-06 19:00:00"
-  activity.detail_id = 476
+  activity.detail_id = 405
   activity.detail_type = 'Session'
 end
 
@@ -603,7 +603,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-06 18:00:00"
   activity.end_at = "2012-09-06 19:00:00"
-  activity.detail_id = 392
+  activity.detail_id = 522
   activity.detail_type = 'Session'
 end
 
@@ -632,7 +632,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-07 10:30:00"
   activity.end_at = "2012-09-07 11:30:00"
-  activity.detail_id = 590
+  activity.detail_id = 359
   activity.detail_type = 'Session'
 end
 
@@ -659,7 +659,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-07 10:30:00"
   activity.end_at = "2012-09-07 11:30:00"
-  activity.detail_id = 363
+  activity.detail_id = 495
   activity.detail_type = 'Session'
 end
 
@@ -677,7 +677,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-07 11:30:00"
   activity.end_at = "2012-09-07 12:30:00"
-  activity.detail_id = 359
+  activity.detail_id = 595
   activity.detail_type = 'Session'
 end
 
@@ -686,7 +686,7 @@ Activity.seed do |activity|
   activity.room_id = 2
   activity.start_at = "2012-09-07 11:30:00"
   activity.end_at = "2012-09-07 12:30:00"
-  activity.detail_id = 612
+  activity.detail_id = 418
   activity.detail_type = 'Session'
 end
 
@@ -722,7 +722,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-07 14:00:00"
   activity.end_at = "2012-09-07 15:00:00"
-  activity.detail_id = 595
+  activity.detail_id = 607
   activity.detail_type = 'Session'
 end
 
@@ -740,7 +740,7 @@ Activity.seed do |activity|
   activity.room_id = 3
   activity.start_at = "2012-09-07 14:00:00"
   activity.end_at = "2012-09-07 15:00:00"
-  activity.detail_id = 407
+  activity.detail_id = 551
   activity.detail_type = 'Session'
 end
 
@@ -749,7 +749,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-07 14:00:00"
   activity.end_at = "2012-09-07 15:00:00"
-  activity.detail_id = 498
+  activity.detail_id = 545
   activity.detail_type = 'Session'
 end
 
@@ -785,7 +785,7 @@ Activity.seed do |activity|
   activity.room_id = 3
   activity.start_at = "2012-09-07 15:00:00"
   activity.end_at = "2012-09-07 16:00:00"
-  activity.detail_id = 551
+  activity.detail_id = 413
   activity.detail_type = 'Session'
 end
 
@@ -794,7 +794,7 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-07 15:00:00"
   activity.end_at = "2012-09-07 16:00:00"
-  activity.detail_id = 522
+  activity.detail_id = 407
   activity.detail_type = 'Session'
 end
 
@@ -857,7 +857,7 @@ Activity.seed do |activity|
   activity.room_id = 5
   activity.start_at = "2012-09-07 16:30:00"
   activity.end_at = "2012-09-07 18:30:00"
-  activity.detail_id = 394
+  activity.detail_id = 573
   activity.detail_type = 'Session'
 end
 
@@ -866,7 +866,7 @@ Activity.seed do |activity|
   activity.room_id = 1
   activity.start_at = "2012-09-07 17:30:00"
   activity.end_at = "2012-09-07 18:30:00"
-  activity.detail_id = 418
+  activity.detail_id = nil # TODO: BLANK
   activity.detail_type = 'Session'
 end
 
@@ -875,8 +875,8 @@ Activity.seed do |activity|
   activity.room_id = 2
   activity.start_at = "2012-09-07 17:30:00"
   activity.end_at = "2012-09-07 18:30:00"
-  activity.detail_id = 13 # TODO: BLANK
-  activity.detail_type = 'GuestSession'
+  activity.detail_id = nil # TODO: BLANK
+  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
@@ -893,8 +893,8 @@ Activity.seed do |activity|
   activity.room_id = 4
   activity.start_at = "2012-09-07 17:30:00"
   activity.end_at = "2012-09-07 18:30:00"
-  activity.detail_id = 413
-  activity.detail_type = 'Session'
+  activity.detail_id = 12
+  activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
@@ -904,4 +904,123 @@ Activity.seed do |activity|
   activity.end_at = "2012-09-07 19:00:00"
   activity.detail_id = 2
   activity.detail_type = 'AllHands'
+end
+
+### WBMA
+
+Activity.seed do |activity|
+  activity.id = 101
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 10:30:00"
+  activity.end_at = "2012-09-06 11:00:00"
+  activity.detail_id = nil
+  activity.detail_type = 'Session'
+end
+
+Activity.seed do |activity|
+  activity.id = 102
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 11:00:00"
+  activity.end_at = "2012-09-06 11:10:00"
+  activity.detail_id = 13
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 103
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 11:10:00"
+  activity.end_at = "2012-09-06 12:00:00"
+  activity.detail_id = 14
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 104
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 12:00:00"
+  activity.end_at = "2012-09-06 12:30:00"
+  activity.detail_id = 15
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 105
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 12:30:00"
+  activity.end_at = "2012-09-06 13:00:00"
+  activity.detail_id = 16
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 106
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 14:30:00"
+  activity.end_at = "2012-09-06 15:00:00"
+  activity.detail_id = 17
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 107
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 15:00:00"
+  activity.end_at = "2012-09-06 15:30:00"
+  activity.detail_id = 18
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 108
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 15:30:00"
+  activity.end_at = "2012-09-06 16:00:00"
+  activity.detail_id = 19
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 109
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 16:00:00"
+  activity.end_at = "2012-09-06 16:30:00"
+  activity.detail_id = 20
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 110
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 16:30:00"
+  activity.end_at = "2012-09-06 17:00:00"
+  activity.detail_id = 21
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 111
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 17:00:00"
+  activity.end_at = "2012-09-06 17:30:00"
+  activity.detail_id = 22
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 112
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 17:30:00"
+  activity.end_at = "2012-09-06 18:00:00"
+  activity.detail_id = 23
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 113
+  activity.room_id = 6
+  activity.start_at = "2012-09-06 18:00:00"
+  activity.end_at = "2012-09-06 19:00:00"
+  activity.detail_id = nil
+  activity.detail_type = 'Session'
 end

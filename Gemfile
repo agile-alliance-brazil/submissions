@@ -45,7 +45,7 @@ end
 group :development do
   gem 'capistrano-ext', '=1.2.1'
   gem 'travis-lint', '=1.4.0'
-  gem 'foreman', '=0.55.0'
+  gem 'foreman', '=0.57.0'
 end
 
 group :development, :test do

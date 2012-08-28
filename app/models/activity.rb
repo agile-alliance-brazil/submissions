@@ -5,12 +5,25 @@ class Activity < ActiveRecord::Base
   belongs_to :room
   belongs_to :detail, :polymorphic => true
 
+  scope :for_conference, lambda { |c|
+    year = Date.strptime(c.year.to_s, '%Y')
+    where(:start_at => (year.beginning_of_year...year.end_of_year))
+  }
+
   def date
     start_at.to_date
   end
 
-  def starts_in?(slot, room)
-    slot.start == start_at && room == self.room
+  def starts_in?(slot)
+    slot.start == start_at
+  end
+
+  def in_room?(room)
+    room == self.room
+  end
+
+  def wbma?
+    room.id == 6
   end
 
   def slots_remaining(slot)

@@ -4,8 +4,7 @@ class AcceptedSessionsController < InheritedResources::Base
   append_view_path ActivitiesResolver.new
 
   def index
-    @activities = Activity.all
-    @rooms = Room.for_conference(@conference)
+    @activities = Activity.for_conference(@conference)
     render :layout => false
   end
 end

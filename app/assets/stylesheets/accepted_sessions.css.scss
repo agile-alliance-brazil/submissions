@@ -8,6 +8,7 @@
   line-height: 15px;
   color: #333;
   background-color: white;
+  margin-left: -200px;
 
   a, a:visited {
     text-decoration: none;
@@ -20,7 +21,7 @@
   }
 
   table {
-    width: 1050px;
+    width: 1350px;
     border-spacing: 5px;
     border-collapse: separate;
 
@@ -32,11 +33,12 @@
 
     tbody {
       tr {
-        height: 60px;
+        height: 30px;
       }
 
       th {
         color: #999;
+        vertical-align: top;
       }
 
       tr {
@@ -61,6 +63,10 @@
             strong {
               padding: 3px;
               font-weight: bold;
+            }
+
+            span {
+              padding: 3px;
             }
           }
         }

@@ -33,3 +33,10 @@ Room.seed do |room|
   room.capacity = 90
   room.conference_id = 3
 end
+
+Room.seed do |room|
+  room.id = 6
+  room.name = 'WBMA'
+  room.capacity = 80
+  room.conference_id = 3
+end
