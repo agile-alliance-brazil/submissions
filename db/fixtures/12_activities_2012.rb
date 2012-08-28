@@ -911,116 +911,107 @@ end
 Activity.seed do |activity|
   activity.id = 101
   activity.room_id = 6
-  activity.start_at = "2012-09-06 10:30:00"
-  activity.end_at = "2012-09-06 11:00:00"
-  activity.detail_id = nil
-  activity.detail_type = 'Session'
+  activity.start_at = "2012-09-05 11:00:00"
+  activity.end_at = "2012-09-05 11:10:00"
+  activity.detail_id = 13
+  activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 102
   activity.room_id = 6
-  activity.start_at = "2012-09-06 11:00:00"
-  activity.end_at = "2012-09-06 11:10:00"
-  activity.detail_id = 13
+  activity.start_at = "2012-09-05 11:10:00"
+  activity.end_at = "2012-09-05 12:00:00"
+  activity.detail_id = 14
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 103
   activity.room_id = 6
-  activity.start_at = "2012-09-06 11:10:00"
-  activity.end_at = "2012-09-06 12:00:00"
-  activity.detail_id = 14
+  activity.start_at = "2012-09-05 12:00:00"
+  activity.end_at = "2012-09-05 12:30:00"
+  activity.detail_id = 15
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 104
   activity.room_id = 6
-  activity.start_at = "2012-09-06 12:00:00"
-  activity.end_at = "2012-09-06 12:30:00"
-  activity.detail_id = 15
+  activity.start_at = "2012-09-05 12:30:00"
+  activity.end_at = "2012-09-05 13:00:00"
+  activity.detail_id = 16
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 105
   activity.room_id = 6
-  activity.start_at = "2012-09-06 12:30:00"
-  activity.end_at = "2012-09-06 13:00:00"
-  activity.detail_id = 16
+  activity.start_at = "2012-09-05 14:30:00"
+  activity.end_at = "2012-09-05 15:00:00"
+  activity.detail_id = 17
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 106
   activity.room_id = 6
-  activity.start_at = "2012-09-06 14:30:00"
-  activity.end_at = "2012-09-06 15:00:00"
-  activity.detail_id = 17
+  activity.start_at = "2012-09-05 15:00:00"
+  activity.end_at = "2012-09-05 15:30:00"
+  activity.detail_id = 18
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 107
   activity.room_id = 6
-  activity.start_at = "2012-09-06 15:00:00"
-  activity.end_at = "2012-09-06 15:30:00"
-  activity.detail_id = 18
+  activity.start_at = "2012-09-05 15:30:00"
+  activity.end_at = "2012-09-05 16:00:00"
+  activity.detail_id = 19
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 108
   activity.room_id = 6
-  activity.start_at = "2012-09-06 15:30:00"
-  activity.end_at = "2012-09-06 16:00:00"
-  activity.detail_id = 19
+  activity.start_at = "2012-09-05 16:00:00"
+  activity.end_at = "2012-09-05 16:30:00"
+  activity.detail_id = 20
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 109
   activity.room_id = 6
-  activity.start_at = "2012-09-06 16:00:00"
-  activity.end_at = "2012-09-06 16:30:00"
-  activity.detail_id = 20
+  activity.start_at = "2012-09-05 16:30:00"
+  activity.end_at = "2012-09-05 17:00:00"
+  activity.detail_id = 21
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 110
   activity.room_id = 6
-  activity.start_at = "2012-09-06 16:30:00"
-  activity.end_at = "2012-09-06 17:00:00"
-  activity.detail_id = 21
+  activity.start_at = "2012-09-05 17:00:00"
+  activity.end_at = "2012-09-05 17:30:00"
+  activity.detail_id = 22
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 111
   activity.room_id = 6
-  activity.start_at = "2012-09-06 17:00:00"
-  activity.end_at = "2012-09-06 17:30:00"
-  activity.detail_id = 22
+  activity.start_at = "2012-09-05 17:30:00"
+  activity.end_at = "2012-09-05 18:00:00"
+  activity.detail_id = 23
   activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
   activity.id = 112
   activity.room_id = 6
-  activity.start_at = "2012-09-06 17:30:00"
-  activity.end_at = "2012-09-06 18:00:00"
-  activity.detail_id = 23
-  activity.detail_type = 'GuestSession'
-end
-
-Activity.seed do |activity|
-  activity.id = 113
-  activity.room_id = 6
-  activity.start_at = "2012-09-06 18:00:00"
-  activity.end_at = "2012-09-06 19:00:00"
+  activity.start_at = "2012-09-05 18:00:00"
+  activity.end_at = "2012-09-05 19:00:00"
   activity.detail_id = nil
   activity.detail_type = 'Session'
 end
