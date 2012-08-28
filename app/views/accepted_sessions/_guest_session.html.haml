@@ -3,7 +3,8 @@
     #{guest_session.keynote? ? "Keynote:" : ""}
     = link_to guest_session.title, "#guest_session_#{guest_session.id}", :class => "fancybox"
   %br
-  %span= guest_session.author
+  - unless activity.wbma?
+    %span= guest_session.author
 - unless guest_session.keynote? || activity.wbma?
   .tab.bottom{:class => "track_guest_session"}= t('tracks.guest_session.title')
 
