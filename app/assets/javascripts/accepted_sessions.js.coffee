@@ -12,7 +12,7 @@ class AcceptedSessions
       # Aligning .details in the middle (vertically)
       innerHeight = $(this).children('.details').height()
       $(this).children('.details').css("margin-top", -(innerHeight / 2) + 'px')
-    $("#accepted_sessions table td.keynote}").each ->
+    $("#accepted_sessions table td.keynote").each ->
       $(this).closest("tr").height($(this).height() * 3)
     $('#accepted_sessions .fancybox').fancybox()
 
