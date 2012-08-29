@@ -6,7 +6,7 @@ Activity.seed do |activity|
   activity.id = 1
   activity.room_id = 1
   activity.start_at = "2012-09-05 09:00:00"
-  activity.end_at = "2012-09-05 09:30:00"
+  activity.end_at = "2012-09-05 09:10:00"
   activity.detail_id = 1
   activity.detail_type = 'AllHands'
 end
@@ -14,7 +14,7 @@ end
 Activity.seed do |activity|
   activity.id = 2
   activity.room_id = 1
-  activity.start_at = "2012-09-05 09:30:00"
+  activity.start_at = "2012-09-05 09:10:00"
   activity.end_at = "2012-09-05 10:30:00"
   activity.detail_id = 1
   activity.detail_type = 'GuestSession'
@@ -1070,4 +1070,33 @@ Activity.seed do |activity|
   activity.end_at = "2012-09-06 19:00:00"
   activity.detail_id = nil
   activity.detail_type = 'Session'
+end
+
+### Registration
+
+Activity.seed do |activity|
+  activity.id = 129
+  activity.room_id = 1
+  activity.start_at = "2012-09-05 08:00:00"
+  activity.end_at = "2012-09-05 09:00:00"
+  activity.detail_id = 5
+  activity.detail_type = 'AllHands'
+end
+
+Activity.seed do |activity|
+  activity.id = 130
+  activity.room_id = 1
+  activity.start_at = "2012-09-06 08:00:00"
+  activity.end_at = "2012-09-06 09:00:00"
+  activity.detail_id = 5
+  activity.detail_type = 'AllHands'
+end
+
+Activity.seed do |activity|
+  activity.id = 131
+  activity.room_id = 1
+  activity.start_at = "2012-09-07 08:00:00"
+  activity.end_at = "2012-09-07 09:00:00"
+  activity.detail_id = 5
+  activity.detail_type = 'AllHands'
 end

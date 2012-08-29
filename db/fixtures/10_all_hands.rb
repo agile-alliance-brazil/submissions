@@ -18,3 +18,8 @@ AllHands.seed do |all_hands|
   all_hands.id = 4
   all_hands.title = 'all_hands.coffee_break.title'
 end
+
+AllHands.seed do |all_hands|
+  all_hands.id = 5
+  all_hands.title = 'all_hands.registration.title'
+end

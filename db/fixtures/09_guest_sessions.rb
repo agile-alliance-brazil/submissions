@@ -233,6 +233,15 @@ GuestSession.seed do |guest_session|
 end
 
 GuestSession.seed do |guest_session|
+    guest_session.id = 19
+    guest_session.title = "Estudo sobre dependências e suas consequências no cenário Scrum and Scrum (SandS)"
+    guest_session.author = "Diego Souza, Rodrigo Toledo, Jonice Oliveira"
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
     guest_session.id = 20
     guest_session.title = "Incremental Tests: An Approach to Improve Software Tests in Agile Teams"
     guest_session.author = "Gabriela Patuci, Regina Moraes"
@@ -243,8 +252,8 @@ end
 
 GuestSession.seed do |guest_session|
     guest_session.id = 21
-    guest_session.title = "Estudo sobre dependências e suas consequências no cenário Scrum and Scrum (SandS)"
-    guest_session.author = "Diego Souza, Rodrigo Toledo, Jonice Oliveira"
+    guest_session.title = "Desafios de Requisitos em Métodos Ágeis: Uma Revisão Sistemática"
+    guest_session.author = "Aline Jaqueira, Elisa Andreotti, Marcia Lucena, Eduardo Aranha"
     guest_session.summary = ""
     guest_session.conference_id = 3
     guest_session.keynote = false

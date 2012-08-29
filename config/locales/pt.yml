@@ -497,6 +497,8 @@ pt:
       title: "Almoço"
     coffee_break:
       title: "Coffee Break"
+    registration:
+      title: "Inscrição e Credenciamento"
 
   gender:
     male: "Masculino"

@@ -498,6 +498,8 @@ en:
       title: "Lunch"
     coffee_break:
       title: "Coffee Break"
+    registration:
+      title: "Registration"
 
   gender:
     male: "Male"
