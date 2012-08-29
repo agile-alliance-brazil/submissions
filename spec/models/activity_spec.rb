@@ -84,6 +84,7 @@ describe Activity do
     it { should_not be_keynote }
     it { should_not be_all_hands }
     it { should_not be_wbma }
+    it { should_not be_executive_summit }
     its(:css_classes) { should == ["activity", "session"] }
   end
 
@@ -94,6 +95,7 @@ describe Activity do
     it { should_not be_keynote }
     it { should_not be_all_hands }
     it { should_not be_wbma }
+    it { should_not be_executive_summit }
     its(:css_classes) { should == ["activity", "guest_session"] }
   end
 
@@ -104,6 +106,7 @@ describe Activity do
     it { should be_keynote }
     it { should_not be_all_hands }
     it { should_not be_wbma }
+    it { should_not be_executive_summit }
     its(:css_classes) { should == ["activity", "keynote"] }
   end
 
@@ -114,6 +117,7 @@ describe Activity do
     it { should_not be_keynote }
     it { should be_all_hands }
     it { should_not be_wbma }
+    it { should_not be_executive_summit }
     its(:css_classes) { should == ["activity", "all_hands"] }
   end
 
@@ -124,6 +128,18 @@ describe Activity do
     it { should be_keynote }
     it { should_not be_all_hands }
     it { should be_wbma }
+    it { should_not be_executive_summit }
+    its(:css_classes) { should == ["activity", "keynote"] }
+  end
+
+  describe "executive summit session" do
+    subject { FactoryGirl.build(:activity, :room => Room.find(7), :detail => FactoryGirl.build(:guest_session)) }
+
+    it { should be_all_rooms }
+    it { should be_keynote }
+    it { should_not be_all_hands }
+    it { should_not be_wbma }
+    it { should be_executive_summit }
     its(:css_classes) { should == ["activity", "keynote"] }
   end
 end

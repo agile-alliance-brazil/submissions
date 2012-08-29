@@ -267,3 +267,62 @@ GuestSession.seed do |guest_session|
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
+
+# Executive Summit
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 24
+    guest_session.title = "Adaptive Leadership, Strategy and Value Creation: the agile transformation story from Gap"
+    guest_session.author = "Pat Reed"
+    guest_session.summary = "\"Pat Reed\":http://www.linkedin.com/pub/pat-reed/1/b22/6b7 - Sr. Director da Gap Inc."
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 25
+    guest_session.title = "Round Table 1: Entregando projetos através de Agile"
+    guest_session.author = "Eduardo Fayh, Fernando de la Riva, Antonio Valença, Aminadab Nunes, Ricardo Jucá"
+    guest_session.summary = "Executivos de importantes consultorias de TI discutem sobre suas iniciativas e resultados com Agile.
+
+* \"Eduardo Fayh\":http://br.linkedin.com/in/eduardofayh, Office Lead na ThoughtWorks
+* \"Fernando de la Riva\":http://br.linkedin.com/in/fernandoasdelariva, CEO da Concrete Solutions
+* \"Antonio Valença\":http://br.linkedin.com/pub/antonio-valenca/0/676/b9b, CEO da Pitang
+* \"Aminadab Nunes\":http://br.linkedin.com/in/aminadabnunes, Global Head of Delivery da Ci&T
+* \"Ricardo Jucá\":https://www.serpro.gov.br/conteudo-oserpro/estrutura/organograma/superintendencia-de-desenvolvimento-supde/, Superintendente de Desenvolvimento do SERPRO"
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 26
+    guest_session.title = "Round Table 2: Lições de Agile no mundo corporativo"
+    guest_session.author = "Roosevelt Nascimento Junior, Marco Migliavacca, Pedro Donati"
+    guest_session.summary = "Executivos de grandes organizações que investem em Agile discutem seus sucessos e fracassos.
+
+* \"Roosevelt Nascimento Junior\":http://br.linkedin.com/in/rooseveltjunior, IT & Process Manager no UOL
+* \"Marco Migliavacca\":http://br.linkedin.com/in/fernandoasdelariva, Gerente Executivo de Produtivos Digitais do Grupo RBS
+* \"Pedro Donati\":http://br.linkedin.com/in/donati, Superintendente de Internet do Itaú-Unibanco
+
+_Mais 2 executivos a confirmar_"
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 27
+    guest_session.title = "A Confirmar"
+    guest_session.author = "Danilo Bardusco"
+    guest_session.summary = "\"Danilo Bardusco\":http://br.linkedin.com/in/bardusco – Diretor da Globo.com"
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+    guest_session.id = 28
+    guest_session.title = "A Confirmar"
+    guest_session.author = ""
+    guest_session.summary = ""
+    guest_session.conference_id = 3
+    guest_session.keynote = false
+end

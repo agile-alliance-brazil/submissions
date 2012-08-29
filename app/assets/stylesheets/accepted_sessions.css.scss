@@ -147,6 +147,10 @@
             background-color: #FF8C69;
             color: white;
           }
+
+          &.track_executive_summit {
+            background-color: gold;
+          }
         }
       }
     }
@@ -213,6 +217,10 @@
       &.session_type_keynote {
         background-color: #4699d6;
         color: white;
+      }
+
+      &.session_type_executive_summit, &.session_type_wbma {
+        background-color: gold;
       }
 
       &.back {

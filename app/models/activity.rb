@@ -26,6 +26,10 @@ class Activity < ActiveRecord::Base
     room.id == 6
   end
 
+  def executive_summit?
+    room.id == 7
+  end
+
   def slots_remaining(slot)
     ((end_at - start_at) / slot.duration).ceil
   end

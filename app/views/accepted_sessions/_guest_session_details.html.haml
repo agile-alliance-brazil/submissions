@@ -4,6 +4,8 @@
       %li{:class => "session_type_keynote"} Keynote
     - elsif activity.wbma?
       %li{:class => "session_type_wbma"} WBMA
+    - elsif activity.executive_summit?
+      %li{:class => "session_type_executive_summit"} Executive Summit
     - else
       %li{:class => "track_guest_session"}= t('tracks.guest_session.title')
   .session_description

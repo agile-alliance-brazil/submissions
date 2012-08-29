@@ -1015,3 +1015,59 @@ Activity.seed do |activity|
   activity.detail_id = nil
   activity.detail_type = 'Session'
 end
+
+### Executive Summit
+
+Activity.seed do |activity|
+  activity.id = 123
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 10:30:00"
+  activity.end_at = "2012-09-06 11:30:00"
+  activity.detail_id = 24
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 124
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 11:30:00"
+  activity.end_at = "2012-09-06 13:00:00"
+  activity.detail_id = 25
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 125
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 14:30:00"
+  activity.end_at = "2012-09-06 15:30:00"
+  activity.detail_id = 26
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 126
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 15:30:00"
+  activity.end_at = "2012-09-06 16:30:00"
+  activity.detail_id = 27
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 127
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 17:00:00"
+  activity.end_at = "2012-09-06 18:00:00"
+  activity.detail_id = 28
+  activity.detail_type = 'GuestSession'
+end
+
+Activity.seed do |activity|
+  activity.id = 128
+  activity.room_id = 7
+  activity.start_at = "2012-09-06 18:00:00"
+  activity.end_at = "2012-09-06 19:00:00"
+  activity.detail_id = nil
+  activity.detail_type = 'Session'
+end

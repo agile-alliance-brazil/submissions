@@ -5,8 +5,10 @@
   %br
   - unless activity.wbma?
     %span= guest_session.author
-- unless guest_session.keynote? || activity.wbma?
+- unless guest_session.keynote? || activity.wbma? || activity.executive_summit?
   .tab.bottom{:class => "track_guest_session"}= t('tracks.guest_session.title')
+- if activity.executive_summit?
+  .tab.bottom{:class => "track_executive_summit"} Executive Summit
 
 .hidden
   = render :partial => "guest_session_details", :locals => {:guest_session => guest_session, :activity => activity}

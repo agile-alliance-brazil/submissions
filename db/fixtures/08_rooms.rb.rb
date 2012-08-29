@@ -40,3 +40,10 @@ Room.seed do |room|
   room.capacity = 80
   room.conference_id = 3
 end
+
+Room.seed do |room|
+  room.id = 7
+  room.name = "Executive Summit"
+  room.capacity = 80
+  room.conference_id = 3
+end
