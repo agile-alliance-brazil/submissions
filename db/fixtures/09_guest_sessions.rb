@@ -173,7 +173,7 @@ GuestSession.seed do |guest_session|
     guest_session.id = 13
     guest_session.title = "Abertura"
     guest_session.author = "Fabio Kon (IME-USP), Teresa Maciel (UFRPE)"
-    guest_session.summary = "Abertura: Fabio Kon (IME-USP) e Teresa Maciel (UFPRPE)"
+    guest_session.summary = "Abertura: Fabio Kon (IME-USP) e Teresa Maciel (UFRPE)"
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
@@ -283,7 +283,9 @@ GuestSession.seed do |guest_session|
     guest_session.id = 24
     guest_session.title = "Adaptive Leadership, Strategy and Value Creation: the agile transformation story from Gap"
     guest_session.author = "Pat Reed"
-    guest_session.summary = "\"Pat Reed\":http://www.linkedin.com/pub/pat-reed/1/b22/6b7 - Sr. Director da Gap Inc."
+    guest_session.summary = "Nesta palestra Pat irá aprofundar o conhecimento sobre Agile sob uma ótica executiva. Abordará formas de agregar valor de negócio em ambientes de constante mudança, através de técnicas para a liderança adaptativa e estratégias de negócio adequadas à agilidade necessária no trabalho. Dentro deste contexto, Pat contará várias histórias sobre o processo de transformação ágil que liderou na Gap Inc. em San Franscisco.
+
+\"Pat Reed\":http://www.linkedin.com/pub/pat-reed/1/b22/6b7 - Sr. Director da Gap Inc."
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
@@ -311,27 +313,31 @@ GuestSession.seed do |guest_session|
 
 * \"Roosevelt Nascimento Junior\":http://br.linkedin.com/in/rooseveltjunior, IT & Process Manager no UOL
 * \"Marco Migliavacca\":http://br.linkedin.com/in/fernandoasdelariva, Gerente Executivo de Produtivos Digitais do Grupo RBS
-* \"Pedro Donati\":http://br.linkedin.com/in/donati, Superintendente de Internet do Itaú-Unibanco
-
-_Mais 2 executivos a confirmar_"
+* \"Pedro Donati\":http://br.linkedin.com/in/donati, Superintendente de Internet do Itaú-Unibanco"
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
     guest_session.id = 27
-    guest_session.title = "A Confirmar"
-    guest_session.author = "Danilo Bardusco"
-    guest_session.summary = "\"Danilo Bardusco\":http://br.linkedin.com/in/bardusco – Diretor da Globo.com"
+    guest_session.title = "A cultura de uma organização ágil"
+    guest_session.author = "Andreano Lanusse"
+    guest_session.summary = "Por que ter uma cultura ágil é importante para as organizações atuais? O que o negócio da sua empresa tem a ganhar com isso? Nesta palestra serão mostrados exemplos de iniciativas que transformam a cultura de uma organização, tornando-a mais ágil e preparada para lidar com a complexidade do mercado.
+
+\"Andreano Lanusse\":http://www.linkedin.com/in/andreanolanusse - Agile Enterprise Evangelist da Rally Software"
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
     guest_session.id = 28
-    guest_session.title = "A Confirmar"
-    guest_session.author = ""
-    guest_session.summary = ""
+    guest_session.title = "Agile and Near-shoring"
+    guest_session.author = "Zeo Solomon"
+    guest_session.summary = "After completing his undergraduate studies at UC Berkeley,  Zeo began his career in the Nuclear/Astrospace industry, working as a Nuclear engineer, astrophysicist and a spacecraft manager.  Zeo made the shift to Internet technology after his graduate studies at Stanford.
+
+Zeo founded Avenue Code in 2007, with the objective of making Agile framework adaptable to Global teams.  Headquartered in San Francisco, CA, the company soon launched its \"Nearshore\" office in Belo Horizonte, Brazil to pilot what soon became very successful model.  Zeo has been actively ingrained in large IT organizations as well as tech startups helping with their agile transformation and adoption.
+
+\"Zeo Solomon\":http://www.linkedin.com/in/zeosolomon - Foudner/Managing Partner da Avenue Code"
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
