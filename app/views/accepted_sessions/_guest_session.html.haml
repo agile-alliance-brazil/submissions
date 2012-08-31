@@ -7,6 +7,8 @@
     %span= guest_session.author
 - unless guest_session.keynote? || activity.wbma? || activity.executive_summit?
   .tab.bottom{:class => "track_guest_session"}= t('tracks.guest_session.title')
+- if activity.wbma? && guest_session.id != 13
+  .tab.bottom{:class => "track_wbma"} WBMA
 - if activity.executive_summit?
   .tab.bottom{:class => "track_executive_summit"} Executive Summit
 

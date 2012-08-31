@@ -148,8 +148,14 @@
             color: white;
           }
 
-          &.track_executive_summit {
+          &.track_executive_summit, &.track_wbma {
             background-color: gold;
+          }
+
+          &.track_wbma {
+            font-size: 9px;
+            height: 9px;
+            line-height: 9px;
           }
         }
       }
