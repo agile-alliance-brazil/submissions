@@ -32,8 +32,8 @@ namespace :deploy do
   end
 end
 
-set :stages, %w(staging production)
-set :default_stage, "staging"
+set :stages, %w(vagrant staging production)
+set :default_stage, "vagrant"
 
 # NOTE: As of Capistrano 2.1, anyone using Windows should allocate a PTY explicitly.
 # Otherwise, you will see command prompts (such as requests for SVN passwords) act funny.
