@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '=3.2.8'
+gem 'rails', '=3.2.11'
 gem 'jquery-rails', '=2.1.0'
 gem 'haml', '=3.1.4'
 gem 'will_paginate', '=3.0.3'
