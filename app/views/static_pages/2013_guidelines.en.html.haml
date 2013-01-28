@@ -1,0 +1,31 @@
+- title "Submission Guidelines"
+- show_actions!
+
+%p To submit your proposal, create an account in the submission system and fill out the submission form with the details of your proposal. <strong>If you submitted proposals last year, your account is still active</strong>. Until the submission deadline, you will be able to edit your profile, create session proposals and edit existing proposals of which you are one of the authors. You may submit as many proposals as you wish. It is not possible to remove a proposal.
+
+%p Note that you will also be able to read proposals submitted by other users, as they will be able to read yours, even after the submission deadline. Users can also add comments to any session submitted in the system.
+
+%p In order to provide early feedback and allow iterative improvement of proposals, we will have a <strong>two round review process</strong> - besides the public comment mechanism. If you submit your proposal before the preliminary submission deadline, it will be reviewed and evaluated by at least 1 member of the Reviewing Committee. Reviewers won't provide any acceptance/rejection recommendation during the first review round, but we encourage you to read their feedback and improve your session accordingly. By the end of the submission deadline, all submissions will be reviewed and evaluated by at least 3 members of the Reviewing Committee. For both review rounds, they will consider:
+
+%ul
+  %li The authors' experience - both the mini biography presented in #{user_signed_in? ? link_to("your user profile", user_path(current_user)) : "your user profile"} and the field about experience with the subject in the submission form;
+  %li Adequacy of your proposal in what concerns the chosen #{link_to "track", tracks_path(@conference)}, #{link_to "session type", session_types_path(@conference)}, #{link_to "audience level", audience_levels_path(@conference)}, and target audience;
+  %li Relevance to event;
+  %li Clarity and quality of the written material.
+
+%p Furthermore, during the program elaboration, the following rules will be considered to include a session:
+
+%ul
+  %li One author cannot have more than 2 sessions accepted.
+  %li Only one session per set of authors will be accepted. That is, John can have, at most, one session alone and one with Mary. John cannot have two sessions alone or two sessions with Mary.
+  %li The program committee will try to promote author diversity in the program as long as this does not affect the quality of the event (according to the evaluations performed by the evaluation committee).
+
+%p Authors of the sessions selected to be in the program will be notified by email after the review period. After the notification, the authors will have a deadline to register in the conference. In case none of the authors register before the deadline, their session will be removed from the program.
+
+%p Each confirmed session will be granted one (1) complementary registration that must be used by one of its authors.
+
+%p See the important dates below:
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)
