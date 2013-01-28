@@ -372,6 +372,8 @@ en:
     hands_on:
       title: "Hands On"
       description: "Hands on sessions are workshops and tutorials where the attendants are expected to take part in an activity and learn from practice. A workshop is an opportunity to learn from other attendees or to discuss new ideas that will be shared with the community. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects."
+    experience_report:
+      title: "Experience Report"
 
   tracks:
     general_interest:
@@ -400,6 +402,12 @@ en:
       description: "This is the track for those who seek innovating and endeavoring, be it as a collaborator or as an entrepreneur. On this track, you will find sessions about Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping and many other subjects that relate agile methods to innovation processes."
     guest_session:
       title: "Special Guest"
+    coaching:
+      title: "Coaching and Facilitation"
+    business_product:
+      title: "Businesses and Products"
+    design:
+      title: "Design"
 
   audience_levels:
     beginner:

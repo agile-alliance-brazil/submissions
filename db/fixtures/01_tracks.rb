@@ -89,3 +89,45 @@ Track.seed do |track|
   track.title = 'tracks.experience_reports.title'
   track.description = 'tracks.experience_reports.description'
 end
+
+Track.seed do |track|
+  track.id = 14
+  track.conference_id = 4
+  track.title = 'tracks.coaching.title'
+  track.description = 'tracks.coaching.description'
+end
+
+Track.seed do |track|
+  track.id = 15
+  track.conference_id = 4
+  track.title = 'tracks.business_product.title'
+  track.description = 'tracks.business_product.description'
+end
+
+Track.seed do |track|
+  track.id = 16
+  track.conference_id = 4
+  track.title = 'tracks.development_tests.title'
+  track.description = 'tracks.development_tests.description'
+end
+
+Track.seed do |track|
+  track.id = 17
+  track.conference_id = 4
+  track.title = 'tracks.design.title'
+  track.description = 'tracks.design.description'
+end
+
+Track.seed do |track|
+  track.id = 18
+  track.conference_id = 4
+  track.title = 'tracks.management.title'
+  track.description = 'tracks.management.description'
+end
+
+Track.seed do |track|
+  track.id = 19
+  track.conference_id = 4
+  track.title = 'tracks.general_interest.title'
+  track.description = 'tracks.general_interest.description'
+end

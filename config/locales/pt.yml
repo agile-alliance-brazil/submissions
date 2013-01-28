@@ -370,15 +370,18 @@ pt:
       description: "Lightning talks são palestras curtas (8 minutos de apresentação e 2 minutos para perguntas)  que tem o objetivo de transmitir uma ideia de forma rápida e concisa. O uso de slides é opcional. Um dos formatos conhecidos para lightning talk é o Pecha Kucha, no qual o apresentador tem 20 slides mudando automaticamente a cada 20 segundos, totalizando 6 minutos e 40 segundos de apresentação."
     hands_on:
       title: "Mão na Massa"
-      description: 'Sessões "mão na massa" são workshops e tutoriais com atividades práticas e participação do público. O objetivo principal é transmitir o conhecimento aos participantes de uma maneira prática. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias a fim de expandir uma nova técnica ou para discutir novas idéias a serem compartilhadas com a comunidade. Tutoriais são aulas guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos ágeis.'
+      description: 'Sessões "mão na massa" são workshops e tutoriais com atividades práticas e participação do público. O objetivo principal é transmitir o conhecimento aos participantes de uma maneira prática. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias a fim de expandir uma nova técnica ou para discutir novas idéias a serem compartilhadas com a comunidade. Tutoriais são aulas guiadas pelo instrutor com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos ágeis.'
+    experience_report:
+      title: "Relatos de Experiência"
+      description: "Relatos são histórias reais vivenciadas pelo palestrante que trazem experiências de sucesso, importantíssimas para aqueles que procuram suporte para suas próprias histórias, e também contos de fracassos que promovam compreensão de como uma técnica, prática ou tendência pode prejudicar um time e projeto."
 
   tracks:
     general_interest:
       title: "Interesse Geral"
-      description: "Esta trilha incluirá sessões dedicada àqueles que querem entender os princípios e práticas das metodologias ágeis. Você vai encontrar tutoriais, workshops e palestras selecionadas para guiar seus primeiros passos em direção à cultura ágil."
+      description: "Esta trilha é dedicada a todas as sessões relevantes relacionadas à cultura, valores e princípios do Agile e do Lean. São sessões que trazem assuntos de interesse aos agilistas, independentemente de sua escolha dos métodos ou processos escolhido. São palestras que falam do que é ser ágil, da cultura, cases e de todo tipo de assunto que possa interessar a outros agilistas."
     management:
       title: "Gestão"
-      description: "Sessões orientadas a profissionais que trabalham com metodologias ágeis intencionados a discutir novos conceitos e práticas relacionadas a mudanças organizacionais e gestão de produtos, processos ou projetos."
+      description: "Essa trilha é dedicada à gestão de equipes e projetos. As sessões reúnem temas como formação e desenvolvimento de equipes, novos modelos de gestão de pessoas, auto-organização, práticas do PMBoK aplicadas a projetos ágeis e gestão de projetos e produtos. Sessões descrevendo e discutindo processos fazem parte dessa trilha."
     engineering:
       title: "Engenharia"
       description: "Dedicada a profissionais que trabalham com metodologias ágeis ou estão interessados na qualidade técnica dos produtos de software. Você vai achar tutoriais, workshops e lições endereçando tópicos como programação, integração contínua, automação de testes e o uso de ferramentas eletrônicas para apoiar o desenvolvimento ágil."
@@ -387,7 +390,7 @@ pt:
       description: "Esta trilha é para aqueles que desejam compartilhar suas experiências reais com métodos ágeis, seja projetos, transições, cursos ou comunidades. Estes relatos permitem que participantes compartilhem dicas práticas que possam inspirar outras pessoas e times."
     development_tests:
       title: "Desenvolvimento e Teste"
-      description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis de desenvolvimento e teste de software. São palestras e workshops sobre temas como programação, integração contínua, automação de testes, testes de aceitação, teste de integração e ferramentas de apoio. Sessões sobre a integração do desenvolvimento de software com as operações de TI (devops) também estão inclusas nesta trilha."
+      description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis voltadas para desenvolvimento e teste de software. São sessões sobre como programação, integração contínua, automação de testes, testes de aceitação, teste de integração e ferramentas de apoio. Apresentações sobre a integração do desenvolvimento de software com as operações de TI (devops) também estão inclusas nesta trilha."
     analysis_planning:
       title: "Análise e Planejamento"
       description: "Essa trilha tem como objetivo agrupar sessões sobre análise e planejamento de projetos ágeis. As sessões abordam temas como análise de negócio, análise de requisitos, técnicas de estimativa e priorização, planejamento de releases e estratégias de implementação de projetos."
@@ -399,6 +402,15 @@ pt:
       description: "Esta é a trilha para quem busca inovar ou empreender tanto como colaborador de uma empresa quanto em seu próprio negócio. Você vai encontrar sessões sobre Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping e diversos outros assuntos que relacionam os métodos ágeis ao processo de inovação."
     guest_session:
       title: "Convidado Especial"
+    coaching:
+      title: "Coaching e Facilitação"
+      description: "O propósito da trilha de Coaching e Facilitação é apresentar ao público os conceitos, técnicas e dicas de facilitação, coaching e empowerment no contexto da agilidade. A trilha apresenta as competências necessárias para um coach ou um facilitador liderar, ensinar, mentorar, facilitar e oferecer coaching efetivamente a times ágeis."
+    business_product:
+      title: "Negócios e Produtos"
+      description: "Essa trilha tem como objetivo agrupar sessões sobre análise e planejamento de projetos ágeis. As sessões abordam temas como análise de negócio e requisitos, técnicas de estimativa e priorização. Nesta trilha também fica o foco na elaboração de produtos: sessões sobre Lean Startup, Customer Development, Business Model Generation, e diversos outros assuntos que relacionam os métodos ágeis ao processo de criação de novos produtos cabem nessa trilha."
+    design:
+      title: "Design"
+      description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis voltadas para o design de experiência de usuário de um produto. São sessões sobre Agile UX, design, arquitetura da informação, HCD, design thinking e todos os desafios que envolvem o trabalho integrado, iterativo e incremental de desenvolvedores de software e designers e arquitetos da informação."
 
   audience_levels:
     beginner:

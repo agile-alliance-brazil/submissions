@@ -68,3 +68,24 @@ SessionType.seed do |session_type|
   session_type.title = 'session_types.lightning_talk.title'
   session_type.description = 'session_types.lightning_talk.description'
 end
+
+SessionType.seed do |session_type|
+  session_type.id = 11
+  session_type.conference_id = 4
+  session_type.title = 'session_types.talk.title'
+  session_type.description = 'session_types.talk.description'
+end
+
+SessionType.seed do |session_type|
+  session_type.id = 12
+  session_type.conference_id = 4
+  session_type.title = 'session_types.hands_on.title'
+  session_type.description = 'session_types.hands_on.description'
+end
+
+SessionType.seed do |session_type|
+  session_type.id = 13
+  session_type.conference_id = 4
+  session_type.title = 'session_types.experience_report.title'
+  session_type.description = 'session_types.experience_report.description'
+end
