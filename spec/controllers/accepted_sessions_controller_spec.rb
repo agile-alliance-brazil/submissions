@@ -13,6 +13,7 @@ end
 describe AcceptedSessionsController do
   describe "#index" do
     it "should fetch all activities" do
+      Conference.stubs(:current).returns(Conference.find_by_year(2012))
       get :index
       assigns(:activities).should == Activity.all
     end
