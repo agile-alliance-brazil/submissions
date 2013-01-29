@@ -222,7 +222,7 @@ describe User do
 
       it "should not have approved long sessions if no sessions was not accepted" do
         user = FactoryGirl.build(:user)
-        session = FactoryGirl.build(:session, :author => user, :session_type => @non_lightning_talk, :state => 'cancelled', , :conference => @non_lightning_talk.conference)
+        session = FactoryGirl.build(:session, :author => user, :session_type => @non_lightning_talk, :state => 'cancelled', :conference => @non_lightning_talk.conference)
         lightning_talk = FactoryGirl.build(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10,  :state => 'rejected', :conference => @lightning_talk.conference)
 
         user.should_not have_approved_session(session.conference)
