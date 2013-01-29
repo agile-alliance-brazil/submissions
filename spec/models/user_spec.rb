@@ -203,8 +203,8 @@ describe User do
          session = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk,
                                       :duration_mins => 10, :state => 'accepted',
                                       :conference => @lightning_talk.conference,
-                                      :track => Track.find_by_conference(@lightning_talk.conference),
-                                      :audience_level => AudienceLevel.find_by_conference(@lightning_talk.conference))
+                                      :track => @lightning_talk.conference.tracks.first,
+                                      :audience_level => @lightning_talk.conference.audience_levels.first)
 
          user.should have_approved_session(session.conference)
       end
@@ -213,8 +213,8 @@ describe User do
          user = FactoryGirl.create(:user)
          session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk,
                                       :state => 'accepted', :conference => @non_lightning_talk.conference,
-                                      :track => Track.find_by_conference(@non_lightning_talk.conference),
-                                      :audience_level => AudienceLevel.find_by_conference(@non_lightning_talk.conference))
+                                      :track => @non_lightning_talk.conference.tracks.first,
+                                      :audience_level => @non_lightning_talk.conference.audience_levels.first)
 
          user.should have_approved_session(session.conference)
       end
@@ -223,12 +223,12 @@ describe User do
         user = FactoryGirl.create(:user)
         session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk,
                                      :state => 'accepted', :conference => @non_lightning_talk.conference,
-                                     :track => Track.find_by_conference(@non_lightning_talk.conference),
-                                     :audience_level => AudienceLevel.find_by_conference(@non_lightning_talk.conference))
+                                     :track => @non_lightning_talk.conference.tracks.first,
+                                     :audience_level => @non_lightning_talk.conference.audience_levels.first)
         lightning_talk = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10, 
                                             :state => 'accepted', :conference => @lightning_talk.conference,
-                                            :track => Track.find_by_conference(@lightning_talk.conference),
-                                            :audience_level => AudienceLevel.find_by_conference(@lightning_talk.conference))
+                                            :track => @lightning_talk.conference.tracks.first,
+                                            :audience_level => @lightning_talk.conference.audience_levels.first)
 
         user.should have_approved_session(session.conference)
       end
