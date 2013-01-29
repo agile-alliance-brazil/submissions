@@ -200,22 +200,35 @@ describe User do
 
       it "should have approved long sessions if accepted was lightning talk" do
          user = FactoryGirl.create(:user)
-         session = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10, :state => 'accepted', :conference => @lightning_talk.conference)
+         session = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk,
+                                      :duration_mins => 10, :state => 'accepted',
+                                      :conference => @lightning_talk.conference,
+                                      :track => Track.find_by_conference(@lightning_talk.conference),
+                                      :audience_level => AudienceLevel.find_by_conference(@lightning_talk.conference))
 
          user.should have_approved_session(session.conference)
       end
 
       it "should have approved long sessions if accepted was not lightning talk" do
          user = FactoryGirl.create(:user)
-         session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk, :state => 'accepted', :conference => @non_lightning_talk.conference)
+         session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk,
+                                      :state => 'accepted', :conference => @non_lightning_talk.conference,
+                                      :track => Track.find_by_conference(@non_lightning_talk.conference),
+                                      :audience_level => AudienceLevel.find_by_conference(@non_lightning_talk.conference))
 
          user.should have_approved_session(session.conference)
       end
 
       it "should have approved long sessions if accepted contains at least one non lightning talk" do
         user = FactoryGirl.create(:user)
-        session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk, :state => 'accepted', :conference => @non_lightning_talk.conference)
-        lightning_talk = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10,  :state => 'accepted', :conference => @lightning_talk.conference)
+        session = FactoryGirl.create(:session, :author => user, :session_type => @non_lightning_talk,
+                                     :state => 'accepted', :conference => @non_lightning_talk.conference,
+                                     :track => Track.find_by_conference(@non_lightning_talk.conference),
+                                     :audience_level => AudienceLevel.find_by_conference(@non_lightning_talk.conference))
+        lightning_talk = FactoryGirl.create(:session, :author => user, :session_type => @lightning_talk, :duration_mins => 10, 
+                                            :state => 'accepted', :conference => @lightning_talk.conference,
+                                            :track => Track.find_by_conference(@lightning_talk.conference),
+                                            :audience_level => AudienceLevel.find_by_conference(@lightning_talk.conference))
 
         user.should have_approved_session(session.conference)
       end
