@@ -5,7 +5,9 @@
 
 %p Note que você poderá também ler as propostas submetidas por outros usuários, assim como eles poderão ler as suas, mesmo após o prazo de submissão. Qualquer usuário também pode adicionar comentários em outras propostas.
 
-%p Para promover feedback e permitir que autores melhorem suas propostas iterativamente, além do mecanismo aberto de comentários, implementaremos um <strong>processo de avaliação em duas fases</strong>. Caso sua proposta seja submetida antes do fim do prazo de pré-avaliação, ela será revisada e avaliada por pelo menos 1 membro do Comitê de Avaliação. Os avaliadores não vão dar nenhuma recomendação de aceitação ou rejeição na primeira fase, porém encorajamos que você leia o feedback e adapte sua proposta da forma que achar adequada. No final do prazo de submissões, todas as propostas serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Em ambas as etapas, serão levados em consideração:
+%p Nesse ano, os inscritos na conferência durante o período de early birds ganharão 5 votos para distribuir anonimamente e à vontade, até o prazo final de submissões de propostas, e escolher as sessões que não podem faltar. A sessão mais votada será aprovada automaticamente.
+
+%p No final do prazo de submissões, todas as propostas serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Os revisores levarão em consideração:
 
 %ul
   %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
@@ -22,10 +24,11 @@
 
 %p Os autores que tiverem sessões selecionadas para entrar no programa serão notificados por email após o período de avaliação. A partir da notificação, os autores terão um prazo para se inscrever na conferência. Caso nenhum dos autores se inscreva dentro do prazo, sua sessão será removida do programa.
 
-%p Cada sessão aceita que for confirmada terá direito a uma (1) inscrição gratuita que deverá ser utilizada por um de seus autores.
+%p Cada sessão aceita que for confirmada terá direito às inscrições gratuitas para ambos os seus autores, exceto Relatos de Experiência (30'), que dão direito a apenas uma inscrição complementar.
 
 %p Confira abaixo as datas importantes:
 
 %ul
   - @conference.dates.each do |date_map|
     %li= present_date(@conference, date_map)
+
