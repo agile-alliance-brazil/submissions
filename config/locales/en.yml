@@ -5,10 +5,10 @@ en:
     messages:
       same_author: "can't be the same as author"
       incomplete: "user is currently not an author"
-      experience_report_talk_duration: "can only be 50 minutes"
+      experience_report_talk_duration: "can only be 25 minutes"
       non_lightning_talk_duration: "can only be 50 or 110 minutes"
       talk_duration: "can only be 50 minutes"
-      hands_on_duration: "can only be 110 minutes"
+      hands_on_duration: "can be 50 or 110 minutes"
       lightning_talk_duration: "can only be 10 minutes"
       experience_report_session_type: "can only be a Talk"
       email_format: "should look like an email address"
@@ -125,6 +125,7 @@ en:
         image_agreement: "By accepting this term, I grant the organization of Agile Brazil the right of recording and reproducing all or part of the technical content presented by me during the conference for non-commercial purposes, in any form or medium, without any cost for the event."
         author_confirmed: "Author confirmation"
         author_image_agreement: "Image rights"
+        language: "Will be presented in"
       session_filter:
         tags: "Tags"
         username: "Author (username)"
@@ -531,6 +532,8 @@ en:
     char_remaining: "remaining: "
     all: "All"
     room: "Room"
+    en: "English"
+    pt: "Portuguese"
 
   time:
     formats:

@@ -1,9 +1,10 @@
 = form.inputs do
   = form.input :author_id, :as => :hidden, :input_html => {:tabindex => autotab}
+  = form.input :language, :required => true, :as => :select, :collection => [[t('generic.en'), 'en'], [t('generic.pt'), 'pt']], :input_html => {:tabindex => autotab}
   = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.track_id', :year => "/#{@conference.year}")
   = form.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.audience_level_id', :year => "/#{@conference.year}")
   = form.input :session_type_id, :required => true, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.session_type_id', :year => "/#{@conference.year}")
-  = form.input :duration_mins, :required => true, :as => :select, :collection => [["10 #{t('generic.minutes')}", 10], ["50 #{t('generic.minutes')}", 50], ["110 #{t('generic.minutes')}", 110]], :input_html => {:tabindex => autotab}
+  = form.input :duration_mins, :required => true, :as => :select, :collection => [["25 #{t('generic.minutes')}", 25], ["50 #{t('generic.minutes')}", 50], ["80 #{t('generic.minutes')}", 80]], :input_html => {:tabindex => autotab}
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
   = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
@@ -34,7 +35,10 @@
       "7": ["", "50", "110"],
       "8": ["", "10", "110"],
       "9": ["", "10", "50"],
-      "10": ["", "50", "110"]
+      "10": ["", "50", "110"],
+      "11": ["", "25", "80"],
+      "12": ["", "25"],
+      "13": ["", "50", "80"]
     })
     $("#session_session_type_id").bindSelectUpdated();
 
@@ -55,10 +59,10 @@
 
   function sessionTypeActions() {
     // Workshops, Tutorials, or Hands On
-    if ($.inArray($(this).val(), ['1', '2', '4', '5', '9']) !== -1) {
+    if ($.inArray($(this).val(), ['1', '2', '4', '5', '9', '12']) !== -1) {
       $("#session_audience_limit_input").show();
       // Only Workshop or Hands On
-      if ($.inArray($(this).val(), ['2', '5', '9']) !== -1) {
+      if ($.inArray($(this).val(), ['2', '5', '9', '12']) !== -1) {
         $('#session_mechanics_input').find('label abbr').show();
       } else {
         $('#session_mechanics_input').find('label abbr').hide();

@@ -34,8 +34,8 @@ FactoryGirl.define do
 
   factory :session_type do
     conference { Conference.current }
-    title "session_types.tutorial.title"
-    description "session_types.tutorial.description"
+    title "session_types.talk.title"
+    description "session_types.talk.description"
   end
 
   factory :track do
@@ -57,6 +57,7 @@ FactoryGirl.define do
     audience_level
     author
     duration_mins 50
+    language 'en'
     title "Fake title"
     summary "Summary details of session"
     description "Full details of session"

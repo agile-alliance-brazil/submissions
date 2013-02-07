@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821041038) do
+ActiveRecord::Schema.define(:version => 20130207042339) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20120821041038) do
     t.integer  "early_reviews_count",                :default => 0
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
+    t.string   "language"
   end
 
   create_table "taggings", :force => true do |t|

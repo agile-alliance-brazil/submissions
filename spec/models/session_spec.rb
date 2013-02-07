@@ -22,6 +22,7 @@ describe Session do
     it { should allow_mass_assignment_of :image_agreement }
     it { should allow_mass_assignment_of :state_event }
     it { should allow_mass_assignment_of :conference_id }
+    it { should allow_mass_assignment_of :language }
 
     it { should_not allow_mass_assignment_of :id }
   end
@@ -91,8 +92,10 @@ describe Session do
     it { should validate_presence_of :experience }
     it { should validate_presence_of :duration_mins }
     it { should validate_presence_of :keyword_list }
+    it { should validate_presence_of :language }
 
-    it { should ensure_inclusion_of(:duration_mins).in_array([10, 50, 110]) }
+    it { should ensure_inclusion_of(:duration_mins).in_array([25, 50, 80]) }
+    it { should ensure_inclusion_of(:language).in_array(['en', 'pt']) }
 
     should_validate_existence_of :conference, :author
     should_validate_existence_of :track, :session_type, :audience_level, :allow_blank => true
@@ -179,13 +182,13 @@ describe Session do
         @session = FactoryGirl.build(:session)
       end
 
-      it "should only have duration of 10 minutes for lightning talks" do
-        @session.session_type.title = 'session_types.lightning_talk.title'
-        @session.duration_mins = 10
+      it "should only have duration of 25 minutes for experience reports" do
+        @session.session_type.title = 'session_types.experience_report.title'
+        @session.duration_mins = 25
         @session.should be_valid
         @session.duration_mins = 50
         @session.should_not be_valid
-        @session.duration_mins = 110
+        @session.duration_mins = 80
         @session.should_not be_valid
       end
 
@@ -193,45 +196,20 @@ describe Session do
         @session.session_type.title = 'session_types.talk.title'
         @session.duration_mins = 50
         @session.should be_valid
-        @session.duration_mins = 110
+        @session.duration_mins = 80
         @session.should_not be_valid
-        @session.duration_mins = 10
+        @session.duration_mins = 25
         @session.should_not be_valid
       end
 
-      it "should only have duration of 110 minutes for hands on" do
+      it "should allow duration of 50 or 80 minutes for hands on" do
         @session.session_type.title = 'session_types.hands_on.title'
-        @session.duration_mins = 10
+        @session.duration_mins = 25
         @session.should_not be_valid
         @session.duration_mins = 50
-        @session.should_not be_valid
-        @session.duration_mins = 110
         @session.should be_valid
-      end
-    end
-
-    context "experience report" do
-      before(:each) do
-        @session = FactoryGirl.build(:session)
-        @session.track.title = 'tracks.experience_reports.title'
-      end
-
-      it "should only have duration of 50 minutes for talks" do
-        @session.session_type.title = 'session_types.talk.title'
-        @session.duration_mins = 50
+        @session.duration_mins = 80
         @session.should be_valid
-        @session.duration_mins = 110
-        @session.should_not be_valid
-      end
-
-      it "should be talk or lightning talk" do
-        @session.session_type.title = 'session_types.talk.title'
-        @session.should be_valid
-        @session.session_type.title = 'session_types.lightning_talk.title'
-        @session.duration_mins = 10
-        @session.should be_valid
-        @session.session_type.title = 'session_types.workshop.title'
-        @session.should_not be_valid
       end
     end
 
@@ -430,10 +408,10 @@ describe Session do
   end
 
   it "should determine if it's experience_report" do
-    experience_report = FactoryGirl.build(:track, :title => 'tracks.experience_reports.title')
+    experience_report = FactoryGirl.build(:session_type, :title => 'session_types.experience_report.title')
     session = FactoryGirl.build(:session)
     session.should_not be_experience_report
-    session.track = experience_report
+    session.session_type = experience_report
     session.should be_experience_report
   end
 

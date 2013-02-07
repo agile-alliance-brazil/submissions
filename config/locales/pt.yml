@@ -123,6 +123,7 @@ pt:
         image_agreement: "Ao aceitar este termo, concedo à organização do Agile Brazil o direito de gravação e reprodução total ou parcial do conteúdo técnico apresentado por mim durante a conferência para fins não comerciais, em qualquer formato e veículo de comunicação, sem qualquer tipo de ônus para a organização do evento."
         author_confirmed: "Confirmação do autor"
         author_image_agreement: "Direito de imagem"
+        language: "Será apresentada em"
       session_filter:
         tags: "Tags"
         username: "Autor (nome de usuário)"
@@ -532,6 +533,8 @@ pt:
     char_remaining: "faltando: "
     all: "Todas"
     room: "Sala"
+    en: "Inglês"
+    pt: "Português"
 
   time:
     formats:
