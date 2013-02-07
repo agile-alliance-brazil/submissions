@@ -202,9 +202,9 @@ en:
         default_locale: "We will display the site and send you e-mails in your preferred language"
       session:
         title: "(at most 100 characters)"
-        track_id: "A detailed description of each track can be found <a href='%{year}/tracks?locale=en' target='_blank'>here</a>. For Experience Reports, only Talks lasting 50 minutes or Lightning Talks lasting 10 minutes will be accepted."
+        track_id: "A detailed description of each track can be found <a href='%{year}/tracks?locale=en' target='_blank'>here</a>."
         session_type_id: "A detailed description of session types can be found <a href='%{year}/session_types?locale=en' target='_blank'>here</a>."
-        duration_mins: "Talks should be 50 minutes long, Hands on sessions should be 110 minutes long, and Lightning Talks should be 10 minutes long."
+        duration_mins: "Talks should be 50 minutes long, Hands on sessions should be 50 or 80 minutes long, and Experience Reports should be 25 minutes long."
         audience_level_id: "Indicate the appropriate experience level of your audience. A description of each level can be found <a href='%{year}/audience_levels?locale=en' target='_blank'>here</a>."
         audience_limit: "If your session is Hands On, indicate if it has a maximum number of participants."
         target_audience: "Indicate your target audience, for example: developers, new to Agile, analysts, architects, QAs, project managers, executives.<br/>(at most 200 characters)"
