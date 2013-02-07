@@ -49,7 +49,6 @@ pt:
           cant_accept: "não pode ser aceita"
           cant_reject: "não pode ser rejeitada"
 
-  # Formtastic
   formtastic:
     :yes: "Sim"
     :no: "Não"

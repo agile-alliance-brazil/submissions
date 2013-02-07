@@ -374,6 +374,7 @@ en:
       description: "Hands on sessions are workshops and tutorials where the attendants are expected to take part in an activity and learn from practice. A workshop is an opportunity to learn from other attendees or to discuss new ideas that will be shared with the community. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects."
     experience_report:
       title: "Experience Report"
+      description: "Reports are true stories the speaker went through that show successes, important to those who look for back-up, and also cautionary tales that promote the understanding of how a practice, technique or trend can harm a team and a project."
 
   tracks:
     general_interest:
