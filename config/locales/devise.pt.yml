@@ -9,6 +9,7 @@ pt:
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
       invalid: Nome de usuário ou senha inválido(s).
+      not_found_in_database: 'Nome de usuário ou senha inválido(s).'
       invalid_token: O token de autenticação não é válido.
       locked: A sua conta está bloqueada.
       timeout: A sua sessão expirou, por favor, faça login novamente para continuar.
