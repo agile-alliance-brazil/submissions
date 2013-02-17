@@ -44,18 +44,18 @@ end
 
 group :development do
   gem 'capistrano-ext', '=1.2.1'
-  gem 'travis-lint', '=1.4.0'
-  gem 'foreman', '=0.57.0'
+  gem 'travis-lint', '=1.6.0'
+  gem 'foreman', '=0.61.0'
 end
 
 group :development, :test do
-  gem 'mocha', '=0.10.5', :require => false
-  gem 'sqlite3', '=1.3.6'
-  gem 'rspec-rails', '=2.11.0'
+  gem 'mocha', '=0.13.2', :require => false
+  gem 'sqlite3', '=1.3.7'
+  gem 'rspec-rails', '=2.12.2'
   gem 'shoulda-matchers', '=1.2.0'
   gem 'factory_girl_rails', '=1.7.0'
   gem 'rcov', '=1.0.0'
-  gem 'spork-rails', '=3.2.0'
+  gem 'spork-rails', '=3.2.1'
   gem 'jasminerice', '=0.0.9'
   gem 'guard-jasmine', '=1.7.0'
   gem 'jasmine-jquery-rails', '=1.3.1'
