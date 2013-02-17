@@ -17,6 +17,7 @@ describe ReviewsListingController do
 
     it "index action (JS) should render JSON for early reviews" do
       @conference.stubs(:in_early_review_phase?).returns(true)
+      @conference.presubmissions_deadline = DateTime.now
 
       sessions = FactoryGirl.create_list(:session, 2, :created_at => @conference.presubmissions_deadline - 1.day)
       FactoryGirl.create(:session, :created_at => @conference.presubmissions_deadline + 1.day)

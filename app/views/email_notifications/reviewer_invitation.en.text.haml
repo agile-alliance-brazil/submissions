@@ -6,9 +6,9 @@ The Organizing Committee for #{@conference_name} (http://www.agilebrazil.com/#{@
 
 Before accepting your invitation, it is important to acknowledge the commitment that you are about to take. To participate in the evaluation process requires time and impartiality to create a conference with the best possible program. This year's review process will be different from previous years in an attempt to offer authors the opportunity to improve their proposals before the deadline, according to the feedback received. The review consists of two stages:
 
-
-\- During the first stage, which starts on #{l(Time.zone.local(2012, 04, 04), :format => :short)} and ends on #{l(@conference.prereview_deadline, :format => :short)}, each submitted proposal until  #{l(@conference.presubmissions_deadline, :format => :short)} must receive 1 partial review.
-\- For the second stage, which starts on #{l(@conference.presubmissions_deadline, :format => :short)} and ends on #{l(@conference.submissions_deadline, :format => :short)}, each submitted proposal will receive 3 independent reviews.
+-if @conference.presubmissions_deadline.present?
+  \- During the first stage, which starts on #{l(Time.zone.local(2012, 04, 04), :format => :short)} and ends on #{l(@conference.prereview_deadline, :format => :short)}, each submitted proposal until  #{l(@conference.presubmissions_deadline, :format => :short)} must receive 1 partial review.
+  \- For the second stage, which starts on #{l(@conference.presubmissions_deadline, :format => :short)} and ends on #{l(@conference.submissions_deadline, :format => :short)}, each submitted proposal will receive 3 independent reviews.
 
 
 To date, we are not able to predict how many proposals we are expected to receive, but we do ask each reviewer to dedicate about 2 hours per week during each stage to conduct the reviews. The reviews themselves do not need to be delivered all at once - they will be delivered online and it is up to you to organize your schedule to meet the deadlines.

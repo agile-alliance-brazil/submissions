@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe ReviewersController do
   render_views
 
@@ -10,13 +10,14 @@ describe ReviewersController do
     @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
+    EmailNotifications.stubs(:send_reviewer_invitation)
   end
 
   it "index action should render index template" do
     get :index
     response.should render_template(:index)
   end
-  
+
   it "index action should assign tracks for current conference" do
     get :index
     (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
@@ -34,12 +35,12 @@ describe ReviewersController do
     post :create, :reviewer => {}
     response.should render_template(:new)
   end
-  
+
   it "create action should redirect when model is valid" do
     post :create, :reviewer => {:user_id => @user.id, :conference_id => Conference.current.id}
     response.should redirect_to(reviewers_path(Conference.current))
   end
-  
+
   it "destroy action should redirect" do
     reviewer = FactoryGirl.create(:reviewer, :user_id => @user.id)
     delete :destroy, :id => reviewer.id

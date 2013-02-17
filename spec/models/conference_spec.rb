@@ -47,8 +47,9 @@ describe Conference do
 
       context "for authors" do
         it "should show pre submissions deadline first" do
-          DateTime.expects(:now).returns(@conference.presubmissions_deadline - 1.second)
-          @conference.next_deadline(:author).should == [@conference.presubmissions_deadline, :presubmissions_deadline]
+          conference = Conference.where(:year => 2012).first
+          DateTime.expects(:now).returns(conference.presubmissions_deadline - 1.second)
+          conference.next_deadline(:author).should == [conference.presubmissions_deadline, :presubmissions_deadline]
         end
 
         it "should show submissions deadline first if conference doesn't have pre submissions" do
@@ -80,8 +81,9 @@ describe Conference do
 
       context "for reviewers" do
         it "should show pre review deadline first" do
-          DateTime.expects(:now).returns(@conference.prereview_deadline - 1.second)
-          @conference.next_deadline(:reviewer).should == [@conference.prereview_deadline, :prereview_deadline]
+          conference = Conference.where(:year => 2012).first
+          DateTime.expects(:now).returns(conference.prereview_deadline - 1.second)
+          conference.next_deadline(:reviewer).should == [conference.prereview_deadline, :prereview_deadline]
         end
 
         it "should show review deadline first if conference doesn't have pre submissions" do

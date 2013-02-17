@@ -260,6 +260,7 @@ describe Session do
         @track = @conference.tracks.first
         @audience_level = @conference.audience_levels.first
 
+        @conference.presubmissions_deadline = DateTime.now
         @session = FactoryGirl.create(:session, :conference => @conference, :track => @track, :audience_level => @audience_level, :created_at => @conference.presubmissions_deadline - 1.day)
       end
 
