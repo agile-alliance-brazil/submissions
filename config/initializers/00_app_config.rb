@@ -1,18 +1,19 @@
 # encoding: UTF-8
-begin
-  config = YAML.load_file("#{Rails.root}/config/config.yml")
 
-  ::AppConfig = config
-  ActionMailer::Base.smtp_settings = config[:smtp_settings]
-  ActionMailer::Base.default_url_options[:host] = config[:host]
+config_file = File.join(File.dirname(__FILE__), '..', '..', 'config', 'config.yml')
+unless File.exist?(config_file)
+  raise "config/config.yml file not found. Please check config/config.example for a sample"
+end
+config = YAML.load_file(config_file)
 
-  module ActionView
-    module Helpers
-      module FormOptionsHelper
-        SUPPORTED_LANGUAGES = [['Português', 'pt'], ['English', 'en']]
-      end
+::AppConfig = config
+ActionMailer::Base.smtp_settings = config[:smtp_settings]
+ActionMailer::Base.default_url_options[:host] = config[:host]
+
+module ActionView
+  module Helpers
+    module FormOptionsHelper
+      SUPPORTED_LANGUAGES = [['Português', 'pt'], ['English', 'en']]
     end
   end
-rescue
-  raise "config/config.yml file not found. Please check config/config.example for a sample"
 end

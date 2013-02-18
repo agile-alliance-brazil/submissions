@@ -22,7 +22,7 @@ namespace :deploy do
       passenger.restart
     end
   end
-  
+
   task :symlink_configs, :roles => :app, :except => {:no_release => true} do
     run <<-CMD
       cd #{release_path} &&

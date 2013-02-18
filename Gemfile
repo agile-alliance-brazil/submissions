@@ -19,7 +19,7 @@ gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.1.2'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
-gem 'airbrake', '=3.1.2'
+gem 'airbrake', '=3.1.8'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 gem 'mysql2', '=0.3.11'
 
