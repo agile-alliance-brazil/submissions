@@ -46,10 +46,10 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (3.0.1)
-    brcpfcnpj (3.1.0)
+    brcpfcnpj (3.3.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    brhelper (3.1.0)
+    brhelper (3.3.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     builder (3.0.4)
@@ -255,8 +255,8 @@ DEPENDENCIES
   acts_as_commentable (= 3.0.1)
   airbrake (= 3.1.2)
   aws-ses (= 0.4.4)
-  brcpfcnpj (= 3.1.0)
-  brhelper (= 3.1.0)
+  brcpfcnpj (= 3.3.0)
+  brhelper (= 3.3.0)
   cancan (= 1.6.9)
   capistrano-ext (= 1.2.1)
   coffee-rails (= 3.2.2)
