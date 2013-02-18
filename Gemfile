@@ -34,7 +34,7 @@ end
 # in production environments by default.
 group :assets do
   gem 'therubyracer', '=0.11.3'
-  gem 'sass-rails', '=3.2.5'
+  gem 'sass-rails', '=3.2.6'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=1.1.1'
