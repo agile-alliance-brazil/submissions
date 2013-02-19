@@ -12,8 +12,6 @@ describe Preference do
   end
 
   context "validations" do
-    it { should ensure_inclusion_of(:accepted).in_array([true, false]) }
-
     describe "when accepted" do
       subject {FactoryGirl.build(:preference, :accepted => true)}
       it { should validate_presence_of :audience_level_id }

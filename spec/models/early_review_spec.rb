@@ -47,13 +47,6 @@ describe EarlyReview do
     it { should validate_presence_of :author_agile_xp_rating_id }
     it { should validate_presence_of :author_proposal_xp_rating_id }
 
-    it { should ensure_inclusion_of(:proposal_track).in_array([true, false]) }
-    it { should ensure_inclusion_of(:proposal_level).in_array([true, false]) }
-    it { should ensure_inclusion_of(:proposal_type).in_array([true, false]) }
-    it { should ensure_inclusion_of(:proposal_duration).in_array([true, false]) }
-    it { should ensure_inclusion_of(:proposal_limit).in_array([true, false]) }
-    it { should ensure_inclusion_of(:proposal_abstract).in_array([true, false]) }
-
     it { should validate_presence_of :proposal_quality_rating_id }
     it { should validate_presence_of :proposal_relevance_rating_id }
 
