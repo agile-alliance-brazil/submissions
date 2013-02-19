@@ -53,13 +53,13 @@ group :test do
   gem 'shoulda-matchers', '=1.4.1' # 1.4.2 brings in a version of bourne that depends on older mocha
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
-  gem 'guard-jasmine', '=1.7.0'
-  gem 'jasmine-jquery-rails', '=1.3.1'
 end
 
 group :development, :test do
   gem 'sqlite3', '=1.3.7'
   gem 'rspec-rails', '=2.12.2'
   gem 'spork-rails', '=3.2.1'
-  gem 'jasminerice', '=0.0.9'
+  gem 'jasmine-jquery-rails', '=1.4.2'
+  gem 'guard-jasmine', '=1.12.2'
+  gem 'jasminerice', '=0.0.10'
 end
