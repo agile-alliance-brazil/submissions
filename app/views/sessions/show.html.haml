@@ -28,8 +28,9 @@
     %li= link_to h(keyword), sessions_path(@conference, :session_filter => {:tags => keyword})
 
 = content_tag_for(:dl, @session) do
-  %dt= t('formtastic.labels.session.language')
-  %dd&= t("generic.#{@session.try(:language)}")
+  - unless @session.language.blank?
+    %dt= t('formtastic.labels.session.language')
+    %dd= t("generic.#{@session.language}")
   %dt= t('formtastic.labels.session.target_audience')
   %dd&= @session.try(:target_audience)
   %dt= t('formtastic.labels.session.summary')
