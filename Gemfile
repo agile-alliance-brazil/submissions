@@ -33,7 +33,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyracer', '=0.11.3'
+  gem 'therubyracer', '=0.11.4'
   gem 'sass-rails', '=3.2.6'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
@@ -57,9 +57,9 @@ end
 
 group :development, :test do
   gem 'sqlite3', '=1.3.7'
-  gem 'rspec-rails', '=2.12.2'
+  gem 'rspec-rails', '=2.13.0'
   gem 'spork-rails', '=3.2.1'
   gem 'jasmine-jquery-rails', '=1.4.2'
-  gem 'guard-jasmine', '=1.12.2'
+  gem 'guard-jasmine', '=1.13.0'
   gem 'jasminerice', '=0.0.10'
 end
