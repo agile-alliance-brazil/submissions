@@ -3,7 +3,7 @@ describe "AcceptedSessions", ->
   describe ".load", ->
 
     it "should hide all authors' bio", ->
-      setFixtures(sandbox {class: 'bio'})
+      setFixtures("<div id='sandbox'><div class='bio'></div></div>")
       expect($('.bio')).toBeVisible()
-      new AcceptedSessions().load()
+      new AcceptedSessions('#sandbox').load()
       expect($('.bio')).toBeHidden()

@@ -37,19 +37,19 @@ group :assets do
   gem 'sass-rails', '=3.2.6'
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
-  gem 'jquery-ui-rails', '=4.0.1'
+  gem 'jquery-ui-rails', '=4.0.2'
   gem 'coffee-rails', '=3.2.2'
-  gem 'fancybox-rails', '=0.1.4'
+  gem 'fancybox-rails', '=0.2.1'
 end
 
 group :development do
   gem 'capistrano-ext', '=1.2.1'
   gem 'travis-lint', '=1.6.0'
-  gem 'foreman', '=0.61.0'
+  gem 'foreman', '=0.62.0'
 end
 
 group :test do
-  gem 'mocha', '=0.13.2', :require => false
+  gem 'mocha', '=0.13.3', :require => false
   gem 'shoulda-matchers', '=1.4.1' # 1.4.2 brings in a version of bourne that depends on older mocha
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
@@ -60,6 +60,6 @@ group :development, :test do
   gem 'rspec-rails', '=2.13.0'
   gem 'spork-rails', '=3.2.1'
   gem 'jasmine-jquery-rails', '=1.4.2'
-  gem 'guard-jasmine', '=1.13.0'
+  gem 'guard-jasmine', '=1.13.2'
   gem 'jasminerice', '=0.0.10'
 end

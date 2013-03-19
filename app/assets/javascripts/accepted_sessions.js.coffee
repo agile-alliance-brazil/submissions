@@ -4,19 +4,22 @@
 #= require_self
 
 class AcceptedSessions
+  constructor: (containerId) ->
+    @container = $(containerId)
+
   load: ->
-    $("#accepted_sessions .bio").hide()
-    $("#accepted_sessions table .content").each ->
+    $(".bio", @container).hide()
+    $("table .content", @container).each ->
       # Setting .content height to TD height to allow absolute positioning of tabs
-      $(this).height($(this).closest('td').height())
+      $(this).height($(this).closest("td").height())
       # Aligning .details in the middle (vertically)
-      innerHeight = $(this).children('.details').height()
-      $(this).children('.details').css("margin-top", -(innerHeight / 2) + 'px')
-    $("#accepted_sessions table td.keynote").each ->
+      innerHeight = $(this).children(".details").height()
+      $(this).children(".details").css("margin-top", -(innerHeight / 2) + 'px')
+    $("table td.keynote", @container).each ->
       $(this).closest("tr").height($(this).height() * 3)
-    $('#accepted_sessions .fancybox').fancybox()
+    $(".fancybox", @container).fancybox()
 
 jQuery ->
-  new AcceptedSessions().load()
+  new AcceptedSessions("#accepted_sessions").load()
 
 (exports ? this).AcceptedSessions = AcceptedSessions
