@@ -50,7 +50,7 @@ end
 
 group :test do
   gem 'mocha', '=0.13.3', :require => false
-  gem 'shoulda-matchers', '=1.4.1' # 1.4.2 brings in a version of bourne that depends on older mocha
+  gem 'shoulda-matchers', '=1.4.1' # 1.5.0 brings in a version of bourne that depends on older mocha
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
 end
