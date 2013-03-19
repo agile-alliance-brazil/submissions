@@ -10,6 +10,7 @@ describe SessionsController do
     @session ||= FactoryGirl.create(:session)
     sign_in @session.author
     disable_authorization
+    EmailNotifications.stubs(:send_session_submitted)
   end
 
   it "index action should render index template" do
