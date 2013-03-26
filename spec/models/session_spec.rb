@@ -44,37 +44,9 @@ describe Session do
     it { should have_many :final_reviews }
     it { should have_one  :review_decision }
 
-    context "second author association by username" do
-      before(:each) do
-        @session = FactoryGirl.create(:session)
-        @user = FactoryGirl.create(:user)
-      end
-
-      it "should set by username" do
-        @session.second_author_username = @user.username
-        @session.second_author.should == @user
-      end
-
-      it "should not set if username is nil" do
-        @session.second_author_username = nil
-        @session.second_author.should be_nil
-      end
-
-      it "should not set if username is empty" do
-        @session.second_author_username = ""
-        @session.second_author.should be_nil
-      end
-
-      it "should not set if username is only spaces" do
-        @session.second_author_username = "  "
-        @session.second_author.should be_nil
-      end
-
-      it "should provide username from association" do
-        @session.second_author_username.should be_nil
-        @session.second_author_username = @user.username
-        @session.second_author_username.should == @user.username
-      end
+    context "second author username" do
+      subject { Factory.build(:session) }
+      it_should_behave_like "virtual username attribute", :second_author
     end
   end
 

@@ -3,6 +3,8 @@ class Organizer < ActiveRecord::Base
   attr_accessible :user_id, :track_id, :conference_id, :user_username
   attr_trimmed    :user_username
 
+  attr_autocomplete_username_as :user
+
   belongs_to :user
   belongs_to :track
   belongs_to :conference
@@ -47,21 +49,6 @@ class Organizer < ActiveRecord::Base
     if user.all_organized_tracks.empty?
       user.remove_role :organizer
       user.save(:validate => false)
-    end
-  end
-
-  def user_username
-    @user_username || user.try(:username)
-  end
-
-  def user_username=(username)
-    @user_username = username.try(:strip)
-    @user_username.tap do
-      if @user_username.blank?
-        self.user = nil
-      else
-        self.user = User.find_by_username(@user_username)
-      end
     end
   end
 end

@@ -12,6 +12,8 @@ class Session < ActiveRecord::Base
   acts_as_taggable_on :keywords
   acts_as_commentable
 
+  attr_autocomplete_username_as :second_author
+
   belongs_to :author, :class_name => 'User'
   belongs_to :second_author, :class_name => 'User'
   belongs_to :track
@@ -151,21 +153,6 @@ class Session < ActiveRecord::Base
       validates_acceptance_of :author_agreement, :accept => true
     end
 
-  end
-
-  def second_author_username
-    @second_author_username || second_author.try(:username)
-  end
-
-  def second_author_username=(username)
-    @second_author_username = username.try(:strip)
-    @second_author_username.tap do
-      if @second_author_username.blank?
-        self.second_author = nil
-      else
-        self.second_author = User.find_by_username(@second_author_username)
-      end
-    end
   end
 
   def to_param

@@ -50,36 +50,9 @@ describe Organizer do
     it { should belong_to :track }
     it { should belong_to :conference }
 
-    context "user association by username" do
-      before(:each) do
-        @organizer = FactoryGirl.create(:organizer)
-        @user = FactoryGirl.create(:user)
-      end
-
-      it "should set by username" do
-        @organizer.user_username = @user.username
-        @organizer.user.should == @user
-      end
-
-      it "should not set if username is nil" do
-        @organizer.user_username = nil
-        @organizer.user.should be_nil
-      end
-
-      it "should not set if username is empty" do
-        @organizer.user_username = ""
-        @organizer.user.should be_nil
-      end
-
-      it "should not set if username is only spaces" do
-        @organizer.user_username = "  "
-        @organizer.user.should be_nil
-      end
-
-      it "should provide username from association" do
-        @organizer.user_username = @user.username
-        @organizer.user_username.should == @user.username
-      end
+    context "organizer username" do
+      subject { Factory.build(:organizer) }
+      it_should_behave_like "virtual username attribute", :user
     end
   end
 
