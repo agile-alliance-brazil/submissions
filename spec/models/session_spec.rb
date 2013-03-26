@@ -94,7 +94,6 @@ describe Session do
     it { should validate_presence_of :keyword_list }
     it { should validate_presence_of :language }
 
-    it { should ensure_inclusion_of(:duration_mins).in_array([25, 50, 80]) }
     it { should ensure_inclusion_of(:language).in_array(['en', 'pt']) }
 
     should_validate_existence_of :conference, :author
@@ -177,40 +176,17 @@ describe Session do
       end
     end
 
-    context "duration" do
-      before(:each) do
-        @session = FactoryGirl.build(:session)
-      end
-
-      it "should only have duration of 25 minutes for experience reports" do
-        @session.session_type.title = 'session_types.experience_report.title'
-        @session.duration_mins = 25
-        @session.should be_valid
-        @session.duration_mins = 50
-        @session.should_not be_valid
-        @session.duration_mins = 80
-        @session.should_not be_valid
-      end
-
-      it "should only allow duration of 50 minutes for talks" do
-        @session.session_type.title = 'session_types.talk.title'
-        @session.duration_mins = 50
-        @session.should be_valid
-        @session.duration_mins = 80
-        @session.should_not be_valid
-        @session.duration_mins = 25
-        @session.should_not be_valid
-      end
-
-      it "should allow duration of 50 or 80 minutes for hands on" do
-        @session.session_type.title = 'session_types.hands_on.title'
-        @session.duration_mins = 25
-        @session.should_not be_valid
-        @session.duration_mins = 50
-        @session.should be_valid
-        @session.duration_mins = 80
-        @session.should be_valid
-      end
+    it "should only accept valid durations for session type" do
+      @session = FactoryGirl.build(:session)
+      @session.session_type.valid_durations = [25, 50]
+      @session.duration_mins = 25
+      @session.should be_valid
+      @session.duration_mins = 50
+      @session.should be_valid
+      @session.duration_mins = 80
+      @session.should_not be_valid
+      @session.duration_mins = 110
+      @session.should_not be_valid
     end
 
     it "should validate that author doesn't change" do
@@ -400,20 +376,14 @@ describe Session do
     end
   end
 
-  it "should determine if it's lightning talk" do
-    lightning_talk = FactoryGirl.build(:session_type, :title => 'session_types.lightning_talk.title')
-    session = FactoryGirl.build(:session)
-    session.should_not be_lightning_talk
-    session.session_type = lightning_talk
-    session.should be_lightning_talk
-  end
-
-  it "should determine if it's experience_report" do
-    experience_report = FactoryGirl.build(:session_type, :title => 'session_types.experience_report.title')
-    session = FactoryGirl.build(:session)
-    session.should_not be_experience_report
-    session.session_type = experience_report
-    session.should be_experience_report
+  SessionType.all_titles.each do |title|
+    it "should determine if it's #{title}" do
+      session = FactoryGirl.build(:session)
+      session.session_type.title = "session_types.#{title}.title"
+      session.send(:"#{title}?").should be_true
+      session.session_type.title = "session_types.other.title"
+      session.send(:"#{title}?").should be_false
+    end
   end
 
   it "should overide to_param with session title" do

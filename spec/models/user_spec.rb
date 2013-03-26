@@ -162,7 +162,7 @@ describe User do
       it "should narrow sessions based on conference for user" do
         session = FactoryGirl.create(:session)
         FactoryGirl.create(:session)
-        FactoryGirl.create(:session, :conference => Conference.first, :track => Track.first, :audience_level => AudienceLevel.first, :session_type => SessionType.first, :author => session.author)
+        FactoryGirl.create(:session, :conference => Conference.first, :track => Track.first, :audience_level => AudienceLevel.first, :session_type => SessionType.first, :author => session.author, :duration_mins => SessionType.first.valid_durations.first)
         user = session.author
 
         user.sessions_for_conference(Conference.current).should == [session]

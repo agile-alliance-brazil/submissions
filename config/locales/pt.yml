@@ -5,11 +5,7 @@ pt:
     messages:
       same_author: não pode ser o mesmo autor
       incomplete: usuário não possui perfil de autor completo
-      experience_report_talk_duration: só pode ser 50 minutos
-      non_lightning_talk_duration: só pode ser 50 ou 110 minutos
-      talk_duration: só pode ser 50 minutos
-      hands_on_duration: só pode ser 110 minutos
-      lightning_talk_duration: só pode ser 10 minutos
+      session_type_duration: "só pode ser %{valid_durations} minutos"
       experience_report_session_type: só pode ser uma Palestra
       email_format: deve ter um formato de e-mail válido
       username_format: ! 'deve usar apenas letras, números, espaços e .-_@'
@@ -203,7 +199,6 @@ pt:
         title: '(máximo 100 caracteres)'
         track_id: "A descrição de cada trilha pode ser consultada <a href='%{year}/tracks?locale=pt' target='_blank'>aqui</a>."
         session_type_id: "Uma descrição dos tipos de sessão pode ser consultada <a href='%{year}/session_types?locale=pt' target='_blank'>aqui</a>."
-        duration_mins: "Palestras devem ter duração de 50 minutos, sessões Mão na Massa 50 ou 80 minutos e Relatos de Experiência 25 minutos."
         audience_level_id: "Indique o nível esperado do seu público alvo. Leia uma descrição dos níveis <a href='%{year}/audience_levels?locale=pt' target='_blank'>aqui</a>."
         audience_limit: "Se a sua sessão for Mão na Massa, indique se ela tem um número máximo de participantes."
         target_audience: "Descreva um pouco sobre o público-alvo, por exemplo: desenvolvedores, iniciantes em Métodos Ágeis, analistas, arquitetos, QAs, gerentes de projeto, executivos.<br/>(máximo 200 caracteres)"
@@ -358,21 +353,27 @@ pt:
   session_types:
     tutorial:
       title: "Tutorial"
+      title_plural: "tutoriais"
       description: "Este tipo de sessão contempla atividades endereçadas especialmente a pessoas que estão apenas começando ou procurando por um apoio em Métodos Ágeis. Tutoriais são aulas guiadas pelo(s) instrutor(es) com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos Ágeis. Tutoriais têm objetivos claros de aprendizado que focam no ensino de habilidades ou técnicas específicas."
     workshop:
       title: "Workshop"
+      title_plural: "workshops"
       description: "Sessões altamente interativas e participativas que permitem que os participantes adquiram conhecimento de uma maneira prática. Esse tipo de sessão é ideal para tópicos relacionados a inovação, resolução de conflitos, liderança, etc. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias para expandir uma nova técnica ou prática ou para discutir novas idéias a serem compartilhadas com a comunidade."
     talk:
       title: "Palestra"
+      title_plural: "palestras"
       description: "Palestras são sessões com assuntos específicos e direcionadas àqueles que tem como objetivo aumentar seu conhecimento sobre os métodos ágeis e as melhores práticas usadas pela comunidade ágil."
     lightning_talk:
       title: "Lightning Talk"
+      title_plural: "lightning talks"
       description: "Lightning talks são palestras curtas (8 minutos de apresentação e 2 minutos para perguntas)  que tem o objetivo de transmitir uma ideia de forma rápida e concisa. O uso de slides é opcional. Um dos formatos conhecidos para lightning talk é o Pecha Kucha, no qual o apresentador tem 20 slides mudando automaticamente a cada 20 segundos, totalizando 6 minutos e 40 segundos de apresentação."
     hands_on:
       title: "Mão na Massa"
+      title_plural: "sessões mão na massa"
       description: 'Sessões "mão na massa" são workshops e tutoriais com atividades práticas e participação do público. O objetivo principal é transmitir o conhecimento aos participantes de uma maneira prática. Um workshop é uma oportunidade para que os participantes aprendam uns com os outros sobre um tópico relevante, para que compartilhem idéias a fim de expandir uma nova técnica ou para discutir novas idéias a serem compartilhadas com a comunidade. Tutoriais são aulas guiadas pelo instrutor com o objetivo de prover aos participantes conhecimento prático que possa ser usado de imediato em projetos ágeis.'
     experience_report:
       title: "Relatos de Experiência"
+      title_plural: "relatos de experiência"
       description: "Relatos são histórias reais vivenciadas pelo palestrante que trazem experiências de sucesso, importantíssimas para aqueles que procuram suporte para suas próprias histórias, e também contos de fracassos que promovam compreensão de como uma técnica, prática ou tendência pode prejudicar um time e projeto."
 
   tracks:
@@ -535,6 +536,7 @@ pt:
     room: "Sala"
     en: "Inglês"
     pt: "Português"
+    duration_restriction: "devem ter duração de"
 
   time:
     formats:

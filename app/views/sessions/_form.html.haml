@@ -3,8 +3,8 @@
   = form.input :language, :required => true, :as => :select, :collection => [[t('generic.en'), 'en'], [t('generic.pt'), 'pt']], :input_html => {:tabindex => autotab}
   = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.track_id', :year => "/#{@conference.year}")
   = form.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.audience_level_id', :year => "/#{@conference.year}")
-  = form.input :session_type_id, :required => true, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}, :hint => t('formtastic.hints.session.session_type_id', :year => "/#{@conference.year}")
-  = form.input :duration_mins, :required => true, :as => :select, :collection => [["25 #{t('generic.minutes')}", 25], ["50 #{t('generic.minutes')}", 50], ["80 #{t('generic.minutes')}", 80]], :input_html => {:tabindex => autotab}
+  = form.input :session_type_id, :required => true, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab, :data => {:"durations-to-hide" => durations_to_hide(@session_types)}}, :hint => t('formtastic.hints.session.session_type_id', :year => "/#{@conference.year}")
+  = form.input :duration_mins, :required => true, :as => :select, :collection => options_for_durations(@session_types), :input_html => {:tabindex => autotab}, :hint => duration_mins_hint(@session_types)
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
   = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
@@ -25,21 +25,7 @@
     })
     $("#session_track_id").bindSelectUpdated();
 
-    $("#session_duration_mins").filterOn("#session_session_type_id", {
-      "1": ["10"],
-      "2": ["10"],
-      "3": ["10"],
-      "4": ["10"],
-      "5": ["10"],
-      "6": ["10"],
-      "7": ["", "50", "110"],
-      "8": ["", "10", "110"],
-      "9": ["", "10", "50"],
-      "10": ["", "50", "110"],
-      "11": ["", "25", "80"],
-      "12": ["", "25"],
-      "13": ["", "50", "80"]
-    })
+    $("#session_duration_mins").filterOn("#session_session_type_id", $("#session_session_type_id").data("durations-to-hide"))
     $("#session_session_type_id").bindSelectUpdated();
 
     $("#session_session_type_id").bind('updated', sessionTypeActions);
