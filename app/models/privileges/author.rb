@@ -13,14 +13,7 @@ class Privileges::Author < Privileges::Base
     can!(:index, FinalReview) do |session|
       session.try(:is_author?, @user) && session.review_decision.try(:published?)
     end
-    can(:manage, 'confirm_sessions') do
-      @session.present? &&
-      @session.is_author?(@user) &&
-      @session.pending_confirmation? &&
-      @session.review_decision &&
-      @conference.in_author_confirmation_phase?
-    end
-    can(:manage, 'withdraw_sessions') do
+    can(:manage, ['confirm_sessions', 'withdraw_sessions']) do
       @session.present? &&
       @session.is_author?(@user) &&
       @session.pending_confirmation? &&
