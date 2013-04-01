@@ -47,10 +47,10 @@
           = t('generic.ago')
         %td.vote
           - if session.voted_by? current_user
-            = form_for session.vote_from(current_user), :html => {:method => "delete"} do |f|
+            = form_for session.vote_from(current_user), :html => {:method => "delete", :class => "vote_up"} do |f|
               = f.submit t('session.labels.vote.destroy')
           - elsif session.can_be_voted_by? current_user
-            = form_for Vote.new do |f|
+            = form_for Vote.new, :html => {:class => "vote_down"} do |f|
               = f.hidden_field "user_id", :value => current_user.id
               = f.hidden_field "session_id", :value => session.id
               = f.hidden_field "year", :value => params[:year]

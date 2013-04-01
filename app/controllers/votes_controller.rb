@@ -7,7 +7,14 @@ class VotesController < ApplicationController
     @vote = Vote.new params[:vote]
     can_vote = @vote.try(:session).can_be_voted_by?(current_user)
     if can_vote && @vote.save
-      redirect_to sessions_path(@vote.year)
+      respond_to do |format|
+        format.html { redirect_to request.referer }
+        format.js { head :ok }
+      end
+    else
+      respond_to do |format|
+        format.js { head :internal_server_error }
+      end
     end
   end
 
@@ -15,7 +22,14 @@ class VotesController < ApplicationController
     @vote = Vote.find params[:id]
     year = @vote.year
     if @vote.destroy
-      redirect_to sessions_path(year)
+      respond_to do |format|
+        format.html { redirect_to request.referer }
+        format.js { head :ok }
+      end
+    else
+      respond_to do |format|
+        format.js { head :internal_server_error }
+      end
     end
   end
 end
