@@ -181,6 +181,10 @@ class Session < ActiveRecord::Base
     !!vote_from(user)
   end
 
+  def can_be_voted_by?(user)
+    user.votes.size < 5
+  end
+
   private
   def requires_mechanics?
     workshop? || hands_on?

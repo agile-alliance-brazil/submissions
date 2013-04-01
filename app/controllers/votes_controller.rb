@@ -2,7 +2,8 @@ class VotesController < ApplicationController
 
   def create
     @vote = Vote.new params[:vote]
-    if @vote.save
+    can_vote = @vote.try(:session).can_be_voted_by?(current_user)
+    if can_vote && @vote.save
       redirect_to sessions_path(@vote.year)
     end
   end
