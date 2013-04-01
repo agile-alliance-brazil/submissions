@@ -1,4 +1,7 @@
 class VotesController < ApplicationController
+  def index
+    @sessions = current_user.voted_sessions
+  end
 
   def create
     @vote = Vote.new params[:vote]

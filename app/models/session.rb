@@ -23,6 +23,8 @@ class Session < ActiveRecord::Base
 
   has_many :early_reviews
   has_many :final_reviews
+  has_many :votes
+
   has_one :review_decision
 
   validates_presence_of :title, :summary, :description, :benefits, :target_audience,

@@ -31,7 +31,7 @@
       %li= link_to t('actions.browse_sessions'), sessions_path(@conference)
       - if current_user.sessions_for_conference(@conference).count > 0
         %li= link_to t('actions.my_sessions'), user_sessions_path(@conference, current_user)
-        %li= link_to t('actions.my_votes'), sessions_path(@conference, current_user)
+        %li= link_to t('actions.my_votes'), votes_path
 
   - if current_user.reviewer? || current_user.organizer? || current_user.admin?
     %h4= t('actions.section.review')

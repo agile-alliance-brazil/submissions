@@ -101,4 +101,10 @@ class User < ActiveRecord::Base
   def voter?
     self.voter
   end
+
+  def voted_sessions
+    Vote.joins(:session).where(:votes => {
+      :user_id => self.id
+    }).includes(:session).order("sessions.created_at DESC").map {|v| v.session}
+  end
 end
