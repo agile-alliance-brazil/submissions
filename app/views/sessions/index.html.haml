@@ -57,11 +57,15 @@
           = time_ago_in_words(session.created_at)
           = t('generic.ago')
         %td.vote
-          = form_for Vote.new do |f|
-            = f.hidden_field "user_id", :value => current_user.id
-            = f.hidden_field "session_id", :value => session.id
-            = f.hidden_field "year", :value => params[:year]
-            = f.submit t('session.labels.vote.button')
+          - if session.voted_by? current_user
+            = form_for session.vote_from(current_user), :html => {:method => "delete"} do |f|
+              = f.submit t('session.labels.vote.destroy')
+          - else
+            = form_for Vote.new do |f|
+              = f.hidden_field "user_id", :value => current_user.id
+              = f.hidden_field "session_id", :value => session.id
+              = f.hidden_field "year", :value => params[:year]
+              = f.submit t('session.labels.vote.button')
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

@@ -466,6 +466,7 @@ pt:
       vote:
         button: "Votar"
         title: "Votar"
+        destroy: "Cancelar voto"
 
   review:
     view_session: "Ver proposta original (com comentários)"

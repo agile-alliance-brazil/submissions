@@ -173,6 +173,14 @@ class Session < ActiveRecord::Base
     end                                            # end
   end
 
+  def vote_from(user)
+    Vote.where(:user_id => user.id, :session_id => self.id).first
+  end
+
+  def voted_by?(user)
+    !!vote_from(user)
+  end
+
   private
   def requires_mechanics?
     workshop? || hands_on?
