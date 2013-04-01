@@ -184,7 +184,7 @@ class Session < ActiveRecord::Base
   end
 
   def can_be_voted_by?(user)
-    user.votes.size < 5
+    !is_author?(user) && user.votes.size < 5
   end
 
   private
