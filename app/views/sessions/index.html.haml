@@ -22,6 +22,7 @@
           %th.state= t('formtastic.labels.session.state')
           %th.action
       %th.created_at= t('formtastic.labels.session.created_at')
+      %th.vote= t('session.labels.vote.title')
   %tbody
     - @sessions.each do |session|
       = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
@@ -55,6 +56,12 @@
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')
+        %td.vote
+          = form_for Vote.new do |f|
+            = f.hidden_field "user_id", :value => current_user.id
+            = f.hidden_field "session_id", :value => session.id
+            = f.hidden_field "year", :value => params[:year]
+            = f.submit t('session.labels.vote.button')
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

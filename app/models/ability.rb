@@ -15,6 +15,7 @@ class Ability
     author_privileges if @user.author?
     organizer_privileges if @user.organizer?
     reviewer_privileges if @user.reviewer?
+    voter_privileges if @user.voter?
   end
 
   private
@@ -148,4 +149,9 @@ class Ability
     can(:read, 'reviews_listing')
     can(:reviewer, 'reviews_listing')
   end
+
+  def voter_privileges
+    can([:create, :read], "votes")
+  end
+
 end
