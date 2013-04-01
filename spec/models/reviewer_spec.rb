@@ -73,36 +73,9 @@ describe Reviewer do
 
     xit { should accept_nested_attributes_for :preferences }
 
-    context "user association by username" do
-      before(:each) do
-        @reviewer = FactoryGirl.create(:reviewer)
-        @user = FactoryGirl.create(:user)
-      end
-
-      it "should set by username" do
-        @reviewer.user_username = @user.username
-        @reviewer.user.should == @user
-      end
-
-      it "should not set if username is nil" do
-        @reviewer.user_username = nil
-        @reviewer.user.should be_nil
-      end
-
-      it "should not set if username is empty" do
-        @reviewer.user_username = ""
-        @reviewer.user.should be_nil
-      end
-
-      it "should not set if username is only spaces" do
-        @reviewer.user_username = "  "
-        @reviewer.user.should be_nil
-      end
-
-      it "should provide username from association" do
-        @reviewer.user_username = @user.username
-        @reviewer.user_username.should == @user.username
-      end
+    context "reviewer username" do
+      subject { Factory.build(:reviewer) }
+      it_should_behave_like "virtual username attribute", :user
     end
   end
 

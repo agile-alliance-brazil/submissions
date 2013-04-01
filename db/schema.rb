@@ -169,8 +169,9 @@ ActiveRecord::Schema.define(:version => 20130401185625) do
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "valid_durations"
   end
 
   create_table "sessions", :force => true do |t|

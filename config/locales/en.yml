@@ -5,11 +5,7 @@ en:
     messages:
       same_author: "can't be the same as author"
       incomplete: "user is currently not an author"
-      experience_report_talk_duration: "can only be 25 minutes"
-      non_lightning_talk_duration: "can only be 50 or 110 minutes"
-      talk_duration: "can only be 50 minutes"
-      hands_on_duration: "can be 50 or 110 minutes"
-      lightning_talk_duration: "can only be 10 minutes"
+      session_type_duration: "can only be %{valid_durations} minutes"
       experience_report_session_type: "can only be a Talk"
       email_format: "should look like an email address"
       username_format: "please use only letters, numbers, spaces, and .-_@"
@@ -205,7 +201,6 @@ en:
         title: "(at most 100 characters)"
         track_id: "A detailed description of each track can be found <a href='%{year}/tracks?locale=en' target='_blank'>here</a>."
         session_type_id: "A detailed description of session types can be found <a href='%{year}/session_types?locale=en' target='_blank'>here</a>."
-        duration_mins: "Talks should be 50 minutes long, Hands on sessions should be 50 or 80 minutes long, and Experience Reports should be 25 minutes long."
         audience_level_id: "Indicate the appropriate experience level of your audience. A description of each level can be found <a href='%{year}/audience_levels?locale=en' target='_blank'>here</a>."
         audience_limit: "If your session is Hands On, indicate if it has a maximum number of participants."
         target_audience: "Indicate your target audience, for example: developers, new to Agile, analysts, architects, QAs, project managers, executives.<br/>(at most 200 characters)"
@@ -360,21 +355,27 @@ en:
   session_types:
     tutorial:
       title: "Tutorial"
+      title_plural: "tutorials"
       description: "This type includes sessions specially targeted for people who are just beginning or looking for a foothold in Agile methods. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects. Tutorials have clear learning objectives that focus on teaching specific skills or techniques."
     workshop:
       title: "Workshop"
+      title_plural: "workshops"
       description: "Sessions highly interactive and participative, allowing the attendees to develop knowledge in a practical way. This track will include topics related with innovation, conflict resolution, leadership, etc. A workshop is an opportunity for conference attendees to learn from each other about a relevant topic, generate ideas that expand a new technique or practice, or discuss new ideas to be shared with the community."
     talk:
       title: "Lecture"
+      title_plural: "lectures"
       description: "Lectures are sessions addressing specific topics and directed to those who want to enhance their knowledge in agile methods and best practices."
     lightning_talk:
       title: "Lightning Talk"
+      title_plural: "lightning talks"
       description: "Lightning talks are short talks with, at most, 8 minutes length plus 2 minutes for questions (without slides) whose objective is to present an idea in a quick and concise way. The use of slides is optional. A well-known format for lightning talks is Pecha Kucha, in which the presenter has 20 slides switching automatically every 20 seconds, summing up to a 6 minutes and 40 seconds presentation."
     hands_on:
       title: "Hands On"
+      title_plural: "hands on sessions"
       description: "Hands on sessions are workshops and tutorials where the attendants are expected to take part in an activity and learn from practice. A workshop is an opportunity to learn from other attendees or to discuss new ideas that will be shared with the community. Tutorials are instructor-led interactive classes designed to provide participants with practical knowledge they can use right away on Agile projects."
     experience_report:
       title: "Experience Report"
+      title_plural: "experience reports"
       description: "Reports are true stories the speaker went through that show successes, important to those who look for back-up, and also cautionary tales that promote the understanding of how a practice, technique or trend can harm a team and a project."
 
   tracks:
@@ -534,6 +535,7 @@ en:
     room: "Room"
     en: "English"
     pt: "Portuguese"
+    duration_restriction: "should last"
 
   time:
     formats:

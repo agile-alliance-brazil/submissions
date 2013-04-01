@@ -96,4 +96,8 @@ class User < ActiveRecord::Base
   def has_approved_session?(conference)
     Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
   end
+
+  def voter?
+    self.voter
+  end
 end

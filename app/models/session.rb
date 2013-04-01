@@ -12,6 +12,8 @@ class Session < ActiveRecord::Base
   acts_as_taggable_on :keywords
   acts_as_commentable
 
+  attr_autocomplete_username_as :second_author
+
   belongs_to :author, :class_name => 'User'
   belongs_to :second_author, :class_name => 'User'
   belongs_to :track
@@ -29,7 +31,6 @@ class Session < ActiveRecord::Base
                         :language
 
   validates_presence_of :mechanics, :if => :requires_mechanics?
-  validates_inclusion_of :duration_mins, :in => [10, 25, 50, 80], :allow_blank => true
   validates_inclusion_of :language, :in => ['en', 'pt'], :allow_blank => true
   validates_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
 
@@ -43,6 +44,12 @@ class Session < ActiveRecord::Base
   validates_existence_of :conference, :author
   validates_existence_of :track, :session_type, :audience_level, :allow_blank => true
 
+  validates_each :duration_mins, :allow_blank => true do |record, attr, value|
+    valid_durations = record.session_type.valid_durations
+    error_message = valid_durations.join(" #{I18n.t('generic.or')} ")
+    record.errors.add(attr, :session_type_duration, {:valid_durations => error_message}) unless value.in?(valid_durations)
+  end
+
   validates_each :keyword_list do |record, attr, value|
     record.errors.add(attr, :too_long, :count => 10) if record.keyword_list.size > 10
   end
@@ -51,18 +58,6 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :existence) if record.second_author.nil?
     record.errors.add(attr, :same_author) if record.second_author == record.author
     record.errors.add(attr, :incomplete) if record.second_author.present? && !record.second_author.try(:author?)
-  end
-  validates_each :duration_mins, :if => :experience_report?, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :experience_report_talk_duration) unless value == 25
-  end
-  validates_each :duration_mins, :if => :talk?, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :talk_duration) unless value == 50
-  end
-  validates_each :duration_mins, :if => :lightning_talk?, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :lightning_talk_duration) unless value == 10
-  end
-  validates_each :duration_mins, :if => :hands_on?, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :hands_on_duration) unless (value == 50 || value == 80)
   end
   validates_each :author_id, :on => :update do |record, attr, value|
     record.errors.add(attr, :constant) if record.author_id_changed?
@@ -160,21 +155,6 @@ class Session < ActiveRecord::Base
 
   end
 
-  def second_author_username
-    @second_author_username || second_author.try(:username)
-  end
-
-  def second_author_username=(username)
-    @second_author_username = username.try(:strip)
-    @second_author_username.tap do
-      if @second_author_username.blank?
-        self.second_author = nil
-      else
-        self.second_author = User.find_by_username(@second_author_username)
-      end
-    end
-  end
-
   def to_param
     title.blank? ? super : "#{id}-#{title.parameterize}"
   end
@@ -187,24 +167,14 @@ class Session < ActiveRecord::Base
     authors.include?(user)
   end
 
-  def lightning_talk?
-    self.session_type.try(:lightning_talk?)
-  end
-
-  def hands_on?
-    self.session_type.try(:hands_on?)
-  end
-
-  def talk?
-    self.session_type.try(:talk?)
-  end
-
-  def experience_report?
-    self.session_type.try(:experience_report?)
+  SessionType.all_titles.each do |type|
+    define_method("#{type}?") do                   # def lightning_talk?
+      self.session_type.try(:"#{type}?")           #   self.session_type.try(:lightning_talk?)
+    end                                            # end
   end
 
   private
   def requires_mechanics?
-    session_type.try(:workshop?) || session_type.try(:hands_on?)
+    workshop? || hands_on?
   end
 end

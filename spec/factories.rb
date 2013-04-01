@@ -36,6 +36,7 @@ FactoryGirl.define do
     conference { Conference.current }
     title "session_types.talk.title"
     description "session_types.talk.description"
+    valid_durations [50]
   end
 
   factory :track do

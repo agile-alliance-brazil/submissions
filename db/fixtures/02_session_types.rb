@@ -4,6 +4,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 1
   session_type.title = 'session_types.tutorial.title'
   session_type.description = 'session_types.tutorial.description'
+  session_type.valid_durations = [45, 90]
 end
 
 SessionType.seed do |session_type|
@@ -11,6 +12,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 1
   session_type.title = 'session_types.workshop.title'
   session_type.description = 'session_types.workshop.description'
+  session_type.valid_durations = [45, 90]
 end
 
 SessionType.seed do |session_type|
@@ -18,6 +20,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 1
   session_type.title = 'session_types.talk.title'
   session_type.description = 'session_types.talk.description'
+  session_type.valid_durations = [45, 90]
 end
 
 SessionType.seed do |session_type|
@@ -25,6 +28,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 2
   session_type.title = 'session_types.tutorial.title'
   session_type.description = 'session_types.tutorial.description'
+  session_type.valid_durations = [50, 110]
 end
 
 SessionType.seed do |session_type|
@@ -32,6 +36,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 2
   session_type.title = 'session_types.workshop.title'
   session_type.description = 'session_types.workshop.description'
+  session_type.valid_durations = [50, 110]
 end
 
 SessionType.seed do |session_type|
@@ -39,6 +44,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 2
   session_type.title = 'session_types.talk.title'
   session_type.description = 'session_types.talk.description'
+  session_type.valid_durations = [50, 110]
 end
 
 SessionType.seed do |session_type|
@@ -46,6 +52,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 2
   session_type.title = 'session_types.lightning_talk.title'
   session_type.description = 'session_types.lightning_talk.description'
+  session_type.valid_durations = [10]
 end
 
 SessionType.seed do |session_type|
@@ -53,6 +60,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 3
   session_type.title = 'session_types.talk.title'
   session_type.description = 'session_types.talk.description'
+  session_type.valid_durations = [50]
 end
 
 SessionType.seed do |session_type|
@@ -60,6 +68,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 3
   session_type.title = 'session_types.hands_on.title'
   session_type.description = 'session_types.hands_on.description'
+  session_type.valid_durations = [110]
 end
 
 SessionType.seed do |session_type|
@@ -67,6 +76,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 3
   session_type.title = 'session_types.lightning_talk.title'
   session_type.description = 'session_types.lightning_talk.description'
+  session_type.valid_durations = [10]
 end
 
 SessionType.seed do |session_type|
@@ -74,6 +84,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 4
   session_type.title = 'session_types.talk.title'
   session_type.description = 'session_types.talk.description'
+  session_type.valid_durations = [50]
 end
 
 SessionType.seed do |session_type|
@@ -81,6 +92,7 @@ SessionType.seed do |session_type|
   session_type.conference_id = 4
   session_type.title = 'session_types.hands_on.title'
   session_type.description = 'session_types.hands_on.description'
+  session_type.valid_durations = [50, 80]
 end
 
 SessionType.seed do |session_type|
@@ -88,4 +100,5 @@ SessionType.seed do |session_type|
   session_type.conference_id = 4
   session_type.title = 'session_types.experience_report.title'
   session_type.description = 'session_types.experience_report.description'
+  session_type.valid_durations = [25]
 end

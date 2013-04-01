@@ -36,7 +36,8 @@ describe SessionsController do
       :session_type => SessionType.first,
       :audience_level => AudienceLevel.first,
       :track => Track.first,
-      :conference => Conference.first
+      :conference => Conference.first,
+      :duration_mins => SessionType.first.valid_durations.first
     )
     FactoryGirl.create(:session)
     get :show, :id => old_session.id

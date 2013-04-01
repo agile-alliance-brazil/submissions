@@ -4,6 +4,8 @@ class Reviewer < ActiveRecord::Base
                   :reviewer_agreement, :state_event
   attr_trimmed    :user_username
 
+  attr_autocomplete_username_as :user
+
   belongs_to :user
   belongs_to :conference
   has_many :preferences, :dependent => :destroy
@@ -79,20 +81,5 @@ class Reviewer < ActiveRecord::Base
 
   def can_review?(track)
     !user.organized_tracks(self.conference).include?(track)
-  end
-
-  def user_username
-    @user_username || user.try(:username)
-  end
-
-  def user_username=(username)
-    @user_username = username.try(:strip)
-    @user_username.tap do
-      if @user_username.blank?
-        self.user = nil
-      else
-        self.user = User.find_by_username(@user_username)
-      end
-    end
   end
 end
