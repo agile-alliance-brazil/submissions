@@ -9,7 +9,7 @@ class VotesController < ApplicationController
     if can_vote && @vote.save
       respond_to do |format|
         format.html { redirect_to request.referer }
-        format.js { head :ok }
+        format.js { render "vote_form" }
       end
     else
       respond_to do |format|
@@ -24,7 +24,7 @@ class VotesController < ApplicationController
     if @vote.destroy
       respond_to do |format|
         format.html { redirect_to request.referer }
-        format.js { head :ok }
+        format.js { render "vote_form" }
       end
     else
       respond_to do |format|
