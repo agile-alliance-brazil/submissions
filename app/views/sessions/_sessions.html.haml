@@ -1,0 +1,52 @@
+%table.sessions
+  %thead
+    %tr
+      %th.session_id ID
+      %th.title= t('formtastic.labels.session.title')
+      %th.author= t('formtastic.labels.session.author_id')
+      %th.author= t('formtastic.labels.session.second_author_id')
+      - if @user == current_user
+        %th.reviews= t('formtastic.labels.session.reviews')
+        - if @conference.in_author_confirmation_phase?
+          %th.state= t('formtastic.labels.session.state')
+          %th.action
+      %th.created_at= t('formtastic.labels.session.created_at')
+      %th.vote= t('session.labels.vote.title')
+  %tbody
+    - @sessions.each do |session|
+      = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+        %td.session_id= session.id
+        %td.title
+          = link_to h(session.try(:title)), session_path(@conference, session)
+          - if session.lightning_talk?
+            = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
+          - if session.comments.size > 0
+            .commentCount= session.comments.size
+        %td.author
+          = render_avatar(session.author, :size => :mini)
+          = link_to h(session.author.full_name), user_path(session.author)
+        %td.author
+          - if session.second_author
+            = render_avatar(session.second_author, :size => :mini)
+            = link_to h(session.second_author.full_name), user_path(session.second_author)
+        - if @user == current_user
+          %td.reviews
+            - if can?(:index, EarlyReview, session) && session.early_reviews_count > 0
+              = link_to t('review.early_review'), session_reviews_path(@conference, session, :type => :early)
+            - if can?(:index, FinalReview, session) && session.final_reviews_count > 0
+              %br
+              = link_to t('review.final_review'), session_reviews_path(@conference, session, :type => :final)
+          - if @conference.in_author_confirmation_phase?
+            %td.state
+              = t("session.state.#{session.state}")
+            %td.action
+              - if session.pending_confirmation?
+                = link_to t('formtastic.actions.confirm_session'), session_confirm_url(@conference, session)
+        %td.created_at
+          = time_ago_in_words(session.created_at)
+          = t('generic.ago')
+        %td.vote
+          - if session.voted_by? current_user
+            = render :partial => "votes/vote_down_form", :locals => {:session => session}
+          - elsif can?(:create, Vote, session)
+            = render :partial => "votes/vote_up_form", :locals => {:session => session}

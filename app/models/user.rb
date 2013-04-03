@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :reviews, :foreign_key => 'reviewer_id'
   has_many :early_reviews, :foreign_key => 'reviewer_id'
   has_many :final_reviews, :foreign_key => 'reviewer_id'
+  has_many :votes
 
   validates_presence_of :first_name, :last_name
   validates_presence_of [:phone, :country, :city, :bio], :if => :author?
@@ -95,5 +96,11 @@ class User < ActiveRecord::Base
 
   def has_approved_session?(conference)
     Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
+  end
+
+  def voted_sessions
+    Vote.joins(:session).where(:votes => {
+      :user_id => self.id
+    }).includes(:session).order("sessions.created_at DESC").map {|v| v.session}
   end
 end

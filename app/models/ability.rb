@@ -13,4 +13,5 @@ class Ability
       Privileges.const_get(role.to_s.classify).new(self).privileges if @user.send(:"#{role}?")
     end
   end
+
 end

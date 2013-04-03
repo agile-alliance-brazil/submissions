@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326040931) do
+ActiveRecord::Schema.define(:version => 20130401185625) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -31,18 +31,18 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
   create_table "audience_levels", :force => true do |t|
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "comment"
+    t.text     "comment",          :default => ""
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
@@ -52,8 +52,6 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
   create_table "conferences", :force => true do |t|
     t.string   "name"
     t.integer  "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.datetime "call_for_papers"
     t.datetime "submissions_open"
     t.datetime "submissions_deadline"
@@ -63,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.string   "location_and_date"
     t.datetime "presubmissions_deadline"
     t.datetime "prereview_deadline"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "guest_sessions", :force => true do |t|
@@ -84,15 +84,15 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
   create_table "organizers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "track_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "outcomes", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "preferences", :force => true do |t|
@@ -100,38 +100,38 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.integer  "track_id"
     t.integer  "audience_level_id"
     t.boolean  "accepted",          :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "ratings", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "recommendations", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "review_decisions", :force => true do |t|
     t.integer  "session_id"
     t.integer  "outcome_id"
-    t.text     "note_to_authors"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "organizer_id"
+    t.text     "note_to_authors"
     t.boolean  "published",       :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "reviewers", :force => true do |t|
     t.integer  "user_id"
-    t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
+    t.string   "state"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "reviews", :force => true do |t|
@@ -152,9 +152,9 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.text     "comments_to_authors"
     t.integer  "reviewer_id"
     t.integer  "session_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "rooms", :force => true do |t|
@@ -168,9 +168,9 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
   create_table "session_types", :force => true do |t|
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "valid_durations"
   end
 
@@ -181,31 +181,31 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit"
+    t.integer  "audience_limit",      :limit => 255
     t.integer  "author_id"
     t.text     "experience"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "track_id"
     t.integer  "session_type_id"
     t.integer  "duration_mins"
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "final_reviews_count", :default => 0
+    t.integer  "final_reviews_count",                :default => 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"
-    t.integer  "early_reviews_count", :default => 0
+    t.integer  "early_reviews_count",                :default => 0
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.string   "language"
   end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
+    t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "taggable_type"
     t.string   "context"
     t.datetime "created_at"
   end
@@ -220,9 +220,9 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
   create_table "tracks", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "conference_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -230,8 +230,6 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "password_salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
@@ -252,6 +250,16 @@ ActiveRecord::Schema.define(:version => 20130326040931) do
     t.integer  "sign_in_count"
     t.datetime "reset_password_sent_at"
     t.string   "twitter_username"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "session_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "year"
   end
 
 end

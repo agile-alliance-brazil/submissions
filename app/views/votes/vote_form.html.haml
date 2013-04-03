@@ -1,0 +1,4 @@
+- if @vote.session.voted_by? current_user
+  = render :partial => "votes/vote_down_form", :locals => {:session => @vote.session}
+- elsif @vote.session.can_be_voted_by? current_user
+  = render :partial => "votes/vote_up_form", :locals => {:session => @vote.session}

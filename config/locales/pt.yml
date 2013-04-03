@@ -293,6 +293,7 @@ pt:
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
+    my_votes: "Meus votos"
 
   text:
     lost_password:
@@ -462,6 +463,11 @@ pt:
     audience_limit: "Limite: %{limit} participantes"
     no_audience_limit: "Não há limite de participantes"
     reviews: "Avaliações de '%{session}'"
+    labels:
+      vote:
+        button: "Votar"
+        title: "Votar"
+        destroy: "Cancelar voto"
 
   review:
     view_session: "Ver proposta original (com comentários)"
