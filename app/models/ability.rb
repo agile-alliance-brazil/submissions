@@ -10,9 +10,6 @@ class Ability
 
     Privileges::Guest.new(self).privileges
     Authorization::ROLES.each do |role|
-      p @user
-      puts "ROLE: #{role} - #{@user.voter?}"
-      puts Privileges.const_get(role.to_s.classify)
       Privileges.const_get(role.to_s.classify).new(self).privileges if @user.send(:"#{role}?")
     end
   end

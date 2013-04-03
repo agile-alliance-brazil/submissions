@@ -98,10 +98,6 @@ class User < ActiveRecord::Base
     Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
   end
 
-  def voter?
-    self.voter
-  end
-
   def voted_sessions
     Vote.joins(:session).where(:votes => {
       :user_id => self.id

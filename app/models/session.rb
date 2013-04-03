@@ -176,7 +176,7 @@ class Session < ActiveRecord::Base
   end
 
   def vote_from(user)
-    Vote.where(:user_id => user.id, :session_id => self.id).first
+    Vote.vote_in_session(user, self)
   end
 
   def voted_by?(user)

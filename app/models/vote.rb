@@ -3,4 +3,9 @@ class Vote < ActiveRecord::Base
 
   belongs_to :session
   belongs_to :user
+
+  def self.vote_in_session(user, session)
+    where(:user_id => user.id, :session_id => session.id).first
+  end
+
 end

@@ -252,7 +252,6 @@ ActiveRecord::Schema.define(:version => 20130401185625) do
     t.string   "twitter_username"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.boolean  "voter"
   end
 
   create_table "votes", :force => true do |t|

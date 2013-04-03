@@ -48,5 +48,5 @@
         %td.vote
           - if session.voted_by? current_user
             = render :partial => "votes/vote_down_form", :locals => {:session => session}
-          - elsif session.can_be_voted_by? current_user
+          - elsif can?(:create, Vote, session)
             = render :partial => "votes/vote_up_form", :locals => {:session => session}
