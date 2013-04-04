@@ -16,7 +16,7 @@ gem 'seed-fu', '=2.2.0'
 gem 'acts-as-taggable-on', '=2.3.3'
 gem 'cancan', '=1.6.9'
 gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
-gem 'state_machine', '=1.1.2'
+gem 'state_machine', '=1.2.0'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
 gem 'airbrake', '=3.1.10'
@@ -50,7 +50,7 @@ end
 
 group :test do
   gem 'mocha', '=0.13.3', :require => false
-  gem 'shoulda-matchers', '=1.5.6' # 1.5.0 brings in a version of bourne that depends on older mocha
+  gem 'shoulda-matchers', '=1.5.6'
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
 end
