@@ -244,6 +244,8 @@ en:
       withdraw_session: "Withdraw session"
       search: "Search"
       filter_session: "Filter sessions"
+      create_vote: "Vote"
+      destroy_vote: "Cancel vote"
 
   # Custom messages
   title:
@@ -267,6 +269,7 @@ en:
     new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
     accepted_sessions: "Accepted Sessions"
+    my_votes: "My votes"
 
   actions:
     submission_date: "Submission deadline"
@@ -299,6 +302,7 @@ en:
     review_decision: "Decide"
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
+    my_votes: "My votes"
 
   text:
     lost_password:

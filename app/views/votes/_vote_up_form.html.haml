@@ -1,5 +1,0 @@
-= form_for Vote.new, :html => {:class => "vote_down"} do |f|
-  = f.hidden_field "user_id", :value => current_user.id
-  = f.hidden_field "session_id", :value => session.id
-  = f.hidden_field "year", :value => params[:year]
-  = f.submit t('session.labels.vote.button')

@@ -242,6 +242,8 @@ pt:
       withdraw_session: "Retirar sessão"
       search: "Buscar"
       filter_session: "Filtrar sessões"
+      create_vote: "Votar"
+      destroy_vote: "Cancelar voto"
 
   # Mensagens customizadas
   title:
@@ -265,6 +267,7 @@ pt:
     new_review: "Nova avaliação da sessão '%{session}'"
     review_decision: "Parecer da sessão '%{session}'"
     accepted_sessions: "Sessões aceitas"
+    my_votes: "Meus votos"
 
   actions:
     submission_date: "Prazo para submissões"
@@ -467,11 +470,6 @@ pt:
     audience_limit: "Limite: %{limit} participantes"
     no_audience_limit: "Não há limite de participantes"
     reviews: "Avaliações de '%{session}'"
-    labels:
-      vote:
-        button: "Votar"
-        title: "Votar"
-        destroy: "Cancelar voto"
 
   review:
     view_session: "Ver proposta original (com comentários)"

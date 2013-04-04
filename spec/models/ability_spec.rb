@@ -866,4 +866,59 @@ describe Ability do
       end
     end
   end
+
+  context "- voter" do
+    before(:each) do
+      @user.add_role "voter"
+      @ability = Ability.new(@user, @conference)
+    end
+
+    it_should_behave_like "all users"
+
+    it "can read votes" do
+      @ability.should be_able_to(:read, Vote)
+    end
+
+    context "can create a new vote if:" do
+      before(:each) do
+        @vote = FactoryGirl.build(:vote)
+        @session = @vote.session
+      end
+
+      it "within limit for conference with session" do
+        Vote.expects(:within_limit?).with(@user, @conference).twice.returns(true, false)
+        @ability.should be_able_to(:create, Vote, @session)
+        @ability.should_not be_able_to(:create, Vote, @session)
+      end
+
+      it "within limit for conference without session" do
+        Vote.expects(:within_limit?).with(@user, @conference).twice.returns(true, false)
+        @ability.should be_able_to(:create, Vote)
+        @ability.should_not be_able_to(:create, Vote)
+      end
+
+      it "user is not first author" do
+        @ability.should be_able_to(:create, Vote, @session)
+        @ability.should be_able_to(:create, Vote)
+        @session.author = @user
+        @ability.should_not be_able_to(:create, Vote, @session)
+        @ability.should be_able_to(:create, Vote)
+      end
+
+      it "user is not second author" do
+        @ability.should be_able_to(:create, Vote, @session)
+        @ability.should be_able_to(:create, Vote)
+        @session.second_author = @user
+        @ability.should_not be_able_to(:create, Vote, @session)
+        @ability.should be_able_to(:create, Vote)
+      end
+    end
+
+    it "can destroy their votes" do
+      vote = FactoryGirl.build(:vote, :user => @user)
+      @ability.should be_able_to(:destroy, vote)
+      vote.user_id = 0
+      @ability.should_not be_able_to(:destroy, vote)
+    end
+  end
 end

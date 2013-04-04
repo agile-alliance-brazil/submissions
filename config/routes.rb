@@ -1,7 +1,5 @@
 # encoding: UTF-8
 AgileBrazil::Application.routes.draw do
-  resources :votes
-
   devise_for :users,
              :controllers => {
                :sessions      => "user_sessions",
@@ -57,6 +55,8 @@ AgileBrazil::Application.routes.draw do
 
     resources :session_types, :only => [:index]
     resources :tracks, :only => [:index]
+
+    resources :votes, :only => [:index, :create, :destroy]
 
     match ':page' => 'static_pages#show', :as => :static_page, :page => /home|guidelines|syntax_help/
   end

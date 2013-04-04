@@ -72,4 +72,26 @@ describe Vote do
     it { should belong_to :session }
     it { should belong_to :conference }
   end
+
+  context "#within_limit?" do
+    subject { Vote }
+    let(:voter) { FactoryGirl.create(:voter) }
+
+    context "without user" do
+      it { should_not be_within_limit(nil, Conference.current) }
+    end
+
+    context "without conference" do
+      it { should_not be_within_limit(voter, nil) }
+    end
+
+    context "without voting" do
+      it { should be_within_limit(voter, Conference.current) }
+    end
+
+    context "after reaching the limit" do
+      before { FactoryGirl.create_list(:vote, Vote::VOTE_LIMIT, :user => voter) }
+      it { should_not be_within_limit(voter, Conference.current) }
+    end
+  end
 end

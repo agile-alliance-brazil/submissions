@@ -10,5 +10,6 @@ class Privileges::Admin < Privileges::Base
     cannot(:create, EarlyReview)
     cannot(:manage, 'confirm_sessions')
     cannot(:manage, 'withdraw_sessions')
+    cannot(:manage, Vote)
   end
 end

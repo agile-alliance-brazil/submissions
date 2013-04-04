@@ -74,7 +74,7 @@ class Session < ActiveRecord::Base
     record.errors.add(attr, :invalid) if record.session_type.conference_id != record.conference_id
   end
 
-  scope :for_conference, lambda { |c| where('conference_id = ?', c.id)}
+  scope :for_conference, lambda { |c| where(:conference_id => c.id)}
 
   scope :for_user, lambda { |u| where('author_id = ? OR second_author_id = ?', u.to_i, u.to_i) }
 
@@ -173,18 +173,6 @@ class Session < ActiveRecord::Base
     define_method("#{type}?") do                   # def lightning_talk?
       self.session_type.try(:"#{type}?")           #   self.session_type.try(:lightning_talk?)
     end                                            # end
-  end
-
-  def vote_from(user)
-    Vote.vote_in_session(user, self)
-  end
-
-  def voted_by?(user)
-    !!vote_from(user)
-  end
-
-  def can_be_voted_by?(user)
-    !is_author?(user) && user.votes.size < 5
   end
 
   private

@@ -50,7 +50,7 @@ describe Authorization do
       @user.roles = :voter
       @user.roles_mask.should == 16
     end
-    
+
     it "- multiple" do
       @user.roles = ["admin", "reviewer"]
       @user.roles_mask.should == 5

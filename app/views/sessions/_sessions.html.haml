@@ -11,7 +11,8 @@
           %th.state= t('formtastic.labels.session.state')
           %th.action
       %th.created_at= t('formtastic.labels.session.created_at')
-      %th.vote= t('session.labels.vote.title')
+      - if can?(:read, Vote)
+        %th.action
   %tbody
     - @sessions.each do |session|
       = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
@@ -45,8 +46,6 @@
         %td.created_at
           = time_ago_in_words(session.created_at)
           = t('generic.ago')
-        %td.vote
-          - if session.voted_by? current_user
-            = render :partial => "votes/vote_down_form", :locals => {:session => session}
-          - elsif can?(:create, Vote, session)
-            = render :partial => "votes/vote_up_form", :locals => {:session => session}
+        - if can?(:read, Vote)
+          %td.action
+            = render :partial => "votes/form", :locals => {:session, session}

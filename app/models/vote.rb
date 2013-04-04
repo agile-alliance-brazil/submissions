@@ -1,4 +1,6 @@
 class Vote < ActiveRecord::Base
+  VOTE_LIMIT = 5
+
   attr_accessible :session_id, :user_id, :conference_id
 
   belongs_to :session
@@ -18,19 +20,18 @@ class Vote < ActiveRecord::Base
     record.errors.add(attr, :voter) unless record.user.try(:voter?)
   end
 
-  VOTE_LIMIT = 5
-
   validate do |record|
-    if record.conference.present? && record.user.present?
-      vote_count = Vote.for_conference(record.conference).for_user(record.user).count
-      record.errors.add(:base, :limit_reached, :count => vote_count) if vote_count == VOTE_LIMIT
+    unless Vote.within_limit?(record.user, record.conference)
+      record.errors.add(:base, :limit_reached, :count => VOTE_LIMIT)
     end
   end
 
   scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
+
   scope :for_user, lambda { |u| where('user_id = ?', u.id) }
 
-  def self.vote_in_session(user, session)
-    where(:user_id => user.id, :session_id => session.id).first
+  def self.within_limit?(user, conference)
+    return false unless user.present? && conference.present?
+    self.for_conference(conference).for_user(user).count < VOTE_LIMIT
   end
 end
