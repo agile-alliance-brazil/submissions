@@ -19,7 +19,7 @@ gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.1.2'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
-gem 'airbrake', '=3.1.8'
+gem 'airbrake', '=3.1.10'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 gem 'mysql2', '=0.3.11'
 
@@ -60,6 +60,6 @@ group :development, :test do
   gem 'rspec-rails', '=2.13.0'
   gem 'spork-rails', '=3.2.1'
   gem 'jasmine-jquery-rails', '=1.4.2'
-  gem 'guard-jasmine', '=1.13.2'
+  gem 'guard-jasmine', '=1.14.0'
   gem 'jasminerice', '=0.0.10'
 end
