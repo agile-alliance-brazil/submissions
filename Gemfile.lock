@@ -75,6 +75,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    colorize (0.5.8)
+    coveralls (0.6.4)
+      colorize
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      thor
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -198,6 +205,8 @@ GEM
     ref (1.0.4)
     responders (0.9.3)
       railties (~> 3.1)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec-core (2.13.1)
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -220,6 +229,10 @@ GEM
     shoulda-matchers (1.5.6)
       activesupport (>= 3.0.0)
       bourne (~> 1.3)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     slop (3.4.4)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
@@ -265,6 +278,7 @@ DEPENDENCIES
   cancan (= 1.6.9)
   capistrano-ext (= 1.2.1)
   coffee-rails (= 3.2.2)
+  coveralls (= 0.6.4)
   devise (= 2.2.3)
   devise-encryptable (= 0.1.1)
   factory_girl_rails (= 1.7.0)

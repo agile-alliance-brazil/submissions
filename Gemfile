@@ -62,4 +62,5 @@ group :development, :test do
   gem 'jasmine-jquery-rails', '=1.4.2'
   gem 'guard-jasmine', '=1.14.0'
   gem 'jasminerice', '=0.0.10'
+  gem 'coveralls', '=0.6.4', :require => false
 end
