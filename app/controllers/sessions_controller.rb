@@ -47,10 +47,10 @@ class SessionsController < InheritedResources::Base
   end
 
   protected
-  def build_resource
-    attributes = params[:session] || {}
-    attributes[:conference_id] = @conference.id
-    @session ||= end_of_association_chain.send(method_for_build, attributes)
+  def resource_params
+    super.tap do |attributes|
+      attributes.first[:conference_id] = @conference.id
+    end
   end
 
   def load_user

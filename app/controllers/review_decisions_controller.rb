@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReviewDecisionsController < InheritedResources::Base
-  belongs_to :session, :singleton => true
+  singleton_belongs_to :session
   
   actions :new, :create, :edit, :update
 
@@ -47,9 +47,9 @@ class ReviewDecisionsController < InheritedResources::Base
   end
   
   protected
-  def build_resource
-    attributes = params[:review_decision] || {}
-    attributes[:organizer_id] = current_user.id
-    @review_decision ||= end_of_association_chain.send(method_for_build, attributes)
+  def resource_params
+    super.tap do |attributes|
+      attributes.first[:organizer_id] = current_user.id
+    end
   end
 end

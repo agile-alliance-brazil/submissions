@@ -4,11 +4,11 @@ class VotesController < InheritedResources::Base
 
   private
 
-  def build_resource
-    attributes = params[:vote] || {}
-    attributes[:conference_id] = @conference.id
-    attributes[:user_id] = current_user.id
-    @vote ||= end_of_association_chain.send(method_for_build, attributes)
+  def resource_params
+    super.tap do |attributes|
+      attributes.first[:conference_id] = @conference.id
+      attributes.first[:user_id] = current_user.id
+    end
   end
 
   def collection

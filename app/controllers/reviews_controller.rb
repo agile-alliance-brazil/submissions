@@ -31,11 +31,11 @@ class ReviewsController < InheritedResources::Base
   end
 
   protected
-  def build_resource
-    attributes = params[:early_review] || params[:final_review] || {}
-    attributes[:reviewer_id] = current_user.id
-    attributes[:proposal_duration] = true
-    @review ||= end_of_association_chain.send(method_for_build, attributes)
+  def resource_params
+    super.tap do |attributes|
+      attributes.first[:reviewer_id] = current_user.id
+      attributes.first[:proposal_duration] = true
+    end
   end
 
   def resource
