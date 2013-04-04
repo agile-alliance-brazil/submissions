@@ -46,6 +46,8 @@ pt:
           cant_reject: "não pode ser rejeitada"
         vote:
           limit_reached: "usuário já votou %{count} vezes"
+          author: "usuário não pode votar na sua própria proposta"
+          voter: "usuário não pode votar"
 
   formtastic:
     :yes: "Sim"

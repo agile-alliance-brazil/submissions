@@ -14,7 +14,8 @@ class Vote < ActiveRecord::Base
   end
 
   validates_each :user_id, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :invalid) if record.session.try(:is_author?, record.user)
+    record.errors.add(attr, :author) if record.session.try(:is_author?, record.user)
+    record.errors.add(attr, :voter) unless record.user.try(:voter?)
   end
 
   VOTE_LIMIT = 5

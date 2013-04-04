@@ -38,19 +38,25 @@ describe Vote do
       it "should not be author for voted session" do
         vote.user = session.author
         vote.should_not be_valid
-        vote.errors[:user_id].should include(I18n.t("errors.messages.invalid"))
+        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.author"))
       end
 
       it "should not be second author for voted session" do
         session.second_author = second_author
         vote.user = second_author
         vote.should_not be_valid
-        vote.errors[:user_id].should include(I18n.t("errors.messages.invalid"))
+        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.author"))
+      end
+
+      it "should be voter" do
+        vote.user.remove_role(:voter)
+        vote.should_not be_valid
+        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.voter"))
       end
     end
 
     context "limit" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:voter) }
       before { FactoryGirl.create_list(:vote, Vote::VOTE_LIMIT, :user => user) }
 
       it "should only allow #{Vote::VOTE_LIMIT} votes for given conference" do

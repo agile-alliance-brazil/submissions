@@ -21,6 +21,10 @@ FactoryGirl.define do
     factory :author do
       after_build { |u| u.add_role(:author) }
     end
+
+    factory :voter do
+      after_build { |u| u.add_role(:voter) }
+    end
   end
 
   factory :simple_user, :class => User do
@@ -177,7 +181,7 @@ FactoryGirl.define do
 
   factory :vote do
     conference { Conference.current }
-    user
+    association :user, :factory => :voter
     session
   end
 end

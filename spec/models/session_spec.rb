@@ -43,6 +43,7 @@ describe Session do
     it { should have_many :early_reviews }
     it { should have_many :final_reviews }
     it { should have_one  :review_decision }
+    it { should have_many :votes }
 
     context "second author username" do
       subject { Factory.build(:session) }

@@ -48,6 +48,8 @@ en:
           cant_reject: "cannot be rejected"
         vote:
           limit_reached: "user already voted %{count} times"
+          author: "user cannot vote on his own session"
+          voter: "user cannot vote"
 
   formtastic:
     :yes: "Yes"

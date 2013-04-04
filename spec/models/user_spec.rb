@@ -146,6 +146,8 @@ describe User do
     it { should have_many :reviews }
     it { should have_many :early_reviews }
     it { should have_many :final_reviews }
+    it { should have_many :votes }
+    it { should have_many(:voted_sessions).through(:votes) }
 
     describe "organized tracks for conference" do
       it "should narrow tracks based on conference" do
