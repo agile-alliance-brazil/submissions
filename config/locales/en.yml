@@ -415,10 +415,13 @@ en:
       title: "Special Guest"
     coaching:
       title: "Coaching and Facilitation"
+      description: "The purpose of this track is to present to the audience the concepts, techniques and tips on facilitation, coaching and empowerment in the agile context. The track presents the skills required for a coach or a facilitator to lead, teach, mentor, facilitate and effectively coach agile teams."
     business_product:
       title: "Businesses and Products"
+      description: "This track holds sessions on analysing and planning agile projects. The sessions cover topics such as business analysis and requirements, prioritization and estimation techniques. This track is also focused on product development: sessions on Lean Startup, Customer Development, Business Model Generation, and various other topics related to the agile process of creating new products are a good fit for this track."
     design:
       title: "Design"
+      description: "This track gathers sessions related to agile methods and practices applied to the design of a product’s user experience. These are sessions on Agile UX, design, information architecture, HCD, design thinking and all challenges involving integrating iterative and incremental work of software developers, and designers and information architects."
 
   audience_levels:
     beginner:
