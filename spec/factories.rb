@@ -174,4 +174,10 @@ FactoryGirl.define do
     room
     association :detail, :factory => :session
   end
+
+  factory :vote do
+    conference { Conference.current }
+    user
+    session
+  end
 end

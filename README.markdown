@@ -31,6 +31,8 @@ Thanks to everyone involved in building and maintaining this system:
 * Francisco Trindade (Contributor)
 * Giovanni Bassi (Contributor)
 * Mariana Bravo (Contributor)
+* Joviane Fernandes Jardim (Contributor)
+* Ricardo Valeriano (Contributor)
 
 # License
 

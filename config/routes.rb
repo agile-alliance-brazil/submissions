@@ -2,7 +2,6 @@
 AgileBrazil::Application.routes.draw do
   resources :votes
 
-
   devise_for :users,
              :controllers => {
                :sessions      => "user_sessions",

@@ -44,6 +44,8 @@ pt:
         review_decision:
           cant_accept: "não pode ser aceita"
           cant_reject: "não pode ser rejeitada"
+        vote:
+          limit_reached: "usuário já votou %{count} vezes"
 
   formtastic:
     :yes: "Sim"
