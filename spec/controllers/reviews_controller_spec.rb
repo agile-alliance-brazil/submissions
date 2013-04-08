@@ -59,11 +59,6 @@ describe ReviewsController do
     assigns(:review).reviewer.should == @final_review.reviewer
   end
 
-  it "new action should set proposal_duration to true" do
-    get :new, :session_id => Session.first
-    assigns(:review).proposal_duration.should be_true
-  end
-
   it "create action should render new template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine

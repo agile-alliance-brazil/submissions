@@ -1,4 +1,12 @@
 # encoding: UTF-8
+require 'privileges/base'
+require 'privileges/admin'
+require 'privileges/author'
+require 'privileges/guest'
+require 'privileges/organizer'
+require 'privileges/reviewer'
+require 'privileges/voter'
+
 class Ability
   include CanCan::Ability
 

@@ -34,7 +34,6 @@ class ReviewsController < InheritedResources::Base
   def resource_params
     super.tap do |attributes|
       attributes.first[:reviewer_id] = current_user.id
-      attributes.first[:proposal_duration] = true
     end
   end
 
@@ -48,6 +47,10 @@ class ReviewsController < InheritedResources::Base
 
   def method_for_association_chain
     in_early_review_phase? ? :early_reviews : :final_reviews
+  end
+
+  def resource_request_name
+    in_early_review_phase? ? :early_review : :final_review
   end
 
   private
