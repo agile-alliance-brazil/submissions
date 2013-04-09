@@ -5,7 +5,7 @@
   = f.inputs do
     = f.input :tags, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
     = f.input :username, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => users_path(:format => :js)}
-    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :prompt => t("generic.all")
+    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
   = f.actions do
     = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
 
