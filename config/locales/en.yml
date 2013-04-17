@@ -547,6 +547,7 @@ en:
     en: "English"
     pt: "Portuguese"
     duration_restriction: "should last"
+    voted: "Voted"
 
   time:
     formats:

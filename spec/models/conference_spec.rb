@@ -149,6 +149,32 @@ describe Conference do
       DateTime.stubs(:now).returns(conference.submissions_open)
       conference.should_not be_in_early_review_phase
     end
+
+    describe "in_voting_deadline?" do
+      before do
+        @conference = Conference.find_by_year(2013)
+      end
+
+      it "should be true if date is prior to voting deadline" do
+        DateTime.stubs(:now).returns(@conference.voting_deadline - 1.second)
+        @conference.should be_in_voting_phase
+      end
+
+      it "should be true if date is on voting deadline" do
+        DateTime.stubs(:now).returns(@conference.voting_deadline)
+        @conference.should be_in_voting_phase
+      end
+
+      it "should be false if date is after voting deadline" do
+        DateTime.stubs(:now).returns(@conference.voting_deadline + 1.second)
+        @conference.should_not be_in_voting_phase
+      end
+
+      it "should be false if conference doesn't have a voting deadline" do
+        conference = Conference.find_by_year(2011)
+        conference.should_not be_in_voting_phase
+      end
+    end
   end
 
 end

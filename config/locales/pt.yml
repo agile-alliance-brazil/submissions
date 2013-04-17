@@ -545,6 +545,7 @@ pt:
     en: "Inglês"
     pt: "Português"
     duration_restriction: "devem ter duração de"
+    voted: "Votado"
 
   time:
     formats:

@@ -912,13 +912,46 @@ describe Ability do
         @ability.should_not be_able_to(:create, Vote, @session)
         @ability.should be_able_to(:create, Vote)
       end
+
+      it "before voting deadline" do
+        @conference.stubs(:in_voting_phase?).returns(true)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:create, Vote)
+        @ability.should be_able_to(:create, Vote, nil)
+        @ability.should be_able_to(:create, Vote, @session)
+      end
+
+      it "after voting deadline can't vote" do
+        @conference.stubs(:in_voting_phase?).returns(false)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should_not be_able_to(:create, Vote)
+        @ability.should_not be_able_to(:create, Vote, nil)
+        @ability.should_not be_able_to(:create, Vote, @session)
+      end
     end
 
-    it "can destroy their votes" do
-      vote = FactoryGirl.build(:vote, :user => @user)
-      @ability.should be_able_to(:destroy, vote)
-      vote.user_id = 0
-      @ability.should_not be_able_to(:destroy, vote)
+    context "can destroy votes if:" do
+      before do
+        @vote = FactoryGirl.build(:vote, :user => @user)
+      end
+
+      it "user is voter" do
+        @ability.should be_able_to(:destroy, @vote)
+        @vote.user_id = 0
+        @ability.should_not be_able_to(:destroy, @vote)
+      end
+
+      it "before voting deadline" do
+        @conference.stubs(:in_voting_phase?).returns(true)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should be_able_to(:destroy, @vote)
+      end
+
+      it "after voting deadline can't destroy vote" do
+        @conference.stubs(:in_voting_phase?).returns(false)
+        @ability = Ability.new(@user, @conference, @session)
+        @ability.should_not be_able_to(:destroy, @vote)
+      end
     end
   end
 end

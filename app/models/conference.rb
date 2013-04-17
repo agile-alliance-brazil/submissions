@@ -29,6 +29,11 @@ class Conference < ActiveRecord::Base
     (self.author_notification..self.author_confirmation).include? DateTime.now
   end
 
+  def in_voting_phase?
+    return false if self.voting_deadline.blank?
+    DateTime.now <= self.voting_deadline
+  end
+
   DEADLINES = [
     :call_for_papers,
     :submissions_open,

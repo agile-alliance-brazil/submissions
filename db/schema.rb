@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411010918) do
+ActiveRecord::Schema.define(:version => 20130417212030) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20130411010918) do
     t.string   "location_and_date"
     t.datetime "presubmissions_deadline"
     t.datetime "prereview_deadline"
+    t.datetime "voting_deadline"
   end
 
   create_table "guest_sessions", :force => true do |t|
