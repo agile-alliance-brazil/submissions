@@ -1,0 +1,87 @@
+pt:
+  activerecord:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: 'não pode ter um fragmento.'
+              has_query_parameter: 'não pode ter um parâmetro query.'
+              invalid_uri: 'precisa ser uma URI válida.'
+              relative_uri: 'precisa ser uma URI absoluta.'
+  mongoid:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: 'não pode ter um fragmento.'
+              has_query_parameter: 'não pode ter um parâmetro query.'
+              invalid_uri: 'precisa ser uma URI válida.'
+              relative_uri: 'precisa ser uma URI absoluta.'
+  mongo_mapper:
+    errors:
+      models:
+        application:
+          attributes:
+            redirect_uri:
+              fragment_present: 'não pode ter um fragmento.'
+              has_query_parameter: 'não pode ter um parâmetro query.'
+              invalid_uri: 'precisa ser uma URI válida.'
+              relative_uri: 'precisa ser uma URI absoluta.'
+  doorkeeper:
+    errors:
+      messages:
+        # Common error messages
+        invalid_request: 'A requisição está faltando um parâmetro obrigatório, inclui um parâmetro com valor não suportado ou está mal-formada.'
+        invalid_redirect_uri: 'A URI de redirecionamento incluída não é válida.'
+        unauthorized_client: 'O cliente não está autorizado a fazer esta requisição usando este método.'
+        access_denied: 'O dono do recurso ou o servidor de autorização recusou esta requisição.'
+        invalid_scope: 'O escopo requisitado é inválido, desconhecido, ou mal-formado.'
+        server_error: 'O servidor de autorização encontrou uma condição inesperada que previniu completar esta requisição.'
+        temporarily_unavailable: 'O servidor de autorização está indisponível no momento no momento por estar sobrecarregado ou em manutenção.'
+
+        #configuration error messages
+        credential_flow_not_configured: 'O processo de Resource Owner Password Credentials falhou pois a configuração Doorkeeper.configure.resource_owner_from_credentials não foi especificada.'
+        resource_owner_authenticator_not_configured: 'Dono do recurso não foi encontrado pois a configuração Doorkeeper.configure.resource_owner_authenticator não foi especificada.'
+
+        # Access grant errors
+        unsupported_response_type: 'O servidor de autorização não suporta este tipo de resposta.'
+
+        # Access token errors
+        invalid_client: 'Autenticação do cliente falhou devido a um cliente desconhecido, falta de autenticação do cliente ou método de autenticação não suportado.'
+        invalid_grant: 'A permissão de autorização disponibilizada é inválida, expirada, revogada, não bate com a URI de redirecionamento usada na requisição de autorização ou foi criada para outro cliente.'
+        unsupported_grant_type: 'O tipo da permissão de autorização não é suportado pelo servidor de autorização.'
+
+        # Password Access token errors
+        invalid_resource_owner: 'As credenciais do dono do recurso disponibilizadas não são válidas ou o dono do recurso não foi encontrado.'
+    flash:
+      applications:
+        create:
+          notice: 'Aplicação criada.'
+        destroy:
+          notice: 'Aplicação removida.'
+        update:
+          notice: 'Aplicação atualizada.'
+      authorized_applications:
+        destroy:
+          notice: 'Aplicação revogada.'
+
+  formtastic:
+    labels:
+      authorizations:
+        application: "Aplicação"
+        authorized_at: "Autorizada em"
+
+  title:
+    new_authorization: "Deseja compartilhar seu usuário com a aplicação '%{client_application}'?"
+    authorized_applications: "Aplicações autorizadas"
+
+  actions:
+    authorizations:
+      authorize: "Autorizar"
+      deny: "Negar"
+      revoke: "Revogar"
+
+  text:
+    authorization_scopes: "Esta aplicação será capaz de"

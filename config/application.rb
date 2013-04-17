@@ -61,6 +61,14 @@ module AgileBrazil
     config.assets.version = '1.0'
     config.assets.css_compressor = :yui
     config.assets.js_compressor = :yui
+
+    config.to_prepare do
+      Doorkeeper::ApplicationController.layout "application"
+      Doorkeeper::ApplicationController.before_filter do |controller|
+        I18n.locale = params[:locale] || current_user.try(:default_locale)
+        @conference = Conference.current
+      end
+    end
   end
 end
 require 'goalie/rails'

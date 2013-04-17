@@ -1,0 +1,14 @@
+- title t('title.authorized_applications')
+
+%table
+  %thead
+    %tr
+      %th= t('formtastic.labels.authorizations.application')
+      %th= t('formtastic.labels.authorizations.authorized_at')
+      %th
+  %tbody
+    - @applications.each do |application|
+      %tr
+        %td= application.name
+        %td= l(application.created_at, :format => :long)
+        %td= link_to t('actions.authorizations.revoke'), oauth_authorized_application_path(application), :data => { :confirm => t('generic.are_you_sure', :action => t('actions.authorizations.revoke')) }, :method => :delete

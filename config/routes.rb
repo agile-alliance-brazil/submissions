@@ -1,5 +1,15 @@
 # encoding: UTF-8
 AgileBrazil::Application.routes.draw do
+  use_doorkeeper
+
+  namespace :api, :defaults => {:format => "json"} do
+    scope :module => :v1 do
+      resource :user, :only => [:show] do
+        post :make_voter, :on => :collection
+      end
+    end
+  end
+
   devise_for :users,
              :controllers => {
                :sessions      => "user_sessions",
