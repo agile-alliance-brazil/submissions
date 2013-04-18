@@ -45,7 +45,7 @@ describe Api::V1::UsersController do
     end
 
     it "should return success JSON" do
-      JSON.parse(response.body).should == {"success" => true}
+      JSON.parse(response.body).should == {"success" => true, "vote_url" => sessions_url}
     end
   end
 
