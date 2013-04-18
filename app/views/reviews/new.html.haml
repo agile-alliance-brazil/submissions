@@ -16,6 +16,11 @@
       %p
         %strong #{t('formtastic.labels.session.keyword_list')}:
         = @session.keyword_list.join(', ')
+      - unless @session.language.blank?
+        %p
+          %strong #{t('formtastic.labels.session.language')}:
+          = t("generic.#{@session.language}")
+          
     = form.input :proposal_abstract, :as => :radio, :input_html => {:tabindex => autotab}
 
     .session_info
