@@ -15,7 +15,7 @@ module Api
       def make_voter
         current_user.add_role :voter
         current_user.save
-        render :json => {:success => true}
+        render :json => {:success => true, :vote_url => sessions_url}
       end
     end
   end
