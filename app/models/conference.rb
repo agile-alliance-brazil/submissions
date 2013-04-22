@@ -16,8 +16,12 @@ class Conference < ActiveRecord::Base
     (self.submissions_open..self.submissions_deadline).include? DateTime.now
   end
 
+  def has_early_review?
+    self.prereview_deadline.present?
+  end
+
   def in_early_review_phase?
-    return false if self.prereview_deadline.blank?
+    return false unless has_early_review?
     (self.presubmissions_deadline..self.prereview_deadline).include? DateTime.now
   end
 

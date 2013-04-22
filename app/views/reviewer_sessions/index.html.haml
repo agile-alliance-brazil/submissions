@@ -9,7 +9,8 @@
       %th.track= t('formtastic.labels.session.track_id')
       %th.type= t('formtastic.labels.session.session_type_id')
       %th.audience_level= t('formtastic.labels.session.audience_level_id')
-      %th.reviews= t('review.early_review')
+      - if @conference.has_early_review?
+        %th.reviews= t('review.early_review')
       - if @conference.in_final_review_phase?
         %th.reviews= t('review.final_review')
       %th.action
@@ -27,8 +28,9 @@
           = t(session.session_type.title)
         %td.audience_level
           = t(session.audience_level.title)
-        %td.reviews
-          = session.early_reviews_count
+        - if @conference.has_early_review?
+          %td.reviews
+            = session.early_reviews_count
         - if @conference.in_final_review_phase?
           %td.reviews
             = session.final_reviews_count
