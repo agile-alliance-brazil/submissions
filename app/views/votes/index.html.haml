@@ -1,4 +1,7 @@
 - title t('title.my_votes')
 - show_actions!
 
-=render :partial => "sessions/sessions"
+- if @sessions.empty?
+  = t('text.no_votes').html_safe
+- else
+  =render :partial => "sessions/sessions"
