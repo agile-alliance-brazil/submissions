@@ -3,6 +3,11 @@
 .auto_focus
 
 = semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put} do |form|
-  = render 'form', :form => form
-  = form.actions do
-    = form.action :submit, :label => :edit_profile, :button_html => {:tabindex => autotab}
+  - if !!params[:update_password]
+    = render 'change_password', :form => form
+    = form.actions do
+      = form.action :submit, :label => :change_password, :button_html => {:tabindex => autotab}
+  - else
+    = render 'form', :form => form
+    = form.actions do
+      = form.action :submit, :label => :edit_profile, :button_html => {:tabindex => autotab}

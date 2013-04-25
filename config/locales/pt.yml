@@ -196,7 +196,7 @@ pt:
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
-        current_password: "Para qualquer alteração no perfil é preciso confirmar sua senha atual."
+        current_password: "Para trocar de senha, é preciso confirmar sua senha atual."
         twitter_username: "Seu nome de usuário no twitter, sem o prefixo '@' (por exemplo: 'twitter_user' ao invés de '@twitter_user')"
         default_locale: "Nós mostraremos o site e enviaremos e-mail no seu idioma preferido"
       session:
@@ -279,6 +279,7 @@ pt:
     browse_sessions: "Propostas de sessão submetidas"
     profile: "Meu perfil"
     edit_profile: "Editar meu perfil"
+    change_password: "Trocar minha senha"
     signup: "Crie um novo usuário"
     my_sessions: "Minhas propostas"
     edit: "Editar"

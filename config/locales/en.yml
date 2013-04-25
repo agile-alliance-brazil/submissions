@@ -198,7 +198,7 @@ en:
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         wants_to_submit: "Leave this blank if you only want to leave comments on other users' sessions. You can change your mind later, by editing your profile."
-        current_password: "To make any changes to your profile, please confirm your current password."
+        current_password: "To change the password, please confirm your current password."
         twitter_username: "Your twitter username, without the '@' prefix (e.g. 'twitter_user' instead of '@twitter_user')"
         default_locale: "We will display the site and send you e-mails in your preferred language"
       session:
@@ -281,6 +281,7 @@ en:
     browse_sessions: "Browse sessions"
     profile: "My profile"
     edit_profile: "Edit my profile"
+    change_password: "Change my password"
     signup: "Register new account"
     my_sessions: "My session proposals"
     edit: "Edit"

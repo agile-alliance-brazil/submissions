@@ -70,8 +70,14 @@ describe RegistrationsController do
       response.should render_template(:edit)
     end
 
+    # it "update action should render change password" do
+    #   put :update, :user => {:password => nil}
+    #   response.should render_template(:edit)
+    #   assigns(:update_password).should == "true"
+    # end
+
     it "update action should redirect when model is valid" do
-      put :update, :user => {:current_password => 'secret'}
+      put :update, :user => {:current_password => 'secret', :password => 'new', :password_confirmation => 'new'}
       response.should redirect_to(user_path(assigns(:user)))
     end
   end

@@ -56,6 +56,7 @@
       %li= link_to t('actions.profile'), user_path(current_user)
     - if can? :update, current_user
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
+      %li= link_to t('actions.change_password'), edit_user_registration_path(:update_password => true)
     %li= link_to "Logout", destroy_user_session_path, :method => :delete
 
   - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)

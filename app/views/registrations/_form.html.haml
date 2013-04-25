@@ -3,8 +3,9 @@
   = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
   = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}
   = form.input :email, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :password, :required => @user.new_record?, :input_html => {:tabindex => autotab}
-  = form.input :password_confirmation, :required => @user.new_record?, :input_html => {:tabindex => autotab}
+  - if @user.new_record?
+    = form.input :password, :required => true, :input_html => {:tabindex => autotab}
+    = form.input :password_confirmation, :required => true, :input_html => {:tabindex => autotab}
 = form.inputs :user_personal do
   = form.input :wants_to_submit, :as => :boolean, :input_html => {:tabindex => autotab, :disabled => (!@user.new_record? && !@user.roles_mask_changed? && @user.author?)}
   = form.input :phone, :required => true, :input_html => {:tabindex => autotab}
@@ -16,8 +17,6 @@
   = form.input :twitter_username, :input_html => {:tabindex => autotab}
   = form.input :bio, :required => true, :input_html => {:tabindex => autotab}
   = form.input :default_locale, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES, :input_html => {:tabindex => autotab}
-  - if !@user.new_record?
-    = form.input :current_password, :required => true, :input_html => {:tabindex => autotab}
 
 :javascript
   $(document).ready(function() {
