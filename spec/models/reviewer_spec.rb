@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Reviewer do
   before(:each) do
-    EmailNotifications.stubs(:send_reviewer_invitation)
+    EmailNotifications.stubs(:reviewer_invitation).returns(stub(:deliver => true))
   end
 
   context "protect from mass assignment" do
@@ -106,7 +106,7 @@ describe Reviewer do
 
     context "Event: invite" do
       it "should send invitation email" do
-        EmailNotifications.expects(:send_reviewer_invitation).with(@reviewer)
+        EmailNotifications.expects(:reviewer_invitation).with(@reviewer).returns(mock(:deliver => true))
         @reviewer.invite
       end
     end

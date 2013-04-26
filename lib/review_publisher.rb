@@ -6,14 +6,14 @@ class ReviewPublisher
     rejected_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
       try_with("REJECT") do
-        EmailNotifications.send_notification_of_rejection(session)
+        EmailNotifications.notification_of_rejection(session).deliver
         session.review_decision.update_attribute(:published, true)
       end
     end
     accepted_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
       try_with("ACCEPT") do
-        EmailNotifications.send_notification_of_acceptance(session)
+        EmailNotifications.notification_of_acceptance(session).deliver
         session.review_decision.update_attribute(:published, true)
       end
     end

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe EarlyReview do
   before(:each) do
-    EmailNotifications.stubs(:send_early_review_submitted)
+    EmailNotifications.stubs(:early_review_submitted).returns(stub(:deliver => true))
   end
 
   context "protect from mass assignment" do
@@ -68,7 +68,7 @@ describe EarlyReview do
       review = FactoryGirl.build(:early_review)
       EarlyReview.send(:public, :notify)
 
-      EmailNotifications.expects(:send_early_review_submitted).with(review.session)
+      EmailNotifications.expects(:early_review_submitted).with(review.session).returns(mock(:deliver => true))
 
       review.notify
     end

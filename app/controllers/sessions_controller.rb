@@ -17,7 +17,7 @@ class SessionsController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html do
-        EmailNotifications.send_session_submitted(@session)
+        EmailNotifications.session_submitted(@session).deliver
         flash[:notice] = t('flash.session.create.success')
         redirect_to session_path(@conference, @session)
       end

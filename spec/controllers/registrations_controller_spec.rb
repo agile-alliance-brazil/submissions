@@ -7,7 +7,7 @@ describe RegistrationsController do
 
   before(:each) do
     @user ||= FactoryGirl.create(:user)
-    EmailNotifications.stubs(:send_welcome)
+    EmailNotifications.stubs(:welcome).returns(stub(:deliver => true))
   end
 
   it "new action should render new template" do
@@ -41,7 +41,7 @@ describe RegistrationsController do
   end
 
   it "create action should send welcome e-mail" do
-    EmailNotifications.expects(:send_welcome)
+    EmailNotifications.expects(:welcome).returns(mock(:deliver => true))
     User.any_instance.stubs(:valid?).returns(true)
     post :create
   end

@@ -21,7 +21,7 @@ describe EmailNotifications do
 
   describe "user subscription e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    subject { EmailNotifications.send_welcome(user) }
+    subject { EmailNotifications.welcome(user) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -45,7 +45,7 @@ describe EmailNotifications do
     let(:user) { FactoryGirl.build(:user) }
     before { user.send(:generate_reset_password_token!) }
 
-    subject { EmailNotifications.send_reset_password_instructions(user) }
+    subject { EmailNotifications.reset_password_instructions(user) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -70,7 +70,7 @@ describe EmailNotifications do
     let(:user) { FactoryGirl.build(:user) }
     let(:session) { FactoryGirl.build(:session, :author => user) }
 
-    subject { EmailNotifications.send_session_submitted(session) }
+    subject { EmailNotifications.session_submitted(session) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -111,7 +111,7 @@ describe EmailNotifications do
     let(:session) { FactoryGirl.build(:session, :author => user) }
     let(:comment) { FactoryGirl.build(:comment, :commentable => session) }
 
-    subject { EmailNotifications.send_comment_submitted(session, comment) }
+    subject { EmailNotifications.comment_submitted(session, comment) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -150,7 +150,7 @@ describe EmailNotifications do
     let(:user) { FactoryGirl.build(:user) }
     let(:session) { FactoryGirl.build(:session, :author => user) }
 
-    subject { EmailNotifications.send_early_review_submitted(session) }
+    subject { EmailNotifications.early_review_submitted(session) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -188,7 +188,7 @@ describe EmailNotifications do
     let(:user) { FactoryGirl.build(:user) }
     let(:reviewer) { FactoryGirl.build(:reviewer, :user => user, :id => 3) }
 
-    subject { EmailNotifications.send_reviewer_invitation(reviewer) }
+    subject { EmailNotifications.reviewer_invitation(reviewer) }
 
     it_should_behave_like "standard conference e-mail"
 
@@ -214,18 +214,18 @@ describe EmailNotifications do
     let(:session) { FactoryGirl.build(:session, :state => 'in_review', :author => user) }
     before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title')) }
 
-    subject { EmailNotifications.send_notification_of_acceptance(session) }
+    subject { EmailNotifications.notification_of_acceptance(session) }
 
     it_should_behave_like "standard conference e-mail"
 
     it "should not be sent if session has no decision" do
       session.review_decision = nil
-      lambda {EmailNotifications.send_notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
+      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
     end
 
     it "should not be sent if session has been rejected" do
       session.review_decision.expects(:rejected?).returns(true)
-      lambda {EmailNotifications.send_notification_of_acceptance(session)}.should raise_error("Cannot accept a rejected session")
+      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Cannot accept a rejected session")
     end
 
     it { should have_body_text(/#{session.title}/)}
@@ -263,18 +263,18 @@ describe EmailNotifications do
     let(:session) { FactoryGirl.build(:session, :state => 'in_review', :author => user) }
     before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title')) }
 
-    subject { EmailNotifications.send_notification_of_rejection(session) }
+    subject { EmailNotifications.notification_of_rejection(session) }
 
     it_should_behave_like "standard conference e-mail"
 
     it "should not be sent if session has no decision" do
       session.review_decision = nil
-      lambda {EmailNotifications.send_notification_of_rejection(session)}.should raise_error("Notification can't be sent before decision has been made")
+      lambda {EmailNotifications.notification_of_rejection(session)}.should raise_error("Notification can't be sent before decision has been made")
     end
 
     it "should not be sent if session has been accepted" do
       session.review_decision.expects(:accepted?).returns(true)
-      lambda {EmailNotifications.send_notification_of_rejection(session)}.should raise_error("Cannot reject an accepted session")
+      lambda {EmailNotifications.notification_of_rejection(session)}.should raise_error("Cannot reject an accepted session")
     end
 
     it { should have_body_text(/#{session.title}/)}

@@ -10,7 +10,7 @@ describe SessionsController do
     @session ||= FactoryGirl.create(:session)
     sign_in @session.author
     disable_authorization
-    EmailNotifications.stubs(:send_session_submitted)
+    EmailNotifications.stubs(:session_submitted).returns(stub(:deliver => true))
   end
 
   it "index action should render index template" do
@@ -80,7 +80,7 @@ describe SessionsController do
 
   it "create action should send an email when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:send_session_submitted)
+    EmailNotifications.expects(:session_submitted).returns(mock(:deliver => true))
     post :create
   end
 

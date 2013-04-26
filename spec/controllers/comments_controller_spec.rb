@@ -10,6 +10,7 @@ describe CommentsController do
     @comment = FactoryGirl.create(:comment)
     sign_in @comment.user
     disable_authorization
+    EmailNotifications.stubs(:comment_submitted).returns(stub(:deliver => true))
   end
 
   it "index action should redirect to session path" do
@@ -38,7 +39,7 @@ describe CommentsController do
 
   it "create action should send an email when model is valid" do
     Comment.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:send_comment_submitted)
+    EmailNotifications.expects(:comment_submitted).returns(mock(:deliver => true))
     post :create, :session_id => @comment.commentable
   end
 

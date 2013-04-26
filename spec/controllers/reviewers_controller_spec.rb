@@ -10,7 +10,7 @@ describe ReviewersController do
     @user ||= FactoryGirl.create(:user)
     sign_in @user
     disable_authorization
-    EmailNotifications.stubs(:send_reviewer_invitation)
+    EmailNotifications.stubs(:reviewer_invitation).returns(stub(:deliver => true))
   end
 
   it "index action should render index template" do

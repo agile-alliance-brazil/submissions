@@ -86,7 +86,6 @@ FactoryGirl.define do
   end
 
   factory :reviewer do
-    to_create { |instance| EmailNotifications.stubs(:send_reviewer_invitation); instance.save! }
     user
     conference { Conference.current }
   end
@@ -129,9 +128,7 @@ FactoryGirl.define do
     session
   end
 
-  factory :early_review, :class => EarlyReview, :traits => [:review] do
-    to_create { |instance| EmailNotifications.stubs(:send_early_review_submitted); instance.save! }
-  end
+  factory :early_review, :class => EarlyReview, :traits => [:review]
 
   factory :final_review, :class => FinalReview, :traits => [:review] do
     recommendation
