@@ -80,6 +80,10 @@ class Session < ActiveRecord::Base
 
   scope :for_tracks, lambda { |track_ids| where('track_id IN (?)', track_ids) }
 
+  scope :for_audience_level, lambda { |audience_level_id| where('audience_level_id = ?', audience_level_id) }
+
+  scope :for_session_type, lambda { |session_type_id| where('session_type_id = ?', session_type_id) }
+
   scope :not_author, lambda { |u|
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
   }

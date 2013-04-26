@@ -26,7 +26,32 @@ describe ReviewerSessionsController do
       @session = FactoryGirl.build(:session)
       Session.stubs(:for_reviewer).returns(Session)
       Session.stubs(:order).returns(Session)
+      Session.stubs(:for_audience_level).returns(Session)
+      Session.stubs(:for_session_type).returns(Session)
       Session.stubs(:page).returns([@session])
+    end
+
+    it "should assign tracks for current conference" do
+      get :index
+      (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+    end
+
+    it "should assign audience levels for current conference" do
+      get :index
+      (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
+    end
+
+    it "should assign session types for current conference" do
+      get :index
+      (assigns(:session_types) - Conference.current.session_types).should be_empty
+    end
+
+    it "should filter sessions" do
+      Session.expects(:for_audience_level).with('1').returns(Session)
+      Session.expects(:for_session_type).with('2').returns(Session)
+
+      get :index, :session_filter => {:audience_level_id => '1', :session_type_id => '2'}
+      assigns(:sessions).should == [@session]
     end
 
     context "during early review phase" do

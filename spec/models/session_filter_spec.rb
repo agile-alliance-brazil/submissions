@@ -93,6 +93,34 @@ describe SessionFilter do
     end
   end
 
+  describe "filtering by audience level" do
+    context "with param audience_level_id" do
+      subject { SessionFilter.new(:session_filter => {:audience_level_id => 8}) }
+
+      its(:audience_level_id) { should == 8 }
+    end
+
+    context "without param audience_level_id" do
+      subject { SessionFilter.new(:session_filter => {}) }
+
+      its(:audience_level_id) { should be_nil }
+    end
+  end
+
+  describe "filtering by session type" do
+    context "with param session_type_id" do
+      subject { SessionFilter.new(:session_filter => {:session_type_id => 8}) }
+
+      its(:session_type_id) { should == 8 }
+    end
+
+    context "without param session_type_id" do
+      subject { SessionFilter.new(:session_filter => {}) }
+
+      its(:session_type_id) { should be_nil }
+    end
+  end
+
   describe "apply scopes" do
     it "should apply user scope when user_id is present" do
       scope = mock('scope')
@@ -115,6 +143,22 @@ describe SessionFilter do
       scope.expects(:for_tracks).with('1')
 
       filter = SessionFilter.new(:session_filter => {:track_id => '1'})
+      filter.apply(scope)
+    end
+
+    it "should apply audience level scope when audience_level_id is present" do
+      scope = mock('scope')
+      scope.expects(:for_audience_level).with('1')
+
+      filter = SessionFilter.new(:session_filter => {:audience_level_id => '1'})
+      filter.apply(scope)
+    end
+
+    it "should apply session type scope when session_type_id is present" do
+      scope = mock('scope')
+      scope.expects(:for_session_type).with('1')
+
+      filter = SessionFilter.new(:session_filter => {:session_type_id => '1'})
       filter.apply(scope)
     end
 

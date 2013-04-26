@@ -130,6 +130,8 @@ en:
         tags: "Tags"
         username: "Author (username)"
         track_id: "Track"
+        session_type_id: "Session type"
+        audience_level_id: "Audience level"
       reviewer_filter:
         state: "Status"
         track_id: "Track"

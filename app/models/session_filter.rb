@@ -4,7 +4,7 @@ class SessionFilter
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :user_id, :track_id, :tags
+  attr_accessor :user_id, :track_id, :session_type_id, :audience_level_id, :tags
 
   def initialize(params={})
     @user_id = params[:user_id]
@@ -12,6 +12,8 @@ class SessionFilter
       self.username = params[:session_filter][:username]
       @tags = params[:session_filter][:tags]
       @track_id = params[:session_filter][:track_id]
+      @session_type_id = params[:session_filter][:session_type_id]
+      @audience_level_id = params[:session_filter][:audience_level_id]
     end
   end
 
@@ -28,6 +30,8 @@ class SessionFilter
     scope = scope.for_user(@user_id) if @user_id.present?
     scope = scope.tagged_with(@tags) if @tags.present?
     scope = scope.for_tracks(@track_id) if @track_id.present?
+    scope = scope.for_audience_level(@audience_level_id) if @audience_level_id.present?
+    scope = scope.for_session_type(@session_type_id) if @session_type_id.present?
     scope
   end
 
