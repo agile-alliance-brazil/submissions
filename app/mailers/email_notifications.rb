@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class EmailNotifications < ActionMailer::Base
+  default :from =>     Proc.new { "\"#{current_conference.name}\" <#{from_address}>" },
+          :reply_to => Proc.new { "\"#{current_conference.name}\" <#{from_address}>" }
 
   def self.send_welcome(user, sent_at = Time.now)
     I18n.with_locale(user.default_locale) do
@@ -11,10 +13,8 @@ class EmailNotifications < ActionMailer::Base
     @user = user
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.welcome.subject')}",
-         :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date => sent_at
+         :to      => EmailNotifications.format_email(user),
+         :date    => sent_at
   end
 
   def self.send_reset_password_instructions(user, sent_at = Time.now)
@@ -27,10 +27,8 @@ class EmailNotifications < ActionMailer::Base
     @user = user
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.password_reset.subject')}",
-         :to      => "\"#{user.full_name}\" <#{user.email}>",
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date => sent_at
+         :to      => EmailNotifications.format_email(user),
+         :date    => sent_at
   end
 
   def self.send_session_submitted(session, sent_at = Time.now)
@@ -44,10 +42,8 @@ class EmailNotifications < ActionMailer::Base
     @conference_name = current_conference.name
     @conference = current_conference
     mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => @conference_name)}",
-         :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date => sent_at
+         :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
+         :date    => sent_at
   end
 
   def self.send_comment_submitted(session, comment, sent_at = Time.now)
@@ -61,10 +57,8 @@ class EmailNotifications < ActionMailer::Base
     @comment = comment
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.comment_submitted.subject', :session_name => @session.title)}",
-         :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date => sent_at
+         :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
+         :date    => sent_at
   end
 
   def self.send_early_review_submitted(session, sent_at = Time.now)
@@ -77,10 +71,8 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = current_conference.name
     mail :subject => "[#{host}] #{I18n.t('email.early_review_submitted.subject', :session_name => @session.title)}",
-         :to      => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
-         :date => sent_at
+         :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
+         :date    => sent_at
   end
 
   def self.send_reviewer_invitation(reviewer, sent_at = Time.now)
@@ -93,9 +85,7 @@ class EmailNotifications < ActionMailer::Base
     @reviewer = reviewer
     @conference_name = current_conference.name
     mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => @conference_name)}",
-         :to       => "\"#{reviewer.user.full_name}\" <#{reviewer.user.email}>",
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
+         :to       => EmailNotifications.format_email(reviewer.user),
          :date     => sent_at
   end
 
@@ -111,9 +101,7 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = current_conference.name
     mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => @conference_name)}",
-         :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
+         :to       => session.authors.map { |author| EmailNotifications.format_email(author) },
          :date     => sent_at)
   end
 
@@ -129,13 +117,15 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = current_conference.name
     mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => @conference_name)}",
-         :to       => session.authors.map { |author| "\"#{author.full_name}\" <#{author.email}>" },
-         :from     => "\"#{@conference_name}\" <#{from_address}>",
-         :reply_to => "\"#{@conference_name}\" <#{from_address}>",
+         :to       => session.authors.map { |author| EmailNotifications.format_email(author) },
          :date     => sent_at)
   end
 
   private
+  def self.format_email(user)
+    "\"#{user.full_name}\" <#{user.email}>"
+  end
+
   def from_address
     ActionMailer::Base.smtp_settings[:user_name]
   end

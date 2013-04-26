@@ -53,6 +53,7 @@ group :test do
   gem 'shoulda-matchers', '=1.5.6'
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
+  gem 'email_spec'
 end
 
 group :development, :test do
