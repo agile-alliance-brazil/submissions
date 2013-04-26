@@ -1,6 +1,13 @@
 - title t('actions.manage_reviewers')
 - show_actions!
 
+= semantic_form_for @reviewer_filter, :url => reviewers_path(@conference), :method => :get do |f|
+  = f.inputs do
+    = f.input :state, :as => :select, :collection => @states, :member_label => Proc.new { |s| t("reviewer.state.#{s}") }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+  = f.actions do
+    = f.action :submit, :label => :filter_reviewer, :button_html => {:tabindex => autotab}
+
 %table.reviewers
   %thead
     %tr
@@ -8,7 +15,8 @@
       %th.state= t('formtastic.labels.reviewer.state')
       - @tracks.each do |track|
         %th.track= t(track.title)
-      %th.count= t('review.early_review')
+      - if @conference.has_early_review?
+        %th.count= t('review.early_review')
       %th.count= t('review.final_review')
       %th.actions
   %tbody
@@ -18,7 +26,8 @@
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - @tracks.each do |track|
           %td.track&= t(review_level(reviewer.accepted_preferences, track))
-        %td.count&= reviewer.user.early_reviews.for_conference(@conference).count
+        - if @conference.has_early_review?
+          %td.count&= reviewer.user.early_reviews.for_conference(@conference).count
         %td.count&= reviewer.user.final_reviews.for_conference(@conference).count
         %td.actions
           - if can? :destroy, reviewer

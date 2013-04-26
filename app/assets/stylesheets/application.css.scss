@@ -385,7 +385,7 @@ form.reviewer, form.review_decision_confirm, form.review_decision_withdraw {
     ul.errors {
       float: left;
       width: 100%; } }
-  fieldset.buttons {
+  fieldset.actions {
     margin-top: 15px; }
   p.inline-hints {
     float: left;
@@ -504,13 +504,13 @@ form.early_review.formtastic, form.final_review.formtastic {
   }
 }
 
-form.session_filter.formtastic fieldset {
+form.session_filter.formtastic fieldset, form.reviewer_filter.formtastic fieldset {
   &.inputs {
     float: left;
-    width: 85%;
+    width: 84%;
   }
 
-  &.buttons {
+  &.actions {
     float: right;
   }
 

@@ -28,6 +28,8 @@ class Reviewer < ActiveRecord::Base
 
   scope :accepted, lambda { where('state = ?', :accepted) }
 
+  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where('preferences.track_id = ?', track_id)}
+
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?
   end

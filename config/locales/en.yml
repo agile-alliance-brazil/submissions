@@ -130,6 +130,9 @@ en:
         tags: "Tags"
         username: "Author (username)"
         track_id: "Track"
+      reviewer_filter:
+        state: "Status"
+        track_id: "Track"
       comment:
         comment: "Your comment"
       organizer:
@@ -244,6 +247,7 @@ en:
       withdraw_session: "Withdraw session"
       search: "Search"
       filter_session: "Filter sessions"
+      filter_reviewer: "Filter reviewers"
       create_vote: "Vote"
       destroy_vote: "Cancel vote"
 
