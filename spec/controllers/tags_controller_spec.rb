@@ -7,6 +7,8 @@ describe TagsController do
       get :index, :format => :js, :term => 'sof'
     end
       
-    it { should respond_with_content_type(:js) }
+    subject { response }
+
+    its(:content_type) { should == "text/javascript" }
   end
 end

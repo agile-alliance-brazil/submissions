@@ -19,7 +19,9 @@ describe UsersController do
         get :index, :format => :js, :term => 'dt'
       end
 
-      it { should respond_with_content_type(:js) }
+      subject { response }
+
+      its(:content_type) { should == "text/javascript" }
     end
 
     describe "with html format" do

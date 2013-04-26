@@ -24,7 +24,8 @@ describe VotesController do
       get :index
     end
 
-    it { should assign_to(:sessions).with([@vote.session]) }
+    subject { assigns(:sessions) }
+    it { should == [@vote.session] }
   end
 
   describe "#create" do
