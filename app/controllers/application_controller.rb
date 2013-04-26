@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery
 
-  before_filter :set_locale
-  before_filter :set_timezone
+  around_filter :set_locale
+  around_filter :set_timezone
   before_filter :set_conference
   before_filter :authenticate_user!
   before_filter :authorize_action
@@ -32,14 +32,14 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def set_locale
+  def set_locale(&block)
     # if params[:locale] is nil then I18n.default_locale will be used
-    I18n.locale = params[:locale] || current_user.try(:default_locale)
+    I18n.with_locale(params[:locale] || current_user.try(:default_locale), &block)
   end
 
-  def set_timezone
+  def set_timezone(&block)
     # current_user.time_zone #=> 'London'
-    Time.zone = params[:time_zone]
+    Time.use_zone(params[:time_zone], &block)
   end
 
   def set_conference
