@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '=3.2.13'
 gem 'jquery-rails', '=2.2.1'
-gem 'haml', '=4.0.1'
+gem 'haml', '=4.0.2'
 gem 'will_paginate', '=3.0.4'
 gem 'formtastic', '=2.2.1'
 gem 'inherited_resources', '=1.3.1'
@@ -18,7 +18,7 @@ gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.2.0'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
-gem 'airbrake', '=3.1.10'
+gem 'airbrake', '=3.1.11'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 gem 'mysql2', '=0.3.11'
 gem 'doorkeeper', '=0.6.7'
@@ -44,8 +44,8 @@ end
 
 group :development do
   gem 'capistrano-ext', '=1.2.1'
-  gem 'travis-lint', '=1.6.0'
-  gem 'foreman', '=0.62.0'
+  gem 'travis-lint', '=1.7.0'
+  gem 'foreman', '=0.63.0'
 end
 
 group :test do
@@ -60,7 +60,7 @@ group :development, :test do
   gem 'rspec-rails', '=2.13.0'
   gem 'spork-rails', '=3.2.1'
   gem 'jasmine-jquery-rails', '=1.4.2'
-  gem 'guard-jasmine', '=1.14.0'
+  gem 'guard-jasmine', '=1.14.0' # 1.15.0 dropped support for ruby 1.8
   gem 'jasminerice', '=0.0.10'
-  gem 'coveralls', '=0.6.4', :require => false
+  gem 'coveralls', '=0.6.7', :require => false
 end
