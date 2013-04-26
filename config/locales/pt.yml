@@ -130,6 +130,7 @@ pt:
         track_id: "Trilha de interesse"
         audience_level_id: "Nível da sessão"
         session_type_id: "Tipo de sessão"
+        state: "Status"
       reviewer_filter:
         state: "Status"
         track_id: "Trilha de interesse"

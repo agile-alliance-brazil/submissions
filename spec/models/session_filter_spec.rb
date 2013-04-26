@@ -65,59 +65,25 @@ describe SessionFilter do
     end
   end
 
-  describe "filtering by tag" do
-    context "with param tags" do
-      subject { SessionFilter.new(:session_filter => {:tags => 'test, software'}) }
+  {
+    "tag" => :tags,
+    "track" => :track_id,
+    "audience level" => :audience_level_id,
+    "session type" => :session_type_id,
+    "state" => :state
+  }.each do |filter, filter_param|
+    describe "filtering by #{filter}" do
+      context "with param #{filter_param}" do
+        subject { SessionFilter.new(:session_filter => {filter_param => 'filter_value'}) }
 
-      its(:tags) { should == 'test, software' }
-    end
+        its(filter_param) { should == 'filter_value' }
+      end
 
-    context "without param tags" do
-      subject { SessionFilter.new(:session_filter => {}) }
+      context "without param #{filter_param}" do
+        subject { SessionFilter.new(:session_filter => {}) }
 
-      its(:tags) { should be_nil }
-    end
-  end
-
-  describe "filtering by track" do
-    context "with param track_id" do
-      subject { SessionFilter.new(:session_filter => {:track_id => 8}) }
-
-      its(:track_id) { should == 8 }
-    end
-
-    context "without param track_id" do
-      subject { SessionFilter.new(:session_filter => {}) }
-
-      its(:track_id) { should be_nil }
-    end
-  end
-
-  describe "filtering by audience level" do
-    context "with param audience_level_id" do
-      subject { SessionFilter.new(:session_filter => {:audience_level_id => 8}) }
-
-      its(:audience_level_id) { should == 8 }
-    end
-
-    context "without param audience_level_id" do
-      subject { SessionFilter.new(:session_filter => {}) }
-
-      its(:audience_level_id) { should be_nil }
-    end
-  end
-
-  describe "filtering by session type" do
-    context "with param session_type_id" do
-      subject { SessionFilter.new(:session_filter => {:session_type_id => 8}) }
-
-      its(:session_type_id) { should == 8 }
-    end
-
-    context "without param session_type_id" do
-      subject { SessionFilter.new(:session_filter => {}) }
-
-      its(:session_type_id) { should be_nil }
+        its(filter_param) { should be_nil }
+      end
     end
   end
 
@@ -130,35 +96,26 @@ describe SessionFilter do
       filter.apply(scope)
     end
 
-    it "should apply tag scope when tags are present" do
-      scope = mock('scope')
-      scope.expects(:tagged_with).with('tag1, tag2')
+    {
+      :tags => :tagged_with,
+      :track_id => :for_tracks,
+      :audience_level_id => :for_audience_level,
+      :session_type_id => :for_session_type
+    }.each do |filter_param, named_scope|
+      it "should apply #{named_scope} scope when #{filter_param} is present" do
+        scope = mock('scope')
+        scope.expects(named_scope).with('filter_value')
 
-      filter = SessionFilter.new(:session_filter => {:tags => 'tag1, tag2'})
-      filter.apply(scope)
+        filter = SessionFilter.new(:session_filter => {filter_param => 'filter_value'})
+        filter.apply(scope)
+      end
     end
 
-    it "should apply track scope when track_id is present" do
+    it "should apply with_state scope when state is present" do
       scope = mock('scope')
-      scope.expects(:for_tracks).with('1')
+      scope.expects(:with_state).with(:filter_value)
 
-      filter = SessionFilter.new(:session_filter => {:track_id => '1'})
-      filter.apply(scope)
-    end
-
-    it "should apply audience level scope when audience_level_id is present" do
-      scope = mock('scope')
-      scope.expects(:for_audience_level).with('1')
-
-      filter = SessionFilter.new(:session_filter => {:audience_level_id => '1'})
-      filter.apply(scope)
-    end
-
-    it "should apply session type scope when session_type_id is present" do
-      scope = mock('scope')
-      scope.expects(:for_session_type).with('1')
-
-      filter = SessionFilter.new(:session_filter => {:session_type_id => '1'})
+      filter = SessionFilter.new(:session_filter => {:state => 'filter_value'})
       filter.apply(scope)
     end
 

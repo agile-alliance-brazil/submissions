@@ -132,6 +132,7 @@ en:
         track_id: "Track"
         session_type_id: "Session type"
         audience_level_id: "Audience level"
+        state: "Status"
       reviewer_filter:
         state: "Status"
         track_id: "Track"
