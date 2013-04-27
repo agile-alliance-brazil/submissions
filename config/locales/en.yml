@@ -366,6 +366,7 @@ en:
       presubmissions_deadline: "Submission deadline for pre-review"
       prereview_deadline: "Feedback to authors from pre-review"
       submissions_deadline: "Final submission deadline"
+      review_deadline: "Final review deadline"
       author_notification: "Acceptance notification"
       author_confirmation: "Session confirmation deadline to selected authors"
 
