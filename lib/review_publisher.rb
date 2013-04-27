@@ -5,17 +5,11 @@ class ReviewPublisher
     ensure_all_decisions_made
     rejected_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("REJECT") do
-        EmailNotifications.notification_of_rejection(session).deliver
-        session.review_decision.update_attribute(:published, true)
-      end
+      try_with("REJECT", session)
     end
     accepted_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
-      try_with("ACCEPT") do
-        EmailNotifications.notification_of_acceptance(session).deliver
-        session.review_decision.update_attribute(:published, true)
-      end
+      try_with("ACCEPT", session)
     end
   end
 
@@ -48,8 +42,9 @@ class ReviewPublisher
     sessions_with_outcome('outcomes.accept.title')
   end
 
-  def try_with(action, &blk)
-    blk.call
+  def try_with(action, session)
+    EmailNotifications.notification_of_acceptance(session).deliver
+    session.review_decision.update_attribute(:published, true)
     Rails.logger.info("  [#{action}] OK")
   rescue => e
     Airbrake.notify(e)

@@ -223,11 +223,6 @@ describe EmailNotifications do
       lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
     end
 
-    it "should not be sent if session has been rejected" do
-      session.review_decision.expects(:rejected?).returns(true)
-      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Cannot accept a rejected session")
-    end
-
     it { should have_body_text(/#{session.title}/)}
     it { should have_body_text(/\/sessions\/#{session.to_param}\/confirm/)}
     it { should have_body_text(/\/sessions\/#{session.to_param}\/withdraw/)}
@@ -263,18 +258,13 @@ describe EmailNotifications do
     let(:session) { FactoryGirl.build(:session, :state => 'in_review', :author => user) }
     before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title')) }
 
-    subject { EmailNotifications.notification_of_rejection(session) }
+    subject { EmailNotifications.notification_of_acceptance(session) }
 
     it_should_behave_like "standard conference e-mail"
 
     it "should not be sent if session has no decision" do
       session.review_decision = nil
-      lambda {EmailNotifications.notification_of_rejection(session)}.should raise_error("Notification can't be sent before decision has been made")
-    end
-
-    it "should not be sent if session has been accepted" do
-      session.review_decision.expects(:accepted?).returns(true)
-      lambda {EmailNotifications.notification_of_rejection(session)}.should raise_error("Cannot reject an accepted session")
+      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
     end
 
     it { should have_body_text(/#{session.title}/)}

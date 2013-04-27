@@ -5,7 +5,6 @@ describe ReviewPublisher do
   before(:each) do
     Session.stubs(:count).returns(0)
     Session.stubs(:all).returns([])
-    EmailNotifications.stubs(:notification_of_rejection).returns(stub(:deliver => true))
     EmailNotifications.stubs(:notification_of_acceptance).returns(stub(:deliver => true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
@@ -49,22 +48,27 @@ describe ReviewPublisher do
       Session.stubs(:all).returns(@sessions)
     end
 
-    it "should send reject e-mails" do
+    def expect_acceptance(accept_or_reject)
+      Session.expects(:all).with(
+        :joins => :review_decision,
+        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 1, false, @conference.id]).
+        returns(accept_or_reject == :accept ? @sessions : [])
       Session.expects(:all).with(
         :joins => :review_decision,
         :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 2, false, @conference.id]).
-        returns(@sessions)
+        returns(accept_or_reject == :reject ? @sessions : [])
+    end
 
-      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).with(@sessions[1]).returns(mock(:deliver => true))
+    it "should send reject e-mails" do
+      expect_acceptance(:reject)
+
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(:deliver => true))
 
       @publisher.publish
     end
 
     it "should send acceptance e-mails" do
-      Session.expects(:all).with(
-        :joins => :review_decision,
-        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 1, false, @conference.id]).
-        returns(@sessions)
+      expect_acceptance(:accept)
 
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(:deliver => true))
 
@@ -79,12 +83,9 @@ describe ReviewPublisher do
     it "should send reject e-mails before acceptance e-mails" do
       notifications = sequence('notification')
 
-      EmailNotifications.expects(:notification_of_rejection).
+      EmailNotifications.expects(:notification_of_acceptance).
         with(@sessions[0]).
         with(@sessions[1]).
-        in_sequence(notifications).
-        returns(mock(:deliver => true))
-      EmailNotifications.expects(:notification_of_acceptance).
         with(@sessions[0]).
         with(@sessions[1]).
         in_sequence(notifications).
@@ -94,6 +95,8 @@ describe ReviewPublisher do
     end
 
     it "should log rejected e-mails sent" do
+      expect_acceptance(:reject)
+
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[1].to_param}")
       ::Rails.logger.expects(:info).times(2).with("  [REJECT] OK")
@@ -102,6 +105,8 @@ describe ReviewPublisher do
     end
 
     it "should log accepted e-mails sent" do
+      expect_acceptance(:accept)
+
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[1].to_param}")
       ::Rails.logger.expects(:info).times(2).with("  [ACCEPT] OK")
@@ -110,6 +115,8 @@ describe ReviewPublisher do
     end
 
     it "should capture error when notifying acceptance and move on" do
+      expect_acceptance(:accept)
+
       error = StandardError.new('error')
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(:deliver => true))
@@ -122,9 +129,11 @@ describe ReviewPublisher do
     end
 
     it "should capture error when notifying rejection and move on" do
+      expect_acceptance(:reject)
+
       error = StandardError.new('error')
-      EmailNotifications.expects(:notification_of_rejection).with(@sessions[0]).raises(error)
-      EmailNotifications.expects(:notification_of_rejection).with(@sessions[1]).returns(mock(:deliver => true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(:deliver => true))
 
       ::Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       ::Rails.logger.expects(:info).with("  [REJECT] OK")

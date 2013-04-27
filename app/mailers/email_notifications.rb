@@ -67,25 +67,15 @@ class EmailNotifications < ActionMailer::Base
 
   def notification_of_acceptance(session, sent_at = Time.now)
     raise "Notification can't be sent before decision has been made" unless session.review_decision
-    raise "Cannot accept a rejected session" if session.review_decision.rejected?
+    accepted = session.review_decision.accepted?
     @session = session
     @conference_name = current_conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
-      mail(:subject  => "[#{host}] #{I18n.t('email.session_accepted.subject', :conference_name => @conference_name)}",
+      subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", :conference_name => @conference_name)
+      mail :subject  => "[#{host}] #{subject}",
            :to       => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date     => sent_at)
-    end
-  end
-
-  def notification_of_rejection(session, sent_at = Time.now)
-    raise "Notification can't be sent before decision has been made" unless session.review_decision
-    raise "Cannot reject an accepted session" if session.review_decision.accepted?
-    @session = session
-    @conference_name = current_conference.name
-    I18n.with_locale(@session.author.try(:default_locale)) do
-      mail(:subject  => "[#{host}] #{I18n.t('email.session_rejected.subject', :conference_name => @conference_name)}",
-           :to       => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date     => sent_at)
+           :date     => sent_at,
+           :template_name => (accepted ? :notification_of_acceptance : :notification_of_rejection)
     end
   end
 

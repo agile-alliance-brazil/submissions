@@ -145,6 +145,12 @@ FactoryGirl.define do
     outcome
     note_to_authors "Some note to the authors"
     published false
+
+    factory :accepted_decision
+
+    factory :rejected_decision do
+      after_build { |rd| rd.outcome.title = "outcomes.reject.title" }
+    end
   end
 
   factory :room do
