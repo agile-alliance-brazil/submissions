@@ -9,11 +9,5 @@
 
 :javascript
   $(document).ready(function() {
-    $('.justification, a.hide').hide();
-    $('a.show, a.hide').click(function() {
-      $(this).closest('tr').next().find('.justification').toggle();
-      $(this).siblings().toggle();
-      $(this).toggle();
-      return false;
-    })
+    new OrganizerReviews('body').load();
   })

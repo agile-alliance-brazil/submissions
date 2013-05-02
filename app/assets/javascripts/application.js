@@ -1,6 +1,7 @@
 /*
 *= require vendor_libs
 *= require_self
+*= require organizer_reviews
 */
 
 jQuery.fn.bindSelectUpdated = function() {
