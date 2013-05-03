@@ -51,7 +51,6 @@ describe ReviewerSessionsController do
       Session.expects(:for_session_type).with('2').returns(Session)
 
       get :index, :session_filter => {:audience_level_id => '1', :session_type_id => '2'}
-      assigns(:sessions).should == [@session]
     end
 
     context "during early review phase" do

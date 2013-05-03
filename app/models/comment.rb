@@ -8,8 +8,9 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true
   belongs_to :user
 
-  validates_presence_of :comment, :user_id, :commentable_id
-  validates_length_of :comment, :maximum => 1000
+  validates :comment, :presence => true, :length => {:maximum => 1000}
+  validates :user_id, :presence => true
+  validates :commentable_id, :presence => true
 
   default_scope :order => 'created_at ASC'
 end

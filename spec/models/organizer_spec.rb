@@ -14,9 +14,7 @@ describe Organizer do
   it_should_trim_attributes Organizer, :user_username
 
   context "validations" do
-    it { should validate_presence_of :user_username }
     it { should validate_presence_of :track_id }
-    it { should validate_presence_of :conference_id }
 
     context "uniqueness" do
       before { FactoryGirl.create(:organizer) }
@@ -40,7 +38,7 @@ describe Organizer do
         track = FactoryGirl.create(:track)
         organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
         organizer.should_not be_valid
-        organizer.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+        organizer.errors[:track_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
   end

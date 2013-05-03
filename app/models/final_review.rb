@@ -7,8 +7,8 @@ class FinalReview < Review
   belongs_to :session, :counter_cache => true
   belongs_to :recommendation
 
-  validates_presence_of :recommendation_id
-  validates_presence_of :justification, :unless => :strong_accept?
+  validates :recommendation_id, :presence => true
+  validates :justification, :presence => { :unless => :strong_accept? }
 
   after_create do
     session.reviewing

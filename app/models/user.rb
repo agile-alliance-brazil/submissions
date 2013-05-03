@@ -20,23 +20,17 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :voted_sessions, :through => :votes, :source => :session
 
-  validates_presence_of :first_name, :last_name
-  validates_presence_of [:phone, :country, :city, :bio], :if => :author?
-  validates_presence_of :state, :if => Proc.new {|u| u.author? && u.in_brazil?}
-
-  validates_length_of [:first_name, :last_name, :phone, :city, :organization, :website_url], :maximum => 100, :allow_blank => true
-  validates_length_of :bio, :maximum => 1600, :allow_blank => true
-  validates_length_of :username, :within => 3..30
-  validates_length_of :email, :within => 6..100, :allow_blank => true
-
-  validates_format_of :phone, :with => /\A[0-9\(\) .\-\+]+\Z/i, :if => :author?, :allow_blank => true
-  validates_format_of :username, :with => /\A\w[\w\.+\-_@ ]+$/, :message => :username_format
-
-  validates_uniqueness_of :username, :case_sensitive => false, :if => :username_changed?
-
-  validates_each :username, :on => :update do |record, attr, value|
-    record.errors.add(attr, :constant) if record.username_changed?
-  end
+  validates :first_name, :presence => true, :length => { :maximum => 100 }, :allow_blank => true
+  validates :last_name, :presence => true, :length => { :maximum => 100 }, :allow_blank => true
+  validates :phone, :presence => { :if => :author? }, :length => { :maximum => 100 }, :format => { :with => /\A[0-9\(\) .\-\+]+\Z/i }, :allow_blank => true
+  validates :country, :presence => { :if => :author? }
+  validates :city, :presence => { :if => :author? }, :length => { :maximum => 100 }, :allow_blank => true
+  validates :bio, :presence => { :if => :author? }, :length => { :maximum => 1600 }, :allow_blank => true
+  validates :state, :presence => { :if => Proc.new {|u| u.author? && u.in_brazil?} }
+  validates :organization, :length => { :maximum => 100 }, :allow_blank => true
+  validates :website_url, :length => { :maximum => 100 }, :allow_blank => true
+  validates :username, :length => { :within => 3..30 }, :format => { :with => /\A\w[\w\.+\-_@ ]+$/, :message => :username_format }, :uniqueness => { :case_sensitive => false }, :constant => { :on => :update }
+  validates :email, :length => { :within => 6..100 }, :allow_blank => true
 
   before_validation do |user|
     user.twitter_username = user.twitter_username[1..-1] if user.twitter_username =~ /^@/

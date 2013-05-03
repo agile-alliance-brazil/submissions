@@ -4,7 +4,8 @@ class SessionType < ActiveRecord::Base
   belongs_to :conference
   serialize :valid_durations, Array
 
-  validates_presence_of :title, :description
+  validates :title, :presence => true
+  validates :description, :presence => true
 
   scope :for_conference, lambda { |c| where(:conference_id => c.id) }
 

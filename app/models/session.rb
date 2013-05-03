@@ -27,62 +27,29 @@ class Session < ActiveRecord::Base
 
   has_one :review_decision
 
-  validates_presence_of :title, :summary, :description, :benefits, :target_audience,
-                        :audience_level_id, :author_id, :track_id, :session_type_id,
-                        :experience, :duration_mins, :keyword_list, :conference_id,
-                        :language
+  validates :title, :presence => true, :length => {:maximum => 100}
+  validates :summary, :presence => true, :length => {:maximum => 800}
+  validates :description, :presence => true, :length => {:maximum => 2400}
+  validates :benefits, :presence => true, :length => {:maximum => 400}
+  validates :target_audience, :presence => true, :length => {:maximum => 200}
+  validates :experience, :presence => true, :length => {:maximum => 400}
+  validates :duration_mins, :presence => true, :session_duration => true, :allow_blank => true
+  validates :keyword_list, :presence => true, :length => {:maximum => 10}
+  validates :language, :presence => true, :inclusion => {:in => ['en', 'pt']}, :allow_blank => true
+  validates :mechanics, :presence => true, :length => {:maximum => 2400}, :if => :requires_mechanics?
+  validates :audience_limit, :numericality => {:only_integer => true, :greater_than => 0}, :allow_nil => true
+  validates :conference_id, :existence => true
+  validates :author_id, :existence => true, :constant => { :on => :update }
+  validates :track_id, :presence => true, :existence => true, :same_conference => true, :allow_blank => true
+  validates :session_type_id, :presence => true, :existence => true, :same_conference => true, :allow_blank => true
+  validates :audience_level_id, :presence => true, :existence => true, :same_conference => true, :allow_blank => true
+  validates :second_author_username, :second_author => true, :allow_blank => true
 
-  validates_presence_of :mechanics, :if => :requires_mechanics?
-  validates_inclusion_of :language, :in => ['en', 'pt'], :allow_blank => true
-  validates_numericality_of :audience_limit, :only_integer => true, :greater_than => 0, :allow_nil => true
-
-  validates_length_of :title, :maximum => 100
-  validates_length_of :target_audience, :maximum => 200
-  validates_length_of [:benefits, :experience], :maximum => 400
-  validates_length_of :summary, :maximum => 800
-  validates_length_of :description, :maximum => 2400
-  validates_length_of :mechanics, :maximum => 2400, :allow_blank => true
-
-  validates_existence_of :conference, :author
-  validates_existence_of :track, :session_type, :audience_level, :allow_blank => true
-
-  validates_each :duration_mins, :allow_blank => true do |record, attr, value|
-    valid_durations = record.session_type.valid_durations
-    error_message = valid_durations.join(" #{I18n.t('generic.or')} ")
-    record.errors.add(attr, :session_type_duration, {:valid_durations => error_message}) unless value.in?(valid_durations)
-  end
-
-  validates_each :keyword_list do |record, attr, value|
-    record.errors.add(attr, :too_long, :count => 10) if record.keyword_list.size > 10
-  end
-
-  validates_each :second_author_username, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :existence) if record.second_author.nil?
-    record.errors.add(attr, :same_author) if record.second_author == record.author
-    record.errors.add(attr, :incomplete) if record.second_author.present? && !record.second_author.try(:author?)
-  end
-  validates_each :author_id, :on => :update do |record, attr, value|
-    record.errors.add(attr, :constant) if record.author_id_changed?
-  end
-  validates_each :track_id, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :invalid) if record.track.conference_id != record.conference_id
-  end
-  validates_each :audience_level_id, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :invalid) if record.audience_level.conference_id != record.conference_id
-  end
-  validates_each :session_type_id, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :invalid) if record.session_type.conference_id != record.conference_id
-  end
-
-  scope :for_conference, lambda { |c| where(:conference_id => c.id)}
-
-  scope :for_user, lambda { |u| where('author_id = ? OR second_author_id = ?', u.to_i, u.to_i) }
-
-  scope :for_tracks, lambda { |track_ids| where('track_id IN (?)', track_ids) }
-
-  scope :for_audience_level, lambda { |audience_level_id| where('audience_level_id = ?', audience_level_id) }
-
-  scope :for_session_type, lambda { |session_type_id| where('session_type_id = ?', session_type_id) }
+  scope :for_conference,     lambda { |conference| where(:conference_id => conference.id)}
+  scope :for_user,           lambda { |user| where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) }
+  scope :for_tracks,         lambda { |track_ids| where(:track_id => track_ids) }
+  scope :for_audience_level, lambda { |audience_level_id| where(:audience_level_id => audience_level_id) }
+  scope :for_session_type,   lambda { |session_type_id| where(:session_type_id => session_type_id) }
 
   scope :not_author, lambda { |u|
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
@@ -152,11 +119,11 @@ class Session < ActiveRecord::Base
     end
 
     state :accepted do
-      validates_acceptance_of :author_agreement, :accept => true
+      validates :author_agreement, :acceptance => {:accept => true}
     end
 
     state :rejected do
-      validates_acceptance_of :author_agreement, :accept => true
+      validates :author_agreement, :acceptance => {:accept => true}
     end
 
   end

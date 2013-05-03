@@ -23,6 +23,17 @@ module AutoCompleteUsername
         send(:"#{user_attr}=", (username.present? ? User.find_by_username(username) : nil))
         username
       end
+
+      # transfer errors to virtual attribute
+      after_validation do
+        if !errors[:"#{user_attr}_id"].empty?
+          errors[:"#{user_attr}_id"].each { |error| errors.add(attribute_name, error) }
+        end
+        if !errors[user_attr.to_sym].empty?
+          errors[user_attr.to_sym].each { |error| errors.add(attribute_name, error) }
+        end
+      end
+
     end
   end
 end

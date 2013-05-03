@@ -10,6 +10,7 @@ pt:
       email_format: deve ter um formato de e-mail válido
       username_format: ! 'deve usar apenas letras, números, espaços e .-_@'
       constant: não pode mudar
+      same_conference: não pertence à mesma conferência
   activerecord:
     errors:
       messages:

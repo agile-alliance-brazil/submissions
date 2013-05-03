@@ -5,7 +5,8 @@ class Track < ActiveRecord::Base
   has_many :track_ownerships, :class_name => 'Organizer'
   has_many :organizers, :through => :track_ownerships, :source => :user
   
-  validates_presence_of :title, :description
+  validates :title, :presence => true
+  validates :description, :presence => true
 
   scope :for_conference, lambda { |c| where(:conference_id => c.id) }
 

@@ -11,10 +11,6 @@ describe Vote do
   end
 
   context "validations" do
-    it { should validate_presence_of :session_id }
-    it { should validate_presence_of :user_id }
-    it { should validate_presence_of :conference_id }
-
     should_validate_existence_of :conference, :session, :user
 
     context "uniqueness" do
@@ -26,7 +22,7 @@ describe Vote do
       it "should match the conference" do
         vote = FactoryGirl.build(:vote, :conference => Conference.first)
         vote.should_not be_valid
-        vote.errors[:session_id].should include(I18n.t("errors.messages.invalid"))
+        vote.errors[:session_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
 

@@ -16,22 +16,22 @@ describe Preference do
       subject {FactoryGirl.build(:preference, :accepted => true)}
       it { should validate_presence_of :audience_level_id }
 
-      should_validate_existence_of :audience_level, :allow_blank => true
+      should_validate_existence_of :audience_level, :track, :allow_blank => true
 
       it "track should match the conference" do
         subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         subject.should_not be_valid
-        subject.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+        subject.errors[:track_id].should include(I18n.t("errors.messages.same_conference"))
       end
 
       it "audience level should match the conference" do
         subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
         subject.should_not be_valid
-        subject.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
+        subject.errors[:audience_level_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
 
-    should_validate_existence_of :reviewer, :track
+    should_validate_existence_of :reviewer
 
     describe "should validate preference for organizer" do
       before(:each) do

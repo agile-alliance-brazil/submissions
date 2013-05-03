@@ -13,31 +13,16 @@ class Reviewer < ActiveRecord::Base
 
   accepts_nested_attributes_for :preferences
 
-  validates_presence_of :user_username, :conference_id
-  validates_existence_of :conference
-  validates_existence_of :user, :allow_blank => true
-  validates_uniqueness_of :user_id, :scope => :conference_id
+  validates :conference_id, :presence => true, :existence => true
+  validates :user_id, :existence => true, :uniqueness => {:scope => :conference_id}
 
-  validates_each :user_username, :allow_blank => true do |record, attr, value|
-    record.errors.add(attr, :existence) if record.user.nil?
-  end
-
-  scope :for_conference, lambda { |c| where('conference_id = ?', c.id) }
-
-  scope :for_user, lambda { |u| where('user_id = ?', u.id) }
-
-  scope :accepted, lambda { where('state = ?', :accepted) }
-
-  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where('preferences.track_id = ?', track_id)}
+  scope :for_conference, lambda { |c| where(:conference_id => c.id) }
+  scope :for_user, lambda { |u| where(:user_id => u.id) }
+  scope :accepted, lambda { where(:state => :accepted) }
+  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where(:preferences => {:track_id => track_id}) }
 
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?
-  end
-
-  after_validation do
-    if !errors[:user_id].empty?
-      errors[:user_id].each { |error| errors.add(:user_username, error) }
-    end
   end
 
   state_machine :initial => :created do
@@ -68,7 +53,7 @@ class Reviewer < ActiveRecord::Base
           reviewer.errors.add(:base, :preferences)
         end
       end
-      validates_acceptance_of :reviewer_agreement
+      validates :reviewer_agreement, :acceptance => true
     end
   end
 

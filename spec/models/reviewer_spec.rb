@@ -20,7 +20,6 @@ describe Reviewer do
   it_should_trim_attributes Reviewer, :user_username
 
   context "validations" do
-    it { should validate_presence_of :user_username }
     it { should validate_presence_of :conference_id }
 
     context "uniqueness" do
@@ -28,8 +27,7 @@ describe Reviewer do
       it { should validate_uniqueness_of(:user_id).scoped_to(:conference_id) }
     end
 
-    should_validate_existence_of :conference
-    should_validate_existence_of :user, :allow_blank => true
+    should_validate_existence_of :conference, :user
 
     it "should validate that at least 1 preference was accepted" do
       reviewer = FactoryGirl.create(:reviewer)
@@ -71,7 +69,7 @@ describe Reviewer do
     it { should have_many(:preferences).dependent(:destroy) }
     it { should have_many(:accepted_preferences).class_name('Preference') }
 
-    xit { should accept_nested_attributes_for :preferences }
+    it { should accept_nested_attributes_for :preferences }
 
     context "reviewer username" do
       subject { Factory.build(:reviewer) }

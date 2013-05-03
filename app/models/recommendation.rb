@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Recommendation < ActiveRecord::Base
-  validates_presence_of :title
+  validates :title, :presence => true
   
   has_many :reviews
 end

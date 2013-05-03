@@ -57,20 +57,17 @@ describe Session do
     it { should validate_presence_of :description }
     it { should validate_presence_of :benefits }
     it { should validate_presence_of :target_audience }
-    it { should validate_presence_of :author_id }
-    it { should validate_presence_of :track_id }
-    it { should validate_presence_of :conference_id }
-    it { should validate_presence_of :session_type_id }
-    it { should validate_presence_of :audience_level_id }
     it { should validate_presence_of :experience }
     it { should validate_presence_of :duration_mins }
     it { should validate_presence_of :keyword_list }
     it { should validate_presence_of :language }
+    it { should validate_presence_of :track_id }
+    it { should validate_presence_of :session_type_id }
+    it { should validate_presence_of :audience_level_id }
 
     it { should ensure_inclusion_of(:language).in_array(['en', 'pt']) }
 
-    should_validate_existence_of :conference, :author
-    should_validate_existence_of :track, :session_type, :audience_level, :allow_blank => true
+    should_validate_existence_of :conference, :author, :track, :session_type, :audience_level
 
     it { should validate_numericality_of :audience_limit }
 
@@ -78,7 +75,6 @@ describe Session do
     it { should ensure_length_of(:target_audience).is_at_most(200) }
     it { should ensure_length_of(:summary).is_at_most(800) }
     it { should ensure_length_of(:description).is_at_most(2400) }
-    it { should ensure_length_of(:mechanics).is_at_most(2400) }
     it { should ensure_length_of(:benefits).is_at_most(400) }
     it { should ensure_length_of(:experience).is_at_most(400) }
 
@@ -86,7 +82,7 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :track => Conference.current.tracks.first)
         session.should_not be_valid
-        session.errors[:track_id].should include(I18n.t("errors.messages.invalid"))
+        session.errors[:track_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
 
@@ -94,7 +90,7 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :audience_level => Conference.current.audience_levels.first)
         session.should_not be_valid
-        session.errors[:audience_level_id].should include(I18n.t("errors.messages.invalid"))
+        session.errors[:audience_level_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
 
@@ -102,25 +98,25 @@ describe Session do
       it "should match the conference" do
         session = FactoryGirl.build(:session, :conference => Conference.first, :session_type => Conference.current.session_types.first)
         session.should_not be_valid
-        session.errors[:session_type_id].should include(I18n.t("errors.messages.invalid"))
+        session.errors[:session_type_id].should include(I18n.t("errors.messages.same_conference"))
       end
     end
 
     context "mechanics" do
-      it "should be present for workshops" do
-        session = FactoryGirl.build(:session, :mechanics => nil)
-        session.should be_valid
-        session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.workshop.title')
-        session.should_not be_valid
-        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
+      context "workshops" do
+        subject { FactoryGirl.build(:session) }
+        before { subject.session_type = FactoryGirl.build(:session_type, :title => 'session_types.workshop.title') }
+
+        it { should validate_presence_of(:mechanics) }
+        it { should ensure_length_of(:mechanics).is_at_most(2400) }
       end
 
-      it "should be present for hands on" do
-        session = FactoryGirl.build(:session, :mechanics => nil)
-        session.should be_valid
-        session.session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title')
-        session.should_not be_valid
-        session.errors[:mechanics].should include(I18n.t("errors.messages.blank"))
+      context "hands on" do
+        subject { FactoryGirl.build(:session) }
+        before { subject.session_type = FactoryGirl.build(:session_type, :title => 'session_types.hands_on.title') }
+
+        it { should validate_presence_of(:mechanics) }
+        it { should ensure_length_of(:mechanics).is_at_most(2400) }
       end
     end
 
@@ -187,6 +183,13 @@ describe Session do
       end
     end
 
+    it "should validate that there are a maximum of 10 keywords" do
+      session = FactoryGirl.build(:session, :keyword_list => %w[a b c d e f g h i j])
+      session.should be_valid
+      session.keyword_list = %w[a b c d e f g h i j k]
+      session.should_not be_valid
+      session.errors[:keyword_list].should include(I18n.t("activerecord.errors.models.session.attributes.keyword_list.too_long", :count => 10))
+    end
   end
 
   context "named scopes" do

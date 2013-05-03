@@ -18,18 +18,22 @@ class Review < ActiveRecord::Base
   belongs_to :proposal_relevance_rating, :class_name => "Rating"
   belongs_to :reviewer_confidence_rating, :class_name => "Rating"
 
-  validates_presence_of :author_agile_xp_rating_id, :author_proposal_xp_rating_id,
-                        :proposal_quality_rating_id, :proposal_relevance_rating_id,
-                        :reviewer_confidence_rating_id,
-                        :reviewer_id, :session_id
+  validates :author_agile_xp_rating_id, :presence => true
+  validates :author_proposal_xp_rating_id, :presence => true
+  validates :proposal_quality_rating_id, :presence => true
+  validates :proposal_relevance_rating_id, :presence => true
+  validates :reviewer_confidence_rating_id, :presence => true
+  validates :reviewer_id, :presence => true, :uniqueness => { :scope => [:session_id, :type] }
+  validates :session_id, :presence => true
 
-  validates_inclusion_of :proposal_track, :proposal_level, :proposal_type,
-                        :proposal_duration, :proposal_limit, :proposal_abstract,
-                        :in => [true, false]
+  validates :proposal_track, :inclusion => { :in => [true, false] }
+  validates :proposal_level, :inclusion => { :in => [true, false] }
+  validates :proposal_type, :inclusion => { :in => [true, false] }
+  validates :proposal_duration, :inclusion => { :in => [true, false] }
+  validates :proposal_limit, :inclusion => { :in => [true, false] }
+  validates :proposal_abstract, :inclusion => { :in => [true, false] }
 
-  validates_length_of :comments_to_authors, :minimum => 150
-
-  validates_uniqueness_of :reviewer_id, :scope => [:session_id, :type]
+  validates :comments_to_authors, :length => { :minimum => 150 }
 
   scope :for_conference, lambda { |c| joins(:session).where(:sessions => {:conference_id => c.id})}
 end
