@@ -26,12 +26,8 @@ module AutoCompleteUsername
 
       # transfer errors to virtual attribute
       after_validation do
-        if !errors[:"#{user_attr}_id"].empty?
-          errors[:"#{user_attr}_id"].each { |error| errors.add(attribute_name, error) }
-        end
-        if !errors[user_attr.to_sym].empty?
-          errors[user_attr.to_sym].each { |error| errors.add(attribute_name, error) }
-        end
+        errors[:"#{user_attr}_id"].each { |error| errors.add(attribute_name, error) }
+        errors[user_attr.to_sym].each { |error| errors.add(attribute_name, error) }
       end
 
     end
