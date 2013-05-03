@@ -38,7 +38,7 @@ group :assets do
   gem 'yui-compressor', '=0.9.6'
   gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=4.0.2'
-  gem 'coffee-rails', '=3.2.2'
+  gem 'coffee-rails', '=3.2.2' # 4.0.0 for rails 4
   gem 'fancybox-rails', '=0.2.1'
 end
 
