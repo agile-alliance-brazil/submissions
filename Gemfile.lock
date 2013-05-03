@@ -33,7 +33,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.3.3)
+    acts-as-taggable-on (2.4.0)
       rails (~> 3.0)
     acts_as_commentable (3.0.1)
     addressable (2.3.4)
@@ -281,7 +281,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (= 4.2.9)
-  acts-as-taggable-on (= 2.3.3)
+  acts-as-taggable-on (= 2.4.0)
   acts_as_commentable (= 3.0.1)
   airbrake (= 3.1.12)
   aws-ses (= 0.4.4)

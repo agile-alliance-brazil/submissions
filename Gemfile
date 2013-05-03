@@ -12,7 +12,7 @@ gem 'devise-encryptable', '=0.1.1'
 gem 'magic-localized_country_select', '=0.2.0', :require => 'localized_country_select'
 gem 'brhelper', '=3.3.0'
 gem 'seed-fu', '=2.2.0'
-gem 'acts-as-taggable-on', '=2.3.3'
+gem 'acts-as-taggable-on', '=2.4.0'
 gem 'cancan', '=1.6.9'
 gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.2.0'
