@@ -7,7 +7,7 @@
   = form.input :duration_mins, :required => true, :as => :select, :collection => options_for_durations(@session_types), :input_html => {:tabindex => autotab}, :hint => duration_mins_hint(@session_types)
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
+  = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js), :maxlength => nil}
   = form.input :second_author_username, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => users_path(:format => :js)}
   = form.input :target_audience, :required => true, :input_html => {:tabindex => autotab}
   = form.input :summary, :required => true, :input_html => {:rows => 10, :tabindex => autotab}, :hint => t('formtastic.hints.session.summary', :year => "/#{@conference.year}")

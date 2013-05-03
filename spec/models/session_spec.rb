@@ -190,19 +190,17 @@ describe Session do
       session.should_not be_valid
       session.errors[:keyword_list].should include(I18n.t("activerecord.errors.models.session.attributes.keyword_list.too_long", :count => 10))
     end
+
+    it "should validate that there are a maximum of 10 keywords in comma-separated list" do
+      session = FactoryGirl.build(:session, :keyword_list => "a, b, c, d, e, f, g, h, i, j")
+      session.should be_valid
+      session.keyword_list = "a, b, c, d, e, f, g, h, i, j, k"
+      session.should_not be_valid
+      session.errors[:keyword_list].should include(I18n.t("activerecord.errors.models.session.attributes.keyword_list.too_long", :count => 10))
+    end
   end
 
   context "named scopes" do
-    xit {should have_scope(:for_conference, :with => '1').where('conference_id = 1') }
-
-    xit {should have_scope(:for_user, :with => '3').where('author_id = 3 OR second_author_id = 3') }
-
-    xit {should have_scope(:for_tracks, :with => [1, 2]).where('track_id IN (1, 2)') }
-
-    xit {should have_scope(:with_incomplete_final_reviews).where('final_reviews_count < 3') }
-
-    xit {should have_scope(:with_incomplete_early_reviews).where('final_reviews_count < 1') }
-
     context "for_reviewer / for_review_in" do
       before(:each) do
         # TODO: review this
