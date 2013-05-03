@@ -293,7 +293,7 @@ DEPENDENCIES
   devise (= 2.2.3)
   devise-encryptable (= 0.1.1)
   doorkeeper (= 0.6.7)
-  email_spec
+  email_spec (= 1.4.0)
   factory_girl_rails (= 1.7.0)
   fancybox-rails (= 0.2.1)
   foreman (= 0.63.0)
