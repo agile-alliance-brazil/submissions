@@ -19,7 +19,7 @@ gem 'state_machine', '=1.2.0'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
 gem 'airbrake', '=3.1.12'
-gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
+gem 'aws-ses', '=0.5.0', :require => 'aws/ses'
 gem 'mysql2', '=0.3.11'
 gem 'doorkeeper', '=0.6.7'
 

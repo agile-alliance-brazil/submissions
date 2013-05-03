@@ -42,7 +42,7 @@ GEM
       builder
       json
     arel (3.0.2)
-    aws-ses (0.4.4)
+    aws-ses (0.5.0)
       builder
       mail (> 2.2.5)
       mime-types
@@ -284,7 +284,7 @@ DEPENDENCIES
   acts-as-taggable-on (= 2.4.0)
   acts_as_commentable (= 3.0.1)
   airbrake (= 3.1.12)
-  aws-ses (= 0.4.4)
+  aws-ses (= 0.5.0)
   brhelper (= 3.3.0)
   cancan (= 1.6.9)
   capistrano-ext (= 1.2.1)
