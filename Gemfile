@@ -18,7 +18,7 @@ gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.2.0'
 gem 'validates_existence', '=0.8.0'
 gem 'goalie', '=0.0.4'
-gem 'airbrake', '=3.1.11'
+gem 'airbrake', '=3.1.12'
 gem 'aws-ses', '=0.4.4', :require => 'aws/ses'
 gem 'mysql2', '=0.3.11'
 gem 'doorkeeper', '=0.6.7'
@@ -58,7 +58,7 @@ end
 
 group :development, :test do
   gem 'sqlite3', '=1.3.7'
-  gem 'rspec-rails', '=2.13.0'
+  gem 'rspec-rails', '=2.13.1'
   gem 'spork-rails', '=3.2.1'
   gem 'jasmine-jquery-rails', '=1.4.2'
   gem 'guard-jasmine', '=1.14.0' # 1.15.0 dropped support for ruby 1.8
