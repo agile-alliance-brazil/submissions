@@ -19,7 +19,9 @@ describe ReviewDecision do
     it { should validate_presence_of :session_id }
     it { should validate_presence_of :outcome_id }
     it { should validate_presence_of :note_to_authors }
-    should_validate_existence_of :organizer, :session, :outcome
+
+    should_validate_existence_of :organizer, :session
+    should_validate_existence_of :outcome, :allow_blank => true
 
     it "should validate outcome can transition session on acceptance" do
       review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title'))

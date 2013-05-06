@@ -9,7 +9,7 @@ class ReviewDecision < ActiveRecord::Base
   
   validates :organizer_id, :presence => true, :existence => true
   validates :session_id, :presence => true, :existence => true
-  validates :outcome_id, :presence => true, :existence => true
+  validates :outcome_id, :presence => true, :existence => true, :allow_blank => true
   validates :note_to_authors, :presence => true
   validates :session_id, :session_acceptance => true
   
