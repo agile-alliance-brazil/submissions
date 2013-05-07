@@ -128,7 +128,7 @@ describe User do
       it { should validate_uniqueness_of(:username).case_insensitive }
     end
 
-    xit { should validate_confirmation_of :password }
+    it { should validate_confirmation_of :password }
 
     it "should validate that username doesn't change" do
       user = FactoryGirl.create(:user)
@@ -263,10 +263,6 @@ describe User do
         user.preferences(reviewer.conference).should == [preference]
       end
     end
-  end
-
-  context "named scopes" do
-    xit { should have_scope(:search, :with =>'danilo', :where => "username LIKE '%danilo%'") }
   end
 
   context "authorization" do

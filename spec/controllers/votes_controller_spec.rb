@@ -31,19 +31,21 @@ describe VotesController do
   describe "#create" do
     before do
       @session = FactoryGirl.create(:session)
+      @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
       post :create, :vote => {:session_id => @session.id}
     end
 
-    xit { should respond_with(:redirect) }
-    xit { @session.votes.should_not be_empty }
+    it { should redirect_to('http://test.com/sessions/new') }
+    it { @session.votes.should_not be_empty }
   end
 
   describe "#destroy" do
     before do
+      @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
       delete :destroy, :id => @vote.id
     end
 
-    it { should respond_with(:redirect) }
+    it { should redirect_to('http://test.com/sessions/new') }
     it { lambda { Vote.find(@vote.id) }.should raise_error(ActiveRecord::RecordNotFound) }
   end
 end

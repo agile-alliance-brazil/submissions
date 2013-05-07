@@ -15,10 +15,6 @@ describe Track do
     it { should have_many(:organizers).through(:track_ownerships) }
   end
 
-  context "named scopes" do
-    xit {should have_scope(:for_conference, :with => '1').where('conference_id = 1') }
-  end
-
   it "should determine if it's experience report" do
     track = FactoryGirl.build(:track, :title => 'tracks.experience_reports.title')
     track.should be_experience_report
