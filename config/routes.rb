@@ -31,6 +31,7 @@ AgileBrazil::Application.routes.draw do
     resources :audience_levels, :only => [:index]
     resources :organizers, :except => [:show]
     resources :organizer_sessions, :only => [:index]
+    resources :organizer_reports, :only => [:index]
     resources :review_decisions, :only => [:index]
     resources :reviewers, :only => [:index, :new, :create, :destroy] do
       resource :accept, :only => [:show, :update], :controller => :accept_reviewers

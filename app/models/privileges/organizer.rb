@@ -3,6 +3,7 @@ class Privileges::Organizer < Privileges::Base
   def privileges
     can(:manage, ::Reviewer)
     can(:read, 'organizer_sessions')
+    can(:read, 'organizer_reports')
     can(:read, 'reviews_listing')
     can(:index, ReviewDecision)
     can(:cancel, Session) do |session|

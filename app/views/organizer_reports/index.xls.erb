@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<%- columns = 29 -%>
+<%- rows = collection.sum(&:final_reviews_count) + 1 -%>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+    <AllowPNG/>
+  </OfficeDocumentSettings>
+  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+    <WindowTopX>0</WindowTopX>
+    <WindowTopY>0</WindowTopY>
+    <Date1904/>
+    <ProtectStructure>False</ProtectStructure>
+    <ProtectWindows>False</ProtectWindows>
+  </ExcelWorkbook>
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+     <Alignment ss:Vertical="Bottom"/>
+     <Borders/>
+     <Font ss:FontName="Verdana"/>
+     <Interior/>
+     <NumberFormat/>
+     <Protection/>
+    </Style>
+    <Style ss:ID="sTitle">
+     <Font ss:FontName="Verdana" ss:Bold="1"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Final Reviews">
+    <Table ss:ExpandedColumnCount="<%= columns %>" ss:ExpandedRowCount="<%= rows %>" x:FullColumns="1"
+   x:FullRows="1" ss:StyleId="Default">
+      <Row>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String">ID</Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.author_id') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.second_author_id') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.strong_accept.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.weak_accept.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.weak_reject.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.strong_reject.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.reviewer') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.track_id') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_track') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.session_type_id') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_type') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.duration_mins') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_duration') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.audience_level_id') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_level') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.audience_limit') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_limit') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.agile_xp_rating') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.proposal_xp_rating') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.proposal_abstract') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.proposal_quality_rating') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.proposal_relevance_rating') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.recommendation') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.justification') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.final_review.confidence') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.comments_to_organizers') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.comments_to_authors') %></Data></Cell>
+      </Row>
+    <%- collection.each do |session| -%>
+      <%- session.final_reviews.each do |review| -%>
+        <Row>
+          <Cell><Data ss:Type="Number"><%= session.id %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= session.title %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= session.author.full_name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= session.second_author.try(:full_name) %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:strong_accept?) %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:weak_accept?) %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:weak_reject?) %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:strong_reject?) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.reviewer.full_name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(session.track.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_track ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(session.session_type.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_type ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= session.duration_mins %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_duration ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(session.audience_level.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_level ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= session.audience_limit %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_limit ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.author_agile_xp_rating.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.author_proposal_xp_rating.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.proposal_abstract ? t('formtastic.yes') : t('formtastic.no') %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.proposal_quality_rating.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.proposal_relevance_rating.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.recommendation.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.justification %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= t(review.reviewer_confidence_rating.title) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.comments_to_organizers %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= review.comments_to_authors %></Data></Cell>
+        </Row>
+      <%- end -%>
+    <%- end -%>
+    </Table>
+    <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+      <PageLayoutZoom>0</PageLayoutZoom>
+      <Selected/>
+      <FreezePanes/>
+      <FrozenNoSplit/>
+      <SplitHorizontal>1</SplitHorizontal>
+      <TopRowBottomPane>1</TopRowBottomPane>
+      <ActivePane>2</ActivePane>
+      <Panes>
+      <Pane>
+        <Number>3</Number>
+      </Pane>
+      <Pane>
+        <Number>2</Number>
+        <ActiveRow>0</ActiveRow>
+        <RangeSelection>R1C1:R1C<%= columns %></RangeSelection>
+      </Pane>
+      </Panes>
+      <ProtectObjects>False</ProtectObjects>
+      <ProtectScenarios>False</ProtectScenarios>
+    </WorksheetOptions>
+    <AutoFilter x:Range="R1C1:R1C<%= columns %>" xmlns="urn:schemas-microsoft-com:office:excel">
+    </AutoFilter>
+    <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+      <Range>C20:C21,C23:C24,C27</Range>
+      <Condition>
+        <Qualifier>Equal</Qualifier>
+        <Value1>&quot;<%= t('rating.high.title') %>&quot;</Value1>
+        <Format Style='background:#CCFFCC;'/>
+      </Condition>
+      <Condition>
+        <Qualifier>Equal</Qualifier>
+        <Value1>&quot;<%= t('rating.medium.title') %>&quot;</Value1>
+        <Format Style='background:#FFCC99'/>
+      </Condition>
+      <Condition>
+        <Qualifier>Equal</Qualifier>
+        <Value1>&quot;<%= t('rating.low.title') %>&quot;</Value1>
+        <Format Style='background:#FF99CC'/>
+      </Condition>
+    </ConditionalFormatting>
+    <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+      <Range>R2C1:R<%=rows%>C16384</Range>
+      <Condition>
+        <Value1>MOD(SUBTOTAL(3,'Final Reviews'!R2C1:R[2]C1),6)&lt;3</Value1>
+        <Format Style='background:silver'/>
+      </Condition>
+    </ConditionalFormatting>
+    <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+      <Range>C11,C13,C15,C17,C19,C22</Range>
+      <Condition>
+        <Qualifier>Equal</Qualifier>
+        <Value1>&quot;<%= t('formtastic.yes') %>&quot;</Value1>
+        <Format Style='background:#CCFFCC'/>
+      </Condition>
+      <Condition>
+        <Qualifier>Equal</Qualifier>
+        <Value1>&quot;<%= t('formtastic.no') %>&quot;</Value1>
+        <Format Style='background:#FF99CC'/>
+      </Condition>
+    </ConditionalFormatting>
+  </Worksheet>
+</Workbook>

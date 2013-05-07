@@ -299,6 +299,7 @@ pt:
     manage_reviewers: "Avaliadores"
     create_reviewer: "Convidar novo avaliador"
     organizer_sessions: "Organizar sessões"
+    organizer_reports: "Baixar relatório de avaliações"
     reviewer_sessions: "Avaliar sessões"
     review_session: "Avaliar"
     reviewer_reviews: "Minhas avaliações"

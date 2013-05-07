@@ -564,3 +564,12 @@ form.session_filter.formtastic fieldset, form.reviewer_filter.formtastic fieldse
   color: #666666;
   font-style: italic;
 }
+
+.download {
+  float: right;
+  clear: both;
+
+  img {
+    vertical-align: middle;
+  }
+}

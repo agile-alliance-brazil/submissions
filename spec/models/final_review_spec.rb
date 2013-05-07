@@ -73,65 +73,65 @@ describe FinalReview do
     end
 
     context "strong acceptance" do
-      before(:each) do
-        @review = FactoryGirl.build(:final_review)
-        @review.recommendation.title = "recommendation.strong_accept.title"
-      end
+      subject { FactoryGirl.build(:final_review) }
+      before(:each) { subject.recommendation.title = "recommendation.strong_accept.title" }
 
       it "should not validate presence of justification" do
-        @review.justification = nil
-        @review.should be_valid
-        @review.justification = "I want to justify that the session rules!"
-        @review.should be_valid
+        subject.justification = nil
+        subject.should be_valid
+        subject.justification = "I want to justify that the session rules!"
+        subject.should be_valid
       end
+
+      it { should be_strong_accept }
     end
 
     context "weak acceptance" do
-      before(:each) do
-        @review = FactoryGirl.build(:final_review)
-        @review.recommendation.title = "recommendation.weak_accept.title"
-      end
+      subject { FactoryGirl.build(:final_review) }
+      before(:each) { subject.recommendation.title = "recommendation.weak_accept.title" }
 
       it "should validate presence of justification" do
-        @review.justification = nil
-        @review.should_not be_valid
-        @review.justification = ""
-        @review.should_not be_valid
-        @review.justification = "I want to justify that the session is ok."
-        @review.should be_valid
+        subject.justification = nil
+        subject.should_not be_valid
+        subject.justification = ""
+        subject.should_not be_valid
+        subject.justification = "I want to justify that the session is ok."
+        subject.should be_valid
       end
+
+      it { should be_weak_accept }
     end
 
     context "weak rejection" do
-      before(:each) do
-        @review = FactoryGirl.build(:final_review)
-        @review.recommendation.title = "recommendation.weak_reject.title"
-      end
+      subject { FactoryGirl.build(:final_review) }
+      before(:each) { subject.recommendation.title = "recommendation.weak_reject.title" }
 
       it "should validate presence of justification" do
-        @review.justification = nil
-        @review.should_not be_valid
-        @review.justification = ""
-        @review.should_not be_valid
-        @review.justification = "I want to justify that the session is not so good..."
-        @review.should be_valid
+        subject.justification = nil
+        subject.should_not be_valid
+        subject.justification = ""
+        subject.should_not be_valid
+        subject.justification = "I want to justify that the session is not so good..."
+        subject.should be_valid
       end
+
+      it { should be_weak_reject }
     end
 
     context "strong rejection" do
-      before(:each) do
-        @review = FactoryGirl.build(:final_review)
-        @review.recommendation.title = "recommendation.strong_reject.title"
-      end
+      subject { FactoryGirl.build(:final_review) }
+      before(:each) { subject.recommendation.title = "recommendation.strong_reject.title" }
 
       it "should validate presence of justification" do
-        @review.justification = nil
-        @review.should_not be_valid
-        @review.justification = ""
-        @review.should_not be_valid
-        @review.justification = "I want to justify that the session sucks a lot..."
-        @review.should be_valid
+        subject.justification = nil
+        subject.should_not be_valid
+        subject.justification = ""
+        subject.should_not be_valid
+        subject.justification = "I want to justify that the session sucks a lot..."
+        subject.should be_valid
       end
+
+      it { should be_strong_reject }
     end
   end
 

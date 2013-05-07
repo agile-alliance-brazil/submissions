@@ -87,6 +87,10 @@ describe Ability do
       @ability.should_not be_able_to(:read, 'organizer_sessions')
     end
 
+    it "cannot read organizer's reports" do
+      @ability.should_not be_able_to(:read, 'organizer_reports')
+    end
+
     it "cannot read sessions to review" do
       @ability.should_not be_able_to(:read, 'reviewer_sessions')
     end
@@ -230,6 +234,10 @@ describe Ability do
 
     it "cannot read sessions to organize" do
       @ability.should_not be_able_to(:read, 'organizer_sessions')
+    end
+
+    it "cannot read organizer's reports" do
+      @ability.should_not be_able_to(:read, 'organizer_reports')
     end
 
     it "cannot read sessions to review" do
@@ -455,6 +463,10 @@ describe Ability do
 
     it "can read sessions to organize" do
       @ability.should be_able_to(:read, 'organizer_sessions')
+    end
+
+    it "can read organizer report" do
+      @ability.should be_able_to(:read, 'organizer_reports')
     end
 
     it "cannot read sessions to review" do
@@ -737,6 +749,10 @@ describe Ability do
 
     it "cannot read organizer's sessions" do
       @ability.should_not be_able_to(:read, 'organizer_sessions')
+    end
+
+    it "cannot read organizer's reports" do
+      @ability.should_not be_able_to(:read, 'organizer_reports')
     end
 
     it "can read sessions to review" do

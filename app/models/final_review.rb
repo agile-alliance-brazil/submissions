@@ -14,8 +14,9 @@ class FinalReview < Review
     session.reviewing
   end
 
-  private
-  def strong_accept?
-    self.recommendation.try(:title) == 'recommendation.strong_accept.title'
+  Recommendation.all_titles.each do |type|
+    define_method("#{type}?") do             # def strong_accept?
+      self.recommendation.try(:"#{type}?")   #   recommendation.try(:strong_accept?)
+    end                                      # end
   end
 end

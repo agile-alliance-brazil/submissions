@@ -8,6 +8,12 @@
   = f.actions do
     = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
 
+.download
+  %b
+    = t('actions.organizer_reports')
+    \:
+    = link_to image_tag('xls_icon.png'), organizer_reports_path(@conference, :format => "xls")
+
 %table.sessions
   %thead
     %tr

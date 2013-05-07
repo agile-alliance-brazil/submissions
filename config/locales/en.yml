@@ -301,6 +301,7 @@ en:
     manage_reviewers: "Reviewers"
     create_reviewer: "Invite reviewer"
     organizer_sessions: "Track organized sessions"
+    organizer_reports: "Download reviews report"
     reviewer_sessions: "Sessions to review"
     review_session: "Review"
     reviewer_reviews: "My reviews"

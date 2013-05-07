@@ -43,6 +43,8 @@
         %li= link_to t('actions.manage_reviewers'), reviewers_path(@conference)
       - if can? :read, 'organizer_sessions'
         %li= link_to t('actions.organizer_sessions'), organizer_sessions_path(@conference)
+      - if can? :read, 'organizer_reports'
+        %li= link_to t('actions.organizer_reports'), organizer_reports_path(@conference, :format => :xls)
       - if can? :read, 'reviewer_sessions'
         %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path(@conference)
       - if can? :reviewer, 'reviews_listing'
