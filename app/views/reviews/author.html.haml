@@ -5,4 +5,5 @@
   - reviewers[review] = t('formtastic.labels.reviewer.user_id') + ' ' + (index + 1).to_s
   - comments[review] = review.comments_to_authors
 
-= render 'reviews', :should_justify => false, :reviewers => reviewers, :comments => comments, :comments_label => comments_label
+= render 'reviews', :should_justify => false, :reviewers => reviewers,
+                    :comments_to_author => comments, :comments_to_author_label => t('review.comments_to_authors')

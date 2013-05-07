@@ -62,16 +62,28 @@
 
 %h2= t('formtastic.titles.details')
 
-%table#comments.reviews
+- if local_assigns[:comments]
+  %table#comments.reviews
+    %thead
+      %tr
+        %th.reviewer= t('formtastic.labels.final_review.reviewer')
+        %th.comment= comments_label
+    %tbody
+      - @reviews.each do |review|
+        = content_tag(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
+          %td.reviewer&= reviewers[review]
+          %td.comment&= comments[review]
+
+%table#comments_to_authors.reviews
   %thead
     %tr
       %th.reviewer= t('formtastic.labels.final_review.reviewer')
-      %th.comment= comments_label
+      %th.comment= comments_to_author_label
   %tbody
     - @reviews.each do |review|
-      = content_tag(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
+      = content_tag(:tr, :id => "review_#{review.id}_comments_to_author", :class => cycle(:odd, :even)) do
         %td.reviewer&= reviewers[review]
-        %td.comment&= comments[review]
+        %td.comment&= comments_to_author[review]
 
 %h3= t('formtastic.titles.author')
 

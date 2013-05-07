@@ -1,11 +1,13 @@
 - reviewers = {}
 - comments = {}
-- comments_label = t('review.comments_to_organizers')
+- comments_to_author = {}
 - @reviews.each_with_index do |review, index|
   -  reviewers[review] = review.reviewer.full_name
   -  comments[review] = review.comments_to_organizers
+  -  comments_to_author[review] = review.comments_to_authors
 
-= render 'reviews', :should_justify => true, :reviewers => reviewers, :comments => comments, :comments_label => comments_label
+= render 'reviews', :should_justify => true, :reviewers => reviewers, :comments => comments, :comments_label => t('review.comments_to_organizers'),
+                    :comments_to_author => comments_to_author, :comments_to_author_label => t('review.comments_to_authors')
 
 :javascript
   $(document).ready(function() {

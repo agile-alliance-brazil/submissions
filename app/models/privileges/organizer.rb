@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Privileges::Organizer < Privileges::Base
   def privileges
-    can(:manage, Reviewer)
+    can(:manage, ::Reviewer)
     can(:read, 'organizer_sessions')
     can(:read, 'reviews_listing')
     can(:index, ReviewDecision)
