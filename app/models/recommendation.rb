@@ -5,9 +5,7 @@ class Recommendation < ActiveRecord::Base
   has_many :reviews
 
   def self.all_titles
-    self.select(:title).uniq.map do |recommendation|
-      recommendation.title.match(/recommendation\.(\w+)\.title/)[1]
-    end
+    %W(strong_accept weak_accept weak_reject strong_reject)
   end
 
   all_titles.each do |type|
