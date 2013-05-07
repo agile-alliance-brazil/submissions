@@ -1,6 +1,6 @@
 %h2= t('title.comments')
 
-- for comment in @session.comments
+- @session.comments.each do |comment|
   .commentBlock
     = render_avatar(comment.user, :size => :mini)
     .commentDate= l(comment.updated_at, :format => :short)

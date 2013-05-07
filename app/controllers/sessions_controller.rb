@@ -88,7 +88,12 @@ class SessionsController < InheritedResources::Base
       for_conference(@conference).
       without_state(:cancelled).
       page(params[:page]).
-      order('sessions.created_at DESC')
+      order('sessions.created_at DESC').
+      includes(
+        :author,
+        :second_author,
+        :session_type
+      )
   end
 
   def begin_of_association_chain

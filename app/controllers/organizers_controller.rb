@@ -50,6 +50,7 @@ class OrganizersController < InheritedResources::Base
     @organizers ||= end_of_association_chain.
                       for_conference(@conference).
                       page(params[:page]).
-                      order('organizers.created_at DESC')
+                      order('organizers.created_at DESC').
+                      includes(:user, :track)
   end
 end

@@ -28,7 +28,8 @@ describe OrganizerSessionsController do
       Session.stubs(:for_tracks).returns(Session)
       Session.stubs(:with_state).returns(Session)
       Session.stubs(:page).returns(Session)
-      Session.stubs(:order).returns([@session])
+      Session.stubs(:order).returns(Session)
+      Session.stubs(:includes).returns([@session])
     end
 
     it "should assign tracks for current conference" do

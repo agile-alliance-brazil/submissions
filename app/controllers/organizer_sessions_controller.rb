@@ -22,7 +22,8 @@ class OrganizerSessionsController < InheritedResources::Base
                   for_conference(@conference).
                   for_tracks(load_tracks.map(&:id)).
                   page(params[:page]).
-                  order(order)
+                  order(order).
+                  includes(:author, :second_author, :track)
   end
 
   def load_tracks

@@ -38,7 +38,8 @@ class ReviewersController < InheritedResources::Base
     @reviewers ||= end_of_association_chain.
       for_conference(@conference).
       joins(:user).
-      order('first_name, last_name')
+      order('first_name, last_name').
+      includes(:user, :accepted_preferences)
   end
 
   def load_tracks
