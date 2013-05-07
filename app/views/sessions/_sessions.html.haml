@@ -21,8 +21,8 @@
           = link_to h(session.try(:title)), session_path(@conference, session)
           - if session.lightning_talk?
             = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
-          - if session.comments.size > 0
-            .commentCount= session.comments.size
+          - if session.comments_count > 0
+            .commentCount= session.comments_count
         %td.author
           = render_avatar(session.author, :size => :mini)
           = link_to h(session.author.full_name), user_path(session.author)
