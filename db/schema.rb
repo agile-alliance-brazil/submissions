@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507075730) do
+ActiveRecord::Schema.define(:version => 20130507082110) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "activities", ["detail_id", "detail_type"], :name => "index_activities_on_detail_id_and_detail_type"
+  add_index "activities", ["room_id"], :name => "index_activities_on_room_id"
 
   create_table "all_hands", :force => true do |t|
     t.string   "title"
@@ -36,19 +39,7 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "client_applications", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "support_url"
-    t.string   "callback_url"
-    t.string   "key",          :limit => 40
-    t.string   "secret",       :limit => 40
-    t.integer  "user_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-  end
-
-  add_index "client_applications", ["key"], :name => "index_client_applications_on_key", :unique => true
+  add_index "audience_levels", ["conference_id"], :name => "index_audience_levels_on_conference_id"
 
   create_table "comments", :force => true do |t|
     t.text     "comment",          :default => ""
@@ -89,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end
+
+  add_index "guest_sessions", ["conference_id"], :name => "index_guest_sessions_on_conference_id"
 
   create_table "lightning_talk_groups", :force => true do |t|
     t.string   "lightning_talk_info"
@@ -135,33 +128,6 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
 
   add_index "oauth_applications", ["uid"], :name => "index_oauth_applications_on_uid", :unique => true
 
-  create_table "oauth_nonces", :force => true do |t|
-    t.string   "nonce"
-    t.integer  "timestamp"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "oauth_nonces", ["nonce", "timestamp"], :name => "index_oauth_nonces_on_nonce_and_timestamp", :unique => true
-
-  create_table "oauth_tokens", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "type",                  :limit => 20
-    t.integer  "client_application_id"
-    t.string   "token",                 :limit => 40
-    t.string   "secret",                :limit => 40
-    t.string   "callback_url"
-    t.string   "verifier",              :limit => 20
-    t.string   "scope"
-    t.datetime "authorized_at"
-    t.datetime "invalidated_at"
-    t.datetime "expires_at"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-  end
-
-  add_index "oauth_tokens", ["token"], :name => "index_oauth_tokens_on_token", :unique => true
-
   create_table "organizers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "track_id"
@@ -169,6 +135,11 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "organizers", ["conference_id"], :name => "index_organizers_on_conference_id"
+  add_index "organizers", ["track_id", "user_id"], :name => "index_organizers_on_track_id_and_user_id"
+  add_index "organizers", ["track_id"], :name => "index_organizers_on_track_id"
+  add_index "organizers", ["user_id"], :name => "index_organizers_on_user_id"
 
   create_table "outcomes", :force => true do |t|
     t.string   "title"
@@ -184,6 +155,10 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end
+
+  add_index "preferences", ["audience_level_id"], :name => "index_preferences_on_audience_level_id"
+  add_index "preferences", ["reviewer_id"], :name => "index_preferences_on_reviewer_id"
+  add_index "preferences", ["track_id"], :name => "index_preferences_on_track_id"
 
   create_table "ratings", :force => true do |t|
     t.string   "title"
@@ -207,6 +182,10 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "updated_at",                         :null => false
   end
 
+  add_index "review_decisions", ["organizer_id"], :name => "index_review_decisions_on_organizer_id"
+  add_index "review_decisions", ["outcome_id"], :name => "index_review_decisions_on_outcome_id"
+  add_index "review_decisions", ["session_id"], :name => "index_review_decisions_on_session_id"
+
   create_table "reviewers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
@@ -214,6 +193,9 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "reviewers", ["conference_id"], :name => "index_reviewers_on_conference_id"
+  add_index "reviewers", ["user_id"], :name => "index_reviewers_on_user_id"
 
   create_table "reviews", :force => true do |t|
     t.integer  "author_agile_xp_rating_id"
@@ -238,6 +220,16 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "reviews", ["author_agile_xp_rating_id"], :name => "index_reviews_on_author_agile_xp_rating_id"
+  add_index "reviews", ["author_proposal_xp_rating_id"], :name => "index_reviews_on_author_proposal_xp_rating_id"
+  add_index "reviews", ["id", "type"], :name => "index_reviews_on_id_and_type"
+  add_index "reviews", ["proposal_quality_rating_id"], :name => "index_reviews_on_proposal_quality_rating_id"
+  add_index "reviews", ["proposal_relevance_rating_id"], :name => "index_reviews_on_proposal_relevance_rating_id"
+  add_index "reviews", ["recommendation_id"], :name => "index_reviews_on_recommendation_id"
+  add_index "reviews", ["reviewer_confidence_rating_id"], :name => "index_reviews_on_reviewer_confidence_rating_id"
+  add_index "reviews", ["reviewer_id"], :name => "index_reviews_on_reviewer_id"
+  add_index "reviews", ["session_id"], :name => "index_reviews_on_session_id"
+
   create_table "rooms", :force => true do |t|
     t.string   "name"
     t.integer  "capacity"
@@ -245,6 +237,8 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "rooms", ["conference_id"], :name => "index_rooms_on_conference_id"
 
   create_table "session_types", :force => true do |t|
     t.string   "title"
@@ -254,6 +248,8 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "updated_at",      :null => false
     t.string   "valid_durations"
   end
+
+  add_index "session_types", ["conference_id"], :name => "index_session_types_on_conference_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "title"
@@ -282,6 +278,13 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.integer  "comments_count",                     :default => 0
   end
 
+  add_index "sessions", ["audience_level_id"], :name => "index_sessions_on_audience_level_id"
+  add_index "sessions", ["author_id"], :name => "index_sessions_on_author_id"
+  add_index "sessions", ["conference_id"], :name => "index_sessions_on_conference_id"
+  add_index "sessions", ["second_author_id"], :name => "index_sessions_on_second_author_id"
+  add_index "sessions", ["session_type_id"], :name => "index_sessions_on_session_type_id"
+  add_index "sessions", ["track_id"], :name => "index_sessions_on_track_id"
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -306,6 +309,8 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "tracks", ["conference_id"], :name => "index_tracks_on_conference_id"
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -343,5 +348,10 @@ ActiveRecord::Schema.define(:version => 20130507075730) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "votes", ["conference_id"], :name => "index_votes_on_conference_id"
+  add_index "votes", ["session_id", "user_id"], :name => "index_votes_on_session_id_and_user_id"
+  add_index "votes", ["session_id"], :name => "index_votes_on_session_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end
