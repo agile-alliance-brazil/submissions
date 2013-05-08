@@ -85,7 +85,7 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def from_address
-    ActionMailer::Base.smtp_settings[:user_name]
+    AppConfig[:sender_address]
   end
 
   def host

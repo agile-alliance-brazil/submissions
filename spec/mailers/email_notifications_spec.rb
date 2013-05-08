@@ -4,8 +4,8 @@ require 'spec_helper'
 shared_examples_for "standard conference e-mail" do
   let(:conference) { Conference.current }
 
-  it { should deliver_from("\"#{conference.name}\" <#{ActionMailer::Base.smtp_settings[:user_name]}>") }
-  it { should reply_to("\"#{conference.name}\" <#{ActionMailer::Base.smtp_settings[:user_name]}>") }
+  it { should deliver_from("\"#{conference.name}\" <#{AppConfig[:sender_address]}>") }
+  it { should reply_to("\"#{conference.name}\" <#{AppConfig[:sender_address]}>") }
 end
 
 describe EmailNotifications do
