@@ -24,16 +24,10 @@ If you have a bug or a feature request, please create a issue here:
 
 # Team
 
-Thanks to everyone involved in building and maintaining this system:
+Thanks to all our [contributors](https://github.com/dtsato/agile_brazil/contributors)! The core team is:
 
 * [Danilo Sato](http://www.dtsato.com) (Core Developer)
 * Hugo Corbucci (Core Developer)
-* Francisco Trindade (Contributor)
-* Giovanni Bassi (Contributor)
-* Mariana Bravo (Contributor)
-* Joviane Fernandes Jardim (Contributor)
-* Ricardo Valeriano (Contributor)
-* Nykolas Laurentino de Lima (Contributor)
 
 # License
 
