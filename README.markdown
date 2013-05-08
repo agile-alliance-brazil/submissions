@@ -33,6 +33,7 @@ Thanks to everyone involved in building and maintaining this system:
 * Mariana Bravo (Contributor)
 * Joviane Fernandes Jardim (Contributor)
 * Ricardo Valeriano (Contributor)
+* Nykolas Laurentino de Lima (Contributor)
 
 # License
 
