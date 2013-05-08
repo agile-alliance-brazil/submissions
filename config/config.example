@@ -9,6 +9,8 @@
  # Host used to configure ActionMailer::Base.default_url_options[:host] as described in:
  # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
  :host: localhost:3000
+ # This is used as the sender address for e-mails
+ :sender_address: no-reply@domain.com
 
  # SMTP settings are needed if you want to test sending e-mails from your development
  # environment. These settings are used to setup ActionMailer::Base.smtp_settings, as
@@ -24,8 +26,6 @@
  #   :authentication: :login
  #   :user_name: no-reply@domain.com
  #   :password: password
- :smtp_settings:
-   :user_name: no-reply@domain.com # This is also used as the sender address for e-mails
 
  # You can use Amazon Simple E-mail Service (SES) to send e-mails too. If you decide
  # to use it, please provide your SES access key and secret key as follows:
