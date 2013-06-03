@@ -899,6 +899,7 @@ describe Ability do
       before(:each) do
         @vote = FactoryGirl.build(:vote)
         @session = @vote.session
+        @conference.stubs(:in_voting_phase?).returns(true)
       end
 
       it "within limit for conference with session" do
@@ -949,6 +950,7 @@ describe Ability do
     context "can destroy votes if:" do
       before do
         @vote = FactoryGirl.build(:vote, :user => @user)
+        @conference.stubs(:in_voting_phase?).returns(true)
       end
 
       it "user is voter" do
