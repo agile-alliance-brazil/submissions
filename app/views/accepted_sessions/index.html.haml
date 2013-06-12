@@ -43,6 +43,6 @@
                           - if activity.detail.present?
                             .content= render activity.detail, :activity => activity
                       - else
-                        %td{:rowspan => activity.slots_remaining(slot), :colspan => 1, :class => activity.css_classes}
+                        %td{:rowspan => activity.slots_remaining(slot), :colspan => activity.roomspan, :class => activity.css_classes}
                           - if activity.detail.present?
                             .content= render activity.detail, :activity => activity

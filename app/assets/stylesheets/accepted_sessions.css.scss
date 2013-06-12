@@ -34,7 +34,7 @@
 
     tbody {
       tr {
-        height: 23px;
+        height: 40px;
       }
 
       th {
@@ -121,24 +121,24 @@
             width: 100%;
           }
 
-          &.audience_level_7 {
+          &.audience_level_7, &.audience_level_10 {
             width: 50%;
             background-color: #FFF68F;
           }
-          &.audience_level_8 {
+          &.audience_level_8, &.audience_level_11 {
             width: 50%;
             background-color: lightSkyBlue;
           }
-          &.audience_level_9 {
+          &.audience_level_9, &.audience_level_12 {
             width: 50%;
             background-color: #54FF9F;
           }
 
-          &.session_type_8, &.session_type_9, &.session_type_10 {
+          &.session_type_8, &.session_type_9, &.session_type_10, &.session_type_11, &.session_type_12, &.session_type_13 {
             width: 50%;
           }
 
-          &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
+          &.track_9, &.track_10, &.track_11, &.track_12, &.track_13, &.track_14, &.track_15, &.track_16, &.track_17, &.track_18, &.track_19 {
             background-color: #555;
             color: white;
           }
@@ -200,17 +200,17 @@
       text-align: center;
       text-transform: uppercase;
 
-      &.audience_level_7 {
+      &.audience_level_7, &.audience_level_10 {
         background-color: #FFF68F;
       }
-      &.audience_level_8 {
+      &.audience_level_8, &.audience_level_11 {
         background-color: lightSkyBlue;
       }
-      &.audience_level_9 {
+      &.audience_level_9, &.audience_level_12 {
         background-color: #54FF9F;
       }
 
-      &.track_9, &.track_10, &.track_11, &.track_12, &.track_13 {
+      &.track_9, &.track_10, &.track_11, &.track_12, &.track_13, &.track_14, &.track_15, &.track_16, &.track_17, &.track_18, &.track_19 {
         background-color: #555;
         color: white;
       }

@@ -341,3 +341,203 @@ Zeo founded Avenue Code in 2007, with the objective of making Agile framework ad
     guest_session.conference_id = 3
     guest_session.keynote = false
 end
+
+# 2013
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 29
+  guest_session.title = "Agile: Unlocking our Human Potential"
+  guest_session.author = "Patrick Kua"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = true
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 30
+  guest_session.title = "The role of manager in Agile Environments"
+  guest_session.author = "Jesse Fewell"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 31
+  guest_session.title = "Agile em Licitação Pública: uma metodologia ágil de terceirização de desenvolvimento de software"
+  guest_session.author = "Herbert Parente (TST)"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 32
+  guest_session.title = "Mesa redonda"
+  guest_session.author = "Teresa Maciel, Alexandre Magno et al"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 33
+  guest_session.title = "Escopo é tudo"
+  guest_session.author = "Dharlan Oliveira e José Varanda (Banco Central)"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 34
+  guest_session.title = "Poised for Change - Achieving Business Agility"
+  guest_session.author = "Rebecca Parsons"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = true
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 35
+  guest_session.title = "Contratando software no Banco Central: a fábrica ágil ao fim do arco íris"
+  guest_session.author = "Eduardo Weller e Javé Barbosa de Meneses"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 36
+  guest_session.title = "Apresentação do TCU"
+  guest_session.author = "Fabiana Ruas e Wesley Vaz (TCU)"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 37
+  guest_session.title = "OPEN-SPACES"
+  guest_session.author = ""
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 38
+  guest_session.title = "Out of the Box: Construindo conexões no cérebro"
+  guest_session.author = "Cecilia Hedin"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 39
+  guest_session.title = "Mesa redonda: discussão sobre Agilidade no Governo, apesar das restrições"
+  guest_session.author = "Dinâmica de Fishbowl com a presença de todos os palestrantes e público"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 40
+  guest_session.title = "O limbo da demanda latente"
+  guest_session.author = "Alexandre Gomes"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = true
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 41
+  guest_session.title = "Abertura do WBMA"
+  guest_session.author = "Viviane Santos e Cláudia Melo"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 42
+  guest_session.title = "Keynote"
+  guest_session.author = "(a confirmar)"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 43
+  guest_session.title = "The Contribution of Brazilian Academia on Agile Research"
+  guest_session.author = "Célio Santana, Liliane Alves do Nascimento, Cristine Gusmão e Xiaofeng Wang"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 44
+  guest_session.title = "Does the Act of Refactoring Really Make Code Simpler? A Preliminary Study"
+  guest_session.author = "Francisco Sokol, Mauricio Aniche e Marco Gerosa"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 45
+  guest_session.title = "Aplicação de AgileEVM em relatórios de acompanhamento de projetos"
+  guest_session.author = "Daniel Radi Suruagy Monteiro e Jorge Luís Bublitz"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 46
+  guest_session.title = "Um Ambiente de Data Warehouse para Monitoramento e Acompanhamento de Métricas em Projetos Scrum"
+  guest_session.author = "Eduardo Spies, Duncan D. Ruiz e Rafael Prikladnicki"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 47
+  guest_session.title = "Método Ágil para Desenvolvimento de Software Confiável"
+  guest_session.author = "Alan Braz, Cecilia Rubira e Marco Vieira"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 48
+  guest_session.title = "Pesquisa Exploratória de Dependências entre Times no Cenário SandS"
+  guest_session.author = "Diego Souza, Rodrigo Toledo e Jonice Oliveira"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 49
+  guest_session.title = "Experiência bem-sucedida de adoção de Métodos Ágeis em uma Empresa Pública de Tecnologia da Informação e Comunicação: um relato preliminar"
+  guest_session.author = "Vagner Lima, Adolfo Seca Neto e Maria Claudia F. Pereira Emer"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 50
+  guest_session.title = "Titulo a definir"
+  guest_session.author = "Neils Pflaeging"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
