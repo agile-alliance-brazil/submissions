@@ -23,7 +23,7 @@ class Activity < ActiveRecord::Base
   end
 
   def wbma?
-    room.id == 6
+    room.id == 6 || (41..49).include?(detail.id)
   end
 
   def executive_summit?
