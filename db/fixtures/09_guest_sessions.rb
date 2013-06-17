@@ -366,20 +366,23 @@ GuestSession.seed do |guest_session|
   guest_session.id = 31
   guest_session.title = "Agile em Licitação Pública: uma metodologia ágil de terceirização de desenvolvimento de software"
   guest_session.author = "Herbert Parente (TST)"
-  guest_session.summary = ""
+  guest_session.summary = "Os benefícios de Agile estão bem difundidos em quase toda a iniciativa privada. Seguindo essa tendência, o Estado busca sua adequação ao manifesto ágil. Entretanto, as peculiaridades da Administração Pública e o seu arcabouço jurídico obrigatório (Lei 8.666/90, Instrução Normativa 04/2010 SLTI.MPOG e acórdãos do TCU) dificultam sua adesão ao Agile, principalmente quando se opta por terceirização de desenvolvimento de software.
+
+Diante desse contexto rígido e não discricionário de licitação pública, apresentaremos uma proposta, já em uso, de gestão contratual baseada em metodologia ágil, na qual Governo e Empresas Privadas trabalhem juntos buscando o verdadeiro resultado “ganha-ganha”, e o que ambos devem fazer para trabalhar com Agile."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 32
-  guest_session.title = "Mesa redonda"
-  guest_session.author = "Teresa Maciel, Alexandre Magno et al"
+  guest_session.title = "Debate: Agilidade e PMI com Teresa Maciel, Alexandre Magno, Renato Willi, Leandro Marcolini e Ricardo Peters"
+  guest_session.author = "Moderador: Gustavo Castro"
   guest_session.summary = ""
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
+#MissingSummary
 GuestSession.seed do |guest_session|
   guest_session.id = 33
   guest_session.title = "Escopo é tudo"
@@ -400,7 +403,7 @@ end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 35
-  guest_session.title = "Contratando software no Banco Central: a fábrica ágil ao fim do arco íris"
+  guest_session.title = "Contratando software no Banco Central: a fábrica ágil ao fim do arco-íris"
   guest_session.author = "Eduardo Weller e Javé Barbosa de Meneses"
   guest_session.summary = ""
   guest_session.conference_id = 4
@@ -427,7 +430,7 @@ end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 38
-  guest_session.title = "Out of the Box: Construindo conexões no cérebro"
+  guest_session.title = "Construindo conexões no cérebro"
   guest_session.author = "Cecilia Hedin"
   guest_session.summary = ""
   guest_session.conference_id = 4
@@ -537,6 +540,42 @@ GuestSession.seed do |guest_session|
   guest_session.id = 50
   guest_session.title = "Titulo a definir"
   guest_session.author = "Neils Pflaeging"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 51
+  guest_session.title = "Comparação da Lei de Contratação Brasileira com a Americana sob o paradigma Ágil"
+  guest_session.author = "Carlos Alberto de Castilho Franco (Petrobrás) e Dr. Rodrigo de Toledo (UFRJ)"
+  guest_session.summary = "A terceirização dentro das empresas públicas brasileiras é uma realidade. Podemos ter leis que permitam que o processo de construção de software por terceiros seja eficiente e produtivas, ao mesmo tempo possibilitando contratações seguras e transparentes ? Nossa palestra pretende apresentar os pontos positivos e negativos da contratação no mercado nacional e internacional. Em especial, apresentaremos como as leis americanas indicam a forma de contratação para desenvolvimento de software e sua comparação com as leis brasileiras e com os métodos ágeis."
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 52
+  guest_session.title = "Você realmente conhece o PMI?"
+  guest_session.author = "Francisco Abreu"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 53
+  guest_session.title = "Mapping PMI to Agile Methods: Workshop"
+  guest_session.author = "Jesse Fewell"
+  guest_session.summary = ""
+  guest_session.conference_id = 4
+  guest_session.keynote = false
+end
+
+GuestSession.seed do |guest_session|
+  guest_session.id = 54
+  guest_session.title = "\"_A mesma coisa que fazemos todas as noites, Pinky: tentar dominar o mundo.\" Mitos sobre Agilidade e PMI"
+  guest_session.author = "Ricardo Peters"
   guest_session.summary = ""
   guest_session.conference_id = 4
   guest_session.keynote = false
