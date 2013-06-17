@@ -92,23 +92,7 @@ end
 #Sala N
 Room.seed do |room|
   room.id = 13
-  room.name = 'Parque da Cidade - PMI Agile Extension'
-  room.capacity = 90
-  room.conference_id = 4
-end
-
-#Sala N
-Room.seed do |room|
-  room.id = 14
-  room.name = 'Parque da Cidade - Governo Ágil'
-  room.capacity = 90
-  room.conference_id = 4
-end
-
-#Sala N
-Room.seed do |room|
-  room.id = 15
-  room.name = 'Parque da Cidade - WBMA'
+  room.name = 'Parque da Cidade'
   room.capacity = 90
   room.conference_id = 4
 end
