@@ -184,14 +184,13 @@ Activity.seed do |activity|
   activity.detail_type = 'Session'
 end
 
-#TBD
 Activity.seed do |activity|
   activity.id = 153
   activity.room_id = 11
   activity.start_at = "2013-06-26 15:00:00"
   activity.end_at = "2013-06-26 16:00:00"
-  activity.detail_id = nil
-  activity.detail_type = nil
+  activity.detail_id = 899
+  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
