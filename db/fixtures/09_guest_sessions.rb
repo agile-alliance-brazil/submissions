@@ -343,7 +343,6 @@ Zeo founded Avenue Code in 2007, with the objective of making Agile framework ad
 end
 
 # 2013
-
 GuestSession.seed do |guest_session|
   guest_session.id = 29
   guest_session.title = "Agile: Unlocking our Human Potential"
@@ -357,7 +356,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 30
   guest_session.title = "The role of manager in Agile Environments"
   guest_session.author = "Jesse Fewell"
-  guest_session.summary = ""
+  guest_session.summary = "Many are concerned about the compatibility of managers and agile methods. Does a move to self-organizing teams would make managers redundant? How can PMI endorse any methodology that do not define a project manager role? In this talk, PMI Agile pioneer Jesse Fewell will survey the roles described in various agile methods and show you where you fit in. Whether vice-president, project manager, or director, come learn how management makes agile better or worse."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -377,7 +376,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 32
   guest_session.title = "Debate: Agilidade e PMI com Teresa Maciel, Alexandre Magno, Renato Willi, Leandro Marcolini e Ricardo Peters"
   guest_session.author = "Moderador: Gustavo Castro"
-  guest_session.summary = ""
+  guest_session.summary = "Pode haver sinergia entre o que o conhecimento que o PMI oferece através do PMBOK e os Métodos Ágeis? São abordagens que possuem pontos convergentes ou são radicalmente opostas? Junte-se a um grupo de especialistas para tentar responder a essas e outras perguntas."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -387,7 +386,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 33
   guest_session.title = "Escopo é tudo"
   guest_session.author = "Dharlan Oliveira e José Varanda (Banco Central)"
-  guest_session.summary = ""
+  guest_session.summary = "Pretende-se mostrar a importância dos trabalhos para a construção de um software serem orientados pelo valor de negócio agregado em vez de serem orientados pela mera entrega de funcionalidades – resultado que pode acontecer quando métricas como homens/hora ou pontos de função tem sua importância superestimada. Para tal, são fundamentais a adoção de escopo flexível e a fixação do tempo. Serão apresentadas técnicas, associadas ao uso de metodologias ágeis, para induzirem todo o esforço de desenvolvimento a orbitar em torno da agregação ao valor de negócio. Essas técnicas estão em processo de adoção pelo Banco Central do Brasil, dessa forma serão apresentadas situações reais de uso."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -405,7 +404,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 35
   guest_session.title = "Contratando software no Banco Central: a fábrica ágil ao fim do arco-íris"
   guest_session.author = "Eduardo Weller e Javé Barbosa de Meneses"
-  guest_session.summary = ""
+  guest_session.summary = "Histórico dos desafios, problemas e soluções na contratação de serviços de desenvolvimento de software e a busca contínua pelo alinhamento dos projetos terceirizados às práticas e aos processos ágeis vigentes no Banco Central do Brasil."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -423,7 +422,9 @@ GuestSession.seed do |guest_session|
   guest_session.id = 37
   guest_session.title = "OPEN-SPACES"
   guest_session.author = ""
-  guest_session.summary = ""
+  guest_session.summary = "Open spaces são encontros espontâneos que acontecem durante a conferência e não têm uma programação definida. Eles podem tomar a forma de palestras, de lightning talks, de conversas sobre um assunto proposto, painéis de discussão, jogos ou o que mais for proposto. Essas sessões não terão submissão prévia: todos os inscritos na conferência podem propor um tema, formato, local e horário de encontro: a programação será montada e divulgada dinamicamente durante toda a Agile Brazil 2013.
+
+  Traga seu tema, proponha uma sessão! Não precisa ser nesse horário, qualquer hora, qualquer lugar é adequado para um Open Space!"
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -455,6 +456,7 @@ GuestSession.seed do |guest_session|
   guest_session.keynote = true
 end
 
+#WBMA 2013
 GuestSession.seed do |guest_session|
   guest_session.id = 41
   guest_session.title = "Abertura do WBMA"
@@ -554,11 +556,12 @@ GuestSession.seed do |guest_session|
   guest_session.keynote = false
 end
 
+#PMI Agile Extension
 GuestSession.seed do |guest_session|
   guest_session.id = 52
   guest_session.title = "Você realmente conhece o PMI?"
   guest_session.author = "Francisco Abreu"
-  guest_session.summary = ""
+  guest_session.summary = "A apresentação tem o objetivo de discutir com os presentes os conceitos de gerenciamento de projetos disseminados pelo PMI - Project Management Institute e a flexibilidade na sua aplicação considerando as diferenças entre os projetos quanto a sua natureza, propósito, tamanho e urgência."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -567,7 +570,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 53
   guest_session.title = "Mapping PMI to Agile Methods: Workshop"
   guest_session.author = "Jesse Fewell"
-  guest_session.summary = ""
+  guest_session.summary = "Many of us are told that project management and Agile methods do not fit together. When do we do planning? How do we do reporting? However, when one looks deeper at Agile methods such as Scrum or XP, we find highly rigorous project management systems. But how is that possible? In this interactive session, you will work with your peers to discover how agile methods are compliant with the PMBOK Guide."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -576,7 +579,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 54
   guest_session.title = "\"_A mesma coisa que fazemos todas as noites, Pinky: tentar dominar o mundo.\" Mitos sobre Agilidade e PMI"
   guest_session.author = "Ricardo Peters"
-  guest_session.summary = ""
+  guest_session.summary = "Mitos são criados para explicar coisas que não entendemos completamente. Alguns se tornam dogmas. No entanto, eles não representam, necessariamente, a verdade completa sobre o problema. O PMI e a Comunidade Ágil estão afastados há tempo demais: é hora de desconstruir alguns destes mitos e avaliar se existe verdade por trás deles. Venha com a mente aberta; você pode se surpreender com o que vai descobrir."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
