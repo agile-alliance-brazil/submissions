@@ -5,12 +5,16 @@
   %br
   - unless activity.wbma?
     %span= guest_session.author
-- unless guest_session.keynote? || activity.wbma? || activity.executive_summit?
+- unless guest_session.keynote? || activity.wbma? || activity.executive_summit? || activity.pmi_agile_extension? || activity.governo_agil?
   .tab.bottom{:class => "track_guest_session"}= t('tracks.guest_session.title')
 - if activity.wbma? && guest_session.id != 13
   .tab.bottom{:class => "track_wbma"} WBMA
 - if activity.executive_summit?
   .tab.bottom{:class => "track_executive_summit"} Executive Summit
+- if activity.governo_agil?
+  .tab.bottom{:class => "track_governo_agil"} Governo Ágil
+- if activity.pmi_agile_extension?
+  .tab.bottom{:class => "track_pmi_agile_extension"} PMI Agile Extension
 
 .hidden
   = render :partial => "guest_session_details", :locals => {:guest_session => guest_session, :activity => activity}
