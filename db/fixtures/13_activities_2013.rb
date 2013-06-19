@@ -79,7 +79,7 @@ Activity.seed do |activity|
   activity.room_id = 13
   activity.start_at = "2013-06-26 11:00:00"
   activity.end_at = "2013-06-26 12:00:00"
-  activity.detail_id = 51
+  activity.detail_id = 38
   activity.detail_type = 'GuestSession'
 end
 
@@ -126,7 +126,7 @@ Activity.seed do |activity|
   activity.room_id = 13
   activity.start_at = "2013-06-26 12:00:00"
   activity.end_at = "2013-06-26 13:00:00"
-  activity.detail_id = 31
+  activity.detail_id = 37
   activity.detail_type = 'GuestSession'
 end
 
@@ -334,7 +334,7 @@ Activity.seed do |activity|
   activity.room_id = 13
   activity.start_at = "2013-06-26 17:30:00"
   activity.end_at = "2013-06-26 19:00:00"
-  activity.detail_id = 32
+  activity.detail_id = 51
   activity.detail_type = 'GuestSession'
 end
 
@@ -687,7 +687,7 @@ Activity.seed do |activity|
   activity.room_id = 8
   activity.start_at = "2013-06-27 17:30:00"
   activity.end_at = "2013-06-27 18:00:00"
-  activity.detail_id = 37
+  activity.detail_id = 31
   activity.detail_type = 'GuestSession'
   activity.roomspan = 3
 end
@@ -724,7 +724,7 @@ Activity.seed do |activity|
   activity.room_id = 8
   activity.start_at = "2013-06-27 18:00:00"
   activity.end_at = "2013-06-27 19:00:00"
-  activity.detail_id = 38
+  activity.detail_id = 32
   activity.detail_type = 'GuestSession'
   activity.roomspan = 2
 end
@@ -734,7 +734,7 @@ Activity.seed do |activity|
   activity.room_id = 10
   activity.start_at = "2013-06-27 18:00:00"
   activity.end_at = "2013-06-27 19:00:00"
-  activity.detail_id = 37
+  activity.detail_id = 31
   activity.detail_type = 'GuestSession'
 end
 
