@@ -152,11 +152,14 @@
             background-color: gold;
           }
 
-          &.track_wbma {
-            font-size: 9px;
-            height: 9px;
-            line-height: 9px;
+          &.track_governo_agil {
+            background-color: #00A859;
           }
+    
+          &.track_pmi_agile_extension {
+            background-color: #1A668E;
+          }
+
         }
       }
     }
@@ -227,6 +230,14 @@
 
       &.session_type_executive_summit, &.session_type_wbma {
         background-color: gold;
+      }
+
+      &.session_type_governo_agil {
+        background-color: #00A859;
+      }
+
+      &.session_type_pmi_agile_extension {
+        background-color: #1A668E;
       }
 
       &.back {

@@ -6,6 +6,10 @@
       %li{:class => "session_type_wbma"} WBMA
     - elsif activity.executive_summit?
       %li{:class => "session_type_executive_summit"} Executive Summit
+    - elsif activity.governo_agil?
+      %li{:class => "session_type_governo_agil"} Governo Ágil
+    - elsif activity.pmi_agile_extension?
+      %li{:class => "session_type_pmi_agile_extension"} PMI Agile Extension
     - else
       %li{:class => "track_guest_session"}= t('tracks.guest_session.title')
   .session_description
