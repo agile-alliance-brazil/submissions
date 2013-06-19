@@ -343,7 +343,6 @@ Zeo founded Avenue Code in 2007, with the objective of making Agile framework ad
 end
 
 # 2013
-
 GuestSession.seed do |guest_session|
   guest_session.id = 29
   guest_session.title = "Agile: Unlocking our Human Potential"
@@ -357,37 +356,36 @@ GuestSession.seed do |guest_session|
   guest_session.id = 30
   guest_session.title = "The role of manager in Agile Environments"
   guest_session.author = "Jesse Fewell"
-  guest_session.summary = ""
+  guest_session.summary = "Many are concerned about the compatibility of managers and agile methods. Does a move to self-organizing teams would make managers redundant? How can PMI endorse any methodology that do not define a project manager role? In this talk, PMI Agile pioneer Jesse Fewell will survey the roles described in various agile methods and show you where you fit in. Whether vice-president, project manager, or director, come learn how management makes agile better or worse."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 31
-  guest_session.title = "Agile em Licitação Pública: uma metodologia ágil de terceirização de desenvolvimento de software"
-  guest_session.author = "Herbert Parente (TST)"
-  guest_session.summary = "Os benefícios de Agile estão bem difundidos em quase toda a iniciativa privada. Seguindo essa tendência, o Estado busca sua adequação ao manifesto ágil. Entretanto, as peculiaridades da Administração Pública e o seu arcabouço jurídico obrigatório (Lei 8.666/90, Instrução Normativa 04/2010 SLTI.MPOG e acórdãos do TCU) dificultam sua adesão ao Agile, principalmente quando se opta por terceirização de desenvolvimento de software.
+  guest_session.title = "OPEN-SPACES"
+  guest_session.author = ""
+  guest_session.summary = "Open spaces são encontros espontâneos que acontecem durante a conferência e não têm uma programação definida. Eles podem tomar a forma de palestras, de lightning talks, de conversas sobre um assunto proposto, painéis de discussão, jogos ou o que mais for proposto. Essas sessões não terão submissão prévia: todos os inscritos na conferência podem propor um tema, formato, local e horário de encontro: a programação será montada e divulgada dinamicamente durante toda a Agile Brazil 2013.
 
-Diante desse contexto rígido e não discricionário de licitação pública, apresentaremos uma proposta, já em uso, de gestão contratual baseada em metodologia ágil, na qual Governo e Empresas Privadas trabalhem juntos buscando o verdadeiro resultado “ganha-ganha”, e o que ambos devem fazer para trabalhar com Agile."
+  Traga seu tema, proponha uma sessão! Não precisa ser nesse horário, qualquer hora, qualquer lugar é adequado para um Open Space!"
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 32
-  guest_session.title = "Debate: Agilidade e PMI com Teresa Maciel, Alexandre Magno, Renato Willi, Leandro Marcolini e Ricardo Peters"
-  guest_session.author = "Moderador: Gustavo Castro"
+  guest_session.title = "Construindo conexões no cérebro"
+  guest_session.author = "Cecilia Hedin"
   guest_session.summary = ""
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
-#MissingSummary
 GuestSession.seed do |guest_session|
   guest_session.id = 33
   guest_session.title = "Escopo é tudo"
   guest_session.author = "Dharlan Oliveira e José Varanda (Banco Central)"
-  guest_session.summary = ""
+  guest_session.summary = "Pretende-se mostrar a importância dos trabalhos para a construção de um software serem orientados pelo valor de negócio agregado em vez de serem orientados pela mera entrega de funcionalidades – resultado que pode acontecer quando métricas como homens/hora ou pontos de função tem sua importância superestimada. Para tal, são fundamentais a adoção de escopo flexível e a fixação do tempo. Serão apresentadas técnicas, associadas ao uso de metodologias ágeis, para induzirem todo o esforço de desenvolvimento a orbitar em torno da agregação ao valor de negócio. Essas técnicas estão em processo de adoção pelo Banco Central do Brasil, dessa forma serão apresentadas situações reais de uso."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -401,11 +399,12 @@ GuestSession.seed do |guest_session|
   guest_session.keynote = true
 end
 
+#Governo agil
 GuestSession.seed do |guest_session|
   guest_session.id = 35
   guest_session.title = "Contratando software no Banco Central: a fábrica ágil ao fim do arco-íris"
   guest_session.author = "Eduardo Weller e Javé Barbosa de Meneses"
-  guest_session.summary = ""
+  guest_session.summary = "Histórico dos desafios, problemas e soluções na contratação de serviços de desenvolvimento de software e a busca contínua pelo alinhamento dos projetos terceirizados às práticas e aos processos ágeis vigentes no Banco Central do Brasil."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -421,18 +420,20 @@ end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 37
-  guest_session.title = "OPEN-SPACES"
-  guest_session.author = ""
-  guest_session.summary = ""
+  guest_session.title = "Agile em Licitação Pública: uma metodologia ágil de terceirização de desenvolvimento de software"
+  guest_session.author = "Herbert Parente (TST)"
+  guest_session.summary = "Os benefícios de Agile estão bem difundidos em quase toda a iniciativa privada. Seguindo essa tendência, o Estado busca sua adequação ao manifesto ágil. Entretanto, as peculiaridades da Administração Pública e o seu arcabouço jurídico obrigatório (Lei 8.666/90, Instrução Normativa 04/2010 SLTI.MPOG e acórdãos do TCU) dificultam sua adesão ao Agile, principalmente quando se opta por terceirização de desenvolvimento de software.
+
+Diante desse contexto rígido e não discricionário de licitação pública, apresentaremos uma proposta, já em uso, de gestão contratual baseada em metodologia ágil, na qual Governo e Empresas Privadas trabalhem juntos buscando o verdadeiro resultado “ganha-ganha”, e o que ambos devem fazer para trabalhar com Agile."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 38
-  guest_session.title = "Construindo conexões no cérebro"
-  guest_session.author = "Cecilia Hedin"
-  guest_session.summary = ""
+  guest_session.title = "Comparação da Lei de Contratação Brasileira com a Americana sob o paradigma Ágil"
+  guest_session.author = "Carlos Alberto de Castilho Franco (Petrobrás) e Dr. Rodrigo de Toledo (UFRJ)"
+  guest_session.summary = "A terceirização dentro das empresas públicas brasileiras é uma realidade. Podemos ter leis que permitam que o processo de construção de software por terceiros seja eficiente e produtivas, ao mesmo tempo possibilitando contratações seguras e transparentes ? Nossa palestra pretende apresentar os pontos positivos e negativos da contratação no mercado nacional e internacional. Em especial, apresentaremos como as leis americanas indicam a forma de contratação para desenvolvimento de software e sua comparação com as leis brasileiras e com os métodos ágeis."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -445,6 +446,7 @@ GuestSession.seed do |guest_session|
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
+#ending Governo Agil
 
 GuestSession.seed do |guest_session|
   guest_session.id = 40
@@ -455,6 +457,7 @@ GuestSession.seed do |guest_session|
   guest_session.keynote = true
 end
 
+#WBMA 2013
 GuestSession.seed do |guest_session|
   guest_session.id = 41
   guest_session.title = "Abertura do WBMA"
@@ -535,6 +538,7 @@ GuestSession.seed do |guest_session|
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
+#ending WBMA 2013
 
 GuestSession.seed do |guest_session|
   guest_session.id = 50
@@ -545,11 +549,12 @@ GuestSession.seed do |guest_session|
   guest_session.keynote = false
 end
 
+#PMI Agile Extension
 GuestSession.seed do |guest_session|
   guest_session.id = 51
-  guest_session.title = "Comparação da Lei de Contratação Brasileira com a Americana sob o paradigma Ágil"
-  guest_session.author = "Carlos Alberto de Castilho Franco (Petrobrás) e Dr. Rodrigo de Toledo (UFRJ)"
-  guest_session.summary = "A terceirização dentro das empresas públicas brasileiras é uma realidade. Podemos ter leis que permitam que o processo de construção de software por terceiros seja eficiente e produtivas, ao mesmo tempo possibilitando contratações seguras e transparentes ? Nossa palestra pretende apresentar os pontos positivos e negativos da contratação no mercado nacional e internacional. Em especial, apresentaremos como as leis americanas indicam a forma de contratação para desenvolvimento de software e sua comparação com as leis brasileiras e com os métodos ágeis."
+  guest_session.title = "Debate: Agilidade e PMI com Teresa Maciel, Alexandre Magno, Renato Willi, Leandro Marcolini e Ricardo Peters"
+  guest_session.author = "Moderador: Gustavo Castro"
+  guest_session.summary = "Pode haver sinergia entre o que o conhecimento que o PMI oferece através do PMBOK e os Métodos Ágeis? São abordagens que possuem pontos convergentes ou são radicalmente opostas? Junte-se a um grupo de especialistas para tentar responder a essas e outras perguntas."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -558,7 +563,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 52
   guest_session.title = "Você realmente conhece o PMI?"
   guest_session.author = "Francisco Abreu"
-  guest_session.summary = ""
+  guest_session.summary = "A apresentação tem o objetivo de discutir com os presentes os conceitos de gerenciamento de projetos disseminados pelo PMI - Project Management Institute e a flexibilidade na sua aplicação considerando as diferenças entre os projetos quanto a sua natureza, propósito, tamanho e urgência."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -567,7 +572,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 53
   guest_session.title = "Mapping PMI to Agile Methods: Workshop"
   guest_session.author = "Jesse Fewell"
-  guest_session.summary = ""
+  guest_session.summary = "Many of us are told that project management and Agile methods do not fit together. When do we do planning? How do we do reporting? However, when one looks deeper at Agile methods such as Scrum or XP, we find highly rigorous project management systems. But how is that possible? In this interactive session, you will work with your peers to discover how agile methods are compliant with the PMBOK Guide."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -576,7 +581,8 @@ GuestSession.seed do |guest_session|
   guest_session.id = 54
   guest_session.title = "\"_A mesma coisa que fazemos todas as noites, Pinky: tentar dominar o mundo.\" Mitos sobre Agilidade e PMI"
   guest_session.author = "Ricardo Peters"
-  guest_session.summary = ""
+  guest_session.summary = "Mitos são criados para explicar coisas que não entendemos completamente. Alguns se tornam dogmas. No entanto, eles não representam, necessariamente, a verdade completa sobre o problema. O PMI e a Comunidade Ágil estão afastados há tempo demais: é hora de desconstruir alguns destes mitos e avaliar se existe verdade por trás deles. Venha com a mente aberta; você pode se surpreender com o que vai descobrir."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
+#ending PMI Agile Extension
