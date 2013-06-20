@@ -88,7 +88,7 @@ Activity.seed do |activity|
   activity.room_id = 8
   activity.start_at = "2013-06-26 12:00:00"
   activity.end_at = "2013-06-26 13:00:00"
-  activity.detail_id = 820
+  activity.detail_id = 738
   activity.detail_type = 'Session'
 end
 
@@ -197,7 +197,7 @@ Activity.seed do |activity|
   activity.id = 154
   activity.room_id = 12
   activity.start_at = "2013-06-26 15:00:00"
-  activity.end_at = "2013-06-26 16:00:00"
+  activity.end_at = "2013-06-26 16:30:00"
   activity.detail_id = 639
   activity.detail_type = 'Session'
 end
@@ -238,7 +238,6 @@ Activity.seed do |activity|
   activity.detail_type = 'Session'
 end
 
-# TBD
 Activity.seed do |activity|
   activity.id = 161
   activity.room_id = 11
@@ -250,7 +249,7 @@ end
 
 Activity.seed do |activity|
   activity.id = 162
-  activity.room_id = 12
+  activity.room_id = 13
   activity.start_at = "2013-06-26 16:00:00"
   activity.end_at = "2013-06-26 17:00:00"
   activity.detail_id = 53
@@ -259,19 +258,10 @@ end
 
 Activity.seed do |activity|
   activity.id = 156
-  activity.room_id = 13
-  activity.start_at = "2013-06-26 16:00:00"
-  activity.end_at = "2013-06-26 16:30:00"
-  activity.detail_id = 857
-  activity.detail_type = 'Session'
-end
-
-Activity.seed do |activity|
-  activity.id = 157
-  activity.room_id = 13
+  activity.room_id = 12
   activity.start_at = "2013-06-26 16:30:00"
   activity.end_at = "2013-06-26 17:00:00"
-  activity.detail_id = 808
+  activity.detail_id = 857
   activity.detail_type = 'Session'
 end
 
@@ -488,9 +478,9 @@ Activity.seed do |activity|
   activity.id = 186
   activity.room_id = 13
   activity.start_at = "2013-06-27 11:30:00"
-  activity.end_at = "2013-06-27 12:30:00"
-  activity.detail_id = nil
-  activity.detail_type = nil
+  activity.end_at = "2013-06-27 12:00:00"
+  activity.detail_id = 825
+  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
@@ -516,7 +506,17 @@ Activity.seed do |activity|
   activity.room_id = 12
   activity.start_at = "2013-06-27 12:00:00"
   activity.end_at = "2013-06-27 12:30:00"
-  activity.detail_id = 825
+  activity.detail_id = 702
+  activity.detail_type = 'Session'
+end
+
+#ToDo
+Activity.seed do |activity|
+  activity.id = 209
+  activity.room_id = 13
+  activity.start_at = "2013-06-27 12:00:00"
+  activity.end_at = "2013-06-27 12:30:00"
+  activity.detail_id = 808
   activity.detail_type = 'Session'
 end
 
@@ -689,16 +689,7 @@ Activity.seed do |activity|
   activity.end_at = "2013-06-27 18:00:00"
   activity.detail_id = 31
   activity.detail_type = 'GuestSession'
-  activity.roomspan = 3
-end
-
-Activity.seed do |activity|
-  activity.id = 209
-  activity.room_id = 11
-  activity.start_at = "2013-06-27 17:30:00"
-  activity.end_at = "2013-06-27 19:00:00"
-  activity.detail_id = 826
-  activity.detail_type = 'Session'
+  activity.roomspan = 4
 end
 
 Activity.seed do |activity|
@@ -715,8 +706,8 @@ Activity.seed do |activity|
   activity.room_id = 13
   activity.start_at = "2013-06-27 17:30:00"
   activity.end_at = "2013-06-27 19:00:00"
-  activity.detail_id = 39
-  activity.detail_type = 'GuestSession'
+  activity.detail_id = 826
+  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
@@ -736,6 +727,7 @@ Activity.seed do |activity|
   activity.end_at = "2013-06-27 19:00:00"
   activity.detail_id = 31
   activity.detail_type = 'GuestSession'
+  activity.roomspan = 2
 end
 
 ### Jun 28th
@@ -762,9 +754,9 @@ Activity.seed do |activity|
   activity.id = 216
   activity.room_id = 8
   activity.start_at = "2013-06-28 10:30:00"
-  activity.end_at = "2013-06-28 11:00:00"
-  activity.detail_id = 702
-  activity.detail_type = 'Session'
+  activity.end_at = "2013-06-28 12:00:00"
+  activity.detail_id = 39
+  activity.detail_type = 'GuestSession'
 end
 
 Activity.seed do |activity|
@@ -819,15 +811,6 @@ Activity.seed do |activity|
   activity.end_at = "2013-06-28 11:30:00"
   activity.detail_id = 42
   activity.detail_type = 'GuestSession'
-end
-
-Activity.seed do |activity|
-  activity.id = 222
-  activity.room_id = 8
-  activity.start_at = "2013-06-28 11:00:00"
-  activity.end_at = "2013-06-28 12:00:00"
-  activity.detail_id = 738
-  activity.detail_type = 'Session'
 end
 
 Activity.seed do |activity|
