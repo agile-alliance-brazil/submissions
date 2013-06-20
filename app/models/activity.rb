@@ -27,7 +27,7 @@ class Activity < ActiveRecord::Base
   end
 
   def pmi_agile_extension?
-    (51..53).include?(detail.id)
+    (51..54).include?(detail.id)
   end
 
   def governo_agil?
