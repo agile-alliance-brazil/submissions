@@ -416,7 +416,7 @@ Activity.seed do |activity|
   activity.room_id = 11
   activity.start_at = "2013-06-27 10:30:00"
   activity.end_at = "2013-06-27 11:30:00"
-  activity.detail_id = 819
+  activity.detail_id = 781
   activity.detail_type = 'Session'
 end
 
@@ -488,7 +488,7 @@ Activity.seed do |activity|
   activity.room_id = 10
   activity.start_at = "2013-06-27 12:00:00"
   activity.end_at = "2013-06-27 13:00:00"
-  activity.detail_id = 781
+  activity.detail_id = 819
   activity.detail_type = 'Session'
 end
 
