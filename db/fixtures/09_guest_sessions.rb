@@ -542,9 +542,16 @@ end
 
 GuestSession.seed do |guest_session|
   guest_session.id = 50
-  guest_session.title = "Titulo a definir"
+  guest_session.title = " Por que o management é dispensável! Como pensar (e criar) a organização ágil"
   guest_session.author = "Neils Pflaeging"
-  guest_session.summary = ""
+  guest_session.summary = "Essa sessão especial vai debater as questões:
+
+* Por que o management se tornou dispensável e tóxico para as organizações, no século 21?
+* Criando a empresa ágil para um mundo em constante mudança: Como redesenhar estruturas, sistemas e práticas para o alto desempenho
+* O que podemos aprender dos pioneiros do \"novo\" modelo organizacional \"além do management\"
+* Porque os sistemas organizacionais desmotivam e frequentemente causam os problemas que pretendiam resolver. O que mudar.
+* Descentralização da tomada decisão: Porque ela vale a pena. Como ela funciona.
+* Como fazer os primeiros passos para a transformação organizacional e por que os métodos \"ágeis\" por si só não são suficientes"
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
