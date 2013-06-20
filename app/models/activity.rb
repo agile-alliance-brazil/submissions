@@ -26,6 +26,14 @@ class Activity < ActiveRecord::Base
     room.id == 6 || (41..49).include?(detail.id)
   end
 
+  def pmi_agile_extension?
+    (51..53).include?(detail.id)
+  end
+
+  def governo_agil?
+    (35..39).include?(detail.id)
+  end
+
   def executive_summit?
     room.id == 7
   end
