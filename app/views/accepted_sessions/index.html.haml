@@ -11,7 +11,7 @@
 
   %body{:style => "margin: auto; width: 940px"}
     #accepted_sessions
-      - @activities.group_by(&:date).each do |date, activities|
+      - @activities.includes(:detail, :room).group_by(&:date).each do |date, activities|
         - rooms = activities.map(&:room).uniq.sort
         %h2= l(date, :format => :short)
         %table
