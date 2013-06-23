@@ -480,7 +480,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 43
   guest_session.title = "The Contribution of Brazilian Academia on Agile Research"
   guest_session.author = "Célio Santana, Liliane Alves do Nascimento, Cristine Gusmão e Xiaofeng Wang"
-  guest_session.summary = ""
+  guest_session.summary = "Since the signature of agile manifesto in 2001, the general interest on agile methodologies is increasing worldwide. In 2000, the first academic conference about extreme programming and flexible program (XP 2000) was held on Italy and two years later was published the first relevant paper by Brazilians institutions. Since, Brazilian researchers published 70 papers in relevant national vehicles and 17 in relevant worldwide vehicles. This study aims to investigate how these publications evolved and what is the contribution of these papers in the whole agile research. Based on this analysis, we observed the growing of publications along the years in Brazilian and Worldwide conferences."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -489,7 +489,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 44
   guest_session.title = "Does the Act of Refactoring Really Make Code Simpler? A Preliminary Study"
   guest_session.author = "Francisco Sokol, Mauricio Aniche e Marco Gerosa"
-  guest_session.summary = ""
+  guest_session.summary = "Refactoring is the act of changing the software code, usually to improve internal code quality, without changing its external behavior. Soetens and Demeyer (2010) analyzed one open source software, and showed that a code refactoring did not imply in an increase of the code quality in that specific project. In this work, we extend the original study, mining data from 256 software projects from Apache Software Foundation, using MetricMiner, a web application focused on supporting MSR studies. The quantitative analysis showed that refactoring does not decrease cyclomatic complexity. On the other hand, the qualitative analysis showed that a refactoring tends to improve code in terms of readability and maintainability."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -498,7 +498,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 45
   guest_session.title = "Aplicação de AgileEVM em relatórios de acompanhamento de projetos"
   guest_session.author = "Daniel Radi Suruagy Monteiro e Jorge Luís Bublitz"
-  guest_session.summary = ""
+  guest_session.summary = "Agile projects are being increasingly used by large organizations. Agile metrics are useful for development teams, but does not provide some data used in traditional projects that can be necessary to the monitoring done by upper management. This is the reason why an analysis was made on AgileEVM that enables reporting of projects health, without causing major impact on the work of the development teams."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -507,7 +507,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 46
   guest_session.title = "Um Ambiente de Data Warehouse para Monitoramento e Acompanhamento de Métricas em Projetos Scrum"
   guest_session.author = "Eduardo Spies, Duncan D. Ruiz e Rafael Prikladnicki"
-  guest_session.summary = ""
+  guest_session.summary = "Agile methods have earned their space both in industry and in academia, being increasingly used. With the focus on frequent returns to customers, these methods have difficulties to gain control and maintain efficient communication, especially in larger projects with several collaborators. Software engineering techniques have proved of great value to increase predictability and provide more discipline to this kind of projects. In this paper we present a metrics program for SCRUM and an extension of a Data Warehousing environment for monitoring projects. Thus, we provide a consistent repository that can be used as a historical reference of projects and for exploring metrics in different dimensions, easing control over all aspects of the progress of a project."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -516,7 +516,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 47
   guest_session.title = "Método Ágil para Desenvolvimento de Software Confiável"
   guest_session.author = "Alan Braz, Cecilia Rubira e Marco Vieira"
-  guest_session.summary = ""
+  guest_session.summary = "O Desenvolvimento Ágil de Software (DAS) está em evidência na Engenharia de Software há pelo menos 10 anos, mas ainda existe uma sensação de que ele apenas se aplica em projetos simples e pequenos. Entretanto, vários trabalhos prévios já demonstraram que é possível desenvolver sistemas confiáveis combinando DAS com processos Baseados em Componentes e Centrados na Arquitetura. Este artigo apresenta um processo ágil baseado no Scrum, chamado Scrum+CE, para suportar o desenvolvimento de sistemas de informação confiáveis."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -525,7 +525,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 48
   guest_session.title = "Pesquisa Exploratória de Dependências entre Times no Cenário SandS"
   guest_session.author = "Diego Souza, Rodrigo Toledo e Jonice Oliveira"
-  guest_session.summary = ""
+  guest_session.summary = "As metodologias ágeis estão ganhando mais espaço nas empresas atualmente. Estudos comprovam que grande parte dos profissionais relacionados com a Tecnologia da Informação (TI) já estiveram em contato com algum método ágil. Essa grande difusão das metodologias ágeis e a sua alta adaptabilidade fazem com que apareçam cenários antes não descritos pela literatura, como o Scrum and Scrum (SandS). Essa pesquisa aborda o SandS, descrevendo-o e apresentando um mecanismo de gestão visual para auxiliar a transparência de informações. Um experimento foi realizado em uma empresa de desenvolvimento de sistemas, onde o mecanismo foi usado com o objetivo de permitir a visualização da ocorrência de dependências de tarefas entre times."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
@@ -534,7 +534,7 @@ GuestSession.seed do |guest_session|
   guest_session.id = 49
   guest_session.title = "Experiência bem-sucedida de adoção de Métodos Ágeis em uma Empresa Pública de Tecnologia da Informação e Comunicação: um relato preliminar"
   guest_session.author = "Vagner Lima, Adolfo Seca Neto e Maria Claudia F. Pereira Emer"
-  guest_session.summary = ""
+  guest_session.summary = "A lot has been discussed about the use of agile methods by private companies. Amongst the most commonly adopted methods are Scrum and XP. Nevertheless, there are few studies on the use of these methods by large public enterprise information technology and communication. This article reports a successful experience with the use of these methods on a real project. The Scrum method has been used along the entire duration of the project, as well as other 12 XP practices which were adopted total or partially by the team. There are indications that lead us to believe in the viability of implanting Scrum and XP methods at public enterprise information technology and communication. However, before taking on such action, it is important that the difficulties, benefits and limitations of XP practices be minutely evaluated, taking into consideration the software development process previously instituted at a given company."
   guest_session.conference_id = 4
   guest_session.keynote = false
 end
