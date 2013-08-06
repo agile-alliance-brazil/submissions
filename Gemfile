@@ -51,7 +51,7 @@ group :development do
 end
 
 group :test do
-  gem 'mocha', '=0.13.3', :require => false
+  gem 'mocha', '=0.14.0'
   gem 'shoulda-matchers', '=2.0.0' # version 2.2+ requires ruby 1.9+
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
   gem 'rcov', '=1.0.0'
