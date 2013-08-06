@@ -13,3 +13,4 @@ tmp
 certs/*.pem
 .sass-cache/
 public/assets/
+vendor/bundle/**/*

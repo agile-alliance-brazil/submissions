@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '=3.2.13'
-gem 'jquery-rails', '=2.2.1'
+gem 'jquery-rails', '=3.0.4'
 gem 'haml', '=4.0.3'
 gem 'will_paginate', '=3.0.4'
 gem 'formtastic', '=2.2.1'
