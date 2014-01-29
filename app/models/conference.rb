@@ -13,7 +13,8 @@ class Conference < ActiveRecord::Base
   end
 
   def in_submission_phase?
-    (self.submissions_open..self.submissions_deadline).include? DateTime.now
+    now = DateTime.now
+    self.submissions_open <= now && now <= self.submissions_deadline
   end
 
   def has_early_review?
@@ -22,15 +23,18 @@ class Conference < ActiveRecord::Base
 
   def in_early_review_phase?
     return false unless has_early_review?
-    (self.presubmissions_deadline..self.prereview_deadline).include? DateTime.now
+    now = DateTime.now
+    self.presubmissions_deadline <= now && now <= self.prereview_deadline
   end
 
   def in_final_review_phase?
-    (self.submissions_deadline..self.review_deadline).include? DateTime.now
+    now = DateTime.now
+    self.submissions_deadline <= now && now <= self.review_deadline
   end
 
   def in_author_confirmation_phase?
-    (self.author_notification..self.author_confirmation).include? DateTime.now
+    now = DateTime.now
+    self.author_notification <= now && now <= self.author_confirmation
   end
 
   def in_voting_phase?

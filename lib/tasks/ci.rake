@@ -1,3 +1,4 @@
+# encoding: UTF-8
 begin
   require 'guard/jasmine/task'
   Guard::JasmineTask.new

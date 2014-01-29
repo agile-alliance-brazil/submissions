@@ -2,30 +2,32 @@
 class Slot
   include Forwardable
 
-  attr_reader :range
-  protected :range
+  attr_reader :start, :deadline
 
-  delegate :end, :include?, :to => :@range
-
-  def initialize(range)
-    @range = range
-  end
-
-  def start
-    @range.begin
+  def initialize(start, deadline)
+    @start = start
+    @deadline = deadline
   end
 
   def ==(other)
-    @range == other.range
+    start == other.start && deadline == other.deadline
+  end
+
+  def include?(time)
+    start <= time && time < deadline
   end
 
   def duration
-    @range.end - @range.begin
+    deadline - start
+  end
+
+  def to_s
+    "#{start}...#{deadline}"
   end
 
   class << self
     def from(start, duration)
-      self.new((start...(start + duration)))
+      self.new(start, start + duration)
     end
 
     def divide(start, finish, interval)

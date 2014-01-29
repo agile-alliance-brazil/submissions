@@ -1,3 +1,4 @@
+# encoding: UTF-8
 begin
   require 'metric_fu'
   MetricFu::Configuration.run do |config|

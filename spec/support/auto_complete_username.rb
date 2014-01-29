@@ -1,3 +1,4 @@
+# encoding: UTF-8
 shared_examples "virtual username attribute" do |attribute|
   it "should set by username" do
     user = FactoryGirl.create(:user)

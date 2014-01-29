@@ -7,10 +7,10 @@ describe Slot do
   end
 
   describe "from 09:30 to 10:00" do
-    subject { Slot.new((at("09:30")...at("10:00"))) }
+    subject { Slot.new(at("09:30"), at("10:00")) }
 
     its(:start) { should == at("09:30") }
-    its(:end) { should == at("10:00")}
+    its(:deadline) { should == at("10:00")}
     its(:duration) { should == 30.minutes }
 
     it { should_not include(at("09:00")) }
@@ -20,15 +20,14 @@ describe Slot do
     it { should_not include(at("10:00:00")) }
     it { should_not include(at("10:00:01")) }
 
-    it { should     == Slot.new((at("09:30")...at("10:00"))) }
-    it { should_not == Slot.new((at("09:30")..at("10:00"))) }
+    it { should     == Slot.new(at("09:30"), at("10:00")) }
   end
 
   describe "from 15:00 to 16:45" do
-    subject { Slot.new((at("15:00")...at("16:45"))) }
+    subject { Slot.new(at("15:00"), at("16:45")) }
 
     its(:start) { should == at("15:00") }
-    its(:end) { should == at("16:45")}
+    its(:deadline) { should == at("16:45")}
     its(:duration) { should == 1.hour + 45.minutes }
 
     it { should_not include(at("09:00")) }
@@ -38,8 +37,8 @@ describe Slot do
 
   describe ".from" do
     it "should instantiate Slot with given start and duration" do
-      Slot.from(at("08:30"), 30.minutes).should == Slot.new((at("08:30")...at("09:00")))
-      Slot.from(at("12:00"), 1.hour).should == Slot.new((at("12:00")...at("13:00")))
+      Slot.from(at("08:30"), 30.minutes).should == Slot.new(at("08:30"), at("09:00"))
+      Slot.from(at("12:00"), 1.hour).should == Slot.new(at("12:00"), at("13:00"))
     end
   end
 

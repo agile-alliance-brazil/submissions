@@ -9,7 +9,7 @@
   = f.actions do
     = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
 
-=render :partial => "sessions/sessions"
+=render :partial => 'sessions/sessions'
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

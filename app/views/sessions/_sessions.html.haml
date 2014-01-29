@@ -48,4 +48,4 @@
           = t('generic.ago')
         - if can?(:read, Vote)
           %td.action
-            = render :partial => "votes/form", :locals => {:session, session}
+            = render :partial => "votes/form", :locals => {:session => session}

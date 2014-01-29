@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # conference = Conference.current
 # sessions = Session.for_conference(conference).without_state(:cancelled)
 # by_uniq_authors = lambda{|collection| collection.map{|s| [s.author, s.second_author].compact}.uniq}

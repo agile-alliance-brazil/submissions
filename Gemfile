@@ -1,6 +1,7 @@
+#encoding: utf-8 
 source 'http://rubygems.org'
 
-gem 'rails', '=3.2.13'
+gem 'rails', '=3.2.16'
 gem 'jquery-rails', '=3.0.4'
 gem 'haml', '=4.0.3'
 gem 'will_paginate', '=3.0.4'
@@ -33,10 +34,9 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyracer', '=0.11.4'
+  gem 'therubyracer', '=0.12.0'
   gem 'sass-rails', '=3.2.6'
   gem 'yui-compressor', '=0.11.0'
-  gem 'johnson', '=1.2.0'
   gem 'jquery-ui-rails', '=4.0.4'
   gem 'coffee-rails', '=3.2.2' # 4.0.0 for rails 4
   gem 'fancybox-rails', '=0.2.1'
@@ -54,7 +54,7 @@ group :test do
   gem 'mocha', '=0.14.0'
   gem 'shoulda-matchers', '=2.0.0' # version 2.2+ requires ruby 1.9+
   gem 'factory_girl_rails', '=1.7.0' # version 2+ requires factory_girl 3+, which dropped support for ruby 1.8
-  gem 'rcov', '=1.0.0'
+  gem 'simplecov', '=0.8.2'
   gem 'email_spec', '=1.5.0'
 end
 
