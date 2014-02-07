@@ -46,7 +46,7 @@ describe Session do
     it { should have_many :votes }
 
     context "second author username" do
-      subject { Factory.build(:session) }
+      subject { FactoryGirl.build(:session) }
       it_should_behave_like "virtual username attribute", :second_author
     end
   end

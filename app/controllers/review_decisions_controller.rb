@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class ReviewDecisionsController < InheritedResources::Base
-  singleton_belongs_to :session
+  defaults :singleton => true
+  belongs_to :session
   
   actions :new, :create, :edit, :update
 

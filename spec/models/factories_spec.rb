@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Factory do
+describe 'Factories' do
   FactoryGirl.factories.each do |factory|
     describe ":#{factory.name}" do
       subject { FactoryGirl.build(factory.name) }

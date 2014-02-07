@@ -43,7 +43,7 @@ describe EmailNotifications do
 
   describe "reset password instructions e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    before { user.send(:generate_reset_password_token!) }
+    before { user.send(:send_reset_password_instructions) }
 
     subject { EmailNotifications.reset_password_instructions(user) }
 

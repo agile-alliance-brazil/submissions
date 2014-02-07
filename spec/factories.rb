@@ -19,11 +19,11 @@ FactoryGirl.define do
     bio "Some text about me..."
 
     factory :author do
-      after_build { |u| u.add_role(:author) }
+      after(:build) { |u| u.add_role(:author) }
     end
 
     factory :voter do
-      after_build { |u| u.add_role(:voter) }
+      after(:build) { |u| u.add_role(:voter) }
     end
   end
 
@@ -149,7 +149,7 @@ FactoryGirl.define do
     factory :accepted_decision
 
     factory :rejected_decision do
-      after_build { |rd| rd.outcome.title = "outcomes.reject.title" }
+      after(:build) { |rd| rd.outcome.title = "outcomes.reject.title" }
     end
   end
 

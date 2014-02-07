@@ -49,7 +49,7 @@ describe Organizer do
     it { should belong_to :conference }
 
     context "organizer username" do
-      subject { Factory.build(:organizer) }
+      subject { FactoryGirl.build(:organizer) }
       it_should_behave_like "virtual username attribute", :user
     end
   end

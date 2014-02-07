@@ -72,7 +72,7 @@ describe Reviewer do
     it { should accept_nested_attributes_for :preferences }
 
     context "reviewer username" do
-      subject { Factory.build(:reviewer) }
+      subject { FactoryGirl.build(:reviewer) }
       it_should_behave_like "virtual username attribute", :user
     end
   end
