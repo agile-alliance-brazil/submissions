@@ -17,7 +17,7 @@ gem 'acts-as-taggable-on', '=3.0.1'
 gem 'cancan', '=1.6.10'
 gem 'acts_as_commentable', '=3.0.1' # version 4.0.0 require ruby 1.9
 gem 'state_machine', '=1.2.0'
-gem 'validates_existence', '=0.8.0'
+gem 'validates_existence', '=0.9.2'
 gem 'goalie', '=0.0.4'
 gem 'airbrake', '=3.1.15'
 gem 'aws-ses', '=0.5.0', :require => 'aws/ses'
@@ -48,7 +48,7 @@ group :development do
 end
 
 group :test do
-  gem 'mocha', '=0.14.0'
+  gem 'mocha', '=1.0.0'
   gem 'shoulda-matchers', '=2.5.0'
   gem 'factory_girl_rails', '=4.3.0'
   gem 'simplecov', '=0.8.2'
