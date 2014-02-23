@@ -40,7 +40,9 @@ group :assets do
 end
 
 group :development do
-  gem 'capistrano-ext', '1.2.1'
+  gem 'capistrano', '3.1.0', require: false
+  gem 'capistrano-rails', '1.1.1', require: false
+  gem 'capistrano-bundler', '1.1.2', require: false
   gem 'travis-lint', '1.7.0'
   gem 'foreman', '0.63.0'
   gem 'bullet', '4.7.1'

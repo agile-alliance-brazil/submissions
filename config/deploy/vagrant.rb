@@ -1,26 +1,41 @@
 # encoding: UTF-8
-set :rails_env,           "production"
-set :keep_releases,       1
+# Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary
+# server in each group is considered to be the first
+# unless any hosts have the primary property set.
+# Don't declare `role :all`, it's a meta role
+# role :app, %w{deploy@example.com}
+# role :web, %w{deploy@example.com}
+# role :db,  %w{deploy@example.com}
 
-set :user,                "vagrant"
-# set :password,          "run vagrant ssh-config >> ~/.ssh/config before trying to deploy"
-
-set :domain,              "default"
-set :project,             "agilebrazil"
-set :application,         "agilebrazil"
-set :applicationdir,      "/srv/apps/#{application}"
-set :bundle_cmd,          "/usr/local/bin/bundle"
-set :rake,                "#{bundle_cmd} exec rake"
-
-set :scm,                 :git
-set :repository,          "git@github.com:dtsato/agile_brazil.git"
-set :scm_verbose,         true
-
-set :deploy_to,           applicationdir
-set :deploy_via,          :remote_cache
-
-role :app, domain
-role :web, domain
-role :db,  domain, :primary => true
-
-set :use_sudo, false
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server
+# definition into the server list. The second argument
+# something that quacks like a hash can be used to set
+# extended properties on the server.
+server 'default', user: 'vagrant', roles: %w{web app db}
+set :manifest, 'vagrant-dev'
+# you can set custom ssh options
+# it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
+# you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
+# set it globally
+set :ssh_options, {
+ keys: [File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key')],
+ forward_agent: true,
+ auth_methods: %w(publickey)
+ # password: 'please use keys'
+}
+# and/or per server
+# server 'example.com',
+#   user: 'user_name',
+#   roles: %w{web app},
+#   ssh_options: {
+#     user: 'user_name', # overrides user setting above
+#     keys: %w(/home/user_name/.ssh/id_rsa),
+#     forward_agent: false,
+#     auth_methods: %w(publickey password)
+#     # password: 'please use keys'
+#   }
+# setting per server overrides global ssh_options
