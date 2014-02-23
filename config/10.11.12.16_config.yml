@@ -1,0 +1,56 @@
+---
+ # Your secret key for verifying the integrity of signed cookies. If you change this key,
+ # all old signed cookies will become invalid! Make sure the secret is at least 30
+ # characters and all random, no regular words or you'll be exposed to dictionary attacks.
+ #
+ # You can use "rake secret" to generate a new secret token.
+ :secret_token: f47c41880431100e0c54bc14a7197f18e647b0d6655bed40afbd0ca11af7c1e1d3fec3d9c12323818bf1805ec24cb3fb0df739576aafa46eb6f7ee7a2dc917f4
+ :devise:
+   :secret_key: b6d0bf327c7e2893631dc5f9ebd64a4d900549c491b4491ae23c7c5bf9d9690eaf353063b126937d071f16162571a10e873ef518edd103e0184f49b54ba51742
+   :pepper: bec10c7896946898e37a3661bed51c24954ede6a61ad97989f1e3812d74e1ddca75d114a6b3899fd5f0d39a2821d1a49703ce1ba7affe4a79b4bd2ba2eb459b9
+
+ # Host used to configure ActionMailer::Base.default_url_options[:host] as described in:
+ # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
+ :host: localhost:3000
+ # This is used as the sender address for e-mails
+ :sender_address: no-reply@domain.com
+
+ # SMTP settings are needed if you want to test sending e-mails from your development
+ # environment. These settings are used to setup ActionMailer::Base.smtp_settings, as
+ # described in:
+ #
+ # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Configuration+options
+ #
+ # Example:
+ # :smtp_settings:
+ #   :address: smtp.domain.com
+ #   :port: 587
+ #   :domain: domain.com
+ #   :authentication: :login
+ #   :user_name: no-reply@domain.com
+ #   :password: password
+
+ # You can use Amazon Simple E-mail Service (SES) to send e-mails too. If you decide
+ # to use it, please provide your SES access key and secret key as follows:
+ #
+ # :ses:
+ #   :access_key_id: your_aws_access_key_id
+ #   :secret_access_key: your_aws_secret_access_key
+ #
+ # To test in development mode with SES, you will also need to change
+ # config/environments/development.rb and add the following:
+ #
+ # config.action_mailer.delivery_method = :ses
+
+ # The application can be configured to track exceptionr/errors with airbrake, by
+ # providing your Airbrake access key as follows:
+ #
+ # :airbrake:
+ #   :access_key: xxx111xxx
+
+ # To track user access using Google Analytics, please provide your details as follows:
+ #
+ # :google:
+ #   :tracker_id: google_analytics_id
+ #   :conversion_id: google_ads_conversion_id
+ #   :conversion_label: google_ads_conversion_label

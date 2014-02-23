@@ -2,10 +2,13 @@
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
+before "bundle:install", "deploy:puppet"
+
 after "deploy:update_code", "deploy:symlink_configs"
 
 after "deploy",             "deploy:cleanup"
 after "deploy:migrations",  "deploy:cleanup"
+after "deploy:setup",       "deploy:create_shared"
 
 namespace :passenger do
   desc "Restart Application"
@@ -28,6 +31,17 @@ namespace :deploy do
       cd #{release_path} &&
       ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
       ln -nfs #{shared_path}/config/config.yml #{release_path}/config/config.yml
+    CMD
+  end
+
+  task :puppet do
+    sudo("FACTER_APP_URL=#{domain} puppet apply --modulepath /etc/puppet/modules:#{release_path}/puppet/modules #{release_path}/puppet/manifests/#{manifest}.pp")
+  end
+
+  task :create_shared do
+    run <<-CMD
+      mkdir -p #{shared_path}/certs &&
+      mkdir -p #{shared_path}/config
     CMD
   end
 end
