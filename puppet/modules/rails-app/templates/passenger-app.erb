@@ -1,0 +1,47 @@
+<%- if @use_ssl -%>
+<VirtualHost *:80>
+   ServerName <%= @server_name %>
+   Redirect permanent / https://<%= @app_url %>/
+</VirtualHost>
+
+NameVirtualHost *:443
+
+<VirtualHost *:443>
+    DocumentRoot <%= @path %>
+
+    SSLEngine on
+    SSLOptions +StrictRequire
+
+    <Directory />
+        SSLRequireSSL
+    </Directory>
+
+    SSLProtocol -all +TLSv1 +SSLv3
+    SSLCipherSuite HIGH:MEDIUM:!aNULL:+SHA1:+MD5:+HIGH:+MEDIUM
+
+    SSLCertificateFile <%= File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server.crt')) %>
+    SSLCertificateKeyFile <%= File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server_key.pem')) %>
+
+    <%- intermediate_cert_path = File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server_intermediate.crt')) -%>
+    <%- if File.exists?(intermediate_cert_path) -%>
+    SSLCertificateChainFile <%= intermediate_cert_path %>
+    <%- end -%>
+
+    SSLVerifyClient none
+    SSLProxyEngine off
+
+    <IfModule mime.c>
+        AddType application/x-x509-ca-cert      .crt
+        AddType application/x-pkcs7-crl         .crl
+    </IfModule>
+</VirtualHost>
+<%- else -%>
+<VirtualHost *:80>
+    ServerName <%= @server_name %>
+    DocumentRoot <%= @path %>
+    <Directory <%= @path %>>
+        Allow from all
+        Options -MultiViews
+    </Directory>
+</VirtualHost>
+<%- end -%>
