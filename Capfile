@@ -40,7 +40,12 @@ namespace :deploy do
 
   task :puppet do
     on roles(:all) do |host|
-      execute :sudo, :puppet, 'apply', "--modulepath /etc/puppet/modules:#{release_path.join('puppet/modules')}", release_path.join("puppet/manifests/#{fetch(:manifest)}.pp")
+      within release_path.join('puppet') do
+        execute :'librarian-puppet', :install
+      end
+      within release_path do
+        execute :sudo, :puppet, 'apply', '--modulepath /etc/puppet/modules:puppet/modules', "puppet/manifests/#{fetch(:manifest)}.pp"
+      end
     end
   end
 end
