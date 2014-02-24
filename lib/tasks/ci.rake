@@ -3,9 +3,14 @@ begin
   require 'guard/jasmine/task'
   Guard::JasmineTask.new
 
-  desc "Task to run on CI: runs RSpec specs and Jasmine specs"
-  task :ci => [:spec, :"guard:jasmine"]
+  desc "Task to run on CI: runs RSpec specs"
+  task :ci => [:spec]
 
-  task :default => :ci
+  namespace :ci do
+    desc "Task to run on CI: runs RSpec specs and Jasmine tests"
+    task :all => [:spec, :'guard:jasmine']
+  end
+
+  task :default => :'ci:all'
 rescue LoadError
 end
