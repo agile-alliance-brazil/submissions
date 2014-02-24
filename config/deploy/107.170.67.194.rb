@@ -15,15 +15,15 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '10.11.12.16', user: 'vagrant', roles: %w{web app db}
-set :manifest, 'vagrant'
-set :deploy_via,          :copy
+server '107.170.67.194', user: 'ubuntu', roles: %w{web app db}
+set :manifest, 'default'
+
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
 set :ssh_options, {
- keys: [File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key')],
+ keys: [File.join(ENV['HOME'], '.ssh', 'digitalocean')],
  forward_agent: true,
  auth_methods: %w(publickey)
  # password: 'please use keys'

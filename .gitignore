@@ -5,7 +5,7 @@ log/*.log
 tmp/**/*
 coverage
 **/*~
-config/config*.yml
+config/*.yml
 .idea
 bin/*
 turbulence

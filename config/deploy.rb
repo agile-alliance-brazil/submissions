@@ -2,7 +2,7 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :stages, %w(vagrant staging production 10.11.12.16)
+set :stages, %w(vagrant staging production 10.11.12.16 107.170.67.194)
 set :default_stage, 'vagrant'
 
 set :rails_env,           'production'
@@ -13,7 +13,7 @@ SSHKit.config.command_map[:rake]  = 'bundle exec rake' #8
 SSHKit.config.command_map[:rails] = 'bundle exec rails'
 
 set :scm,                 :git
-set :repo_url,            'git@github.com:dtsato/agile_brazil.git'
+set :repo_url,            'git://github.com/dtsato/agile_brazil.git'
 set :scm_verbose,         true
 
 set :deploy_to,           '/srv/apps/submissions'
