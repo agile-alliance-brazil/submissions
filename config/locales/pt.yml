@@ -395,6 +395,14 @@ pt:
       title: "Relatos de Experiência"
       title_plural: "relatos de experiência"
       description: "Relatos são histórias reais vivenciadas pelo palestrante que trazem experiências de sucesso, importantíssimas para aqueles que procuram suporte para suas próprias histórias, e também contos de fracassos que promovam compreensão de como uma técnica, prática ou tendência pode prejudicar um time e projeto."
+    traditional_talk:
+      title: "Palestra"
+      title_plural: "palestras"
+      description: "Palestras são sessões que apresentam assuntos e ideias de forma a favorecer a compreensão e recebimento de um conhecimento do palestrante. É o formato clássico de apresentações e exige um bom domínio de quem as apresenta para manter o público entretido e, ao mesmo tempo, agregar valor."
+    duel:
+      title: "Duelo"
+      title_plural: "duelos"
+      description: "Duelos são sessões com o objetivo de incentivar o pensamento crítico e promover discussões que, quem sabe, trarão novos insights mesmo aos agilistas mais experientes. É uma submissão única com dois palestrantes defendendo pontos opostos por 15 minutos cada, seguidas de 20 minutos de debate com o público presente."
 
   tracks:
     general_interest:

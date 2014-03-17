@@ -397,6 +397,14 @@ en:
       title: "Experience Report"
       title_plural: "experience reports"
       description: "Reports are true stories the speaker went through that show successes, important to those who look for back-up, and also cautionary tales that promote the understanding of how a practice, technique or trend can harm a team and a project."
+    traditional_talk:
+      title: "Talk"
+      title_plural: "talks"
+      description: "Talks are sessions presenting subjects and ideas in a way that favors the understanding and the reception of the speaker's knowledge. This is a classic format for conference presentations and it requires entertaining oratory while bringing value to atendees."
+    duel:
+      title: "Duel"
+      title_plural: "duels"
+      description: "Duels are thought provoking sessions that will promote discussions and, hopefully, bring new insights to the most experienced agilists. It consists of a single submission where 2 speakers defend opposite views of a subject, plus 20 minutes of discussions with the audience."
 
   tracks:
     general_interest:
