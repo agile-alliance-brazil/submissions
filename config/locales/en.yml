@@ -397,6 +397,14 @@ en:
       title: "Experience Report"
       title_plural: "experience reports"
       description: "Reports are true stories the speaker went through that show successes, important to those who look for back-up, and also cautionary tales that promote the understanding of how a practice, technique or trend can harm a team and a project."
+    traditional_talk:
+      title: "Talk"
+      title_plural: "talks"
+      description: "Talks are sessions presenting subjects and ideas in a way that favors the understanding and the reception of the speaker's knowledge. This is a classic format for conference presentations and it requires entertaining oratory while bringing value to atendees."
+    duel:
+      title: "Duel"
+      title_plural: "duels"
+      description: "Duels are thought provoking sessions that will promote discussions and, hopefully, bring new insights to the most experienced agilists. It consists of a single submission where 2 speakers defend opposite views of a subject, plus 20 minutes of discussions with the audience."
 
   tracks:
     general_interest:
@@ -434,17 +442,35 @@ en:
     design:
       title: "Design"
       description: "This track gathers sessions related to agile methods and practices applied to the design of a product’s user experience. These are sessions on Agile UX, design, information architecture, HCD, design thinking and all challenges involving integrating iterative and incremental work of software developers, and designers and information architects."
+    2014_general_interest:
+      title: "General Interest"
+      description: "The General Interest track is dedicated to relevant sessions related to culture, values, and principles of Agile, Lean, etc. It is home to sessions that can benefit all agilists, regardless of the process or methods they use. These talks will cover what it is to be Agile, the everyday life, and all kinds of subjects that may call an agilist attention."
+    2014_development_tests:
+      title: "Development and Tests"
+      description: "This track holds sessions related to Agile methods and practices focused on developing and testing software. Those are sessions about programming, continuous integration, test automation, acceptance or integration tests, and handy tools. Presentations concerning DevOps are also welcome here."
+    2014_management:
+      title: "Management"
+      description: "The Management track is devoted to team and project management. Sessions gather themes such as making and developing teams, new people management models, self-organization, agile management practices applied to projects and products and more. Talks describing and discussing processes belong here."
+    2014_coaching_learning:
+      title: "Coaching, Learning and Facilitation"
+      description: "You can expect sessions at the Coaching, Learning and Facilitation track to present concepts, techniques and tips for Agile facilitation, coaching, and empowerment. This track will discuss competences that can help coaches and facilitators lead, teach, mentor, open space, as well as continuous improvement tools for agile teams and people. This year, we will also have sessions concerning the important subject of education, in sessions that bring teaching techniques of Agile and surrounding themes."
+    2014_ux_product:
+      title: "UX, Analysis and Product Design"
+      description: "What is our goal? Is creating value by enhancing user experience possible? These and many other concerns are the focus of this track, that will gather sessions regarding concepts, methods, and practices of Agile business analysis, Agile UX, information architecture, design thinking, etc. It intends to broaden the universe of discoveries and interactive and incremental actions, aiming the integration of business analysis, software development and emergent design."
+    2014_innovation_entrepreneurship:
+      title: "Innovation and Entrepreneurship"
+      description: "The challenges of entrepreneurship and innovation are not new, but answers to these problems are still a big numb area. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
 
   audience_levels:
     beginner:
       title: "Beginner"
-      description: "A person who has just started to do or learn something about Agile; a novice!"
+      description: "A person who is new to or has just started learning about the session track or area; a novice!"
     practitioner:
       title: "Practitioner"
-      description: "A person who has practiced Agile, believes in Agile and has benefited from it."
+      description: "A person who has practiced the session's track or area, believes in its values and has benefited from it."
     experienced:
       title: "Experienced"
-      description: "A person who understands the values and principles of the Agile Manifesto and has practical knowledge of a particular methodology to the extent of leading or helping a team in adopting its practices."
+      description: "A person who has a deeper understanding of the theme, to the extent of leading or helping a team in adopting its practices."
 
   email:
     welcome:

@@ -395,6 +395,14 @@ pt:
       title: "Relatos de Experiência"
       title_plural: "relatos de experiência"
       description: "Relatos são histórias reais vivenciadas pelo palestrante que trazem experiências de sucesso, importantíssimas para aqueles que procuram suporte para suas próprias histórias, e também contos de fracassos que promovam compreensão de como uma técnica, prática ou tendência pode prejudicar um time e projeto."
+    traditional_talk:
+      title: "Palestra"
+      title_plural: "palestras"
+      description: "Palestras são sessões que apresentam assuntos e ideias de forma a favorecer a compreensão e recebimento de um conhecimento do palestrante. É o formato clássico de apresentações e exige um bom domínio de quem as apresenta para manter o público entretido e, ao mesmo tempo, agregar valor."
+    duel:
+      title: "Duelo"
+      title_plural: "duelos"
+      description: "Duelos são sessões com o objetivo de incentivar o pensamento crítico e promover discussões que, quem sabe, trarão novos insights mesmo aos agilistas mais experientes. É uma submissão única com dois palestrantes defendendo pontos opostos por 15 minutos cada, seguidas de 20 minutos de debate com o público presente."
 
   tracks:
     general_interest:
@@ -432,17 +440,35 @@ pt:
     design:
       title: "Design"
       description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis voltadas para o design de experiência de usuário de um produto. São sessões sobre Agile UX, design, arquitetura da informação, HCD, design thinking e todos os desafios que envolvem o trabalho integrado, iterativo e incremental de desenvolvedores de software e designers e arquitetos da informação."
+    2014_general_interest:
+      title: "Interesse Geral"
+      description: "A trilha Interesse Geral é dedicada às sessões relevantes relacionadas a cultura, valores e princípios do Agile, do Lean e afins. São sessões que trazem assuntos de interesse aos agilistas, independentemente de sua escolha de métodos ou processos. São palestras que falam do que é ser ágil, do dia-a-dia, e de todo tipo de assunto que possa interessar a outros agilistas."
+    2014_development_tests:
+      title: "Desenvolvimento e Testes"
+      description: "Essa trilha reúne sessões relacionadas a métodos e práticas ágeis voltadas para desenvolvimento e teste de software. São sessões sobre como programação, integração contínua, automação de testes, testes de aceitação, teste de integração e ferramentas de apoio. Apresentações sobre a integração do desenvolvimento de software com as operações de TI (devops) também estão inclusas nesta trilha."
+    2014_management:
+      title: "Gestão"
+      description: "Essa trilha é dedicada à gestão de equipes e projetos. As sessões reúnem temas como formação e desenvolvimento de equipes, novos modelos de gestão de pessoas, auto-organização, práticas de gestão ágil aplicadas a projetos e produtos. Sessões descrevendo e discutindo processos fazem parte dessa trilha."
+    2014_coaching_learning:
+      title: "Coaching, Ensino e Facilitação"
+      description: "A trilha de Coaching, Ensino e Facilitação trará ao público os conceitos, técnicas e dicas de facilitação, coaching e empowerment no contexto da agilidade. A trilha apresenta as competências necessárias para que coaches ou facilitadores liderem, ensinem, mentorem, facilitem e ofereçam ferramentas de evolução para times e agilistas. Neste ano, também está incluso aqui o importante conceito da educação, com temas que abordam técnicas de ensino eficaz do Agile e dos conceitos que o apoiam."
+    2014_ux_product:
+      title: "UX, Análise e Design de Produtos"
+      description: "Qual a meta a ser atingida? Agregar valor, aumentando a qualidade da experiência de uso é possível? Estas e muitas outra questões são o foco dessa trilha que reunirá sessões abrangendo conceitos, métodos e práticas de análise ágil de negócios e tópicos de Agile UX, arquitetura da informação, design thinking e outras. Buscamos expandir a discussão sobre esse universo de descobertas e ações iterativas e incrementais, sempre visando o trabalho integrado da análise de negócio, desenvolvimento de software com design emergente."
+    2014_innovation_entrepreneurship:
+      title: "Inovação e Empreendedorismo"
+      description: "Os desafios de empreender e inovar datam de muito tempo atrás, mas ainda não temos respostas claras e definitivas para eles. Nesta trilha, vamos abordar esses desafios e como a agilidade pode ajudar, trazendo consigo uma gama de ideias e ferramentas. Nessa trilha teremos discussões sobre como prospectar novas oportunidades ou renovar possibilidades, acelerar a formação e validação de hipóteses. Ideias e ações disruptivas promovendo inovação são mais que bem-vindas nessa trilha."
 
   audience_levels:
     beginner:
       title: "Iniciante"
-      description: "Alguém que está começando ou acabou de aprender sobre Métodos Ágeis; um aprendiz!"
+      description: "Alguém que está começando ou aprendendendo agora sobre a área ou o assunto da sessão; um aprendiz!"
     practitioner:
       title: "Praticante"
-      description: "Alguém que pratica Métodos Ágeis, acredita nos seus valores e já se beneficiou com isso."
+      description: "Alguém que tem alguma experiência com a área ou assunto da sessão, acredita no seu valor e já se beneficiou com isso."
     experienced:
       title: "Experiente"
-      description: "Alguém que compreende os valores e princípios do Manifesto Ágil e domina alguma metodologia ágil a ponto de liderar uma equipe ou capacitá-la em suas práticas."
+      description: "Alguém com uma compreensão mais profunda do tema, que domina o assunto a ponto de liderar uma equipe ou capacitá-la em suas práticas."
 
   email:
     welcome:
