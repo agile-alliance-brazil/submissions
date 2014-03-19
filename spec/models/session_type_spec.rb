@@ -14,7 +14,7 @@ describe SessionType do
   end
 
   it "should detect all titles" do
-    (SessionType.all_titles - %w[tutorial workshop talk lightning_talk hands_on experience_report]).should be_empty
+    (SessionType.all_titles - %w[tutorial workshop talk lightning_talk hands_on experience_report traditional_talk duel]).should be_empty
   end
 
   SessionType.all_titles.each do |title|

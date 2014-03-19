@@ -1,0 +1,32 @@
+- title "Ajuda para Sintaxe Wiki"
+- show_actions!
+
+%p Alguns campos do formulário de submissão aceitam uma sintaxe para adicionar formatação simples ao texto. Veja abaixo a sintaxe permitida:
+
+- sample_stiles = "_itálico_\n*negrito*\n@monoespaçado@\n-riscado-\n+sublinhado+"
+
+- sample_lists = "# Numerada 1\n## Sub lista 1\n# Numerada 2\n# Numerada 3\n\n* Não numerada\n* Não numerada\n** Sub lista não numerada"
+
+- sample_others = "Link pro \"Google\":http://google.com\nE uma imagem\n!/assets/2012_logo.png!"
+
+#textile_help
+  %h5 Estilos
+
+  .example
+    .raw
+      %pre~ sample_stiles
+    .preview= textilize(sample_stiles)
+
+  %h5 Listas
+
+  .example
+    .raw
+      %pre~ sample_lists
+    .preview= textilize(sample_lists)
+
+  %h5 Outros
+  .example
+    .raw
+      %pre~ sample_others
+    .preview= textilize(sample_others)
+

@@ -102,3 +102,35 @@ SessionType.seed do |session_type|
   session_type.description = 'session_types.experience_report.description'
   session_type.valid_durations = [25]
 end
+
+SessionType.seed do |session_type|
+  session_type.id = 14
+  session_type.conference_id = 5
+  session_type.title = 'session_types.traditional_talk.title'
+  session_type.description = 'session_types.traditional_talk.description'
+  session_type.valid_durations = [50]
+end
+
+SessionType.seed do |session_type|
+  session_type.id = 15
+  session_type.conference_id = 5
+  session_type.title = 'session_types.duel.title'
+  session_type.description = 'session_types.duel.description'
+  session_type.valid_durations = [50]
+end
+
+SessionType.seed do |session_type|
+  session_type.id = 16
+  session_type.conference_id = 5
+  session_type.title = 'session_types.hands_on.title'
+  session_type.description = 'session_types.hands_on.description'
+  session_type.valid_durations = [80]
+end
+
+SessionType.seed do |session_type|
+  session_type.id = 17
+  session_type.conference_id = 5
+  session_type.title = 'session_types.experience_report.title'
+  session_type.description = 'session_types.experience_report.description'
+  session_type.valid_durations = [25]
+end
