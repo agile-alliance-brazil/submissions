@@ -8,18 +8,18 @@ gem 'will_paginate', '3.0.5'
 gem 'formtastic', '2.2.1'
 gem 'inherited_resources', '1.4.1'
 gem 'has_scope', '0.6.0.rc'
-gem 'devise', '3.2.2'
+gem 'devise', '3.2.4'
 gem 'devise-encryptable', '0.1.2'
 gem 'magic-localized_country_select', '0.2.0', require: 'localized_country_select'
 gem 'brhelper', '3.3.0'
 gem 'seed-fu', '2.3.0'
-gem 'acts-as-taggable-on', '3.0.1'
+gem 'acts-as-taggable-on', '3.0.2'
 gem 'cancan', '1.6.10'
 gem 'acts_as_commentable', '3.0.1' # version 4.0.1 require rails 4
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
 gem 'goalie', '0.0.4'
-gem 'airbrake', '3.1.15'
+gem 'airbrake', '3.1.16'
 gem 'aws-ses', '0.5.0', require: 'aws/ses'
 gem 'mysql2', '0.3.15'
 gem 'doorkeeper', '1.0.0'
@@ -43,9 +43,9 @@ group :development do
   gem 'capistrano', '3.1.0', require: false
   gem 'capistrano-rails', '1.1.1', require: false
   gem 'capistrano-bundler', '1.1.2', require: false
-  gem 'travis-lint', '1.7.0'
+  gem 'travis-lint', '1.8.0'
   gem 'foreman', '0.63.0'
-  gem 'bullet', '4.7.1'
+  gem 'bullet', '4.8.0'
   gem 'lol_dba', '1.6.0'
 end
 
@@ -58,8 +58,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.14.1'
+  gem 'sqlite3', '1.3.9'
+  gem 'rspec-rails', '2.14.2'
   gem 'spork-rails', '4.0.0'
   gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
   gem 'guard-jasmine', '1.19.0'
