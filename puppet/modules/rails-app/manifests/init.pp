@@ -71,6 +71,7 @@ class rails-app( $user, $app_name, $domain ) {
 	    cwd => "/srv/apps/$app_name/shared/certs",
 	    notify => Service['apache2'],
 	    require => File['self-signed.config'],
+	    creates => "/srv/apps/$app_name/shared/certs/server.crt",
 	  }
 	}
 

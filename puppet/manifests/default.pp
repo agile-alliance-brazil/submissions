@@ -5,18 +5,20 @@ node default {
   }
 
   class { 'swap':
-    swapsize => 5M,
+    swapsize => 1M,
   }
 
   $app_name = "submissions"
+  $domain = "agilebrazil.com"
   $use_ssl = true
 
-  class { 'web-server': }
+  class { 'web-server':
+    server_name => "$app_name.$domain",
+  }
   class { 'db-server': 
     app_name => $app_name,
   }
 
-  $domain = "agilebrazil.com"
   $user = "ubuntu"
   class { 'rails-app':
     user => $user,

@@ -1,7 +1,7 @@
 <%- if @use_ssl -%>
 <VirtualHost *:80>
    ServerName <%= @server_name %>
-   Redirect permanent / https://<%= @app_url %>/
+   Redirect permanent / https://<%= @server_name %>/
 </VirtualHost>
 
 NameVirtualHost *:443
