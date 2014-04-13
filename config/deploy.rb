@@ -2,7 +2,7 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :stages, %w(vagrant staging production 10.11.12.16 107.170.67.194)
+set :stages, %w(vagrant staging production 10.11.12.16 107.170.116.137)
 set :default_stage, 'vagrant'
 
 set :rails_env,           'production'

@@ -10,7 +10,7 @@ config/*.yml
 bin/*
 turbulence
 tmp
-certs/*.pem
+certs/*
 .sass-cache/
 public/assets/
 vendor/bundle/**/*

@@ -15,7 +15,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '107.170.67.194', user: 'ubuntu', roles: %w{web app db}
+server '107.170.116.137', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
 
 # you can set custom ssh options
@@ -23,7 +23,7 @@ set :manifest, 'default'
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
 set :ssh_options, {
- keys: [File.join(ENV['HOME'], '.ssh', 'digitalocean')],
+ keys: [File.join(File.dirname(__FILE__), '..', '..', 'certs', '.ssh', 'digitalocean')],
  forward_agent: true,
  auth_methods: %w(publickey)
  # password: 'please use keys'
