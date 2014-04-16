@@ -23,7 +23,10 @@ server 'submissions.agilebrazil.com', user: 'agilebrazil', roles: %w{web app db}
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
 set :ssh_options, {
- keys: [File.join(File.dirname(__FILE__), '..', 'certs', 'submissions_production.pem')],
+ keys: [
+   File.join(File.dirname(__FILE__), '..', 'certs', 'submissions_production.pem'),
+   File.join(File.dirname(__FILE__), '..', 'certs', 'digital_ocean')
+ ],
  forward_agent: true,
  auth_methods: %w(publickey)
  # password: 'please use keys'

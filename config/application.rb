@@ -69,6 +69,8 @@ module AgileBrazil
         @conference = Conference.current
       end
     end
+
+    config.action_mailer.delivery_method = :ses
   end
 end
 require 'goalie/rails'
