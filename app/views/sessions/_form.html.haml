@@ -45,10 +45,10 @@
 
   function sessionTypeActions() {
     // Workshops, Tutorials, or Hands On
-    if ($.inArray($(this).val(), ['1', '2', '4', '5', '9', '12']) !== -1) {
+    if ($.inArray($(this).val(), ['1', '2', '4', '5', '9', '12', '16']) !== -1) {
       $("#session_audience_limit_input").show();
       // Only Workshop or Hands On
-      if ($.inArray($(this).val(), ['2', '5', '9', '12']) !== -1) {
+      if ($.inArray($(this).val(), ['2', '5', '9', '12', '16']) !== -1) {
         $('#session_mechanics_input').find('label abbr').show();
       } else {
         $('#session_mechanics_input').find('label abbr').hide();
