@@ -24,8 +24,8 @@ server '162.243.121.252', user: 'ubuntu', roles: %w{web app db}
 # set it globally
 set :ssh_options, {
  keys: [
-   File.join(File.dirname(__FILE__), '..', 'certs', 'submissions_production.pem'),
-   File.join(File.dirname(__FILE__), '..', 'certs', 'digital_ocean')
+   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'submissions_production.pem'),
+   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean')
  ],
  forward_agent: true,
  auth_methods: %w(publickey)
