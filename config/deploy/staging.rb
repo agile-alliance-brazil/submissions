@@ -30,7 +30,8 @@ set :applicationdir,      "/home/#{fetch(:user)}/#{fetch(:application)}"
 set :ssh_options, {
  keys: [
    File.join(File.dirname(__FILE__), '..', '..', 'certs', 'submissions.pem'),
-   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean')
+   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean'),
+   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging')
  ],
  forward_agent: true,
  auth_methods: %w(publickey)
