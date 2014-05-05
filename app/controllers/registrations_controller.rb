@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-	build_resource(sign_up_params)
+    build_resource(sign_up_params)
 
     if resource.save
       EmailNotifications.welcome(@user).deliver
