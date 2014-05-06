@@ -57,7 +57,7 @@
     $('#session_mechanics').charCount({allowed: 2400});
     $('#session_benefits').charCount({allowed: 400});
     $('#session_experience').charCount({allowed: 400});
-  })
+  });
 
   function sessionTypeActions() {
     // Workshops, Tutorials, or Hands On
@@ -84,16 +84,15 @@
     $('#tagCounter').text(10 - tags.length);
   }
 
-
   $('.sessionTags li').click(function() {
     var newTag = $(this).find('span').text().trim();
     var index = tags.indexOf(newTag);
     if (index == -1) {
       tags.push(newTag);
+      $(this).addClass('selectedTag');
     } else {
       tags.splice(index, 1);
+      $(this).removeClass('selectedTag');
     }
-
     $('#session_keyword_list').val(tags.join());
-    $(this).addClass('selectedTag');
   });
