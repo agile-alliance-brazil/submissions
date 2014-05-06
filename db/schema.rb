@@ -9,8 +9,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
-
-ActiveRecord::Schema.define(:version => 20130612053215) do
+ActiveRecord::Schema.define(:version => 20140506010931) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -234,6 +233,7 @@ ActiveRecord::Schema.define(:version => 20130612053215) do
     t.string   "state"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.boolean  "sign_reviews"
   end
 
   add_index "reviewers", ["conference_id"], :name => "index_reviewers_on_conference_id"

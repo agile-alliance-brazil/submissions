@@ -146,6 +146,7 @@ pt:
         user_username: "Avaliador (username)"
         state: "Status"
         reviewer_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
+        sign_reviews: Eu quero assinar as minhas avaliações (isso significa que os autores das submissões vão saber que a avaliação e o feedback são seus)
       preference:
         audience_level_id: "Nível de conhecimento"
       early_review:

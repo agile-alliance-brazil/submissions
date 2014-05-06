@@ -148,6 +148,7 @@ en:
         user_username: "Reviewer's username"
         state: "Status"
         reviewer_agreement: "I read the terms and acknowledge my responsibilities as a reviewer"
+        sign_reviews: "I want to sign my reviews (that means the submission author will know your review and feedback are yours)"
       preference:
         audience_level_id: "Knowledge level"
       early_review:

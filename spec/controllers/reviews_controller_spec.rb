@@ -4,6 +4,7 @@ require 'spec_helper'
 describe ReviewsController do
   before(:each) do
     @early_review ||= FactoryGirl.create(:early_review)
+    FactoryGirl.create(:reviewer, user: @early_review.reviewer)
     @final_review ||= FactoryGirl.create(:final_review, :reviewer => @early_review.reviewer)
 
     sign_in @early_review.reviewer
