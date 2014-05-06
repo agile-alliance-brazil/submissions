@@ -7,7 +7,7 @@
   = form.input :duration_mins, :required => true, :as => :select, :collection => options_for_durations(@session_types), :input_html => {:tabindex => autotab}, :hint => duration_mins_hint(@session_types)
   = form.input :audience_limit, :input_html => {:tabindex => autotab}
   = form.input :title, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :keyword_list, :required => true, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js), :maxlength => nil}, :as => :hidden
+  = form.input :keyword_list, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js), :maxlength => nil}, :as => :hidden
   %li 
     %label 
       = t('formtastic.labels.session.keyword_list')
@@ -49,8 +49,7 @@
     $("#session_session_type_id, #session_track_id").trigger('updated');
 
     $('#session_title').charCount({allowed: 100});
-    tags = $('#session_keyword_list').get(0).value.split(', ');
-    paintSelectedKeywords();
+    loadAlreadySelectedTags();
     $('#session_target_audience').charCount({allowed: 200});
     $('#session_summary').charCount({allowed: 800});
     $('#session_description').charCount({allowed: 2400});
@@ -76,7 +75,9 @@
     }
   }
 
-  function paintSelectedKeywords() {
+  function loadAlreadySelectedTags() {
+    var commaSeparatedTags = $('#session_keyword_list').get(0).value;
+    var tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(', ');
     for (var i = 0; i < tags.length; i++) {
       var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
       $(tagItem).addClass('selectedTag');
@@ -88,6 +89,9 @@
     var newTag = $(this).find('span').text().trim();
     var index = tags.indexOf(newTag);
     if (index == -1) {
+      if (tags.length >= 10) {
+        return;
+      }
       tags.push(newTag);
       $(this).addClass('selectedTag');
     } else {
@@ -95,4 +99,5 @@
       $(this).removeClass('selectedTag');
     }
     $('#session_keyword_list').val(tags.join());
+    $('#tagCounter').text(10 - tags.length);
   });
