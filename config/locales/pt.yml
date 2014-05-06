@@ -220,6 +220,7 @@ pt:
         experience: "Descreva suas experiências com o assunto que deseja apresentar. Enfoque nas suas ações, no ambiente e suas inspirações. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>.<br/>(máximo 400 caracteres)"
         second_author_username: "Digite o nome de usuário do segundo palestrante neste campo. O segundo palestrante também precisa ser um usuário registrado. Se você não sabe o nome de usuário do segundo palestrante ou ele(a) ainda não se cadastrou, deixe este campo em branco e edite sua proposta antes do prazo de submissão."
         keyword_list: "Digite as palavras-chave separadas por vírgula.<br/>(máximo 10 palavras-chave)"
+        tag_list: "Escolha até 10 tags relacionadas à sua sessão"
       comment:
         comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
       reviewer:
