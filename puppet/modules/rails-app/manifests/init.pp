@@ -1,4 +1,4 @@
-class rails-app( $user, $app_name, $domain ) {
+class rails-app( $user, $app_name ) {
 	package { "ruby1.9.3":
 		ensure => "installed",
 		require => Exec["update"],

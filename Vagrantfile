@@ -39,6 +39,10 @@ Vagrant.configure('2') do |config|
       puppet.manifests_path = "puppet/manifests"
       puppet.manifest_file = "vagrant-dev.pp"
       puppet.module_path = "puppet/modules"
+      puppet.facter = {
+        # The work around can be removed when this issue is fixed https://github.com/mitchellh/vagrant/issues/2270
+        "server_url" => "dev.localhost"
+      }
     end
   end
 

@@ -1,7 +1,7 @@
 node default {
   exec { 'update':
-      command => 'apt-get update',
-      path => '/usr/bin',
+    command => 'apt-get update',
+    path => '/usr/bin',
   }
 
   package { 'git-core':
@@ -32,7 +32,6 @@ node default {
   class { 'rails-app':
     user => $user,
     app_name => 'submissions',
-    domain => 'agilebrazil.com',
   }
 
   class { 'swap':

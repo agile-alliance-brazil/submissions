@@ -13,7 +13,7 @@ node default {
   $use_ssl = true
 
   class { 'web-server':
-    server_name => "$app_name.$domain",
+    server_name => $server_url,
   }
   class { 'db-server': 
     app_name => $app_name,
@@ -23,6 +23,5 @@ node default {
   class { 'rails-app':
     user => $user,
     app_name => $app_name,
-    domain => $domain,
   }
 }

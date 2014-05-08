@@ -1,4 +1,4 @@
-class web-server($server_name = "$app_name.$domain") {
+class web-server($app_name = "submissions", $server_name = "$app_name.$domain") {
 	include passenger-apache
 
 	package { "git-core":

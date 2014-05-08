@@ -18,6 +18,9 @@
 set :manifest, 'default'
 set :user, 'agile_brazil'
 server 'ftp.dtsato.com', user: fetch(:user), roles: %w{web app db}
+set :default_env, {
+  'FACTER_server_url' => 'submissoes.staging.agilebrazil.com',
+}
 
 set :project,             'agilebrazil'
 set :application,         'agilebrazil.dtsato.com'
