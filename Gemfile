@@ -1,7 +1,7 @@
 #encoding: utf-8 
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17' # Issue #114 - 4.0.2 is target
+gem 'rails', '3.2.18' # Issue #114 - 4.0.2 is target
 gem 'jquery-rails', '3.1.0'
 gem 'haml', '4.0.5'
 gem 'will_paginate', '3.0.5'
