@@ -92,4 +92,8 @@ class User < ActiveRecord::Base
   def has_approved_session?(conference)
     Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
   end
+  
+  def actual_reviewer
+    Reviewer.where(:user_id => self.id, :conference_id => Conference.current.id).first
+  end
 end
