@@ -17,16 +17,16 @@
 # extended properties on the server.
 server '107.170.116.137', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
-set :default_env, {
-  'FACTER_SERVER_URL' => 'submissoes.staging.agilebrazil.com',
-}
+set :server_url, 'submissoes.staging.agilebrazil.com'
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
 set :ssh_options, {
- keys: [File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging')],
+ keys: [
+   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging')
+ ],
  forward_agent: true,
  auth_methods: %w(publickey)
  # password: 'please use keys'

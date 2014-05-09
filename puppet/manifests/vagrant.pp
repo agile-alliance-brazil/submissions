@@ -10,7 +10,7 @@ class { 'swap':
 }
 
 class { 'web-server':
-  server_name => $SERVER_URL,
+  server_name => $server_url,
 }
 class { 'db-server': 
   app_name => $app_name

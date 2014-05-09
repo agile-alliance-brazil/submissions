@@ -15,11 +15,9 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-set :manifest, 'default'
 server '162.243.121.252', user: 'ubuntu', roles: %w{web app db}
-set :default_env, {
-  'FACTER_SERVER_URL' => 'submissoes.agilebrazil.com',
-}
+set :manifest, 'default'
+set :server_url, 'submissoes.agilebrazil.com'
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
@@ -27,7 +25,6 @@ set :default_env, {
 # set it globally
 set :ssh_options, {
  keys: [
-   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'submissions_production.pem'),
    File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean')
  ],
  forward_agent: true,

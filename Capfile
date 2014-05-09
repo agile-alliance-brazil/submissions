@@ -44,6 +44,7 @@ namespace :deploy do
         execute :'librarian-puppet', :install
       end
       within release_path do
+        execute :export, "FACTER_server_url='#{fetch(:server_url)}'"
         execute :sudo, :puppet, 'apply', '--modulepath /etc/puppet/modules:puppet/modules', "puppet/manifests/#{fetch(:manifest)}.pp"
       end
     end
