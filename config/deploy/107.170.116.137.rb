@@ -18,7 +18,7 @@
 server '107.170.116.137', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
 set :default_env, {
-  'FACTER_server_url' => 'submissoes.staging.agilebrazil.com',
+  'FACTER_SERVER_URL' => 'submissoes.staging.agilebrazil.com',
 }
 
 # you can set custom ssh options

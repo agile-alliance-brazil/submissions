@@ -61,6 +61,7 @@ module AgileBrazil
     config.assets.version = '1.0'
     config.assets.css_compressor = :yui
     config.assets.js_compressor = :yui
+    config.assets.initialize_on_precompile = false 
 
     config.to_prepare do
       Doorkeeper::ApplicationController.layout "application"

@@ -13,7 +13,7 @@ node default {
   $use_ssl = true
 
   class { 'web-server':
-    server_name => $server_url,
+    server_name => $SERVER_URL,
   }
   class { 'db-server': 
     app_name => $app_name,

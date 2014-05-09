@@ -41,7 +41,7 @@ Vagrant.configure('2') do |config|
       puppet.module_path = "puppet/modules"
       puppet.facter = {
         # The work around can be removed when this issue is fixed https://github.com/mitchellh/vagrant/issues/2270
-        "server_url" => "dev.localhost"
+        "SERVER_URL" => "dev.localhost"
       }
     end
   end
