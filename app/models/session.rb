@@ -1,13 +1,13 @@
 # encoding: UTF-8
 class Session < ActiveRecord::Base
   attr_accessible :title, :summary, :description, :mechanics, :benefits,
-                  :target_audience, :audience_level_id, :audience_limit,
+                  :target_audience, :prerequisites, :audience_level_id, :audience_limit,
                   :author_id, :second_author_username, :track_id, :conference_id,
                   :session_type_id, :duration_mins, :experience,
                   :keyword_list, :author_agreement, :image_agreement, :state_event,
                   :language
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
-                  :target_audience, :experience
+                  :target_audience, :prerequisites, :experience
 
   acts_as_taggable_on :keywords
   acts_as_commentable
@@ -32,6 +32,7 @@ class Session < ActiveRecord::Base
   validates :description, :presence => true, :length => {:maximum => 2400}
   validates :benefits, :presence => true, :length => {:maximum => 400}
   validates :target_audience, :presence => true, :length => {:maximum => 200}
+  validates :prerequisites, :presence => true, :length => {:maximum => 200}
   validates :experience, :presence => true, :length => {:maximum => 400}
   validates :duration_mins, :presence => true, :session_duration => true, :allow_blank => true
   validates :keyword_list, :presence => true, :length => {:maximum => 10}

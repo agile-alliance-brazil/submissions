@@ -114,6 +114,7 @@ en:
         second_author_id: "Second author"
         second_author_username: "Second author's username"
         keyword_list: "Keywords"
+        prerequisites: "Prerequisites"
         created_at: "Created"
         updated_at: "Updated"
         state: "Status"
@@ -222,6 +223,7 @@ en:
         experience: "Describe your experience on the subject of this session. Focus on your actions, your context, and your inspirations. This field will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='%{year}/syntax_help?locale=en' target='_blank'>reference guide</a> for details.<br/>(at most 400 characters)"
         second_author_username: "Please provide the second author's username in this field. The second author must also be a registered user. If you don't know the second author's username or he/she is not registered yet, leave it blank and edit your session proposal before the submission deadline."
         keyword_list: "Separate keywords with commas.<br/>(at most 10 keywords)"
+        prerequisites: "Briefly explain what an attendee should already know to take the most out of your session" 
         tag_list: "Choose up to 10 tags that relate to your session"
       comment:
         comment: "In this field, a limited markup syntax is allowed. See the <a href='%{year}/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
