@@ -15,7 +15,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'submissions.agilebrazil.com', user: 'ubuntu', roles: %w{web app db}
+server 'submissoes.agilebrazil.com', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
 set :server_url, 'submissoes.agilebrazil.com'
 
