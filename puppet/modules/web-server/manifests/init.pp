@@ -1,4 +1,4 @@
-class web-server($app_name = "submissions", $server_name = "$app_name.$domain") {
+class web-server($app_name = "submissions", $server_url = "$app_name.$domain") {
 	include passenger-apache
 
 	package { "git-core":
@@ -7,6 +7,6 @@ class web-server($app_name = "submissions", $server_name = "$app_name.$domain") 
 	
 	class { "rails-app::passenger":
 		path => "/srv/apps/$app_name/current/public",
-		server_name => $server_name,
+		server_url => $server_url,
 	}
 }

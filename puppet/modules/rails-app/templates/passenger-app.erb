@@ -1,7 +1,7 @@
 <%- if @use_ssl -%>
 <VirtualHost *:80>
-   ServerName <%= @server_name %>
-   Redirect permanent / https://<%= @server_name %>/
+   ServerName <%= @server_url %>
+   Redirect permanent / https://<%= @server_url %>/
 </VirtualHost>
 
 NameVirtualHost *:443
@@ -37,7 +37,7 @@ NameVirtualHost *:443
 </VirtualHost>
 <%- else -%>
 <VirtualHost *:80>
-    ServerName <%= @server_name %>
+    ServerName <%= @server_url %>
     DocumentRoot <%= @path %>
     <Directory <%= @path %>>
         Allow from all
