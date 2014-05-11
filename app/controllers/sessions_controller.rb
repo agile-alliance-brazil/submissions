@@ -5,6 +5,7 @@ class SessionsController < InheritedResources::Base
   before_filter :load_tracks
   before_filter :load_audience_levels
   before_filter :load_session_types
+  before_filter :load_tags, :except => :show
   before_filter :load_comment, :only => :show
   before_filter :check_conference, :only => :show
   before_filter :load_session_filter, :only => :index
@@ -75,6 +76,10 @@ class SessionsController < InheritedResources::Base
 
   def load_session_filter
     @session_filter ||= SessionFilter.new(params)
+  end
+
+  def load_tags 
+  	@tags = ActsAsTaggableOn::Tag.all
   end
 
   def check_conference

@@ -25,7 +25,7 @@
 %ul.spaced
   %li.first #{t('formtastic.labels.session.keyword_list')}:
   - @session.keyword_list.each do |keyword|
-    %li= link_to h(keyword), sessions_path(@conference, :session_filter => {:tags => keyword})
+    %li= link_to h(t(keyword)), sessions_path(@conference, :session_filter => {:tags => keyword})
 
 = content_tag_for(:dl, @session) do
   - unless @session.language.blank?
