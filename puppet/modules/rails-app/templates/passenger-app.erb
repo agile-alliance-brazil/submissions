@@ -21,8 +21,7 @@ NameVirtualHost *:443
 
     SSLCertificateFile <%= File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server.crt')) %>
     SSLCertificateKeyFile <%= File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server_key.pem')) %>
-
-    <%- intermediate_cert_path = File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'server_intermediate.crt')) -%>
+    <%- intermediate_cert_path = File.expand_path(File.join(@path, '..', '..', 'shared', 'certs', 'intermediate.crt')) -%>
     <%- if File.exists?(intermediate_cert_path) -%>
     SSLCertificateChainFile <%= intermediate_cert_path %>
     <%- end -%>
