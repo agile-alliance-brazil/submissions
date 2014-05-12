@@ -31,8 +31,8 @@
   - unless @session.language.blank?
     %dt= t('formtastic.labels.session.language')
     %dd= t("generic.#{@session.language}")
-  %dt= t('formtastic.labels.session.target_audience')
-  %dd&= @session.try(:target_audience)
+  %dt= t('formtastic.labels.session.prerequisites')
+  %dd&= @session.try(:prerequisites)
   %dt= t('formtastic.labels.session.summary')
   %dd= textilize(@session.try(:summary))
   %dt= t('formtastic.labels.session.description')
@@ -40,6 +40,8 @@
   - unless @session.mechanics.blank?
     %dt= t('formtastic.labels.session.mechanics')
     %dd= textilize(@session.mechanics)
+  %dt= t('formtastic.labels.session.target_audience')
+  %dd&= @session.try(:target_audience)
   %dt= t('formtastic.labels.session.benefits')
   %dd= textilize(@session.try(:benefits))
   %dt= t('formtastic.labels.session.experience')

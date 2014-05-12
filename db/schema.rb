@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422013112) do
+ActiveRecord::Schema.define(:version => 20140508052319) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20140422013112) do
     t.datetime "updated_at",                                        :null => false
     t.string   "language"
     t.integer  "comments_count",                     :default => 0
+    t.string   "prerequisites"
   end
 
   add_index "sessions", ["audience_level_id"], :name => "index_sessions_on_audience_level_id"

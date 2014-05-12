@@ -121,3 +121,8 @@ form.formtastic fieldset ol ul.sessionTags li:after {
 form.formtastic fieldset ol ul.sessionTags li.selectedTag {
 	background-color: #CFC;
 }
+
+form.formtastic fieldset ol ul.sessionTags {
+    width: 90%;
+    text-align: center;
+}
