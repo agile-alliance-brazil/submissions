@@ -79,7 +79,7 @@ class SessionsController < InheritedResources::Base
   end
 
   def load_tags 
-  	@tags = ActsAsTaggableOn::Tag.all
+  	@tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).all
   end
 
   def check_conference
