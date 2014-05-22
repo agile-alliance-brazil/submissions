@@ -287,7 +287,7 @@ describe User do
   it "should retrieve the actual reviewer" do
     user = FactoryGirl.create(:user)
     reviewer = FactoryGirl.create(:reviewer, user: user)
-    user.actual_reviewer.id.should == reviewer.id
+    user.reviewer_for(Conference.current).id.should == reviewer.id
   end
   
   it "should not retrieve if there isn't an actual reviewer" do
@@ -297,7 +297,7 @@ describe User do
     old_conference.year = Time.now.year - 1
     old_conference.save!
     reviewer = FactoryGirl.create(:reviewer, user: user, conference: old_conference)
-    user.actual_reviewer.should == nil
+    user.reviewer_for(Conference.current).should == nil
   end
 
   it "should overide to_param with username" do

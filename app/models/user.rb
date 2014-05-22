@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   end
 
   scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
+  
 
   def organized_tracks(conference)
     Track.joins(:track_ownerships).where(:organizers => {
@@ -51,6 +52,10 @@ class User < ActiveRecord::Base
         :conference_id => conference.id,
         :user_id => self.id
     })
+  end
+
+  def reviewer_for conference
+    Reviewer.for_user(self).for_conference(conference).first
   end
 
   def sessions_for_conference(conference)
@@ -91,9 +96,5 @@ class User < ActiveRecord::Base
 
   def has_approved_session?(conference)
     Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
-  end
-  
-  def actual_reviewer
-    Reviewer.where(:user_id => self.id, :conference_id => Conference.current.id).first
   end
 end

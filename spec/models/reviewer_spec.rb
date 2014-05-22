@@ -246,4 +246,21 @@ describe Reviewer do
       reviewer.should be_can_review(@organizer.track)
     end
   end
+
+  context "display name rules" do
+    subject { FactoryGirl.create(:user, first_name: "Raphael", last_name: "Molesim") }
+    it "should display reviewer name if he decided to sign reviews" do
+      reviewer = FactoryGirl.create(:reviewer, :user => subject, sign_reviews: true)
+      reviewer.display_name.should == "Raphael Molesim"
+    end
+    it "should not display reviewer name if he decided to not sign reviews" do
+      reviewer = FactoryGirl.create(:reviewer, :user => subject, sign_reviews: false)
+      reviewer.display_name.should == "Avaliador"
+    end
+    it "should not display reviewer name and should optionally concat with a index" do
+      reviewer = FactoryGirl.create(:reviewer, :user => subject, sign_reviews: false)
+      reviewer.display_name(1).should == "Avaliador 1"
+    end
+  end
+
 end

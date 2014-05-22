@@ -69,4 +69,9 @@ class Reviewer < ActiveRecord::Base
   def can_review?(track)
     !user.organized_tracks(self.conference).include?(track)
   end
+
+  def display_name index=nil
+    return user.full_name if sign_reviews
+    "#{I18n.t('formtastic.labels.reviewer.user_id')} #{index}".strip
+  end
 end
