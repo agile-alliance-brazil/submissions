@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def reviewer_for conference
-    Reviewer.for_user(self).for_conference(conference).first
+    reviewers.for_conference(conference).first
   end
 
   def sessions_for_conference(conference)

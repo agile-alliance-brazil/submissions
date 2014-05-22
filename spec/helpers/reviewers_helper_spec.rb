@@ -17,21 +17,21 @@ describe ReviewersHelper do
     helper.review_level([preference], track).should == preference.audience_level.title
   end
 
-  it "should build hash with reviewers when reviewer is anonimous" do
+  it "should build hash with reviewers when reviewer is anonymous" do
     early_review = FactoryGirl.create(:early_review)
     reviewer = FactoryGirl.create(:reviewer, user: early_review.reviewer)
     reviwers, comments = helper.build_hash_with_reviewers_and_comments([early_review], Conference.current)
     reviwers[early_review].should == "Avaliador 1"
   end
 
-  it "should build hash with reviewers when reviewer is not anonimous" do
+  it "should build hash with reviewers when reviewer is not anonymous" do
     early_review = FactoryGirl.create(:early_review)
     reviewer = FactoryGirl.create(:reviewer, sign_reviews: true, user: early_review.reviewer)
     reviwers, comments = helper.build_hash_with_reviewers_and_comments([early_review], Conference.current)
     reviwers[early_review].should == reviewer.user.full_name 
   end
 
-  it "should build hash with reviewers when there are anonimous and not anonimous reviewers" do
+  it "should build hash with reviewers when there are anonymous and not anonymous reviewers" do
     early_review1 = FactoryGirl.create(:early_review)
     reviewer1 = FactoryGirl.create(:reviewer, sign_reviews: false, user: early_review1.reviewer)
     
