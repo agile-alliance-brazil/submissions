@@ -284,6 +284,22 @@ describe User do
     user.should be_in_brazil
   end
 
+  it "should retrieve the actual reviewer" do
+    user = FactoryGirl.create(:user)
+    reviewer = FactoryGirl.create(:reviewer, user: user)
+    user.reviewer_for(Conference.current).id.should == reviewer.id
+  end
+  
+  it "should not retrieve if there isn't an actual reviewer" do
+    user = FactoryGirl.create(:user)
+    old_conference = Conference.new 
+    old_conference.name = "AgileBrazil XXXX", 
+    old_conference.year = Time.now.year - 1
+    old_conference.save!
+    reviewer = FactoryGirl.create(:reviewer, user: user, conference: old_conference)
+    user.reviewer_for(Conference.current).should == nil
+  end
+
   it "should overide to_param with username" do
     user = FactoryGirl.create(:user, :username => 'danilo.sato 1990@2')
     user.to_param.ends_with?("-danilo-sato-1990-2").should be_true

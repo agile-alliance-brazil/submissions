@@ -1,9 +1,3 @@
-- reviewers = {}
-- comments = {}
-- comments_label = t('review.comments_to_authors')
-- @reviews.each_with_index do |review, index|
-  - reviewers[review] = t('formtastic.labels.reviewer.user_id') + ' ' + (index + 1).to_s
-  - comments[review] = review.comments_to_authors
-
+- reviewers, comments = build_hash_with_reviewers_and_comments(@reviews, Conference.current)
 = render 'reviews', :should_justify => false, :reviewers => reviewers,
                     :comments_to_author => comments, :comments_to_author_label => t('review.comments_to_authors')

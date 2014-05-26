@@ -8,4 +8,14 @@ module ReviewersHelper
       'reviewer.doesnot_review' 
      end
   end
+
+  def build_hash_with_reviewers_and_comments reviews, conference
+  	reviewers, comments = {}, {}
+		reviews.each_with_index do |review, index|
+		  reviewer = review.reviewer.reviewer_for(conference)
+		  reviewers[review] = reviewer.display_name(index + 1)
+		  comments[review] = review.comments_to_authors
+		end
+		[reviewers, comments]
+  end
 end

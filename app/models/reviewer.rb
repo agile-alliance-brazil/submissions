@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Reviewer < ActiveRecord::Base
   attr_accessible :user_id, :conference_id, :user_username, :preferences_attributes,
-                  :reviewer_agreement, :state_event
+                  :reviewer_agreement, :sign_reviews, :state_event
   attr_trimmed    :user_username
 
   attr_autocomplete_username_as :user
@@ -68,5 +68,10 @@ class Reviewer < ActiveRecord::Base
 
   def can_review?(track)
     !user.organized_tracks(self.conference).include?(track)
+  end
+
+  def display_name index=nil
+    return user.full_name if sign_reviews
+    "#{I18n.t('formtastic.labels.reviewer.user_id')} #{index}".strip
   end
 end
