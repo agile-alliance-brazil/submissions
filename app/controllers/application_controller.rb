@@ -38,7 +38,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_timezone(&block)
-    # current_user.time_zone #=> 'London'
     Time.use_zone(params[:time_zone], &block)
   end
 

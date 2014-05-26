@@ -13,13 +13,12 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
-  def reset_password_instructions(user, sent_at = Time.now, opts = {})
+  def reset_password_instructions(user, opts = {})
     @user = user
     @conference_name = current_conference.name
     I18n.with_locale(@user.default_locale) do
       mail :subject => "[#{host}] #{I18n.t('email.password_reset.subject')}",
-           :to      => EmailNotifications.format_email(user),
-           :date    => sent_at
+           :to      => EmailNotifications.format_email(user)
     end
   end
 
