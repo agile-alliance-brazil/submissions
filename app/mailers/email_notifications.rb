@@ -13,7 +13,7 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
-  def reset_password_instructions(user, opts = {})
+  def reset_password_instructions(user, sent_at = Time.now, opts = {})
     @user = user
     @conference_name = current_conference.name
     I18n.with_locale(@user.default_locale) do
