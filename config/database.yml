@@ -14,6 +14,16 @@ test:
   adapter: sqlite3
   database: 'db/test.sqlite3'
 
+staging:
+  adapter: mysql2
+  encoding: utf8
+  database: submissions_production
+  username: submissions_db
+  password: 53cr3T
+  host: localhost
+  port: 3306
+
+
 # When using mysql2 gem, you might need to setup the library if you're on Snow Leopard (Mac):
 # export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 production:
