@@ -1,4 +1,4 @@
-class rails-app::passenger ($path = '/srv/apps/rails-app/current/public', $server_url) {
+class rails-app::passenger ($path = '/srv/apps/rails-app/current/public', $server_url, $rails_env) {
   file { "/etc/apache2/sites-available/$server_url":
     ensure => 'present',
     content => template('rails-app/passenger-app.erb'),

@@ -46,6 +46,7 @@ namespace :deploy do
       within release_path do
         execute :sudo, '/usr/bin/env',
           "FACTER_server_url='#{fetch(:server_url)}'",
+          "FACTER_rails_env='#{fetch(:rails_env)}'",
           :sh, "-c '/usr/local/bin/puppet apply\
           --modulepath /etc/puppet/modules:puppet/modules\
           puppet/manifests/#{fetch(:manifest)}.pp'"

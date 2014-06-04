@@ -23,6 +23,7 @@ gem 'airbrake', '3.1.16'
 gem 'aws-ses', '0.5.0', require: 'aws/ses'
 gem 'mysql2', '0.3.15'
 gem 'doorkeeper', '1.0.0'
+gem 'newrelic_rpm', '3.8.1.221'
 
 platforms :ruby do
   gem 'RedCloth', '4.2.9', require: 'redcloth'
