@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Reviewer do
+describe Reviewer, type: :model do
   before(:each) do
     EmailNotifications.stubs(:reviewer_invitation).returns(stub(:deliver => true))
   end
@@ -32,14 +32,14 @@ describe Reviewer do
     it "should validate that at least 1 preference was accepted" do
       reviewer = FactoryGirl.create(:reviewer)
       reviewer.preferences.build(:accepted => false)
-      reviewer.accept.should be_false
+      reviewer.accept.should be false
       reviewer.errors[:base].should include(I18n.t("activerecord.errors.models.reviewer.preferences"))
     end
 
     it "should validate that reviewer agreement was accepted" do
       reviewer = FactoryGirl.create(:reviewer, :reviewer_agreement => false)
       reviewer.preferences.build(:accepted => true, :track_id => 1, :audience_level_id => 1)
-      reviewer.accept.should be_false
+      reviewer.accept.should be false
       reviewer.errors[:reviewer_agreement].should include(I18n.t("errors.messages.accepted"))
     end
 
@@ -88,17 +88,17 @@ describe Reviewer do
       end
 
       it "should allow invite" do
-        @reviewer.invite.should be_true
+        @reviewer.invite.should be true
         @reviewer.should_not be_created
         @reviewer.should be_invited
       end
 
       it "should not allow accept" do
-        @reviewer.accept.should be_false
+        @reviewer.accept.should be false
       end
 
       it "should not allow reject" do
-        @reviewer.reject.should be_false
+        @reviewer.reject.should be false
       end
     end
 
@@ -116,20 +116,20 @@ describe Reviewer do
       end
 
       it "should allow inviting again" do
-        @reviewer.invite.should be_true
+        @reviewer.invite.should be true
         @reviewer.should be_invited
       end
 
       it "should allow accepting" do
         # TODO: review this
         @reviewer.preferences.build(:accepted => true, :track_id => @reviewer.conference.tracks.first.id, :audience_level_id => @reviewer.conference.audience_levels.first.id)
-        @reviewer.accept.should be_true
+        @reviewer.accept.should be true
         @reviewer.should_not be_invited
         @reviewer.should be_accepted
       end
 
       it "should allow rejecting" do
-        @reviewer.reject.should be_true
+        @reviewer.reject.should be true
         @reviewer.should_not be_invited
         @reviewer.should be_rejected
       end
@@ -145,15 +145,15 @@ describe Reviewer do
       end
 
       it "should not allow invite" do
-        @reviewer.invite.should be_false
+        @reviewer.invite.should be false
       end
 
       it "should not allow accepting" do
-        @reviewer.accept.should be_false
+        @reviewer.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @reviewer.reject.should be_false
+        @reviewer.reject.should be false
       end
     end
 
@@ -165,15 +165,15 @@ describe Reviewer do
       end
 
       it "should not allow invite" do
-        @reviewer.invite.should be_false
+        @reviewer.invite.should be false
       end
 
       it "should not allow accepting" do
-        @reviewer.accept.should be_false
+        @reviewer.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @reviewer.reject.should be_false
+        @reviewer.reject.should be false
       end
     end
   end

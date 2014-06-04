@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe AllHands do
+describe AllHands, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :title }
 

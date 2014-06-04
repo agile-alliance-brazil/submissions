@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Session do
+describe Session, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :title }
     it { should allow_mass_assignment_of :summary }
@@ -170,7 +170,7 @@ describe Session do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
-        session.update_attributes(:state_event => 'accept', :author_agreement => false).should be_false
+        session.update_attributes(:state_event => 'accept', :author_agreement => false).should be false
         session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
 
@@ -178,7 +178,7 @@ describe Session do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
-        session.update_attributes(:state_event => 'reject', :author_agreement => false).should be_false
+        session.update_attributes(:state_event => 'reject', :author_agreement => false).should be false
         session.errors[:author_agreement].should include(I18n.t("errors.messages.accepted"))
       end
     end
@@ -354,18 +354,18 @@ describe Session do
     it "should determine if it's #{title}" do
       session = FactoryGirl.build(:session)
       session.session_type.title = "session_types.#{title}.title"
-      session.send(:"#{title}?").should be_true
+      session.send(:"#{title}?").should be true
       session.session_type.title = "session_types.other.title"
-      session.send(:"#{title}?").should be_false
+      session.send(:"#{title}?").should be false
     end
   end
 
   it "should overide to_param with session title" do
     session = FactoryGirl.create(:session, :title => "refatoração e código limpo: na prática.")
-    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_true
+    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be true
 
     session.title = nil
-    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be_false
+    session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica").should be false
   end
 
   context "authors" do
@@ -392,9 +392,9 @@ describe Session do
       user.add_role(:author)
 
       session = FactoryGirl.build(:session, :author => user)
-      session.is_author?(user).should be_true
+      session.is_author?(user).should be true
       session.author = nil
-      session.is_author?(user).should be_false
+      session.is_author?(user).should be false
     end
 
     it "should state that second author is author" do
@@ -402,9 +402,9 @@ describe Session do
       user.add_role(:author)
 
       session = FactoryGirl.build(:session, :second_author => user)
-      session.is_author?(user).should be_true
+      session.is_author?(user).should be true
       session.second_author = nil
-      session.is_author?(user).should be_false
+      session.is_author?(user).should be false
     end
   end
 
@@ -419,27 +419,27 @@ describe Session do
       end
 
       it "should allow reviewing" do
-        @session.reviewing.should be_true
+        @session.reviewing.should be true
         @session.should_not be_created
         @session.should be_in_review
       end
 
       it "should allow cancel" do
-        @session.cancel.should be_true
+        @session.cancel.should be true
         @session.should_not be_created
         @session.should be_cancelled
       end
 
       it "should not allow tentatively accept" do
-        @session.tentatively_accept.should be_false
+        @session.tentatively_accept.should be false
       end
 
       it "should not allow accepting" do
-        @session.accept.should be_false
+        @session.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @session.reject.should be_false
+        @session.reject.should be false
       end
     end
 
@@ -450,28 +450,28 @@ describe Session do
       end
 
       it "should allow reviewing again" do
-        @session.reviewing.should be_true
+        @session.reviewing.should be true
         @session.should be_in_review
       end
 
       it "should allow cancel" do
-        @session.cancel.should be_true
+        @session.cancel.should be true
         @session.should_not be_in_review
         @session.should be_cancelled
       end
 
       it "should allow tentatively accept" do
-        @session.tentatively_accept.should be_true
+        @session.tentatively_accept.should be true
         @session.should_not be_in_review
         @session.should be_pending_confirmation
       end
 
       it "should not allow accepting" do
-        @session.accept.should be_false
+        @session.accept.should be false
       end
 
       it "should allow rejecting" do
-        @session.reject.should be_true
+        @session.reject.should be true
         @session.should_not be_in_review
         @session.should be_rejected
       end
@@ -484,23 +484,23 @@ describe Session do
       end
 
       it "should not allow reviewing" do
-        @session.reviewing.should be_false
+        @session.reviewing.should be false
       end
 
       it "should not allow cancelling" do
-        @session.cancel.should be_false
+        @session.cancel.should be false
       end
 
       it "should not allow tentatively accept" do
-        @session.tentatively_accept.should be_false
+        @session.tentatively_accept.should be false
       end
 
       it "should not allow accepting" do
-        @session.accept.should be_false
+        @session.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @session.reject.should be_false
+        @session.reject.should be false
       end
     end
 
@@ -512,25 +512,25 @@ describe Session do
       end
 
       it "should not allow reviewing" do
-        @session.reviewing.should be_false
+        @session.reviewing.should be false
       end
 
       it "should not allow cancelling" do
-        @session.cancel.should be_false
+        @session.cancel.should be false
       end
 
       it "should not allow tentatively accept" do
-        @session.tentatively_accept.should be_false
+        @session.tentatively_accept.should be false
       end
 
       it "should allow accepting" do
-        @session.accept.should be_true
+        @session.accept.should be true
         @session.should_not be_pending_confirmation
         @session.should be_accepted
       end
 
       it "should allow rejecting" do
-        @session.reject.should be_true
+        @session.reject.should be true
         @session.should_not be_pending_confirmation
         @session.should be_rejected
       end
@@ -545,23 +545,23 @@ describe Session do
       end
 
       it "should not allow reviewing" do
-        @session.reviewing.should be_false
+        @session.reviewing.should be false
       end
 
       it "should not allow cancelling" do
-        @session.cancel.should be_false
+        @session.cancel.should be false
       end
 
       it "should not allow tentatively accept" do
-        @session.tentatively_accept.should be_false
+        @session.tentatively_accept.should be false
       end
 
       it "should not allow accepting" do
-        @session.accept.should be_false
+        @session.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @session.reject.should be_false
+        @session.reject.should be false
       end
     end
 
@@ -573,25 +573,25 @@ describe Session do
       end
 
       it "should not allow reviewing" do
-        @session.reviewing.should be_false
+        @session.reviewing.should be false
       end
 
       it "should not allow cancelling" do
-        @session.cancel.should be_false
+        @session.cancel.should be false
       end
 
       it "should allow tentatively accept" do
-        @session.tentatively_accept.should be_true
+        @session.tentatively_accept.should be true
         @session.should_not be_rejected
         @session.should be_pending_confirmation
       end
 
       it "should not allow accepting" do
-        @session.accept.should be_false
+        @session.accept.should be false
       end
 
       it "should not allow rejecting" do
-        @session.reject.should be_false
+        @session.reject.should be false
       end
     end
   end

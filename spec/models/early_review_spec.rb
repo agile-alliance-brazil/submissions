@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe EarlyReview do
+describe EarlyReview, type: :model do
   before(:each) do
     EmailNotifications.stubs(:early_review_submitted).returns(stub(:deliver => true))
   end

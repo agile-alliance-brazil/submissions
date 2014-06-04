@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe OrganizersController do
+describe OrganizersController, type: :controller do
   before(:each) do
     @user ||= FactoryGirl.create(:user)
     sign_in @user

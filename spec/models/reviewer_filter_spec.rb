@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ReviewerFilter do
+describe ReviewerFilter, type: :model do
   it_should_behave_like "ActiveModel"
 
   describe "filtering by state" do

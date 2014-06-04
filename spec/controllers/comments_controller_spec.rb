@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe CommentsController do
+describe CommentsController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :index, :show, :create, :edit, :update, :destroy

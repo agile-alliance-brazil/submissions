@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Api::V1::UsersController do
+describe Api::V1::UsersController, type: :controller do
 
   let(:user)  { FactoryGirl.create(:user) }
   let(:token) { stub(:accessible? => true, :resource_owner_id => user.id) }

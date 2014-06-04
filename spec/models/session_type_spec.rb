@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe SessionType do
+describe SessionType, type: :model do
 
   context "validations" do
     it { should validate_presence_of :title }
@@ -20,9 +20,9 @@ describe SessionType do
   SessionType.all_titles.each do |title|
     it "should determine if it's #{title}" do
       session_type = FactoryGirl.build(:session_type, :title => "session_types.#{title}.title")
-      session_type.send(:"#{title}?").should be_true
+      session_type.send(:"#{title}?").should be true
       session_type = FactoryGirl.build(:session_type, :title => 'session_types.other.title')
-      session_type.send(:"#{title}?").should be_false
+      session_type.send(:"#{title}?").should be false
     end
   end
 end

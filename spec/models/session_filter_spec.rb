@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe SessionFilter do
+describe SessionFilter, type: :model do
   it_should_behave_like "ActiveModel"
 
   describe "filtering by user" do

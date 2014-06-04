@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe PasswordResetsController do
+describe PasswordResetsController, type: :controller do
   render_views
   it_should_behave_like_a_devise_controller
 

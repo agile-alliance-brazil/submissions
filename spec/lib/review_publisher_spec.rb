@@ -77,7 +77,7 @@ describe ReviewPublisher do
 
     it "should mark review decisions as published" do
       @publisher.publish
-      @sessions.map(&:review_decision).all? {|r| r.published?}.should be_true
+      @sessions.map(&:review_decision).all? {|r| r.published?}.should be true
     end
 
     it "should send reject e-mails before acceptance e-mails" do

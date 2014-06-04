@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ReviewersController do
+describe ReviewersController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :index, :new, :create

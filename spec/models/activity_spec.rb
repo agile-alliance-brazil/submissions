@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Activity do
+describe Activity, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :start_at }
     it { should allow_mass_assignment_of :end_at }
@@ -23,17 +23,17 @@ describe Activity do
 
     context "starting along with slot" do
       let(:slot) { Slot.from(Time.parse("08:00"), 30.minutes) }
-      it { should be_true }
+      it { should be true }
     end
 
     context "starting prior to slot" do
       let(:slot) { Slot.from(Time.parse("08:30"), 30.minutes) }
-      it { should be_false }
+      it { should be false }
     end
 
     context "starting after slot" do
       let(:slot) { Slot.from(Time.parse("07:30"), 30.minutes) }
-      it { should be_false }
+      it { should be false }
     end
   end
 
@@ -43,12 +43,12 @@ describe Activity do
 
     context "on same room" do
       let(:room) { activity.room }
-      it { should be_true }
+      it { should be true }
     end
 
     context "on a different room" do
       let(:room) { FactoryGirl.build(:room) }
-      it { should be_false }
+      it { should be false }
     end
   end
 

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
  
-describe WithdrawSessionsController do
+describe WithdrawSessionsController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :show, :update

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe User do
+describe User, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :first_name }
     it { should allow_mass_assignment_of :last_name }
@@ -302,10 +302,10 @@ describe User do
 
   it "should overide to_param with username" do
     user = FactoryGirl.create(:user, :username => 'danilo.sato 1990@2')
-    user.to_param.ends_with?("-danilo-sato-1990-2").should be_true
+    user.to_param.ends_with?("-danilo-sato-1990-2").should be true
 
     user.username = nil
-    user.to_param.ends_with?("-danilo-sato-1990-2").should be_false
+    user.to_param.ends_with?("-danilo-sato-1990-2").should be false
   end
 
   it "should have 'pt' as default locale" do

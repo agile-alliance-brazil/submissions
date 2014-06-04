@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Preference do
+describe Preference, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :reviewer_id }
     it { should allow_mass_assignment_of :track_id }

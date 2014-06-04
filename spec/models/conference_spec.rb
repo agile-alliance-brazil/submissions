@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Conference do
+describe Conference, type: :model do
   context "associations" do
     it { should have_many :tracks }
     it { should have_many :audience_levels }

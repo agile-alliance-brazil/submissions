@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe GuestSession do
+describe GuestSession, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :title }
     it { should allow_mass_assignment_of :author }

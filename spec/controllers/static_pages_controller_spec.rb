@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe StaticPagesController do
+describe StaticPagesController, type: :controller do
   it "should route to guidelines page" do
     {:get => '/2010/guidelines'}.should route_to(:controller => 'static_pages', :action => 'show', :page => 'guidelines', :year => '2010')
   end

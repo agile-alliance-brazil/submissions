@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Ability do
+describe Ability, type: :model do
   before(:each) do
     @user ||= FactoryGirl.build(:user)
     @conference = Conference.current

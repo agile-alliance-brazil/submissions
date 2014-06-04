@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ReviewersHelper do
+describe ReviewersHelper, type: :helper do
   it "should reply doesnot_review for track without preferences" do
     helper.review_level([], FactoryGirl.build(:track)).should == 'reviewer.doesnot_review'
   end

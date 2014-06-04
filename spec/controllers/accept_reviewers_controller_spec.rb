@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe AcceptReviewersController do
+describe AcceptReviewersController, type: :controller do
   before(:each) do
     @reviewer = FactoryGirl.create(:reviewer)
     Reviewer.stubs(:find).returns(@reviewer)

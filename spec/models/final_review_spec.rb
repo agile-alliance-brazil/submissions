@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe FinalReview do
+describe FinalReview, type: :model do
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :author_agile_xp_rating_id }
     it { should allow_mass_assignment_of :author_proposal_xp_rating_id }

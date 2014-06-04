@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe OrganizerReportsController do
+describe OrganizerReportsController, type: :controller do
 
   before(:each) do
     @organizer = FactoryGirl.create(:organizer)

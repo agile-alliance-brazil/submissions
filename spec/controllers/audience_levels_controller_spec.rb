@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
  
-describe AudienceLevelsController do
+describe AudienceLevelsController, type: :controller do
   render_views
 
   it "index action should render index template" do

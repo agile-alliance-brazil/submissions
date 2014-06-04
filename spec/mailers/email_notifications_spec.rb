@@ -8,7 +8,7 @@ shared_examples_for "standard conference e-mail" do
   it { should reply_to("\"#{conference.name}\" <#{AppConfig[:sender_address]}>") }
 end
 
-describe EmailNotifications do
+describe EmailNotifications, type: :mailer do
   let(:conference) { Conference.current }
 
   around do |example|

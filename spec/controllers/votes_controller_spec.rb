@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe VotesController, :render_views => true do
+describe VotesController, type: :controller do
   render_views
 
   it "show should work" do
@@ -9,7 +9,7 @@ describe VotesController, :render_views => true do
   end
 end
 
-describe VotesController do
+describe VotesController, type: :controller do
 
   it_should_require_login_for_actions :index, :create, :destroy
 

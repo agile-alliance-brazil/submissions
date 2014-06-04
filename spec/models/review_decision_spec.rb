@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ReviewDecision do
+describe ReviewDecision, type: :model do
 
   context "protect from mass assignment" do
     it { should allow_mass_assignment_of :organizer_id }
@@ -61,7 +61,7 @@ describe ReviewDecision do
 
         @review_decision.outcome = Outcome.find_by_title('outcomes.accept.title')
 
-        @review_decision.save.should be_true
+        @review_decision.save.should be true
         @review_decision.session.should be_pending_confirmation
       end
 
@@ -70,7 +70,7 @@ describe ReviewDecision do
 
         @review_decision.outcome = Outcome.find_by_title('outcomes.accept.title')
 
-        @review_decision.save.should be_true
+        @review_decision.save.should be true
         @review_decision.session.should be_pending_confirmation
       end
 
@@ -79,7 +79,7 @@ describe ReviewDecision do
 
         @review_decision.outcome = Outcome.find_by_title('outcomes.reject.title')
 
-        @review_decision.save.should be_true
+        @review_decision.save.should be true
         @review_decision.session.should be_rejected
       end
 
@@ -88,7 +88,7 @@ describe ReviewDecision do
 
         @review_decision.outcome = Outcome.find_by_title('outcomes.reject.title')
 
-        @review_decision.save.should be_true
+        @review_decision.save.should be true
         @review_decision.session.should be_rejected
       end
     end

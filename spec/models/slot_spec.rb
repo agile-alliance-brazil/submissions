@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Slot do
+describe Slot, type: :model do
   def at(time)
     Time.parse(time)
   end

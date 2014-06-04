@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Outcome do
+describe Outcome, type: :model do
   context "validations" do
     it { should validate_presence_of :title }
   end

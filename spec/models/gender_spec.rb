@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Gender do
+describe Gender, type: :model do
   it "should provide translated options for select" do
     Gender.options_for_select.should include([I18n.t('gender.male'), 'M'])
     Gender.options_for_select.should include([I18n.t('gender.female'), 'F'])

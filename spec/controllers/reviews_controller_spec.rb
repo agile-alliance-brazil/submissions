@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ReviewsController do
+describe ReviewsController, type: :controller do
   before(:each) do
     @early_review ||= FactoryGirl.create(:early_review)
     FactoryGirl.create(:reviewer, user: @early_review.reviewer)

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe AcceptedSessionsController, :render_views => true do
+describe AcceptedSessionsController, :type => :controller do
   render_views
 
   it "index should work" do
@@ -10,7 +10,7 @@ describe AcceptedSessionsController, :render_views => true do
   end
 end
 
-describe AcceptedSessionsController do
+describe AcceptedSessionsController, type: :controller do
   describe "#index" do
     it "should fetch all activities" do
       conference = Conference.find_by_year(2012)

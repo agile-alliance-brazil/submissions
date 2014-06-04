@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe SessionsHelper do
+describe SessionsHelper, type: :helper do
 
   describe "#all_durations_for" do
     context "empty session types" do

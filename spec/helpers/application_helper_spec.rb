@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ApplicationHelper do
+describe ApplicationHelper, type: :helper do
   describe "fix URL" do
     it "should prepend 'http://' if missing" do
       helper.prepend_http('www.dtsato.com').should == 'http://www.dtsato.com'

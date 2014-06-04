@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe UsersController, :render_views => true do
+describe UsersController, type: :controller do
   fixtures :users
   render_views
 
@@ -10,7 +10,7 @@ describe UsersController, :render_views => true do
   end
 end
 
-describe UsersController do
+describe UsersController, type: :controller do
   fixtures :users
 
   describe "#index" do
