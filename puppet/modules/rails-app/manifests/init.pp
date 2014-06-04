@@ -22,6 +22,12 @@ class rails-app( $user, $app_name ) {
     require => Exec["update-gem-sources"],
   }
 
+  package { "librarian-puppet":
+    provider => "gem",
+    ensure => "1.0.2",
+    require => Exec["update-gem-sources"],
+  }
+
   file { "/srv":
     ensure => "directory",
   }
