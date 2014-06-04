@@ -32,7 +32,7 @@ set :deploy_via,          :remote_cache
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/config.yml}
+set :linked_files, %w{config/database.yml config/config.yml config/newrelic.yml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log certs tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
