@@ -65,9 +65,9 @@ Conference.seed do |conference|
   conference.submissions_open          = Time.zone.local(2014, 5, 14)
   conference.presubmissions_deadline   = nil# No pre review
   conference.prereview_deadline        = nil# No pre review
-  conference.submissions_deadline      = Time.zone.local(2014, 6, 26, 23, 59, 59)
-  conference.review_deadline           = Time.zone.local(2014, 7, 15, 23, 59, 59)
+  conference.submissions_deadline      = Time.zone.local(2014, 7, 20, 23, 59, 59)
+  conference.review_deadline           = Time.zone.local(2014, 8, 9, 23, 59, 59)
   conference.voting_deadline           = nil# No voting
-  conference.author_notification       = Time.zone.local(2014, 8, 1, 23, 59, 59)
-  conference.author_confirmation       = Time.zone.local(2014, 8, 10, 2, 59, 59)
+  conference.author_notification       = Time.zone.local(2014, 8, 25, 23, 59, 59)
+  conference.author_confirmation       = Time.zone.local(2014, 9, 4, 2, 59, 59)
 end
