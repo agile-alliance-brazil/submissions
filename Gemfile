@@ -48,6 +48,7 @@ group :development do
   gem 'foreman', '0.71.0'
   gem 'bullet', '4.9.0'
   gem 'lol_dba', '1.6.0'
+  gem 'debugger', '1.6.8'
 end
 
 group :test do
