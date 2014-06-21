@@ -276,19 +276,19 @@ ul.spaced {
     a:hover {
       border: solid 1px $color2; } } }
 
-#flash_notice, #flash_error, #flash_news, #flash_alert {
+.flash_notice, .flash_error, .flash_news, .flash_alert {
   padding: 5px 8px;
   margin: 10px 0; }
 
-#flash_notice {
+.flash_notice {
   background-color: #ccffcc;
   border: solid 1px #66cc66; }
 
-#flash_error, #flash_alert {
+.flash_error, .flash_alert {
   background-color: #ffcccc;
   border: solid 1px #cc6666; }
 
-#flash_news {
+.flash_news {
   background-color: #fff6bf;
   border: solid 1px #ffd324; }
 
