@@ -38,6 +38,7 @@ AgileBrazil::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.filter_parameters = []
 
   config.after_initialize do
     Bullet.enable = true
