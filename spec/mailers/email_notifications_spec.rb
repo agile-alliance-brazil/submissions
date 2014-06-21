@@ -45,13 +45,13 @@ describe EmailNotifications, type: :mailer do
     let(:user) { FactoryGirl.build(:user) }
     before { user.send(:send_reset_password_instructions) }
 
-    subject { EmailNotifications.reset_password_instructions(user) }
+    subject { EmailNotifications.reset_password_instructions(user, :fake_token) }
 
     it_should_behave_like "standard conference e-mail"
 
     it { should deliver_to("#{user.full_name} <#{user.email}>") }
     it { should have_body_text(/\/password\/edit\?/) }
-    it { should have_body_text(/#{user.reset_password_token}/) }
+    it { should have_body_text(/fake_token/) }
 
     context "in pt" do
       before { user.default_locale = 'pt' }
