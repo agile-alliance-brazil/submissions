@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  helper_method :sessionsByTrack
   protect_from_forgery
 
   around_filter :set_locale
@@ -29,6 +30,14 @@ class ApplicationController < ActionController::Base
 
   def sanitize(text)
     text.gsub(/[\s;'\"]/,'')
+  end
+
+  def sessionsByTrack
+    submittedSessions = ""
+    Conference.current.tracks.all.each do |t|
+      submittedSessions << ", ['#{t(t.title)}', #{t.sessions.count}]"
+    end
+    submittedSessions
   end
 
   private

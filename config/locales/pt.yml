@@ -315,6 +315,7 @@ pt:
     create_review_decision: "Novo Parecer"
     edit_review_decision: "Editar Parecer"
     my_votes: "Meus votos"
+    submissionByTrack: "Submissões por trilha"
 
   text:
     lost_password:
