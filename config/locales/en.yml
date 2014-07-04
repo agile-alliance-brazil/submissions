@@ -317,6 +317,8 @@ en:
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
     my_votes: "My votes"
+    submissionByTrack: "Submission per track"
+
 
   text:
     lost_password:
