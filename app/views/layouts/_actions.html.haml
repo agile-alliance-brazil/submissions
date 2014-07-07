@@ -123,10 +123,9 @@
   #warning
     %p= t('tips.users_from_last_year').html_safe
 
-%h4= t('actions.submissionByTrack')
 = javascript_include_tag "https://www.google.com/jsapi"
-
-%div{ :id => "submittedByTrack", :style => "margin-left: -2em;"}
+%h4= t('actions.submissionByTrack')
+%div{ :id => "submittedByTrack", :style => "margin-left: -3em;"}
 
 :javascript
   google.load("visualization", "1", {packages:["corechart"]});
@@ -134,7 +133,7 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Track', 'Submitted sessions']
-        #{sessionsByTrack}
+        #{sessions_by_track}
     ]);
 
     var options = {
@@ -145,3 +144,4 @@
     var chart = new google.visualization.PieChart(document.getElementById('submittedByTrack'));
     chart.draw(data, options);
   }
+

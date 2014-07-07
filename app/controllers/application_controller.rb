@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :sessionsByTrack
+  helper_method :sessions_by_track
   protect_from_forgery
 
   around_filter :set_locale
@@ -32,12 +32,12 @@ class ApplicationController < ActionController::Base
     text.gsub(/[\s;'\"]/,'')
   end
 
-  def sessionsByTrack
-    submittedSessions = ""
-    Conference.current.tracks.all.each do |t|
-      submittedSessions << ", ['#{t(t.title)}', #{t.sessions.count}]"
+  def sessions_by_track
+    session_track_count = ""
+    @conference.tracks.all.each do |t|
+      session_track_count << ", ['#{t(t.title)}', #{t.sessions.count}]"
     end
-    submittedSessions
+    session_track_count
   end
 
   private
