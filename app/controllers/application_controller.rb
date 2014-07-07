@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sessions_by_track
+  helper_method :sessions_by_type
   protect_from_forgery
 
   around_filter :set_locale
@@ -38,6 +39,15 @@ class ApplicationController < ActionController::Base
       session_track_count << ", ['#{t(t.title)}', #{t.sessions.count}]"
     end
     session_track_count
+  end
+
+  def sessions_by_type
+    session_type_count = ""
+    SessionType.where(conference_id: @conference).each do |type|
+      sessions_in_this_type = Session.where(session_type_id: type).count
+      session_type_count << ", ['#{t(type.title)}', #{sessions_in_this_type}]"
+    end
+    session_type_count
   end
 
   private

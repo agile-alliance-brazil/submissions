@@ -317,7 +317,8 @@ en:
     create_review_decision: "New Decision"
     edit_review_decision: "Edit Decision"
     my_votes: "My votes"
-    submissionByTrack: "Submission per track"
+    submissionByTrack: "Submissions by track"
+    submissionByType: "Submissions by type"
 
 
   text:
