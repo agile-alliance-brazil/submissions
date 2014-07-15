@@ -122,3 +122,50 @@
   %br
   #warning
     %p= t('tips.users_from_last_year').html_safe
+
+= javascript_include_tag "https://www.google.com/jsapi"
+%h4= t('actions.submissionByTrack')
+%div{ :id => "submittedByTrack", :style => "margin-left: -3em;"}
+
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Track', 'Submitted sessions']
+        #{sessions_by_track}
+    ]);
+
+    var options = {
+      pieSliceText: 'none',
+      colors: ['#00991f', '#003499', '#9923e8', '#ff0000', '#e87b0c', '#ffe100'],
+      pieHole: 0.4,
+      legend: 'none'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('submittedByTrack'));
+    chart.draw(data, options);
+  }
+
+%h4= t('actions.submissionByType')
+%div{ :id => "submittedByType", :style => "margin-left: -3em;"}
+
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Track', 'Submitted sessions']
+        #{sessions_by_type}
+    ]);
+
+    var options = {
+      pieSliceText: 'none',
+      colors: ['#2d8e6c', '#61a363', '#9cb95a', '#d1cd52'],
+      pieHole: 0.4,
+      legend: 'none'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('submittedByType'));
+    chart.draw(data, options);
+  }
