@@ -15,7 +15,7 @@
         = textilize(@session.try(:description))
       %p
         %strong #{t('formtastic.labels.session.keyword_list')}:
-        = @session.keyword_list.join(', ')
+        = @session.keyword_list.map({|keyword| t(keyword)}).join(', ')
       - unless @session.language.blank?
         %p
           %strong #{t('formtastic.labels.session.language')}:
