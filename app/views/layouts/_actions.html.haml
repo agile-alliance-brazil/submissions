@@ -46,7 +46,7 @@
       - if can? :read, 'organizer_reports'
         %li= link_to t('actions.organizer_reports'), organizer_reports_path(@conference, :format => :xls)
       - if can? :read, 'reviewer_sessions'
-        %li= link_to t('actions.reviewer_sessions'), reviewer_sessions_path(@conference)
+        %li= link_to "#{t('actions.reviewer_sessions')} (#{current_user.reviews.for_conference(@conference).count})", reviewer_sessions_path(@conference)
       - if can? :reviewer, 'reviews_listing'
         %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path(@conference)
       - if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
