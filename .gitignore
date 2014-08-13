@@ -14,3 +14,4 @@ certs/*
 .sass-cache/
 public/assets/
 vendor/bundle/**/*
+.ruby-gemset
