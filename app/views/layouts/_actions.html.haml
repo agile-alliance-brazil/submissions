@@ -19,47 +19,16 @@
       #date
         %p= t("conference.dates.#{next_deadline.last}")
         %p <strong>#{l(next_deadline.first.to_date)}</strong>
+
   %h3
     = render_avatar(current_user)
     &= current_user.full_name
 
-  %h4= t('actions.section.session')
-  %ul
-    - if can? :create, Session
-      %li= link_to t('actions.submit_session'), new_session_path(@conference)
-    - if can? :read, Session
-      %li= link_to t('actions.browse_sessions'), sessions_path(@conference)
-      - if current_user.sessions_for_conference(@conference).count > 0
-        %li= link_to t('actions.my_sessions'), user_sessions_path(@conference, current_user)
-    - if can? :read, Vote
-      %li= link_to t('actions.my_votes'), votes_path(@conference)
-
-  - if current_user.reviewer? || current_user.organizer? || current_user.admin?
-    %h4= t('actions.section.review')
+  - sections_for(current_user, @conference).each do |section|
+    %h4= section.title
     %ul
-      - if can? :read, Organizer
-        %li= link_to t('actions.manage_organizers'), organizers_path(@conference)
-      - if can? :read, Reviewer
-        %li= link_to t('actions.manage_reviewers'), reviewers_path(@conference)
-      - if can? :read, 'organizer_sessions'
-        %li= link_to t('actions.organizer_sessions'), organizer_sessions_path(@conference)
-      - if can? :read, 'organizer_reports'
-        %li= link_to t('actions.organizer_reports'), organizer_reports_path(@conference, :format => :xls)
-      - if can? :read, 'reviewer_sessions'
-        %li= link_to "#{t('actions.reviewer_sessions')} (#{current_user.reviews.for_conference(@conference).count})", reviewer_sessions_path(@conference)
-      - if can? :reviewer, 'reviews_listing'
-        %li= link_to t('actions.reviewer_reviews'), reviewer_reviews_path(@conference)
-      - if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
-        %li= link_to t('actions.review_session'), new_session_review_path(@conference, @session)
-
-  %h4= t('actions.section.user')
-  %ul
-    - if can? :read, User
-      %li= link_to t('actions.profile'), user_path(current_user)
-    - if can? :update, current_user
-      %li= link_to t('actions.edit_profile'), edit_user_registration_path
-      %li= link_to t('actions.change_password'), edit_user_registration_path(:update_password => true)
-    %li= link_to "Logout", destroy_user_session_path, :method => :delete
+    - section.actions.each do |action|
+      %li= link_to action[:name], action[:link], action[:options]
 
   - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     :javascript

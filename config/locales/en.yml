@@ -312,6 +312,7 @@ en:
     section:
       session: "Sessions"
       review: "Review process"
+      organize: "Track organization"
       user: "Profile"
     review_decision: "Decide"
     create_review_decision: "New Decision"

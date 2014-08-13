@@ -310,6 +310,7 @@ pt:
     section:
       session: "Sessões"
       review: "Processo de avaliação"
+      organize: "Organização das Trilhas"
       user: "Perfil"
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
