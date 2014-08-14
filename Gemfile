@@ -63,7 +63,6 @@ group :development, :test do
   gem 'sqlite3', '1.3.9'
   gem 'rspec-rails', '3.0.1'
   gem 'rspec-its', '1.0.1'
-  gem 'spork-rails', '4.0.0'
   gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
   gem 'guard-jasmine', '1.19.2'
   gem 'jasminerice', '0.0.10'
