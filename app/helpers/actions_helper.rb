@@ -70,13 +70,13 @@ module ActionsHelper
 
   def reviewer_section_for(user, conference)
     section = Section.new t('actions.section.review')
-
     if can? :read, 'reviewer_sessions'
-      reviews_count = user.reviews.for_conference(conference).count
-      section.add "#{t('actions.reviewer_sessions')} (#{reviews_count})", reviewer_sessions_path(@conference)
+      sessions_to_review = Session.for_reviewer(current_user, @conference).count || 0
+      section.add t('actions.reviewer_sessions', count: sessions_to_review), reviewer_sessions_path(@conference)
     end
     if can? :reviewer, 'reviews_listing'
-      section.add t('actions.reviewer_reviews'), reviewer_reviews_path(@conference)
+      reviews_count = user.reviews.for_conference(conference).count || 0
+      section.add t('actions.reviewer_reviews', count: reviews_count), reviewer_reviews_path(@conference)
     end
     if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
       section.add t('actions.review_session'), new_session_review_path(@conference, @session)
