@@ -23,7 +23,7 @@ class ReviewerSessionsController < InheritedResources::Base
       else
         end_of_association_chain.none
       end
-      scope.page(params[:page])
+      scope.page(params[:page]).includes([:track, :session_type, :audience_level])
     end
   end
 
