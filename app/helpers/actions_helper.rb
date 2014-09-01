@@ -71,7 +71,7 @@ module ActionsHelper
   def reviewer_section_for(user, conference)
     section = Section.new t('actions.section.review')
     if can? :read, 'reviewer_sessions'
-      sessions_to_review = Session.for_reviewer(current_user, @conference).count || 0
+      sessions_to_review = Session.for_reviewer(current_user, @conference).size || 0
       section.add t('actions.reviewer_sessions', count: sessions_to_review), reviewer_sessions_path(@conference)
     end
     if can? :reviewer, 'reviews_listing'

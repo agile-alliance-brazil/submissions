@@ -1,4 +1,4 @@
-- title t('actions.reviewer_sessions')
+- title t('actions.reviewer_sessions', count: @sessions.total_entries)
 - show_actions!
 
 = semantic_form_for @session_filter, :url => reviewer_sessions_path(@conference), :method => :get do |f|
