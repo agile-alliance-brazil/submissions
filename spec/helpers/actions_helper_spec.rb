@@ -32,6 +32,7 @@ describe ActionsHelper, type: :helper do
   describe 'reviewer section' do
     before :each do
       @user = FactoryGirl.build(:user)
+      @conference.stubs(:in_final_review_phase?).returns(true)
       helper.stubs(:current_user).returns(@user)
     end
     context 'reviewer logged in' do
@@ -42,6 +43,12 @@ describe ActionsHelper, type: :helper do
         Session.stubs(:for_reviewer => stub(:to_a => stub(:count => 0)))
 
         expect(subject[0][:name]).to eq(t('actions.reviewer_sessions', count: 0))
+      end
+      it 'should not view list of sessions to review out of review phase' do
+        @conference.stubs(:in_early_review_phase?).returns(false)
+        @conference.stubs(:in_final_review_phase?).returns(false)
+
+        expect(subject[0][:name]).to_not eq(t('actions.reviewer_sessions', count: 0))
       end
       it 'should be able to view how many sessions are left to review' do
         Session.stubs(:for_reviewer => stub(:to_a => stub(:count => 3)))
