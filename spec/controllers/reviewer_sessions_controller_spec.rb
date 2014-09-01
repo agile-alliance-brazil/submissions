@@ -28,7 +28,8 @@ describe ReviewerSessionsController, type: :controller do
       Session.stubs(:order).returns(Session)
       Session.stubs(:for_audience_level).returns(Session)
       Session.stubs(:for_session_type).returns(Session)
-      Session.stubs(:page).returns([@session])
+      Session.stubs(:page).returns(Session)
+      Session.stubs(:includes).returns([@session])
     end
 
     it "should assign tracks for current conference" do
