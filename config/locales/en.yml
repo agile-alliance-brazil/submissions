@@ -290,7 +290,7 @@ en:
     author_confirmation_date: "Author confirmation deadline"
     review_goal: "Goal"
     submit_session: "Submit a session"
-    browse_sessions: "Browse sessions"
+    browse_sessions: "Browse sessions (%{count})"
     profile: "My profile"
     edit_profile: "Edit my profile"
     change_password: "Change my password"

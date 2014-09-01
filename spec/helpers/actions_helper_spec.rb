@@ -67,4 +67,33 @@ describe ActionsHelper, type: :helper do
       end
     end
   end
+  describe 'session section' do
+    before :each do
+      @user = FactoryGirl.build(:user)
+      helper.stubs(:current_user).returns(@user)
+    end
+    context 'normal user logged in' do
+      subject do
+        helper.session_section_for(@user, @conference).actions
+      end
+      it 'should be able to submit proposal' do
+        expect(subject[0][:name]).to eq(t('actions.submit_session'))
+      end
+      it 'should be able to browse sessions' do
+        expect(subject[1][:name]).to eq(t('actions.browse_sessions', count: 0))
+      end
+      it 'should be able to browse sessions with count' do
+        Session.stubs(:for_conference => stub(:count => 2))
+
+        actions = helper.session_section_for(@user, @conference).actions
+
+        expect(actions[1][:name]).to eq(t('actions.browse_sessions', count: 2))
+      end
+      it 'should be able to view its own sessions' do
+        @user.stubs(:sessions_for_conference).returns(stub(:count => 1))
+
+        expect(subject[2][:name]).to eq(t('actions.my_sessions'))
+      end
+    end
+  end
 end
