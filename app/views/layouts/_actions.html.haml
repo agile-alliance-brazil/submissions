@@ -92,54 +92,25 @@
   #warning
     %p= t('tips.users_from_last_year').html_safe
 
-%h4= t('actions.submissionByTrack')
-%div{ :id => "submittedByTrack", :style => "margin-left: -3em;"}
+%h4.charts= t('actions.submissionByTrack')
+%div.charts{ :id => "submittedByTrack", :style => "margin-left: -3em;"}
 
-%h4= t('actions.submissionByType')
-%div{ :id => "submittedByType", :style => "margin-left: -3em;"}
+%h4.charts= t('actions.submissionByType')
+%div.charts{ :id => "submittedByType", :style => "margin-left: -3em;"}
 
 :javascript
-  $.ajax({
-      url: '//www.google.com/jsapi',
-      dataType: 'script',
-      cache: true,
-      timeout: 3000,
-      success: function() {
-        google.load('visualization', '1', {
-            'packages': ['corechart'],
-            'callback': drawCharts
-        });
-      }
-  });
-  function drawCharts() {
-    var dataByTrack = google.visualization.arrayToDataTable([
-      ['Track', 'Submitted sessions']
-        #{sessions_by_track}
-    ]);
-
-    var optionsByTrack = {
-      pieSliceText: 'none',
-      colors: ['#00991f', '#003499', '#9923e8', '#ff0000', '#e87b0c', '#ffe100'],
-      pieHole: 0.4,
-      legend: 'none'
-    };
-
-    var trackChart = new google.visualization.PieChart(document.getElementById('submittedByTrack'));
-    trackChart.draw(dataByTrack, optionsByTrack);
-
-
-    var dataByType = google.visualization.arrayToDataTable([
-      ['Track', 'Submitted sessions']
-        #{sessions_by_type}
-    ]);
-
-    var optionsByType = {
-      pieSliceText: 'none',
-      colors: ['#2d8e6c', '#61a363', '#9cb95a', '#d1cd52'],
-      pieHole: 0.4,
-      legend: 'none'
-    };
-
-    var typeChart = new google.visualization.PieChart(document.getElementById('submittedByType'));
-    typeChart.draw(dataByType, optionsByType);
+  var sessionsByTrack = #{sessions_by_track.inspect};
+  var sessionsByType = #{sessions_by_type.inspect};
+  var chartData = {
+    'submittedByTrack': {
+      'data': sessionsByTrack,
+      'colors': ["#00991f", "#003499", "#9923e8", "#ff0000", "#e87b0c", "#ffe100"]
+    },
+    'submittedByType': {
+      'data': sessionsByType,
+      'color': ["#2d8e6c", "#61a363", "#9cb95a", "#d1cd52"]
+    }
+  };
+  if(#{Session.for_conference(@conference).count > 0}) {
+    jQuery.submissions.initializeCharts(chartData);
   }

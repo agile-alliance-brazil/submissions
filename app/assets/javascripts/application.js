@@ -2,6 +2,7 @@
 *= require vendor_libs
 *= require_self
 *= require organizer_reviews
+*= require actions
 */
 
 jQuery.fn.bindSelectUpdated = function() {

@@ -34,20 +34,15 @@ class ApplicationController < ActionController::Base
   end
 
   def sessions_by_track
-    session_track_count = ""
-    @conference.tracks.all.each do |t|
-      session_track_count << ", ['#{t(t.title)}', #{t.sessions.count}]"
-    end
-    session_track_count
+    ([['Track', 'Submitted sessions']] +
+      @conference.tracks.all.
+        map{|track| [t(track.title), track.sessions.count]})
   end
 
   def sessions_by_type
-    session_type_count = ""
-    SessionType.where(conference_id: @conference).each do |type|
-      sessions_in_this_type = Session.where(session_type_id: type).count
-      session_type_count << ", ['#{t(type.title)}', #{sessions_in_this_type}]"
-    end
-    session_type_count
+    ([['Type', 'Submitted sessions']] +
+      @conference.session_types.
+        map{|type| [t(type.title), type.sessions.count]})
   end
 
   private

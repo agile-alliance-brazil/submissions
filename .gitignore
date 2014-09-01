@@ -15,3 +15,4 @@ certs/*
 public/assets/
 vendor/bundle/**/*
 .ruby-gemset
+app/assets/javascripts/*.js
