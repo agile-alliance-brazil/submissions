@@ -78,6 +78,7 @@ describe ActionsHelper, type: :helper do
     before :each do
       @user = FactoryGirl.build(:user)
       helper.stubs(:current_user).returns(@user)
+      @user.stubs(:sessions_for_conference).returns(stub(:count => 0))
     end
     context 'normal user logged in' do
       subject do
@@ -90,7 +91,7 @@ describe ActionsHelper, type: :helper do
         expect(subject[1][:name]).to eq(t('actions.browse_sessions', count: 0))
       end
       it 'should be able to browse sessions with count' do
-        Session.stubs(:for_conference => stub(:count => 2))
+        Session.stubs(:for_conference => stub(:without_state => stub(:count => 2)))
 
         actions = helper.session_section_for(@user, @conference).actions
 

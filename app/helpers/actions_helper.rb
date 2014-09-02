@@ -56,7 +56,8 @@ module ActionsHelper
       section.add t('actions.submit_session'), new_session_path(conference)
     end
     if can? :read, Session
-      section.add t('actions.browse_sessions', count: Session.for_conference(conference).count), sessions_path(conference)
+      sessions_count = Session.for_conference(conference).without_state(:cancelled).count
+      section.add t('actions.browse_sessions', count: sessions_count), sessions_path(conference)
       if user.sessions_for_conference(conference).count > 0
         section.add t('actions.my_sessions'), user_sessions_path(conference, user)
       end
