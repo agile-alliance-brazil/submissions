@@ -9,6 +9,7 @@
       %th.author= t('formtastic.labels.session.second_author_id')
       %th.track= t('formtastic.labels.session.track_id')
       %th.review= sortable_column t('formtastic.labels.final_review.recommendation'), :recommendation_id
+      %th.outcome= t('formtastic.labels.review_decision.outcome_id')
   %tbody
     - @reviews.each do |review|
       = content_tag_for(:tr, review, :class => cycle(:odd, :even)) do
@@ -27,6 +28,9 @@
             = link_to t(review.recommendation.title), session_review_path(@conference, review.session, review)
           - else
             = link_to t("review.#{review.type.underscore}"), session_review_path(@conference, review.session, review)
+        %td.outcome
+          - if review.session.review_decision.try(:published?)
+            = review.session.review_decision.accepted? ? "✓" : "✗"
 
 - if @reviews.total_pages > 1
   #pagination= will_paginate(@reviews)

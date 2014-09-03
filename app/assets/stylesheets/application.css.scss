@@ -146,7 +146,12 @@ a:hover {
       border-bottom: 2px solid $color1; }
     td {
       border-bottom: 1px solid $color5;
-      padding: 6px 8px; } } }
+      padding: 6px 8px;
+      &.outcome {
+        font-size: 2em;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0; } } } }
 
 table.sessions {
   th.session_id {
