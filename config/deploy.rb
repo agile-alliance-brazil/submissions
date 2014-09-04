@@ -30,6 +30,7 @@ set :deploy_via,          :remote_cache
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || 'master'
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/config.yml config/newrelic.yml}

@@ -4,10 +4,10 @@
  # characters and all random, no regular words or you'll be exposed to dictionary attacks.
  #
  # You can use "rake secret" to generate a new secret token.
- :secret_token: f47c41880431100e0c54bc14a7197f18e647b0d6655bed40afbd0ca11af7c1e1d3fec3d9c12323818bf1805ec24cb3fb0df739576aafa46eb6f7ee7a2dc917f4
+ :secret_token: 5c1f5ddadd80a5115167791c7d208f03e78e22a81b663c1479a8c6199c8a444707a3c81c7c6d832e2193bced0238225747ea096f0f1a454b26706353c434ed72
  :devise:
-   :secret_key: b6d0bf327c7e2893631dc5f9ebd64a4d900549c491b4491ae23c7c5bf9d9690eaf353063b126937d071f16162571a10e873ef518edd103e0184f49b54ba51742
-   :pepper: bec10c7896946898e37a3661bed51c24954ede6a61ad97989f1e3812d74e1ddca75d114a6b3899fd5f0d39a2821d1a49703ce1ba7affe4a79b4bd2ba2eb459b9
+   :secret_key: 99f0f0670ccd069672da13a026886a6c93a837b9f27bbf045337c142ee223e93b5858a41c183c3725bbf82160f4c89a2e8bd900e6e888beb05de98aaba5bb35d
+   :pepper: 2ebb4f2b463af6362dbd80d92d9868d7a32bd43a8f1df09c228f68b98bb991bf674c9c24fdb02ec88597e881e64ed0d54e880c1f0d67221a7ba5a3a21df7a399
 
  # Host used to configure ActionMailer::Base.default_url_options[:host] as described in:
  # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs

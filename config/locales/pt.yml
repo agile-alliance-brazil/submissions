@@ -326,7 +326,7 @@ pt:
     no_votes: "Você ainda não votou. Clique <a href='/sessions?locale=pt'>aqui</a> para votar."
 
   footer:
-    help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
+    help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:13forum@awid.org'>13forum@awid.org</a>"
 
   flash:
     session:

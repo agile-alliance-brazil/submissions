@@ -329,7 +329,7 @@ en:
     no_votes: "You haven't voted yet. Click <a href='/sessions?locale=en'>here</a> to vote."
 
   footer:
-    help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
+    help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:13forum@awid.org'>13forum@awid.org</a>"
 
   flash:
     session:
@@ -415,70 +415,44 @@ en:
       description: "Duels are thought provoking sessions that will promote discussions and, hopefully, bring new insights to the most experienced agilists. It consists of a single submission where 2 speakers defend opposite views of a subject, plus 20 minutes of discussions with the audience."
 
   tracks:
-    general_interest:
-      title: "General Interest"
-      description: "Dedicated to those who want to understand the principles and practices of agile methodologies. You will find tutorials, workshops and conferences, selected to guide your first steps towards agile culture."
-    management:
-      title: "Management"
-      description: "Dedicated to professionals working with agile methodologies that want to discuss new concepts and practices related organizational change and management of products, process and projects."
-    engineering:
-      title: "Engineering"
-      description: "Dedicated to professionals working with agile methodologies or are interested in the technical quality of software products. You will find tutorials, workshops and lectures addressing programming, continuous integration and automated testing topics and the use of electronic tools to support agile development."
-    experience_reports:
-      title: "Experience Reports"
-      description: "Those who want to share their real experiences with agile methods in projects, transitions, courses or communities are welcome here. The reports on this track invite sharing pragmatic tips that can inspire other people and teams."
-    development_tests:
-      title: "Development and Tests"
-      description: "This track gathers sessions related to agile methods and practices for software development and testing. Programming, continuous integration, test automation, acceptance and integration testing and tools will be featured in this track's lectures and workshops. Devops sessions are also welcome in this category."
-    analysis_planning:
-      title: "Analysis and Planning"
-      description: "Agile project analysis and planning are the core of this track. Sessions will cover themes as business analysis, requirements analysis, estimation and prioritization techniques, release planning and implementation strategies for projects."
-    management_culture:
-      title: "Management and Culture"
-      description: "This track is about project and team management. Expected topics include building teams, project facilitation, coaching, organizational culture, agile values and principles, democratic management, self-organization, product, processes and projects management."
-    innovation_entrepreneurship:
-      title: "Innovation and Entrepreneurship"
-      description: "This is the track for those who seek innovating and endeavoring, be it as a collaborator or as an entrepreneur. On this track, you will find sessions about Lean Startup, Customer Development, Design Thinking, Service Design, Business Model Generation, Bootstrapping and many other subjects that relate agile methods to innovation processes."
-    guest_session:
-      title: "Special Guest"
-    coaching:
-      title: "Coaching and Facilitation"
-      description: "The purpose of this track is to present to the audience the concepts, techniques and tips on facilitation, coaching and empowerment in the agile context. The track presents the skills required for a coach or a facilitator to lead, teach, mentor, facilitate and effectively coach agile teams."
-    business_product:
-      title: "Businesses and Products"
-      description: "This track holds sessions on analysing and planning agile projects. The sessions cover topics such as business analysis and requirements, prioritization and estimation techniques. This track is also focused on product development: sessions on Lean Startup, Customer Development, Business Model Generation, and various other topics related to the agile process of creating new products are a good fit for this track."
-    design:
-      title: "Design"
-      description: "This track gathers sessions related to agile methods and practices applied to the design of a product’s user experience. These are sessions on Agile UX, design, information architecture, HCD, design thinking and all challenges involving integrating iterative and incremental work of software developers, and designers and information architects."
-    2014_general_interest:
-      title: "General Interest"
-      description: "The General Interest track is dedicated to relevant sessions related to culture, values, and principles of Agile, Lean, etc. It is home to sessions that can benefit all agilists, regardless of the process or methods they use. These talks will cover what it is to be Agile, the everyday life, and all kinds of subjects that may call an agilist attention."
-    2014_development_tests:
-      title: "Development and Tests"
-      description: "This track holds sessions related to Agile methods and practices focused on developing and testing software. Those are sessions about programming, continuous integration, test automation, acceptance or integration tests, and handy tools. Presentations concerning DevOps are also welcome here."
-    2014_management:
-      title: "Management"
-      description: "The Management track is devoted to team and project management. Sessions gather themes such as making and developing teams, new people management models, self-organization, agile management practices applied to projects and products and more. Talks describing and discussing processes belong here."
-    2014_coaching_learning:
-      title: "Coaching, Learning and Facilitation"
-      description: "You can expect sessions at the Coaching, Learning and Facilitation track to present concepts, techniques and tips for Agile facilitation, coaching, and empowerment. This track will discuss competences that can help coaches and facilitators lead, teach, mentor, open space, as well as continuous improvement tools for agile teams and people. This year, we will also have sessions concerning the important subject of education, in sessions that bring teaching techniques of Agile and surrounding themes."
-    2014_ux_product:
-      title: "UX, Analysis and Product Design"
-      description: "What is our goal? Is creating value by enhancing user experience possible? These and many other concerns are the focus of this track, that will gather sessions regarding concepts, methods, and practices of Agile business analysis, Agile UX, information architecture, design thinking, etc. It intends to broaden the universe of discoveries and interactive and incremental actions, aiming the integration of business analysis, software development and emergent design."
-    2014_innovation_entrepreneurship:
-      title: "Innovation and Entrepreneurship"
-      description: "The challenges of entrepreneurship and innovation are not new, but answers to these problems are still a big numb area. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
+    militarism:
+      title: "Militarism, Violence & Conflict"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    labour:
+      title: "Labour & Work"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    state:
+      title: "The Role of the State"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    sexuality:
+      title: "Sexuality"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    ecology:
+      title: "The Planet and Ecological Health"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    finances:
+      title: "Financial Flows"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    resources:
+      title: "Access to and Control of Resources"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    private:
+      title: "Private sector and Corporate Power"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    culture:
+      title: "Culture and Religion"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+    governance:
+      title: "Global Governance"
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel erat nibh. Vestibulum eu sagittis lorem. Aliquam erat volutpat. Cras ut nisi luctus, fermentum lectus eu, consequat odio. Nulla suscipit urna nibh, ac sodales est aliquet condimentum. Nunc interdum interdum diam, non dignissim arcu imperdiet nec. Curabitur finibus ut mi vitae venenatis. Sed semper elit at orci suscipit luctus. Suspendisse sodales mauris sed semper hendrerit. Cras ut dui vehicula, dapibus felis eget, ultrices libero. Aliquam nulla orci, mattis sed lobortis sed, consectetur sed neque. Maecenas ultrices posuere ligula, gravida pulvinar est semper quis. Phasellus non lorem dolor."
+
+
+
 
   audience_levels:
     beginner:
-      title: "Beginner"
-      description: "A person who is new to or has just started learning about the session track or area; a novice!"
-    practitioner:
-      title: "Practitioner"
-      description: "A person who has practiced the session's track or area, believes in its values and has benefited from it."
-    experienced:
-      title: "Experienced"
-      description: "A person who has a deeper understanding of the theme, to the extent of leading or helping a team in adopting its practices."
+      title: "All"
+      description: "Anyone interested in the topic"
 
   email:
     welcome:
@@ -557,18 +531,6 @@ en:
     reject:
       title: "Rejected"
 
-  all_hands:
-    opening:
-      title: "Opening"
-    closing:
-      title: "Closing"
-    lunch:
-      title: "Lunch"
-    coffee_break:
-      title: "Coffee Break"
-    registration:
-      title: "Registration"
-
   gender:
     male: "Male"
     female: "Female"
@@ -605,49 +567,4 @@ en:
     page_gap: "&hellip;"
 
   tips:
-    users_from_last_year: "<strong>Tip:</strong> Users from last year are still active. If you don't remember your username or password, use the link above to recover it."
     change_gravatar: "To create or change your picture, <a href='http://en.gravatar.com/site/signup/%{email}' target='_blank'>get your Gravatar</a>."
-
-  tags:
-    learning: "Learning"
-    automation: "Automation"
-    failure: "Failure Cases"
-    success: "Success Cases"
-    coaching: "Coaching"
-    legacy: "Legacy code"
-    commitment: "Commitment"
-    creation: "Creation"
-    culture: "Culture"
-    continuous_deploy: "Continuous deploy"
-    emergent_design: "Emergent design"
-    estimates: "Estimates"
-    strategies: "Strategies"
-    evolution: "Evolution"
-    ux: "User experience"
-    front: "Front end"
-    skill: "Skill"
-    ideas: "Ideas"
-    implementation: "Implementation"
-    continuous_integration: "Continuous integration"
-    continuous_improvement: "Continuous improvement"
-    metrics: "Metrics"
-    motivation: "Motivation"
-    business: "Business"
-    opportunities: "Opportunities"
-    patterns: "Patterns"
-    planning: "Planning"
-    processes: "Processes"
-    pair_programming: "Pair programming"
-    recovery: "Recovery "
-    refactoring: "Refactoring"
-    customer_relationship: "Customer relationship"
-    requirements: "Requirements"
-    restrictions: "Restrictions"
-    code_review: "Code review"
-    risks: "Risks"
-    startup: "Startup"
-    tecniques: "Tecniques"
-    tdd: "Test-Driven Design"
-    tests: "Tests"
-    teams: "Teams"
-    visualization: "Visualization"

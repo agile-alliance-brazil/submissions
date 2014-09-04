@@ -88,9 +88,6 @@
       %li= link_to t('actions.signup'), new_user_registration_path
     %li= link_to t('title.lost_password'), new_user_password_path
 
-  %br
-  #warning
-    %p= t('tips.users_from_last_year').html_safe
 
 %h4.charts= t('actions.submissionByTrack')
 %div.charts{ :id => "submittedByTrack", :style => "margin-left: -3em;"}

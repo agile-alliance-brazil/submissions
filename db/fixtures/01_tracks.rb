@@ -2,174 +2,61 @@
 Track.seed do |track|
   track.id = 1
   track.conference_id = 1
-  track.title = 'tracks.general_interest.title'
-  track.description = 'tracks.general_interest.description'
+  track.title = 'tracks.militarism.title'
+  track.description = 'tracks.militarism.description'
 end
-
 Track.seed do |track|
   track.id = 2
   track.conference_id = 1
-  track.title = 'tracks.management.title'
-  track.description = 'tracks.management.description'
+  track.title = 'tracks.labour.title'
+  track.description = 'tracks.labour.description'
 end
-
 Track.seed do |track|
   track.id = 3
   track.conference_id = 1
-  track.title = 'tracks.engineering.title'
-  track.description = 'tracks.engineering.description'
+  track.title = 'tracks.state.title'
+  track.description = 'tracks.state.description'
 end
-
 Track.seed do |track|
   track.id = 4
   track.conference_id = 1
-  track.title = 'tracks.experience_reports.title'
-  track.description = 'tracks.experience_reports.description'
+  track.title = 'tracks.sexuality.title'
+  track.description = 'tracks.sexuality.description'
 end
-
 Track.seed do |track|
   track.id = 5
-  track.conference_id = 2
-  track.title = 'tracks.general_interest.title'
-  track.description = 'tracks.general_interest.description'
+  track.conference_id = 1
+  track.title = 'tracks.ecology.title'
+  track.description = 'tracks.ecology.description'
 end
-
 Track.seed do |track|
   track.id = 6
-  track.conference_id = 2
-  track.title = 'tracks.management.title'
-  track.description = 'tracks.management.description'
+  track.conference_id = 1
+  track.title = 'tracks.finances.title'
+  track.description = 'tracks.finances.description'
 end
-
 Track.seed do |track|
   track.id = 7
-  track.conference_id = 2
-  track.title = 'tracks.engineering.title'
-  track.description = 'tracks.engineering.description'
+  track.conference_id = 1
+  track.title = 'tracks.resources.title'
+  track.description = 'tracks.resources.description'
 end
-
 Track.seed do |track|
   track.id = 8
-  track.conference_id = 2
-  track.title = 'tracks.experience_reports.title'
-  track.description = 'tracks.experience_reports.description'
+  track.conference_id = 1
+  track.title = 'tracks.private.title'
+  track.description = 'tracks.private.description'
 end
-
 Track.seed do |track|
   track.id = 9
-  track.conference_id = 3
-  track.title = 'tracks.development_tests.title'
-  track.description = 'tracks.development_tests.description'
+  track.conference_id = 1
+  track.title = 'tracks.culture.title'
+  track.description = 'tracks.culture.description'
 end
-
 Track.seed do |track|
   track.id = 10
-  track.conference_id = 3
-  track.title = 'tracks.analysis_planning.title'
-  track.description = 'tracks.analysis_planning.description'
+  track.conference_id = 1
+  track.title = 'tracks.governance.title'
+  track.description = 'tracks.governance.description'
 end
 
-Track.seed do |track|
-  track.id = 11
-  track.conference_id = 3
-  track.title = 'tracks.management_culture.title'
-  track.description = 'tracks.management_culture.description'
-end
-
-Track.seed do |track|
-  track.id = 12
-  track.conference_id = 3
-  track.title = 'tracks.innovation_entrepreneurship.title'
-  track.description = 'tracks.innovation_entrepreneurship.description'
-end
-
-Track.seed do |track|
-  track.id = 13
-  track.conference_id = 3
-  track.title = 'tracks.experience_reports.title'
-  track.description = 'tracks.experience_reports.description'
-end
-
-Track.seed do |track|
-  track.id = 14
-  track.conference_id = 4
-  track.title = 'tracks.coaching.title'
-  track.description = 'tracks.coaching.description'
-end
-
-Track.seed do |track|
-  track.id = 15
-  track.conference_id = 4
-  track.title = 'tracks.business_product.title'
-  track.description = 'tracks.business_product.description'
-end
-
-Track.seed do |track|
-  track.id = 16
-  track.conference_id = 4
-  track.title = 'tracks.development_tests.title'
-  track.description = 'tracks.development_tests.description'
-end
-
-Track.seed do |track|
-  track.id = 17
-  track.conference_id = 4
-  track.title = 'tracks.design.title'
-  track.description = 'tracks.design.description'
-end
-
-Track.seed do |track|
-  track.id = 18
-  track.conference_id = 4
-  track.title = 'tracks.management.title'
-  track.description = 'tracks.management.description'
-end
-
-Track.seed do |track|
-  track.id = 19
-  track.conference_id = 4
-  track.title = 'tracks.general_interest.title'
-  track.description = 'tracks.general_interest.description'
-end
-
-Track.seed do |track|
-  track.id = 20
-  track.conference_id = 5
-  track.title = 'tracks.2014_general_interest.title'
-  track.description = 'tracks.2014_general_interest.description'
-end
-
-Track.seed do |track|
-  track.id = 21
-  track.conference_id = 5
-  track.title = 'tracks.2014_development_tests.title'
-  track.description = 'tracks.2014_development_tests.description'
-end
-
-Track.seed do |track|
-  track.id = 22
-  track.conference_id = 5
-  track.title = 'tracks.2014_management.title'
-  track.description = 'tracks.2014_management.description'
-end
-
-Track.seed do |track|
-  track.id = 23
-  track.conference_id = 5
-  track.title = 'tracks.2014_coaching_learning.title'
-  track.description = 'tracks.2014_coaching_learning.description'
-end
-
-Track.seed do |track|
-  track.id = 24
-  track.conference_id = 5
-  track.title = 'tracks.2014_ux_product.title'
-  track.description = 'tracks.2014_ux_product.description'
-end
-
-Track.seed do |track|
-  track.id = 25
-  track.conference_id = 5
-  track.title = 'tracks.2014_innovation_entrepreneurship.title'
-  track.description = 'tracks.2014_innovation_entrepreneurship.description'
-end
