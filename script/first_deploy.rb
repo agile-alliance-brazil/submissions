@@ -22,6 +22,7 @@ def files_to_upload
   [
     'config/config.yml',
     'config/database.yml',
+    'config/newrelic.yml'
   ]
 end
 
@@ -70,7 +71,4 @@ execute %Q{bundle exec cap #{@target} deploy:check:directories deploy:check:make
 files_to_upload.each do |file|
   execute %Q{scp #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}}
 end
-if @branch
-  execute %Q{export BRANCH_NAME=#{@branch}}
-end
-execute %Q{bundle exec cap #{@target} deploy}
+execute %Q{bundle exec cap #{@target} deploy BRANCH_NAME=#{@branch}}

@@ -1,6 +1,6 @@
 node default {
   exec { 'update':
-      command => "apt-get update",
+      command => "who",
       path => "/usr/bin",
   }
 

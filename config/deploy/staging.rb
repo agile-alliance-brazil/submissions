@@ -15,9 +15,9 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'submissoes.staging.agilebrazil.com', user: 'ubuntu', roles: %w{web app db}
+server 'submissoes.staging.awid.org', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
-set :server_url, 'submissoes.staging.agilebrazil.com'
+set :server_url, 'submissoes.staging.awid.org'
 set :rails_env, 'staging'
 
 # you can set custom ssh options

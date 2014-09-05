@@ -7,6 +7,6 @@ class db-server ($app_name = 'rails-app') {
 	
 	class { "rails-app::db":
 		app_name => "$app_name",
-		password => "53cr3T",
+		password => "SuperSecret",
 	}
 }
