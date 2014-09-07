@@ -37,7 +37,6 @@ class Session < ActiveRecord::Base
   validates :duration_mins, :presence => true, :session_duration => true, :allow_blank => true
   validates :keyword_list, :presence => true, :length => {:maximum => 10}
   validates :language, :presence => true, :inclusion => {:in => ['en', 'pt']}, :allow_blank => true
-  validates :mechanics, :presence => true, :length => {:maximum => 2400}, :if => :requires_mechanics?
   validates :audience_limit, :numericality => {:only_integer => true, :greater_than => 0}, :allow_nil => true
   validates :conference_id, :existence => true
   validates :author_id, :existence => true, :constant => { :on => :update }
@@ -142,13 +141,8 @@ class Session < ActiveRecord::Base
   end
 
   SessionType.all_titles.each do |type|
-    define_method("#{type}?") do                   # def lightning_talk?
-      self.session_type.try(:"#{type}?")           #   self.session_type.try(:lightning_talk?)
-    end                                            # end
-  end
-
-  private
-  def requires_mechanics?
-    workshop? || hands_on?
+    define_method("#{type}?") do         # def lightning_talk?
+      self.session_type.try(:"#{type}?") #   self.session_type.try(:lightning_talk?)
+    end                                  # end
   end
 end

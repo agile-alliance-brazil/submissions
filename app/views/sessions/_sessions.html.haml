@@ -19,8 +19,6 @@
         %td.session_id= session.id
         %td.title
           = link_to h(session.try(:title)), session_path(@conference, session)
-          - if session.lightning_talk?
-            = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
           - if session.comments_count > 0
             .commentCount= session.comments_count
         %td.author

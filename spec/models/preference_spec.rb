@@ -6,6 +6,8 @@ describe Preference, type: :model do
     it { should allow_mass_assignment_of :reviewer_id }
     it { should allow_mass_assignment_of :track_id }
     it { should allow_mass_assignment_of :audience_level_id }
+    it { should allow_mass_assignment_of :track }
+    it { should allow_mass_assignment_of :audience_level }
     it { should allow_mass_assignment_of :accepted }
 
     it { should_not allow_mass_assignment_of :id }
@@ -13,21 +15,24 @@ describe Preference, type: :model do
 
   context "validations" do
     describe "when accepted" do
-      subject {FactoryGirl.build(:preference, :accepted => true)}
+      subject {FactoryGirl.build(:preference, accepted: true)}
       it { should validate_presence_of :audience_level_id }
 
-      should_validate_existence_of :audience_level, :track, :allow_blank => true
+      should_validate_existence_of :audience_level, :track, allow_blank: true
+      before :each do
+        @old_conference = FactoryGirl.create(:conference)
+      end
 
       it "track should match the conference" do
-        subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
-        subject.should_not be_valid
-        subject.errors[:track_id].should include(I18n.t("errors.messages.same_conference"))
+        subject.reviewer = FactoryGirl.create(:reviewer, conference: @old_conference)
+        expect(subject).to_not be_valid
+        expect(subject.errors[:track_id]).to include(I18n.t("errors.messages.same_conference"))
       end
 
       it "audience level should match the conference" do
-        subject.reviewer = FactoryGirl.create(:reviewer, :conference => Conference.first)
-        subject.should_not be_valid
-        subject.errors[:audience_level_id].should include(I18n.t("errors.messages.same_conference"))
+        subject.reviewer = FactoryGirl.create(:reviewer, conference: @old_conference)
+        expect(subject).to_not be_valid
+        expect(subject.errors[:audience_level_id]).to include(I18n.t("errors.messages.same_conference"))
       end
     end
 
@@ -40,12 +45,12 @@ describe Preference, type: :model do
 
       it "cannot choose track that is being organized by him/her" do
         preference = FactoryGirl.build(:preference)
-        preference.should be_valid
+        expect(preference).to be_valid
         preference.reviewer.user = @organizer.user
         preference.reviewer.conference = @organizer.conference
         preference.track = @organizer.track
-        preference.should_not be_valid
-        preference.errors[:accepted].should include(I18n.t("activerecord.errors.models.preference.organizer_track"))
+        expect(preference).to_not be_valid
+        expect(preference.errors[:accepted]).to include(I18n.t("activerecord.errors.models.preference.organizer_track"))
       end
     end
   end

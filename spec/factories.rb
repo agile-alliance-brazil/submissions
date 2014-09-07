@@ -155,7 +155,7 @@ FactoryGirl.define do
   end
 
   factory :room do
-    name "Room 1"
+    sequence(:name) {|n| "Room #{n+1}"}
     capacity 200
     conference { Conference.current }
   end
@@ -181,6 +181,21 @@ FactoryGirl.define do
     end_at { |a| a.start_at + 1.hour }
     room
     association :detail, :factory => :session
+  end
+
+  factory :conference do
+    sequence(:year)
+    name { |c| "Conference #{c.year}" }
+
+    call_for_papers { DateTime.now + 1.day }
+    submissions_open { DateTime.now + 2.days }
+    submissions_deadline { DateTime.now + 3.days }
+    review_deadline { DateTime.now + 4.days }
+    author_notification { DateTime.now + 5.days }
+    author_confirmation { DateTime.now + 6.days }
+    presubmissions_deadline { DateTime.now + 2.days + 1.hour }
+    prereview_deadline { DateTime.now + 2.days + 12.hours }
+    voting_deadline { DateTime.now + 3.days + 12.hours}
   end
 
   factory :vote do

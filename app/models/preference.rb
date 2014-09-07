@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Preference < ActiveRecord::Base
-  attr_accessible :reviewer_id, :track_id, :audience_level_id, :accepted
+  attr_accessible :reviewer_id, :track_id, :audience_level_id, :track, :audience_level, :accepted
 
   belongs_to :reviewer
   belongs_to :track

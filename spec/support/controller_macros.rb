@@ -7,7 +7,7 @@ module ControllerMacros
       actions.each do |action|
         it "should require login for action #{action}" do
           before_filters = controller.class._process_action_callbacks.find_all {|x| x.kind == :before}.map(&:filter)
-          before_filters.should include(:authenticate_user!)
+          expect(before_filters).to include(:authenticate_user!)
         end
       end
 
@@ -17,7 +17,7 @@ module ControllerMacros
       actions.each do |action|
         it "should require logout for action #{action}" do
           before_filters = controller.class._process_action_callbacks.find_all {|x| x.kind == :before}.map(&:filter)
-          before_filters.should include(:logout_required)
+          expect(before_filters).to include(:logout_required)
         end
       end
     end

@@ -81,14 +81,14 @@ describe EmailNotifications, type: :mailer do
       before { user.default_locale = 'pt' }
 
       it { should have_subject("[localhost:3000] Proposta de sessão submetida para #{conference.name}") }
-      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, :format => :long)}/) }
+      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :pt)}/) }
     end
 
     context "in en" do
       before { user.default_locale = 'en' }
 
       it { should have_subject("[localhost:3000] #{conference.name} session proposal submitted") }
-      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, :format => :long, :locale => 'en')}/) }
+      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :en)}/) }
     end
 
     context "with single author" do

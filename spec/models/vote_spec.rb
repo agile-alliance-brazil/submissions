@@ -20,9 +20,11 @@ describe Vote, type: :model do
 
     context "session" do
       it "should match the conference" do
-        vote = FactoryGirl.build(:vote, :conference => Conference.first)
-        vote.should_not be_valid
-        vote.errors[:session_id].should include(I18n.t("errors.messages.same_conference"))
+        conference = FactoryGirl.create(:conference)
+        session = FactoryGirl.create(:session)
+        vote = FactoryGirl.build(:vote, session: session, conference: conference)
+        expect(vote).to_not be_valid
+        expect(vote.errors[:session_id]).to include(I18n.t("errors.messages.same_conference"))
       end
     end
 
@@ -33,21 +35,21 @@ describe Vote, type: :model do
 
       it "should not be author for voted session" do
         vote.user = session.author
-        vote.should_not be_valid
-        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.author"))
+        expect(vote).to_not be_valid
+        expect(vote.errors[:user_id]).to include(I18n.t("activerecord.errors.models.vote.author"))
       end
 
       it "should not be second author for voted session" do
         session.second_author = second_author
         vote.user = second_author
-        vote.should_not be_valid
-        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.author"))
+        expect(vote).to_not be_valid
+        expect(vote.errors[:user_id]).to include(I18n.t("activerecord.errors.models.vote.author"))
       end
 
       it "should be voter" do
         vote.user.remove_role(:voter)
-        vote.should_not be_valid
-        vote.errors[:user_id].should include(I18n.t("activerecord.errors.models.vote.voter"))
+        expect(vote).to_not be_valid
+        expect(vote.errors[:user_id]).to include(I18n.t("activerecord.errors.models.vote.voter"))
       end
     end
 
@@ -57,8 +59,8 @@ describe Vote, type: :model do
 
       it "should only allow #{Vote::VOTE_LIMIT} votes for given conference" do
         vote = FactoryGirl.build(:vote, :user => user)
-        vote.should_not be_valid
-        vote.errors[:base].should include(I18n.t("activerecord.errors.models.vote.limit_reached", :count => Vote::VOTE_LIMIT))
+        expect(vote).to_not be_valid
+        expect(vote.errors[:base]).to include(I18n.t("activerecord.errors.models.vote.limit_reached", :count => Vote::VOTE_LIMIT))
       end
     end
   end

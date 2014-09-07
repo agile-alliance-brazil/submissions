@@ -18,167 +18,167 @@ describe Authorization do
   context "persist as bit mask" do
     it "- admin" do
       @user.roles = "admin"
-      @user.roles_mask.should == 1
+      expect(@user.roles_mask).to eq(1)
       @user.roles = :admin
-      @user.roles_mask.should == 1
+      expect(@user.roles_mask).to eq(1)
     end      
     
     it "- author" do
       @user.roles = "author"
-      @user.roles_mask.should == 2
+      expect(@user.roles_mask).to eq(2)
       @user.roles = :author
-      @user.roles_mask.should == 2
+      expect(@user.roles_mask).to eq(2)
     end
 
     it "- reviewer" do
       @user.roles = "reviewer"
-      @user.roles_mask.should == 4
+      expect(@user.roles_mask).to eq(4)
       @user.roles = :reviewer
-      @user.roles_mask.should == 4
+      expect(@user.roles_mask).to eq(4)
     end
     
     it "- organizer" do
       @user.roles = "organizer"
-      @user.roles_mask.should == 8
+      expect(@user.roles_mask).to eq(8)
       @user.roles = :organizer
-      @user.roles_mask.should == 8
+      expect(@user.roles_mask).to eq(8)
     end
 
     it "- voter" do
       @user.roles = "voter"
-      @user.roles_mask.should == 16
+      expect(@user.roles_mask).to eq(16)
       @user.roles = :voter
-      @user.roles_mask.should == 16
+      expect(@user.roles_mask).to eq(16)
     end
 
     it "- multiple" do
       @user.roles = ["admin", "reviewer"]
-      @user.roles_mask.should == 5
+      expect(@user.roles_mask).to eq(5)
       @user.roles = [:admin, :reviewer]
-      @user.roles_mask.should == 5
+      expect(@user.roles_mask).to eq(5)
     end
     
     it "- none" do
       @user.roles = []
-      @user.roles_mask.should == 0
+      expect(@user.roles_mask).to eq(0)
     end
     
     it "- invalid is ignored" do
       @user.roles = "invalid"
-      @user.roles_mask.should == 0
+      expect(@user.roles_mask).to eq(0)
       @user.roles = :invalid
-      @user.roles_mask.should == 0
+      expect(@user.roles_mask).to eq(0)
     end
     
     it "- mixed valid and invalid (ignores invalid)" do
       @user.roles = ["invalid", "reviewer", "admin"]
-      @user.roles_mask.should == 5
+      expect(@user.roles_mask).to eq(5)
       @user.roles = [:invalid, :reviewer, :admin]
-      @user.roles_mask.should == 5
+      expect(@user.roles_mask).to eq(5)
     end
   end
 
   context "attribute reader for roles" do
     it "- no roles" do
-      @user.roles.should be_empty
+      expect(@user.roles).to be_empty
     end
 
     it "- single role" do
       @user.roles = "admin"
-      @user.roles.should == ["admin"]
+      expect(@user.roles).to eq(["admin"])
 
       @user.roles = "reviewer"
-      @user.roles.should == ["reviewer"]
+      expect(@user.roles).to eq(["reviewer"])
 
       @user.roles = "author"
-      @user.roles.should == ["author"]
+      expect(@user.roles).to eq(["author"])
 
       @user.roles = "organizer"
-      @user.roles.should == ["organizer"]
+      expect(@user.roles).to eq(["organizer"])
 
       @user.roles = "voter"
-      @user.roles.should == ["voter"]
+      expect(@user.roles).to eq(["voter"])
     end
     
     it "- multiple roles" do
       @user.roles = ["admin", "reviewer", "author"]
-      @user.roles.should include("admin")
-      @user.roles.should include("author")
-      @user.roles.should include("reviewer")
-      @user.roles.should_not include("organizer")
+      expect(@user.roles).to include("admin")
+      expect(@user.roles).to include("author")
+      expect(@user.roles).to include("reviewer")
+      expect(@user.roles).to_not include("organizer")
     end
   end
   
   context "defining boolean methods for roles" do
     it "- admin" do
-      @user.should_not be_admin
+      expect(@user).to_not be_admin
       @user.roles = "admin"
-      @user.should be_admin
+      expect(@user).to be_admin
     end
 
     it "- author" do
-      @user.should_not be_author
+      expect(@user).to_not be_author
       @user.roles = "author"
-      @user.should be_author
+      expect(@user).to be_author
     end
 
     it "- reviewer" do
-      @user.should_not be_reviewer
+      expect(@user).to_not be_reviewer
       @user.roles = "reviewer"
-      @user.should be_reviewer
+      expect(@user).to be_reviewer
     end
 
     it "- organizer" do
-      @user.should_not be_organizer
+      expect(@user).to_not be_organizer
       @user.roles = "organizer"
-      @user.should be_organizer
+      expect(@user).to be_organizer
     end
     
     it "- voter" do
-      @user.should_not be_voter
+      expect(@user).to_not be_voter
       @user.roles = "voter"
-      @user.should be_voter
+      expect(@user).to be_voter
     end
 
     it "- multiple" do
       @user.roles = ["admin", "reviewer"]
-      @user.should_not be_guest
-      @user.should be_admin
-      @user.should_not be_author
-      @user.should be_reviewer
+      expect(@user).to_not be_guest
+      expect(@user).to be_admin
+      expect(@user).to_not be_author
+      expect(@user).to be_reviewer
     end
     
     it "- none (guest)" do
       @user.roles = []
-      @user.should be_guest
-      @user.should_not be_admin
-      @user.should_not be_author
-      @user.should_not be_reviewer
+      expect(@user).to be_guest
+      expect(@user).to_not be_admin
+      expect(@user).to_not be_author
+      expect(@user).to_not be_reviewer
     end    
   end
   
   context "adding a role" do
     it "- string" do
       @user.add_role "admin"
-      @user.should be_admin
+      expect(@user).to be_admin
     end
     
     it "- symbol" do
       @user.add_role :admin
-      @user.should be_admin
+      expect(@user).to be_admin
     end
     
     it "- invalid" do
       @user.add_role :invalid
-      @user.roles_mask.should == 0
+      expect(@user.roles_mask).to eq(0)
     end
     
     it "- multiple roles" do
       @user.roles = [:admin, :author]
       @user.add_role :reviewer
-      @user.should be_admin
-      @user.should be_author
-      @user.should be_reviewer
+      expect(@user).to be_admin
+      expect(@user).to be_author
+      expect(@user).to be_reviewer
     end
   end
 
@@ -189,28 +189,28 @@ describe Authorization do
     
     it "- string" do
       @user.remove_role "admin"
-      @user.should_not be_admin
+      expect(@user).to_not be_admin
     end
     
     it "- symbol" do
       @user.remove_role :admin
-      @user.should_not be_admin
+      expect(@user).to_not be_admin
     end
     
     it "- invalid" do
       @user.remove_role :invalid
-      @user.roles_mask.should == 1
+      expect(@user.roles_mask).to eq(1)
     end
     
     it "- multiple roles" do
       @user.add_role :reviewer
-      @user.should be_admin
-      @user.should be_reviewer
+      expect(@user).to be_admin
+      expect(@user).to be_reviewer
       
       @user.remove_role "reviewer"
       @user.remove_role :admin
-      @user.should_not be_admin
-      @user.should_not be_reviewer
+      expect(@user).to_not be_admin
+      expect(@user).to_not be_reviewer
     end
   end
 end
