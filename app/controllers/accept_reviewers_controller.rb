@@ -22,7 +22,7 @@ class AcceptReviewersController < ApplicationController
   
   private
   def load_audience_levels
-    @audience_levels ||= Conference.current.audience_levels
+    @audience_levels ||= @conference.audience_levels
   end
 
   def load_reviewer
