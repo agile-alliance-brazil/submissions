@@ -1,0 +1,15 @@
+- title "Trabalhos da #{@conference.name}"
+- show_actions!
+.auto_focus
+
+%p O 13o Fórum da AWID – #{link_to(@conference.name, "http://www.awid.com/forum13")} – é uma conferência internacional sem fins lucrativos organizada pela AWID. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes.
+
+%p A #{@conference.name} acontecerá em Salvador em Maio 2016, contando com  apresentação de sessões e discussões provenientes do mundo inteiro.
+
+%p Submeta sua proposta de trabalho e venha se juntar a nós em Salvador! Leia as #{link_to(t('title.guidelines'), static_page_path(@conference, 'guidelines'))}, elabore sua proposta e submeta. Para submeter, basta clicar em '#{t('actions.submit_session')}' e preencher o formulário. Envie a sua, comente as propostas dos outros e faça da #{@conference.name} a conferência perfeita para você.
+
+%h3 Datas importantes
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

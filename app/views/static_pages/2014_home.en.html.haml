@@ -1,0 +1,15 @@
+- title "Sessions proposed to #{@conference.name}"
+- show_actions!
+.auto_focus
+
+%p AWID 13th Forum – #{link_to(@conference.name, "http://www.awid.com/forum13/")} – is a non-profit international conference organized by AWID. The event's goal is to promote communication and collaboration among its attendees.
+
+%p #{@conference.name} will be held in Salvador, Brazil in May 2016, and will feature talks and discussions from international guests.
+
+%p Submit your proposal and come join us in Salvador! Read the submission #{link_to(t('title.guidelines'), static_page_path(@conference, 'guidelines'))}, build your proposal and submit it. To do so, just enter your user and password, click on '#{t('actions.submit_session')}' and fill the form. Send your proposal, add comments to others' and make #{@conference.name} the perfect conference for you.
+
+%h3 Important dates
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

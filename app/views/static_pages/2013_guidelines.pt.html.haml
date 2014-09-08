@@ -1,0 +1,25 @@
+- title "Regras de Submissão"
+- show_actions!
+
+%p Para submeter sua proposta, crie uma conta no sistema de submissões e preencha o formulário com as informações sobre a sua proposta. Enquanto estivermos no período de submissões, você poderá editar o seu perfil, criar novas propostas e editar suas propostas. Você pode submeter tantas propostas quantas quiser. Não é possível remover uma proposta.
+
+%p Note que você poderá também ler as propostas submetidas por outros usuários, assim como eles poderão ler as suas, mesmo após o prazo de submissão. Qualquer usuário também pode adicionar comentários em outras propostas. Fique atento a esses comentários: muitas vezes, eles contém dúvidas ou sugestões que melhorarão sua submissão!
+
+%p Todas as propostas serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Os revisores levarão em consideração:
+
+%ul
+  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta, presente no formulário de submissão;
+  %li Adequação da proposta no que diz respeito a #{link_to "trilha escolhida", tracks_path(@conference)}, #{link_to "tipo de sessão", session_types_path(@conference)} proposta, #{link_to "nível e perfil", audience_levels_path(@conference)} do público;
+  %li Relevância para o evento;
+  %li Clareza e qualidade do material enviado.
+
+%p Os autores que tiverem sessões selecionadas para entrar no programa serão notificados por email após o período de avaliação. A partir da notificação, os autores terão um prazo para se inscrever na conferência. Caso nenhum dos autores se inscreva dentro do prazo, sua sessão será removida do programa.
+
+%p Cada sessão aceita que for confirmada terá direito a inscrição gratuita para ambos os seus autores.
+
+%p Confira abaixo as datas importantes:
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)
+
