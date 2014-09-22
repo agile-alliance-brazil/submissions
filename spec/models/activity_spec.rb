@@ -18,7 +18,7 @@ describe Activity, type: :model do
   end
 
   describe "#starts_in?" do
-    let(:activity) { FactoryGirl.build(:activity, :start_at => Time.parse("08:00"))}
+    let(:activity) { FactoryGirl.build(:activity, start_at: Time.parse("08:00"))}
     subject { activity.starts_in?(slot) }
 
     context "starting along with slot" do
@@ -53,7 +53,7 @@ describe Activity, type: :model do
   end
 
   describe "#slots_remaining" do
-    let(:activity) { FactoryGirl.build(:activity, :start_at => Time.parse("08:00"), :end_at => Time.parse("09:00")) }
+    let(:activity) { FactoryGirl.build(:activity, start_at: Time.parse("08:00"), end_at: Time.parse("09:00")) }
     subject { activity.slots_remaining(slot) }
 
     context "single slot" do
@@ -78,7 +78,7 @@ describe Activity, type: :model do
   end
 
   describe "normal session" do
-    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:session)) }
+    subject { FactoryGirl.build(:activity, detail: FactoryGirl.build(:session)) }
 
     it { should_not be_all_rooms }
     it { should_not be_keynote }
@@ -89,7 +89,7 @@ describe Activity, type: :model do
   end
 
   describe "normal guest session" do
-    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:guest_session, :keynote => false)) }
+    subject { FactoryGirl.build(:activity, detail: FactoryGirl.build(:guest_session, keynote: false)) }
 
     it { should_not be_all_rooms }
     it { should_not be_keynote }
@@ -100,7 +100,7 @@ describe Activity, type: :model do
   end
 
   describe "keynote guest session" do
-    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:guest_session, :keynote => true)) }
+    subject { FactoryGirl.build(:activity, detail: FactoryGirl.build(:guest_session, keynote: true)) }
 
     it { should be_all_rooms }
     it { should be_keynote }
@@ -111,7 +111,7 @@ describe Activity, type: :model do
   end
 
   describe "all hands session" do
-    subject { FactoryGirl.build(:activity, :detail => FactoryGirl.build(:all_hands)) }
+    subject { FactoryGirl.build(:activity, detail: FactoryGirl.build(:all_hands)) }
 
     it { should be_all_rooms }
     it { should_not be_keynote }
@@ -119,27 +119,5 @@ describe Activity, type: :model do
     it { should_not be_wbma }
     it { should_not be_executive_summit }
     its(:css_classes) { should == ["activity", "all_hands"] }
-  end
-
-  describe "wbma session" do
-    subject { FactoryGirl.build(:activity, :room => Room.find(6), :detail => FactoryGirl.build(:guest_session)) }
-
-    it { should be_all_rooms }
-    it { should be_keynote }
-    it { should_not be_all_hands }
-    it { should be_wbma }
-    it { should_not be_executive_summit }
-    its(:css_classes) { should == ["activity", "keynote"] }
-  end
-
-  describe "executive summit session" do
-    subject { FactoryGirl.build(:activity, :room => Room.find(7), :detail => FactoryGirl.build(:guest_session)) }
-
-    it { should be_all_rooms }
-    it { should be_keynote }
-    it { should_not be_all_hands }
-    it { should_not be_wbma }
-    it { should be_executive_summit }
-    its(:css_classes) { should == ["activity", "keynote"] }
   end
 end

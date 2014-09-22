@@ -84,7 +84,9 @@ class SessionsController < InheritedResources::Base
 
   def check_conference
     if resource.conference != @conference
-      flash.now[:news] = t('flash.news.session_different_conference', :conference_name => resource.conference.name, :current_conference_name => @conference.name).html_safe
+      flash.now[:news] = t('flash.news.session_different_conference',
+        conference_name: resource.conference.name,
+        current_conference_name: @conference.name).html_safe
     end
   end
 

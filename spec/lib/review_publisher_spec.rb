@@ -5,64 +5,68 @@ describe ReviewPublisher do
   before(:each) do
     Session.stubs(:count).returns(0)
     Session.stubs(:all).returns([])
-    EmailNotifications.stubs(:notification_of_acceptance).returns(stub(:deliver => true))
+    EmailNotifications.stubs(:notification_of_acceptance).returns(stub(deliver: true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
 
-    @conference = Conference.current
+    @conference = FactoryGirl.create(:conference)
+
+    # TODO outcome is a mess as it depends on having only those two values. Need to figure out something better
+    @reject_outcome =Outcome.find_by_title('outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
+    @accept_outcome = Outcome.find_by_title('outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
 
     @publisher = ReviewPublisher.new
   end
 
   it "should raise error if there are sessions not reviewed" do
-    Session.expects(:count).with(:conditions => ['state = ? AND conference_id = ?', 'created', @conference.id]).returns(2)
-    lambda {@publisher.publish}.should raise_error("There are 2 sessions not reviewed")
+    Session.expects(:count).with(conditions: ['state = ? AND conference_id = ?', 'created', @conference.id]).returns(2)
+    expect(lambda {@publisher.publish}).to raise_error("There are 2 sessions not reviewed")
   end
 
   context "validating sessions without decision" do
     it "should raise error if sessions in_review" do
-      Session.expects(:count).with(:conditions => ['state = ? AND conference_id = ?', 'in_review', @conference.id]).returns(3)
-      lambda {@publisher.publish}.should raise_error("There are 3 sessions without decision")
+      Session.expects(:count).with(conditions: ['state = ? AND conference_id = ?', 'in_review', @conference.id]).returns(3)
+      expect(lambda {@publisher.publish}).to raise_error("There are 3 sessions without decision")
     end
 
     it "should raise error if reviewed sessions don't have decisions" do
       Session.expects(:count).with(
-        :joins => "left outer join (
+        joins: "left outer join (
                   SELECT session_id, count(*) AS cnt
                   FROM review_decisions
                   GROUP BY session_id
                 ) AS review_decision_count
                 ON review_decision_count.session_id = sessions.id",
-        :conditions => ['state IN (?) AND review_decision_count.cnt <> 1 AND conference_id = ?', ['pending_confirmation', 'rejected'], @conference.id]).
+        conditions: ['state IN (?) AND review_decision_count.cnt <> 1 AND conference_id = ?', ['pending_confirmation', 'rejected'], @conference.id]).
         returns(4)
-      lambda {@publisher.publish}.should raise_error("There are 4 sessions without decision")
+      expect(lambda {@publisher.publish}).to raise_error("There are 4 sessions without decision")
     end
   end
 
   context "Sessions are all reviewed" do
     before(:each) do
-      @sessions = [FactoryGirl.create(:session), FactoryGirl.create(:session)]
-      FactoryGirl.create(:review_decision, :session => @sessions[0])
-      FactoryGirl.create(:review_decision, :session => @sessions[1])
+      @sessions = [in_review_session_for(@conference), in_review_session_for(@conference)]
+      FactoryGirl.create(:review_decision, session: @sessions[0])
+      FactoryGirl.create(:review_decision, session: @sessions[1])
       Session.stubs(:all).returns(@sessions)
     end
 
     def expect_acceptance(accept_or_reject)
       Session.expects(:all).with(
-        :joins => :review_decision,
-        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 1, false, @conference.id]).
+        joins: :review_decision,
+        conditions: ['outcome_id = ? AND published = ? AND conference_id = ?', @accept_outcome.id, false, @conference.id]).
         returns(accept_or_reject == :accept ? @sessions : [])
       Session.expects(:all).with(
-        :joins => :review_decision,
-        :conditions => ['outcome_id = ? AND published = ? AND conference_id = ?', 2, false, @conference.id]).
+        joins: :review_decision,
+        conditions: ['outcome_id = ? AND published = ? AND conference_id = ?', @reject_outcome.id, false, @conference.id]).
         returns(accept_or_reject == :reject ? @sessions : [])
     end
 
     it "should send reject e-mails" do
       expect_acceptance(:reject)
 
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(:deliver => true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver: true))
 
       @publisher.publish
     end
@@ -70,14 +74,14 @@ describe ReviewPublisher do
     it "should send acceptance e-mails" do
       expect_acceptance(:accept)
 
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(:deliver => true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver: true))
 
       @publisher.publish
     end
 
     it "should mark review decisions as published" do
       @publisher.publish
-      @sessions.map(&:review_decision).all? {|r| r.published?}.should be true
+      expect(@sessions.map(&:review_decision).all? {|r| r.published?}).to be true
     end
 
     it "should send reject e-mails before acceptance e-mails" do
@@ -89,7 +93,7 @@ describe ReviewPublisher do
         with(@sessions[0]).
         with(@sessions[1]).
         in_sequence(notifications).
-        returns(mock(:deliver => true))
+        returns(mock(deliver: true))
 
       @publisher.publish
     end
@@ -119,7 +123,7 @@ describe ReviewPublisher do
 
       error = StandardError.new('error')
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(:deliver => true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED ACCEPT] error")
       ::Rails.logger.expects(:info).with("  [ACCEPT] OK")
@@ -133,7 +137,7 @@ describe ReviewPublisher do
 
       error = StandardError.new('error')
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(:deliver => true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       ::Rails.logger.expects(:info).with("  [REJECT] OK")
@@ -147,5 +151,9 @@ describe ReviewPublisher do
 
       @publisher.publish
     end
+  end
+
+  def in_review_session_for(conference)
+    FactoryGirl.create(:session, conference: conference).tap(&:reviewing)
   end
 end

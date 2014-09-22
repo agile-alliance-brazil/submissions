@@ -8,9 +8,10 @@ describe ConfirmSessionsController, type: :controller do
 
   before(:each) do
     @user = FactoryGirl.create(:user)
-    @session = FactoryGirl.create(:session, :author => @user)
+    @session = FactoryGirl.create(:session, author: @user)
+    @conference = @session.conference
     @session.reviewing
-    FactoryGirl.create(:review_decision, :session => @session)
+    FactoryGirl.create(:review_decision, session: @session)
     @session.tentatively_accept
     Session.stubs(:find).returns(@session)
     sign_in @user
@@ -18,21 +19,21 @@ describe ConfirmSessionsController, type: :controller do
   end
 
   it "show action should render show template" do
-    get :show, :session_id => @session.id
-    response.should render_template(:show)
+    get :show, session_id: @session.id
+    expect(response).to render_template(:show)
   end
   
   it "update action should render show template when model is invalid" do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
-    put :update, :session_id => @session.id, :session => {:author_agreement => false}
-    response.should render_template(:show)
+    put :update, session_id: @session.id, session: {author_agreement: false}
+    expect(response).to render_template(:show)
   end
 
   it "update action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
-    put :update, :session_id => @session.id, :session => {}
-    response.should redirect_to(user_sessions_path(Conference.current, @user))
+    put :update, session_id: @session.id, session: {}
+    expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end  
 end

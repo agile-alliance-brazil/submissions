@@ -6,6 +6,7 @@ tmp/**/*
 coverage
 **/*~
 config/*.yml
+config/deploy/*.*.*.*.rb
 .idea
 bin/*
 turbulence

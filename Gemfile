@@ -66,5 +66,6 @@ group :development, :test do
   gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
   gem 'guard-jasmine', '1.19.2'
   gem 'jasminerice', '0.0.10'
+  gem 'pry-rails', '0.3.2'
   gem 'coveralls', '0.7.0', require: false
 end

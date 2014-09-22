@@ -13,16 +13,30 @@ describe SessionType, type: :model do
     it { should belong_to :conference }
   end
 
-  it "should detect all titles" do
-    (SessionType.all_titles - %w[tutorial workshop talk lightning_talk hands_on experience_report traditional_talk duel]).should be_empty
-  end
+  context "types" do
+    it "should detect all titles" do
+      FactoryGirl.create(:session_type, title: 'session_types.tutorial.title')
+      FactoryGirl.create(:session_type, title: 'session_types.lightning_talk.title')
+      
+      expect(SessionType.all_titles).to eq(%w[tutorial lightning_talk])
+    end
 
-  SessionType.all_titles.each do |title|
-    it "should determine if it's #{title}" do
-      session_type = FactoryGirl.build(:session_type, :title => "session_types.#{title}.title")
-      session_type.send(:"#{title}?").should be true
-      session_type = FactoryGirl.build(:session_type, :title => 'session_types.other.title')
-      session_type.send(:"#{title}?").should be false
+    it "should determine if it's tutorial" do
+      FactoryGirl.create(:session_type, title: 'session_types.tutorial.title')
+      
+      session_type = FactoryGirl.build(:session_type, title: "session_types.tutorial.title")
+      expect(session_type.send(:tutorial?)).to be true
+      session_type = FactoryGirl.build(:session_type, title: 'session_types.other.title')
+      expect(session_type.send(:tutorial?)).to be false
+    end
+
+    it "should determine if it's lightning talk" do
+      FactoryGirl.create(:session_type, title: 'session_types.lightning_talk.title')
+      
+      session_type = FactoryGirl.build(:session_type, title: "session_types.lightning_talk.title")
+      expect(session_type.send(:lightning_talk?)).to be true
+      session_type = FactoryGirl.build(:session_type, title: 'session_types.other.title')
+      expect(session_type.send(:lightning_talk?)).to be false
     end
   end
 end

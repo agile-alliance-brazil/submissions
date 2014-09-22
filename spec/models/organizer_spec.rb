@@ -22,23 +22,24 @@ describe Organizer, type: :model do
     end
 
     should_validate_existence_of :user, :conference
-    should_validate_existence_of :track, :allow_blank => true
+    should_validate_existence_of :track, allow_blank: true
 
     context "user" do
       it "should be a valid user" do
         organizer = FactoryGirl.build(:organizer)
         organizer.user_username = 'invalid_username'
-        organizer.should_not be_valid
-        organizer.errors[:user_username].should include(I18n.t("activerecord.errors.messages.existence"))
+        expect(organizer).to_not be_valid
+        expect(organizer.errors[:user_username]).to include(I18n.t("activerecord.errors.messages.existence"))
       end
     end
 
     context "track" do
       it "should match the conference" do
         track = FactoryGirl.create(:track)
-        organizer = FactoryGirl.build(:organizer, :track => track, :conference => Conference.first)
-        organizer.should_not be_valid
-        organizer.errors[:track_id].should include(I18n.t("errors.messages.same_conference"))
+        other_conference = FactoryGirl.create(:conference)
+        organizer = FactoryGirl.build(:organizer, track: track, conference: other_conference)
+        expect(organizer).to_not be_valid
+        expect(organizer.errors[:track_id]).to include(I18n.t("errors.messages.same_conference"))
       end
     end
   end
@@ -56,48 +57,48 @@ describe Organizer, type: :model do
 
   shared_examples_for "organizer role" do
     it "should make given user organizer role after created" do
-      subject.should_not be_organizer
-      organizer = FactoryGirl.create(:organizer, :user => subject)
-      subject.should be_organizer
-      subject.reload.should be_organizer
+      expect(subject).to_not be_organizer
+      organizer = FactoryGirl.create(:organizer, user: subject)
+      expect(subject).to be_organizer
+      expect(subject.reload).to be_organizer
     end
 
     it "should remove organizer role after destroyed" do
-      organizer = FactoryGirl.create(:organizer, :user => subject)
-      subject.should be_organizer
+      organizer = FactoryGirl.create(:organizer, user: subject)
+      expect(subject).to be_organizer
       organizer.destroy
-      subject.should_not be_organizer
-      subject.reload.should_not be_organizer
+      expect(subject).to_not be_organizer
+      expect(subject.reload).to_not be_organizer
     end
 
     it "should keep organizer role after destroyed if user organizes other tracks" do
-      other_organizer = FactoryGirl.create(:organizer, :user => subject)
-      track = FactoryGirl.create(:track, :conference => other_organizer.conference)
-      organizer = FactoryGirl.create(:organizer, :user => subject, :track => track, :conference => other_organizer.conference)
-      subject.should be_organizer
+      other_organizer = FactoryGirl.create(:organizer, user: subject)
+      track = FactoryGirl.create(:track, conference: other_organizer.conference)
+      organizer = FactoryGirl.create(:organizer, user: subject, track: track, conference: other_organizer.conference)
+      expect(subject).to be_organizer
       organizer.destroy
-      subject.should be_organizer
-      subject.reload.should be_organizer
+      expect(subject).to be_organizer
+      expect(subject.reload).to be_organizer
     end
 
     it "should remove organizer role after update" do
-      organizer = FactoryGirl.create(:organizer, :user => subject)
+      organizer = FactoryGirl.create(:organizer, user: subject)
       another_user = FactoryGirl.create(:user)
       organizer.user = another_user
       organizer.save
-      subject.reload.should_not be_organizer
-      another_user.should be_organizer
+      expect(subject.reload).to_not be_organizer
+      expect(another_user).to be_organizer
     end
 
     it "should keep organizer role after update if user organizes other tracks" do
-      other_organizer = FactoryGirl.create(:organizer, :user => subject)
-      track = FactoryGirl.create(:track, :conference => other_organizer.conference)
-      organizer = FactoryGirl.create(:organizer, :user => subject, :track => track, :conference => other_organizer.conference)
+      other_organizer = FactoryGirl.create(:organizer, user: subject)
+      track = FactoryGirl.create(:track, conference: other_organizer.conference)
+      organizer = FactoryGirl.create(:organizer, user: subject, track: track, conference: other_organizer.conference)
       another_user = FactoryGirl.create(:user)
       organizer.user = another_user
       organizer.save
-      subject.reload.should be_organizer
-      another_user.should be_organizer
+      expect(subject.reload).to be_organizer
+      expect(another_user).to be_organizer
     end
   end
 

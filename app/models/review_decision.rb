@@ -5,13 +5,13 @@ class ReviewDecision < ActiveRecord::Base
 
   belongs_to :session
   belongs_to :outcome
-  belongs_to :organizer, :class_name => "User"
+  belongs_to :organizer, class_name: "User"
   
-  validates :organizer_id, :presence => true, :existence => true
-  validates :session_id, :presence => true, :existence => true
-  validates :outcome_id, :presence => true, :existence => true, :allow_blank => true
-  validates :note_to_authors, :presence => true
-  validates :session_id, :session_acceptance => true
+  validates :organizer_id, presence: true, existence: true
+  validates :session_id, presence: true, existence: true
+  validates :outcome_id, presence: true, existence: true, allow_blank: true
+  validates :note_to_authors, presence: true
+  validates :session_id, session_acceptance: true
   
   after_save do
     case outcome
@@ -22,10 +22,10 @@ class ReviewDecision < ActiveRecord::Base
     end
   end
 
-  scope :for_conference, lambda { |c| joins(:session).where(:sessions => {:conference_id => c.id}) }
-  scope :for_tracks, lambda { |track_ids| joins(:session).where(:sessions => {:track_id => track_ids}) }
-  scope :accepted, lambda { where(:outcome_id => Outcome.find_by_title('outcomes.accept.title').id) }
-  scope :confirmed, lambda { joins(:session).where(:sessions => {:state => ['accepted', 'rejected']}) }
+  scope :for_conference, lambda { |c| joins(:session).where(sessions: {conference_id: c.id}) }
+  scope :for_tracks, lambda { |track_ids| joins(:session).where(sessions: {track_id: track_ids}) }
+  scope :accepted, lambda { where(outcome_id: Outcome.find_by_title('outcomes.accept.title').id) }
+  scope :confirmed, lambda { joins(:session).where(sessions: {state: ['accepted', 'rejected']}) }
   
   def accepted?
     outcome == Outcome.find_by_title('outcomes.accept.title')

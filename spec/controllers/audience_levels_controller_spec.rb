@@ -4,13 +4,17 @@ require 'spec_helper'
 describe AudienceLevelsController, type: :controller do
   render_views
 
+  before(:each) do
+    @conference = FactoryGirl.create(:conference)
+  end
+
   it "index action should render index template" do
     get :index
-    response.should render_template(:index)
+    expect(response).to render_template(:index)
   end
   
   it "index action should assign audience levels for current conference" do
     get :index
-    (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
+    expect((assigns(:audience_levels) - @conference.audience_levels)).to be_empty
   end
 end

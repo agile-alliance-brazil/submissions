@@ -44,11 +44,11 @@ describe FinalReview, type: :model do
   end
 
   it "should determine if it's strong accept" do
-    strong = FactoryGirl.build(:recommendation,:title => 'recommendation.strong_accept.title')
+    strong = FactoryGirl.build(:recommendation,title: 'recommendation.strong_accept.title')
     review = FactoryGirl.build(:final_review)
-    review.should_not be_strong_accept
+    expect(review).to_not be_strong_accept
     review.recommendation = strong
-    review.should be_strong_accept
+    expect(review).to be_strong_accept
   end
 
   context "validations" do
@@ -78,9 +78,9 @@ describe FinalReview, type: :model do
 
       it "should not validate presence of justification" do
         subject.justification = nil
-        subject.should be_valid
+        expect(subject).to be_valid
         subject.justification = "I want to justify that the session rules!"
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       it { should be_strong_accept }
@@ -92,11 +92,11 @@ describe FinalReview, type: :model do
 
       it "should validate presence of justification" do
         subject.justification = nil
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = ""
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = "I want to justify that the session is ok."
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       it { should be_weak_accept }
@@ -108,11 +108,11 @@ describe FinalReview, type: :model do
 
       it "should validate presence of justification" do
         subject.justification = nil
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = ""
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = "I want to justify that the session is not so good..."
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       it { should be_weak_reject }
@@ -124,11 +124,11 @@ describe FinalReview, type: :model do
 
       it "should validate presence of justification" do
         subject.justification = nil
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = ""
-        subject.should_not be_valid
+        expect(subject).to_not be_valid
         subject.justification = "I want to justify that the session sucks a lot..."
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       it { should be_strong_reject }
@@ -139,13 +139,13 @@ describe FinalReview, type: :model do
     it "should set session in review after created" do
       review = FactoryGirl.build(:final_review)
       review.save
-      review.session.should be_in_review
+      expect(review.session).to be_in_review
     end
 
     it "should not set session in review if validation failed" do
-      review = FactoryGirl.build(:final_review, :reviewer_id => nil)
+      review = FactoryGirl.build(:final_review, reviewer_id: nil)
       review.save
-      review.session.should be_created
+      expect(review.session).to be_created
     end
   end
 

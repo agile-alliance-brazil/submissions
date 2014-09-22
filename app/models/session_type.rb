@@ -11,13 +11,33 @@ class SessionType < ActiveRecord::Base
 
   def self.all_titles
     self.select(:title).uniq.map do |session_type|
-      session_type.title.match(/session_types\.(\w+)\.title/)[1]
+      session_type.title.match(/session_types\.(\w+)\.title/).try(:[], 1)
     end
   end
 
-  all_titles.each do |type|
-    define_method("#{type}?") do                   # def lightning_talk?
-      self.title == "session_types.#{type}.title"  #   self.title == 'session_types.lightning_talk.title'
-    end                                            # end
+  def respond_to_missing_with_title?(method_sym, include_private = false)
+    is_title_check_method?(method_sym) || super
+  end
+
+  def method_missing(method_sym, *arguments, &block)
+    if is_title_check_method?(method_sym)
+      title_matches(method_sym)
+    else
+      super
+    end
+  end
+
+  private
+
+  def title_matches(method_sym)
+    title_name = method_sym.to_s.gsub(/\?$/,'')
+    self.title == "session_types.#{title_name}.title"
+  end
+
+  def is_title_check_method?(method_sym)
+    method_sym.to_s.ends_with?('?') &&
+      SessionType.all_titles.
+        map{|title| "#{title}?"}.
+        include?(method_sym.to_s)
   end
 end

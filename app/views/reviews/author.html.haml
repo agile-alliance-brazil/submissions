@@ -1,3 +1,3 @@
-- reviewers, comments = build_hash_with_reviewers_and_comments(@reviews, Conference.current)
+- reviewers, comments = build_hash_with_reviewers_and_comments(@reviews, @conference)
 = render 'reviews', :should_justify => false, :reviewers => reviewers,
                     :comments_to_author => comments, :comments_to_author_label => t('review.comments_to_authors')

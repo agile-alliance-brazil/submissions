@@ -9,6 +9,7 @@ describe WithdrawSessionsController, type: :controller do
   before(:each) do
     @user ||= FactoryGirl.create(:user)
     @session ||= FactoryGirl.create(:session, :author => @user)
+    @conference ||= @session.conference
     @session.reviewing
     FactoryGirl.create(:review_decision, :session => @session)
     @session.tentatively_accept
@@ -19,7 +20,7 @@ describe WithdrawSessionsController, type: :controller do
 
   it "show action should render show template" do
     get :show, :session_id => @session.id
-    response.should render_template(:show)
+    expect(response).to render_template(:show)
   end
   
   it "update action should render show template when model is invalid" do
@@ -27,12 +28,12 @@ describe WithdrawSessionsController, type: :controller do
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
     put :update, :session_id => @session.id, :session => {:author_agreement => false}
-    response.should render_template(:show)
+    expect(response).to render_template(:show)
   end
 
   it "update action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
     put :update, :session_id => @session.id, :session => {}
-    response.should redirect_to(user_sessions_path(Conference.current, @user))
+    expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end
 end

@@ -9,7 +9,7 @@ describe ReviewerSessionsController, type: :controller do
     disable_authorization
   end
 
-  describe "with view rendering", :render_views => true do
+  describe "with view rendering", render_views: true do
     render_views
 
     it "index should work" do
@@ -21,9 +21,9 @@ describe ReviewerSessionsController, type: :controller do
 
   describe "#index" do
     before(:each) do
-      @conference = Conference.current
+      @conference = @reviewer.conference
       Conference.stubs(:current).returns(@conference)
-      @session = FactoryGirl.build(:session)
+      @session = FactoryGirl.build(:session, conference: @conference)
       Session.stubs(:for_reviewer).returns(Session)
       Session.stubs(:order).returns(Session)
       Session.stubs(:for_audience_level).returns(Session)
@@ -34,24 +34,24 @@ describe ReviewerSessionsController, type: :controller do
 
     it "should assign tracks for current conference" do
       get :index
-      (assigns(:tracks) - Track.for_conference(Conference.current)).should be_empty
+      expect(assigns(:tracks) - @conference.tracks).to be_empty
     end
 
     it "should assign audience levels for current conference" do
       get :index
-      (assigns(:audience_levels) - Conference.current.audience_levels).should be_empty
+      expect(assigns(:audience_levels) - @conference.audience_levels).to be_empty
     end
 
     it "should assign session types for current conference" do
       get :index
-      (assigns(:session_types) - Conference.current.session_types).should be_empty
+      expect(assigns(:session_types) - @conference.session_types).to be_empty
     end
 
     it "should filter sessions" do
       Session.expects(:for_audience_level).with('1').returns(Session)
       Session.expects(:for_session_type).with('2').returns(Session)
 
-      get :index, :session_filter => {:audience_level_id => '1', :session_type_id => '2'}
+      get :index, session_filter: {audience_level_id: '1', session_type_id: '2'}
     end
 
     context "during early review phase" do
@@ -62,13 +62,13 @@ describe ReviewerSessionsController, type: :controller do
       it "should list sessions for reviewer" do
         Session.expects(:for_reviewer).with(@reviewer.user, @conference).returns(Session)
         get :index
-        assigns(:sessions).should == [@session]
+        expect(assigns(:sessions)).to eq([@session])
       end
 
       it "should order sessions for reviewer from less reviewed to more reviewed" do
         Session.expects(:order).with('sessions.early_reviews_count ASC').returns(Session)
         get :index
-        assigns(:sessions).should == [@session]
+        expect(assigns(:sessions)).to eq([@session])
       end
     end
 
@@ -81,13 +81,13 @@ describe ReviewerSessionsController, type: :controller do
       it "should list sessions for reviewer" do
         Session.expects(:for_reviewer).with(@reviewer.user, @conference).returns(Session)
         get :index
-        assigns(:sessions).should == [@session]
+        expect(assigns(:sessions)).to eq([@session])
       end
 
       it "should order sessions for reviewer from less reviewed to more reviewed" do
         Session.expects(:order).with('sessions.final_reviews_count ASC').returns(Session)
         get :index
-        assigns(:sessions).should == [@session]
+        expect(assigns(:sessions)).to eq([@session])
       end
     end
 
@@ -99,7 +99,7 @@ describe ReviewerSessionsController, type: :controller do
 
       it "should return no sessions" do
         get :index
-        assigns(:sessions).should be_empty
+        expect(assigns(:sessions)).to be_empty
       end
     end
   end

@@ -2,14 +2,24 @@
 require 'spec_helper'
 
 shared_examples_for "standard conference e-mail" do
-  let(:conference) { Conference.current }
+  let(:conference) { FactoryGirl.create(:conference) }
+
+  # TODO: Remove usage of Conference.current
+  before(:each) do
+    Conference.stubs(:current).returns(conference)
+  end
 
   it { should deliver_from("\"#{conference.name}\" <#{AppConfig[:sender_address]}>") }
   it { should reply_to("\"#{conference.name}\" <#{AppConfig[:sender_address]}>") }
 end
 
 describe EmailNotifications, type: :mailer do
-  let(:conference) { Conference.current }
+  let(:conference) { FactoryGirl.create(:conference) }
+
+  # TODO: Remove usage of Conference.current
+  before(:each) do
+    Conference.stubs(:current).returns(conference)
+  end
 
   around do |example|
     I18n.with_locale(I18n.default_locale) do
@@ -81,14 +91,14 @@ describe EmailNotifications, type: :mailer do
       before { user.default_locale = 'pt' }
 
       it { should have_subject("[localhost:3000] Proposta de sessão submetida para #{conference.name}") }
-      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, :format => :long)}/) }
+      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :pt)}/) }
     end
 
     context "in en" do
       before { user.default_locale = 'en' }
 
       it { should have_subject("[localhost:3000] #{conference.name} session proposal submitted") }
-      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, :format => :long, :locale => 'en')}/) }
+      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :en)}/) }
     end
 
     context "with single author" do
@@ -220,7 +230,7 @@ describe EmailNotifications, type: :mailer do
 
     it "should not be sent if session has no decision" do
       session.review_decision = nil
-      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
+      expect(lambda {EmailNotifications.notification_of_acceptance(session)}).to raise_error("Notification can't be sent before decision has been made")
     end
 
     it { should have_body_text(/#{session.title}/)}
@@ -264,7 +274,7 @@ describe EmailNotifications, type: :mailer do
 
     it "should not be sent if session has no decision" do
       session.review_decision = nil
-      lambda {EmailNotifications.notification_of_acceptance(session)}.should raise_error("Notification can't be sent before decision has been made")
+      expect(lambda {EmailNotifications.notification_of_acceptance(session)}).to raise_error("Notification can't be sent before decision has been made")
     end
 
     it { should have_body_text(/#{session.title}/)}

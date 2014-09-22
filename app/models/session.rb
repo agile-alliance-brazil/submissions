@@ -141,14 +141,29 @@ class Session < ActiveRecord::Base
     authors.include?(user)
   end
 
-  SessionType.all_titles.each do |type|
-    define_method("#{type}?") do                   # def lightning_talk?
-      self.session_type.try(:"#{type}?")           #   self.session_type.try(:lightning_talk?)
-    end                                            # end
+  def respond_to?(method_sym, include_private = false)
+    method_is_session_type_based?(method_sym) ||
+      super
+  end
+
+  def method_missing(method_sym, *arguments, &block)
+    if method_is_session_type_based?(method_sym)
+      # Responds to 'lightning_talk?' if there is a session type with that title
+      self.session_type.try(:send, method_sym, *arguments, &block)
+    else
+      super
+    end
   end
 
   private
+  def method_is_session_type_based?(method_sym)
+    SessionType.all_titles.
+      map{|title| "#{title}?"}.
+      include?(method_sym.to_s)
+  end
+  
   def requires_mechanics?
-    workshop? || hands_on?
+    (respond_to?(:workshop?) && workshop?) ||
+      (respond_to?(:hands_on?) && hands_on?)
   end
 end

@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
   def sessions_by_track
     ([['Track', 'Submitted sessions']] +
-      @conference.tracks.all.
+      @conference.tracks.
         map{|track| [t(track.title), track.sessions.count]})
   end
 

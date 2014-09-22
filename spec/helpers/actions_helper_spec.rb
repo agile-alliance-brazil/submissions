@@ -3,7 +3,7 @@ require 'cancan/matchers'
 
 describe ActionsHelper, type: :helper do
   before :each do
-    @conference = Conference.current
+    @conference = FactoryGirl.create(:conference)
     helper.stubs(:can?).returns(true)
   end
   describe 'user section' do

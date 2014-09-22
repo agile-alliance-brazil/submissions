@@ -5,6 +5,6 @@ class AcceptedSessionsController < InheritedResources::Base
 
   def index
     @activities = Activity.for_conference(@conference)
-    render :layout => false
+    render layout: false
   end
 end
