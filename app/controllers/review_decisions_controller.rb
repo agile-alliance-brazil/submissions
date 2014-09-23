@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReviewDecisionsController < InheritedResources::Base
-  defaults :singleton => true
+  defaults singleton: true
   belongs_to :session
   
   actions :new, :create, :edit, :update
@@ -11,7 +11,7 @@ class ReviewDecisionsController < InheritedResources::Base
         redirect_to root_path
       end
       format.js do
-        render :json => {
+        render json: {
           'required_decisions' => Session.for_conference(@conference).without_state(:cancelled).count,
           'total_decisions' => ReviewDecision.for_conference(@conference).count,
           'total_accepted' => ReviewDecision.for_conference(@conference).accepted.count,

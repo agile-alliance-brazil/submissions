@@ -9,12 +9,12 @@ class Organizer < ActiveRecord::Base
   belongs_to :track
   belongs_to :conference
 
-  validates :track_id, :presence => true, :existence => true, :same_conference => true, :uniqueness => {:scope => [:conference_id, :user_id]}, :allow_blank => true
-  validates :conference_id, :existence => true
-  validates :user, :existence => true
+  validates :track_id, presence: true, existence: true, same_conference: true, uniqueness: {scope: [:conference_id, :user_id]}, allow_blank: true
+  validates :conference_id, existence: true
+  validates :user, existence: true
 
-  scope :for_conference, lambda { |c| where(:conference_id => c.id) }
-  scope :for_user, lambda { |u| where(:user_id => u.id) }
+  scope :for_conference, lambda { |c| where(conference_id: c.id) }
+  scope :for_user, lambda { |u| where(user_id: u.id) }
 
   def self.user_organizing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).empty?
@@ -22,7 +22,7 @@ class Organizer < ActiveRecord::Base
 
   after_save do
     user.add_role :organizer
-    user.save(:validate => false)
+    user.save(validate: false)
   end
 
   after_update do
@@ -30,7 +30,7 @@ class Organizer < ActiveRecord::Base
       old_user = User.find(user_id_was)
       if old_user.all_organized_tracks.empty?
         old_user.remove_role :organizer
-        old_user.save(:validate => false)
+        old_user.save(validate: false)
       end
     end
   end
@@ -38,7 +38,7 @@ class Organizer < ActiveRecord::Base
   after_destroy do
     if user.all_organized_tracks.empty?
       user.remove_role :organizer
-      user.save(:validate => false)
+      user.save(validate: false)
     end
   end
 end

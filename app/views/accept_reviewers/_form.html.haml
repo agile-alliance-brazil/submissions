@@ -1,18 +1,18 @@
-= semantic_form_for @reviewer, :url => reviewer_accept_path(@conference, @reviewer) do |form|
+= semantic_form_for @reviewer, url: reviewer_accept_path(@conference, @reviewer) do |form|
   = form.semantic_fields_for :preferences do |p|
-    = p.inputs :class => 'inputs preferences' do
-      = p.input :track_id, :as => :hidden
-      = p.input :accepted, :label => t(p.instance_variable_get("@object").track.title), :input_html => {:tabindex => autotab}
-      = p.input :audience_level_id, :required => true, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}
+    = p.inputs class: 'inputs preferences' do
+      = p.input :track_id, as: :hidden
+      = p.input :accepted, label: t(p.instance_variable_get("@object").track.title), input_html: {tabindex: autotab}
+      = p.input :audience_level_id, required: true, as: :select, collection: @audience_levels, member_label: Proc.new { |al| t(al.title) }, input_html: {tabindex: autotab}
       %p.inline-hints= t(p.instance_variable_get("@object").track.description)
   = form.inputs do
     = form.semantic_errors :base
   %pre#reviewer_agreement= yield(:agreement)
-  = form.inputs :class => 'inputs accept' do
-    = form.input :reviewer_agreement, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
-    = form.input :sign_reviews, :as => :boolean, :required => true, :input_html => {:tabindex => autotab}
+  = form.inputs class: 'inputs accept' do
+    = form.input :reviewer_agreement, as: :boolean, required: true, input_html: {tabindex: autotab}
+    = form.input :sign_reviews, as: :boolean, required: true, input_html: {tabindex: autotab}
   = form.actions do
-    = form.action :submit, :label => :accept_reviewer, :button_html => {:tabindex => autotab}
+    = form.action :submit, label: :accept_reviewer, button_html: {tabindex: autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.reject_reviewer'), reviewer_reject_path(@conference, @reviewer)
 

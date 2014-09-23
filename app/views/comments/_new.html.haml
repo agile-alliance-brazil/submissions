@@ -2,8 +2,8 @@
 
 - @session.comments.each do |comment|
   .commentBlock
-    = render_avatar(comment.user, :size => :mini)
-    .commentDate= l(comment.updated_at, :format => :short)
+    = render_avatar(comment.user, size: :mini)
+    .commentDate= l(comment.updated_at, format: :short)
     %cite
       = link_to h(comment.user.full_name), user_path(comment.user)
     #{t('generic.says')}:
@@ -11,11 +11,11 @@
       - if can? :update, comment
         %li= link_to t('actions.edit'), edit_session_comment_path(@conference, @session, comment)
       - if can? :destroy, comment
-        %li= link_to t('actions.destroy'), session_comment_path(@conference, @session, comment), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy_comment'))
+        %li= link_to t('actions.destroy'), session_comment_path(@conference, @session, comment), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.destroy_comment'))
     = textilize(comment.comment)
 
 - if can? :create, Comment
-  = semantic_form_for(@comment, :url => session_comments_path(@conference, @session)) do |form|
-    = render 'comments/form', :form => form
+  = semantic_form_for(@comment, url: session_comments_path(@conference, @session)) do |form|
+    = render 'comments/form', form: form
     = form.actions do
-      = form.action :submit, :label => :add_comment, :button_html => {:tabindex => autotab}
+      = form.action :submit, label: :add_comment, button_html: {tabindex: autotab}

@@ -1,4 +1,4 @@
-- title t('session.reviews', :session => @session.title)
+- title t('session.reviews', session: @session.title)
 - show_actions!
 
 %ul.spaced
@@ -16,10 +16,10 @@
     &= @session.try(:duration_mins)
     = t('generic.minutes')
   - unless @session.audience_limit.blank?
-    %li= t('session.audience_limit', :limit => @session.audience_limit)
+    %li= t('session.audience_limit', limit: @session.audience_limit)
 
 %p
-  = link_to t('review.view_session'), session_path(@conference, @session), :target => '_blank'
+  = link_to t('review.view_session'), session_path(@conference, @session), target: '_blank'
 
 - if(@session.review_decision)
   %h2= t('formtastic.titles.review_decision')
@@ -46,17 +46,17 @@
     %tbody
       - @reviews.each do |review|
         - class_name = cycle(:odd, :even)
-        = content_tag_for(:tr, review, :class => class_name) do
+        = content_tag_for(:tr, review, class: class_name) do
           %td.reviewer&= reviewers[review]
           %td.recommendation= t(review.recommendation.title)
           %td.confidence= t(review.reviewer_confidence_rating.title)
           - if should_justify
             %td.action
-              = link_to t('generic.show'), '#', :class => 'show'
-              = link_to t('generic.hide'), '#', :class => 'hide'
+              = link_to t('generic.show'), '#', class: 'show'
+              = link_to t('generic.hide'), '#', class: 'hide'
         - if should_justify
-          = content_tag_for(:tr, review, :class => class_name) do
-            %td.justification{:colspan => 4}
+          = content_tag_for(:tr, review, class: class_name) do
+            %td.justification{colspan: 4}
               %strong= t('review.justification') + ": "
               = review.justification
 
@@ -70,7 +70,7 @@
         %th.comment= comments_label
     %tbody
       - @reviews.each do |review|
-        = content_tag(:tr, :id => "review_#{review.id}_comments", :class => cycle(:odd, :even)) do
+        = content_tag(:tr, id: "review_#{review.id}_comments", class: cycle(:odd, :even)) do
           %td.reviewer&= reviewers[review]
           %td.comment&= comments[review]
 
@@ -81,7 +81,7 @@
       %th.comment= comments_to_author_label
   %tbody
     - @reviews.each do |review|
-      = content_tag(:tr, :id => "review_#{review.id}_comments_to_author", :class => cycle(:odd, :even)) do
+      = content_tag(:tr, id: "review_#{review.id}_comments_to_author", class: cycle(:odd, :even)) do
         %td.reviewer&= reviewers[review]
         %td.comment&= comments_to_author[review]
 

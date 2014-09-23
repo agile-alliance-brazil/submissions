@@ -1,22 +1,22 @@
 = form.inputs :user_login do
-  = form.input :first_name, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :last_name, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :username, :required => true, :input_html => {:disabled => !@user.new_record?, :tabindex => autotab}
-  = form.input :email, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :first_name, required: true, input_html: {tabindex: autotab}
+  = form.input :last_name, required: true, input_html: {tabindex: autotab}
+  = form.input :username, required: true, input_html: {disabled: !@user.new_record?, tabindex: autotab}
+  = form.input :email, required: true, input_html: {tabindex: autotab}
   - if @user.new_record?
-    = form.input :password, :required => true, :input_html => {:tabindex => autotab}
-    = form.input :password_confirmation, :required => true, :input_html => {:tabindex => autotab}
+    = form.input :password, required: true, input_html: {tabindex: autotab}
+    = form.input :password_confirmation, required: true, input_html: {tabindex: autotab}
 = form.inputs :user_personal do
-  = form.input :wants_to_submit, :as => :boolean, :input_html => {:tabindex => autotab, :disabled => (!@user.new_record? && !@user.roles_mask_changed? && @user.author?)}
-  = form.input :phone, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :country, :required => true, :as => :country, :priority_countries => [:BR], :input_html => {:tabindex => autotab}
-  = form.input :state, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, :input_html => {:tabindex => autotab}
-  = form.input :city, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :organization, :input_html => {:tabindex => autotab}
-  = form.input :website_url, :input_html => {:tabindex => autotab}
-  = form.input :twitter_username, :input_html => {:tabindex => autotab}
-  = form.input :bio, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :default_locale, :required => true, :as => :select, :collection => ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES, :input_html => {:tabindex => autotab}
+  = form.input :wants_to_submit, as: :boolean, input_html: {tabindex: autotab, disabled: (!@user.new_record? && !@user.roles_mask_changed? && @user.author?)}
+  = form.input :phone, required: true, input_html: {tabindex: autotab}
+  = form.input :country, required: true, as: :country, priority_countries: [:BR], input_html: {tabindex: autotab}
+  = form.input :state, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, input_html: {tabindex: autotab}
+  = form.input :city, required: true, input_html: {tabindex: autotab}
+  = form.input :organization, input_html: {tabindex: autotab}
+  = form.input :website_url, input_html: {tabindex: autotab}
+  = form.input :twitter_username, input_html: {tabindex: autotab}
+  = form.input :bio, required: true, input_html: {tabindex: autotab}
+  = form.input :default_locale, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES, input_html: {tabindex: autotab}
 
 :javascript
   $(document).ready(function() {

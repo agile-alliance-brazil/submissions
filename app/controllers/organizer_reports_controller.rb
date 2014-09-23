@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class OrganizerReportsController < InheritedResources::Base
-  defaults :resource_class => Session
+  defaults resource_class: Session
   actions :index
   respond_to :xls
 
@@ -16,7 +16,7 @@ class OrganizerReportsController < InheritedResources::Base
                     :audience_level,
                     :author,
                     :second_author,
-                    :final_reviews => [
+                    final_reviews: [
                       :reviewer,
                       :author_agile_xp_rating,
                       :author_proposal_xp_rating,

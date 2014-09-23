@@ -1,9 +1,9 @@
 = form.inputs do
-  = form.input :user_username, :required => true, :input_html => {:tabindex => autotab}
+  = form.input :user_username, required: true, input_html: {tabindex: autotab}
 
 :javascript
   $(document).ready(function() {
     $("#reviewer_user_username").autocomplete({
-      source: "#{users_path(:format => :js)}"
+      source: "#{users_path(format: :js)}"
     });
   })

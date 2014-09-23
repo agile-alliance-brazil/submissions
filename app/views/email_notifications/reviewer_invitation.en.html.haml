@@ -6,24 +6,24 @@
 
 %ul
   %li During the submission period, read the proposals and add comments to those! This feedback works like a pre-review, providing the authors with the opportunity to enhance their proposals.
-  %li On the review period, which ends on #{l(@conference.submissions_deadline, :format => :short)}, each submitted proposal must receive 3 independent reviews.
+  %li On the review period, which ends on #{l(@conference.submissions_deadline, format: :short)}, each submitted proposal must receive 3 independent reviews.
 
 
 %p To date, we are not able to predict how many proposals we are expected to receive, but we do ask each reviewer to dedicate about 4 hours per week during each stage to conduct the reviews. The reviews themselves do not need to be delivered all at once - the sessions will be available online and it is up to you to organize your schedule to meet the deadlines.
 
-%p A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via #{link_to root_url(:year => @conference.year), root_url(:year => @conference.year)}.
+%p A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via #{link_to root_url(year: @conference.year), root_url(year: @conference.year)}.
 
 %p To accept this invitation, please click on the link below:
 
-%p= link_to reviewer_accept_url(@conference, @reviewer, :locale => 'en'), reviewer_accept_url(@conference, @reviewer, :locale => 'en')
+%p= link_to reviewer_accept_url(@conference, @reviewer, locale: 'en'), reviewer_accept_url(@conference, @reviewer, locale: 'en')
 
 %p To decline this invitation, please click on the link below:
 
-%p= link_to reviewer_reject_url(@conference, @reviewer, :locale => 'en'), reviewer_reject_url(@conference, @reviewer, :locale => 'en')
+%p= link_to reviewer_reject_url(@conference, @reviewer, locale: 'en'), reviewer_reject_url(@conference, @reviewer, locale: 'en')
 
 %p If any of the above URLs do not work try copying and pasting into your browser.
 
-%p Please respond this invitation by #{l(Time.zone.local(2014, 07, 20), :format => :short)}. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
+%p Please respond this invitation by #{l(Time.zone.local(2014, 07, 20), format: :short)}. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 %p Regards,
 

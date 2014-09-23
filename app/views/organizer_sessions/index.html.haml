@@ -1,18 +1,18 @@
 - title t('actions.organizer_sessions')
 - show_actions!
 
-= semantic_form_for @session_filter, :url => organizer_sessions_path(@conference), :method => :get do |f|
+= semantic_form_for @session_filter, url: organizer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
-    = f.input :state, :as => :select, :collection => @states, :member_label => Proc.new { |s| t("session.state.#{s}") }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :state, as: :select, collection: @states, member_label: Proc.new { |s| t("session.state.#{s}") }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
-    = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
+    = f.action :submit, label: :filter_session, button_html: {tabindex: autotab}
 
 .download
   %b
     = t('actions.organizer_reports')
     \:
-    = link_to image_tag('xls_icon.png'), organizer_reports_path(@conference, :format => "xls")
+    = link_to image_tag('xls_icon.png'), organizer_reports_path(@conference, format: "xls")
 
 %table.sessions
   %thead
@@ -31,7 +31,7 @@
       %th.action
   %tbody
     - @sessions.each do |session|
-      = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, session, class: cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
           = link_to h(session.try(:title)), session_path(@conference, session)
@@ -44,8 +44,8 @@
         %td.track
           = t(session.track.title)
         - if @conference.has_early_review?
-          %td.early_reviews= link_to_unless(session.early_reviews_count == 0, session.early_reviews_count, organizer_session_reviews_path(@conference, session, :type => :early))
-        %td.final_reviews= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session, :type => :final))
+          %td.early_reviews= link_to_unless(session.early_reviews_count == 0, session.early_reviews_count, organizer_session_reviews_path(@conference, session, type: :early))
+        %td.final_reviews= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session, type: :final))
         %td.status
           = t("session.state.#{session.state}")
         %td.author_confirmed
@@ -58,7 +58,7 @@
           - if can?(:edit, ReviewDecision, session)
             = link_to t('actions.edit_review_decision'), edit_session_review_decision_path(@conference, session, session.review_decision)
           - if can?(:cancel, session) && session.can_cancel?
-            = link_to t('actions.cancel'), cancel_session_path(@conference, session), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.cancel'))
+            = link_to t('actions.cancel'), cancel_session_path(@conference, session), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.cancel'))
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

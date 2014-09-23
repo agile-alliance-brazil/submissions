@@ -1,15 +1,15 @@
 # encoding: UTF-8
 class EmailNotifications < ActionMailer::Base
-  default :from =>     Proc.new { "\"#{current_conference.name}\" <#{from_address}>" },
-          :reply_to => Proc.new { "\"#{current_conference.name}\" <#{from_address}>" }
+  default from:     Proc.new { "\"#{current_conference.name}\" <#{from_address}>" },
+          reply_to: Proc.new { "\"#{current_conference.name}\" <#{from_address}>" }
 
   def welcome(user, sent_at = Time.now)
     @user = user
     @conference_name = current_conference.name
     I18n.with_locale(@user.default_locale) do
-      mail :subject => "[#{host}] #{I18n.t('email.welcome.subject')}",
-           :to      => EmailNotifications.format_email(user),
-           :date    => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.welcome.subject')}",
+           to: EmailNotifications.format_email(user),
+           date: sent_at
     end
   end
 
@@ -18,9 +18,9 @@ class EmailNotifications < ActionMailer::Base
     @token = token
     @conference_name = current_conference.name
     I18n.with_locale(@user.default_locale) do
-      mail :subject => "[#{host}] #{I18n.t('email.password_reset.subject')}",
-           :to      => EmailNotifications.format_email(user),
-           :date    => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.password_reset.subject')}",
+           to: EmailNotifications.format_email(user),
+           date: sent_at
     end
   end
 
@@ -29,9 +29,9 @@ class EmailNotifications < ActionMailer::Base
     @conference_name = current_conference.name
     @conference = current_conference
     I18n.with_locale(@session.author.try(:default_locale)) do
-      mail :subject => "[#{host}] #{I18n.t('email.session_submitted.subject', :conference_name => @conference_name)}",
-           :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date    => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.session_submitted.subject', conference_name: @conference_name)}",
+           to: session.authors.map { |author| EmailNotifications.format_email(author) },
+           date: sent_at
     end
   end
 
@@ -40,9 +40,9 @@ class EmailNotifications < ActionMailer::Base
     @comment = comment
     @conference_name = current_conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
-      mail :subject => "[#{host}] #{I18n.t('email.comment_submitted.subject', :session_name => @session.title)}",
-           :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date    => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.comment_submitted.subject', session_name: @session.title)}",
+           to: session.authors.map { |author| EmailNotifications.format_email(author) },
+           date: sent_at
     end
   end
 
@@ -50,9 +50,9 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = current_conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
-      mail :subject => "[#{host}] #{I18n.t('email.early_review_submitted.subject', :session_name => @session.title)}",
-           :to      => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date    => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.early_review_submitted.subject', session_name: @session.title)}",
+           to: session.authors.map { |author| EmailNotifications.format_email(author) },
+           date: sent_at
     end
   end
 
@@ -60,9 +60,9 @@ class EmailNotifications < ActionMailer::Base
     @reviewer = reviewer
     @conference_name = current_conference.name
     I18n.with_locale(@reviewer.user.try(:default_locale)) do
-      mail :subject  => "[#{host}] #{I18n.t('email.reviewer_invitation.subject', :conference_name => @conference_name)}",
-           :to       => EmailNotifications.format_email(reviewer.user),
-           :date     => sent_at
+      mail subject: "[#{host}] #{I18n.t('email.reviewer_invitation.subject', conference_name: @conference_name)}",
+           to: EmailNotifications.format_email(reviewer.user),
+           date: sent_at
     end
   end
 
@@ -72,11 +72,11 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = current_conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
-      subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", :conference_name => @conference_name)
-      mail :subject  => "[#{host}] #{subject}",
-           :to       => session.authors.map { |author| EmailNotifications.format_email(author) },
-           :date     => sent_at,
-           :template_name => (accepted ? :notification_of_acceptance : :notification_of_rejection)
+      subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", conference_name: @conference_name)
+      mail subject: "[#{host}] #{subject}",
+           to: session.authors.map { |author| EmailNotifications.format_email(author) },
+           date: sent_at,
+           template_name: (accepted ? :notification_of_acceptance : :notification_of_rejection)
     end
   end
 

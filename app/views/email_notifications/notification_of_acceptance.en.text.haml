@@ -6,18 +6,18 @@ We are pleased to inform you that your proposal '#{h(@session.title)}' has been 
 
 Please refer to the comments and suggestions made by the reviewers by accessing:
 
-= session_reviews_url(@conference, @session, :type => :final, :locale => 'en')
+= session_reviews_url(@conference, @session, type: :final, locale: 'en')
 
 
 We would like to ask you to confirm your attendance at the event until #{@conference.author_confirmation.strftime('%H:%M of %B %dth, %Y')} by accessing the form at
 
-= session_confirm_url(@conference, @session, :locale => 'en')
+= session_confirm_url(@conference, @session, locale: 'en')
 
 Note that reviewers and track organizers may have added suggestions of changes in your proposal. If so, you will only be able to make those changes when completing the form mentioned above. Please read the comments and suggestions before completing this form so you can make all changes suggested.
 
 If you can not attend the event, we kindly ask you to confirm your withdrawal using the form at
 
-= session_withdraw_url(@conference, @session, :locale => 'en')
+= session_withdraw_url(@conference, @session, locale: 'en')
 
 
 - if(@session.authors.size > 1)

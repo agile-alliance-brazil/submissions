@@ -5,13 +5,13 @@ class AcceptReviewersController < ApplicationController
   def show
     if @reviewer.preferences.empty?
       @conference.tracks.each do |track|
-        @reviewer.preferences.build(:track_id => track.id)
+        @reviewer.preferences.build(track_id: track.id)
       end
     end
   end
 
   def update
-    if @reviewer.update_attributes(params[:reviewer].try(:merge, {:state_event => 'accept'}))
+    if @reviewer.update_attributes(params[:reviewer].try(:merge, {state_event: 'accept'}))
       flash[:notice] = t('flash.reviewer.accept.success')
       redirect_to reviewer_sessions_path(@conference)
     else

@@ -1,13 +1,13 @@
-- title t('title.edit_profile', :user => @user.username)
+- title t('title.edit_profile', user: @user.username)
 - show_actions!
 .auto_focus
 
-= semantic_form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put} do |form|
+= semantic_form_for resource, as: resource_name, url: registration_path(resource_name), html: {method: :put} do |form|
   - if !!params[:update_password]
-    = render 'change_password', :form => form
+    = render 'change_password', form: form
     = form.actions do
-      = form.action :submit, :label => :change_password, :button_html => {:tabindex => autotab}
+      = form.action :submit, label: :change_password, button_html: {tabindex: autotab}
   - else
-    = render 'form', :form => form
+    = render 'form', form: form
     = form.actions do
-      = form.action :submit, :label => :edit_profile, :button_html => {:tabindex => autotab}
+      = form.action :submit, label: :edit_profile, button_html: {tabindex: autotab}

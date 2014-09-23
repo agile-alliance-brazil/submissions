@@ -9,7 +9,7 @@
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
   - if can? :update, @session
     %li= link_to t('title.edit_session'), edit_session_path(@conference, @session)
-  %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, :format => :short)}
+  %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, format: :short)}
 
 %ul.spaced
   %li.first #{t('session.parameters')}:
@@ -20,12 +20,12 @@
     &= @session.try(:duration_mins)
     = t('generic.minutes')
   - unless @session.audience_limit.blank?
-    %li= t('session.audience_limit', :limit => @session.audience_limit)
+    %li= t('session.audience_limit', limit: @session.audience_limit)
 
 %ul.spaced
   %li.first #{t('formtastic.labels.session.keyword_list')}:
   - @session.keyword_list.each do |keyword|
-    %li= link_to h(t(keyword)), sessions_path(@conference, :session_filter => {:tags => keyword})
+    %li= link_to h(t(keyword)), sessions_path(@conference, session_filter: {tags: keyword})
 
 = content_tag_for(:dl, @session) do
   - unless @session.language.blank?
@@ -49,5 +49,5 @@
 
 %hr
 
-%a{:name => 'comments'}
+%a{name: 'comments'}
 = render 'comments/new'

@@ -15,28 +15,28 @@
         %th.action
   %tbody
     - @sessions.each do |session|
-      = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, session, class: cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
           = link_to h(session.try(:title)), session_path(@conference, session)
           - if session.respond_to?(:lightning_talk?) && session.lightning_talk?
-            = image_tag("lightning-talk.png", :alt => t('session_types.lightning_talk.title'))
+            = image_tag("lightning-talk.png", alt: t('session_types.lightning_talk.title'))
           - if session.comments_count > 0
             .commentCount= session.comments_count
         %td.author
-          = render_avatar(session.author, :size => :mini)
+          = render_avatar(session.author, size: :mini)
           = link_to h(session.author.full_name), user_path(session.author)
         %td.author
           - if session.second_author
-            = render_avatar(session.second_author, :size => :mini)
+            = render_avatar(session.second_author, size: :mini)
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         - if @user == current_user
           %td.reviews
             - if can?(:index, EarlyReview, session) && session.early_reviews_count > 0
-              = link_to t('review.early_review'), session_reviews_path(@conference, session, :type => :early)
+              = link_to t('review.early_review'), session_reviews_path(@conference, session, type: :early)
             - if can?(:index, FinalReview, session) && session.final_reviews_count > 0
               %br
-              = link_to t('review.final_review'), session_reviews_path(@conference, session, :type => :final)
+              = link_to t('review.final_review'), session_reviews_path(@conference, session, type: :final)
           - if @conference.in_author_confirmation_phase?
             %td.state
               = t("session.state.#{session.state}")
@@ -48,4 +48,4 @@
           = t('generic.ago')
         - if can?(:read, Vote)
           %td.action
-            = render :partial => "votes/form", :locals => {:session => session}
+            = render partial: "votes/form", locals: {session: session}

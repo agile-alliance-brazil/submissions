@@ -3,11 +3,11 @@
 
 - if user_signed_in?
   %ul.piped
-    %li= link_to t('title.user_sessions', :name => @user_profile.first_name), user_sessions_path(@conference, @user_profile)
+    %li= link_to t('title.user_sessions', name: @user_profile.first_name), user_sessions_path(@conference, @user_profile)
     - if can? :update, @user_profile
       %li= link_to t('actions.edit_profile'), edit_user_registration_path
 
-= render_avatar(@user_profile, :size => :bigger, :display_tip => (current_user == @user_profile))
+= render_avatar(@user_profile, size: :bigger, display_tip: (current_user == @user_profile))
 
 = content_tag_for(:dl, @user_profile) do
   %dt= t('formtastic.labels.user.username')
@@ -16,31 +16,31 @@
   - if current_user == @user_profile
     %dt
       = t('formtastic.labels.user.email')
-      = image_tag('icon-private.png', :alt => t('text.private_field'))
+      = image_tag('icon-private.png', alt: t('text.private_field'))
     %dd&= @user_profile.email
 
     - unless @user_profile.phone.blank?
       %dt
         = t('formtastic.labels.user.phone')
-        = image_tag('icon-private.png', :alt => t('text.private_field'))
+        = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= @user_profile.phone
 
     - unless @user_profile.country.blank?
       %dt
         = t('formtastic.labels.user.country')
-        = image_tag('icon-private.png', :alt => t('text.private_field'))
+        = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_country(@user_profile.country)
 
     - unless @user_profile.state.blank?
       %dt
         = t('formtastic.labels.user.state')
-        = image_tag('icon-private.png', :alt => t('text.private_field'))
+        = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_state(@user_profile.state)
 
     - unless @user_profile.city.blank?
       %dt
         = t('formtastic.labels.user.city')
-        = image_tag('icon-private.png', :alt => t('text.private_field'))
+        = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= @user_profile.city
     
   - unless @user_profile.organization.blank?
@@ -49,11 +49,11 @@
   
   - unless @user_profile.website_url.blank?
     %dt= t('formtastic.labels.user.website_url')
-    %dd= link_to(h(prepend_http(@user_profile.website_url)), h(prepend_http(@user_profile.website_url)), :target => '_blank')
+    %dd= link_to(h(prepend_http(@user_profile.website_url)), h(prepend_http(@user_profile.website_url)), target: '_blank')
 
   - unless @user_profile.twitter_username.blank?
     %dt= t('formtastic.labels.user.twitter_username')
-    %dd= link_to("@#{@user_profile.twitter_username}", "http://www.twitter.com/#{h(@user_profile.twitter_username)}", :target => '_blank')
+    %dd= link_to("@#{@user_profile.twitter_username}", "http://www.twitter.com/#{h(@user_profile.twitter_username)}", target: '_blank')
 
   - unless @user_profile.bio.blank?
     %dt= t('formtastic.labels.user.bio')
@@ -62,5 +62,5 @@
 - if current_user == @user_profile
   %hr
   .hint
-    = image_tag('icon-private.png', :alt => t('text.private_field'))
+    = image_tag('icon-private.png', alt: t('text.private_field'))
     = t('text.private_field')

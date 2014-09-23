@@ -10,5 +10,5 @@
     - @applications.each do |application|
       %tr
         %td= application.name
-        %td= l(application.created_at, :format => :long)
-        %td= link_to t('actions.authorizations.revoke'), oauth_authorized_application_path(application), :data => { :confirm => t('generic.are_you_sure', :action => t('actions.authorizations.revoke')) }, :method => :delete
+        %td= l(application.created_at, format: :long)
+        %td= link_to t('actions.authorizations.revoke'), oauth_authorized_application_path(application), data: { confirm: t('generic.are_you_sure', action: t('actions.authorizations.revoke')) }, method: :delete

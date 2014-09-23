@@ -20,7 +20,7 @@ class ReviewsListingController < ApplicationController
           }
         end
 
-        render :json => stats
+        render json: stats
       end
     end
   end

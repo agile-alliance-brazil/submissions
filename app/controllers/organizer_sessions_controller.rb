@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class OrganizerSessionsController < InheritedResources::Base
-  defaults :resource_class => Session
+  defaults resource_class: Session
   actions :index
   respond_to :html
 
@@ -8,7 +8,7 @@ class OrganizerSessionsController < InheritedResources::Base
   before_filter :load_states
   before_filter :load_session_filter
 
-  has_scope :filtered, :only => :index, :as => :session_filter, :type => :hash do |controller, scope, value|
+  has_scope :filtered, only: :index, as: :session_filter, type: :hash do |controller, scope, value|
     controller.send(:load_session_filter).apply(scope)
   end
 

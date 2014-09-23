@@ -1,13 +1,13 @@
 - title t('actions.reviewer_sessions', count: @sessions.total_entries)
 - show_actions!
 
-= semantic_form_for @session_filter, :url => reviewer_sessions_path(@conference), :method => :get do |f|
+= semantic_form_for @session_filter, url: reviewer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
-    = f.input :session_type_id, :as => :select, :collection => @session_types, :member_label => Proc.new { |st| t(st.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
-    = f.input :audience_level_id, :as => :select, :collection => @audience_levels, :member_label => Proc.new { |al| t(al.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :session_type_id, as: :select, collection: @session_types, member_label: Proc.new { |st| t(st.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :audience_level_id, as: :select, collection: @audience_levels, member_label: Proc.new { |al| t(al.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
-    = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
+    = f.action :submit, label: :filter_session, button_html: {tabindex: autotab}
 
 %table.sessions
   %thead
@@ -24,7 +24,7 @@
       %th.action
   %tbody
     - @sessions.each do |session|
-      = content_tag_for(:tr, session, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, session, class: cycle(:odd, :even)) do
         %td.session_id= session.id
         %td.title
           = link_to session.try(:title), session_path(@conference, session)

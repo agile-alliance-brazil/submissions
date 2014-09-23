@@ -1,19 +1,19 @@
-.session_details{:id => "guest_session_#{guest_session.id}"}
+.session_details{id: "guest_session_#{guest_session.id}"}
   %ul.tabs
     - if guest_session.keynote?
-      %li{:class => "session_type_keynote"} Keynote
+      %li{class: "session_type_keynote"} Keynote
     - elsif activity.wbma?
-      %li{:class => "session_type_wbma"} WBMA
+      %li{class: "session_type_wbma"} WBMA
     - elsif activity.executive_summit?
-      %li{:class => "session_type_executive_summit"} Executive Summit
+      %li{class: "session_type_executive_summit"} Executive Summit
     - elsif activity.governo_agil?
-      %li{:class => "session_type_governo_agil"} Governo Ágil
+      %li{class: "session_type_governo_agil"} Governo Ágil
     - elsif activity.pmi_agile_extension?
-      %li{:class => "session_type_pmi_agile_extension"} PMI Agile Extension
+      %li{class: "session_type_pmi_agile_extension"} PMI Agile Extension
     - else
-      %li{:class => "track_guest_session"}= t('tracks.guest_session.title')
+      %li{class: "track_guest_session"}= t('tracks.guest_session.title')
   .session_description
-    .timeframe #{l(activity.start_at, :format => :short)} - #{l(activity.end_at, :format => :hour_minute)}
+    .timeframe #{l(activity.start_at, format: :short)} - #{l(activity.end_at, format: :hour_minute)}
     %h3= guest_session.title
     %ul.authors
       %li= guest_session.author

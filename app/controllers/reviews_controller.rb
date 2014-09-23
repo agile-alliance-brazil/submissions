@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReviewsController < InheritedResources::Base
-  actions :all, :except => [:edit, :update, :destroy]
+  actions :all, except: [:edit, :update, :destroy]
   respond_to :html
 
   belongs_to :session

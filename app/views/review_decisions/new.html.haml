@@ -1,6 +1,6 @@
-- title t('title.review_decision', :session => @review_decision.session.title)
+- title t('title.review_decision', session: @review_decision.session.title)
 - show_actions!
 .auto_focus
 
-= semantic_form_for [@review_decision.session, @review_decision], :url => session_review_decisions_path(@conference, @review_decision.session) do |form|
-  = render 'form', :form => form
+= semantic_form_for [@review_decision.session, @review_decision], url: session_review_decisions_path(@conference, @review_decision.session) do |form|
+  = render 'form', form: form

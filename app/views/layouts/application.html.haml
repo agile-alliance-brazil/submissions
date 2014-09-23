@@ -5,7 +5,7 @@
     %title
       #{@conference.name} -
       = content_for?(:title) ? yield(:title) : t('title.untitled')
-    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %meta{"http-equiv"=>"Content-Type", content:"text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "#{image_path('favicon.ico')}"}/
     = csrf_meta_tag
     = stylesheet_link_tag :application
@@ -24,17 +24,17 @@
           - ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.each do |language|
             %li= link_to language.first, "?locale=#{language.last}"
 
-        = render :partial => 'layouts/menu'
+        = render partial: 'layouts/menu'
 
       - if show_actions?
         #actions.grid_3
-          = render :partial => 'layouts/actions'
+          = render partial: 'layouts/actions'
 
-      #content{ :class => show_actions? ? 'grid_9' : 'grid_12' }
+      #content{ class: show_actions? ? 'grid_9' : 'grid_12' }
         - flash.each do |name, messages|
           - messages = [messages] unless messages.is_a?(Array)
           - messages.each_with_index do |msg, index|
-            = content_tag :div, msg, :id => "flash_#{name}_#{index}", :class => "flash_#{name}"
+            = content_tag :div, msg, id: "flash_#{name}_#{index}", class: "flash_#{name}"
 
         - if show_title?
           %h1= yield(:title)

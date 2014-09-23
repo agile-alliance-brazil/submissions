@@ -1,17 +1,17 @@
 - vote = session.votes.for_user(current_user).first
 - if vote
   - if can?(:destroy, vote)
-    = semantic_form_for(vote, :url => vote_path(@conference, vote), :method => :delete) do |form|
+    = semantic_form_for(vote, url: vote_path(@conference, vote), method: :delete) do |form|
       = form.inputs do
-        = form.input :session_id, :as => :hidden
+        = form.input :session_id, as: :hidden
       = form.actions do
-        = form.action :submit, :label => :destroy_vote, :button_html => {:tabindex => autotab, :confirm => t('generic.are_you_sure', :action => t('formtastic.actions.destroy_vote'))}
+        = form.action :submit, label: :destroy_vote, button_html: {tabindex: autotab, confirm: t('generic.are_you_sure', action: t('formtastic.actions.destroy_vote'))}
   - else
     %span.voted= t('generic.voted')
 
 - elsif can?(:create, Vote, session)
-  = semantic_form_for(session.votes.build, :url => votes_path(@conference)) do |form|
+  = semantic_form_for(session.votes.build, url: votes_path(@conference)) do |form|
     = form.inputs do
-      = form.input :session_id, :as => :hidden
+      = form.input :session_id, as: :hidden
     = form.actions do
-      = form.action :submit, :label => :create_vote, :button_html => {:tabindex => autotab}
+      = form.action :submit, label: :create_vote, button_html: {tabindex: autotab}

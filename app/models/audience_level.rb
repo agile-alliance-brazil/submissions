@@ -3,8 +3,8 @@ class AudienceLevel < ActiveRecord::Base
   has_many :sessions
   belongs_to :conference
   
-  validates :title, :presence => true
-  validates :description, :presence => true
+  validates :title, presence: true
+  validates :description, presence: true
   
-  scope :for_conference, lambda { |c| where(:conference_id => c.id) }
+  scope :for_conference, lambda { |c| where(conference_id: c.id) }
 end

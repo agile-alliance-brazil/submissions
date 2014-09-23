@@ -1,10 +1,10 @@
 Dear #{@session.authors.map(&:full_name).join(" & ")},
 
 
-Thank you for submitting the session proposal '#{@session.title}' to the #{@conference_name} conference. You can access and amend the proposal until the session submission deadline on #{l(@conference.submissions_deadline.to_date, :format => :long)} by accessing the link:
+Thank you for submitting the session proposal '#{@session.title}' to the #{@conference_name} conference. You can access and amend the proposal until the session submission deadline on #{l(@conference.submissions_deadline.to_date, format: :long)} by accessing the link:
 
 
-= session_url(@conference, @session, :locale => 'en')
+= session_url(@conference, @session, locale: 'en')
 
 
 Regards,

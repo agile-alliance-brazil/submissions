@@ -1,12 +1,12 @@
 - title t('actions.manage_reviewers')
 - show_actions!
 
-= semantic_form_for @reviewer_filter, :url => reviewers_path(@conference), :method => :get do |f|
+= semantic_form_for @reviewer_filter, url: reviewers_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :state, :as => :select, :collection => @states, :member_label => Proc.new { |s| t("reviewer.state.#{s}") }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
-    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+    = f.input :state, as: :select, collection: @states, member_label: Proc.new { |s| t("reviewer.state.#{s}") }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
-    = f.action :submit, :label => :filter_reviewer, :button_html => {:tabindex => autotab}
+    = f.action :submit, label: :filter_reviewer, button_html: {tabindex: autotab}
 
 %table.reviewers
   %thead
@@ -21,7 +21,7 @@
       %th.actions
   %tbody
     - @reviewers.each do |reviewer|
-      = content_tag_for(:tr, reviewer, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, reviewer, class: cycle(:odd, :even)) do
         %td.reviewer&= reviewer.user.full_name
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - @tracks.each do |track|
@@ -31,7 +31,7 @@
         %td.count&= reviewer.user.final_reviews.for_conference(@conference).count
         %td.actions
           - if can? :destroy, reviewer
-            = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
+            = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.destroy'))
 
 - if can? :create, Reviewer
   = link_to t('actions.create_reviewer'), new_reviewer_path(@conference)

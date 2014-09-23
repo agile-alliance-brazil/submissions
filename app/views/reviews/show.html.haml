@@ -6,7 +6,7 @@
     #{t('generic.reviewed_by')}
     = link_to h(@review.reviewer.full_name), user_path(@review.reviewer)
   %li= link_to t('review.view_session'), session_path(@conference, @review.session)
-  %li #{l(@review.created_at, :format => :short)}
+  %li #{l(@review.created_at, format: :short)}
 
 = content_tag_for(:dl, @review) do
   - if @review.respond_to?(:recommendation)

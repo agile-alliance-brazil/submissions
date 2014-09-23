@@ -1,17 +1,17 @@
 .details
   %strong
-    = link_to "Lightning Talks #{lightning_talk_group.id}", "#lightning_talk_group_#{lightning_talk_group.id}", :class => "fancybox"
+    = link_to "Lightning Talks #{lightning_talk_group.id}", "#lightning_talk_group_#{lightning_talk_group.id}", class: "fancybox"
   %br
   %span
     = lightning_talk_group.author_names
 
-.tab.bottom{:class => "session_type_lightning_talk"}= t('session_types.lightning_talk.title')
+.tab.bottom{class: "session_type_lightning_talk"}= t('session_types.lightning_talk.title')
 
 .hidden
-  %div{:id => "lightning_talk_group_#{lightning_talk_group.id}"}
+  %div{id: "lightning_talk_group_#{lightning_talk_group.id}"}
     - lightning_talk_group.lightning_talks.each do |lightning_talk|
       - case lightning_talk
       - when Session
-        = render :partial => "session_details", :locals => {:session => lightning_talk, :activity => activity}
+        = render partial: "session_details", locals: {session: lightning_talk, activity: activity}
       - when GuestSession
-        = render :partial => "guest_session_details", :locals => {:guest_session => lightning_talk, :activity => activity}
+        = render partial: "guest_session_details", locals: {guest_session: lightning_talk, activity: activity}

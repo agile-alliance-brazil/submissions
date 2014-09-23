@@ -78,7 +78,7 @@ describe EmailNotifications, type: :mailer do
 
   describe "session submission e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, :author => user) }
+    let(:session) { FactoryGirl.build(:session, author: user) }
 
     subject { EmailNotifications.session_submitted(session) }
 
@@ -102,14 +102,14 @@ describe EmailNotifications, type: :mailer do
     end
 
     context "with single author" do
-      let(:session) { FactoryGirl.build(:session, :author => user) }
+      let(:session) { FactoryGirl.build(:session, author: user) }
 
     it { should deliver_to(EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name},/) }
     end
 
     context "with second author" do
-      let(:session) { FactoryGirl.build(:session, :second_author => user) }
+      let(:session) { FactoryGirl.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
@@ -118,8 +118,8 @@ describe EmailNotifications, type: :mailer do
 
   describe "comment submission e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, :author => user) }
-    let(:comment) { FactoryGirl.build(:comment, :commentable => session) }
+    let(:session) { FactoryGirl.build(:session, author: user) }
+    let(:comment) { FactoryGirl.build(:comment, commentable: session) }
 
     subject { EmailNotifications.comment_submitted(session, comment) }
 
@@ -142,14 +142,14 @@ describe EmailNotifications, type: :mailer do
     end
 
     context "with single author" do
-      let(:session) { FactoryGirl.build(:session, :author => user) }
+      let(:session) { FactoryGirl.build(:session, author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name},/)}
     end
 
     context "with second author" do
-      let(:session) { FactoryGirl.build(:session, :second_author => user) }
+      let(:session) { FactoryGirl.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
@@ -158,7 +158,7 @@ describe EmailNotifications, type: :mailer do
 
   describe "early review submission e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, :author => user) }
+    let(:session) { FactoryGirl.build(:session, author: user) }
 
     subject { EmailNotifications.early_review_submitted(session) }
 
@@ -180,14 +180,14 @@ describe EmailNotifications, type: :mailer do
     end
 
     context "with single author" do
-      let(:session) { FactoryGirl.build(:session, :author => user) }
+      let(:session) { FactoryGirl.build(:session, author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name},/)}
     end
 
     context "with second author" do
-      let(:session) { FactoryGirl.build(:session, :second_author => user) }
+      let(:session) { FactoryGirl.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
@@ -196,7 +196,7 @@ describe EmailNotifications, type: :mailer do
 
   describe "reviewer invitation e-mail" do
     let(:user) { FactoryGirl.build(:user) }
-    let(:reviewer) { FactoryGirl.build(:reviewer, :user => user, :id => 3) }
+    let(:reviewer) { FactoryGirl.build(:reviewer, user: user, id: 3) }
 
     subject { EmailNotifications.reviewer_invitation(reviewer) }
 
@@ -221,8 +221,8 @@ describe EmailNotifications, type: :mailer do
 
   describe "notification of acceptance e-mail" do
     let(:user) { FactoryGirl.build(:author) }
-    let(:session) { FactoryGirl.build(:session, :state => 'in_review', :author => user) }
-    before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title')) }
+    let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
+    before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.accept.title')) }
 
     subject { EmailNotifications.notification_of_acceptance(session) }
 
@@ -255,8 +255,8 @@ describe EmailNotifications, type: :mailer do
     end
 
     context "with second author" do
-      let(:session) { FactoryGirl.build(:session, :state => 'in_review', :second_author => user) }
-      before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.accept.title')) }
+      let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.accept.title')) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
@@ -265,8 +265,8 @@ describe EmailNotifications, type: :mailer do
 
   describe "notification of rejection e-mail" do
     let(:user) { FactoryGirl.build(:author) }
-    let(:session) { FactoryGirl.build(:session, :state => 'in_review', :author => user) }
-    before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title')) }
+    let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
+    before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
 
     subject { EmailNotifications.notification_of_acceptance(session) }
 
@@ -298,8 +298,8 @@ describe EmailNotifications, type: :mailer do
     end
 
     context "with second author" do
-      let(:session) { FactoryGirl.build(:session, :state => 'in_review', :second_author => user) }
-      before { session.review_decision = FactoryGirl.build(:review_decision, :outcome => Outcome.find_by_title('outcomes.reject.title')) }
+      let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }

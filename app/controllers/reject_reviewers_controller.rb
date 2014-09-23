@@ -10,7 +10,7 @@ class RejectReviewersController < ApplicationController
       flash[:notice] = t('flash.reviewer.reject.success')
       redirect_to root_path
     else
-      flash.now[:error] = t('flash.reviewer.reject.failure', :status => t("reviewer.state.#{@reviewer.state}"))
+      flash.now[:error] = t('flash.reviewer.reject.failure', status: t("reviewer.state.#{@reviewer.state}"))
       render :show
     end
   end

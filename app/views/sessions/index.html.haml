@@ -1,15 +1,15 @@
 - title t('title.sessions')
 - show_actions!
 
-= semantic_form_for @session_filter, :url => sessions_path(@conference), :method => :get do |f|
+= semantic_form_for @session_filter, url: sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :tags, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => tags_path(:format => :js)}
-    = f.input :username, :input_html => {:tabindex => autotab, :'data-autocomplete-url' => users_path(:format => :js)}
-    = f.input :track_id, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}, :include_blank => t("generic.all")
+    = f.input :tags, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :js)}
+    = f.input :username, input_html: {tabindex: autotab, :'data-autocomplete-url' => users_path(format: :js)}
+    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
-    = f.action :submit, :label => :filter_session, :button_html => {:tabindex => autotab}
+    = f.action :submit, label: :filter_session, button_html: {tabindex: autotab}
 
-=render :partial => 'sessions/sessions'
+=render partial: 'sessions/sessions'
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)

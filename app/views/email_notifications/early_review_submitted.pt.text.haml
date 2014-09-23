@@ -4,13 +4,13 @@ Olá #{@session.authors.map(&:full_name).join(" & ")},
 Uma pré-avaliação foi submetida para sua sessão '#{h(@session.title)}'. Ela pode ser visualizada em:
 
 
-= session_reviews_url(@session.conference, @session, :locale => 'pt', :type => 'early')
+= session_reviews_url(@session.conference, @session, locale: 'pt', type: 'early')
 
 
-Esta avaliação NÃO será considerada para a seleção final de propostas. Seu propósito é apenas de fornecer um feedback antes da data de limite de submissões. Sinta-se à vontade para modificar o que considerar necessário na sua proposta antes do fim do prazo (#{l(@conference.submissions_deadline, :format => :short)}):
+Esta avaliação NÃO será considerada para a seleção final de propostas. Seu propósito é apenas de fornecer um feedback antes da data de limite de submissões. Sinta-se à vontade para modificar o que considerar necessário na sua proposta antes do fim do prazo (#{l(@conference.submissions_deadline, format: :short)}):
 
 
-= edit_session_url(@session.conference, @session, :locale => 'pt')
+= edit_session_url(@session.conference, @session, locale: 'pt')
 
 
 Atenciosamente,

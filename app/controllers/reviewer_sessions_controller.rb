@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReviewerSessionsController < InheritedResources::Base
-  defaults :resource_class => Session
+  defaults resource_class: Session
   actions :index
   respond_to :html
 
@@ -9,7 +9,7 @@ class ReviewerSessionsController < InheritedResources::Base
   before_filter :load_session_types
   before_filter :load_audience_levels
 
-  has_scope :filtered, :only => :index, :as => :session_filter, :type => :hash do |controller, scope, value|
+  has_scope :filtered, only: :index, as: :session_filter, type: :hash do |controller, scope, value|
     controller.send(:load_session_filter).apply(scope)
   end
 

@@ -1,17 +1,17 @@
-.tab.left{:class => "session_type_#{session.session_type.id}"}
+.tab.left{class: "session_type_#{session.session_type.id}"}
   = t(session.session_type.title)
-.tab.right{:class => "audience_level_#{session.audience_level.id}"}
+.tab.right{class: "audience_level_#{session.audience_level.id}"}
   = t(session.audience_level.title)
 .details
   %strong
-    = link_to session.title, "#session_#{session.id}", :class => "fancybox"
+    = link_to session.title, "#session_#{session.id}", class: "fancybox"
   %br
   %span= session.authors.map(&:full_name).join(" #{t('generic.and')} ")
   - if session.audience_limit.present?
     %br
     %br
-    = t('session.audience_limit', :limit => session.audience_limit)
-.tab.bottom{:class => "track_#{session.track.id}"}= t(session.track.title)
+    = t('session.audience_limit', limit: session.audience_limit)
+.tab.bottom{class: "track_#{session.track.id}"}= t(session.track.title)
 
 .hidden
-  = render :partial => "session_details", :locals => {:session => session, :activity => activity}
+  = render partial: "session_details", locals: {session: session, activity: activity}

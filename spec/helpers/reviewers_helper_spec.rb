@@ -8,16 +8,16 @@ describe ReviewersHelper, type: :helper do
   end
   
   it "should reply doesnot_review for track with preferences that don't match" do
-    track = FactoryGirl.build(:track, :id => 10)
+    track = FactoryGirl.build(:track, id: 10)
     level = helper.review_level(
-      [FactoryGirl.build(:preference, :track => track)],
+      [FactoryGirl.build(:preference, track: track)],
       FactoryGirl.build(:track))
     expect(level).to eq('reviewer.doesnot_review')
   end
   
   it "should reply preference level for track with preferences that match" do
     track = FactoryGirl.build(:track)
-    preference = FactoryGirl.build(:preference, :track => track)
+    preference = FactoryGirl.build(:preference, track: track)
     level = helper.review_level([preference], track)
     expect(level).to eq(preference.audience_level.title)
   end

@@ -8,31 +8,31 @@ class Reviewer < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :conference
-  has_many :preferences, :dependent => :destroy
-  has_many :accepted_preferences, :class_name => 'Preference', :conditions => ['preferences.accepted = ?', true]
+  has_many :preferences, dependent: :destroy
+  has_many :accepted_preferences, class_name: 'Preference', conditions: ['preferences.accepted = ?', true]
 
   accepts_nested_attributes_for :preferences
 
-  validates :conference_id, :presence => true, :existence => true
-  validates :user_id, :existence => true, :uniqueness => {:scope => :conference_id}
+  validates :conference_id, presence: true, existence: true
+  validates :user_id, existence: true, uniqueness: {scope: :conference_id}
 
-  scope :for_conference, lambda { |c| where(:conference_id => c.id) }
-  scope :for_user, lambda { |u| where(:user_id => u.id) }
-  scope :accepted, lambda { where(:state => :accepted) }
-  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where(:preferences => {:track_id => track_id}) }
+  scope :for_conference, lambda { |c| where(conference_id: c.id) }
+  scope :for_user, lambda { |u| where(user_id: u.id) }
+  scope :accepted, lambda { where(state: :accepted) }
+  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where(preferences: {track_id: track_id}) }
 
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?
   end
 
-  state_machine :initial => :created do
-    after_transition :on => :invite do |reviewer|
+  state_machine initial: :created do
+    after_transition on: :invite do |reviewer|
       EmailNotifications.reviewer_invitation(reviewer).deliver
     end
 
-    after_transition :on => :accept do |reviewer|
+    after_transition on: :accept do |reviewer|
       reviewer.user.add_role :reviewer
-      reviewer.user.save(:validate => false)
+      reviewer.user.save(validate: false)
     end
 
     event :invite do
@@ -40,11 +40,11 @@ class Reviewer < ActiveRecord::Base
     end
 
     event :accept do
-      transition :invited => :accepted
+      transition invited: :accepted
     end
 
     event :reject do
-      transition :invited => :rejected
+      transition invited: :rejected
     end
 
     state :accepted do
@@ -53,7 +53,7 @@ class Reviewer < ActiveRecord::Base
           reviewer.errors.add(:base, :preferences)
         end
       end
-      validates :reviewer_agreement, :acceptance => true
+      validates :reviewer_agreement, acceptance: true
     end
   end
 
@@ -63,7 +63,7 @@ class Reviewer < ActiveRecord::Base
 
   after_destroy do
     user.remove_role :reviewer
-    user.save(:validate =>false)
+    user.save(validate: false)
   end
 
   def can_review?(track)

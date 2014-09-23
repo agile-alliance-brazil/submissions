@@ -2,10 +2,10 @@
 class CommentsController < InheritedResources::Base
   belongs_to :session
 
-  actions :all, :except => [:new]
+  actions :all, except: [:new]
 
   def index
-    redirect_to session_path(@conference, parent, :anchor => 'comments')
+    redirect_to session_path(@conference, parent, anchor: 'comments')
   end
 
   def show
@@ -16,7 +16,7 @@ class CommentsController < InheritedResources::Base
     create! do |success, failure|
       success.html do
         EmailNotifications.comment_submitted(@comment.commentable, @comment).deliver
-        redirect_to session_path(@conference, @comment.commentable, :anchor => 'comments')
+        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -29,7 +29,7 @@ class CommentsController < InheritedResources::Base
   def update
     update! do |success, failure|
       success.html do
-        redirect_to session_path(@conference, @comment.commentable, :anchor => 'comments')
+        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
       end
       failure.html do
         flash.now[:error] = t('flash.failure')
@@ -42,7 +42,7 @@ class CommentsController < InheritedResources::Base
   def destroy
     destroy! do |format|
       format.html do
-        redirect_to session_path(@conference, @comment.commentable, :anchor => 'comments')
+        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
       end
     end
   end

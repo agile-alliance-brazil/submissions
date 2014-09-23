@@ -3,11 +3,11 @@ class Activity < ActiveRecord::Base
   attr_accessible :detail_type, :detail_id, :start_at, :end_at, :room_id
 
   belongs_to :room
-  belongs_to :detail, :polymorphic => true
+  belongs_to :detail, polymorphic: true
 
   scope :for_conference, lambda { |c|
     year = Date.strptime(c.year.to_s, '%Y')
-    where(:start_at => (year.beginning_of_year...year.end_of_year))
+    where(start_at: (year.beginning_of_year...year.end_of_year))
   }
 
   def date

@@ -9,16 +9,16 @@ class UnifyDoubledSeeds < ActiveRecord::Migration
     end
     duplicated_ids = []
     id_map.each do |key, value|
-      ActsAsTaggableOn::Tagging.where(:tag_id => value).update_all(:tag_id => key)
-      taggings = ActsAsTaggableOn::Tagging.where(:tag_id => key).all
+      ActsAsTaggableOn::Tagging.where(tag_id: value).update_all(tag_id: key)
+      taggings = ActsAsTaggableOn::Tagging.where(tag_id: key).all
       grouped = taggings.group_by do |tagging|
         [tagging.taggable_id, tagging.taggable_type, tagging.context]
       end
       duplicated_ids << grouped.values.map{|dup| dup[1..-1].map{|d| d.id}}
     end
     duplicated_ids
-    ActsAsTaggableOn::Tagging.delete_all(:id => duplicated_ids.flatten)
-    ActsAsTaggableOn::Tag.delete_all(:id => id_map.values.flatten)
+    ActsAsTaggableOn::Tagging.delete_all(id: duplicated_ids.flatten)
+    ActsAsTaggableOn::Tag.delete_all(id: id_map.values.flatten)
   end
 
   def down

@@ -2,7 +2,7 @@
 class Privileges::Guest < Privileges::Base
   def privileges
     can([:read, :create], User)
-    can(:update, User, :id => @user.id)
+    can(:update, User, id: @user.id)
     can(:read, Session)
     can(:read, Track)
     can(:read, SessionType)
@@ -12,7 +12,7 @@ class Privileges::Guest < Privileges::Base
     can(:read, 'accepted_sessions')
     can(:manage, 'password_resets')
     can([:read, :create], Comment)
-    can([:edit, :update, :destroy], Comment, :user_id => @user.id)
+    can([:edit, :update, :destroy], Comment, user_id: @user.id)
     can(:manage, 'accept_reviewers') do
       @reviewer.present? && @reviewer.user == @user && @reviewer.invited?
     end

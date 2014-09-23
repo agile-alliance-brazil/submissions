@@ -19,12 +19,12 @@ describe ReviewsListingController, type: :controller do
       @conference.stubs(:in_early_review_phase?).returns(true)
       @conference.presubmissions_deadline = DateTime.now
 
-      sessions = FactoryGirl.create_list(:session, 2, :created_at => @conference.presubmissions_deadline - 1.day)
-      FactoryGirl.create(:session, :created_at => @conference.presubmissions_deadline + 1.day)
+      sessions = FactoryGirl.create_list(:session, 2, created_at: @conference.presubmissions_deadline - 1.day)
+      FactoryGirl.create(:session, created_at: @conference.presubmissions_deadline + 1.day)
 
-      FactoryGirl.create(:early_review, :session => sessions[0])
+      FactoryGirl.create(:early_review, session: sessions[0])
 
-      get :index, :format => 'js'
+      get :index, format: 'js'
 
       expect(response.body).to eq({
         'required_reviews' => 2,
@@ -36,7 +36,7 @@ describe ReviewsListingController, type: :controller do
       @conference.stubs(:in_early_review_phase?).returns(false)
       FactoryGirl.create_list(:final_review, 2)
 
-      get :index, :format => 'js'
+      get :index, format: 'js'
 
       expect(response.body).to eq({
         'required_reviews' => 6,

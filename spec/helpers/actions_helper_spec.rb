@@ -40,7 +40,7 @@ describe ActionsHelper, type: :helper do
         helper.reviewer_section_for(@user, @conference).actions
       end
       it 'should be able to view list of sessions to review' do
-        Session.stubs(:for_reviewer => stub(:to_a => stub(:count => 0)))
+        Session.stubs(for_reviewer: stub(to_a: stub(count: 0)))
 
         expect(subject[0][:name]).to eq(t('actions.reviewer_sessions', count: 0))
       end
@@ -51,7 +51,7 @@ describe ActionsHelper, type: :helper do
         expect(subject[0][:name]).to_not eq(t('actions.reviewer_sessions', count: 0))
       end
       it 'should be able to view how many sessions are left to review' do
-        Session.stubs(:for_reviewer => stub(:to_a => stub(:count => 3)))
+        Session.stubs(for_reviewer: stub(to_a: stub(count: 3)))
 
         actions = helper.reviewer_section_for(@user, @conference).actions
 
@@ -61,7 +61,7 @@ describe ActionsHelper, type: :helper do
         expect(subject[1][:name]).to eq(t('actions.reviewer_reviews', count: 0))
       end
       it 'should be able to view how many reviews it created' do
-        @user.stubs(:reviews).returns(stub(:for_conference => stub(:count => 2)))
+        @user.stubs(:reviews).returns(stub(for_conference: stub(count: 2)))
 
         actions = helper.reviewer_section_for(@user, @conference).actions
 
@@ -78,7 +78,7 @@ describe ActionsHelper, type: :helper do
     before :each do
       @user = FactoryGirl.build(:user)
       helper.stubs(:current_user).returns(@user)
-      @user.stubs(:sessions_for_conference).returns(stub(:count => 0))
+      @user.stubs(:sessions_for_conference).returns(stub(count: 0))
     end
     context 'normal user logged in' do
       subject do
@@ -91,14 +91,14 @@ describe ActionsHelper, type: :helper do
         expect(subject[1][:name]).to eq(t('actions.browse_sessions', count: 0))
       end
       it 'should be able to browse sessions with count' do
-        Session.stubs(:for_conference => stub(:without_state => stub(:count => 2)))
+        Session.stubs(for_conference: stub(without_state: stub(count: 2)))
 
         actions = helper.session_section_for(@user, @conference).actions
 
         expect(actions[1][:name]).to eq(t('actions.browse_sessions', count: 2))
       end
       it 'should be able to view its own sessions' do
-        @user.stubs(:sessions_for_conference).returns(stub(:count => 1))
+        @user.stubs(:sessions_for_conference).returns(stub(count: 1))
 
         expect(subject[2][:name]).to eq(t('actions.my_sessions'))
       end

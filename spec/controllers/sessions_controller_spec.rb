@@ -11,7 +11,7 @@ describe SessionsController, type: :controller do
     @conference ||= @session.conference
     sign_in @session.author
     disable_authorization
-    EmailNotifications.stubs(:session_submitted).returns(stub(:deliver => true))
+    EmailNotifications.stubs(:session_submitted).returns(stub(deliver: true))
   end
 
   it "index action should render index template" do
@@ -35,10 +35,10 @@ describe SessionsController, type: :controller do
   it "show action should display flash news if session from previous conference" do
     old_conference = FactoryGirl.create(:conference, year: 1)
     old_session = FactoryGirl.create(:session,
-      :session_type => FactoryGirl.create(:session_type, conference: old_conference),
-      :audience_level => FactoryGirl.create(:audience_level, conference: old_conference),
-      :track => FactoryGirl.create(:track, conference: old_conference),
-      :conference => old_conference
+      session_type: FactoryGirl.create(:session_type, conference: old_conference),
+      audience_level: FactoryGirl.create(:audience_level, conference: old_conference),
+      track: FactoryGirl.create(:track, conference: old_conference),
+      conference: old_conference
     )
     
     get :show, id: old_session.id
@@ -89,7 +89,7 @@ describe SessionsController, type: :controller do
 
   it "create action should send an email when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:session_submitted).returns(mock(:deliver => true))
+    EmailNotifications.expects(:session_submitted).returns(mock(deliver: true))
     post :create
   end
 
@@ -132,7 +132,7 @@ describe SessionsController, type: :controller do
   end
 
   it "cancel action should redirect to organizer sessions with error" do
-    session = FactoryGirl.create(:session, :track => @session.track)
+    session = FactoryGirl.create(:session, track: @session.track)
     session.cancel
     delete :cancel, id: session
     expect(response).to redirect_to(organizer_sessions_path(@conference))

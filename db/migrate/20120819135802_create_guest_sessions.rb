@@ -6,7 +6,7 @@ class CreateGuestSessions < ActiveRecord::Migration
       t.string      :author
       t.text        :summary
       t.references  :conference
-      t.boolean     :keynote, :default => false
+      t.boolean     :keynote, default: false
 
       t.timestamps
     end

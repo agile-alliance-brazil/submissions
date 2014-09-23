@@ -101,7 +101,7 @@ module ActionsHelper
       section.add t('actions.organizer_sessions'), organizer_sessions_path(@conference)
     end
     if can? :read, 'organizer_reports'
-      section.add t('actions.organizer_reports'), organizer_reports_path(@conference, :format => :xls)
+      section.add t('actions.organizer_reports'), organizer_reports_path(@conference, format: :xls)
     end
 
     section

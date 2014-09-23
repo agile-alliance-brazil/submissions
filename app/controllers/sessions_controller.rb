@@ -1,17 +1,17 @@
 # encoding: UTF-8
 class SessionsController < InheritedResources::Base
-  actions :all, :except => [:destroy]
+  actions :all, except: [:destroy]
   before_filter :load_user
   before_filter :load_tracks
   before_filter :load_audience_levels
   before_filter :load_session_types
-  before_filter :load_tags, :except => :show
-  before_filter :load_comment, :only => :show
-  before_filter :check_conference, :only => :show
-  before_filter :load_session_filter, :only => :index
+  before_filter :load_tags, except: :show
+  before_filter :load_comment, only: :show
+  before_filter :check_conference, only: :show
+  before_filter :load_session_filter, only: :index
 
-  has_scope :for_user, :only => :index, :as => :user_id
-  has_scope :filtered, :only => :index, :as => :session_filter, :type => :hash do |controller, scope, value|
+  has_scope :for_user, only: :index, as: :user_id
+  has_scope :filtered, only: :index, as: :session_filter, type: :hash do |controller, scope, value|
     controller.send(:load_session_filter).apply(scope)
   end
 
@@ -59,7 +59,7 @@ class SessionsController < InheritedResources::Base
   end
 
   def load_comment
-    @comment = Comment.new(:user_id => current_user.id, :commentable_id => @session.id)
+    @comment = Comment.new(user_id: current_user.id, commentable_id: @session.id)
   end
 
   def load_tracks

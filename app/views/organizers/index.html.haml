@@ -9,7 +9,7 @@
       %th
   %tbody
     - @organizers.each do |organizer|
-      = content_tag_for(:tr, organizer, :class => cycle(:odd, :even)) do
+      = content_tag_for(:tr, organizer, class: cycle(:odd, :even)) do
         %td.organizer
           - if can? :update, organizer
             = link_to h(organizer.user.full_name), edit_organizer_path(@conference, organizer)
@@ -18,7 +18,7 @@
         %td.track&= t(organizer.track.title)
         %td
           - if can? :destroy, organizer
-            = link_to t('actions.destroy'), organizer_path(@conference, organizer), :method => :delete, :confirm => t('generic.are_you_sure', :action => t('actions.destroy'))
+            = link_to t('actions.destroy'), organizer_path(@conference, organizer), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.destroy'))
 
 - if @organizers.total_pages > 1
   #pagination= will_paginate(@organizers)

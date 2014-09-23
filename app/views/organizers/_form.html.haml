@@ -1,10 +1,10 @@
 = form.inputs do
-  = form.input :user_username, :required => true, :input_html => {:tabindex => autotab}
-  = form.input :track_id, :required => true, :as => :select, :collection => @tracks, :member_label => Proc.new { |tr| t(tr.title) }, :input_html => {:tabindex => autotab}
+  = form.input :user_username, required: true, input_html: {tabindex: autotab}
+  = form.input :track_id, required: true, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}
 
 :javascript
   $(document).ready(function() {
     $("#organizer_user_username").autocomplete({
-      source: "#{users_path(:format => :js)}"
+      source: "#{users_path(format: :js)}"
     });
   })

@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Privileges
   class Base
-    delegate :can, :cannot, :expand_actions, :to => :@ability
+    delegate :can, :cannot, :expand_actions, to: :@ability
 
     def initialize(ability)
       @ability = ability

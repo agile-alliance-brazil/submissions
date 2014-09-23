@@ -9,8 +9,8 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     create_table :comments do |t|
-      t.text        :comment, :default => ""
-      t.references  :commentable, :polymorphic => true
+      t.text        :comment, default: ""
+      t.references  :commentable, polymorphic: true
       t.references  :user
       t.timestamps
     end
@@ -50,7 +50,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :reviewer
       t.references  :track
       t.references  :audience_level
-      t.boolean     :accepted, :default => false
+      t.boolean     :accepted, default: false
       t.timestamps
     end
 
@@ -69,7 +69,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :outcome
       t.references  :organizer
       t.text        :note_to_authors
-      t.boolean     :published, :default => false
+      t.boolean     :published, default: false
       t.timestamps
     end
 
@@ -116,7 +116,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.text        :mechanics
       t.text        :benefits
       t.string      :target_audience
-      t.integer     :audience_limit, :limit => 255
+      t.integer     :audience_limit, limit: 255
       t.references  :author
       t.text        :experience
       t.references  :track
@@ -125,18 +125,18 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :audience_level
       t.references  :second_author
       t.string      :state
-      t.integer     :final_reviews_count, :default => 0
+      t.integer     :final_reviews_count, default: 0
       t.boolean     :author_agreement
       t.boolean     :image_agreement
       t.references  :conference
-      t.integer     :early_reviews_count, :default => 0
+      t.integer     :early_reviews_count, default: 0
       t.timestamps
     end
 
     create_table :taggings do |t|
       t.references  :tag
-      t.references  :taggable, :polymorphic => true
-      t.references  :tagger, :polymorphic => true
+      t.references  :taggable, polymorphic: true
+      t.references  :tagger, polymorphic: true
       t.string      :context
       t.datetime    :created_at
     end
@@ -174,7 +174,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.datetime    :last_sign_in_at
       t.string      :current_sign_in_ip
       t.string      :last_sign_in_ip
-      t.string      :default_locale, :default => "pt"
+      t.string      :default_locale, default: "pt"
       t.string      :reset_password_token
       t.string      :authentication_token
       t.integer     :sign_in_count

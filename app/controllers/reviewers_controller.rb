@@ -2,11 +2,11 @@
 class ReviewersController < InheritedResources::Base
   actions :index, :new, :create, :destroy
   respond_to :html
-  before_filter :load_reviewer_filter, :only => :index
-  before_filter :load_tracks, :only => :index
-  before_filter :load_states, :only => :index
+  before_filter :load_reviewer_filter, only: :index
+  before_filter :load_tracks, only: :index
+  before_filter :load_states, only: :index
 
-  has_scope :filtered, :only => :index, :as => :reviewer_filter, :type => :hash do |controller, scope, value|
+  has_scope :filtered, only: :index, as: :reviewer_filter, type: :hash do |controller, scope, value|
     controller.send(:load_reviewer_filter).apply(scope)
   end
   

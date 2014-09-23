@@ -21,11 +21,11 @@ module Airbrake
 end
 
 RSpec.configure do |config|
-  config.include(ControllerMacros, :type => :controller)
-  config.include(DisableAuthorization, :type => :controller)
-  config.include(Devise::TestHelpers, :type => :controller)
-  config.include(EmailSpec::Helpers, :type => :mailer)
-  config.include(EmailSpec::Matchers, :type => :mailer)
+  config.include(ControllerMacros, type: :controller)
+  config.include(DisableAuthorization, type: :controller)
+  config.include(Devise::TestHelpers, type: :controller)
+  config.include(EmailSpec::Helpers, type: :mailer)
+  config.include(EmailSpec::Matchers, type: :mailer)
   config.include(TrimmerMacros)
   config.include(ValidatesExistenceMacros)
 

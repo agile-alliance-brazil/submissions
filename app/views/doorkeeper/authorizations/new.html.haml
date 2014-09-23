@@ -1,15 +1,15 @@
-- title t('title.new_authorization', :client_application => @pre_auth.client.name)
+- title t('title.new_authorization', client_application: @pre_auth.client.name)
 
 - unless @pre_auth.scopes.all.empty?
   %p #{t('text.authorization_scopes')}:
 
   %ul
     - @pre_auth.scopes.each do |scope|
-      %li= t scope, :scope => [:doorkeeper, :scopes]
+      %li= t scope, scope: [:doorkeeper, :scopes]
 
 %div
   %span
-    = form_tag oauth_authorization_path, :method => :post, :style => "display: inline" do
+    = form_tag oauth_authorization_path, method: :post, style: "display: inline" do
       = hidden_field_tag :client_id, @pre_auth.client.uid
       = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri
       = hidden_field_tag :state, @pre_auth.state
@@ -20,7 +20,7 @@
   %span= t('generic.or')
 
   %span
-    = form_tag oauth_authorization_path, :method => :delete, :style => "display: inline" do
+    = form_tag oauth_authorization_path, method: :delete, style: "display: inline" do
       = hidden_field_tag :client_id, @pre_auth.client.uid
       = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri
       = hidden_field_tag :state, @pre_auth.state

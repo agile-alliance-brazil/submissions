@@ -5,19 +5,19 @@
 %p
   Por favor consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço:
   %br
-  = link_to session_reviews_url(@conference, @session, :type => :final, :locale => 'pt'), session_reviews_url(@conference, @session, :type => :final, :locale => 'pt')
+  = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt'), session_reviews_url(@conference, @session, type: :final, locale: 'pt')
 
 %p
   Por gentileza, queira confirmar sua presença no evento até às #{@conference.author_confirmation.strftime('%Hh%Mmin do dia %d/%m/%Y')} acessando o formulário
   %br
-  = link_to session_confirm_url(@conference, @session, :locale => 'pt'), session_confirm_url(@conference, @session, :locale => 'pt')
+  = link_to session_confirm_url(@conference, @session, locale: 'pt'), session_confirm_url(@conference, @session, locale: 'pt')
   %br
   Note que avaliadores e coordenadores de trilha podem ter feito sugestões de mudanças na sua proposta. Se o fizeram, só será possível efetuar essas mudanças ao completar o formulário mencionado acima. Por favor, leia os comentários e sugestões antes de completar o formulário para poder levar em considerações as mudanças sugeridas.
 
 %p
   Caso você não possa comparecer ao evento, pedimos a gentileza de confirmar sua desistência através do formulário
   %br
-  = link_to session_withdraw_url(@conference, @session, :locale => 'pt'), session_withdraw_url(@conference, @session, :locale => 'pt')
+  = link_to session_withdraw_url(@conference, @session, locale: 'pt'), session_withdraw_url(@conference, @session, locale: 'pt')
 
 %p
   - if(@session.authors.size > 1)

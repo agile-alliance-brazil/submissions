@@ -33,7 +33,7 @@
   - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     :javascript
       $(document).ready(function() {
-        $.getJSON('#{reviews_path(@conference, :format => :js)}', function(data) {
+        $.getJSON('#{reviews_path(@conference, format: :js)}', function(data) {
           var orange = Math.floor(parseInt(data.required_reviews) * 0.30);
           var yellow = Math.floor(parseInt(data.required_reviews) * 0.60);
           var green = Math.floor(parseInt(data.required_reviews) * 0.90);
@@ -56,7 +56,7 @@
     - progress = next_deadline.last == :author_notification ? "data.total_decisions" : "data.total_confirmed"
     :javascript
       $(document).ready(function() {
-        $.getJSON('#{review_decisions_path(@conference, :format => :js)}', function(data) {
+        $.getJSON('#{review_decisions_path(@conference, format: :js)}', function(data) {
           var orange = Math.floor(parseInt(#{goal}) * 0.30);
           var yellow = Math.floor(parseInt(#{goal}) * 0.60);
           var green = Math.floor(parseInt(#{goal}) * 0.90);
@@ -76,12 +76,12 @@
       })
 
 - else
-  = semantic_form_for :user, :url => user_session_path do |f|
+  = semantic_form_for :user, url: user_session_path do |f|
     = f.inputs do
-      = f.input :username, :required => true, :input_html => {:tabindex => autotab}
-      = f.input :password, :required => true, :hint => false, :input_html => {:tabindex => autotab}
+      = f.input :username, required: true, input_html: {tabindex: autotab}
+      = f.input :password, required: true, hint: false, input_html: {tabindex: autotab}
     = f.actions do
-      = f.action :submit, :label => "Log in", :button_html => {:tabindex => autotab}
+      = f.action :submit, label: "Log in", button_html: {tabindex: autotab}
 
   %ul
     - if can? :create, User
@@ -93,10 +93,10 @@
     %p= t('tips.users_from_last_year').html_safe
 
 %h4.charts= t('actions.submissionByTrack')
-%div.charts{ :id => "submittedByTrack", :style => "margin-left: -3em;"}
+%div.charts{ id: "submittedByTrack", style: "margin-left: -3em;"}
 
 %h4.charts= t('actions.submissionByType')
-%div.charts{ :id => "submittedByType", :style => "margin-left: -3em;"}
+%div.charts{ id: "submittedByType", style: "margin-left: -3em;"}
 
 :javascript
   var sessionsByTrack = #{sessions_by_track.inspect};

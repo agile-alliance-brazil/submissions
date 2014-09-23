@@ -4,7 +4,7 @@
   %head
     %title
       #{@conference.name} - #{t('title.accepted_sessions')}
-    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %meta{"http-equiv"=>"Content-Type", content: "text/html; charset=utf-8"}/
     %link{"rel" => "shortcut icon", "href" => "#{image_path('favicon.ico')}"}/
     = stylesheet_link_tag :accepted_sessions
     = javascript_include_tag :accepted_sessions
@@ -13,13 +13,13 @@
     #accepted_sessions
       - @activities.includes(:detail, :room).group_by(&:date).each do |date, activities|
         - rooms = activities.map(&:room).uniq.sort
-        %h2= l(date, :format => :short)
+        %h2= l(date, format: :short)
         %table
           %thead
             %tr
               %td
               - rooms.each do |room|
-                %th{:style => "width: #{100.0 / rooms.size}%"} #{t("generic.room")} #{room.name}
+                %th{style: "width: #{100.0 / rooms.size}%"} #{t("generic.room")} #{room.name}
           %tbody
             - skip_row = 0
             - Slot.divide(activities.map(&:start_at).min, activities.map(&:end_at).max, 10.minutes).each do |slot|
@@ -30,7 +30,7 @@
                 %tr
                   - activities_for_slot = activities.select { |activity| activity.starts_in?(slot) }
                   - unless activities_for_slot.empty?
-                    %th= l(slot.start, :format => :hour_minute)
+                    %th= l(slot.start, format: :hour_minute)
                   - rooms.each do |room|
                     - activities_for_slot.select { |activity| activity.in_room?(room) }.each do |activity|
                       - if activity.all_rooms?
@@ -39,10 +39,10 @@
                           - rowspan = 1
                         - else
                           - rowspan = activity.slots_remaining(slot)
-                        %td{:rowspan => rowspan, :colspan => (rooms.size - activities_for_slot.size + 1), :class => activity.css_classes}
+                        %td{rowspan: rowspan, colspan: (rooms.size - activities_for_slot.size + 1), class: activity.css_classes}
                           - if activity.detail.present?
-                            .content= render activity.detail, :activity => activity
+                            .content= render activity.detail, activity: activity
                       - else
-                        %td{:rowspan => activity.slots_remaining(slot), :colspan => activity.roomspan, :class => activity.css_classes}
+                        %td{rowspan: activity.slots_remaining(slot), colspan: activity.roomspan, class: activity.css_classes}
                           - if activity.detail.present?
-                            .content= render activity.detail, :activity => activity
+                            .content= render activity.detail, activity: activity

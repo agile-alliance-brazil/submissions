@@ -4,10 +4,10 @@ class SessionType < ActiveRecord::Base
   belongs_to :conference
   serialize :valid_durations, Array
 
-  validates :title, :presence => true
-  validates :description, :presence => true
+  validates :title, presence: true
+  validates :description, presence: true
 
-  scope :for_conference, lambda { |c| where(:conference_id => c.id) }
+  scope :for_conference, lambda { |c| where(conference_id: c.id) }
 
   def self.all_titles
     self.select(:title).uniq.map do |session_type|
