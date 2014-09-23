@@ -8,15 +8,15 @@ describe RejectReviewersController, type: :controller do
 
   before(:each) do
     @user ||= FactoryGirl.create(:user)
-    @reviewer ||= FactoryGirl.create(:reviewer, :user => @user)
+    @reviewer ||= FactoryGirl.create(:reviewer, user: @user)
     Reviewer.stubs(:find).returns(@reviewer)
     sign_in @user
     disable_authorization
   end
 
   it "show action should render show template" do
-    get :show, :reviewer_id => @reviewer.id
-    response.should render_template(:show)
+    get :show, reviewer_id: @reviewer.id
+    expect(response).to render_template(:show)
   end
   
   it "update action should render show template when transition is invalid" do
@@ -24,12 +24,12 @@ describe RejectReviewersController, type: :controller do
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
     @reviewer.expects(:reject).returns(false)
-    put :update, :reviewer_id => @reviewer.id
-    response.should render_template(:show)
+    put :update, reviewer_id: @reviewer.id
+    expect(response).to render_template(:show)
   end
   
   it "update action should redirect when transition is valid" do
-    put :update, :reviewer_id => @reviewer.id
-    response.should redirect_to(root_path)
+    put :update, reviewer_id: @reviewer.id
+    expect(response).to redirect_to(root_path)
   end
 end

@@ -6,6 +6,7 @@ describe Reviewer, type: :model do
     EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver: true))
     # TODO: Improve outcome and conference usage
     @conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
     @track = FactoryGirl.create(:track, conference: @conference)
     @audience_level = FactoryGirl.create(:audience_level, conference: @conference)
   end
@@ -198,7 +199,7 @@ describe Reviewer, type: :model do
 
   shared_examples_for "reviewer role" do
     it "should make given user reviewer role after invitation accepted" do
-      reviewer = FactoryGirl.create(:reviewer, user: subject)
+      reviewer = FactoryGirl.create(:reviewer, user: subject, conference: @conference)
       reviewer.invite
       expect(subject).to_not be_reviewer
       # TODO: review this
@@ -209,7 +210,7 @@ describe Reviewer, type: :model do
     end
 
     it "should remove organizer role after destroyed" do
-      reviewer = FactoryGirl.create(:reviewer, user: subject)
+      reviewer = FactoryGirl.create(:reviewer, user: subject, conference: @conference)
       reviewer.invite
       # TODO: review this
       reviewer.preferences.build(accepted: true, track_id: @track.id, audience_level_id: @audience_level.id)
@@ -236,7 +237,7 @@ describe Reviewer, type: :model do
       @conference = FactoryGirl.create(:conference)
       @track = FactoryGirl.create(:track, conference: @conference)
       @organizer = FactoryGirl.create(:organizer, track: @track, conference: @conference)
-      @reviewer = FactoryGirl.create(:reviewer, user: @organizer.user)
+      @reviewer = FactoryGirl.create(:reviewer, user: @organizer.user, conference: @conference)
     end
 
     it "can review track when not organizer" do

@@ -8,7 +8,11 @@ describe ReviewersController, type: :controller do
 
   before(:each) do
     @user ||= FactoryGirl.create(:user)
+    # TODO: Improve use of conference
     @conference ||= FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
+    @track ||= FactoryGirl.create(:track, conference: @conference)
+    FactoryGirl.create(:track, conference: FactoryGirl.create(:conference))
     sign_in @user
     disable_authorization
     EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver: true))
@@ -21,7 +25,7 @@ describe ReviewersController, type: :controller do
 
   it "index action should assign tracks for current conference" do
     get :index
-    expect((assigns(:tracks) - Track.for_conference(@conference))).to be_empty
+    expect(assigns(:tracks)).to eq([@track])
   end
 
   it "new action should render new template" do

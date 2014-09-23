@@ -74,7 +74,9 @@ describe Vote, type: :model do
   context "#within_limit?" do
     subject { Vote }
     let(:voter) { FactoryGirl.create(:voter) }
-    let(:conference) { FactoryGirl.create(:conference) }
+    let(:conference) do
+      FactoryGirl.create(:conference).tap{|c| Conference.stubs(:current).returns(c) }
+    end
 
     context "without user" do
       it { should_not be_within_limit(nil, conference) }

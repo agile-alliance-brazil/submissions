@@ -10,7 +10,9 @@ describe ReviewPublisher do
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
 
+    # TODO: Improve conference usage
     @conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
 
     # TODO outcome is a mess as it depends on having only those two values. Need to figure out something better
     @reject_outcome =Outcome.find_by_title('outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)

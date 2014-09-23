@@ -32,20 +32,20 @@ describe VotesController, type: :controller do
     before do
       @session = FactoryGirl.create(:session)
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
-      post :create, :vote => {:session_id => @session.id}
+      post :create, vote: {session_id: @session.id}
     end
 
     it { should redirect_to('http://test.com/sessions/new') }
-    it { @session.votes.should_not be_empty }
+    it { expect(@session.votes).to_not be_empty }
   end
 
   describe "#destroy" do
     before do
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
-      delete :destroy, :id => @vote.id
+      delete :destroy, id: @vote.id
     end
 
     it { should redirect_to('http://test.com/sessions/new') }
-    it { lambda { Vote.find(@vote.id) }.should raise_error(ActiveRecord::RecordNotFound) }
+    it { expect(lambda { Vote.find(@vote.id) }).to raise_error(ActiveRecord::RecordNotFound) }
   end
 end

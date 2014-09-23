@@ -3,17 +3,17 @@ require 'spec_helper'
 
 describe Gender, type: :model do
   it "should provide translated options for select" do
-    Gender.options_for_select.should include([I18n.t('gender.male'), 'M'])
-    Gender.options_for_select.should include([I18n.t('gender.female'), 'F'])
-    Gender.options_for_select.size.should == 2
+    expect(Gender.options_for_select).to include([I18n.t('gender.male'), 'M'])
+    expect(Gender.options_for_select).to include([I18n.t('gender.female'), 'F'])
+    expect(Gender.options_for_select.size).to eq(2)
   end
 
   it "should provide valid values" do
-    Gender.valid_values.should == %w(M F)
+    expect(Gender.valid_values).to eq(%w(M F))
   end
 
   it "should provide title for given value" do
-    Gender.title_for('M').should == I18n.t('gender.male')
-    Gender.title_for('F').should == I18n.t('gender.female')
+    expect(Gender.title_for('M')).to eq(I18n.t('gender.male'))
+    expect(Gender.title_for('F')).to eq(I18n.t('gender.female'))
   end
 end

@@ -8,10 +8,10 @@ describe Recommendation, type: :model do
 
   Recommendation.all_titles.each do |title|
     it "should determine if it's #{title}" do
-      recommendation = FactoryGirl.build(:recommendation, :title => "recommendation.#{title}.title")
-      recommendation.send(:"#{title}?").should be true
-      recommendation = FactoryGirl.build(:recommendation, :title => 'recommendation.other.title')
-      recommendation.send(:"#{title}?").should be false
+      recommendation = FactoryGirl.build(:recommendation, title: "recommendation.#{title}.title")
+      expect(recommendation.send(:"#{title}?")).to be true
+      recommendation = FactoryGirl.build(:recommendation, title: 'recommendation.other.title')
+      expect(recommendation.send(:"#{title}?")).to be false
     end
   end
 end

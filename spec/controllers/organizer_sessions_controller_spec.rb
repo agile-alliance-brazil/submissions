@@ -5,6 +5,8 @@ describe OrganizerSessionsController, type: :controller do
 
   before(:each) do
     @conference = FactoryGirl.create(:conference)
+    # TODO: Improve conference usage
+    Conference.stubs(:current).returns(@conference)
     @track = FactoryGirl.create(:track, conference: @conference)
     @organizer = FactoryGirl.create(:organizer, track: @track, conference: @conference)
     sign_in @organizer.user

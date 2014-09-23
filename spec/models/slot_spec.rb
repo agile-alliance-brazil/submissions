@@ -37,8 +37,8 @@ describe Slot, type: :model do
 
   describe ".from" do
     it "should instantiate Slot with given start and duration" do
-      Slot.from(at("08:30"), 30.minutes).should == Slot.new(at("08:30"), at("09:00"))
-      Slot.from(at("12:00"), 1.hour).should == Slot.new(at("12:00"), at("13:00"))
+      expect(Slot.from(at("08:30"), 30.minutes)).to eq(Slot.new(at("08:30"), at("09:00")))
+      expect(Slot.from(at("12:00"), 1.hour)).to eq(Slot.new(at("12:00"), at("13:00")))
     end
   end
 

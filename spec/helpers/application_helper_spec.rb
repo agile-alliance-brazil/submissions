@@ -4,119 +4,119 @@ require 'spec_helper'
 describe ApplicationHelper, type: :helper do
   describe "fix URL" do
     it "should prepend 'http://' if missing" do
-      helper.prepend_http('www.dtsato.com').should == 'http://www.dtsato.com'
+      expect(helper.prepend_http('www.dtsato.com')).to eq('http://www.dtsato.com')
     end
 
     it "should not change URL if starts with 'http://'" do
-      helper.prepend_http('http://dtsato.com').should == 'http://dtsato.com'
+      expect(helper.prepend_http('http://dtsato.com')).to eq('http://dtsato.com')
     end
 
     it "should ignore case when fixing" do
-      helper.prepend_http('HTTP://dtsato.com/some/path-01').should == 'HTTP://dtsato.com/some/path-01'
+      expect(helper.prepend_http('HTTP://dtsato.com/some/path-01')).to eq('HTTP://dtsato.com/some/path-01')
     end
 
     it "should not prepend on empty string" do
-      helper.prepend_http('').should == ''
-      helper.prepend_http(nil).should be_nil
-      helper.prepend_http('   ').should == '   '
+      expect(helper.prepend_http('')).to eq('')
+      expect(helper.prepend_http(nil)).to be_nil
+      expect(helper.prepend_http('   ')).to eq('   ')
     end
   end
 
   describe "sort link" do
     before(:each) do
-      @params = {:controller => :organizer_sessions, :action => :index}
+      @params = {controller: :organizer_sessions, action: :index}
     end
 
     it "should link down if nothing set" do
-      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+      expect(helper.sortable_column('test', :id, @params)).to eq('<a href="/organizer_sessions?column=id&amp;direction=down">test</a>')
     end
 
     it "should link down if was going up on that column" do
       @params[:column] = 'id'
       @params[:direction] = 'up'
-      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+      expect(helper.sortable_column('test', :id, @params)).to eq('<a href="/organizer_sessions?column=id&amp;direction=down">test</a>')
     end
 
     it "should link up if was going down on that column" do
       @params[:column] = 'id'
       @params[:direction] = 'down'
-      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=up">test</a>'
+      expect(helper.sortable_column('test', :id, @params)).to eq('<a href="/organizer_sessions?column=id&amp;direction=up">test</a>')
     end
 
     it "should link down if was going down on another column" do
       @params[:column] = 'author_id'
       @params[:direction] = 'down'
-      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+      expect(helper.sortable_column('test', :id, @params)).to eq('<a href="/organizer_sessions?column=id&amp;direction=down">test</a>')
     end
 
     it "should reset page when sorting is clicked" do
       @params[:column] = 'id'
       @params[:direction] = 'up'
       @params[:page] = 2
-      helper.sortable_column('test', :id, @params).should == '<a href="/organizer_sessions?column=id&amp;direction=down">test</a>'
+      expect(helper.sortable_column('test', :id, @params)).to eq('<a href="/organizer_sessions?column=id&amp;direction=down">test</a>')
     end
   end
 
   describe "gravatar_url" do
     it "should use digest of user's email to generate URL" do
-      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
-      helper.gravatar_url(user).should =~ /http:\/\/gravatar.com\/avatar\/9681863a56f1e1ac9562c72b297f6c2d\.png/
+      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
+      expect(helper.gravatar_url(user)).to match(/http:\/\/gravatar.com\/avatar\/9681863a56f1e1ac9562c72b297f6c2d\.png/)
     end
 
     it "should have default size of normal" do
-      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
-      helper.gravatar_url(user).should =~ /s=48/
+      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
+      expect(helper.gravatar_url(user)).to match(/s=48/)
     end
 
     it "should allow customized sizes" do
-      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
-      helper.gravatar_url(user, :size => :mini).should =~ /s=24/
-      helper.gravatar_url(user, "size" => :normal).should =~ /s=48/
-      helper.gravatar_url(user, :size => "bigger").should =~ /s=150/
+      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
+      expect(helper.gravatar_url(user, size: :mini)).to match(/s=24/)
+      expect(helper.gravatar_url(user, "size" => :normal)).to match(/s=48/)
+      expect(helper.gravatar_url(user, size: "bigger")).to match(/s=150/)
     end
 
     it "should have use default mistery man if gravatar not available" do
-      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
-      helper.gravatar_url(user).should =~ /d=mm/
+      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
+      expect(helper.gravatar_url(user)).to match(/d=mm/)
     end
 
     it "should allow customized default images" do
-      user = FactoryGirl.build(:user, :email => 'dtsato@dtsato.com')
-      helper.gravatar_url(user, :default => :retro).should =~ /d=retro/
-      helper.gravatar_url(user, "default" => :retro).should =~ /d=retro/
-      helper.gravatar_url(user, :default => "retro").should =~ /d=retro/
+      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
+      expect(helper.gravatar_url(user, default: :retro)).to match(/d=retro/)
+      expect(helper.gravatar_url(user, "default" => :retro)).to match(/d=retro/)
+      expect(helper.gravatar_url(user, default: "retro")).to match(/d=retro/)
     end
   end
 
   describe "translated_country" do
     it "should return translated country from code" do
       I18n.with_locale('pt') do
-        helper.translated_country(:BR).should == 'Brasil'
-        helper.translated_country('US').should == 'Estados Unidos'
-        helper.translated_country('fr').should == 'França'
+        expect(helper.translated_country(:BR)).to eq('Brasil')
+        expect(helper.translated_country('US')).to eq('Estados Unidos')
+        expect(helper.translated_country('fr')).to eq('França')
       end
     end
 
     it "should return empty if country is invalid" do
-      helper.translated_country('').should be_empty
-      helper.translated_country(nil).should be_empty
-      helper.translated_country(' ').should be_empty
+      expect(helper.translated_country('')).to be_empty
+      expect(helper.translated_country(nil)).to be_empty
+      expect(helper.translated_country(' ')).to be_empty
     end
   end
 
   describe "translated_state" do
     it "should return translated state from code" do
       I18n.with_locale('pt') do
-        helper.translated_state(:SP).should == 'São Paulo'
-        helper.translated_state('RJ').should == 'Rio de Janeiro'
+        expect(helper.translated_state(:SP)).to eq('São Paulo')
+        expect(helper.translated_state('RJ')).to eq('Rio de Janeiro')
       end
     end
 
     it "should return empty if state is invalid" do
-      helper.translated_state('').should be_empty
-      helper.translated_state(nil).should be_empty
-      helper.translated_state(' ').should be_empty
-      helper.translated_state('SS').should be_empty
+      expect(helper.translated_state('')).to be_empty
+      expect(helper.translated_state(nil)).to be_empty
+      expect(helper.translated_state(' ')).to be_empty
+      expect(helper.translated_state('SS')).to be_empty
     end
   end
 
@@ -128,17 +128,17 @@ describe ApplicationHelper, type: :helper do
 
     it "should make date bold if next deadline matches" do
       @conference.expects(:next_deadline).returns([@date, :submissions_deadline])
-      helper.present_date(@conference, [@date, :submissions_deadline]).should == "<strong>#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}</strong>"
+      expect(helper.present_date(@conference, [@date, :submissions_deadline])).to eq("<strong>#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}</strong>")
     end
 
     it "should leave date if next deadline doesn't matches" do
       @conference.expects(:next_deadline).returns([@date + 1, :author_notification])
-      helper.present_date(@conference, [@date, :submissions_deadline]).should == "#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}"
+      expect(helper.present_date(@conference, [@date, :submissions_deadline])).to eq("#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}")
     end
 
     it "should leave date if next deadline is nil" do
       @conference.expects(:next_deadline).returns(nil)
-      helper.present_date(@conference, [@date, :submissions_deadline]).should == "#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}"
+      expect(helper.present_date(@conference, [@date, :submissions_deadline])).to eq("#{l(@date.to_date)}: #{t('conference.dates.submissions_deadline')}")
     end
   end
 end

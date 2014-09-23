@@ -32,7 +32,7 @@ describe OrganizerReportsController, type: :controller do
       Session.expects(:for_tracks).with([@organizer.track.id]).returns(Session)
 
       get :index, format: :xls
-      assigns(:sessions).should == [@session]
+      expect(assigns(:sessions)).to eq([@session])
     end
   end
 end

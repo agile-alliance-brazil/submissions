@@ -12,6 +12,6 @@ describe UserSessionsController, type: :controller do
   
   it "new action should render new template" do
     get :new
-    response.should render_template("static_pages/#{@conference.year}_home")
+    expect(response).to render_template("static_pages/#{@conference.year}_home")
   end
 end

@@ -6,6 +6,9 @@ describe TracksController, type: :controller do
 
   before(:each) do
     @conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
+    @track = FactoryGirl.create(:track, conference: @conference)
+    FactoryGirl.create(:track, conference: FactoryGirl.create(:conference))
   end
 
   it "index action should render index template" do
@@ -15,6 +18,6 @@ describe TracksController, type: :controller do
   
   it "index action should assign tracks for current conference" do
     get :index
-    expect((assigns(:tracks) - @conference.tracks)).to be_empty
+    expect(assigns(:tracks)).to eq([@track])
   end
 end

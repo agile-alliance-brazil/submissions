@@ -6,7 +6,7 @@ describe SessionFilter, type: :model do
 
   describe "filtering by user" do
     context "with param user_id" do
-      subject { SessionFilter.new(:user_id => '1') }
+      subject { SessionFilter.new(user_id: '1') }
 
       its(:user_id) { should == '1' }
 
@@ -14,7 +14,7 @@ describe SessionFilter, type: :model do
         user = FactoryGirl.build(:user)
         User.expects(:find).with('1').returns(user)
 
-        subject.username.should == user.username
+        expect(subject.username).to eq(user.username)
       end
     end
 
@@ -26,10 +26,10 @@ describe SessionFilter, type: :model do
     end
 
     context "with param username" do
-      subject { SessionFilter.new(:session_filter => {:username => 'dtsato'}) }
+      subject { SessionFilter.new(session_filter: {username: 'dtsato'}) }
 
       before(:each) do
-        @user = FactoryGirl.build(:user, :id => 1)
+        @user = FactoryGirl.build(:user, id: 1)
         User.stubs(:find_by_username).with('dtsato').returns(@user)
       end
 
@@ -37,31 +37,31 @@ describe SessionFilter, type: :model do
     end
 
     context "without param username" do
-      subject { SessionFilter.new(:session_filter => {}) }
+      subject { SessionFilter.new(session_filter: {}) }
 
       its(:user_id) { should be_nil }
       its(:username) { should be_nil }
     end
 
     it "should provide username writer" do
-      user = FactoryGirl.build(:user, :id => 1)
+      user = FactoryGirl.build(:user, id: 1)
       User.expects(:find_by_username).twice.with(user.username).returns(user)
 
       subject.username = user.username
-      subject.user_id.should == 1
+      expect(subject.user_id).to eq(1)
 
       subject.username = "  #{user.username}  "
-      subject.user_id.should == 1
+      expect(subject.user_id).to eq(1)
     end
 
     it "username writer should not fail when invalid username" do
       User.expects(:find_by_username).with('dansato').returns(nil)
 
       subject.username = 'dansato'
-      subject.user_id.should be_nil
+      expect(subject.user_id).to be_nil
 
       subject.username = ""
-      subject.user_id.should be_nil
+      expect(subject.user_id).to be_nil
     end
   end
 
@@ -74,13 +74,13 @@ describe SessionFilter, type: :model do
   }.each do |filter, filter_param|
     describe "filtering by #{filter}" do
       context "with param #{filter_param}" do
-        subject { SessionFilter.new(:session_filter => {filter_param => 'filter_value'}) }
+        subject { SessionFilter.new(session_filter: {filter_param => 'filter_value'}) }
 
         its(filter_param) { should == 'filter_value' }
       end
 
       context "without param #{filter_param}" do
-        subject { SessionFilter.new(:session_filter => {}) }
+        subject { SessionFilter.new(session_filter: {}) }
 
         its(filter_param) { should be_nil }
       end
@@ -92,21 +92,21 @@ describe SessionFilter, type: :model do
       scope = mock('scope')
       scope.expects(:for_user).with(1)
 
-      filter = SessionFilter.new(:user_id => 1)
+      filter = SessionFilter.new(user_id: 1)
       filter.apply(scope)
     end
 
     {
-      :tags => :tagged_with,
-      :track_id => :for_tracks,
-      :audience_level_id => :for_audience_level,
-      :session_type_id => :for_session_type
+      tags: :tagged_with,
+      track_id: :for_tracks,
+      audience_level_id: :for_audience_level,
+      session_type_id: :for_session_type
     }.each do |filter_param, named_scope|
       it "should apply #{named_scope} scope when #{filter_param} is present" do
         scope = mock('scope')
         scope.expects(named_scope).with('filter_value')
 
-        filter = SessionFilter.new(:session_filter => {filter_param => 'filter_value'})
+        filter = SessionFilter.new(session_filter: {filter_param => 'filter_value'})
         filter.apply(scope)
       end
     end
@@ -115,7 +115,7 @@ describe SessionFilter, type: :model do
       scope = mock('scope')
       scope.expects(:with_state).with(:filter_value)
 
-      filter = SessionFilter.new(:session_filter => {:state => 'filter_value'})
+      filter = SessionFilter.new(session_filter: {state: 'filter_value'})
       filter.apply(scope)
     end
 
@@ -125,7 +125,7 @@ describe SessionFilter, type: :model do
       scope.expects(:for_tracks).with('1').returns(scope)
       scope.expects(:for_user).with(1).returns(scope)
 
-      filter = SessionFilter.new(:user_id => 1, :session_filter => {:tags => 'tag1, tag2', :track_id => '1'})
+      filter = SessionFilter.new(user_id: 1, session_filter: {tags: 'tag1, tag2', track_id: '1'})
       filter.apply(scope)
     end
   end

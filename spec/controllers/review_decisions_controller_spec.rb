@@ -8,8 +8,9 @@ describe ReviewDecisionsController, type: :controller do
 
   before(:each) do
     conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(conference)
     @session ||= FactoryGirl.create(:session, conference: conference)
-    @session.state = 'in_review'
+    @session.reviewing
     @organizer ||= FactoryGirl.create(:organizer, track: @session.track, conference: @session.conference)
     sign_in @organizer.user
     disable_authorization

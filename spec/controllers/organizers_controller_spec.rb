@@ -4,7 +4,9 @@ require 'spec_helper'
 describe OrganizersController, type: :controller do
   before(:each) do
     @user ||= FactoryGirl.create(:user)
+    # TODO: Improve conference usage
     @conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
     sign_in @user
     disable_authorization
   end

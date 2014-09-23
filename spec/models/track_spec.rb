@@ -2,7 +2,6 @@
 require 'spec_helper'
 
 describe Track, type: :model do
-
   context "validations" do
     it { should validate_presence_of :title }
     it { should validate_presence_of :description }
@@ -16,9 +15,9 @@ describe Track, type: :model do
   end
 
   it "should determine if it's experience report" do
-    track = FactoryGirl.build(:track, :title => 'tracks.experience_reports.title')
-    track.should be_experience_report
-    track = FactoryGirl.build(:track, :title => 'tracks.management.title')
-    track.should_not be_experience_report
+    track = FactoryGirl.build(:track, title: 'tracks.experience_reports.title')
+    expect(track).to be_experience_report
+    track = FactoryGirl.build(:track, title: 'tracks.management.title')
+    expect(track).to_not be_experience_report
   end
 end
