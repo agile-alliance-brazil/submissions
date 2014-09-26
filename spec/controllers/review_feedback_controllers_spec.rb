@@ -23,6 +23,23 @@ describe ReviewFeedbacksController, type: :controller do
   end
 
   context '#new' do
+    context 'once feedback was already submitted' do
+      before(:each) do
+        ReviewFeedback.create!(
+          valid_params.merge(conference_id: @conference.id, author_id: @author.id)
+        )
+      end
+      it 'should redirect to root' do
+        get :new
+
+        expect(response).to redirect_to(root_url(@conference))
+      end
+      it 'should show flash error warning feedback was already given' do
+        get :new
+
+        expect(flash[:error]).to eq(I18n.t('flash.review_feedback.new.failure'))
+      end
+    end
     it 'should render new template' do
       get :new
 
@@ -47,6 +64,23 @@ describe ReviewFeedbacksController, type: :controller do
   end
 
   context '#create' do
+    context 'once feedback was already submitted' do
+      before(:each) do
+        ReviewFeedback.create!(
+          valid_params.merge(conference_id: @conference.id, author_id: @author.id)
+        )
+      end
+      it 'should redirect to root' do
+        post :create, review_feedback: valid_params
+
+        expect(response).to redirect_to(root_url(@conference))
+      end
+      it 'should show flash error warning feedback was already given' do
+        post :create, review_feedback: valid_params
+
+        expect(flash[:error]).to eq(I18n.t('flash.review_feedback.new.failure'))
+      end
+    end
     context 'success' do
       before(:each) do
         params = valid_params

@@ -378,6 +378,8 @@ en:
     review_feedback:
       create:
         success: "Feedback submited successfully. Thank you!"
+      new:
+        failure: "Your feedback was already recorded. Thank you!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:

@@ -1,5 +1,13 @@
 # encoding: UTF-8
 class ReviewFeedbacksController < ApplicationController
+  before_filter :bounce_if_already_created
+
+  rescue_from ActiveRecord::RecordNotUnique do |exception|
+    flash[:error] = t('flash.review_feedback.new.failure')
+
+    redirect_to :back rescue redirect_to root_path(@conference)
+  end
+
   def new
     @review_feedback = build_review_feedback
     add_evaluations_for(@review_feedback)
@@ -48,5 +56,19 @@ class ReviewFeedbacksController < ApplicationController
       :general_comments,
       review_evaluations_attributes: [:helpful_review, :review_id, :comments]
     )
+  end
+
+  def bounce_if_already_created
+    feedback_exists = ReviewFeedback.exists?(
+      conference_id: @conference,
+      author_id: current_user)
+
+    if feedback_exists
+      raise ActiveRecord::RecordNotUnique.new(
+        "ReviewFeedback for conference id " +
+        "#{@conference.id} and user id " +
+        "#{current_user.id} already exists",
+        nil)
+    end
   end
 end

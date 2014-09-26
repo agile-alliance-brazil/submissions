@@ -375,6 +375,8 @@ pt:
     review_feedback:
       create:
         success: "Feedback enviado com sucesso. Obrigado!"
+      new:
+        failure: "Seu feedback já foi gravado. Obrigado!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:

@@ -6,8 +6,8 @@
       %h3= t('formtastic.titles.review_feedback.session', session: current_session.title)
     %p= evaluation_form.object.review.comments_to_authors
     = evaluation_form.input :helpful_review, as: :radio, required: true, input_html: {tabindex: autotab}
-    = evaluation_form.input :review_id, as: :hidden, input_html: {value: evaluation_form.object.review.id}
     = evaluation_form.input :comments, as: :string, required: false, input_html: {tabindex: autotab}
+    = evaluation_form.input :review_id, as: :hidden, input_html: {value: evaluation_form.object.review.id}
   = form.input :general_comments, as: :text, required: false, input_html: {rows: 10, tabindex: autotab}
 
   = form.actions do
