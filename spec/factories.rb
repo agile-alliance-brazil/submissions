@@ -222,4 +222,10 @@ FactoryGirl.define do
     association :user, factory: :voter
     session
   end
+
+  factory :review_feedback do
+    conference { Conference.current || FactoryGirl.create(:conference) }
+    author
+    general_comments "General comments"
+  end
 end

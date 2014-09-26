@@ -2,6 +2,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.18' # Issue #114 - 4.0.2 is target
+gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is part of rails 4
 gem 'jquery-rails', '3.1.0'
 gem 'haml', '4.0.5'
 gem 'will_paginate', '3.0.5'
@@ -63,7 +64,10 @@ group :development, :test do
   gem 'sqlite3', '1.3.9'
   gem 'rspec-rails', '3.0.1'
   gem 'rspec-its', '1.0.1'
+  gem 'rspec-collection_matchers', '1.0.0'
   gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
+  gem 'guard-rspec'
+  gem 'terminal-notifier-guard'
   gem 'guard-jasmine', '1.19.2'
   gem 'jasminerice', '0.0.10'
   gem 'pry-rails', '0.3.2'

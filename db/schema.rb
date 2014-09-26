@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140604020538) do
+ActiveRecord::Schema.define(:version => 20140903235049) do
 
   create_table "activities", :force => true do |t|
     t.datetime "start_at"
@@ -187,6 +187,23 @@ ActiveRecord::Schema.define(:version => 20140604020538) do
   add_index "review_decisions", ["organizer_id"], :name => "index_review_decisions_on_organizer_id"
   add_index "review_decisions", ["outcome_id"], :name => "index_review_decisions_on_outcome_id"
   add_index "review_decisions", ["session_id"], :name => "index_review_decisions_on_session_id"
+
+  create_table "review_evaluations", :force => true do |t|
+    t.integer  "review_id"
+    t.integer  "review_feedback_id"
+    t.boolean  "helpful_review"
+    t.string   "comments"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "review_feedbacks", :force => true do |t|
+    t.integer  "conference_id"
+    t.integer  "author_id"
+    t.string   "general_comments"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "reviewers", :force => true do |t|
     t.integer  "user_id"

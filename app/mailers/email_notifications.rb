@@ -80,6 +80,18 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
+  def review_feedback_request(author, sent_at = Time.now)
+    @conference_name = current_conference.name
+    @author = author
+    I18n.with_locale(author.try(:default_locale)) do
+      subject = I18n.t("email.review_feedback.subject", :conference_name => @conference_name)
+      mail :subject  => "[#{host}] #{subject}",
+           :to       => EmailNotifications.format_email(author),
+           :date     => sent_at,
+           :template_name => :review_feedback_request
+    end
+  end
+
   private
   def self.format_email(user)
     "\"#{user.full_name}\" <#{user.email}>"

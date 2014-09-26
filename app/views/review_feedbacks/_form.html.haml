@@ -1,0 +1,9 @@
+= form.inputs do
+  = form.inputs for: :review_evaluations, class: 'review_evaluation' do |evaluation_form, i|
+    %p= evaluation_form.object.review.comments_to_authors
+    = evaluation_form.input :helpful_review, as: :radio
+    = evaluation_form.input :review_id, as: :hidden, input_html: { value: evaluation_form.object.review.id }
+  = form.input :general_comments, as: :text, required: false, input_html: {rows: 10, tabindex: autotab}
+
+  = form.actions do
+    = form.action :submit, label: :submit_review_feedback, button_html: {tabindex: autotab}

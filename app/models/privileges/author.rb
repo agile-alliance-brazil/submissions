@@ -20,5 +20,12 @@ class Privileges::Author < Privileges::Base
       @session.review_decision &&
       @conference.in_author_confirmation_phase?
     end
+    can!(:create, ReviewFeedback) do
+      sessions = @user.sessions_for_conference(@conference).includes(:review_decision)
+      decisions = sessions.map(&:review_decision).compact
+      !sessions.empty? &&
+        decisions.size == sessions.size &&
+        decisions.map(&:published?).all?
+    end
   end
 end

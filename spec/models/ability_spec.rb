@@ -5,6 +5,7 @@ describe Ability, type: :model do
   before(:each) do
     @user ||= FactoryGirl.build(:user)
     @conference = FactoryGirl.create(:conference)
+    Conference.stubs(:current).returns(@conference)
   end
 
   shared_examples_for "all users" do
@@ -427,6 +428,42 @@ describe Ability, type: :model do
       end
     end
 
+    context "create review feedback" do
+      before(:each) do
+        @session = FactoryGirl.build(:session,
+          author: @user,
+          conference: @conference,
+          review_decision: FactoryGirl.build(:review_decision, published: true)
+        )
+        sessions = [@session]
+        @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
+        sessions.stubs(:includes).with(:review_decision).returns(sessions)
+
+        @ability = Ability.new(@user, @conference)
+      end
+
+      it "with a session for the conference is allowed" do
+        expect(@ability).to be_able_to(:create, ReviewFeedback)
+      end
+
+      it "any review if session doesn't have a review decision" do
+        @session.review_decision = nil
+        expect(@ability).to_not be_able_to(:create, ReviewFeedback)
+      end
+
+      it "any review if review has been published" do
+        @session.review_decision.published = false
+        expect(@ability).to_not be_able_to(:create, ReviewFeedback)
+      end
+
+      it "is not author" do
+        sessions = []
+        @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
+        sessions.stubs(:includes).with(:review_decision).returns([])
+
+        expect(@ability).to_not be_able_to(:create, ReviewFeedback)
+      end
+    end
   end
 
   context "- organizer" do

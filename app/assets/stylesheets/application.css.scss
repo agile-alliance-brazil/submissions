@@ -381,7 +381,7 @@ li#user_wants_to_submit_input {
   padding: 10px;
   width: 74%; }
 
-form.reviewer, form.review_decision_confirm, form.review_decision_withdraw {
+form.reviewer, form.review_decision_confirm, form.review_decision_withdraw, form.review_feedback {
   fieldset.inputs li {
     float: left;
     margin-bottom: 0;
@@ -508,6 +508,64 @@ form.early_review.formtastic, form.final_review.formtastic {
   }
   fieldset ol li ul.errors {
     float: none;
+  }
+}
+
+form.review_feedback.formtastic {
+  fieldset.review_evaluation p {
+    background-color: $color4;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 1px dashed $color3;
+    padding: 10px;
+  }
+  legend {
+    font-size: 14pt;
+    color: black;
+    border-bottom: 1px solid black;
+    width: 100%;
+  }
+  ol {
+    float: none;
+    list-style: none;
+    padding: 0px;
+    width: 100%;
+    li {
+      float: none;
+      &.hidden, label {
+        display: inline;
+        width: 100%;
+      }
+      fieldset legend.label {
+        border-bottom: 0;
+        label {
+          font-size: 10pt;
+        }
+      }
+      &.text textarea {
+        width: 100%;
+      }
+      &.radio {
+        display: list-item;
+        margin: 0px 0.5em;
+        label {
+          width: 100%;
+          position: relative;
+        }
+        fieldset {
+          legend.label {
+            position: relative;
+          }
+          ol {
+            padding: 0px;
+            li {
+              padding: 0px 0.5em;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

@@ -305,4 +305,29 @@ describe EmailNotifications, type: :mailer do
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
     end
   end
+
+  describe "review feedback request" do
+    let(:user) { FactoryGirl.build(:author) }
+
+    subject { EmailNotifications.review_feedback_request(user) }
+
+    it_should_behave_like "standard conference e-mail"
+
+    context "in pt" do
+      before { user.default_locale = 'pt' }
+
+      it { should have_subject("[localhost:3000] Pedido de feedback sobre as avaliações de suas sessões na #{conference.name}") }
+    end
+
+    context "in en" do
+      before { user.default_locale = 'en' }
+
+      it { should have_subject("[localhost:3000] Feedback request for the reviews of your sessions for #{conference.name}") }
+    end
+
+    context "with single author" do
+      it { should deliver_to(EmailNotifications.send(:format_email, user)) }
+      it { should have_body_text(/#{user.full_name},/)}
+    end
+  end
 end

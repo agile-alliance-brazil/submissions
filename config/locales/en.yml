@@ -47,14 +47,19 @@ en:
         review_decision:
           cant_accept: "cannot be accepted"
           cant_reject: "cannot be rejected"
+        review_evaluation:
+          review_and_feedback_missmatch: "review and feedback do not match"
+        review_feedback:
+          evaluations_missing: "missing feedback for certain reviews"
         vote:
           limit_reached: "user already voted %{count} times"
           author: "user cannot vote on his own session"
           voter: "user cannot vote"
 
   formtastic:
-    :yes: "Yes"
-    :no: "No"
+    'yes': "Yes"
+    'no': "No"
+    required: 'Required'
     titles:
       user_login: "Login details"
       user_personal: "Personal details"
@@ -195,6 +200,10 @@ en:
       review_decision:
         outcome_id: "Organizer's decision"
         note_to_authors: "Comments to the authors"
+      review_feedback:
+        review_evaluation:
+          helpful_review: "Does this review helps you improve your proposal for future or current conferences?"
+        general_comments: "General Comments"
     hints:
       user:
         email: "Main e-mail address for contact purposes. We also use your e-mail to fetch your profile image from Gravatar. If you want to change your profile picture, <a href='http://en.gravatar.com/site/signup/' target='_blank'>get your gravatar</a>."
@@ -251,6 +260,7 @@ en:
       accept_reviewer: "Accept invitation"
       submit_review: "Send review"
       submit_review_decision: "Submit organizer's decision"
+      submit_review_feedback: "Submit feedback"
       confirm_session: "Confirm attendance"
       withdraw_session: "Withdraw session"
       search: "Search"
@@ -280,6 +290,7 @@ en:
     edit_organizer: "Update organizer"
     new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
+    review_feedback: "Feedback on reviews for %{conference}"
     accepted_sessions: "Accepted Sessions"
     my_votes: "My votes"
 
@@ -361,6 +372,9 @@ en:
         success: "Organizer's decision submited successfully."
       update:
         success: "Organizer's decision updated successfully."
+    review_feedback:
+      create:
+        success: "Feedback submited successfully. Thank you!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
     news:
@@ -497,6 +511,8 @@ en:
       subject: "Notification from the Program Committee of %{conference_name}"
     session_rejected:
       subject: "Notification from the Program Committee of %{conference_name}"
+    review_feedback:
+      subject: "Feedback request for the reviews of your sessions for %{conference_name}"
 
   reviewer:
     state:

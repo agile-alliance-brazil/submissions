@@ -68,6 +68,7 @@ AgileBrazil::Application.routes.draw do
     resources :tracks, only: [:index]
 
     resources :votes, only: [:index, :create, :destroy]
+    resources :review_feedbacks, only: [:new, :create, :show]
 
     match ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help/
   end

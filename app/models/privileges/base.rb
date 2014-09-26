@@ -13,8 +13,8 @@ module Privileges
     def can!(expected_actions, expected_subject_classes, &block)
       can do |action, subject_class, subject, session|
         expand_actions(Array[*expected_actions]).include?(action) &&
-        Array[*expected_subject_classes].include?(subject_class) &&
-        block.call(session || @session)
+          Array[*expected_subject_classes].include?(subject_class) &&
+          block.call(session || @session)
       end
     end
   end

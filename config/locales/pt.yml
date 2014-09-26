@@ -45,14 +45,19 @@ pt:
         review_decision:
           cant_accept: "não pode ser aceita"
           cant_reject: "não pode ser rejeitada"
+        review_evaluation:
+          review_and_feedback_missmatch: "avaliação e feedback não correspondem um ao outro"
+        review_feedback:
+          evaluations_missing: "falta feedback para algumas avaliações"
         vote:
           limit_reached: "usuário já votou %{count} vezes"
           author: "usuário não pode votar na sua própria proposta"
           voter: "usuário não pode votar"
 
   formtastic:
-    :yes: "Sim"
-    :no: "Não"
+    'yes': 'Sim'
+    'no': 'Não'
+    required: 'Obrigatório'
     titles:
       user_login: "Informações de Login"
       user_personal: "Informações Pessoais"
@@ -193,6 +198,10 @@ pt:
       review_decision:
         outcome_id: "Parecer do organizador"
         note_to_authors: "Comentários para os autores"
+      review_feedback:
+        review_evaluation:
+          helpful_review: "Esta avaliação contribui para que você melhore sua proposta em anos futuros ou para essa conferência?"
+        general_comments: "Comentários gerais"
     hints:
       user:
         email: "Principal email de contato. Nós também usamos seu email para exibir a foto no seu perfil. Para criar ou alterar sua foto, <a href='http://en.gravatar.com/site/signup/' target='_blank'>acesse o Gravatar</a>."
@@ -249,6 +258,7 @@ pt:
       accept_reviewer: "Aceitar convite"
       submit_review: "Enviar avaliação"
       submit_review_decision: "Submeter parecer da organização"
+      submit_review_feedback: "Submeter feedback"
       confirm_session: "Confirmar participação"
       withdraw_session: "Retirar sessão"
       search: "Buscar"
@@ -278,6 +288,7 @@ pt:
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '%{session}'"
     review_decision: "Parecer da sessão '%{session}'"
+    review_feedback: "Feedback sobre as avaliações da %{conference}"
     accepted_sessions: "Sessões aceitas"
     my_votes: "Meus votos"
 
@@ -358,6 +369,9 @@ pt:
         success: "Parecer submetido com sucesso."
       update:
         success: "Parecer atualizado com sucesso."
+    review_feedback:
+      create:
+        success: "Feedback enviado com sucesso. Obrigado!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
     news:
@@ -494,6 +508,8 @@ pt:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
     session_rejected:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
+    review_feedback:
+      subject: "Pedido de feedback sobre as avaliações de suas sessões na %{conference_name}"
 
   reviewer:
     state:

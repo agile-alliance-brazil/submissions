@@ -1,0 +1,6 @@
+- title t('title.review_feedback', conference: @conference.name)
+- show_actions!
+.auto_focus
+
+= semantic_form_for [@conference, @review_feedback], url: review_feedbacks_path(@conference, @review_feedback) do |form|
+  = render 'form', form: form
