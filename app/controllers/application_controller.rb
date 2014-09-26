@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_conference
   before_filter :authenticate_user!
   before_filter :authorize_action
+  # TODO: Transform into before_action once rails 4 (Issue #114) is in place
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
@@ -65,5 +67,17 @@ class ApplicationController < ActionController::Base
     action = params[:action].to_sym
     controller = obj || clazz || controller_name
     authorize!(action, controller)
+  end
+
+  def configure_permitted_parameters
+    valid_registration_parameters = [
+      :first_name, :last_name, :email, :wants_to_submit, :state,
+      :organization, :website_url, :twitter_username, :default_locale,
+      :phone, :country, :city, :bio
+    ]
+    valid_registration_parameters.each do |parameter|
+      devise_parameter_sanitizer.for(:sign_up) << parameter
+      devise_parameter_sanitizer.for(:account_update) << parameter
+    end
   end
 end
