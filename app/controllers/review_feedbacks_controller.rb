@@ -35,7 +35,7 @@ class ReviewFeedbacksController < ApplicationController
 
   def add_evaluations_for(review_feedback)
     reviews = current_user.sessions_for_conference(@conference).
-      includes(:final_reviews).map(&:final_reviews).flatten
+      includes(final_reviews: [:session]).map(&:final_reviews).flatten
     missing_evaluation_reviews = reviews - review_feedback.review_evaluations.map(&:review)
     missing_evaluation_reviews.each do |review|
       review_feedback.review_evaluations.build(review: review, review_feedback: @review_feedback)

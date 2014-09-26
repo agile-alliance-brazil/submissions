@@ -71,6 +71,8 @@ en:
       to_authors: "Information to the authors"
       details: "Details"
       review_decision: "Final decision"
+      review_feedback:
+        session: "Reviews for proposal '%{session}'"
     labels:
       user:
         first_name: "First name"
@@ -202,7 +204,8 @@ en:
         note_to_authors: "Comments to the authors"
       review_feedback:
         review_evaluation:
-          helpful_review: "Does this review helps you improve your proposal for future or current conferences?"
+          helpful_review: "Does this review help you improve your proposal for the current or future conferences?"
+          comments: "Comments"
         general_comments: "General Comments"
     hints:
       user:

@@ -511,14 +511,22 @@ form.early_review.formtastic, form.final_review.formtastic {
   }
 }
 
-form.review_feedback.formtastic {
-  fieldset.review_evaluation p {
-    background-color: $color4;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border: 1px dashed $color3;
-    padding: 10px;
+#content form.review_feedback.formtastic {
+  fieldset.review_evaluation {
+    h3 {
+      color: $color1;
+      border-bottom: 3px solid $color1;
+      margin-bottom: 10px;
+    }
+    p {
+      background-color: $color4;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border: 1px dashed $color3;
+      padding: 10px;
+      margin: 0px;
+    }
   }
   legend {
     font-size: 14pt;
@@ -533,7 +541,13 @@ form.review_feedback.formtastic {
     width: 100%;
     li {
       float: none;
-      &.hidden, label {
+      margin: 0px 0.5em 1em 0px;
+      &.hidden {
+        margin: 0px;
+        padding: 0px;
+        display: none;
+      }
+      label {
         display: inline;
         width: 100%;
       }
@@ -543,12 +557,11 @@ form.review_feedback.formtastic {
           font-size: 10pt;
         }
       }
-      &.text textarea {
+      &.text textarea, &.string input {
         width: 100%;
       }
       &.radio {
         display: list-item;
-        margin: 0px 0.5em;
         label {
           width: 100%;
           position: relative;
@@ -560,6 +573,7 @@ form.review_feedback.formtastic {
           ol {
             padding: 0px;
             li {
+              margin: 0px;
               padding: 0px 0.5em;
             }
           }

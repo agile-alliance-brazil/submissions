@@ -99,7 +99,8 @@ class SessionsController < InheritedResources::Base
       includes(
         :author,
         :second_author,
-        :session_type
+        :session_type,
+        :review_decision,
       )
   end
 

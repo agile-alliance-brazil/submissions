@@ -1,8 +1,8 @@
 %p Dear #{h(@author.full_name)},
 
-%p The Organizing Committee for #{@conference_name} (#{link_to 'www.agilebrazil.com', "http://www.agilebrazil.com/#{@conference.year}/en/"}) would like your help improving the review process. As a proposal author for the conference, you have received reviews about your proposal from our reviewers. This is your chance of help us understand which reviews were most helpful to you.
+%p The Organizing Committee for #{@conference_name} (#{link_to 'www.agilebrazil.com', "http://www.agilebrazil.com/#{@conference.year}/en/"}) would like your help improving the review process. As a proposal author for the conference, you have received reviews about your proposal from our reviewers. This is your chance to help us understand which reviews were most helpful to you.
 
-%p To provide us feedback, please fill the form available at #{link_to new_review_feedback_url(@conference), new_review_feedback_url(@conference)}. It will help us identify which reviewers provided you with valuable reviews and why those reviews were valuable. You'll also have the chance to provide suggestions for ways to improve the whole proposal/review system.
+%p To provide us feedback, please fill the form available at #{link_to new_review_feedback_url(@conference, protocol: 'https', lang: 'en'), new_review_feedback_url(@conference, protocol: 'https', lang: 'en')}. It will help us identify which reviewers provided you with valuable reviews and why those reviews were valuable. You'll also have the chance to provide suggestions for ways to improve the whole proposal/review system.
 
 %p If any of the above URLs do not work try copying and pasting into your browser.
 

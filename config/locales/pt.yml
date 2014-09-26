@@ -69,6 +69,8 @@ pt:
       to_authors: "Informações aos autores"
       details: "Detalhes"
       review_decision: "Parecer final"
+      review_feedback:
+        session: "Avaliações para proposta '%{session}'"
     labels:
       user:
         first_name: "Nome"
@@ -201,6 +203,7 @@ pt:
       review_feedback:
         review_evaluation:
           helpful_review: "Esta avaliação contribui para que você melhore sua proposta em anos futuros ou para essa conferência?"
+          comments: "Comentários"
         general_comments: "Comentários gerais"
     hints:
       user:

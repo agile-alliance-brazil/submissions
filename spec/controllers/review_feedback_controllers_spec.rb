@@ -19,8 +19,7 @@ describe ReviewFeedbacksController, type: :controller do
     end
     sign_in @author
     subject.current_user.stubs(:sessions_for_conference).with(@conference).returns(@sessions)
-    @sessions.stubs(:includes).with(:final_reviews).returns(@sessions)
-    @sessions.stubs(:includes).with(:review_decision).returns(@sessions)
+    @sessions.stubs(:includes).returns(@sessions)
   end
 
   context '#new' do
