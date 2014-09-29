@@ -446,6 +446,16 @@ describe Ability, type: :model do
         expect(@ability).to be_able_to(:create, ReviewFeedback)
       end
 
+      it "with a valid and a cancelled proposal for the conference is allowed" do
+        cancelled_session = FactoryGirl.build(:session,
+          author: @user, conference: @conference, state: 'cancelled')
+        sessions = [@session, cancelled_session]
+        @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
+        sessions.stubs(:includes).with(:review_decision).returns(sessions)
+
+        expect(@ability).to be_able_to(:create, ReviewFeedback)
+      end
+
       it "any review if session doesn't have a review decision" do
         @session.review_decision = nil
         expect(@ability).to_not be_able_to(:create, ReviewFeedback)

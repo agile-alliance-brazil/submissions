@@ -21,7 +21,8 @@ class Privileges::Author < Privileges::Base
       @conference.in_author_confirmation_phase?
     end
     can!(:create, ReviewFeedback) do
-      sessions = @user.sessions_for_conference(@conference).includes(:review_decision)
+      sessions = @user.sessions_for_conference(@conference).
+        includes(:review_decision).reject(&:cancelled?)
       decisions = sessions.map(&:review_decision).compact
       !sessions.empty? &&
         decisions.size == sessions.size &&
