@@ -63,23 +63,19 @@ describe Api::V1::SessionsController, type: :controller do
         get :show, id: session.id.to_s, format: :json, locale: 'en'
       end
       it 'should respect locale on session type, audience level, track and tags if possible' do
-        expect(response.body).to eq(%Q{
-          {
-            "id":#{session.id},
-            "title":"#{session.title}",
-            "authors":[
-              {
-                "name":"#{session.author.full_name}",
-                "gravatar_url":"#{gravatar_url(Digest::MD5::hexdigest(session.author.email).downcase)}"
-              }
-            ],
-            "prerequisites":"#{session.prerequisites}",
-            "tags":["fake","tags","Success Cases"],
-            "session_type":"Lecture",
-            "audience_level":"Beginner",
-            "track":"Engineering",
-            "summary":"#{session.summary}"}
-        }.gsub(/\s*\n\s*/,''))
+        gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+        expect(JSON.parse(response.body)).to eq({
+          'id' => session.id,
+          'title' => session.title,
+          'authors' => [{ 'name' => session.author.full_name,
+            'gravatar_url' => gravatar_url(gravatar_id)}],
+          'prerequisites' => session.prerequisites,
+          'tags' => ['fake', 'tags', 'Success Cases'],
+          'session_type' => 'Lecture',
+          'audience_level' => 'Beginner',
+          'track' => 'Engineering',
+          'summary' => session.summary
+        })
       end
     end
   end

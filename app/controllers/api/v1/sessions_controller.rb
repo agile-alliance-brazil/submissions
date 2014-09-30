@@ -18,7 +18,7 @@ module Api
             }
           end,
           prerequisites: session.prerequisites,
-          tags: session.keywords.map(&:name).map do |n|
+          tags: session.keywords.map(&:name).sort.map do |n|
             value = I18n.t(n, default: n)
             value.is_a?(String) ? value : n
           end,
