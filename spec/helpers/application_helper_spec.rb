@@ -57,37 +57,6 @@ describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe "gravatar_url" do
-    it "should use digest of user's email to generate URL" do
-      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
-      expect(helper.gravatar_url(user)).to match(/http:\/\/gravatar.com\/avatar\/9681863a56f1e1ac9562c72b297f6c2d\.png/)
-    end
-
-    it "should have default size of normal" do
-      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
-      expect(helper.gravatar_url(user)).to match(/s=48/)
-    end
-
-    it "should allow customized sizes" do
-      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
-      expect(helper.gravatar_url(user, size: :mini)).to match(/s=24/)
-      expect(helper.gravatar_url(user, "size" => :normal)).to match(/s=48/)
-      expect(helper.gravatar_url(user, size: "bigger")).to match(/s=150/)
-    end
-
-    it "should have use default mistery man if gravatar not available" do
-      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
-      expect(helper.gravatar_url(user)).to match(/d=mm/)
-    end
-
-    it "should allow customized default images" do
-      user = FactoryGirl.build(:user, email: 'dtsato@dtsato.com')
-      expect(helper.gravatar_url(user, default: :retro)).to match(/d=retro/)
-      expect(helper.gravatar_url(user, "default" => :retro)).to match(/d=retro/)
-      expect(helper.gravatar_url(user, default: "retro")).to match(/d=retro/)
-    end
-  end
-
   describe "translated_country" do
     it "should return translated country from code" do
       I18n.with_locale('pt') do

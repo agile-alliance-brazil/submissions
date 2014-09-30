@@ -7,6 +7,7 @@ AgileBrazil::Application.routes.draw do
       resource :user, only: [:show] do
         post :make_voter, on: :collection
       end
+      resources :sessions, only: [:show]
     end
   end
 

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sessions_by_track
   helper_method :sessions_by_type
+  helper_method :gravatar_url
   protect_from_forgery
 
   around_filter :set_locale
@@ -12,6 +13,13 @@ class ApplicationController < ActionController::Base
   before_filter :authorize_action
   # TODO: Transform into before_action once rails 4 (Issue #114) is in place
   before_filter :configure_permitted_parameters, if: :devise_controller?
+
+
+  AVATAR_SIZES = {
+    mini: 24,
+    normal: 48,
+    bigger: 150
+  }.with_indifferent_access
 
   rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
@@ -45,6 +53,14 @@ class ApplicationController < ActionController::Base
     ([['Type', 'Submitted sessions']] +
       @conference.session_types.
         map{|type| [t(type.title), type.sessions.count]})
+  end
+
+  def gravatar_url(user, options={})
+    options = options.with_indifferent_access
+    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    size = options[:size] || :normal
+    default = options[:default] || :mm
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
   end
 
   private

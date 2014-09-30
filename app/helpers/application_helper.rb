@@ -6,20 +6,6 @@ module ApplicationHelper
     !!( url !~ /\A(?:http:\/\/)/i ) ? "http://#{url}" : url
   end
 
-  AVATAR_SIZES = {
-    mini: 24,
-    normal: 48,
-    bigger: 150
-  }.with_indifferent_access
-
-  def gravatar_url(user, options={})
-    options = options.with_indifferent_access
-    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-    size = options[:size] || :normal
-    default = options[:default] || :mm
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
-  end
-
   def render_avatar(user, options={})
     content_tag(:div, class: 'avatar') do
       avatar = link_to(image_tag(gravatar_url(user, options), alt: user.full_name), user_path(user))
