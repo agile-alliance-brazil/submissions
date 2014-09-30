@@ -6,8 +6,13 @@ module Api
 
       respond_to :json
 
+      rescue_from ActiveRecord::RecordNotFound do |exception|
+        render json: {error: "not-found"}.to_json, status: 404
+      end
+
       def show
         session = Session.find(params[:id])
+
         respond_with({
           id: session.id,
           title: session.title,

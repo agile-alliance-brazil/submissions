@@ -78,6 +78,13 @@ describe Api::V1::SessionsController, type: :controller do
         })
       end
     end
+
+    it 'should respond with 404 for unexisting session' do
+      get :show, id: ((Session.last.try(:id) || 0) + 1)
+
+      expect(response.code).to eq('404')
+      expect(response.body).to eq('{"error":"not-found"}')
+    end
   end
   def gravatar_url(gravatar_id)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
