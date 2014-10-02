@@ -62,8 +62,10 @@ class Reviewer < ActiveRecord::Base
   end
 
   after_destroy do
-    user.remove_role :reviewer
-    user.save(validate: false)
+    if Reviewer.where(user_id: user.id).count == 0
+      user.remove_role :reviewer
+      user.save(validate: false)
+    end
   end
 
   def can_review?(track)

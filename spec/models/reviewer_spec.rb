@@ -202,19 +202,28 @@ describe Reviewer, type: :model do
       reviewer = FactoryGirl.create(:reviewer, user: subject, conference: @conference)
       reviewer.invite
       expect(subject).to_not be_reviewer
-      # TODO: review this
-      reviewer.preferences.build(accepted: true, track_id: @track.id, audience_level_id: @audience_level.id)
-      reviewer.accept
-      expect(subject).to be_reviewer
-      expect(subject.reload).to be_reviewer
     end
 
-    it "should remove organizer role after destroyed" do
-      reviewer = FactoryGirl.create(:reviewer, user: subject, conference: @conference)
-      reviewer.invite
-      # TODO: review this
-      reviewer.preferences.build(accepted: true, track_id: @track.id, audience_level_id: @audience_level.id)
-      reviewer.accept
+    it "should not remove organizer role if more reviewers for user are available" do
+      old_conference = FactoryGirl.create(:conference, year: 1)
+      old_track = FactoryGirl.create(:track, conference: old_conference)
+      old_audience_level = FactoryGirl.create(:audience_level, conference: old_conference)
+      accepted_reviewer_for(subject, old_conference, old_track, old_audience_level)
+
+      reviewer = accepted_reviewer_for(subject, @conference, @track, @audience_level)
+      expect(subject).to be_reviewer
+      reviewer.destroy
+      expect(subject).to_not be_reviewer
+      # TODO: Remove current_conference from reviewer check.
+      # Stupid user class redefines the roles to user current conference
+      expect(subject).to be_reviewer_without_conference
+      expect(subject.reload).to_not be_reviewer
+      expect(subject.reload).to be_reviewer_without_conference
+    end
+
+    it "should remove organizer role after last reviewer for user is destroyed" do
+      reviewer = accepted_reviewer_for(subject, @conference, @track, @audience_level)
+
       expect(subject).to be_reviewer
       reviewer.destroy
       expect(subject).to_not be_reviewer
@@ -276,4 +285,10 @@ describe Reviewer, type: :model do
     end
   end
 
+  def accepted_reviewer_for(user, conference, track, audience_level)
+    FactoryGirl.create(:reviewer, user: user, conference: conference).
+        tap{|r| r.invite}.
+        tap{|r| r.preferences.build(accepted: true, track_id: track.id, audience_level_id: audience_level.id)}.
+        tap{|r| r.accept}
+  end
 end
