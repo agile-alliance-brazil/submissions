@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Reviewer < ActiveRecord::Base
-  attr_accessible :user_id, :conference_id, :user_username, :preferences_attributes,
+  attr_accessible :user_id, :conference_id, :conference, :user_username, :preferences_attributes,
                   :reviewer_agreement, :sign_reviews, :state_event
   attr_trimmed    :user_username
 

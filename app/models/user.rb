@@ -62,12 +62,14 @@ class User < ActiveRecord::Base
     Session.for_user(self.id).for_conference(conference)
   end
 
+  # TODO: Stop using Conference.current
   # Overriding role check to take current conference into account
   def reviewer_with_conference?
     reviewer_without_conference? && Reviewer.user_reviewing_conference?(self, Conference.current)
   end
   alias_method_chain :reviewer?, :conference
 
+  # TODO: Stop using Conference.current
   # Overriding role check to take current conference into account
   def organizer_with_conference?
     organizer_without_conference? && Organizer.user_organizing_conference?(self, Conference.current)

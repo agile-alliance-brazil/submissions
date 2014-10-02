@@ -1,6 +1,9 @@
 - title t('actions.manage_reviewers')
 - show_actions!
 
+#flash_error_ajax.flash_error.hidden
+#flash_notice_ajax.flash_notice.hidden
+
 = semantic_form_for @reviewer_filter, url: reviewers_path(@conference), method: :get do |f|
   = f.inputs do
     = f.input :state, as: :select, collection: @states, member_label: Proc.new { |s| t("reviewer.state.#{s}") }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
@@ -13,25 +16,57 @@
     %tr
       %th.reviewer= t('formtastic.labels.reviewer.user_id')
       %th.state= t('formtastic.labels.reviewer.state')
-      - @tracks.each do |track|
-        %th.track= t(track.title)
       - if @conference.has_early_review?
         %th.count= t('review.early_review')
       %th.count= t('review.final_review')
       %th.actions
+    %tr#mock_reviewer_row.reviewer.hidden
+      %td.reviewer
+      %td.state
+      - if @conference.has_early_review?
+        %td.count&= 0
+      %td.count&= 0
+      %td.actions
+        - if can? :destroy, Reviewer
+          = link_to t('actions.destroy'), '', method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
   %tbody
     - @reviewers.each do |reviewer|
-      = content_tag_for(:tr, reviewer, class: cycle(:odd, :even)) do
+      = content_tag_for(:tr, reviewer, class: cycle(:odd, :even), :'data-username' => reviewer.user.username) do
         %td.reviewer&= reviewer.user.full_name
         %td.state&= t("reviewer.state.#{reviewer.state}")
-        - @tracks.each do |track|
-          %td.track&= t(review_level(reviewer.accepted_preferences, track))
         - if @conference.has_early_review?
           %td.count&= reviewer.user.early_reviews.for_conference(@conference).count
         %td.count&= reviewer.user.final_reviews.for_conference(@conference).count
         %td.actions
           - if can? :destroy, reviewer
-            = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.destroy'))
+            = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
 
 - if can? :create, Reviewer
-  = link_to t('actions.create_reviewer'), new_reviewer_path(@conference)
+  - unless @previous_reviewers.empty?
+    %h3= t('title.previous_reviewers')
+    = render partial: 'previous_reviewers'
+  %h3= t('actions.create_reviewer')
+  = semantic_form_for @reviewer, url: reviewers_path(year: @conference.year), remote: true do |form|
+    = form.inputs do
+      = form.input :user_username, required: true, input_html: {tabindex: autotab}
+    = form.actions do
+      = form.action :submit, label: :create_reviewer, button_html: {tabindex: autotab}
+  :javascript
+    jQuery(function($) {
+      $(document).ready(function() {
+        var valuesToExclude = function() {
+          return $("table.reviewers tbody tr.reviewer").map(function(){
+            return $(this).data("username");
+          }).get();
+        };
+        $.submissions.reviewers.initializeAutocomplete(
+          "#reviewer_user_username",
+          "#{users_path(format: :js)}",
+          valuesToExclude
+        );
+        $.submissions.reviewers.initializeRemoveLinksFeedback(".remove");
+        $.submissions.reviewers.initializeAddFormFeedback(
+          "#new_reviewer", "#mock_reviewer_row", "table.reviewers tbody"
+        );
+      });
+    });

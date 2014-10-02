@@ -1,7 +1,7 @@
 /*
 *= require vendor_libs
 *= require_self
-*= require organizer_reviews
+*= require_tree .
 *= require actions
 */
 

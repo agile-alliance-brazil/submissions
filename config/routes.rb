@@ -34,7 +34,7 @@ AgileBrazil::Application.routes.draw do
     resources :organizer_sessions, only: [:index]
     resources :organizer_reports, only: [:index]
     resources :review_decisions, only: [:index]
-    resources :reviewers, only: [:index, :new, :create, :destroy] do
+    resources :reviewers, only: [:index, :create, :destroy] do
       resource :accept, only: [:show, :update], controller: :accept_reviewers
       resource :reject, only: [:show, :update], controller: :reject_reviewers
     end

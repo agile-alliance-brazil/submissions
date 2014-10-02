@@ -3,6 +3,7 @@ pt:
 
   errors:
     messages:
+      missing: 'está ausente e é obrigatório'
       same_author: não pode ser o mesmo autor
       incomplete: usuário não possui perfil de autor completo
       session_type_duration: "só pode ser %{valid_durations} minutos"
@@ -294,6 +295,7 @@ pt:
     review_feedback: "Feedback sobre as avaliações da %{conference}"
     accepted_sessions: "Sessões aceitas"
     my_votes: "Meus votos"
+    previous_reviewers: 'Avaliadores de outras conferências'
 
   actions:
     submission_date: "Prazo para submissões"
@@ -362,11 +364,14 @@ pt:
     reviewer:
       create:
         success: "Avaliador convidado."
+        failure: "Não foi possível criar avaliador com usuário %{username}. Verifique que o usuário existe e não é avaliador."
       reject:
         success: "Seu convite foi rejeitado. Obrigado por responder prontamente."
         failure: "Seu convite já está %{status}."
       accept:
         success: "Seu convite foi aceito. Obrigado por responder prontamente."
+      destroy:
+        success: 'O/A avaliador(a) %{full_name} foi removido(a) com sucesso.'
     review_decision:
       create:
         success: "Parecer submetido com sucesso."

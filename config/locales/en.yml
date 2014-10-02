@@ -3,6 +3,7 @@ en:
 
   errors:
     messages:
+      missing: 'is absent and is required'
       same_author: "can't be the same as author"
       incomplete: "user is currently not an author"
       session_type_duration: "can only be %{valid_durations} minutes"
@@ -296,6 +297,7 @@ en:
     review_feedback: "Feedback on reviews for %{conference}"
     accepted_sessions: "Accepted Sessions"
     my_votes: "My votes"
+    previous_reviewers: 'Reviewers from other conferences'
 
   actions:
     submission_date: "Submission deadline"
@@ -365,11 +367,14 @@ en:
     reviewer:
       create:
         success: "Reviewer invited."
+        failure: "Failed to create reviewer %{username} for this conference. Verify that the user exists and is not already a reviewer."
       reject:
         success: "Your invitation was rejected. Thanks for your prompt reply."
         failure: "Your invitation is already %{status}."
       accept:
         success: "Your invitation was accepted. Thanks for your prompt reply."
+      destroy:
+        success: 'Reviewer %{full_name} was removed successfully.'
     review_decision:
       create:
         success: "Organizer's decision submited successfully."
