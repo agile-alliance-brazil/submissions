@@ -365,6 +365,8 @@ pt:
       create:
         success: "Avaliador convidado."
         failure: "Não foi possível criar avaliador com usuário %{username}. Verifique que o usuário existe e não é avaliador."
+        multiple_successes: "Avaliadores convidados."
+        multiple_failures: "Não foi possível criar os seguintes avaliadores: (%{usernames}). Verifique que os usuários existem e não são avaliadores."
       reject:
         success: "Seu convite foi rejeitado. Obrigado por responder prontamente."
         failure: "Seu convite já está %{status}."
@@ -528,6 +530,9 @@ pt:
       accepted: "Ativo"
       rejected: "Convite rejeitado"
     doesnot_review: "Não avalia"
+    conferences: "Conferências em que participou"
+    invite: "Convidar"
+    batch_invite: "Convidar avaliadores selecionados"
 
   session:
     state:

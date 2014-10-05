@@ -1,7 +1,8 @@
 #encoding: utf-8 
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.18' # Issue #114 - 4.0.2 is target
+gem 'rails', '3.2.19' # Issue #114 - 4.0.2 is target
+gem 'activemodel', '3.2.19', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
 gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is part of rails 4
 gem 'jquery-rails', '3.1.0'
 gem 'haml', '4.0.5'
@@ -16,7 +17,7 @@ gem 'brhelper', '3.3.0'
 gem 'seed-fu', '2.3.1'
 gem 'acts-as-taggable-on', '3.2.6'
 gem 'cancan', '1.6.10'
-gem 'acts_as_commentable', '3.0.1' # version 4.0.1 require rails 4
+gem 'acts_as_commentable', '3.0.1' # version 4.0.1 require rails 4 (issue #114)
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
 gem 'goalie', '0.0.4'
@@ -34,10 +35,10 @@ end
 # in production environments by default.
 group :assets do
   gem 'therubyracer', '0.12.1'
-  gem 'sass-rails', '3.2.6' # 4.0.1 for rails 4
+  gem 'sass-rails', '3.2.6' # 4.0.1 for rails 4 (issue #114)
   gem 'yui-compressor', '0.12.0'
   gem 'jquery-ui-rails', '4.2.1'
-  gem 'coffee-rails', '3.2.2' # 4.0.1 for rails 4
+  gem 'coffee-rails', '3.2.2' # 4.0.1 for rails 4 (issue #114)
   gem 'fancybox-rails', '0.2.1'
 end
 

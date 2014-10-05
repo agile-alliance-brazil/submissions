@@ -34,7 +34,7 @@ describe Api::V1::SessionsController, type: :controller do
 
         get :show, id: session.id.to_s, format: :json, locale: 'pt'
 
-        expect(response.body).to eq(%Q{
+        expect(unescape_utf8_chars(response.body)).to eq(%Q{
           {
             "id":#{session.id},
             "title":"#{session.title}",
@@ -88,5 +88,8 @@ describe Api::V1::SessionsController, type: :controller do
   end
   def gravatar_url(gravatar_id)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
+  end
+  def unescape_utf8_chars(text)
+    text.gsub(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
   end
 end

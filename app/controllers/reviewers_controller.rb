@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class ReviewersController < ApplicationController
   respond_to :html, only: [:index]
-  respond_to :json, only: [:create, :destroy]
+  respond_to :json, only: [:create, :destroy, :create_multiple]
 
   before_filter :load_reviewer_filter, only: :index
   has_scope :filtered, only: :index, as: :reviewer_filter, type: :hash do |controller, scope, value|
@@ -16,9 +16,11 @@ class ReviewersController < ApplicationController
       joins(:user).
       order('first_name, last_name').
       includes(:user, :accepted_preferences)
-    @previous_reviewers = [] || (resource_class.
-      where('conference_id != ? and user_id not in (?)', @conference.id, @reviewers.map(&:user_id)).
-      includes(:user, :accepted_preferences).all)
+    @reviewer_batch = ReviewerBatch.new(conference: @conference)
+    @previous_reviewers = resource_class.
+      where('conference_id != ? and user_id not in (?) and state = ?',
+        @conference.id, @reviewers.map(&:user_id), :accepted).
+      includes(:user, :conference).group_by(&:user)
     @reviewer = resource_class.new(conference: @conference)
   end
 
@@ -28,12 +30,19 @@ class ReviewersController < ApplicationController
     if reviewer.save
       render json: {
         message: t('flash.reviewer.create.success'),
-        reviewer: build_simplified_reviewer_hash(reviewer)
+        reviewer: ReviewerJsonBuilder.new(reviewer).to_json
       }.to_json, status: 201
     else
-      message = t('flash.reviewer.create.failure', username: params[:reviewer][:user_username])
+      message = t('flash.reviewer.create.failure', username: reviewer.user_username)
       render json: message, status: 400
     end
+  end
+
+  def create_multiple
+    batch = ReviewerBatch.new(batch_params.merge(conference: @conference))
+    batch.save
+
+    render json: batch.to_json, status: 200
   end
     
   def destroy
@@ -60,13 +69,8 @@ class ReviewersController < ApplicationController
     params.require(:reviewer).permit(:user_username)
   end
 
-  def build_simplified_reviewer_hash(reviewer)
-    {
-      id: reviewer.id,
-      full_name: reviewer.user.full_name,
-      username: reviewer.user.username,
-      status: t("reviewer.state.#{reviewer.state}"),
-      url: reviewer_path(@conference, reviewer)
-    }
+  def batch_params
+    params[:reviewer_batch].try(:[]=, :usernames, []) if params[:reviewer_batch].try(:[], :usernames).nil?
+    params.require(:reviewer_batch).permit(usernames: [])
   end
 end

@@ -42,15 +42,28 @@
             = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
 
 - if can? :create, Reviewer
-  - unless @previous_reviewers.empty?
-    %h3= t('title.previous_reviewers')
-    = render partial: 'previous_reviewers'
   %h3= t('actions.create_reviewer')
   = semantic_form_for @reviewer, url: reviewers_path(year: @conference.year), remote: true do |form|
     = form.inputs do
       = form.input :user_username, required: true, input_html: {tabindex: autotab}
     = form.actions do
       = form.action :submit, label: :create_reviewer, button_html: {tabindex: autotab}
+  - unless @previous_reviewers.empty?
+    %h3= t('title.previous_reviewers')
+    = form_for @reviewer_batch, url: create_multiple_reviewers_path(year: @conference.year), remote: true do |form|
+      %table.previous_reviewers
+        %thead
+          %tr
+            %th.reviewer= t('formtastic.labels.reviewer.user_id')
+            %th.conferences= t('reviewer.conferences')
+            %th.actions= t('reviewer.invite')
+        %tbody
+          - @previous_reviewers.each do |user, reviewers|
+            %tr{"id" => user.username, "data-username" => user.username}
+              %td.reviewer= user.full_name
+              %td.conferences= reviewers.map(&:conference).map(&:year).join(', ')
+              %td.actions= check_box :reviewer_batch, :usernames, {multiple: true}, user.username, nil
+      = form.submit t('reviewer.batch_invite')
   :javascript
     jQuery(function($) {
       $(document).ready(function() {
@@ -67,6 +80,9 @@
         $.submissions.reviewers.initializeRemoveLinksFeedback(".remove");
         $.submissions.reviewers.initializeAddFormFeedback(
           "#new_reviewer", "#mock_reviewer_row", "table.reviewers tbody"
+        );
+        $.submissions.reviewers.initializeAddMultipleFormFeedback(
+          "#new_reviewer_batch", "#mock_reviewer_row", "table.reviewers tbody"
         );
       });
     });

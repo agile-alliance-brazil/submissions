@@ -368,6 +368,8 @@ en:
       create:
         success: "Reviewer invited."
         failure: "Failed to create reviewer %{username} for this conference. Verify that the user exists and is not already a reviewer."
+        multiple_successes: "Reviewers invited."
+        multiple_failures: "Failed to create the following reviewers: %{usernames}. Verify that the users exist and are not already reviewers."
       reject:
         success: "Your invitation was rejected. Thanks for your prompt reply."
         failure: "Your invitation is already %{status}."
@@ -531,6 +533,9 @@ en:
       accepted: "Active"
       rejected: "Rejected invitation"
     doesnot_review: "Does not review"
+    conferences: "Conferences as reviewer"
+    invite: "Invite"
+    batch_invite: "Invite selected reviewers"
 
   session:
     state:

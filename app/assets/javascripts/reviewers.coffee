@@ -45,9 +45,7 @@
       $("#flash_notice_ajax").hide()
       $("#flash_error_ajax").hide()
     ).bind("ajax:success", (xhr, status, event) ->
-      className = (if ($(appendableSelector).children("tr:visible").size() % 2) is 0 then "odd" else "even")
-      clone = newRowWithData $(mockSelector), status.reviewer, className
-      clone.appendTo($(appendableSelector))
+      appendNewRowWithData(mockSelector, appendableSelector, status.reviewer)
       $("#flash_notice_ajax").text status.message
       $("#flash_notice_ajax").show()
     ).bind("ajax:error", (xhr, status, event) ->
@@ -57,6 +55,38 @@
       $(this).find("input[type=text]").val ""
       $(this).find(":submit").prop "disabled", false
     )
+
+  $.submissions.reviewers.initializeAddMultipleFormFeedback = (formSelector, mockSelector, appendableSelector) ->
+    $(formSelector).bind("ajax:beforeSend", () ->
+      $(this).find(":submit").prop "disabled", true
+      $("#flash_notice_ajax").hide()
+      $("#flash_error_ajax").hide()
+    ).bind("ajax:success", (xhr, status, event) ->
+      $.each(status.new_reviewers, (index, reviewer) ->
+        appendNewRowWithData(mockSelector, appendableSelector, reviewer)
+        $(formSelector).find('tr#'+reviewer.username).remove()
+        if $(formSelector).find('tbody tr').size() == 0
+          $(formSelector).prev('h3').hide()
+          $(formSelector).hide()
+      )
+      if not (typeof status.success_message is "undefined")
+        $("#flash_notice_ajax").text status.success_message
+        $("#flash_notice_ajax").show()
+      failures = ""
+      $.each(status.failed_invites, (index, failure) ->
+        failures += failure + "<br/>"
+      )
+      if failures != ""
+        $("#flash_error_ajax").html failures
+        $("#flash_error_ajax").show()
+    ).bind("ajax:complete", () ->
+      $(this).find(":submit").prop "disabled", false
+    )
+
+  appendNewRowWithData = (mockSelector, appendableSelector, reviewer) ->
+    className = (if ($(appendableSelector).children("tr:visible").size() % 2) is 0 then "odd" else "even")
+    clone = newRowWithData $(mockSelector), reviewer, className
+    clone.appendTo($(appendableSelector))
 
   newRowWithData = (mockRow, reviewer, className) ->
     clone = mockRow.clone true, true
