@@ -14,4 +14,16 @@ describe Recommendation, type: :model do
       expect(recommendation.send(:"#{title}?")).to be false
     end
   end
+
+  context 'title_for' do
+    it 'should prepend recommendation. to title' do
+      expect(Recommendation.title_for('example')).to start_with('recommendation.')
+    end
+    it 'should postpend title. to title' do
+      expect(Recommendation.title_for('example')).to end_with('.title')
+    end
+    it 'should include title between preset text' do
+      expect(Recommendation.title_for('example')).to eq('recommendation.example.title')
+    end
+  end
 end

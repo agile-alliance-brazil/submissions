@@ -80,6 +80,30 @@ describe Reviewer, type: :model do
       subject { FactoryGirl.build(:reviewer, conference: @conference) }
       it_should_behave_like "virtual username attribute", :user
     end
+
+    context 'inferred' do
+      before(:each) do
+        @reviewer = FactoryGirl.build(:reviewer, conference: @conference)
+      end
+      it 'should find early reviews for this reviewer' do
+        @reviewer.user.expects(:early_reviews).returns(Review)
+        Review.expects(:for_conference).with(@conference).returns(:result)
+
+        expect(@reviewer.early_reviews).to eq(:result)
+      end
+      it 'should find final reviews for this reviewer' do
+        @reviewer.user.expects(:final_reviews).returns(Review)
+        Review.expects(:for_conference).with(@conference).returns(:result)
+
+        expect(@reviewer.final_reviews).to eq(:result)
+      end
+      it 'should find all reviews for this reviewer' do
+        @reviewer.user.expects(:reviews).returns(Review)
+        Review.expects(:for_conference).with(@conference).returns(:result)
+
+        expect(@reviewer.reviews).to eq(:result)
+      end
+    end
   end
 
   context "state machine" do

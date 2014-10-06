@@ -558,6 +558,7 @@ pt:
     comments_to_authors: "Comentários aos autores"
     early_review: "Pré-Avaliação"
     final_review: "Avaliação Final"
+    feedback: "Feedback"
 
   rating:
     high:

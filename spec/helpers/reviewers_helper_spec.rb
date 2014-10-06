@@ -52,4 +52,55 @@ describe ReviewersHelper, type: :helper do
     expect(reviewers[early_review3]).to eq("#{t('formtastic.labels.reviewer.user_id')} 3")
   end
 
+  context 'reviewer summary review row' do
+    before(:each) do
+      @conference = FactoryGirl.build(:conference)
+      @recommendations = Recommendation.all_titles.map do |title|
+        FactoryGirl.create(:recommendation, title: Recommendation.title_for(title))
+      end
+    end
+    it 'should have 4 0s before reviews are happening' do
+      row = helper.reviewer_summary_review_row([], @conference)
+
+      expect(row).to have(4).items
+      expect(row[0]).to eq(0)
+      expect(row[1]).to eq(0)
+      expect(row[2]).to eq(0)
+      expect(row[3]).to eq(0)
+    end
+    it 'should partition reviews by recommendations' do
+      reviews = @recommendations.map do |r|
+        session = FactoryGirl.build(:session, conference: @conference, state: 'in_review')
+        FactoryGirl.build(:final_review, recommendation_id: r.id, session: session)
+      end
+      row = helper.reviewer_summary_review_row(reviews, @conference)
+
+      expect(row).to have(4).items
+      expect(row[0]).to eq(1)
+      expect(row[1]).to eq(1)
+      expect(row[2]).to eq(1)
+      expect(row[3]).to eq(1)
+    end
+    it 'should include feedback if past author notification' do
+      @conference.author_notification = DateTime.now - 1.minute
+      @conference.save
+      reviews = @recommendations.map do |r|
+        session = FactoryGirl.create(:session, conference: @conference, state: 'in_review')
+        FactoryGirl.create(:final_review, recommendation_id: r.id, session: session)
+      end
+      feedback = ReviewFeedback.create(conference: @conference, author: FactoryGirl.create(:author))
+      ReviewEvaluation.new(review_feedback: feedback, review: reviews.first, helpful_review: true).save(validate: false)
+      ReviewEvaluation.new(review_feedback: feedback, review: reviews.first, helpful_review: false).save(validate: false)
+      ReviewEvaluation.new(review_feedback: feedback, review: reviews.last, helpful_review: false).save(validate: false)
+      row = helper.reviewer_summary_review_row(reviews, @conference)
+
+      expect(row).to have(6).items
+      expect(row[0]).to eq(1)
+      expect(row[1]).to eq(1)
+      expect(row[2]).to eq(1)
+      expect(row[3]).to eq(1)
+      expect(row[4]).to eq("1👍")
+      expect(row[5]).to eq("2👎")
+    end
+  end
 end

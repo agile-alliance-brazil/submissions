@@ -18,4 +18,16 @@ module ReviewersHelper
 		end
 		[reviewers, comments]
   end
+
+  def reviewer_summary_review_row(reviews, conference)
+    row = Recommendation.all_titles.
+      map{|r| Recommendation.titled(r).select(:id).all.map(&:id)}.
+      map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
+    if conference.author_notification.past?
+      evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).all
+      row << "#{evaluations.select(&:helpful_review).size}👍"
+      row << "#{evaluations.reject(&:helpful_review).size}👎"
+    end
+    row
+  end
 end

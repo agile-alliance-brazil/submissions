@@ -561,6 +561,7 @@ en:
     comments_to_authors: "Comments to authors"
     early_review: "Early Review"
     final_review: "Final Review"
+    feedback: "Feedback"
 
   rating:
     high:

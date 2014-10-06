@@ -16,16 +16,16 @@
     %tr
       %th.reviewer= t('formtastic.labels.reviewer.user_id')
       %th.state= t('formtastic.labels.reviewer.state')
-      - if @conference.has_early_review?
-        %th.count= t('review.early_review')
-      %th.count= t('review.final_review')
+      - Recommendation.all_titles.each do |recommendation|
+        %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
+      - if @conference.author_notification.past?
+        %th.feedback.count{colspan: 2}= t('reviewer.feedback')
       %th.actions
     %tr#mock_reviewer_row.reviewer.hidden
       %td.reviewer
       %td.state
-      - if @conference.has_early_review?
-        %td.count&= 0
-      %td.count&= 0
+      - reviewer_summary_review_row([], @conference).each do |cell|
+        %td.count= cell
       %td.actions
         - if can? :destroy, Reviewer
           = link_to t('actions.destroy'), '', method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
@@ -34,9 +34,8 @@
       = content_tag_for(:tr, reviewer, class: cycle(:odd, :even), :'data-username' => reviewer.user.username) do
         %td.reviewer&= reviewer.user.full_name
         %td.state&= t("reviewer.state.#{reviewer.state}")
-        - if @conference.has_early_review?
-          %td.count&= reviewer.user.early_reviews.for_conference(@conference).count
-        %td.count&= reviewer.user.final_reviews.for_conference(@conference).count
+        - reviewer_summary_review_row(reviewer.reviews, @conference).each do |cell|
+          %td.count= cell
         %td.actions
           - if can? :destroy, reviewer
             = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
@@ -56,12 +55,17 @@
           %tr
             %th.reviewer= t('formtastic.labels.reviewer.user_id')
             %th.conferences= t('reviewer.conferences')
+            - Recommendation.all_titles.each do |recommendation|
+              %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
+            %th.feedback.count{colspan: 2}= t('reviewer.feedback')
             %th.actions= t('reviewer.invite')
         %tbody
           - @previous_reviewers.each do |user, reviewers|
             %tr{"id" => user.username, "data-username" => user.username}
               %td.reviewer= user.full_name
               %td.conferences= reviewers.map(&:conference).map(&:year).join(', ')
+              - reviewer_summary_review_row(user.reviews, @conference).each do |cell|
+                %td.count= cell
               %td.actions= check_box :reviewer_batch, :usernames, {multiple: true}, user.username, nil
       = form.submit t('reviewer.batch_invite')
   :javascript

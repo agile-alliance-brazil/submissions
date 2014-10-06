@@ -76,4 +76,16 @@ class Reviewer < ActiveRecord::Base
     return user.full_name if sign_reviews
     "#{I18n.t('formtastic.labels.reviewer.user_id')} #{index}".strip
   end
+
+  def early_reviews
+    user.early_reviews.for_conference(self.conference)
+  end
+
+  def final_reviews
+    user.final_reviews.for_conference(self.conference)
+  end
+
+  def reviews
+    user.reviews.for_conference(self.conference)
+  end
 end
