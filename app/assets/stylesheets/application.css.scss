@@ -174,6 +174,20 @@ table.reviewers {
   th.actions {
     width: 10%; } }
 
+table.reviews {
+  th.session {
+    width: 10%; }
+  th.track {
+    width: 10%; }
+  th.recommendation {
+    width: 5%; }
+  th.confidence {
+    width: 10%; }
+  th.comment {
+    width: 40%;}
+  th.feedback {
+    width: 30%; } }
+
 table.summary {
   th {
     color: black;

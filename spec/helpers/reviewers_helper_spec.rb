@@ -103,4 +103,26 @@ describe ReviewersHelper, type: :helper do
       expect(row[5]).to eq('2<img alt="👎" src="/assets/not-helpful.png" />')
     end
   end
+
+  context 'review feedback score' do
+    before(:each) do
+      @review = FactoryGirl.build(:final_review)
+    end
+    it 'should count a negative feedback as 10' do
+      @review.stubs(:review_evaluations).returns(
+        [ReviewEvaluation.new(review: @review, helpful_review: false)]
+      )
+      expect(helper.review_feedback_score(@review)).to eq(10)
+    end
+    it 'should count a positive feedback as 1' do
+      @review.stubs(:review_evaluations).returns(
+        [ReviewEvaluation.new(review: @review, helpful_review: true)]
+      )
+      expect(helper.review_feedback_score(@review)).to eq(1)
+    end
+    it 'should have 0 value without evaluation' do
+      @review.stubs(:review_evaluations).returns([])
+      expect(helper.review_feedback_score(@review)).to eq(0)
+    end
+  end
 end

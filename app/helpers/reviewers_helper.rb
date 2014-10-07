@@ -30,4 +30,9 @@ module ReviewersHelper
     end
     row
   end
+
+  def review_feedback_score(review)
+    helpful, not_helpful = review.review_evaluations.partition(&:helpful_review)
+    (not_helpful.size * 10) + helpful.size
+  end
 end

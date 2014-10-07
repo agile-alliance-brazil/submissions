@@ -1,5 +1,4 @@
 - title t('title.reviewer.details', reviewer_name: @reviewer.user.full_name)
-- show_actions!
 
 %h3= t('title.reviewer.preference')
 
@@ -28,7 +27,7 @@
       %th.comment= t('formtastic.labels.review_decision.note_to_authors')
       %th.feedback= t('reviewer.feedback')
   %tbody
-    - @reviewer.reviews.each do |review|
+    - @reviewer.reviews.sort{|r1, r2| review_feedback_score(r1) <=> review_feedback_score(r2)}.each do |review|
       %tr
         %td.session= link_to review.session.title, session_path(review.session)
         %td.track= t(review.session.track.title)
