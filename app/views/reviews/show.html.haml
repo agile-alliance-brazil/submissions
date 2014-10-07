@@ -9,23 +9,23 @@
   %li #{l(@review.created_at, format: :short)}
 
 = content_tag_for(:dl, @review) do
-  - if @review.respond_to?(:recommendation)
+  - unless @review.recommendation.blank?
     %dt= t('formtastic.labels.final_review.recommendation_id')
-    %dd&= t(@review.try(:recommendation).title)
+    %dd&= t(@review.recommendation.title)
   - unless @review.justification.blank?
     %dt= t('formtastic.labels.final_review.justification')
-    %dd&= @review.try(:justification)
+    %dd&= @review.justification
 
   %dt= t('formtastic.labels.final_review.reviewer_confidence_rating_id')
   %dd&= t(@review.try(:reviewer_confidence_rating).title)
   - unless @review.comments_to_organizers.blank?
     %dt= t('formtastic.labels.final_review.comments_to_organizers')
-    %dd&= @review.try(:comments_to_organizers)
+    %dd&= @review.comments_to_organizers
 
   %dt= t('formtastic.labels.final_review.author_agile_xp_rating_id')
-  %dd&= t(@review.try(:author_agile_xp_rating).title)
+  %dd&= t(@review.author_agile_xp_rating.title)
   %dt= t('formtastic.labels.final_review.author_proposal_xp_rating_id')
-  %dd&= t(@review.try(:author_proposal_xp_rating).title)
+  %dd&= t(@review.author_proposal_xp_rating.title)
 
   %dt= t('formtastic.labels.final_review.proposal_track')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_track) ? :yes : :no)
@@ -41,9 +41,9 @@
   %dd&= Formtastic::I18n::t(@review.try(:proposal_abstract) ? :yes : :no)
 
   %dt= t('formtastic.labels.final_review.proposal_quality_rating_id')
-  %dd&= t(@review.try(:proposal_quality_rating).title)
+  %dd&= t(@review.proposal_quality_rating.title)
   %dt= t('formtastic.labels.final_review.proposal_relevance_rating_id')
-  %dd&= t(@review.try(:proposal_relevance_rating).title)
+  %dd&= t(@review.proposal_relevance_rating.title)
 
   - unless @review.comments_to_authors.blank?
     %dt= t('formtastic.labels.final_review.comments_to_authors')

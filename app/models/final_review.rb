@@ -5,7 +5,6 @@ class FinalReview < Review
   attr_trimmed :justification
 
   belongs_to :session, counter_cache: true
-  belongs_to :recommendation
 
   validates :recommendation_id, presence: true
   validates :justification, presence: { unless: :strong_accept? }

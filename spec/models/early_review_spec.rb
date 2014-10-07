@@ -35,12 +35,15 @@ describe EarlyReview, type: :model do
   context "associations" do
     it { should belong_to :reviewer }
     it { should belong_to :session }
+    it { should belong_to :recommendation }
 
     it { should belong_to :author_agile_xp_rating }
     it { should belong_to :author_proposal_xp_rating }
     it { should belong_to :proposal_quality_rating }
     it { should belong_to :proposal_relevance_rating }
     it { should belong_to :reviewer_confidence_rating }
+
+    it { should have_many :review_evaluations }
   end
 
   context "validations" do

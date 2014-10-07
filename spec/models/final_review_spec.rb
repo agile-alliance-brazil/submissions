@@ -41,6 +41,8 @@ describe FinalReview, type: :model do
     it { should belong_to :proposal_quality_rating }
     it { should belong_to :proposal_relevance_rating }
     it { should belong_to :reviewer_confidence_rating }
+
+    it { should have_many :review_evaluations }
   end
 
   it "should determine if it's strong accept" do
