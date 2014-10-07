@@ -25,8 +25,8 @@ module ReviewersHelper
       map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
     if conference.author_notification.past?
       evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).all
-      row << "#{evaluations.select(&:helpful_review).size}" + image_tag('helpful.png', alt: '👍')
-      row << "#{evaluations.reject(&:helpful_review).size}" + image_tag('not-helpful.png', alt: '👎')
+      row << "#{evaluations.select(&:helpful_review).size}" + image_tag('helpful.png', alt: '👍') + ' ' +
+        "#{evaluations.reject(&:helpful_review).size}" + image_tag('not-helpful.png', alt: '👎')
     end
     row
   end

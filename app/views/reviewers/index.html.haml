@@ -19,7 +19,7 @@
       - Recommendation.all_names.each do |recommendation|
         %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
       - if @conference.author_notification.past?
-        %th.feedback.count{colspan: 2}= t('reviewer.feedback')
+        %th.feedback.count= t('reviewer.feedback')
       %th.actions
     %tr#mock_reviewer_row.reviewer.hidden
       %td.reviewer
@@ -57,7 +57,7 @@
             %th.conferences= t('reviewer.conferences')
             - Recommendation.all_names.each do |recommendation|
               %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
-            %th.feedback.count{colspan: 2}= t('reviewer.feedback')
+            %th.feedback.count= t('reviewer.feedback')
             %th.actions= t('reviewer.invite')
         %tbody
           - @previous_reviewers.each do |user, reviewers|

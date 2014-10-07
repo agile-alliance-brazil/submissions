@@ -94,13 +94,12 @@ describe ReviewersHelper, type: :helper do
       ReviewEvaluation.new(review_feedback: feedback, review: reviews.last, helpful_review: false).save(validate: false)
       row = helper.reviewer_summary_review_row(reviews, @conference)
 
-      expect(row).to have(6).items
+      expect(row).to have(5).items
       expect(row[0]).to eq(1)
       expect(row[1]).to eq(1)
       expect(row[2]).to eq(1)
       expect(row[3]).to eq(1)
-      expect(row[4]).to eq('1<img alt="👍" src="/assets/helpful.png" />')
-      expect(row[5]).to eq('2<img alt="👎" src="/assets/not-helpful.png" />')
+      expect(row[4]).to eq('1<img alt="👍" src="/assets/helpful.png" /> 2<img alt="👎" src="/assets/not-helpful.png" />')
     end
   end
 
