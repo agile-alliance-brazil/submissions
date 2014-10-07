@@ -16,7 +16,7 @@
     %tr
       %th.reviewer= t('formtastic.labels.reviewer.user_id')
       %th.state= t('formtastic.labels.reviewer.state')
-      - Recommendation.all_titles.each do |recommendation|
+      - Recommendation.all_names.each do |recommendation|
         %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
       - if @conference.author_notification.past?
         %th.feedback.count{colspan: 2}= t('reviewer.feedback')
@@ -32,7 +32,7 @@
   %tbody
     - @reviewers.each do |reviewer|
       = content_tag_for(:tr, reviewer, class: cycle(:odd, :even), :'data-username' => reviewer.user.username) do
-        %td.reviewer&= reviewer.user.full_name
+        %td.reviewer= link_to reviewer.user.full_name, reviewer_path(@conference, reviewer)
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - reviewer_summary_review_row(reviewer.reviews, @conference).each do |cell|
           %td.count= cell
@@ -55,7 +55,7 @@
           %tr
             %th.reviewer= t('formtastic.labels.reviewer.user_id')
             %th.conferences= t('reviewer.conferences')
-            - Recommendation.all_titles.each do |recommendation|
+            - Recommendation.all_names.each do |recommendation|
               %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
             %th.feedback.count{colspan: 2}= t('reviewer.feedback')
             %th.actions= t('reviewer.invite')
@@ -63,7 +63,10 @@
           - @previous_reviewers.each do |user, reviewers|
             %tr{"id" => user.username, "data-username" => user.username}
               %td.reviewer= user.full_name
-              %td.conferences= reviewers.map(&:conference).map(&:year).join(', ')
+              %td.conferences
+                - reviewers.each_with_index do |r, index|
+                  = ', ' if index > 0
+                  = link_to r.conference.year, reviewer_path(r.conference, r)
               - reviewer_summary_review_row(user.reviews, @conference).each do |cell|
                 %td.count= cell
               %td.actions= check_box :reviewer_batch, :usernames, {multiple: true}, user.username, nil

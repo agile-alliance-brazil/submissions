@@ -157,6 +157,7 @@ pt:
         reviewer_agreement: "Li e declaro estar ciente de minhas responsabilidades agora que assumo este compromisso."
         sign_reviews: Eu quero assinar as minhas avaliações (isso significa que os autores das submissões vão saber que a avaliação e o feedback são seus)
       preference:
+        track_id: "Trilha de Interesse"
         audience_level_id: "Nível de conhecimento"
       early_review:
         author_agile_xp_rating_id: "Como você avalia a experiência do(s) autor(es) nos tópicos relevantes à trilha escolhida?"
@@ -291,6 +292,9 @@ pt:
     edit_comment: "Editar comentário"
     edit_organizer: "Atualizar organizador"
     new_review: "Nova avaliação da sessão '%{session}'"
+    reviewer:
+      details: 'Detalhe das avaliações e feedback de %{reviewer_name}'
+      preference: 'Níveis de conhecimento em cada trilha'
     review_decision: "Parecer da sessão '%{session}'"
     review_feedback: "Feedback sobre as avaliações da %{conference}"
     accepted_sessions: "Sessões aceitas"
@@ -340,6 +344,9 @@ pt:
       instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
     private_field: "Campo privado: não visível no perfil público"
     no_votes: "Você ainda não votou. Clique <a href='/sessions?locale=pt'>aqui</a> para votar."
+    reviewer:
+      signs: '%{name} assina suas avaliações!'
+      anonymous: '%{name} optou por NÃO assinar suas avaliações'
 
   footer:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"

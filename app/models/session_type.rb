@@ -15,7 +15,7 @@ class SessionType < ActiveRecord::Base
     end
   end
 
-  def respond_to_missing_with_title?(method_sym, include_private = false)
+  def respond_to_missing?(method_sym, include_private = false)
     is_title_check_method?(method_sym) || super
   end
 

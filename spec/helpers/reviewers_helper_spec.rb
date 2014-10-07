@@ -55,8 +55,8 @@ describe ReviewersHelper, type: :helper do
   context 'reviewer summary review row' do
     before(:each) do
       @conference = FactoryGirl.build(:conference)
-      @recommendations = Recommendation.all_titles.map do |title|
-        FactoryGirl.create(:recommendation, title: Recommendation.title_for(title))
+      @recommendations = Recommendation.all_names.map do |name|
+        FactoryGirl.create(:recommendation, name: name)
       end
     end
     it 'should have 4 0s before reviews are happening' do

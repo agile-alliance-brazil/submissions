@@ -44,7 +44,7 @@ describe FinalReview, type: :model do
   end
 
   it "should determine if it's strong accept" do
-    strong = FactoryGirl.build(:recommendation,title: 'recommendation.strong_accept.title')
+    strong = FactoryGirl.build(:recommendation, name: 'strong_accept')
     review = FactoryGirl.build(:final_review)
     expect(review).to_not be_strong_accept
     review.recommendation = strong
@@ -74,7 +74,7 @@ describe FinalReview, type: :model do
 
     context "strong acceptance" do
       subject { FactoryGirl.build(:final_review) }
-      before(:each) { subject.recommendation.title = "recommendation.strong_accept.title" }
+      before(:each) { subject.recommendation.name = "strong_accept" }
 
       it "should not validate presence of justification" do
         subject.justification = nil
@@ -88,7 +88,7 @@ describe FinalReview, type: :model do
 
     context "weak acceptance" do
       subject { FactoryGirl.build(:final_review) }
-      before(:each) { subject.recommendation.title = "recommendation.weak_accept.title" }
+      before(:each) { subject.recommendation.name = "weak_accept" }
 
       it "should validate presence of justification" do
         subject.justification = nil
@@ -104,7 +104,7 @@ describe FinalReview, type: :model do
 
     context "weak rejection" do
       subject { FactoryGirl.build(:final_review) }
-      before(:each) { subject.recommendation.title = "recommendation.weak_reject.title" }
+      before(:each) { subject.recommendation.name = "weak_reject" }
 
       it "should validate presence of justification" do
         subject.justification = nil
@@ -120,7 +120,7 @@ describe FinalReview, type: :model do
 
     context "strong rejection" do
       subject { FactoryGirl.build(:final_review) }
-      before(:each) { subject.recommendation.title = "recommendation.strong_reject.title" }
+      before(:each) { subject.recommendation.name = "strong_reject" }
 
       it "should validate presence of justification" do
         subject.justification = nil

@@ -1,20 +1,20 @@
 # encoding: UTF-8
 Recommendation.seed do |recommendation|
   recommendation.id = 1
-  recommendation.title = 'recommendation.strong_reject.title'
+  recommendation.name = 'strong_reject'
 end
 
 Recommendation.seed do |recommendation|
   recommendation.id = 2
-  recommendation.title = 'recommendation.weak_reject.title'
+  recommendation.name = 'weak_reject'
 end
 
 Recommendation.seed do |recommendation|
   recommendation.id = 3
-  recommendation.title = 'recommendation.weak_accept.title'
+  recommendation.name = 'weak_accept'
 end
 
 Recommendation.seed do |recommendation|
   recommendation.id = 4
-  recommendation.title = 'recommendation.strong_accept.title'
+  recommendation.name = 'strong_accept'
 end

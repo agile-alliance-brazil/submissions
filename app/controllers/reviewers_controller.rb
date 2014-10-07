@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ReviewersController < ApplicationController
-  respond_to :html, only: [:index]
+  respond_to :html, only: [:index, :show]
   respond_to :json, only: [:create, :destroy, :create_multiple]
 
   before_filter :load_reviewer_filter, only: :index
@@ -43,6 +43,20 @@ class ReviewersController < ApplicationController
     batch.save
 
     render json: batch.to_json, status: 200
+  end
+
+  def show
+    @reviewer = Reviewer.where(id: params[:id]).
+      includes(
+        user: {
+          reviews: {
+            session: [:track],
+            recommendation: [],
+            review_evaluations: []
+          }
+        },
+        conference: [], accepted_preferences: [:audience_level, :track]
+      ).first
   end
     
   def destroy

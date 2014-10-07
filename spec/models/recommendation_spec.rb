@@ -3,14 +3,14 @@ require 'spec_helper'
 
 describe Recommendation, type: :model do
   context "validations" do
-    it { should validate_presence_of :title }
+    it { should validate_presence_of :name }
   end
 
-  Recommendation.all_titles.each do |title|
+  Recommendation.all_names.each do |title|
     it "should determine if it's #{title}" do
-      recommendation = FactoryGirl.build(:recommendation, title: "recommendation.#{title}.title")
+      recommendation = FactoryGirl.build(:recommendation, name: title)
       expect(recommendation.send(:"#{title}?")).to be true
-      recommendation = FactoryGirl.build(:recommendation, title: 'recommendation.other.title')
+      recommendation = FactoryGirl.build(:recommendation, name: 'other')
       expect(recommendation.send(:"#{title}?")).to be false
     end
   end
@@ -24,6 +24,15 @@ describe Recommendation, type: :model do
     end
     it 'should include title between preset text' do
       expect(Recommendation.title_for('example')).to eq('recommendation.example.title')
+    end
+  end
+
+  context 'title' do
+    before(:each) do
+      @recommendation = FactoryGirl.build(:recommendation)
+    end
+    it 'should return the translation text' do
+      expect(@recommendation.title).to eq(Recommendation.title_for(@recommendation.name))
     end
   end
 end

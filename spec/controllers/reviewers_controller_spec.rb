@@ -112,6 +112,17 @@ describe ReviewersController, type: :controller do
     end
   end
 
+  context 'show' do
+    before(:each) do
+      @reviewer = FactoryGirl.create(:reviewer, user_id: @user.id)
+    end
+    it 'should assign the reviewer according to the id' do
+      get :show, id: @reviewer.id
+
+      expect(assigns(:reviewer)).to eq(@reviewer)
+    end
+  end
+
   context 'destroy' do
     context 'valid reviewer' do
       before(:each) do

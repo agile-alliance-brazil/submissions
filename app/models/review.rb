@@ -18,6 +18,8 @@ class Review < ActiveRecord::Base
   belongs_to :proposal_relevance_rating, class_name: "Rating"
   belongs_to :reviewer_confidence_rating, class_name: "Rating"
 
+  has_many :review_evaluations
+
   validates :author_agile_xp_rating_id, presence: true
   validates :author_proposal_xp_rating_id, presence: true
   validates :proposal_quality_rating_id, presence: true

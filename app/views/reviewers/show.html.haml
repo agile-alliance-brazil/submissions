@@ -1,0 +1,43 @@
+- title t('title.reviewer.details', reviewer_name: @reviewer.user.full_name)
+- show_actions!
+
+%h3= t('title.reviewer.preference')
+
+%p= @reviewer.sign_reviews ? t('text.reviewer.signs', name: @reviewer.user.full_name) : t('text.reviewer.anonymous', name: @reviewer.user.full_name)
+
+%table.preferences
+  %thead
+    %tr
+      %th.track= t('formtastic.labels.preference.track')
+      %th.audience_level= t('formtastic.labels.preference.audience_level')
+  %tbody
+    - @reviewer.accepted_preferences.map(&:track).uniq.each do |track|
+      %tr
+        %td.track= t(track.title)
+        %td.audience_level= t(review_level(@reviewer.accepted_preferences, track))
+
+%h3= t('formtastic.labels.session.reviews')
+
+%table.reviews
+  %thead
+    %tr
+      %th.session= t('formtastic.labels.final_review.session')
+      %th.track= t('formtastic.labels.preference.track')
+      %th.recommendation= t('formtastic.labels.final_review.recommendation')
+      %th.confidence= t('formtastic.labels.final_review.confidence')
+      %th.comment= t('formtastic.labels.review_decision.note_to_authors')
+      %th.feedback= t('reviewer.feedback')
+  %tbody
+    - @reviewer.reviews.each do |review|
+      %tr
+        %td.session= link_to review.session.title, session_path(review.session)
+        %td.track= t(review.session.track.title)
+        %td.recommendation= image_tag("#{review.recommendation.name}.png", alt: t(review.recommendation.title))
+        %td.confidence= t(review.reviewer_confidence_rating.title)
+        %td.comment= review.comments_to_authors
+        %td.feedback
+          - review.review_evaluations.each do |evaluation|
+            %p
+              = evaluation.helpful_review ? '👍' : '👎'
+              - if evaluation.comments
+                = ": #{evaluation.comments}"

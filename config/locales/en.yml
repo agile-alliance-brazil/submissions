@@ -159,6 +159,7 @@ en:
         reviewer_agreement: "I read the terms and acknowledge my responsibilities as a reviewer"
         sign_reviews: "I want to sign my reviews (that means the submission author will know your review and feedback are yours)"
       preference:
+        track_id: "Track"
         audience_level_id: "Knowledge level"
       early_review:
         author_agile_xp_rating_id: "How do you rate the author(s)' experience with the topics relevant to the chosen track?"
@@ -295,6 +296,9 @@ en:
     new_review: "New review for session '%{session}'"
     review_decision: "Review decision for session '%{session}'"
     review_feedback: "Feedback on reviews for %{conference}"
+    reviewer:
+      details: 'Review and feedback details for %{reviewer_name}'
+      preference: 'Knowledge levels in each track'
     accepted_sessions: "Accepted Sessions"
     my_votes: "My votes"
     previous_reviewers: 'Reviewers from other conferences'
@@ -343,6 +347,9 @@ en:
       instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
     private_field: "Private field: not visible in the public profile"
     no_votes: "You haven't voted yet. Click <a href='/sessions?locale=en'>here</a> to vote."
+    reviewer:
+      signs: '%{name} signs his/her reviews!'
+      anonymous: '%{name} chose to NOT sign his/her reviews'
 
   footer:
     help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"

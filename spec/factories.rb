@@ -112,7 +112,7 @@ FactoryGirl.define do
   end
 
   factory :recommendation do
-    title 'recommendation.strong_reject.title'
+    name 'strong_reject'
   end
 
   trait :review do

@@ -20,8 +20,8 @@ module ReviewersHelper
   end
 
   def reviewer_summary_review_row(reviews, conference)
-    row = Recommendation.all_titles.
-      map{|r| Recommendation.titled(r).select(:id).all.map(&:id)}.
+    row = Recommendation.all_names.
+      map{|r| Recommendation.where(name: r).select(:id).all.map(&:id)}.
       map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
     if conference.author_notification.past?
       evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).all
