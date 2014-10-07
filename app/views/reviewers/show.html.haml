@@ -38,6 +38,6 @@
         %td.feedback
           - review.review_evaluations.each do |evaluation|
             %p
-              = evaluation.helpful_review ? '👍' : '👎'
-              - if evaluation.comments
+              = evaluation.helpful_review ? image_tag('helpful.png', alt: '👍') : image_tag('not-helpful.png', alt: '👎')
+              - unless evaluation.comments.blank?
                 = ": #{evaluation.comments}"

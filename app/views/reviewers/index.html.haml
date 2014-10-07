@@ -25,7 +25,7 @@
       %td.reviewer
       %td.state
       - reviewer_summary_review_row([], @conference).each do |cell|
-        %td.count= cell
+        %td.count= cell.to_s.html_safe
       %td.actions
         - if can? :destroy, Reviewer
           = link_to t('actions.destroy'), '', method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
@@ -35,7 +35,7 @@
         %td.reviewer= link_to reviewer.user.full_name, reviewer_path(@conference, reviewer)
         %td.state&= t("reviewer.state.#{reviewer.state}")
         - reviewer_summary_review_row(reviewer.reviews, @conference).each do |cell|
-          %td.count= cell
+          %td.count= cell.to_s.html_safe
         %td.actions
           - if can? :destroy, reviewer
             = link_to t('actions.destroy'), reviewer_path(@conference, reviewer), method: :delete, remote: true, confirm: t('generic.are_you_sure', action: t('actions.destroy')), class: 'remove'
@@ -68,7 +68,7 @@
                   = ', ' if index > 0
                   = link_to r.conference.year, reviewer_path(r.conference, r)
               - reviewer_summary_review_row(user.reviews, @conference).each do |cell|
-                %td.count= cell
+                %td.count= cell.to_s.html_safe
               %td.actions= check_box :reviewer_batch, :usernames, {multiple: true}, user.username, nil
       = form.submit t('reviewer.batch_invite')
   :javascript

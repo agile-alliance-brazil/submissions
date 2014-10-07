@@ -99,8 +99,8 @@ describe ReviewersHelper, type: :helper do
       expect(row[1]).to eq(1)
       expect(row[2]).to eq(1)
       expect(row[3]).to eq(1)
-      expect(row[4]).to eq("1👍")
-      expect(row[5]).to eq("2👎")
+      expect(row[4]).to eq('1<img alt="👍" src="/assets/helpful.png" />')
+      expect(row[5]).to eq('2<img alt="👎" src="/assets/not-helpful.png" />')
     end
   end
 end
