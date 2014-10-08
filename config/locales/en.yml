@@ -326,6 +326,7 @@ en:
     create_reviewer: "Invite reviewer"
     organizer_sessions: "Track organized sessions"
     organizer_reports: "Download reviews report"
+    accepted_sessions: "Download CSV for accepted sessions"
     reviewer_sessions: "Sessions to review (%{count})"
     review_session: "Review"
     reviewer_reviews: "My reviews (%{count})"

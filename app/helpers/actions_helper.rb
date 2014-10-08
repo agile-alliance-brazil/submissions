@@ -103,6 +103,9 @@ module ActionsHelper
     if can? :read, 'organizer_reports'
       section.add t('actions.organizer_reports'), organizer_reports_path(@conference, format: :xls)
     end
+    if can? :read, 'accepted_sessions'
+      section.add t('actions.accepted_sessions'), accepted_sessions_path(@conference, format: :csv)
+    end
 
     section
   end

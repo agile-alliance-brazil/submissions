@@ -19,7 +19,6 @@ describe Ability, type: :model do
       expect(@ability).to be_able_to(:read, ActsAsTaggableOn::Tag)
 
       expect(@ability).to be_able_to(:read, 'static_pages')
-      expect(@ability).to be_able_to(:read, 'accepted_sessions')
       expect(@ability).to be_able_to(:manage, 'password_resets')
     end
 
@@ -90,6 +89,10 @@ describe Ability, type: :model do
 
     it "cannot read organizer's reports" do
       expect(@ability).to_not be_able_to(:read, 'organizer_reports')
+    end
+
+    it "cannot read accepted sessions' reports" do
+      expect(@ability).to_not be_able_to(:read, 'accepted_sessions')
     end
 
     it "cannot read sessions to review" do
@@ -239,6 +242,10 @@ describe Ability, type: :model do
 
     it "cannot read organizer's reports" do
       expect(@ability).to_not be_able_to(:read, 'organizer_reports')
+    end
+
+    it "cannot read accepted sessions' reports" do
+      expect(@ability).to_not be_able_to(:read, 'accepted_sessions')
     end
 
     it "cannot read sessions to review" do
@@ -515,6 +522,10 @@ describe Ability, type: :model do
 
     it "can read organizer report" do
       expect(@ability).to be_able_to(:read, 'organizer_reports')
+    end
+
+    it "can read accepted sessions' reports" do
+      expect(@ability).to be_able_to(:read, 'accepted_sessions')
     end
 
     it "cannot read sessions to review" do
@@ -807,6 +818,10 @@ describe Ability, type: :model do
 
     it "cannot read organizer's reports" do
       expect(@ability).to_not be_able_to(:read, 'organizer_reports')
+    end
+
+    it "cannot read accepted sessions' reports" do
+      expect(@ability).to_not be_able_to(:read, 'accepted_sessions')
     end
 
     it "can read sessions to review" do

@@ -9,7 +9,6 @@ class Privileges::Guest < Privileges::Base
     can(:read, AudienceLevel)
     can(:read, ActsAsTaggableOn::Tag)
     can(:read, 'static_pages')
-    can(:read, 'accepted_sessions')
     can(:manage, 'password_resets')
     can([:read, :create], Comment)
     can([:edit, :update, :destroy], Comment, user_id: @user.id)

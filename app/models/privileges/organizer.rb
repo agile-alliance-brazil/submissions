@@ -4,6 +4,7 @@ class Privileges::Organizer < Privileges::Base
     can(:manage, ::Reviewer)
     can(:read, 'organizer_sessions')
     can(:read, 'organizer_reports')
+    can(:read, 'accepted_sessions')
     can(:read, 'reviews_listing')
     can(:index, ReviewDecision)
     can(:cancel, Session) do |session|

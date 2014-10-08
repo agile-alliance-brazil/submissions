@@ -324,6 +324,7 @@ pt:
     create_reviewer: "Convidar novo avaliador"
     organizer_sessions: "Organizar sessões"
     organizer_reports: "Baixar relatório de avaliações"
+    accepted_sessions: "Baixar CSV de sessões aceitas"
     reviewer_sessions: "Avaliar sessões (%{count})"
     review_session: "Avaliar"
     reviewer_reviews: "Minhas avaliações (%{count})"
