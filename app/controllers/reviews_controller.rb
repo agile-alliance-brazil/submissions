@@ -31,6 +31,12 @@ class ReviewsController < InheritedResources::Base
   end
 
   protected
+  def collection
+    @reviews ||= end_of_association_chain.
+      includes(:reviewer, :recommendation, :reviewer_confidence_rating,
+        :author_agile_xp_rating, :author_proposal_xp_rating,
+        :proposal_quality_rating, :proposal_relevance_rating)
+  end
   def resource_params
     super.tap do |attributes|
       attributes.first[:reviewer_id] = current_user.id

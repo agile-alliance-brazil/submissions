@@ -633,6 +633,8 @@ en:
     pt: "Portuguese"
     duration_restriction: "should last"
     voted: "Voted"
+    by: 'by'
+    in: 'in'
 
   time:
     formats:

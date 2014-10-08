@@ -21,19 +21,34 @@
   %thead
     %tr
       %th.session= t('formtastic.labels.final_review.session')
-      %th.track= t('formtastic.labels.preference.track')
-      %th.recommendation= t('formtastic.labels.final_review.recommendation')
       %th.confidence= t('formtastic.labels.final_review.confidence')
-      %th.comment= t('formtastic.labels.review_decision.note_to_authors')
+      %th.recommendation
+        = t('formtastic.labels.final_review.recommendation')
+        = " - "
+        = t('formtastic.labels.review_decision.note_to_authors')
       %th.feedback= t('reviewer.feedback')
   %tbody
     - @reviewer.reviews.sort{|r1, r2| review_feedback_score(r2) <=> review_feedback_score(r1)}.each do |review|
       %tr
-        %td.session= link_to review.session.title, session_path(review.session)
-        %td.track= t(review.session.track.title)
-        %td.recommendation= image_tag("#{review.recommendation.name}.png", alt: t(review.recommendation.title))
+        %td.session
+          = link_to h(review.session.try(:title)), session_path(@conference, review.session)
+          %br
+          = t('generic.by')
+          = link_to h(review.session.author.full_name), user_path(review.session.author)
+          - if review.session.second_author
+            = ' & '
+            = link_to h(review.session.second_author.full_name), user_path(review.session.second_author)
+          = t('generic.in')
+          = t(review.session.track.title)
         %td.confidence= t(review.reviewer_confidence_rating.title)
-        %td.comment= review.comments_to_authors
+        %td.recommendation
+          - if review.is_a?(FinalReview)
+            = image_tag("#{review.recommendation.try(:name)}.png", alt: t(review.recommendation.try(:title)))
+          - unless review.comments_to_authors.blank?
+            = ' - ' if review.is_a?(FinalReview)
+            = review.comments_to_authors
+          %br
+          = link_to t("review.#{review.type.underscore}"), session_review_path(@conference, review.session, review)
         %td.feedback
           - review.review_evaluations.each do |evaluation|
             %p

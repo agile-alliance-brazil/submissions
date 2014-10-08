@@ -1,36 +1,45 @@
 - title t('actions.reviewer_reviews', count: @reviews.total_entries)
-- show_actions!
 
-%table.sessions
+%table.reviews
   %thead
     %tr
       %th.title= sortable_column t('formtastic.labels.final_review.session'), :session_id
-      %th.author= t('formtastic.labels.session.author_id')
-      %th.author= t('formtastic.labels.session.second_author_id')
-      %th.track= t('formtastic.labels.session.track_id')
-      %th.review= sortable_column t('formtastic.labels.final_review.recommendation'), :recommendation_id
-      %th.outcome= t('formtastic.labels.review_decision.outcome_id')
+      %th.review
+        = sortable_column t('formtastic.labels.final_review.recommendation'), :recommendation_id
+        = ' - '
+        = t('review.comments_to_authors')
+      %th.feedback= t('reviewer.feedback')
   %tbody
     - @reviews.each do |review|
       = content_tag_for(:tr, review, class: cycle(:odd, :even)) do
         %td.title
+          - if review.session.review_decision.try(:published?)
+            = (review.session.review_decision.accepted? ? t("session.state.accepted") : t("session.state.rejected")) + ": "
           = link_to h(review.session.try(:title)), session_path(@conference, review.session)
           - if review.session.comments.size > 0
             .commentCount= review.session.comments.size
-        %td.author= link_to h(review.session.author.full_name), user_path(review.session.author)
-        %td.author
+          %br
+          = t('generic.by')
+          = link_to h(review.session.author.full_name), user_path(review.session.author)
           - if review.session.second_author
+            = ' & '
             = link_to h(review.session.second_author.full_name), user_path(review.session.second_author)
-        %td.track
+          = t('generic.in')
           = t(review.session.track.title)
         %td.review
           - if review.is_a?(FinalReview)
-            = link_to t(review.recommendation.title), session_review_path(@conference, review.session, review)
-          - else
-            = link_to t("review.#{review.type.underscore}"), session_review_path(@conference, review.session, review)
-        %td.outcome
-          - if review.session.review_decision.try(:published?)
-            = review.session.review_decision.accepted? ? "✓" : "✗"
+            = image_tag("#{review.recommendation.try(:name)}.png", alt: t(review.recommendation.try(:title)))
+          - unless review.comments_to_authors.blank?
+            = ' - ' if review.is_a?(FinalReview)
+            = review.comments_to_authors
+          %br
+          = link_to t("review.#{review.type.underscore}"), session_review_path(@conference, review.session, review)
+        %td.feedback
+          - review.review_evaluations.each do |evaluation|
+            %p
+              = evaluation.helpful_review ? image_tag('helpful.png', alt: '👍') :  image_tag('not-helpful.png', alt: '👎')
+              - unless evaluation.comments.blank?
+                = ": #{evaluation.comments}"
 
 - if @reviews.total_pages > 1
   #pagination= will_paginate(@reviews)
