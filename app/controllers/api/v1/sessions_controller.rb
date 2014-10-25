@@ -4,7 +4,7 @@ module Api
     class SessionsController < ::ApplicationController
       skip_before_filter :authenticate_user!, :authorize_action, :set_conference
 
-      respond_to :json
+      respond_to :json, :js
 
       rescue_from ActiveRecord::RecordNotFound do |exception|
         render json: {error: "not-found"}.to_json, status: 404
@@ -13,7 +13,7 @@ module Api
       def show
         session = Session.find(params[:id])
 
-        respond_with({
+        session_hash = {
           id: session.id,
           title: session.title,
           authors: session.authors.map do |author|
@@ -31,7 +31,12 @@ module Api
           audience_level: I18n.t(session.audience_level.title),
           track: I18n.t(session.track.title),
           summary: session.summary
-        })
+        }
+
+        respond_with do |format|
+          format.json { render json: session_hash }
+          format.js { render json: session_hash, callback: params[:callback]}
+        end
       end
     end
   end

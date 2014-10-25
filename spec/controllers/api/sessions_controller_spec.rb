@@ -80,10 +80,47 @@ describe Api::V1::SessionsController, type: :controller do
     end
 
     it 'should respond with 404 for unexisting session' do
-      get :show, id: ((Session.last.try(:id) || 0) + 1)
+      get :show, id: ((Session.last.try(:id) || 0) + 1), format: :json
 
       expect(response.code).to eq('404')
       expect(response.body).to eq('{"error":"not-found"}')
+    end
+
+    it 'should respond to js as JS object as well' do
+      get :show, id: session.id.to_s, format: :js, locale: 'pt'
+
+      gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+      expect(JSON.parse(response.body)).to eq({
+        'id' => session.id,
+        'title' => session.title,
+        'authors' => [{ 'name' => session.author.full_name,
+          'gravatar_url' => gravatar_url(gravatar_id)}],
+        'prerequisites' => session.prerequisites,
+        'tags' => ['fake', 'tags', 'Casos de Sucesso'],
+        'session_type' => 'Palestra',
+        'audience_level' => 'Iniciante',
+        'track' => 'Engenharia',
+        'summary' => session.summary
+      })
+    end
+
+    it 'should respond to js with callback as JSONP if callback is provided' do
+      get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
+
+      gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+      expect(response.body).to match(/^test\((.*)\)$/)
+      expect(JSON.parse(response.body.match(/^test\((.*)\)$/)[1])).to eq({
+        'id' => session.id,
+        'title' => session.title,
+        'authors' => [{ 'name' => session.author.full_name,
+          'gravatar_url' => gravatar_url(gravatar_id)}],
+        'prerequisites' => session.prerequisites,
+        'tags' => ['fake', 'tags', 'Casos de Sucesso'],
+        'session_type' => 'Palestra',
+        'audience_level' => 'Iniciante',
+        'track' => 'Engenharia',
+        'summary' => session.summary
+      })
     end
   end
   def gravatar_url(gravatar_id)
