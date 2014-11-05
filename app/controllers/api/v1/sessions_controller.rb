@@ -30,6 +30,7 @@ module Api
           session_type: I18n.t(session.session_type.title),
           audience_level: I18n.t(session.audience_level.title),
           track: I18n.t(session.track.title),
+          audience_limit: session.audience_limit,
           summary: session.summary
         }
 

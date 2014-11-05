@@ -24,6 +24,7 @@ describe Api::V1::SessionsController, type: :controller do
           'session_type' => 'Palestra',
           'audience_level' => 'Iniciante',
           'track' => 'Engenharia',
+          'audience_limit' => nil,
           'summary' => session.summary
         })
       end
@@ -53,6 +54,7 @@ describe Api::V1::SessionsController, type: :controller do
             "session_type":"Palestra",
             "audience_level":"Iniciante",
             "track":"Engenharia",
+            "audience_limit":null,
             "summary":"#{session.summary}"}
         }.gsub(/\s*\n\s*/,''))
       end
@@ -74,6 +76,7 @@ describe Api::V1::SessionsController, type: :controller do
           'session_type' => 'Lecture',
           'audience_level' => 'Beginner',
           'track' => 'Engineering',
+          'audience_limit' => nil,
           'summary' => session.summary
         })
       end
@@ -100,6 +103,7 @@ describe Api::V1::SessionsController, type: :controller do
         'session_type' => 'Palestra',
         'audience_level' => 'Iniciante',
         'track' => 'Engenharia',
+        'audience_limit' => nil,
         'summary' => session.summary
       })
     end
@@ -119,6 +123,30 @@ describe Api::V1::SessionsController, type: :controller do
         'session_type' => 'Palestra',
         'audience_level' => 'Iniciante',
         'track' => 'Engenharia',
+        'audience_limit' => nil,
+        'summary' => session.summary
+      })
+    end
+
+    it 'should respond to js with audience limit' do
+      session.audience_limit = 100
+      session.save
+
+      get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
+
+      gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+      expect(response.body).to match(/^test\((.*)\)$/)
+      expect(JSON.parse(response.body.match(/^test\((.*)\)$/)[1])).to eq({
+        'id' => session.id,
+        'title' => session.title,
+        'authors' => [{ 'name' => session.author.full_name,
+          'gravatar_url' => gravatar_url(gravatar_id)}],
+        'prerequisites' => session.prerequisites,
+        'tags' => ['fake', 'tags', 'Casos de Sucesso'],
+        'session_type' => 'Palestra',
+        'audience_level' => 'Iniciante',
+        'track' => 'Engenharia',
+        'audience_limit' => 100,
         'summary' => session.summary
       })
     end
