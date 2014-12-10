@@ -1,4 +1,4 @@
-# Conference Submission System [![Build Status](https://secure.travis-ci.org/dtsato/agile_brazil.png?branch=master)](http://travis-ci.org/dtsato/agile_brazil) [![Dependency Status](https://gemnasium.com/dtsato/agile_brazil.png)](https://gemnasium.com/dtsato/agile_brazil) [![Code Climate](https://codeclimate.com/github/dtsato/agile_brazil.png)](https://codeclimate.com/github/dtsato/agile_brazil) [![endorse](https://api.coderwall.com/dtsato/endorsecount.png)](https://coderwall.com/dtsato)
+# Conference Submission System [![Build Status](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master/build_image)](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master) [![Dependency Status](https://gemnasium.com/agile-alliance-brazil/submissions.svg)](https://gemnasium.com/agile-alliance-brazil/submissions) [![Code Climate](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/gpa.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions) [![Test Coverage](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/coverage.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions)
 
 This is an open-source conference submission system, built in Rails and has been used for the [Agile Brazil](http://www.agilebrazil.com) conference since 2010. Some of the features supported are:
 
@@ -20,14 +20,14 @@ This is an open-source conference submission system, built in Rails and has been
 
 If you have a bug or a feature request, please create a issue here:
 
-[https://github.com/dtsato/agile_brazil/issues](https://github.com/dtsato/agile_brazil/issues)
+[https://github.com/agile-alliance-brazil/submissions/issues](https://github.com/agile-alliance-brazil/submissions/issues)
 
 # Team
 
-Thanks to all our [contributors](https://github.com/dtsato/agile_brazil/contributors)! The core team is:
+Thanks to all our [contributors](https://github.com/agile-alliance-brazil/submissions/contributors)! The core team is:
 
 * [Danilo Sato](http://www.dtsato.com) (Core Developer)
-* Hugo Corbucci (Core Developer)
+* [Hugo Corbucci](http://hugocorbucci.com) (Core Developer)
 
 # License
 

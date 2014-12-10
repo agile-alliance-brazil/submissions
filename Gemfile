@@ -59,6 +59,7 @@ group :test do
   gem 'factory_girl_rails', '4.4.1'
   gem 'simplecov', '0.8.2'
   gem 'email_spec', '1.6.0'
+  gem 'codeclimate-test-reporter', '0.4.3', require: nil
 end
 
 group :development, :test do
@@ -72,5 +73,4 @@ group :development, :test do
   gem 'guard-jasmine', '1.19.2'
   gem 'jasminerice', '0.0.10'
   gem 'pry-rails', '0.3.2'
-  gem 'coveralls', '0.7.0', require: false
 end

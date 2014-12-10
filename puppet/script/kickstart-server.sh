@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e -x
-BOOTSTRAP_URI='https://raw.github.com/dtsato/agile_brazil/master/puppet/script/server_bootstrap.sh'
+BOOTSTRAP_URI='https://raw.github.com/agile-alliance-brazil/submissions/master/puppet/script/server_bootstrap.sh'
 
 export DEBIAN_FRONTEND=noninteractive
 wget -O server_bootstrap.sh ${BOOTSTRAP_URI}
