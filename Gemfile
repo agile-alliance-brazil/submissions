@@ -1,8 +1,8 @@
 #encoding: utf-8 
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.19' # Issue #114 - 4.0.2 is target
-gem 'activemodel', '3.2.19', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
+gem 'rails', '3.2.21' # Issue #114 - 4.0.2 is target
+gem 'activemodel', '3.2.21', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
 gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is part of rails 4
 gem 'jquery-rails', '3.1.0'
 gem 'haml', '4.0.5'
