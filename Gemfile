@@ -24,7 +24,7 @@ gem 'goalie', '0.0.4'
 gem 'airbrake', '4.0.0'
 gem 'aws-ses', '0.5.0', require: 'aws/ses'
 gem 'mysql2', '0.3.16'
-gem 'doorkeeper', '1.3.0'
+gem 'doorkeeper', '1.4.1'
 gem 'newrelic_rpm', '3.8.1.221'
 
 platforms :ruby do
