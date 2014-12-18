@@ -137,7 +137,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :tag
       t.references  :taggable, polymorphic: true
       t.references  :tagger, polymorphic: true
-      t.string      :context
+      t.string      :context, limit: 128
       t.datetime    :created_at
     end
 

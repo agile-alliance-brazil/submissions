@@ -4,28 +4,28 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.21' # Issue #114 - 4.0.2 is target
 gem 'activemodel', '3.2.21', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
 gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is part of rails 4
-gem 'jquery-rails', '3.1.0'
-gem 'haml', '4.0.5'
-gem 'will_paginate', '3.0.5'
+gem 'jquery-rails', '3.1.2'
+gem 'haml', '4.0.6'
+gem 'will_paginate', '3.0.7'
 gem 'formtastic', '2.2.1'
-gem 'inherited_resources', '1.5.0'
+gem 'inherited_resources', '1.5.1'
 gem 'has_scope', '0.6.0.rc'
 gem 'devise', '3.2.4'
 gem 'devise-encryptable', '0.2.0'
 gem 'magic-localized_country_select', '0.2.0', require: 'localized_country_select'
 gem 'brhelper', '3.3.0'
-gem 'seed-fu', '2.3.1'
-gem 'acts-as-taggable-on', '3.2.6'
+gem 'seed-fu', '2.3.3'
+gem 'acts-as-taggable-on', '3.4.2'
 gem 'cancan', '1.6.10'
 gem 'acts_as_commentable', '3.0.1' # version 4.0.1 require rails 4 (issue #114)
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
 gem 'goalie', '0.0.4'
-gem 'airbrake', '4.0.0'
-gem 'aws-ses', '0.5.0', require: 'aws/ses'
-gem 'mysql2', '0.3.16'
+gem 'airbrake', '4.1.0'
+gem 'aws-ses', '0.6.0', require: 'aws/ses'
+gem 'mysql2', '0.3.17'
 gem 'doorkeeper', '1.4.1'
-gem 'newrelic_rpm', '3.8.1.221'
+gem 'newrelic_rpm', '3.9.8.273'
 
 platforms :ruby do
   gem 'RedCloth', '4.2.9', require: 'redcloth'
@@ -44,33 +44,33 @@ end
 
 group :development do
   gem 'capistrano', '3.2.1', require: false
-  gem 'capistrano-rails', '1.1.1', require: false
-  gem 'capistrano-bundler', '1.1.2', require: false
-  gem 'travis-lint', '1.8.0'
-  gem 'foreman', '0.71.0'
-  gem 'bullet', '4.9.0'
-  gem 'lol_dba', '1.6.0'
-  gem 'debugger', '1.6.8'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'travis-lint'
+  gem 'foreman'
+  gem 'bullet'
+  gem 'lol_dba'
+  gem 'debugger'
 end
 
 group :test do
-  gem 'mocha', '1.1.0'
-  gem 'shoulda-matchers', '2.6.1'
-  gem 'factory_girl_rails', '4.4.1'
-  gem 'simplecov', '0.8.2'
-  gem 'email_spec', '1.6.0'
-  gem 'codeclimate-test-reporter', '0.4.3', require: nil
+  gem 'mocha'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'simplecov'
+  gem 'email_spec'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :development, :test do
-  gem 'sqlite3', '1.3.9'
-  gem 'rspec-rails', '3.0.1'
-  gem 'rspec-its', '1.0.1'
-  gem 'rspec-collection_matchers', '1.0.0'
-  gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
+  gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'rspec-collection_matchers'
   gem 'guard-rspec'
+  gem 'pry-rails'
+  gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
   gem 'terminal-notifier-guard'
   gem 'guard-jasmine', '1.19.2'
   gem 'jasminerice', '0.0.10'
-  gem 'pry-rails', '0.3.2'
 end
