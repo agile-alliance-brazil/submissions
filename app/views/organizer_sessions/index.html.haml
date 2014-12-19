@@ -3,8 +3,8 @@
 
 = semantic_form_for @session_filter, url: organizer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
-    = f.input :state, as: :select, collection: @states, member_label: Proc.new { |s| t("session.state.#{s}") }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    = f.input :state, as: :select, collection: @states.map{|s| [t("session.state.#{s}"), s]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
     = f.action :submit, label: :filter_session, button_html: {tabindex: autotab}
 

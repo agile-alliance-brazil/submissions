@@ -1,9 +1,9 @@
 = form.inputs do
   = form.input :author_id, as: :hidden, input_html: {tabindex: autotab}
   = form.input :language, required: true, as: :select, collection: [[t('generic.en'), 'en'], [t('generic.pt'), 'pt']], input_html: {tabindex: autotab}
-  = form.input :track_id, required: true, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.track_id', year: "/#{@conference.year}")
-  = form.input :audience_level_id, required: true, as: :select, collection: @audience_levels, member_label: Proc.new { |al| t(al.title) }, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.audience_level_id', year: "/#{@conference.year}")
-  = form.input :session_type_id, required: true, as: :select, collection: @session_types, member_label: Proc.new { |st| t(st.title) }, input_html: {tabindex: autotab, data: {:"durations-to-hide" => durations_to_hide(@session_types)}}, hint: t('formtastic.hints.session.session_type_id', year: "/#{@conference.year}")
+  = form.input :track_id, required: true, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.track_id', year: "/#{@conference.year}")
+  = form.input :audience_level_id, required: true, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.audience_level_id', year: "/#{@conference.year}")
+  = form.input :session_type_id, required: true, as: :select, collection: @session_types.map{|st| [t(st.title), st.id]}, input_html: {tabindex: autotab, data: {:"durations-to-hide" => durations_to_hide(@session_types)}}, hint: t('formtastic.hints.session.session_type_id', year: "/#{@conference.year}")
   = form.input :duration_mins, required: true, as: :select, collection: options_for_durations(@session_types), input_html: {tabindex: autotab}, hint: duration_mins_hint(@session_types)
   = form.input :audience_limit, input_html: {tabindex: autotab}
   = form.input :title, required: true, input_html: {tabindex: autotab}

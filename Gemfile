@@ -16,7 +16,7 @@ gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is par
 gem 'jquery-rails', '3.1.2'
 gem 'haml', '4.0.6'
 gem 'will_paginate', '3.0.7'
-gem 'formtastic', '2.2.1'
+gem 'formtastic', '3.1.2'
 gem 'inherited_resources', '1.5.1'
 gem 'has_scope', '0.6.0.rc'
 gem 'devise', '3.4.1'

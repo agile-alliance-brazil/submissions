@@ -3,7 +3,7 @@
     = p.inputs class: 'inputs preferences' do
       = p.input :track_id, as: :hidden
       = p.input :accepted, label: t(p.instance_variable_get("@object").track.title), input_html: {tabindex: autotab}
-      = p.input :audience_level_id, required: true, as: :select, collection: @audience_levels, member_label: Proc.new { |al| t(al.title) }, input_html: {tabindex: autotab}
+      = p.input :audience_level_id, required: true, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}
       %p.inline-hints= t(p.instance_variable_get("@object").track.description)
   = form.inputs do
     = form.semantic_errors :base

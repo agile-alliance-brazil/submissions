@@ -1,6 +1,6 @@
 = form.inputs do
   = form.input :user_username, required: true, input_html: {tabindex: autotab}
-  = form.input :track_id, required: true, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}
+  = form.input :track_id, required: true, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}
 
 :javascript
   $(document).ready(function() {
