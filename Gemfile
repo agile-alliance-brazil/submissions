@@ -1,5 +1,14 @@
 #encoding: utf-8 
 source 'http://rubygems.org'
+ruby '1.9.3'
+
+def linux_only(require_as)
+  RbConfig::CONFIG['host_os'] =~ /linux/ ? require_as : false
+end
+# Mac OS X
+def darwin_only(require_as)
+  RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
+end
 
 gem 'rails', '3.2.21' # Issue #114 - 4.0.2 is target
 gem 'activemodel', '3.2.21', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
@@ -69,8 +78,13 @@ group :development, :test do
   gem 'rspec-collection_matchers'
   gem 'guard-rspec'
   gem 'pry-rails'
-  gem 'jasmine-jquery-rails', '1.5.6' # Requires jasmine 2 to upgrade but jasminerice doesnt support it
-  gem 'terminal-notifier-guard'
-  gem 'guard-jasmine', '1.19.2'
-  gem 'jasminerice', '0.0.10'
+  gem 'rb-fsevent', require: darwin_only('rb-fsevent')
+  gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
+  gem 'rb-inotify', require: linux_only('rb-inotify')
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'konacha'
+  gem 'guard-konacha', git: 'https://github.com/lbeder/guard-konacha.git'
+  gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'selenium-webdriver'
 end

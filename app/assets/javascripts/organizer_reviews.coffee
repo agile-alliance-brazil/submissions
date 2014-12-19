@@ -1,3 +1,5 @@
+#= require jquery
+
 class OrganizerReviews
   constructor: (containerId) ->
     @container = $(containerId)

@@ -59,8 +59,8 @@ module AgileBrazil
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    config.assets.css_compressor = :yui
-    config.assets.js_compressor = :yui
+    # config.assets.css_compressor = :yui
+    # config.assets.js_compressor = :yui
     config.assets.initialize_on_precompile = false 
 
     config.to_prepare do

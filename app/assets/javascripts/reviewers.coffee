@@ -1,5 +1,5 @@
 #= require jquery
-#= require_self
+
 (($) ->
   $.submissions = $.submissions || {}
   $.submissions.reviewers = $.submissions.reviewers || {}

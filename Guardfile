@@ -13,9 +13,13 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
 end
 
-guard :jasmine do
-  watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$}) { 'spec/javascripts' }
-  watch(%r{spec/javascripts/.+_spec\.(js\.coffee|js|coffee)$})
-  watch(%r{spec/javascripts/fixtures/.+$})
-  watch(%r{app/assets/javascripts/(.+?)\.(js\.coffee|js|coffee)(?:\.\w+)*$}) { |m| "spec/javascripts/#{ m[1] }_spec.#{ m[2] }" }
+### Guard::Konacha
+#  available options:
+#  - :run_all_on_start, defaults to true
+#  - :notification, defaults to true
+#  - :rails_environment_file, location of rails environment file,
+#    should be able to find it automatically
+guard :konacha do
+  watch(%r{^app/assets/javascripts/(.*)(\.js|\.js\.coffee|.coffee)$}) { |m| "#{m[1]}_spec.js" }
+  watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee|.coffee)$})
 end

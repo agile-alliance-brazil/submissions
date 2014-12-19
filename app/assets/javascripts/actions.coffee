@@ -1,10 +1,9 @@
 #= require jquery
-#= require_self
+
 (($) ->
   $.submissions = $.submissions || {}
 
   $.submissions.initializeCharts = (charts) ->
-
     drawCharts = ->
       $.each charts, (key, value) ->
         data = google.visualization.arrayToDataTable(value.data)

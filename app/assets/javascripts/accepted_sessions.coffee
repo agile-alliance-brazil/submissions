@@ -1,7 +1,6 @@
 #= require jquery
 #= require jquery_ujs
 #= require fancybox
-#= require_self
 
 class AcceptedSessions
   constructor: (containerId) ->

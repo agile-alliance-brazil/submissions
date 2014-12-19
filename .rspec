@@ -1,3 +1,2 @@
 --color
---format progress
---drb
+--require spec_helper
