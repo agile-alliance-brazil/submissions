@@ -1,14 +1,11 @@
 # encoding: UTF-8
 begin
-  require 'guard/jasmine/task'
-  Guard::JasmineTask.new
-
-  desc "Task to run on CI: runs RSpec specs"
-  task ci: [:spec]
+  desc "Task to run on CI: runs RSpec specs and Konacha specs"
+  task ci: [:spec, :'konacha:run']
 
   namespace :ci do
-    desc "Task to run on CI: runs RSpec specs and Jasmine tests"
-    task all: [:spec, :'guard:jasmine']
+    desc "Task to run on CI: runs RSpec specs and Konacha specs"
+    task all: [:spec, :'konacha:run']
   end
 
   task default: :'ci:all'
