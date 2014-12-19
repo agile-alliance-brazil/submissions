@@ -53,7 +53,7 @@ group :assets do
 end
 
 group :development do
-  gem 'capistrano', '3.2.1', require: false
+  gem 'capistrano', '3.3.5', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
   gem 'travis-lint'
