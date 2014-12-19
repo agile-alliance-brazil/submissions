@@ -49,6 +49,7 @@ group :assets do
   gem 'jquery-ui-rails', '4.2.1'
   gem 'coffee-rails', '3.2.2' # 4.0.1 for rails 4 (issue #114)
   gem 'fancybox-rails', '0.2.1'
+  gem 'uglifier', '2.6.0'
 end
 
 group :development do

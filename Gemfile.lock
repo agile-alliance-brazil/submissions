@@ -331,6 +331,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.42)
+    uglifier (2.6.0)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     uniform_notifier (1.6.2)
     validates_existence (0.9.2)
       activerecord
@@ -408,6 +411,7 @@ DEPENDENCIES
   terminal-notifier-guard
   therubyracer (= 0.12.1)
   travis-lint
+  uglifier (= 2.6.0)
   validates_existence (= 0.9.2)
   will_paginate (= 3.0.7)
   yui-compressor (= 0.12.0)
