@@ -4,7 +4,7 @@ module Api
     class UsersController < ::ApplicationController
       skip_before_filter :authenticate_user!, :authorize_action, :set_conference
 
-      doorkeeper_for :all
+      before_filter :doorkeeper_authorize!
       respond_to :json
 
       def show

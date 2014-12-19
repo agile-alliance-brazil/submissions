@@ -108,7 +108,7 @@ GEM
       devise (>= 2.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    doorkeeper (1.4.1)
+    doorkeeper (2.0.1)
       railties (>= 3.1)
     dotenv (1.0.2)
     email_spec (1.6.0)
@@ -370,7 +370,7 @@ DEPENDENCIES
   debugger
   devise (= 3.2.4)
   devise-encryptable (= 0.2.0)
-  doorkeeper (= 1.4.1)
+  doorkeeper (= 2.0.1)
   email_spec
   factory_girl_rails
   fancybox-rails (= 0.2.1)

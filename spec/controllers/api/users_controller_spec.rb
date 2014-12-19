@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Api::V1::UsersController, type: :controller do
 
   let(:user)  { FactoryGirl.create(:user) }
-  let(:token) { stub(:acceptable? => true, resource_owner_id: user.id) }
+  let(:token) { stub(acceptable?: true, resource_owner_id: user.id) }
   before      { controller.stubs(:doorkeeper_token).returns(token) }
 
   describe "show" do
