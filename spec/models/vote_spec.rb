@@ -2,14 +2,6 @@
 require 'spec_helper'
 
 describe Vote, type: :model do
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :user_id }
-    it { should allow_mass_assignment_of :session_id }
-    it { should allow_mass_assignment_of :conference_id }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   context "validations" do
     should_validate_existence_of :conference, :session, :user
 

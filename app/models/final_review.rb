@@ -1,7 +1,5 @@
 # encoding: UTF-8
 class FinalReview < Review
-  attr_accessible :recommendation_id, :justification
-
   attr_trimmed :justification
 
   belongs_to :session, counter_cache: true

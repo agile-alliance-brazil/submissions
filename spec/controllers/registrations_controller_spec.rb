@@ -68,18 +68,22 @@ describe RegistrationsController, type: :controller do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
       # if validation failed
-      put :update, user: {username: nil}
+      patch :update, user: {username: nil}
       expect(response).to render_template(:edit)
     end
 
     # it "update action should render change password" do
-    #   put :update, user: {password: nil}
+    #   patch :update, user: {password: nil}
     #   expect(response).to render_template(:edit)
     #   expect(assigns(:update_password)).to eq("true")
     # end
 
     it "update action should redirect when model is valid" do
-      put :update, user: {current_password: 'secret', password: 'new', password_confirmation: 'new'}
+      patch :update, user: {
+        current_password: 'secret',
+        password: 'new',
+        password_confirmation: 'new'
+      }
       expect(response).to redirect_to(user_path(assigns(:user)))
     end
   end

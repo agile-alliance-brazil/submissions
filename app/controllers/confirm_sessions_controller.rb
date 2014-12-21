@@ -6,8 +6,9 @@ class ConfirmSessionsController < ApplicationController
   end
   
   def update
-    params[:session][:state_event] = 'accept' if params[:session]
-    if @session.update_attributes(params[:session])
+    attributes = session_params
+    attributes[:state_event] = 'accept'
+    if @session.update_attributes(attributes)
       flash[:notice] = t('flash.session.confirm.success')
       redirect_to user_sessions_path(@conference, current_user)
     else
@@ -19,5 +20,10 @@ class ConfirmSessionsController < ApplicationController
   protected
   def load_session
     @session = Session.find(params[:session_id])
+  end
+
+  def session_params
+    params.require(:session).permit(:author_agreement,
+      :image_agreement, :title, :summary, :audience_limit)
   end
 end

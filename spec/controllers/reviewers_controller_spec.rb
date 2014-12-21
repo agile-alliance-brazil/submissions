@@ -18,7 +18,10 @@ describe ReviewersController, type: :controller do
     before(:each) do
       @track ||= FactoryGirl.create(:track, conference: @conference)
       FactoryGirl.create(:track, conference: FactoryGirl.create(:conference))
-      @reviewers = [FactoryGirl.create(:reviewer, conference: @conference),FactoryGirl.create(:reviewer, conference: @conference),]
+      @reviewers = [
+        FactoryGirl.create(:reviewer, conference: @conference),
+        FactoryGirl.create(:reviewer, conference: @conference)
+      ]
     end
     it "index action should render index template" do
       get :index, year: @conference.year
@@ -98,7 +101,7 @@ describe ReviewersController, type: :controller do
       it 'should show text message for no reviewer' do
         post :create
 
-        expect(response.body).to eq('Required parameter missing: reviewer')
+        expect(response.body).to eq(I18n.t('flash.reviewer.create.failure', username: ''))
       end
       it 'should show error message for user that is already a reviewer' do
         FactoryGirl.create(:reviewer, conference: @conference, user_username: @new_reviewer_user.username)

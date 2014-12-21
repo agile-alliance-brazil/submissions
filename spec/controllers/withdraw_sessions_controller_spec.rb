@@ -33,7 +33,7 @@ describe WithdrawSessionsController, type: :controller do
 
   it "update action should redirect when model is valid" do
     Session.any_instance.stubs(:valid?).returns(true)
-    put :update, session_id: @session.id, session: {}
+    put :update, session_id: @session.id, session: {author_agreement: true}
     expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end
 end

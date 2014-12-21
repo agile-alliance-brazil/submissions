@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <%- columns = 29 -%>
-<%- rows = collection.sum(&:final_reviews_count) + 1 -%>
+<%- rows = collection.to_a.sum(&:final_reviews_count) + 1 -%>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:o="urn:schemas-microsoft-com:office:office"
   xmlns:x="urn:schemas-microsoft-com:office:excel"

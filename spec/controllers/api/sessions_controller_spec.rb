@@ -112,8 +112,8 @@ describe Api::V1::SessionsController, type: :controller do
       get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
-      expect(response.body).to match(/^test\((.*)\)$/)
-      expect(JSON.parse(response.body.match(/^test\((.*)\)$/)[1])).to eq({
+      expect(response.body).to match(/test\((.*)\)$/)
+      expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
         'title' => session.title,
         'authors' => [{ 'name' => session.author.full_name,
@@ -135,8 +135,8 @@ describe Api::V1::SessionsController, type: :controller do
       get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
-      expect(response.body).to match(/^test\((.*)\)$/)
-      expect(JSON.parse(response.body.match(/^test\((.*)\)$/)[1])).to eq({
+      expect(response.body).to match(/test\((.*)\)$/)
+      expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
         'title' => session.title,
         'authors' => [{ 'name' => session.author.full_name,

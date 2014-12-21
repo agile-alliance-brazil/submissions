@@ -2,8 +2,6 @@
 class Vote < ActiveRecord::Base
   VOTE_LIMIT = 5
 
-  attr_accessible :session_id, :user_id, :conference_id
-
   belongs_to :session
   belongs_to :user
   belongs_to :conference

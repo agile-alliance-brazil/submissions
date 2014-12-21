@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Privileges
   class Base
-    delegate :can, :cannot, :expand_actions, to: :@ability
+    delegate :can, :cannot, to: :@ability
 
     def initialize(ability)
       @ability = ability
@@ -12,7 +12,7 @@ module Privileges
     # when the action is :index or :update with a class
     def can!(expected_actions, expected_subject_classes, &block)
       can do |action, subject_class, subject, session|
-        expand_actions(Array[*expected_actions]).include?(action) &&
+        @ability.send(:expand_actions, Array[*expected_actions]).include?(action) &&
           Array[*expected_subject_classes].include?(subject_class) &&
           block.call(session || @session)
       end

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ReviewFeedbackRequester do
   before(:each) do
-    EmailNotifications.stubs(:review_feedback_request).returns(stub(:deliver => true))
+    EmailNotifications.stubs(:review_feedback_request).returns(stub(deliver: true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
@@ -23,14 +23,15 @@ describe ReviewFeedbackRequester do
 
   context "Sessions are all published" do
     before(:each) do
+      @requester.stubs(:ensure_all_sessions_published)
       @sessions = [FactoryGirl.create(:session), FactoryGirl.create(:session)]
-      FactoryGirl.create(:review_decision, :session => @sessions[0], :published => true)
-      FactoryGirl.create(:review_decision, :session => @sessions[1], :published => true)
-      Session.stubs(:all).returns(@sessions)
+      FactoryGirl.create(:review_decision, session: @sessions[0], published: true)
+      FactoryGirl.create(:review_decision, session: @sessions[1], published: true)
+      Session.stubs(:for_review_in).returns(@sessions)
     end
 
     it "should send feedback e-mails" do
-      EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).with(@sessions[1].author).returns(mock(:deliver => true))
+      EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).with(@sessions[1].author).returns(mock(deliver: true))
 
       @requester.send
     end
@@ -46,7 +47,7 @@ describe ReviewFeedbackRequester do
     it "should capture error when sending feedback request and move on" do
       error = StandardError.new('error')
       EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).raises(error)
-      EmailNotifications.expects(:review_feedback_request).with(@sessions[1].author).returns(mock(:deliver => true))
+      EmailNotifications.expects(:review_feedback_request).with(@sessions[1].author).returns(mock(deliver: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED REQUEST FEEDBACK] error")
       ::Rails.logger.expects(:info).with("  [REQUEST FEEDBACK] OK")

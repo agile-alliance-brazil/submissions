@@ -56,7 +56,7 @@ describe AcceptReviewersController, type: :controller do
 
   it "update action should redirect when model is valid" do
     @reviewer.stubs(:valid?).returns(true)
-    put :update, reviewer_id: @reviewer.id
+    put :update, reviewer_id: @reviewer.id, reviewer: {reviewer_agreement: true}
     expect(response).to redirect_to(reviewer_sessions_path(@conference))
   end
 end

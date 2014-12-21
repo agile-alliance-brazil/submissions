@@ -11,7 +11,7 @@
       - if can? :update, comment
         %li= link_to t('actions.edit'), edit_session_comment_path(@conference, @session, comment)
       - if can? :destroy, comment
-        %li= link_to t('actions.destroy'), session_comment_path(@conference, @session, comment), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.destroy_comment'))
+        %li= link_to t('actions.destroy'), session_comment_path(@conference, @session, comment), method: :delete, data: { confirm: t('generic.are_you_sure', action: t('actions.destroy_comment')) }
     = textilize(comment.comment)
 
 - if can? :create, Comment

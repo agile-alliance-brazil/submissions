@@ -30,6 +30,27 @@ class ReviewsController < InheritedResources::Base
     end
   end
 
+  def permitted_params
+    params.permit(resource_request_name => [
+      :author_agile_xp_rating_id,
+      :author_proposal_xp_rating_id,
+      :proposal_track,
+      :proposal_level,
+      :proposal_type,
+      :proposal_duration,
+      :proposal_limit,
+      :proposal_abstract,
+      :proposal_quality_rating_id,
+      :proposal_relevance_rating_id,
+      :recommendation_id,
+      :justification,
+      :reviewer_confidence_rating_id,
+      :comments_to_organizers,
+      :comments_to_authors,
+      :session_id
+    ])
+  end
+
   protected
   def collection
     @reviews ||= end_of_association_chain.

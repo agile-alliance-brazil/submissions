@@ -1,11 +1,5 @@
 # encoding: UTF-8
 class Session < ActiveRecord::Base
-  attr_accessible :title, :summary, :description, :mechanics, :benefits,
-                  :target_audience, :prerequisites, :audience_level_id, :audience_limit,
-                  :author_id, :second_author_username, :track_id, :conference_id,
-                  :session_type_id, :duration_mins, :experience,
-                  :keyword_list, :author_agreement, :image_agreement, :state_event,
-                  :language
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
 
@@ -34,29 +28,29 @@ class Session < ActiveRecord::Base
   validates :target_audience, presence: true, length: {maximum: 200}
   validates :prerequisites, presence: true, length: {maximum: 200}
   validates :experience, presence: true, length: {maximum: 400}
-  validates :duration_mins, presence: true, session_duration: true, allow_blank: true
+  validates :duration_mins, presence: true, session_duration: true
   validates :keyword_list, presence: true, length: {maximum: 10}
-  validates :language, presence: true, inclusion: {in: ['en', 'pt']}, allow_blank: true
+  validates :language, presence: true, inclusion: {in: ['en', 'pt']}
   validates :mechanics, presence: true, length: {maximum: 2400}, if: :requires_mechanics?
   validates :audience_limit, numericality: {only_integer: true, greater_than: 0}, allow_nil: true
   validates :conference_id, existence: true
   validates :author_id, existence: true, constant: { on: :update }
-  validates :track_id, presence: true, existence: true, same_conference: true, allow_blank: true
-  validates :session_type_id, presence: true, existence: true, same_conference: true, allow_blank: true
-  validates :audience_level_id, presence: true, existence: true, same_conference: true, allow_blank: true
+  validates :track_id, presence: true, existence: true, same_conference: true
+  validates :session_type_id, presence: true, existence: true, same_conference: true
+  validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
 
-  scope :for_conference,     lambda { |conference| where(conference_id: conference.id)}
-  scope :for_user,           lambda { |user| where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) }
-  scope :for_tracks,         lambda { |track_ids| where(track_id: track_ids) }
-  scope :for_audience_level, lambda { |audience_level_id| where(audience_level_id: audience_level_id) }
-  scope :for_session_type,   lambda { |session_type_id| where(session_type_id: session_type_id) }
+  scope :for_conference, ->(conference) { where(conference_id: conference.id)}
+  scope :for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) }
+  scope :for_tracks, ->(track_ids) { where(track_id: track_ids) }
+  scope :for_audience_level, ->(audience_level_id) { where(audience_level_id: audience_level_id) }
+  scope :for_session_type, ->(session_type_id) { where(session_type_id: session_type_id) }
 
-  scope :not_author, lambda { |u|
+  scope :not_author, ->(u) {
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
   }
 
-  scope :not_reviewed_by, lambda { |user, review_type|
+  scope :not_reviewed_by, ->(user, review_type) {
     select("sessions.*").
     joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
     where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id).
@@ -64,18 +58,18 @@ class Session < ActiveRecord::Base
     having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
   }
 
-  scope :for_preferences, lambda { |*preferences|
+  scope :for_preferences, ->(*preferences) {
     return none if preferences.empty?
     clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
     args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
     where(clause, *args)
   }
 
-  scope :none, where('1 = 0')
+  scope :none, -> { where('1 = 0') }
 
-  scope :with_incomplete_final_reviews, where('final_reviews_count < ?', 3)
-  scope :with_incomplete_early_reviews, where('early_reviews_count < ?', 1)
-  scope :submitted_before, lambda { |date| where('sessions.created_at <= ?', date) }
+  scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
+  scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
+  scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }
 
   def self.for_review_in(conference)
     sessions = for_conference(conference).without_state(:cancelled)

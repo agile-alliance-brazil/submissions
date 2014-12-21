@@ -4,9 +4,6 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :encryptable, :trackable, :validatable
 
-  attr_accessible :first_name, :last_name, :username, :email, :password,
-                  :password_confirmation, :phone, :country, :state, :city,
-                  :organization, :website_url, :bio, :wants_to_submit, :default_locale, :twitter_username
   attr_trimmed    :first_name, :last_name, :username, :email, :twitter_username,
                   :phone, :state, :city, :organization, :website_url, :bio
 
@@ -20,20 +17,22 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :voted_sessions, through: :votes, source: :session
 
-  validates :first_name, presence: true, length: { maximum: 100 }, allow_blank: true
-  validates :last_name, presence: true, length: { maximum: 100 }, allow_blank: true
-  validates :phone, presence: { if: :author? }, length: { maximum: 100 }, format: { with: /\A[0-9\(\) .\-\+]+\Z/i }, allow_blank: true
-  validates :country, presence: { if: :author? }
-  validates :city, presence: { if: :author? }, length: { maximum: 100 }, allow_blank: true
-  validates :bio, presence: { if: :author? }, length: { maximum: 1600 }, allow_blank: true
-  validates :state, presence: { if: Proc.new {|u| u.author? && u.in_brazil?} }
+  validates :first_name, presence: true, length: { maximum: 100 }
+  validates :last_name, presence: true, length: { maximum: 100 }
+  with_options if: :author? do |author|
+    author.validates :phone, presence: true, length: { maximum: 100 }, format: { with: /\A[0-9\(\) .\-\+]+\Z/i }
+    author.validates :country, presence: true
+    author.validates :city, presence: true, length: { maximum: 100 }
+    author.validates :bio, presence: true, length: { maximum: 1600 }
+    author.validates :state, presence: { if: ->(u) { u.author? && u.in_brazil? } }
+  end
   validates :organization, length: { maximum: 100 }, allow_blank: true
   validates :website_url, length: { maximum: 100 }, allow_blank: true
-  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w\.+\-_@ ]+$/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
+  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w\.+\-_@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
   validates :email, length: { within: 6..100 }, allow_blank: true
 
   before_validation do |user|
-    user.twitter_username = user.twitter_username[1..-1] if user.twitter_username =~ /^@/
+    user.twitter_username = user.twitter_username[1..-1] if user.twitter_username =~ /\A@/
     user.state = '' unless in_brazil?
   end
 

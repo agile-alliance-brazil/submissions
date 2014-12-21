@@ -25,15 +25,14 @@ class ReviewersController < ApplicationController
   end
 
   def create
-    reviewer = resource_class.new(new_reviewer_params)
-    reviewer.conference = @conference
-    if reviewer.save
+    reviewer = new_reviewer
+    if reviewer.try(:save)
       render json: {
         message: t('flash.reviewer.create.success'),
         reviewer: ReviewerJsonBuilder.new(reviewer).to_json
       }.to_json, status: 201
     else
-      message = t('flash.reviewer.create.failure', username: reviewer.user_username)
+      message = t('flash.reviewer.create.failure', username: reviewer.try(:user_username))
       render json: message, status: 400
     end
   end
@@ -77,6 +76,13 @@ class ReviewersController < ApplicationController
 
   def load_reviewer_filter
     @reviewer_filter ||= ReviewerFilter.new(params)
+  end
+
+  def new_reviewer
+    if params[:reviewer]
+      resource_class.new(new_reviewer_params).
+        tap{|r| r.conference = @conference}
+    end
   end
 
   def new_reviewer_params

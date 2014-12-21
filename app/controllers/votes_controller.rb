@@ -3,6 +3,9 @@ class VotesController < InheritedResources::Base
   actions :index, :create, :destroy
 
   private
+  def permitted_params
+    params.permit(vote: [:session_id])
+  end
 
   def resource_params
     super.tap do |attributes|

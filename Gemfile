@@ -10,10 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '3.2.21' # Issue #114 - 4.0.2 is target
-gem 'activemodel', '3.2.21', require: 'active_model' # Remove once issue #114 is done as this is part of rails 4
-gem 'strong_parameters', '0.2.3' # Remove once issue #114 is done as this is part of rails 4
-gem 'jquery-rails', '3.1.2'
+gem 'rails', '4.0.12' # Issue #114 - 4.1.8 is target
 gem 'haml', '4.0.6'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.2'
@@ -21,35 +18,33 @@ gem 'inherited_resources', '1.5.1'
 gem 'has_scope', '0.6.0.rc'
 gem 'devise', '3.4.1'
 gem 'devise-encryptable', '0.2.0'
-gem 'magic-localized_country_select', '0.2.0', require: 'localized_country_select'
+gem 'localized_country_select', '0.9.9'
 gem 'brhelper', '3.3.0'
 gem 'seed-fu', '2.3.3'
 gem 'acts-as-taggable-on', '3.4.2'
 gem 'cancan', '1.6.10'
-gem 'acts_as_commentable', '3.0.1' # version 4.0.1 require rails 4 (issue #114)
+gem 'acts_as_commentable', '4.0.2'
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
-gem 'goalie', '0.0.4'
 gem 'airbrake', '4.1.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'mysql2', '0.3.17'
 gem 'doorkeeper', '2.0.1'
 gem 'newrelic_rpm', '3.9.8.273'
 
+gem 'jquery-rails', '3.1.2'
+gem 'sass-rails', '5.0.0'
+gem 'coffee-rails', '4.1.0'
+gem 'jquery-ui-rails', '5.0.3'
+gem 'therubyracer', '0.12.1'
+gem 'yui-compressor', '0.12.0'
+gem 'fancybox-rails', '0.2.1'
+gem 'uglifier', '2.6.0'
+
+gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
+
 platforms :ruby do
   gem 'RedCloth', '4.2.9', require: 'redcloth'
-end
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'therubyracer', '0.12.1'
-  gem 'sass-rails', '3.2.6' # 4.0.1 for rails 4 (issue #114)
-  gem 'yui-compressor', '0.12.0'
-  gem 'jquery-ui-rails', '5.0.3'
-  gem 'coffee-rails', '3.2.2' # 4.0.1 for rails 4 (issue #114)
-  gem 'fancybox-rails', '0.2.1'
-  gem 'uglifier', '2.6.0'
 end
 
 group :development do
@@ -61,6 +56,7 @@ group :development do
   gem 'bullet'
   gem 'lol_dba'
   gem 'debugger'
+  gem 'web-console'
 end
 
 group :test do

@@ -1,15 +1,10 @@
 # encoding: UTF-8
 class AcceptedSessionsController < InheritedResources::Base
   skip_before_filter :authenticate_user!, :authorize_action
-  respond_to :html, :csv
-  append_view_path ActivitiesResolver.new
+  respond_to :csv
 
   def index
     respond_to do |format|
-      format.html {
-        @activities = Activity.for_conference(@conference)
-        render layout: false
-      }
       format.csv {
         if current_ability.can?(:read, 'accepted_sessions')
           sessions = Session.for_conference(@conference).

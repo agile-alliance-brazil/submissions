@@ -173,35 +173,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :room do
-    sequence(:name) {|n| "Room #{n+1}"}
-    capacity 200
-    conference { Conference.current || FactoryGirl.create(:conference) }
-  end
-
-  factory :guest_session do
-    title "Guest session title"
-    author "Guest session author"
-    summary "Longer description and summary for guest session"
-    conference { Conference.current || FactoryGirl.create(:conference) }
-    keynote true
-  end
-
-  factory :all_hands do
-    title "all_hands.lunch.title"
-  end
-
-  factory :lightning_talk_group do
-    lightning_talk_info {}
-  end
-
-  factory :activity do
-    start_at { DateTime.now }
-    end_at { |a| a.start_at + 1.hour }
-    room
-    association :detail, factory: :session
-  end
-
   factory :conference do
     sequence(:year)
     name { |c| "Conference #{c.year}" }

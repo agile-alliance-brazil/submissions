@@ -11,17 +11,6 @@ describe Reviewer, type: :model do
     @audience_level = FactoryGirl.create(:audience_level, conference: @conference)
   end
 
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :user_id }
-    it { should allow_mass_assignment_of :conference_id }
-    it { should allow_mass_assignment_of :user_username }
-    it { should allow_mass_assignment_of :preferences_attributes }
-    it { should allow_mass_assignment_of :reviewer_agreement }
-    it { should allow_mass_assignment_of :state_event }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   it_should_trim_attributes Reviewer, :user_username
 
   context "validations" do

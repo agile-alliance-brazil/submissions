@@ -2,31 +2,6 @@
 require 'spec_helper'
 
 describe Session, type: :model do
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :title }
-    it { should allow_mass_assignment_of :summary }
-    it { should allow_mass_assignment_of :description }
-    it { should allow_mass_assignment_of :mechanics }
-    it { should allow_mass_assignment_of :benefits }
-    it { should allow_mass_assignment_of :target_audience }
-    it { should allow_mass_assignment_of :audience_limit }
-    it { should allow_mass_assignment_of :author_id }
-    it { should allow_mass_assignment_of :second_author_username }
-    it { should allow_mass_assignment_of :track_id }
-    it { should allow_mass_assignment_of :session_type_id }
-    it { should allow_mass_assignment_of :audience_level_id }
-    it { should allow_mass_assignment_of :duration_mins }
-    it { should allow_mass_assignment_of :experience }
-    it { should allow_mass_assignment_of :keyword_list }
-    it { should allow_mass_assignment_of :author_agreement }
-    it { should allow_mass_assignment_of :image_agreement }
-    it { should allow_mass_assignment_of :state_event }
-    it { should allow_mass_assignment_of :conference_id }
-    it { should allow_mass_assignment_of :language }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
                                      :target_audience, :second_author_username, :experience
 

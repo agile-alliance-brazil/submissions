@@ -42,6 +42,10 @@ class OrganizersController < InheritedResources::Base
     end
   end
 
+  def permitted_params
+    params.permit(organizer: [:user_username, :track_id])
+  end
+
   def load_tracks
     @tracks ||= @conference.tracks
   end

@@ -1,7 +1,5 @@
 # encoding: UTF-8
 class Reviewer < ActiveRecord::Base
-  attr_accessible :user_id, :conference_id, :conference, :user_username, :preferences_attributes,
-                  :reviewer_agreement, :sign_reviews, :state_event
   attr_trimmed    :user_username
 
   attr_autocomplete_username_as :user
@@ -9,17 +7,17 @@ class Reviewer < ActiveRecord::Base
   belongs_to :user
   belongs_to :conference
   has_many :preferences, dependent: :destroy
-  has_many :accepted_preferences, class_name: 'Preference', conditions: ['preferences.accepted = ?', true]
+  has_many :accepted_preferences, -> { where('preferences.accepted = ?', true) }, class_name: 'Preference'
 
   accepts_nested_attributes_for :preferences
 
   validates :conference_id, presence: true, existence: true
   validates :user_id, existence: true, uniqueness: {scope: :conference_id}
 
-  scope :for_conference, lambda { |c| where(conference_id: c.id) }
-  scope :for_user, lambda { |u| where(user_id: u.id) }
-  scope :accepted, lambda { where(state: :accepted) }
-  scope :for_track, lambda { |track_id| joins(:accepted_preferences).where(preferences: {track_id: track_id}) }
+  scope :for_conference, ->(c) { where(conference_id: c.id) }
+  scope :for_user, ->(u) { where(user_id: u.id) }
+  scope :accepted, -> { where(state: :accepted) }
+  scope :for_track, ->(track_id) { joins(:accepted_preferences).where(preferences: {track_id: track_id}) }
 
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?

@@ -48,6 +48,16 @@ class SessionsController < InheritedResources::Base
   end
 
   protected
+  def permitted_params
+    params.permit(session: [
+      :title, :summary, :description, :mechanics, :benefits,
+      :target_audience, :prerequisites, :audience_level_id, :audience_limit,
+      :author_id, :second_author_username, :track_id,
+      :session_type_id, :duration_mins, :experience,
+      :keyword_list, :language
+    ])
+  end
+
   def resource_params
     super.tap do |attributes|
       attributes.first[:conference_id] = @conference.id
@@ -79,7 +89,7 @@ class SessionsController < InheritedResources::Base
   end
 
   def load_tags 
-  	@tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).all
+    @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
   end
 
   def check_conference

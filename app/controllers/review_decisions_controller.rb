@@ -53,4 +53,8 @@ class ReviewDecisionsController < InheritedResources::Base
       attributes.first[:organizer_id] = current_user.id
     end
   end
+
+  def permitted_params
+    params.permit(review_decision: [:session_id, :outcome_id, :note_to_authors])
+  end
 end

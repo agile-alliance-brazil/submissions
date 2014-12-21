@@ -77,5 +77,5 @@ Formtastic::FormBuilder.inline_errors = :list
 
 Formtastic::FormBuilder.escape_html_entities_in_hints_and_labels = false
 
-# Formtastic::FormBuilder.action_class_finder = Formtastic::ActionClassFinder
-# Formtastic::FormBuilder.input_class_finder = Formtastic::InputClassFinder
+Formtastic::FormBuilder.action_class_finder = Formtastic::ActionClassFinder
+Formtastic::FormBuilder.input_class_finder = Formtastic::InputClassFinder

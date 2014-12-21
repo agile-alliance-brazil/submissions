@@ -4,7 +4,6 @@ require 'spec_helper'
 describe ReviewPublisher do
   before(:each) do
     Session.stubs(:count).returns(0)
-    Session.stubs(:all).returns([])
     EmailNotifications.stubs(:notification_of_acceptance).returns(stub(deliver: true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
@@ -48,6 +47,8 @@ describe ReviewPublisher do
 
   context "Sessions are all reviewed" do
     before(:each) do
+      @publisher.stubs(:ensure_all_sessions_reviewed)
+      @publisher.stubs(:ensure_all_decisions_made)
       @sessions = [in_review_session_for(@conference), in_review_session_for(@conference)]
       FactoryGirl.create(:review_decision, session: @sessions[0])
       FactoryGirl.create(:review_decision, session: @sessions[1])

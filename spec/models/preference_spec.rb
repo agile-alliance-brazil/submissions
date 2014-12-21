@@ -2,23 +2,13 @@
 require 'spec_helper'
 
 describe Preference, type: :model do
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :reviewer_id }
-    it { should allow_mass_assignment_of :track_id }
-    it { should allow_mass_assignment_of :audience_level_id }
-    it { should allow_mass_assignment_of :track }
-    it { should allow_mass_assignment_of :audience_level }
-    it { should allow_mass_assignment_of :accepted }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   context "validations" do
     describe "when accepted" do
       subject { FactoryGirl.build(:preference, accepted: true) }
       it { should validate_presence_of :audience_level_id }
+      it { should validate_presence_of :track_id }
 
-      should_validate_existence_of :audience_level, :track, allow_blank: true
+      should_validate_existence_of :audience_level, :track
     
       before(:each) do
         @old_conference = FactoryGirl.create(:conference, year: 1)

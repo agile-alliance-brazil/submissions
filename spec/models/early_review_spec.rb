@@ -6,30 +6,6 @@ describe EarlyReview, type: :model do
     EmailNotifications.stubs(:early_review_submitted).returns(stub(deliver: true))
   end
 
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :author_agile_xp_rating_id }
-    it { should allow_mass_assignment_of :author_proposal_xp_rating_id }
-
-    it { should allow_mass_assignment_of :proposal_track }
-    it { should allow_mass_assignment_of :proposal_level }
-    it { should allow_mass_assignment_of :proposal_type }
-    it { should allow_mass_assignment_of :proposal_duration }
-    it { should allow_mass_assignment_of :proposal_limit }
-    it { should allow_mass_assignment_of :proposal_abstract }
-
-    it { should allow_mass_assignment_of :proposal_quality_rating_id }
-    it { should allow_mass_assignment_of :proposal_relevance_rating_id }
-
-    it { should allow_mass_assignment_of :reviewer_confidence_rating_id }
-    it { should allow_mass_assignment_of :comments_to_organizers }
-    it { should allow_mass_assignment_of :comments_to_authors }
-
-    it { should allow_mass_assignment_of :session_id }
-    it { should allow_mass_assignment_of :reviewer_id }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   it_should_trim_attributes EarlyReview, :comments_to_organizers, :comments_to_authors
 
   context "associations" do

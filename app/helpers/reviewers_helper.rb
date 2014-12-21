@@ -21,10 +21,10 @@ module ReviewersHelper
 
   def reviewer_summary_review_row(reviews, conference)
     row = Recommendation.all_names.
-      map{|r| Recommendation.where(name: r).select(:id).all.map(&:id)}.
+      map{|r| Recommendation.where(name: r).select(:id).map(&:id)}.
       map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
     if conference.author_notification.past?
-      evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).all
+      evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).to_a
       row << "#{evaluations.select(&:helpful_review).size}" + image_tag('helpful.png', alt: '👍') + ' ' +
         "#{evaluations.reject(&:helpful_review).size}" + image_tag('not-helpful.png', alt: '👎')
     end

@@ -2,15 +2,6 @@
 require 'spec_helper'
 
 describe Organizer, type: :model do
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :user_id }
-    it { should allow_mass_assignment_of :track_id }
-    it { should allow_mass_assignment_of :conference_id }
-    it { should allow_mass_assignment_of :user_username }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   it_should_trim_attributes Organizer, :user_username
 
   context "validations" do
@@ -22,7 +13,7 @@ describe Organizer, type: :model do
     end
 
     should_validate_existence_of :user, :conference
-    should_validate_existence_of :track, allow_blank: true
+    should_validate_existence_of :track
 
     context "user" do
       it "should be a valid user" do

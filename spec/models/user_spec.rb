@@ -2,27 +2,6 @@
 require 'spec_helper'
 
 describe User, type: :model do
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :first_name }
-    it { should allow_mass_assignment_of :last_name }
-    it { should allow_mass_assignment_of :username }
-    it { should allow_mass_assignment_of :email }
-    it { should allow_mass_assignment_of :password }
-    it { should allow_mass_assignment_of :password_confirmation }
-    it { should allow_mass_assignment_of :phone }
-    it { should allow_mass_assignment_of :country }
-    it { should allow_mass_assignment_of :state }
-    it { should allow_mass_assignment_of :city }
-    it { should allow_mass_assignment_of :organization }
-    it { should allow_mass_assignment_of :website_url }
-    it { should allow_mass_assignment_of :bio }
-    it { should allow_mass_assignment_of :wants_to_submit }
-    it { should allow_mass_assignment_of :default_locale }
-    it { should allow_mass_assignment_of :twitter_username }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   context "trimming" do
     it_should_trim_attributes User, :first_name, :last_name, :username,
                                     :email, :phone, :city, :organization,
@@ -78,6 +57,10 @@ describe User, type: :model do
       it { should validate_presence_of :city }
       it { should validate_presence_of :bio }
 
+      it { should ensure_length_of(:phone).is_at_most(100) }
+      it { should ensure_length_of(:bio).is_at_most(1600) }
+      it { should ensure_length_of(:city).is_at_most(100) }
+
       it { should allow_value("1234-2345").for(:phone) }
       it { should allow_value("+55 11 5555 2234").for(:phone) }
       it { should allow_value("+1 (304) 543.3333").for(:phone) }
@@ -98,11 +81,8 @@ describe User, type: :model do
     it { should ensure_length_of(:email).is_at_least(6).is_at_most(100) }
     it { should ensure_length_of(:first_name).is_at_most(100) }
     it { should ensure_length_of(:last_name).is_at_most(100) }
-    it { should ensure_length_of(:city).is_at_most(100) }
     it { should ensure_length_of(:organization).is_at_most(100) }
     it { should ensure_length_of(:website_url).is_at_most(100) }
-    it { should ensure_length_of(:phone).is_at_most(100) }
-    it { should ensure_length_of(:bio).is_at_most(1600) }
 
     it { should allow_value("dtsato").for(:username) }
     it { should allow_value("123").for(:username) }

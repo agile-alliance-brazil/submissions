@@ -100,17 +100,17 @@ describe SessionsController, type: :controller do
 
   it "edit action should only assign tracks for current conference" do
     get :edit, id: Session.first
-    expect((assigns(:tracks) - @conference.tracks)).to be_empty
+    expect(assigns(:tracks) - @conference.tracks).to be_empty
   end
 
   it "edit action should only assign audience levels for current conference" do
     get :edit, id: Session.first
-    expect((assigns(:audience_levels) - @conference.audience_levels)).to be_empty
+    expect(assigns(:audience_levels) - @conference.audience_levels).to be_empty
   end
 
   it "edit action should only assign session types for current conference" do
     get :edit, id: Session.first
-    expect((assigns(:session_types) - @conference.session_types)).to be_empty
+    expect(assigns(:session_types) - @conference.session_types).to be_empty
   end
 
   it "update action should render edit template when model is invalid" do
@@ -136,6 +136,8 @@ describe SessionsController, type: :controller do
     session.cancel
     delete :cancel, id: session
     expect(response).to redirect_to(organizer_sessions_path(@conference))
-    expect(flash[:error]).to eq(I18n.t('flash.session.cancel.failure', locale: @session.author.default_locale))
+    error_message = I18n.t('flash.session.cancel.failure',
+      locale: @session.author.default_locale)
+    expect(flash[:error]).to eq(error_message)
   end
 end

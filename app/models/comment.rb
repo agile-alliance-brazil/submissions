@@ -2,7 +2,6 @@
 class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
 
-  attr_accessible :comment, :user_id, :commentable_id
   attr_trimmed    :comment
 
   belongs_to :commentable, polymorphic: true, counter_cache: true
@@ -12,5 +11,5 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :commentable_id, presence: true
 
-  default_scope order: 'created_at ASC'
+  default_scope -> { order('created_at ASC') }
 end

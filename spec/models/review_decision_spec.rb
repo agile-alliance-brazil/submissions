@@ -2,16 +2,6 @@
 require 'spec_helper'
 
 describe ReviewDecision, type: :model do
-
-  context "protect from mass assignment" do
-    it { should allow_mass_assignment_of :organizer_id }
-    it { should allow_mass_assignment_of :session_id }
-    it { should allow_mass_assignment_of :outcome_id }
-    it { should allow_mass_assignment_of :note_to_authors }
-
-    it { should_not allow_mass_assignment_of :id }
-  end
-
   it_should_trim_attributes ReviewDecision, :note_to_authors
 
   context "validations" do
@@ -20,8 +10,7 @@ describe ReviewDecision, type: :model do
     it { should validate_presence_of :outcome_id }
     it { should validate_presence_of :note_to_authors }
 
-    should_validate_existence_of :organizer, :session
-    should_validate_existence_of :outcome, allow_blank: true
+    should_validate_existence_of :organizer, :session, :outcome
 
     it "should validate outcome can transition session on acceptance" do
       session = FactoryGirl.build(:session)

@@ -11,7 +11,7 @@ class AcceptReviewersController < ApplicationController
   end
 
   def update
-    if @reviewer.update_attributes(params[:reviewer].try(:merge, {state_event: 'accept'}))
+    if accept_params && @reviewer.update_attributes(accept_params)
       flash[:notice] = t('flash.reviewer.accept.success')
       redirect_to reviewer_sessions_path(@conference)
     else
@@ -27,5 +27,13 @@ class AcceptReviewersController < ApplicationController
 
   def load_reviewer
     @reviewer = Reviewer.find(params[:reviewer_id])
+  end
+
+  def accept_params
+    unless params[:reviewer].blank?
+      params.require(:reviewer).
+        permit(:preferences_attributes, :reviewer_agreement, :sign_reviews).
+        tap{|attr| attr[:state_event] = 'accept' }
+    end
   end
 end
