@@ -4,7 +4,8 @@ rvm:
 before_script:
   - cp ./config/config.{example,yml}
   - cp ./config/database.{travis,yml}
+  - mysql -e 'create database agilebrazil_test;'
 script:
-  - RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
-  - RAILS_ENV=test bundle exec rake ci
+  - RAILS_ENV=test bundle exec rake db:create db:migrate
+  - RAILS_ENV=test bundle exec rake spec
 bundler_args: --local --without development production
