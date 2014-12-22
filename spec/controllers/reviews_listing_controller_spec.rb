@@ -24,7 +24,7 @@ describe ReviewsListingController, type: :controller do
 
       FactoryGirl.create(:early_review, session: sessions[0])
 
-      get :index, format: 'js'
+      xhr :get, :index, format: :js
 
       expect(response.body).to eq({
         'required_reviews' => 2,
@@ -36,7 +36,7 @@ describe ReviewsListingController, type: :controller do
       @conference.stubs(:in_early_review_phase?).returns(false)
       FactoryGirl.create_list(:final_review, 2)
 
-      get :index, format: 'js'
+      xhr :get, :index, format: :js
 
       expect(response.body).to eq({
         'required_reviews' => 6,

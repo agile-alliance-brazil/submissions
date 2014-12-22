@@ -21,7 +21,7 @@ describe UsersController, type: :controller do
   describe "#index" do
     describe "with javascript format" do
       before do
-        get :index, format: :js, term: 'dt'
+        xhr :get, :index, format: :js, term: 'dt'
       end
 
       subject { response }

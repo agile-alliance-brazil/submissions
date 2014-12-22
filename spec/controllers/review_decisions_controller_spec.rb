@@ -23,7 +23,7 @@ describe ReviewDecisionsController, type: :controller do
     FactoryGirl.create(:session, track: @session.track, conference: @session.conference)
     FactoryGirl.create(:rejected_decision, session: @session, organizer: @organizer.user)
 
-    get :index, format: 'js'
+    xhr :get, :index, format: :js
     expect(response.body).to eq({
       'required_decisions' => 2,
       'total_decisions' => 1,

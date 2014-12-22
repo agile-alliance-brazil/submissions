@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '4.0.12' # Issue #114 - 4.1.8 is target
+gem 'rails', '4.1.8' # Issue #114 - 4.2.0 is target
 gem 'haml', '4.0.6'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.2'
@@ -32,7 +32,7 @@ gem 'mysql2', '0.3.17'
 gem 'doorkeeper', '2.0.1'
 gem 'newrelic_rpm', '3.9.8.273'
 
-gem 'jquery-rails', '3.1.2'
+gem 'jquery-rails', '3.1.2' # 4.0.2 needs rails 4.2.0
 gem 'sass-rails', '5.0.0'
 gem 'coffee-rails', '4.1.0'
 gem 'jquery-ui-rails', '5.0.3'

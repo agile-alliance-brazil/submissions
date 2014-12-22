@@ -65,8 +65,6 @@ class Session < ActiveRecord::Base
     where(clause, *args)
   }
 
-  scope :none, -> { where('1 = 0') }
-
   scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
   scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
   scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }

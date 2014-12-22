@@ -90,7 +90,8 @@ describe Api::V1::SessionsController, type: :controller do
     end
 
     it 'should respond to js as JS object as well' do
-      get :show, id: session.id.to_s, format: :js, locale: 'pt'
+      xhr :get, :show, format: :js, id: session.id.to_s,
+        locale: 'pt'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(JSON.parse(response.body)).to eq({
@@ -109,7 +110,8 @@ describe Api::V1::SessionsController, type: :controller do
     end
 
     it 'should respond to js with callback as JSONP if callback is provided' do
-      get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
+      xhr :get, :show, format: :js, id: session.id.to_s,
+        locale: 'pt', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(response.body).to match(/test\((.*)\)$/)
@@ -132,7 +134,8 @@ describe Api::V1::SessionsController, type: :controller do
       session.audience_limit = 100
       session.save
 
-      get :show, id: session.id.to_s, format: :js, locale: 'pt', callback: 'test'
+      xhr :get, :show, format: :js, id: session.id.to_s,
+        locale: 'pt', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(response.body).to match(/test\((.*)\)$/)

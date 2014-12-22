@@ -31,6 +31,7 @@ RSpec.configure do |config|
   config.include(TrimmerMacros)
   config.include(ValidatesExistenceMacros)
 
+  config.expect_with :rspec, :minitest
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

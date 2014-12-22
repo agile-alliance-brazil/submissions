@@ -4,7 +4,7 @@ require 'spec_helper'
 describe TagsController, type: :controller do
   describe "#index", "with javascript format" do
     before do
-      get :index, format: :js, term: 'sof'
+      xhr :get, :index, format: :js, term: 'sof'
     end
       
     subject { response }
