@@ -6,6 +6,6 @@ before_script:
   - cp ./config/database.{travis,yml}
   - mysql -e 'create database agilebrazil_test;'
 script:
-  - RAILS_ENV=test bundle exec rake db:create db:migrate
-  - RAILS_ENV=test bundle exec rake spec
+  - RAILS_ENV=test bundle exec rake db:migrate
+  - RAILS_ENV=test bundle exec rake ci
 bundler_args: --local --without development production
