@@ -1,8 +1,7 @@
 # encoding: UTF-8
-class AcceptedSessionsController < InheritedResources::Base
+class AcceptedSessionsController < ApplicationController
   skip_before_filter :authenticate_user!, :authorize_action
-  respond_to :csv
-
+  
   def index
     respond_to do |format|
       format.csv {

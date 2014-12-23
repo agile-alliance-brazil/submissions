@@ -34,10 +34,11 @@ describe ActionsHelper, type: :helper do
       @user = FactoryGirl.build(:user)
       @conference.stubs(:in_final_review_phase?).returns(true)
       helper.stubs(:current_user).returns(@user)
+      @filter_params = {}
     end
     context 'reviewer logged in' do
       subject do
-        helper.reviewer_section_for(@user, @conference).actions
+        helper.reviewer_section_for(@user, @conference, @filter_params).actions
       end
       it 'should be able to view list of sessions to review' do
         Session.stubs(for_reviewer: stub(to_a: stub(count: 0)))
@@ -53,7 +54,7 @@ describe ActionsHelper, type: :helper do
       it 'should be able to view how many sessions are left to review' do
         Session.stubs(for_reviewer: stub(to_a: stub(count: 3)))
 
-        actions = helper.reviewer_section_for(@user, @conference).actions
+        actions = helper.reviewer_section_for(@user, @conference, @filter_params).actions
 
         expect(actions[0][:name]).to eq(t('actions.reviewer_sessions', count: 3))
       end
@@ -63,7 +64,7 @@ describe ActionsHelper, type: :helper do
       it 'should be able to view how many reviews it created' do
         @user.stubs(:reviews).returns(stub(for_conference: stub(count: 2)))
 
-        actions = helper.reviewer_section_for(@user, @conference).actions
+        actions = helper.reviewer_section_for(@user, @conference, @filter_params).actions
 
         expect(actions[1][:name]).to eq(t('actions.reviewer_reviews', count: 2))
       end

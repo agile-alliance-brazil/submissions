@@ -15,14 +15,14 @@ module ActionsHelper
     end
   end
 
-  def sections_for(user, conference)
+  def sections_for(user, conference, safe_filter_params)
     sections = []
 
     if user_signed_in?
       sections << session_section_for(user, conference)
     end
     if user.reviewer?
-      sections << reviewer_section_for(user, conference)
+      sections << reviewer_section_for(user, conference, safe_filter_params)
     end
     if user.organizer? || user.admin?
       sections << organizer_section_for(user, conference)
@@ -69,12 +69,12 @@ module ActionsHelper
     section
   end
 
-  def reviewer_section_for(user, conference)
+  def reviewer_section_for(user, conference, safe_params)
     section = Section.new t('actions.section.review')
     if (conference.in_early_review_phase? ||
           conference.in_final_review_phase?) &&
           can?(:read, 'reviewer_sessions')
-      sessions_to_review = SessionFilter.new(params).apply(Session.for_reviewer(current_user, conference)).to_a.count
+      sessions_to_review = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).to_a.count
       section.add t('actions.reviewer_sessions', count: sessions_to_review), reviewer_sessions_path(conference)
     end
     if can? :reviewer, 'reviews_listing'
@@ -86,6 +86,11 @@ module ActionsHelper
     end
 
     section
+  end
+
+  def filter_params
+    params.permit(:session_filter).
+      permit(:track_id, :session_type_id, :audience_level_id)[:session_filter]
   end
 
   def organizer_section_for(user, conference)

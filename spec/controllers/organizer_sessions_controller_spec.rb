@@ -26,12 +26,7 @@ describe OrganizerSessionsController, type: :controller do
   describe "#index" do
     before(:each) do
       @session = FactoryGirl.build(:session)
-      Session.stubs(:for_conference).returns(Session)
-      Session.stubs(:for_tracks).returns(Session)
-      Session.stubs(:with_state).returns(Session)
-      Session.stubs(:page).returns(Session)
-      Session.stubs(:order).returns(Session)
-      Session.stubs(:includes).returns([@session])
+      SessionFilter.any_instance.stubs(:apply).returns([@session])
     end
 
     it "should assign tracks for current conference" do
@@ -44,12 +39,7 @@ describe OrganizerSessionsController, type: :controller do
       expect(assigns(:states)).to eq(Session.state_machine.states.map(&:name))
     end
 
-    it "should filter sessions" do
-      Session.expects(:with_state).with(:accepted).returns(Session)
-
-      get :index, session_filter: {state: 'accepted'}
-      expect(assigns(:sessions)).to eq([@session])
-    end
+    it "should filter sessions based on filter"
 
     it "should find sessions on organizer's tracks" do
       Session.expects(:for_tracks).with([@organizer.track.id]).returns(Session)

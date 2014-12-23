@@ -1,45 +1,30 @@
 # encoding: UTF-8
-class ReviewerSessionsController < InheritedResources::Base
-  defaults resource_class: Session
-  actions :index
-  respond_to :html
-
-  before_filter :load_session_filter
-  before_filter :load_tracks
-  before_filter :load_session_types
-  before_filter :load_audience_levels
-
-  has_scope :filtered, only: :index, as: :session_filter, type: :hash do |controller, scope, value|
-    controller.send(:load_session_filter).apply(scope)
+class ReviewerSessionsController < ApplicationController
+  def index
+    @tracks = @conference.tracks
+    @audience_levels = @conference.audience_levels
+    @session_types = @conference.session_types
+    
+    @session_filter = SessionFilter.new(filter_params)
+    @sessions = @session_filter.apply(scope_based_on_conference_phase)
   end
 
   protected
-  def collection
-    @sessions ||= begin
-      scope = if @conference.in_early_review_phase?
-        end_of_association_chain.for_reviewer(current_user, @conference).order('sessions.early_reviews_count ASC')
-      elsif @conference.in_final_review_phase?
-        end_of_association_chain.for_reviewer(current_user, @conference).order('sessions.final_reviews_count ASC')
-      else
-        end_of_association_chain.none
-      end
-      scope.page(params[:page]).includes([:track, :session_type, :audience_level])
+  def scope_based_on_conference_phase
+    scope = Session.includes([:track, :session_type, :audience_level])
+      .for_reviewer(current_user, @conference).page(params[:page])
+    if @conference.in_early_review_phase?
+      scope.order('sessions.early_reviews_count ASC')
+    elsif @conference.in_final_review_phase?
+      scope.order('sessions.final_reviews_count ASC')
+    else
+      scope.none
     end
   end
 
-  def load_tracks
-    @tracks ||= @conference.tracks
-  end
-
-  def load_audience_levels
-    @audience_levels ||= @conference.audience_levels
-  end
-
-  def load_session_types
-    @session_types ||= @conference.session_types
-  end
-
-  def load_session_filter
-    @session_filter ||= SessionFilter.new(params)
+  def filter_params
+    params.permit(session_filter: [
+      :track_id, :session_type_id, :audience_level_id
+    ])[:session_filter]
   end
 end

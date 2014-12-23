@@ -23,7 +23,7 @@ describe ReviewDecisionsController, type: :controller do
     FactoryGirl.create(:session, track: @session.track, conference: @session.conference)
     FactoryGirl.create(:rejected_decision, session: @session, organizer: @organizer.user)
 
-    xhr :get, :index, format: :js
+    xhr :get, :index, format: :json
     expect(response.body).to eq({
       'required_decisions' => 2,
       'total_decisions' => 1,
@@ -33,22 +33,20 @@ describe ReviewDecisionsController, type: :controller do
   end
   
   it "new action should render new template" do
-    get :new, session_id: Session.first
+    get :new, session_id: Session.first.id
     expect(response).to render_template(:new)
     expect(assigns(:review_decision).organizer).to eq(@organizer.user)
   end
 
   it "create action should render new template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    post :create, review_decision: {}, session_id: FactoryGirl.create(:session).id
+    post :create, session_id: @session.id,
+      review_decision: {note_to_authors: 'bla'}
     expect(response).to render_template(:new)
   end
   
   it "create action should redirect when model is valid" do
-    ReviewDecision.any_instance.stubs(:valid?).returns(true)
-    post :create, session_id: FactoryGirl.create(:session).id
+    post :create, session_id: @session.id,
+      review_decision: {outcome_id: '1', note_to_authors: 'Super note'}
     expect(response).to redirect_to(organizer_sessions_url(@session.conference))
   end
   
@@ -64,16 +62,14 @@ describe ReviewDecisionsController, type: :controller do
     end
   
     it "update action should render edit template when model is invalid" do
-      # +stubs(:valid?).returns(false)+ doesn't work here because
-      # inherited_resources does +obj.errors.empty?+ to determine
-      # if validation failed
-      post :update, review_decision: {note_to_authors: nil}, session_id: @session.id, id: @decision.id
+      patch :update, session_id: @session.id, id: @decision.id,
+        review_decision: {outcome_id: nil}
       expect(response).to render_template(:edit)
     end
   
     it "update action should redirect when model is valid" do
-      ReviewDecision.any_instance.stubs(:valid?).returns(true)
-      post :update, session_id: @session.id, id: @decision.id
+      patch :update, session_id: @session.id, id: @decision.id,
+        review_decision: {outcome_id: '1', note_to_authors: 'Super note'}
       expect(response).to redirect_to(organizer_sessions_url(@session.conference))
     end
   end

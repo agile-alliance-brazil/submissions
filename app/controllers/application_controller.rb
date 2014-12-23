@@ -11,9 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_conference
   before_filter :authenticate_user!
   before_filter :authorize_action
-  # TODO: Transform into before_action once rails 4 (Issue #114) is in place
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   AVATAR_SIZES = {
     mini: 24,

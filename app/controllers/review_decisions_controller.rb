@@ -1,16 +1,8 @@
 # encoding: UTF-8
-class ReviewDecisionsController < InheritedResources::Base
-  defaults singleton: true
-  belongs_to :session
-  
-  actions :new, :create, :edit, :update
-
+class ReviewDecisionsController < ApplicationController
   def index
     respond_to do |format|
-      format.html do
-        redirect_to root_path
-      end
-      format.js do
+      format.json do
         render json: {
           'required_decisions' => Session.for_conference(@conference).without_state(:cancelled).count,
           'total_decisions' => ReviewDecision.for_conference(@conference).count,
@@ -21,40 +13,52 @@ class ReviewDecisionsController < InheritedResources::Base
     end
   end
 
+  def new
+    attributes = (params[:review_decision] || {}).merge(inferred_attributes)
+    @review_decision = ReviewDecision.new(attributes)
+  end
+
   def create
-    create! do |success, failure|
-      success.html do
-        flash[:notice] = t('flash.review_decision.create.success')
-        redirect_to organizer_sessions_path(@conference)
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        render :new
-      end
+    @review_decision = ReviewDecision.new(decision_params)
+    if @review_decision.save
+      flash[:notice] = t('flash.review_decision.create.success')
+      redirect_to organizer_sessions_path(@conference)
+    else
+      flash.now[:error] = t('flash.failure')
+      render :new
     end
+  end
+
+  def edit
+    @review_decision = resource
   end
   
   def update
-    update! do |success, failure|
-      success.html do
-        flash[:notice] = t('flash.review_decision.update.success')
-        redirect_to organizer_sessions_path(@conference)
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        render :edit
-      end
+    @review_decision = resource
+    if @review_decision.update_attributes(decision_params)
+      flash[:notice] = t('flash.review_decision.update.success')
+      redirect_to organizer_sessions_path(@conference)
+    else
+      flash.now[:error] = t('flash.failure')
+      render :edit
     end
   end
   
   protected
-  def resource_params
-    super.tap do |attributes|
-      attributes.first[:organizer_id] = current_user.id
-    end
+  def resource_class
+    ReviewDecision
+  end
+  def resource
+    ReviewDecision.includes(:session).find(params[:id])
   end
 
-  def permitted_params
-    params.permit(review_decision: [:session_id, :outcome_id, :note_to_authors])
+  def decision_params
+    attributes = params.require(:review_decision).
+      permit(:outcome_id, :note_to_authors)
+    attributes.merge(inferred_attributes)
+  end
+
+  def inferred_attributes
+    {organizer_id: @current_user.id, session_id: params[:session_id]}
   end
 end

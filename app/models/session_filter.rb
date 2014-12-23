@@ -6,15 +6,15 @@ class SessionFilter
 
   attr_accessor :user_id, :track_id, :session_type_id, :audience_level_id, :tags, :state
 
-  def initialize(params={})
-    @user_id = params[:user_id]
-    if params[:session_filter]
-      self.username = params[:session_filter][:username]
-      @tags = params[:session_filter][:tags]
-      @state = params[:session_filter][:state]
-      @track_id = params[:session_filter][:track_id]
-      @session_type_id = params[:session_filter][:session_type_id]
-      @audience_level_id = params[:session_filter][:audience_level_id]
+  def initialize(filter=nil, user_id = nil)
+    @user_id = user_id
+    if filter
+      self.username = filter[:username]
+      @tags = filter[:tags]
+      @state = filter[:state]
+      @track_id = filter[:track_id]
+      @session_type_id = filter[:session_type_id]
+      @audience_level_id = filter[:audience_level_id]
     end
   end
 

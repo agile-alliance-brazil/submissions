@@ -38,4 +38,3 @@ AgileBrazil::Application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-Rails.logger = Logger.new(STDOUT)

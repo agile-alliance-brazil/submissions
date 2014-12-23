@@ -85,7 +85,12 @@ class SessionsController < InheritedResources::Base
   end
 
   def load_session_filter
-    @session_filter ||= SessionFilter.new(params)
+    @session_filter ||= SessionFilter.new(filter_params, params[:user_id])
+  end
+
+  def filter_params
+    params.permit(:session_filter).
+      permit(:tags, :username, :track_id)
   end
 
   def load_tags 

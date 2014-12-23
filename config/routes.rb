@@ -2,7 +2,7 @@
 AgileBrazil::Application.routes.draw do
   use_doorkeeper
 
-  namespace :api, defaults: {format: "json"} do
+  namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do
       resource :user, only: [:show] do
         post :make_voter, on: :collection
@@ -33,6 +33,7 @@ AgileBrazil::Application.routes.draw do
     resources :organizers, except: [:show]
     resources :organizer_sessions, only: [:index]
     resources :organizer_reports, only: [:index]
+    resources :accepted_sessions, only: [:index]
     resources :review_decisions, only: [:index]
     resources :reviewers, only: [:index, :show, :create, :destroy] do
       collection do
@@ -61,7 +62,6 @@ AgileBrazil::Application.routes.draw do
       resources :sessions, only: [:index]
     end
 
-    resources :accepted_sessions, only: [:index]
     resources :reviews, only: [:index], controller: :reviews_listing do
       collection do
         get :reviewer

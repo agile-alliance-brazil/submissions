@@ -31,10 +31,7 @@ describe OrganizersController, type: :controller do
   end
 
   it "create action should render new template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    post :create, organizer: {}
+    post :create, organizer: {track_id: nil}
     expect(response).to render_template(:new)
   end
 
@@ -52,9 +49,6 @@ describe OrganizersController, type: :controller do
   end
 
   it "update action should render edit template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
     organizer = FactoryGirl.create(:organizer, user_id: @user.id, conference: @conference)
     post :update, id: organizer.id, organizer: { track_id: nil }
     expect(response).to render_template(:edit)
@@ -62,7 +56,10 @@ describe OrganizersController, type: :controller do
 
   it "update action should redirect when model is valid" do
     organizer = FactoryGirl.create(:organizer, user_id: @user.id, conference: @conference)
-    post :update, id: organizer.id
+    post :update, id: organizer.id, organizer: {
+      track_id: @conference.tracks.first.id,
+      user_username: @user.username
+    }
     expect(response).to redirect_to(organizers_path(@conference))
   end
 

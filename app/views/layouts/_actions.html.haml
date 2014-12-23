@@ -24,7 +24,7 @@
     = render_avatar(current_user)
     &= current_user.full_name
 
-  - sections_for(current_user, @conference).each do |section|
+  - sections_for(current_user, @conference, filter_params).each do |section|
     %h4= section.title
     %ul
     - section.actions.each do |action|
@@ -56,7 +56,7 @@
     - progress = next_deadline.last == :author_notification ? "data.total_decisions" : "data.total_confirmed"
     :javascript
       $(document).ready(function() {
-        $.getJSON('#{review_decisions_path(@conference, format: :js)}', function(data) {
+        $.getJSON('#{review_decisions_path(@conference, format: :json)}', function(data) {
           var orange = Math.floor(parseInt(#{goal}) * 0.30);
           var yellow = Math.floor(parseInt(#{goal}) * 0.60);
           var green = Math.floor(parseInt(#{goal}) * 0.90);

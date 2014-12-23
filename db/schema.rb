@@ -15,16 +15,16 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   create_table "all_hands", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "audience_levels", force: true do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "audience_levels", ["conference_id"], name: "index_audience_levels_on_conference_id"
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "location_and_date"
     t.datetime "presubmissions_deadline"
     t.datetime "prereview_deadline"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "voting_deadline"
   end
 
@@ -65,16 +65,16 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.text     "summary"
     t.integer  "conference_id"
     t.boolean  "keynote",       default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "guest_sessions", ["conference_id"], name: "index_guest_sessions_on_conference_id"
 
   create_table "lightning_talk_groups", force: true do |t|
     t.string   "lightning_talk_info"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "oauth_access_grants", force: true do |t|
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "uid",                       null: false
     t.string   "secret",                    null: false
     t.string   "redirect_uri",              null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "scopes",       default: "", null: false
   end
 
@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "user_id"
     t.integer  "track_id"
     t.integer  "conference_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "organizers", ["conference_id"], name: "index_organizers_on_conference_id"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   create_table "outcomes", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "preferences", force: true do |t|
@@ -141,8 +141,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "track_id"
     t.integer  "audience_level_id"
     t.boolean  "accepted",          default: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "preferences", ["audience_level_id"], name: "index_preferences_on_audience_level_id"
@@ -151,14 +151,14 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   create_table "ratings", force: true do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "recommendations", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "review_decisions", force: true do |t|
@@ -167,8 +167,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "organizer_id"
     t.text     "note_to_authors"
     t.boolean  "published",       default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "review_decisions", ["organizer_id"], name: "index_review_decisions_on_organizer_id"
@@ -180,24 +180,24 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "review_feedback_id"
     t.boolean  "helpful_review"
     t.string   "comments"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "review_feedbacks", force: true do |t|
     t.integer  "conference_id"
     t.integer  "author_id"
     t.string   "general_comments"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reviewers", force: true do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
     t.string   "state"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "sign_reviews"
   end
 
@@ -223,8 +223,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "reviewer_id"
     t.integer  "session_id"
     t.string   "type"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "reviews", ["author_agile_xp_rating_id"], name: "index_reviews_on_author_agile_xp_rating_id"
@@ -241,8 +241,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "name"
     t.integer  "capacity"
     t.integer  "conference_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "rooms", ["conference_id"], name: "index_rooms_on_conference_id"
@@ -251,8 +251,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "valid_durations"
   end
 
@@ -279,8 +279,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.boolean  "image_agreement"
     t.integer  "conference_id"
     t.integer  "early_reviews_count",             default: 0
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "language"
     t.integer  "comments_count",                  default: 0
     t.string   "prerequisites"
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context"
+    t.string   "context",       limit: 128
     t.datetime "created_at"
   end
 
@@ -317,8 +317,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.string   "title"
     t.text     "description"
     t.integer  "conference_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tracks", ["conference_id"], name: "index_tracks_on_conference_id"
@@ -348,16 +348,16 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.integer  "sign_in_count"
     t.datetime "reset_password_sent_at"
     t.string   "twitter_username"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"
     t.integer  "session_id"
     t.integer  "conference_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "votes", ["conference_id"], name: "index_votes_on_conference_id"

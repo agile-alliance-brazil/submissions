@@ -1,8 +1,8 @@
-- reviewers = {}
-- comments = {}
+- reviewers, comments = {}, {}
 - comments_to_author = {}
 - @reviews.each_with_index do |review, index|
-  -  reviewers[review] = review.reviewer.full_name
+  -  reviewer = review.reviewer.reviewer_for(@conference)
+  -  reviewers[review] = reviewer.display_name(index + 1)
   -  comments[review] = review.comments_to_organizers
   -  comments_to_author[review] = review.comments_to_authors
 

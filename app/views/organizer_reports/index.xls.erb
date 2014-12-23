@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <%- columns = 29 -%>
-<%- rows = collection.to_a.sum(&:final_reviews_count) + 1 -%>
+<%- rows = @sessions.to_a.sum(&:final_reviews_count) + 1 -%>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:o="urn:schemas-microsoft-com:office:office"
   xmlns:x="urn:schemas-microsoft-com:office:excel"
@@ -63,7 +63,7 @@
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.comments_to_organizers') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('review.comments_to_authors') %></Data></Cell>
       </Row>
-    <%- collection.each do |session| -%>
+    <%- @sessions.each do |session| -%>
       <%- session.final_reviews.each do |review| -%>
         <Row>
           <Cell><Data ss:Type="Number"><%= session.id %></Data></Cell>
@@ -141,7 +141,7 @@
       </Condition>
     </ConditionalFormatting>
     <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
-      <Range>R2C1:R<%=rows%>C<%=(collection.map(&:final_reviews_count).reduce(:+) || 0) + 1 %></Range>
+      <Range>R2C1:R<%=rows%>C<%=(@sessions.map(&:final_reviews_count).reduce(:+) || 0) + 1 %></Range>
       <Condition>
         <Value1>MOD(SUBTOTAL(3,'Final Reviews'!R2C1:R[2]C1),6)&lt;3</Value1>
         <Format Style='background:silver'/>
