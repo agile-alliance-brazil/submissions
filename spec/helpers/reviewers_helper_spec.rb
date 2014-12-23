@@ -59,14 +59,15 @@ describe ReviewersHelper, type: :helper do
         FactoryGirl.create(:recommendation, name: name)
       end
     end
-    it 'should have 4 0s before reviews are happening' do
+    it 'should have 4 0s and a blank spot before reviews are happening' do
       row = helper.reviewer_summary_review_row([], @conference)
 
-      expect(row).to have(4).items
+      expect(row).to have(5).items
       expect(row[0]).to eq(0)
       expect(row[1]).to eq(0)
       expect(row[2]).to eq(0)
       expect(row[3]).to eq(0)
+      expect(row[4]).to eq('')
     end
     it 'should partition reviews by recommendations' do
       reviews = @recommendations.map do |r|
@@ -75,11 +76,12 @@ describe ReviewersHelper, type: :helper do
       end
       row = helper.reviewer_summary_review_row(reviews, @conference)
 
-      expect(row).to have(4).items
+      expect(row).to have(5).items
       expect(row[0]).to eq(1)
       expect(row[1]).to eq(1)
       expect(row[2]).to eq(1)
       expect(row[3]).to eq(1)
+      expect(row[4]).to eq('')
     end
     it 'should include feedback if past author notification' do
       @conference.author_notification = DateTime.now - 1.minute

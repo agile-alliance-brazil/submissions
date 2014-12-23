@@ -1,53 +1,68 @@
 # encoding: UTF-8
-class CommentsController < InheritedResources::Base
-  belongs_to :session
-
-  actions :all, except: [:new]
+class CommentsController < ApplicationController
+  before_filter :load_session
 
   def index
-    redirect_to session_path(@conference, parent, anchor: 'comments')
+    redirect_to session_path(@conference, @session, anchor: 'comments')
   end
 
   def show
+    @comment = resource
     redirect_to edit_session_comment_path(@conference, @comment.commentable, @comment)
   end
 
   def create
-    create! do |success, failure|
-      success.html do
-        EmailNotifications.comment_submitted(@comment.commentable, @comment).deliver
-        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        @session = parent.reload
-        render 'sessions/show'
-      end
+    @comment = Comment.new(comment_attributes)
+    if @comment.save
+      EmailNotifications.comment_submitted(@session, @comment).deliver
+      redirect_to session_path(@conference, @session, anchor: 'comments')
+    else
+      flash.now[:error] = t('flash.failure')
+      @session.reload
+      render 'sessions/show'
     end
   end
 
+  def edit
+    @comment = resource
+  end
+
   def update
-    update! do |success, failure|
-      success.html do
-        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
-      end
-      failure.html do
-        flash.now[:error] = t('flash.failure')
-        @session = parent.reload
-        render :edit
-      end
+    @comment = resource
+    if @comment.update_attributes(comment_attributes)
+      redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
+    else
+      flash.now[:error] = t('flash.failure')
+      @session = @comment.commentable.reload
+      render :edit
     end
   end
 
   def destroy
-    destroy! do |format|
-      format.html do
-        redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
-      end
-    end
+    @comment = resource
+    @comment.destroy
+
+    redirect_to session_path(@conference, @session, anchor: 'comments')
   end
 
-  def permitted_params
-    params.permit(comment: [:comment, :user_id, :commentable_id])
+  private
+  def resource
+    Comment.find(params[:id])
+  end
+
+  def comment_attributes
+    attributes = params.require(:comment).permit(:comment)
+    attributes.merge(inferred_attributes)
+  end
+
+  def inferred_attributes
+    {
+      user_id: current_user.id,
+      commentable_id: @session.id
+    }
+  end
+
+  def load_session
+    @session = Session.find(params[:session_id])
   end
 end

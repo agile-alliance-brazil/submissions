@@ -1,11 +1,13 @@
 # encoding: UTF-8
-class SessionTypesController < InheritedResources::Base
+class SessionTypesController < ApplicationController
   skip_before_filter :authenticate_user!
   
-  actions :index
+  def index
+    @session_types = SessionType.for_conference(@conference)
+  end
   
   private
-  def collection
-    @session_types ||= end_of_association_chain.for_conference(@conference)
+  def resource_class
+    SessionType
   end
 end

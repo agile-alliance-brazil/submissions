@@ -5,6 +5,6 @@
 :javascript
   $(document).ready(function() {
     $("#organizer_user_username").autocomplete({
-      source: "#{users_path(format: :js)}"
+      source: "#{users_path(format: :json)}"
     });
   })

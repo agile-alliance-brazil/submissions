@@ -1,11 +1,13 @@
 # encoding: UTF-8
-class TracksController < InheritedResources::Base
+class TracksController < ApplicationController
   skip_before_filter :authenticate_user!
-  
-  actions :index
+
+  def index
+    @tracks = Track.for_conference(@conference)
+  end
 
   private
-  def collection
-    @tracks ||= end_of_association_chain.for_conference(@conference)
+  def resource_class
+    Track
   end
 end

@@ -1,15 +1,24 @@
 # encoding: UTF-8
-class UsersController < InheritedResources::Base
+class UsersController < ApplicationController
   skip_before_filter :authenticate_user!
-  has_scope :search, only: :index, as: 'term'
-  defaults instance_name: 'user_profile'
 
-  actions :index, :show
+  def show
+    @user_profile = resource
+  end
 
   def index
-    index! do |format|
-      format.html { redirect_to new_user_registration_path }
-      format.js { render json: collection.map(&:username) }
+    collection = User.search(params[:term]).select(:username).map(&:username)
+    respond_to do |format|
+      format.json { render json: collection }
     end
+  end
+
+  private
+  def resource
+    User.find(params[:id])
+  end
+
+  def resource_class
+    User
   end
 end

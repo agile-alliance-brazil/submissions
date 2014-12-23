@@ -3,44 +3,34 @@ require 'spec_helper'
 
 describe UsersController, type: :controller do
   fixtures :users
-  render_views
-
+  let(:user) { FactoryGirl.create(:user) }
   # TODO: Shouldn't need a conference to render
-  before(:each) do
-    @conference = FactoryGirl.create(:conference)
+  before do
+    FactoryGirl.create(:conference)
   end
 
-  it "show should work" do
-    get :show, id: User.first
+  context 'with views' do
+    render_views
+    it 'show should work' do
+      get :show, id: user.id
+    end
   end
-end
 
-describe UsersController, type: :controller do
-  fixtures :users
-
-  describe "#index" do
-    describe "with javascript format" do
+  describe '#index' do
+    describe 'with json format' do
       before do
-        xhr :get, :index, format: :js, term: 'dt'
+        xhr :get, :index, format: :json, term: 'dt'
       end
 
       subject { response }
 
-      its(:content_type) { should == "text/javascript" }
-    end
-
-    describe "with html format" do
-      before do
-        get :index
-      end
-
-      it { should redirect_to(new_user_registration_path) }
+      its(:content_type) { should == 'application/json' }
     end
   end
 
-  describe "#show" do
+  describe '#show' do
     before do
-      get :show, id: User.first
+      get :show, id: user.id
     end
 
     it { should respond_with(:success) }

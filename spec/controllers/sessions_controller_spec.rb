@@ -6,138 +6,190 @@ describe SessionsController, type: :controller do
 
   it_should_require_login_for_actions :index, :show, :new, :create, :edit, :update
 
+  let(:author) { FactoryGirl.create(:author) }
+  let(:conference) { FactoryGirl.create(:conference) }
+  let(:audience_level) { FactoryGirl.create(:audience_level, conference: conference) }
+  let(:session_type) { FactoryGirl.create(:session_type, conference: conference) }
+  let(:track) { FactoryGirl.create(:track, conference: conference) }
+  let(:session) { FactoryGirl.create(:session, conference: conference, author: author)}
+  let(:valid_params) do
+    {
+      title: 'Testing',
+      summary: 'Testing a summary',
+      description: 'Testing a description that is long.' * 50,
+      mechanics: 'Testing medium mechanics' * 10,
+      benefits: 'Testing medium benefits' * 10,
+      target_audience: 'Everybody!',
+      prerequisites: 'None!',
+      audience_level_id: audience_level.id,
+      track_id: track.id,
+      session_type_id: session_type.id,
+      duration_mins: session_type.valid_durations.first.to_s,
+      experience: 'A lot!',
+      keyword_list: 'tag,another',
+      language: 'pt'
+    }
+  end
   before(:each) do
-    @session ||= FactoryGirl.create(:session)
-    @conference ||= @session.conference
-    sign_in @session.author
+    # Need session types to suggest durations in the form
+    @session_types = [session_type]
+
+    sign_in author
     disable_authorization
     EmailNotifications.stubs(:session_submitted).returns(stub(deliver: true))
   end
 
-  it "index action should render index template" do
-    get :index
-    expect(response).to render_template(:index)
+  context 'index action' do
+    it 'index action should render index template' do
+      get :index, year: conference.year
+
+      expect(response).to render_template(:index)
+    end
+
+    it 'index action should not display cancelled sessions' do
+      session.cancel
+
+      get :index, year: conference.year
+
+      expect(assigns(:sessions)).to be_empty
+    end
   end
 
-  it "index action shouldn't display cancelled sessions" do
-    @session.cancel
-    get :index
-    expect(assigns(:sessions)).to be_empty
+  context 'show action' do
+    it 'should render show template with comment' do
+      get :show, year: conference.year, id: session.id
+
+      expect(response).to render_template(:show)
+      expect(assigns(:comment).user).to eq(author)
+      expect(assigns(:comment).commentable_id).to eq(session.id)
+    end
+
+    it 'should display flash news if session from previous conference' do
+      old_conference = FactoryGirl.create(:conference, year: 1)
+      old_session = FactoryGirl.create(:session,
+        session_type: FactoryGirl.create(:session_type, conference: old_conference),
+        audience_level: FactoryGirl.create(:audience_level, conference: old_conference),
+        track: FactoryGirl.create(:track, conference: old_conference),
+        conference: old_conference
+      )
+
+      get :show, year: conference.year, id: old_session.id
+
+      message = I18n.t('flash.news.session_different_conference',
+        conference_name: old_conference.name,
+        current_conference_name: conference.name,
+        locale: author.default_locale)
+      expect(flash[:news]).to eq(message)
+    end
   end
 
-  it "show action should render show template" do
-    get :show, id: Session.first
-    expect(response).to render_template(:show)
-    expect(assigns(:comment).user).to eq(@session.author)
-    expect(assigns(:comment).commentable_id).to eq(Session.first.id)
+  context 'new action' do
+    before do
+      @tracks = [track]
+      @audience_levels = [audience_level]
+    end
+    it 'should render new template' do
+      get :new, year: conference.year
+
+      expect(response).to render_template(:new)
+    end
+
+    it 'should only assign tracks for current conference' do
+      get :new, year: conference.year
+
+      expect(assigns(:tracks)).to eq(@tracks)
+    end
+
+    it 'should only assign audience levels for current conference' do
+      get :new, year: conference.year
+
+      expect(assigns(:audience_levels)).to eq(@audience_levels)
+    end
+
+    it 'should only assign session types for current conference' do
+      get :new, year: conference.year
+
+      expect(assigns(:session_types)).to eq(@session_types)
+    end
   end
 
-  it "show action should display flash news if session from previous conference" do
-    old_conference = FactoryGirl.create(:conference, year: 1)
-    old_session = FactoryGirl.create(:session,
-      session_type: FactoryGirl.create(:session_type, conference: old_conference),
-      audience_level: FactoryGirl.create(:audience_level, conference: old_conference),
-      track: FactoryGirl.create(:track, conference: old_conference),
-      conference: old_conference
-    )
-    
-    get :show, id: old_session.id
+  context 'create action' do
+    it 'create action should render new template when model is invalid' do
+      post :create, year: conference.year, session: {title: 'Test'}
 
-    message = I18n.t('flash.news.session_different_conference',
-      conference_name: old_conference.name,
-      current_conference_name: @conference.name,
-      locale: @session.author.default_locale)
-    expect(flash[:news]).to eq(message)
+      expect(response).to render_template(:new)
+    end
+
+    it 'create action should redirect when model is valid' do
+      post :create, year: conference.year, session: valid_params
+
+      expect(response).to redirect_to(session_url(conference, assigns(:session)))
+    end
+
+    it 'create action should send an email when model is valid' do
+      EmailNotifications.expects(:session_submitted).returns(mock(deliver: true))
+
+      post :create, year: conference.year, session: valid_params
+    end
   end
 
-  it "new action should render new template" do
-    get :new
-    expect(response).to render_template(:new)
+  context 'edit action' do
+    it 'edit action should render edit template' do
+      get :edit, year: conference.year, id: session.id
+
+      expect(response).to render_template(:edit)
+    end
+
+    it 'edit action should only assign tracks for current conference' do
+      get :edit, year: conference.year, id: session.id
+
+      expect(assigns(:tracks) - conference.tracks).to be_empty
+    end
+
+    it 'edit action should only assign audience levels for current conference' do
+      get :edit, year: conference.year, id: session.id
+
+      expect(assigns(:audience_levels) - conference.audience_levels).to be_empty
+    end
+
+    it 'edit action should only assign session types for current conference' do
+      get :edit, year: conference.year, id: session.id
+
+      expect(assigns(:session_types) - conference.session_types).to be_empty
+    end
   end
 
-  it "new action should only assign tracks for current conference" do
-    get :new
-    non_current_tracks = (assigns(:tracks) - @conference.tracks)
-    expect(non_current_tracks).to be_empty
+  context 'update action' do
+    it 'should render edit template when model is invalid' do
+      put :update, year: conference.year, id: session.id, session: {title: nil}
+
+      expect(response).to render_template(:edit)
+    end
+
+    it 'should redirect when model is valid' do
+      put :update, year: conference.year, id: session.id, session: valid_params
+
+      expect(response).to redirect_to(session_path(conference, assigns(:session)))
+    end
   end
 
-  it "new action should only assign audience levels for current conference" do
-    get :new
-    non_current_levels = (assigns(:audience_levels) - @conference.audience_levels)
-    expect(non_current_levels).to be_empty
-  end
+  context 'cancel action' do
+    it 'should cancel and redirect to organizer sessions' do
+      delete :cancel, year: conference.year, id: session.id
 
-  it "new action should only assign session types for current conference" do
-    get :new
-    non_current_session_types = (assigns(:session_types) - @conference.session_types)
-    expect(non_current_session_types).to be_empty
-  end
+      expect(response).to redirect_to(organizer_sessions_path(conference))
+    end
 
-  it "create action should render new template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    post :create, session: {}
-    expect(response).to render_template(:new)
-  end
+    it 'should redirect to organizer sessions with error' do
+      session.cancel
 
-  it "create action should redirect when model is valid" do
-    Session.any_instance.stubs(:valid?).returns(true)
-    post :create
-    expect(response).to redirect_to(session_url(@conference, assigns(:session)))
-  end
+      delete :cancel, year: conference.year, id: session.id
 
-  it "create action should send an email when model is valid" do
-    Session.any_instance.stubs(:valid?).returns(true)
-    EmailNotifications.expects(:session_submitted).returns(mock(deliver: true))
-    post :create
-  end
+      expect(response).to redirect_to(organizer_sessions_path(conference))
 
-  it "edit action should render edit template" do
-    get :edit, id: Session.first
-    expect(response).to render_template(:edit)
-  end
-
-  it "edit action should only assign tracks for current conference" do
-    get :edit, id: Session.first
-    expect(assigns(:tracks) - @conference.tracks).to be_empty
-  end
-
-  it "edit action should only assign audience levels for current conference" do
-    get :edit, id: Session.first
-    expect(assigns(:audience_levels) - @conference.audience_levels).to be_empty
-  end
-
-  it "edit action should only assign session types for current conference" do
-    get :edit, id: Session.first
-    expect(assigns(:session_types) - @conference.session_types).to be_empty
-  end
-
-  it "update action should render edit template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    put :update, id: Session.first, session: {title: nil}
-    expect(response).to render_template(:edit)
-  end
-
-  it "update action should redirect when model is valid" do
-    put :update, id: Session.first
-    expect(response).to redirect_to(session_path(@conference, assigns(:session)))
-  end
-
-  it "cancel action should cancel and redirect to organizer sessions" do
-    delete :cancel, id: Session.first
-    expect(response).to redirect_to(organizer_sessions_path(@conference))
-  end
-
-  it "cancel action should redirect to organizer sessions with error" do
-    session = FactoryGirl.create(:session, track: @session.track)
-    session.cancel
-    delete :cancel, id: session
-    expect(response).to redirect_to(organizer_sessions_path(@conference))
-    error_message = I18n.t('flash.session.cancel.failure',
-      locale: @session.author.default_locale)
-    expect(flash[:error]).to eq(error_message)
+      error_message = I18n.t('flash.session.cancel.failure',
+        locale: author.default_locale)
+      expect(flash[:error]).to eq(error_message)
+    end
   end
 end

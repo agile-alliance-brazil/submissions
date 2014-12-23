@@ -1,17 +1,11 @@
 # encoding: UTF-8
 class ReviewersController < ApplicationController
-  respond_to :html, only: [:index, :show]
-  respond_to :json, only: [:create, :destroy, :create_multiple]
-
-  before_filter :load_reviewer_filter, only: :index
-  has_scope :filtered, only: :index, as: :reviewer_filter, type: :hash do |controller, scope, value|
-    controller.send(:load_reviewer_filter).apply(scope)
-  end
-
   def index
+    filter_params = params.permit(reviewer_filter: [:state_id, :track_id])
+    @reviewer_filter = ReviewerFilter.new(filter_params)
     @tracks = @conference.tracks
     @states = resource_class.state_machine.states.map(&:name)
-    @reviewers = apply_scopes(resource_class).
+    @reviewers = @reviewer_filter.apply(Reviewer).
       for_conference(@conference).
       joins(:user).
       order('first_name, last_name').
@@ -22,18 +16,28 @@ class ReviewersController < ApplicationController
         @conference.id, @reviewers.map(&:user_id), :accepted).
       includes(user: [:reviews], conference: []).group_by(&:user)
     @reviewer = resource_class.new(conference: @conference)
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
     reviewer = new_reviewer
     if reviewer.try(:save)
-      render json: {
-        message: t('flash.reviewer.create.success'),
-        reviewer: ReviewerJsonBuilder.new(reviewer).to_json
-      }.to_json, status: 201
+      message = t('flash.reviewer.create.success')
+      reviewer = ReviewerJsonBuilder.new(reviewer).to_json
+
+      respond_to do |format|
+        format.json { render json: {
+          message: message,
+          reviewer: reviewer
+        }.to_json, status: 201 }
+      end
     else
       message = t('flash.reviewer.create.failure', username: reviewer.try(:user_username))
-      render json: message, status: 400
+      respond_to do |format|
+        format.json { render json: message, status: 400 }
+      end
     end
   end
 
@@ -41,7 +45,9 @@ class ReviewersController < ApplicationController
     batch = ReviewerBatch.new(batch_params.merge(conference: @conference))
     batch.save
 
-    render json: batch.to_json, status: 200
+    respond_to do |format|
+      format.json { render json: batch.to_json, status: 200 }
+    end
   end
 
   def show
@@ -56,26 +62,29 @@ class ReviewersController < ApplicationController
         },
         conference: [], accepted_preferences: [:audience_level, :track]
       ).first
+    respond_to do |format|
+      format.html
+    end
   end
     
   def destroy
     reviewer = resource_class.where(id: params[:id]).includes(:user).first
     if reviewer.nil?
-      render json: 'not-found', status: 404
+      respond_to do |format|
+        format.json { render json: 'not-found', status: 404 }
+      end
     else
       reviewer.destroy
       message = t('flash.reviewer.destroy.success', full_name: reviewer.user.full_name)
-      render json: {message: message}.to_json, status: 200
+      respond_to do |format|
+        format.json { render json: {message: message}.to_json, status: 200 }
+      end
     end
   end
   
   protected
   def resource_class
     Reviewer
-  end
-
-  def load_reviewer_filter
-    @reviewer_filter ||= ReviewerFilter.new(params)
   end
 
   def new_reviewer

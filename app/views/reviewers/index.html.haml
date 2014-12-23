@@ -81,7 +81,7 @@
         };
         $.submissions.reviewers.initializeAutocomplete(
           "#reviewer_user_username",
-          "#{users_path(format: :js)}",
+          "#{users_path(format: :json)}",
           valuesToExclude
         );
         $.submissions.reviewers.initializeRemoveLinksFeedback(".remove");

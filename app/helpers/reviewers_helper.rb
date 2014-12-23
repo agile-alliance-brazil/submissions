@@ -23,11 +23,13 @@ module ReviewersHelper
     row = Recommendation.all_names.
       map{|r| Recommendation.where(name: r).select(:id).map(&:id)}.
       map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
+    feedback_summary = ''
     if conference.author_notification.past?
       evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).to_a
-      row << "#{evaluations.select(&:helpful_review).size}" + image_tag('helpful.png', alt: '👍') + ' ' +
-        "#{evaluations.reject(&:helpful_review).size}" + image_tag('not-helpful.png', alt: '👎')
+      feedback_summary = evaluations.select(&:helpful_review).size.to_s + image_tag('helpful.png', alt: '👍') + ' ' +
+        evaluations.reject(&:helpful_review).size.to_s + image_tag('not-helpful.png', alt: '👎')      
     end
+    row << feedback_summary
     row
   end
 

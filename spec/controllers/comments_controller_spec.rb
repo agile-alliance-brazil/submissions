@@ -5,65 +5,74 @@ describe CommentsController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :index, :show, :create, :edit, :update, :destroy
-
+  let(:session) { FactoryGirl.create(:session) }
+  let(:valid_comment_params) do
+    { comment: 'Super comment!' }
+  end
+  subject { FactoryGirl.create(:comment, commentable: session)}
   before(:each) do
-    @comment = FactoryGirl.create(:comment)
-    sign_in @comment.user
+    sign_in subject.user
     disable_authorization
     EmailNotifications.stubs(:comment_submitted).returns(stub(deliver: true))
   end
 
   it "index action should redirect to session path" do
-    get :index, session_id: @comment.commentable
-    expect(response).to redirect_to(session_url(@comment.commentable.conference, @comment.commentable, anchor: 'comments'))
+    get :index, session_id: session.id
+
+    path = session_url(session.conference, session, anchor: 'comments')
+    expect(response).to redirect_to(path)
   end
 
   it "show action should redirect to edit path" do
-    get :show, session_id: @comment.commentable, id: @comment.id
-    expect(response).to redirect_to(edit_session_comment_url(@comment.commentable.conference, @comment.commentable, @comment))
+    get :show, session_id: session.id, id: subject.id
+
+    path = edit_session_comment_url(session.conference, session, subject)
+    expect(response).to redirect_to(path)
   end
 
   it "create action should render new template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    post :create, session_id: @comment.commentable, comment: {}
+    post :create, session_id: session.id, comment: {comment: nil}
+
     expect(response).to render_template('sessions/show')
   end
 
   it "create action should redirect when model is valid" do
-    Comment.any_instance.stubs(:valid?).returns(true)
-    post :create, session_id: @comment.commentable
-    expect(response).to redirect_to(session_url(@comment.commentable.conference, @comment.commentable, anchor: 'comments'))
+    post :create, session_id: session.id, comment: valid_comment_params
+
+    path = session_url(session.conference, session, anchor: 'comments')
+    expect(response).to redirect_to(path)
   end
 
   it "create action should send an email when model is valid" do
-    Comment.any_instance.stubs(:valid?).returns(true)
     EmailNotifications.expects(:comment_submitted).returns(mock(deliver: true))
-    post :create, session_id: @comment.commentable
+
+    post :create, session_id: session.id, comment: valid_comment_params
   end
 
   it "edit action should render edit template" do
-    get :edit, session_id: @comment.commentable, id: Comment.first
+    get :edit, session_id: session.id, id: subject.id
+
     expect(response).to render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    put :update, id: Comment.first, session_id: @comment.commentable, comment: {comment: nil}
-    expect(assigns(:session)).to eq(@comment.commentable)
+    put :update, session_id: session.id, id: subject.id, comment: {comment: nil}
+
+    expect(assigns(:session).id).to eq(session.id)
     expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    put :update, id: Comment.first, session_id: @comment.commentable
-    expect(response).to redirect_to(session_path(@comment.commentable.conference, @comment.commentable, anchor: 'comments'))
+    put :update, session_id: session.id, id: subject.id, comment: valid_comment_params
+
+    path = session_path(session.conference, session, anchor: 'comments')
+    expect(response).to redirect_to(path)
   end
 
   it "delete action should redirect to session" do
-    delete :destroy, id: Comment.first, session_id: @comment.commentable
-    expect(response).to redirect_to(session_path(@comment.commentable.conference, @comment.commentable, anchor: 'comments'))
+    delete :destroy, session_id: session.id, id: subject.id
+
+    path = session_path(session.conference, session, anchor: 'comments')
+    expect(response).to redirect_to(path)
   end
 end

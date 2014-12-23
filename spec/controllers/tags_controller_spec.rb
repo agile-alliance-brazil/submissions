@@ -2,13 +2,13 @@
 require 'spec_helper'
  
 describe TagsController, type: :controller do
-  describe "#index", "with javascript format" do
+  describe "#index", "with json format" do
     before do
-      xhr :get, :index, format: :js, term: 'sof'
+      xhr :get, :index, format: :json, term: 'sof'
     end
       
     subject { response }
 
-    its(:content_type) { should == "text/javascript" }
+    its(:content_type) { should == "application/json" }
   end
 end
