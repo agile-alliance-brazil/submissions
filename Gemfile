@@ -14,8 +14,6 @@ gem 'rails', '4.1.8' # Issue #114 - 4.2.0 is target
 gem 'haml', '4.0.6'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.2'
-gem 'inherited_resources', '1.5.1'
-gem 'has_scope', '0.6.0.rc'
 gem 'devise', '3.4.1'
 gem 'devise-encryptable', '0.2.0'
 gem 'localized_country_select', '0.9.9'
