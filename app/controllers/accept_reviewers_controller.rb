@@ -11,13 +11,10 @@ class AcceptReviewersController < ApplicationController
   end
 
   def update
-    p = accept_params
-    puts p.inspect
-    if p && @reviewer.update_attributes(p)
+    if accept_params && @reviewer.update_attributes(accept_params)
       flash[:notice] = t('flash.reviewer.accept.success')
       redirect_to reviewer_sessions_path(@conference)
     else
-      puts @reviewer.errors.full_messages
       flash.now[:error] = t('flash.failure')
       render :show
     end
