@@ -5,16 +5,16 @@ module Api
       skip_before_filter :authenticate_user!, :authorize_action, :set_conference
 
       before_filter :doorkeeper_authorize!
-      respond_to :json
 
       def show
-        respond_with current_user.as_json({
+        json_user = current_user.as_json({
           only: [
             :id, :email, :username, :first_name, :last_name, :twitter_username,
             :organization, :phone, :country, :state, :city
           ],
           methods: [:reviewer?, :organizer?]
         })
+        render json: json_user
       end
 
       def make_voter

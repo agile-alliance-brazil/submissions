@@ -4,8 +4,6 @@ module Api
     class SessionsController < ::ApplicationController
       skip_before_filter :authenticate_user!, :authorize_action, :set_conference
 
-      respond_to :json, :js
-
       rescue_from ActiveRecord::RecordNotFound do |exception|
         render json: {error: "not-found"}.to_json, status: 404
       end
@@ -34,7 +32,7 @@ module Api
           summary: session.summary
         }
 
-        respond_with do |format|
+        respond_to do |format|
           format.json { render json: session_hash }
           format.js { render json: session_hash, callback: params[:callback]}
         end
