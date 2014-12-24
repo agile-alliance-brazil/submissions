@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ReviewFeedbackRequester do
   before(:each) do
-    EmailNotifications.stubs(:review_feedback_request).returns(stub(deliver: true))
+    EmailNotifications.stubs(:review_feedback_request).returns(stub(deliver_now: true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
@@ -31,7 +31,7 @@ describe ReviewFeedbackRequester do
     end
 
     it "should send feedback e-mails" do
-      EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).with(@sessions[1].author).returns(mock(deliver: true))
+      EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).with(@sessions[1].author).returns(mock(deliver_now: true))
 
       @requester.send
     end
@@ -47,7 +47,7 @@ describe ReviewFeedbackRequester do
     it "should capture error when sending feedback request and move on" do
       error = StandardError.new('error')
       EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).raises(error)
-      EmailNotifications.expects(:review_feedback_request).with(@sessions[1].author).returns(mock(deliver: true))
+      EmailNotifications.expects(:review_feedback_request).with(@sessions[1].author).returns(mock(deliver_now: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED REQUEST FEEDBACK] error")
       ::Rails.logger.expects(:info).with("  [REQUEST FEEDBACK] OK")

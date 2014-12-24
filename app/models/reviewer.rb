@@ -25,7 +25,7 @@ class Reviewer < ActiveRecord::Base
 
   state_machine initial: :created do
     after_transition on: :invite do |reviewer|
-      EmailNotifications.reviewer_invitation(reviewer).deliver
+      EmailNotifications.reviewer_invitation(reviewer).deliver_now
     end
 
     after_transition on: :accept do |reviewer|

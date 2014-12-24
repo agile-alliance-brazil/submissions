@@ -10,7 +10,7 @@ describe ReviewersController, type: :controller do
     Conference.stubs(:current).returns(conference)
     sign_in user
     disable_authorization
-    EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver: true))
+    EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver_now: true))
   end
 
   context 'index' do
@@ -29,9 +29,11 @@ describe ReviewersController, type: :controller do
     end
 
     it "index action should assign tracks for current conference" do
+      expected_tracks = [track] # need to force creation
+
       get :index, year: conference.year
 
-      expect(assigns(:tracks)).to eq([track])
+      expect(assigns(:tracks)).to eq(expected_tracks)
     end
 
     it "index action should assign states for current conference" do

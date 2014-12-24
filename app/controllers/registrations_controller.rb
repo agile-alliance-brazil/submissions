@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     if resource.save
-      EmailNotifications.welcome(@user).deliver
+      EmailNotifications.welcome(@user).deliver_now
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_up(resource_name, resource)

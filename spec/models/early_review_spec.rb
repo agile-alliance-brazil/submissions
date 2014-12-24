@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe EarlyReview, type: :model do
   before(:each) do
-    EmailNotifications.stubs(:early_review_submitted).returns(stub(deliver: true))
+    EmailNotifications.stubs(:early_review_submitted).returns(stub(deliver_now: true))
   end
 
   it_should_trim_attributes EarlyReview, :comments_to_organizers, :comments_to_authors
@@ -47,7 +47,7 @@ describe EarlyReview, type: :model do
       review = FactoryGirl.build(:early_review)
       EarlyReview.send(:public, :notify)
 
-      EmailNotifications.expects(:early_review_submitted).with(review.session).returns(mock(deliver: true))
+      EmailNotifications.expects(:early_review_submitted).with(review.session).returns(mock(deliver_now: true))
 
       review.notify
     end

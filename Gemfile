@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '4.1.8' # Issue #114 - 4.2.0 is target
+gem 'rails', '4.2.0'
 gem 'haml', '4.0.6'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.2'
@@ -18,7 +18,7 @@ gem 'devise', '3.4.1'
 gem 'devise-encryptable', '0.2.0'
 gem 'localized_country_select', '0.9.9'
 gem 'brhelper', '3.3.0'
-gem 'seed-fu', '2.3.3'
+gem 'seed-fu', git: 'https://github.com/zenedge/seed-fu.git'
 gem 'acts-as-taggable-on', '3.4.2'
 gem 'cancan', '1.6.10'
 gem 'acts_as_commentable', '4.0.2'

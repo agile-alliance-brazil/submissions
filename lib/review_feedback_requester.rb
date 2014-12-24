@@ -15,7 +15,7 @@ class ReviewFeedbackRequester
   end
 
   def try_with(author)
-    EmailNotifications.review_feedback_request(author).deliver
+    EmailNotifications.review_feedback_request(author).deliver_now
     Rails.logger.info("  [REQUEST FEEDBACK] OK")
   rescue => e
     Airbrake.notify(e)

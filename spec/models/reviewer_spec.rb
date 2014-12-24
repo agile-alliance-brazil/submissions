@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Reviewer, type: :model do
   before(:each) do
-    EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver: true))
+    EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver_now: true))
     # TODO: Improve outcome and conference usage
     @conference = FactoryGirl.create(:conference)
     Conference.stubs(:current).returns(@conference)
@@ -122,7 +122,7 @@ describe Reviewer, type: :model do
 
     context "Event: invite" do
       it "should send invitation email" do
-        EmailNotifications.expects(:reviewer_invitation).with(@reviewer).returns(mock(deliver: true))
+        EmailNotifications.expects(:reviewer_invitation).with(@reviewer).returns(mock(deliver_now: true))
         @reviewer.invite
       end
     end

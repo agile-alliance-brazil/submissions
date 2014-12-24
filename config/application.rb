@@ -4,6 +4,8 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups) if defined?(Bundler)
 
+I18n.available_locales = [:en, :pt] # for guard-konacha
+
 module AgileBrazil
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -27,6 +29,8 @@ module AgileBrazil
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :pt
+    config.i18n.available_locales = [:en, :pt]
+    config.i18n.default_locale = :pt
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -53,8 +57,5 @@ module AgileBrazil
         @conference = Conference.current
       end
     end
-
-    config.i18n.available_locales = [:en, :pt]
-    config.i18n.default_locale = :pt
   end
 end

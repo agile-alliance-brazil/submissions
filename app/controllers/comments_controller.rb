@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_attributes)
     if @comment.save
-      EmailNotifications.comment_submitted(@session, @comment).deliver
+      EmailNotifications.comment_submitted(@session, @comment).deliver_now
       redirect_to session_path(@conference, @session, anchor: 'comments')
     else
       flash.now[:error] = t('flash.failure')

@@ -13,7 +13,7 @@ describe CommentsController, type: :controller do
   before(:each) do
     sign_in subject.user
     disable_authorization
-    EmailNotifications.stubs(:comment_submitted).returns(stub(deliver: true))
+    EmailNotifications.stubs(:comment_submitted).returns(stub(deliver_now: true))
   end
 
   it "index action should redirect to session path" do
@@ -44,7 +44,7 @@ describe CommentsController, type: :controller do
   end
 
   it "create action should send an email when model is valid" do
-    EmailNotifications.expects(:comment_submitted).returns(mock(deliver: true))
+    EmailNotifications.expects(:comment_submitted).returns(mock(deliver_now: true))
 
     post :create, session_id: session.id, comment: valid_comment_params
   end

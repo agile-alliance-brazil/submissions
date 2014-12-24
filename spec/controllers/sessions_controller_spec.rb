@@ -36,7 +36,7 @@ describe SessionsController, type: :controller do
 
     sign_in author
     disable_authorization
-    EmailNotifications.stubs(:session_submitted).returns(stub(deliver: true))
+    EmailNotifications.stubs(:session_submitted).returns(stub(deliver_now: true))
   end
 
   context 'index action' do
@@ -127,7 +127,7 @@ describe SessionsController, type: :controller do
     end
 
     it 'create action should send an email when model is valid' do
-      EmailNotifications.expects(:session_submitted).returns(mock(deliver: true))
+      EmailNotifications.expects(:session_submitted).returns(mock(deliver_now: true))
 
       post :create, year: conference.year, session: valid_params
     end

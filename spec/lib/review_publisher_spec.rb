@@ -4,7 +4,7 @@ require 'spec_helper'
 describe ReviewPublisher do
   before(:each) do
     Session.stubs(:count).returns(0)
-    EmailNotifications.stubs(:notification_of_acceptance).returns(stub(deliver: true))
+    EmailNotifications.stubs(:notification_of_acceptance).returns(stub(deliver_now: true))
     ::Rails.logger.stubs(:info)
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
@@ -69,7 +69,7 @@ describe ReviewPublisher do
     it "should send reject e-mails" do
       expect_acceptance(:reject)
 
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver: true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
 
       @publisher.publish
     end
@@ -77,7 +77,7 @@ describe ReviewPublisher do
     it "should send acceptance e-mails" do
       expect_acceptance(:accept)
 
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver: true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
 
       @publisher.publish
     end
@@ -96,7 +96,7 @@ describe ReviewPublisher do
         with(@sessions[0]).
         with(@sessions[1]).
         in_sequence(notifications).
-        returns(mock(deliver: true))
+        returns(mock(deliver_now: true))
 
       @publisher.publish
     end
@@ -126,7 +126,7 @@ describe ReviewPublisher do
 
       error = StandardError.new('error')
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver: true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver_now: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED ACCEPT] error")
       ::Rails.logger.expects(:info).with("  [ACCEPT] OK")
@@ -140,7 +140,7 @@ describe ReviewPublisher do
 
       error = StandardError.new('error')
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
-      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver: true))
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver_now: true))
 
       ::Rails.logger.expects(:info).with("  [FAILED REJECT] error")
       ::Rails.logger.expects(:info).with("  [REJECT] OK")

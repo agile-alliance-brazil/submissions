@@ -43,7 +43,7 @@ class ReviewPublisher
   end
 
   def try_with(action, session)
-    EmailNotifications.notification_of_acceptance(session).deliver
+    EmailNotifications.notification_of_acceptance(session).deliver_now
     session.review_decision.update_attribute(:published, true)
     Rails.logger.info("  [#{action}] OK")
   rescue => e

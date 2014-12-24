@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new(session_params)
     if @session.save
-      EmailNotifications.session_submitted(@session).deliver
+      EmailNotifications.session_submitted(@session).deliver_now
       flash[:notice] = t('flash.session.create.success')
       redirect_to session_path(@conference, @session)
     else

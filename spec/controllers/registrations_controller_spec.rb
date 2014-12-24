@@ -9,7 +9,7 @@ describe RegistrationsController, type: :controller do
     @user ||= FactoryGirl.create(:user)
     # TODO: Remove conference dependency
     FactoryGirl.create(:conference)
-    EmailNotifications.stubs(:welcome).returns(stub(deliver: true))
+    EmailNotifications.stubs(:welcome).returns(stub(deliver_now: true))
   end
 
   it "new action should render new template" do
@@ -43,7 +43,7 @@ describe RegistrationsController, type: :controller do
   end
 
   it "create action should send welcome e-mail" do
-    EmailNotifications.expects(:welcome).returns(mock(deliver: true))
+    EmailNotifications.expects(:welcome).returns(mock(deliver_now: true))
     User.any_instance.stubs(:valid?).returns(true)
     post :create
   end
