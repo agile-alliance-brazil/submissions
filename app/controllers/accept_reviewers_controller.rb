@@ -11,10 +11,13 @@ class AcceptReviewersController < ApplicationController
   end
 
   def update
-    if accept_params && @reviewer.update_attributes(accept_params)
+    p = accept_params
+    puts p.inspect
+    if p && @reviewer.update_attributes(p)
       flash[:notice] = t('flash.reviewer.accept.success')
       redirect_to reviewer_sessions_path(@conference)
     else
+      puts @reviewer.errors.full_messages
       flash.now[:error] = t('flash.failure')
       render :show
     end
@@ -32,8 +35,16 @@ class AcceptReviewersController < ApplicationController
   def accept_params
     unless params[:reviewer].blank?
       params.require(:reviewer).
-        permit(:preferences_attributes, :reviewer_agreement, :sign_reviews).
-        tap{|attr| attr[:state_event] = 'accept' }
+        permit(:reviewer_agreement, :sign_reviews,
+          { preferences_attributes:
+            [:accepted, :audience_level_id, :track_id]
+          }
+        ).tap do |attr|
+          attr[:state_event] = 'accept'
+          attr[:preferences_attributes].each do |a|
+            a[:reviewer_id] = @reviewer.id
+          end
+        end
     end
   end
 end

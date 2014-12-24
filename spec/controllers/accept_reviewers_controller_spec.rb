@@ -2,12 +2,12 @@
 require 'spec_helper'
 
 describe AcceptReviewersController, type: :controller do
+  let(:conference) { FactoryGirl.create(:conference) }
+  let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference) }
   before(:each) do
-    @reviewer = FactoryGirl.create(:reviewer)
-    @conference = @reviewer.conference
-    @track = FactoryGirl.create(:track, conference: @conference)
-    Reviewer.stubs(:find).returns(@reviewer)
-    sign_in @reviewer.user
+    @track = FactoryGirl.create(:track, conference: conference)
+    @audience_level = FactoryGirl.create(:audience_level, conference: conference)
+    sign_in reviewer.user
     disable_authorization
   end
   
@@ -15,46 +15,64 @@ describe AcceptReviewersController, type: :controller do
     render_views
   
     it "show pt should work" do
-      get :show, reviewer_id: @reviewer.id, locale: :pt
+      get :show, year: conference.year, reviewer_id: reviewer.id, locale: :pt
     end
   
     it "show en should work" do
-      get :show, reviewer_id: @reviewer.id, locale: :en
+      get :show, year: conference.year, reviewer_id: reviewer.id, locale: :en
     end
   end
 
   it_should_require_login_for_actions :show, :update
 
   it "show action should render show template" do
-    get :show, reviewer_id: @reviewer.id
+    get :show, year: conference.year, reviewer_id: reviewer.id
+
     expect(response).to render_template(:show)
   end
   
   it "show action should populate preferences for each track when empty" do
-    get :show, reviewer_id: @reviewer.id
-    expect(assigns(:reviewer).preferences.size).to eq(Track.for_conference(@conference).count)
+    get :show, year: conference.year, reviewer_id: reviewer.id
+
+    expect(assigns(:reviewer).preferences.size).to eq(conference.tracks.count)
   end
 
   it "show action should keep preferences when already present" do
-    @reviewer.preferences.build(track_id: Track.for_conference(@conference).first.id)
-    get :show, reviewer_id: @reviewer.id
+    reviewer.preferences.create(track_id: @track.id)
+
+    get :show, year: conference.year, reviewer_id: reviewer.id
+
     expect(assigns(:reviewer).preferences.size).to eq(1)
   end
   
   it "show action should only assign audience levels for current conference" do
-    get :show, reviewer_id: @reviewer.id
-    expect((assigns(:audience_levels) - @conference.audience_levels)).to be_empty
+    get :show, year: conference.year, reviewer_id: reviewer.id
+
+    expect(assigns(:audience_levels)).to eq([@audience_level])
   end
 
   it "update action should render accept_reviewers/show template when model is invalid" do
-    patch :update, reviewer_id: @reviewer.id, reviewer: {}
+    patch :update, year: conference.year, reviewer_id: reviewer.id, reviewer: {}
     
     expect(response).to render_template('accept_reviewers/show')
   end
 
+  let(:valid_params) {
+    {
+      reviewer_agreement: true,
+      signs_review: false,
+      preferences_attributes: [
+        {
+          accepted: true,
+          audience_level_id: @audience_level.id,
+          track_id: @track.id
+        }
+      ]
+    }
+  }
   it "update action should redirect when model is valid" do
-    patch :update, reviewer_id: @reviewer.id, reviewer: {reviewer_agreement: true}
+    patch :update, year: conference.year, reviewer_id: reviewer.id, reviewer: valid_params
     
-    expect(response).to redirect_to(reviewer_sessions_path(@conference))
+    expect(response).to redirect_to(reviewer_sessions_path(conference))
   end
 end

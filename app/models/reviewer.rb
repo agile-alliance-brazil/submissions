@@ -51,7 +51,7 @@ class Reviewer < ActiveRecord::Base
           reviewer.errors.add(:base, :preferences)
         end
       end
-      validates :reviewer_agreement, acceptance: true
+      validates :reviewer_agreement, acceptance: { accept: true }
     end
   end
 

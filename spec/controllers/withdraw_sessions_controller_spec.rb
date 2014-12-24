@@ -30,7 +30,7 @@ describe WithdrawSessionsController, type: :controller do
   end
 
   it "update action should redirect when model is valid" do
-    put :patch, session_id: @session.id, session: {author_agreement: true}
+    patch :update, session_id: @session.id, session: {author_agreement: true}
 
     expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end
