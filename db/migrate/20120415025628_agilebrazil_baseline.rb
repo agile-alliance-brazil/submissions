@@ -9,7 +9,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     create_table :comments do |t|
-      t.text        :comment, default: ""
+      t.text        :comment
       t.references  :commentable, polymorphic: true
       t.references  :user
       t.timestamps
