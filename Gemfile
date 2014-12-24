@@ -30,8 +30,7 @@ gem 'mysql2', '0.3.17'
 gem 'doorkeeper', '2.0.1'
 gem 'newrelic_rpm', '3.9.8.273'
 
-gem 'jquery-rails', '4.0.2'
-gem 'sprockets', '3.0.0.beta.6' # https://github.com/jfirebaugh/konacha/issues/123
+gem 'jquery-rails', '3.1.2'
 gem 'sass-rails', '5.0.0'
 gem 'coffee-rails', '4.1.0'
 gem 'jquery-ui-rails', '5.0.3'
