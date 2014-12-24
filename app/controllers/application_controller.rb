@@ -72,7 +72,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_conference
-    @conference ||= Conference.find_by_year(params[:year]) || Conference.current
+    @conference ||= (
+      Conference.includes(:tracks, :session_types).find_by_year(params[:year]) ||
+        Conference.current)
   end
 
   def authorize_action
