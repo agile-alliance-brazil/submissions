@@ -56,14 +56,14 @@ describe CommentsController, type: :controller do
   end
 
   it "update action should render edit template when model is invalid" do
-    put :update, session_id: session.id, id: subject.id, comment: {comment: nil}
+    patch :update, session_id: session.id, id: subject.id, comment: {comment: nil}
 
     expect(assigns(:session).id).to eq(session.id)
     expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    put :update, session_id: session.id, id: subject.id, comment: valid_comment_params
+    patch :update, session_id: session.id, id: subject.id, comment: valid_comment_params
 
     path = session_path(session.conference, session, anchor: 'comments')
     expect(response).to redirect_to(path)

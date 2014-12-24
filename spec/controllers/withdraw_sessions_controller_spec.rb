@@ -24,16 +24,14 @@ describe WithdrawSessionsController, type: :controller do
   end
   
   it "update action should render show template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    put :update, session_id: @session.id, session: {author_agreement: false}
+    patch :update, session_id: @session.id, session: {author_agreement: false}
+
     expect(response).to render_template(:show)
   end
 
   it "update action should redirect when model is valid" do
-    Session.any_instance.stubs(:valid?).returns(true)
-    put :update, session_id: @session.id, session: {author_agreement: true}
+    put :patch, session_id: @session.id, session: {author_agreement: true}
+
     expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end
 end

@@ -161,13 +161,13 @@ describe SessionsController, type: :controller do
 
   context 'update action' do
     it 'should render edit template when model is invalid' do
-      put :update, year: conference.year, id: session.id, session: {title: nil}
+      patch :update, year: conference.year, id: session.id, session: {title: nil}
 
       expect(response).to render_template(:edit)
     end
 
     it 'should redirect when model is valid' do
-      put :update, year: conference.year, id: session.id, session: valid_params
+      patch :update, year: conference.year, id: session.id, session: valid_params
 
       expect(response).to redirect_to(session_path(conference, assigns(:session)))
     end

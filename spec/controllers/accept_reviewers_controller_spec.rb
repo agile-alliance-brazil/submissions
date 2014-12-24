@@ -47,16 +47,14 @@ describe AcceptReviewersController, type: :controller do
   end
 
   it "update action should render accept_reviewers/show template when model is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
-    put :update, reviewer_id: @reviewer.id, reviewer: {}
+    patch :update, reviewer_id: @reviewer.id, reviewer: {}
+    
     expect(response).to render_template('accept_reviewers/show')
   end
 
   it "update action should redirect when model is valid" do
-    @reviewer.stubs(:valid?).returns(true)
-    put :update, reviewer_id: @reviewer.id, reviewer: {reviewer_agreement: true}
+    patch :update, reviewer_id: @reviewer.id, reviewer: {reviewer_agreement: true}
+    
     expect(response).to redirect_to(reviewer_sessions_path(@conference))
   end
 end

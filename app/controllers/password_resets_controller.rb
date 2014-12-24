@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class PasswordResetsController < Devise::PasswordsController
 
-  # PUT /resource/password
+  # PATCH /resource/password
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
 

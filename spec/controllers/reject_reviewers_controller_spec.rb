@@ -20,16 +20,16 @@ describe RejectReviewersController, type: :controller do
   end
   
   it "update action should render show template when transition is invalid" do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
     @reviewer.expects(:reject).returns(false)
-    put :update, reviewer_id: @reviewer.id
+
+    patch :update, reviewer_id: @reviewer.id
+
     expect(response).to render_template(:show)
   end
   
   it "update action should redirect when transition is valid" do
-    put :update, reviewer_id: @reviewer.id
+    patch :update, reviewer_id: @reviewer.id
+
     expect(response).to redirect_to(root_path)
   end
 end

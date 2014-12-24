@@ -64,12 +64,14 @@ describe ReviewDecisionsController, type: :controller do
     it "update action should render edit template when model is invalid" do
       patch :update, session_id: @session.id, id: @decision.id,
         review_decision: {outcome_id: nil}
+
       expect(response).to render_template(:edit)
     end
   
     it "update action should redirect when model is valid" do
       patch :update, session_id: @session.id, id: @decision.id,
         review_decision: {outcome_id: '1', note_to_authors: 'Super note'}
+
       expect(response).to redirect_to(organizer_sessions_url(@session.conference))
     end
   end
