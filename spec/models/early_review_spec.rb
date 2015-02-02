@@ -34,7 +34,7 @@ describe EarlyReview, type: :model do
     it { should validate_presence_of :reviewer_id }
     it { should validate_presence_of :session_id }
 
-    it { should ensure_length_of(:comments_to_authors).is_at_least(150) }
+    it { should validate_length_of(:comments_to_authors).is_at_least(150) }
 
     context "uniqueness" do
       before { FactoryGirl.create(:early_review) }

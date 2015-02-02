@@ -57,9 +57,9 @@ describe User, type: :model do
       it { should validate_presence_of :city }
       it { should validate_presence_of :bio }
 
-      it { should ensure_length_of(:phone).is_at_most(100) }
-      it { should ensure_length_of(:bio).is_at_most(1600) }
-      it { should ensure_length_of(:city).is_at_most(100) }
+      it { should validate_length_of(:phone).is_at_most(100) }
+      it { should validate_length_of(:bio).is_at_most(1600) }
+      it { should validate_length_of(:city).is_at_most(100) }
 
       it { should allow_value("1234-2345").for(:phone) }
       it { should allow_value("+55 11 5555 2234").for(:phone) }
@@ -76,13 +76,13 @@ describe User, type: :model do
       end
     end
 
-    it { should ensure_length_of(:username).is_at_least(3).is_at_most(30) }
-    it { should ensure_length_of(:password).is_at_least(3).is_at_most(30) }
-    it { should ensure_length_of(:email).is_at_least(6).is_at_most(100) }
-    it { should ensure_length_of(:first_name).is_at_most(100) }
-    it { should ensure_length_of(:last_name).is_at_most(100) }
-    it { should ensure_length_of(:organization).is_at_most(100) }
-    it { should ensure_length_of(:website_url).is_at_most(100) }
+    it { should validate_length_of(:username).is_at_least(3).is_at_most(30) }
+    it { should validate_length_of(:password).is_at_least(3).is_at_most(30) }
+    it { should validate_length_of(:email).is_at_least(6).is_at_most(100) }
+    it { should validate_length_of(:first_name).is_at_most(100) }
+    it { should validate_length_of(:last_name).is_at_most(100) }
+    it { should validate_length_of(:organization).is_at_most(100) }
+    it { should validate_length_of(:website_url).is_at_most(100) }
 
     it { should allow_value("dtsato").for(:username) }
     it { should allow_value("123").for(:username) }

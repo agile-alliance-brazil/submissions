@@ -46,12 +46,12 @@ describe Session, type: :model do
 
     it { should validate_numericality_of :audience_limit }
 
-    it { should ensure_length_of(:title).is_at_most(100) }
-    it { should ensure_length_of(:target_audience).is_at_most(200) }
-    it { should ensure_length_of(:summary).is_at_most(800) }
-    it { should ensure_length_of(:description).is_at_most(2400) }
-    it { should ensure_length_of(:benefits).is_at_most(400) }
-    it { should ensure_length_of(:experience).is_at_most(400) }
+    it { should validate_length_of(:title).is_at_most(100) }
+    it { should validate_length_of(:target_audience).is_at_most(200) }
+    it { should validate_length_of(:summary).is_at_most(800) }
+    it { should validate_length_of(:description).is_at_most(2400) }
+    it { should validate_length_of(:benefits).is_at_most(400) }
+    it { should validate_length_of(:experience).is_at_most(400) }
 
     context "track" do
       it "should match the conference" do
@@ -92,7 +92,7 @@ describe Session, type: :model do
         before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.workshop.title', conference: subject.conference) }
 
         it { should validate_presence_of(:mechanics) }
-        it { should ensure_length_of(:mechanics).is_at_most(2400) }
+        it { should validate_length_of(:mechanics).is_at_most(2400) }
       end
 
       context "hands on" do
@@ -100,7 +100,7 @@ describe Session, type: :model do
         before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.hands_on.title', conference: subject.conference) }
 
         it { should validate_presence_of(:mechanics) }
-        it { should ensure_length_of(:mechanics).is_at_most(2400) }
+        it { should validate_length_of(:mechanics).is_at_most(2400) }
       end
     end
 
