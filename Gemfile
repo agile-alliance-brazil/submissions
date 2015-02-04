@@ -79,7 +79,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'konacha'
-  gem 'guard-konacha', git: 'https://github.com/lbeder/guard-konacha.git'
+  gem 'guard-konacha-rails'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'selenium-webdriver'
 end
