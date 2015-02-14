@@ -27,7 +27,7 @@ gem 'validates_existence', '0.9.2'
 gem 'airbrake', '4.1.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'mysql2', '0.3.17'
-gem 'doorkeeper', '2.1.0'
+gem 'doorkeeper', '2.1.1'
 gem 'newrelic_rpm'
 
 gem 'jquery-rails', '4.0.3'
