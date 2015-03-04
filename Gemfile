@@ -37,7 +37,7 @@ gem 'jquery-ui-rails', '5.0.3'
 gem 'therubyracer', '0.12.1'
 gem 'yui-compressor', '0.12.0'
 gem 'fancybox-rails', '0.2.1'
-gem 'uglifier', '2.7.0'
+gem 'uglifier', '2.7.1'
 
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
 
