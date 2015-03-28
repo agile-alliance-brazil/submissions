@@ -155,7 +155,7 @@ describe Api::V1::SessionsController, type: :controller do
     end
   end
   def gravatar_url(gravatar_id)
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
+    "https://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
   end
   def unescape_utf8_chars(text)
     text.gsub(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
