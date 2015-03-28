@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
     size = options[:size] || :normal
     default = options[:default] || :mm
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
+    "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
   end
 
   private
