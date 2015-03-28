@@ -1,7 +1,7 @@
 node default {
   exec { 'update':
-      command => "apt-get update",
-      path => "/usr/bin",
+      command => "echo updated",
+      path => "/bin",
   }
 
   class { 'swap':
