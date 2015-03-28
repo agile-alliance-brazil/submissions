@@ -17,7 +17,7 @@
 # extended properties on the server.
 server '107.170.116.137', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
-set :server_url, 'submissoes.staging.agilebrazil.com'
+set :server_url, 'submissoes-staging.agilebrazil.com'
 set :rails_env, 'staging'
 
 # you can set custom ssh options
