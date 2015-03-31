@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/DHUers/seed-fu.git
-  revision: 9ed69b91d502a6c9f5f13e41227c0421e2ecc3ae
-  specs:
-    seed-fu (2.3.4)
-      activerecord (>= 3.1, < 4.3)
-      activesupport (>= 3.1, < 4.3)
-
-GIT
   remote: https://github.com/hugocorbucci/goalie.git
   revision: 116505c2530697ab9e900d042fa982d462fce13d
   specs:
@@ -304,6 +296,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    seed-fu (2.3.5)
+      activerecord (>= 3.1, < 4.3)
+      activesupport (>= 3.1, < 4.3)
     selenium-webdriver (2.45.0)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
@@ -419,7 +414,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails
   sass-rails (= 5.0.2)
-  seed-fu!
+  seed-fu (= 2.3.5)
   selenium-webdriver
   shoulda-matchers
   simplecov
