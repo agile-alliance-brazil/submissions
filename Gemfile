@@ -31,7 +31,7 @@ gem 'doorkeeper', '2.1.1'
 gem 'newrelic_rpm'
 
 gem 'jquery-rails', '4.0.3'
-gem 'sass-rails', '5.0.2'
+gem 'sass-rails', '5.0.3'
 gem 'coffee-rails', '4.1.0'
 gem 'jquery-ui-rails', '5.0.3'
 gem 'therubyracer', '0.12.1'
