@@ -1,0 +1,17 @@
+- title "Trabalhos da #{@conference.name}"
+- show_actions!
+.auto_focus
+
+%p A Conferência Brasileira sobre Métodos Ágeis de Desenvolvimento de Software – #{link_to(@conference.name, "http://www.agilebrazil.com/")} – é uma conferência nacional sem fins lucrativos organizada pela Agile Alliance Brazil e por representantes das principais comunidades ágeis brasileiras. O evento tem como propósito promover a comunicação e a colaboração entre seus integrantes visando à disseminação coordenada da cultura Ágil por todo o país.
+
+%p A #{@conference.name} acontecerá em Porto de Galinhas no início de novembro, contando com treinamentos, apresentação de sessões e discussões provenientes de várias regiões do país, além da participação de convidados reconhecidos internacionalmente.
+
+%p Submeta sua proposta de trabalho e venha se juntar a nós em Porto de Galinhas! Leia as #{link_to(t('title.guidelines'), static_page_path(@conference, 'guidelines'))}, elabore sua proposta e submeta. Para submeter, basta entrar com seu usuário e senha do ano passado, clicar em '#{t('actions.submit_session')}' e preencher o formulário. Envie a sua, comente as propostas dos outros e faça da #{@conference.name} a conferência perfeita para você.
+
+%p Nota: para submissões relativas a Pesquisa, veja a chamada específica do #{link_to("WBMA", "http://www.agilebrazil.com/2015/wbma/")}, que tem prazos e formatos diferentes.
+
+%h3 Datas importantes
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

@@ -71,3 +71,19 @@ Conference.seed do |conference|
   conference.author_notification       = Time.zone.local(2014, 8, 25, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2014, 9, 4, 2, 59, 59)
 end
+
+Conference.seed do |conference|
+  conference.id                        = 6
+  conference.name                      = 'Agile Brazil 2015'
+  conference.year                      = 2015
+  conference.location_and_date         = 'Porto de Galinhas PE, 22-24 Out, 2015'
+  conference.call_for_papers           = Time.zone.local(2015, 4, 17)
+  conference.submissions_open          = Time.zone.local(2015, 4, 24)
+  conference.presubmissions_deadline   = nil# No pre review
+  conference.prereview_deadline        = nil# No pre review
+  conference.submissions_deadline      = Time.zone.local(2015, 6, 19, 23, 59, 59)
+  conference.review_deadline           = Time.zone.local(2015, 7, 31, 23, 59, 59)
+  conference.voting_deadline           = nil# No voting
+  conference.author_notification       = Time.zone.local(2015, 8, 10, 23, 59, 59)
+  conference.author_confirmation       = Time.zone.local(2015, 8, 20, 2, 59, 59)
+end
