@@ -103,6 +103,7 @@ SessionType.seed do |session_type|
   session_type.valid_durations = [25]
 end
 
+## 2014
 SessionType.seed do |session_type|
   session_type.id = 14
   session_type.conference_id = 5
@@ -133,4 +134,50 @@ SessionType.seed do |session_type|
   session_type.title = 'session_types.experience_report.title'
   session_type.description = 'session_types.experience_report.description'
   session_type.valid_durations = [25]
+end
+
+## 2015
+### Talk 
+SessionType.seed do |session_type|
+  session_type.id = 18
+  session_type.conference_id = 6
+  session_type.title = 'session_types.traditional_talk.title'
+  session_type.description = 'session_types.traditional_talk.description'
+  session_type.valid_durations = [50]
+end
+
+### Duel  
+SessionType.seed do |session_type|
+  session_type.id = 19
+  session_type.conference_id = 6
+  session_type.title = 'session_types.duel.title'
+  session_type.description = 'session_types.duel.description'
+  session_type.valid_durations = [50]
+end
+
+### Hands On 
+SessionType.seed do |session_type|
+  session_type.id = 20
+  session_type.conference_id = 6
+  session_type.title = 'session_types.hands_on.title'
+  session_type.description = 'session_types.hands_on.description'
+  session_type.valid_durations = [80]
+end
+
+### Experience Report 
+SessionType.seed do |session_type|
+  session_type.id = 21
+  session_type.conference_id = 6
+  session_type.title = 'session_types.experience_report.title'
+  session_type.description = 'session_types.experience_report.description'
+  session_type.valid_durations = [15]
+end
+
+### Are you sure of it? 
+SessionType.seed do |session_type|
+  session_type.id = 22
+  session_type.conference_id = 6
+  session_type.title = 'session_types.are_you_sure_of_it.title'
+  session_type.description = 'session_types.are_you_sure_of_it.description'
+  session_type.valid_durations = [50]
 end

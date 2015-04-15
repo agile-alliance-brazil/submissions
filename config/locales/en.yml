@@ -447,6 +447,10 @@ en:
       title: "Duel"
       title_plural: "duels"
       description: "Duels are thought provoking sessions that will promote discussions and, hopefully, bring new insights to the most experienced agilists. It consists of a single submission where 2 speakers defend opposite views of a subject, plus 20 minutes of discussions with the audience."
+    are_you_sure_of_it:
+      title: "Are you sure of it?"
+      title_plural: "are you sure of it?"
+      description: "Are sessions that aim to instigate the community's debate and reflection over a theme. The speaker may or may not provide answers, but above all it will present an innovative or disruptive perspective on the status quo. These sessions are dynamic and consist of an 20 minutes presentation, followed by audience participation - either through questions to the speaker, or exposing others points of view - fostering a great forum for knowledge generation. This type of sessions are for people who believe that only the right questions get answers that make a difference."
 
   tracks:
     general_interest:
@@ -502,6 +506,25 @@ en:
     2014_innovation_entrepreneurship:
       title: "Innovation and Entrepreneurship"
       description: "The challenges of entrepreneurship and innovation are not new, but answers to these problems are still a big numb area. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
+
+    2015_general_interest:
+      title: "General Interest"
+      description: "The General Interest track is dedicated to relevant sessions related to trends, culture, values, and principles of Agile, Lean, etc. It is home to sessions that can benefit all agilists, regardless of the process or methods they use. These talks will cover what it is to be Agile, the everyday life, the market's and agile's future, and all kinds of subjects that may call an agilist attention."
+    2015_development_tests:
+      title: "Development and Tests"
+      description: "This track holds sessions related to Agile methods and practices focused on developing and testing software. Those are sessions about programming, continuous integration, test automation, acceptance or integration tests, and handy tools. Presentations concerning DevOps are also welcome here."
+    2015_management:
+      title: "Management"
+      description: "The Management track is devoted to team and project management. Sessions gather themes such as making and developing teams, new people management models, self-organization, agile management practices applied to projects and products and more. Talks describing and discussing processes belong here."
+    2015_coaching_learning:
+      title: "Coaching, Learning and Facilitation"
+      description: "You can expect sessions at the Coaching, Learning and Facilitation track to present concepts, techniques and tips for Agile facilitation, coaching, and empowerment. This track will discuss competences that can help coaches and facilitators lead, teach, mentor, open space, as well as continuous improvement tools for agile teams and people. This year, we will also have sessions concerning the important subject of education, in sessions that bring teaching techniques of Agile and surrounding themes."
+    2015_ux_product:
+      title: "UX, Analysis and Product Design"
+      description: "What is our goal? Is creating value by enhancing user experience possible? These and many other concerns are the focus of this track, that will gather sessions regarding concepts, methods, and practices of Agile business analysis, Agile UX, information architecture, design thinking, etc. It intends to broaden the universe of discoveries and interactive and incremental actions, aiming the integration of business analysis, software development and emergent design."
+    2015_innovation_entrepreneurship:
+      title: "Innovation and Entrepreneurship"
+      description: "In start-ups or inside big enterprises, the challenges of entrepreneurship and innovation are not new, but answers to these problems are still cloudy. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
 
   audience_levels:
     beginner:
