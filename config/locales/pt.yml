@@ -520,6 +520,18 @@ pt:
     experienced:
       title: "Experiente"
       description: "Alguém com uma compreensão mais profunda do tema, que domina o assunto a ponto de liderar uma equipe ou capacitá-la em suas práticas."
+    novice:
+      title: "Novato"
+      description: "Alguém que está começando a ter contato agora com métodos ágeis e busca criar uma base de conhecimento sobre o tema."
+    advanced_beginner:
+      title: "Iniciante avançado"
+      description: "Pessoas que já seguiram alguns métodos em seus projetos e conseguem ver o que funciona e o que não funciona em sua experiência."
+    competent:
+      title: "Competente"
+      description: "Aqueles que já têm experiência o bastante para entender a aplicação contextual de práticas ágeis e estão interessados em conhecer outros contextos."
+    proficient:
+      title: "Proficiente"
+      description: "Agilistas que têm uma compreensão mais profunda do tema e baseiam suas decisões em instintos adquiridos com experiência e em princípios ágeis, mais do que em processos ou práticas conhecidas."
 
   email:
     welcome:

@@ -523,6 +523,18 @@ en:
     experienced:
       title: "Experienced"
       description: "A person who has a deeper understanding of the theme, to the extent of leading or helping a team in adopting its practices."
+    novice:
+      title: "Novice"
+      description: "Someone who is just getting to know and try agile methods and are searching for a knowleage base on the theme."
+    advanced_beginner:
+      title: "Advanced Beginner"
+      description: "People who have experienced agile methods in their projects and can see what works and what doesn't in their own experience."
+    competent:
+      title: "Competent"
+      description: "Those who have done and tried enought to understand the contextual application of agile practices and are interested in getting to know other contexts."
+    proficient:
+      title: "Proficient"
+      description: "Agilists who have a deeper understanding of the theme and base their decisions on experience acquired insticts and and in agile principles rather than on processes or known practices."
 
   email:
     welcome:
