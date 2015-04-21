@@ -442,11 +442,15 @@ en:
     traditional_talk:
       title: "Talk"
       title_plural: "talks"
-      description: "Talks are sessions presenting subjects and ideas in a way that favors the understanding and the reception of the speaker's knowledge. This is a classic format for conference presentations and it requires entertaining oratory while bringing value to atendees."
+      description: "Talks are sessions presenting subjects and ideas in a way that favors the understanding and the reception of the speaker's knowledge. This is a classic format for conference presentations and it requires entertaining oratory while bringing value to attendees. In this type of session there is no requirement regarding the amount of time the speaker should devote to answering questions. Despite that, we recommend leaving at least 5 final minutes for questions."
     duel:
       title: "Duel"
       title_plural: "duels"
       description: "Duels are thought provoking sessions that will promote discussions and, hopefully, bring new insights to the most experienced agilists. It consists of a single submission where 2 speakers defend opposite views of a subject, plus 20 minutes of discussions with the audience."
+    are_you_sure:
+      title: "Are you sure?"
+      title_plural: '"are you sure"s'
+      description: "'Are you sure of it?' are sessions that aim to instigate the community's debate and reflection over a theme. The speaker may or may not provide answers, but above all it will present an innovative or disruptive perspective on the status quo. These sessions are dynamic and consist of an 20 minutes presentation, followed by audience participation - either through questions to the speaker, or exposing others points of view - fostering a great forum for knowledge generation. This type of sessions are for people who believe that only the right questions get answers that make a difference."
 
   tracks:
     general_interest:
