@@ -501,7 +501,13 @@ en:
       description: "What is our goal? Is creating value by enhancing user experience possible? These and many other concerns are the focus of this track, that will gather sessions regarding concepts, methods, and practices of Agile business analysis, Agile UX, information architecture, design thinking, etc. It intends to broaden the universe of discoveries and interactive and incremental actions, aiming the integration of business analysis, software development and emergent design."
     2014_innovation_entrepreneurship:
       title: "Innovation and Entrepreneurship"
-      description: "The challenges of entrepreneurship and innovation are not new, but answers to these problems are still a big numb area. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
+      description: "In start-ups or inside big enterprises, the challenges of entrepreneurship and innovation are not new, but answers to these problems are still cloudy. This track tackles these challenges and how Agile ideas and tools can help solve them. It will be home to discussions about prospecting opportunities, renewing possibilities and accelerating the process of making and validating hypothesis. Disruptive actions and ideas that promote innovation are more than welcome here."
+    2015_general_interest:
+      title: "General Interest"
+      description: "The General Interest track is dedicated to relevant sessions related to trends, culture, values, and principles of Agile, Lean, etc. It is home to sessions that can benefit all agilists, regardless of the process or methods they use. These talks will cover what it is to be Agile, the everyday life, the market's and agile's future, and all kinds of subjects that may call an agilist attention."
+    2015_ux_product:
+      title: "UX, Analysis and Product Design"
+      description: "What is our goal? Is creating value by enhancing user experience as much as possible? How to make the right software, from both the software owner and the user points of view? These and many other concerns are the focus of this track, that will gather sessions regarding concepts, methods, and practices of Agile business analysis, Agile UX, information architecture, design thinking, product ownership, product management, etc. It intends to broaden the universe of discoveries and interactive and incremental actions, aiming the integration of business analysis, software development and emergent design."
 
   audience_levels:
     beginner:
