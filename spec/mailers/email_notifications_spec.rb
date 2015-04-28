@@ -154,6 +154,17 @@ describe EmailNotifications, type: :mailer do
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
     end
+
+    context "with commenters" do
+      let(:another_user) { FactoryGirl.build(:user, email: "another.user@provider.com") }
+      let(:another_comment) { FactoryGirl.build(:comment, commentable: session, user: another_user) }
+
+      it "should be sent to sessions commenters and authors" do 
+        session.expects(:comments).returns([ stub(user: another_user) ])
+        EmailNotifications.comment_submitted(session, comment)
+        should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, another_user)) 
+      end
+    end
   end
 
   describe "early review submission e-mail" do
