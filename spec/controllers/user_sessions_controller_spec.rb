@@ -7,7 +7,7 @@ describe UserSessionsController, type: :controller do
   it_should_behave_like_a_devise_controller
 
   before(:each) do
-    @conference = FactoryGirl.create(:conference, year: 2014)
+    @conference = FactoryGirl.create(:conference, year: 2015)
   end
   
   it "new action should render new template" do
