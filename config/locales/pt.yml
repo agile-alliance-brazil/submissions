@@ -439,11 +439,15 @@ pt:
     traditional_talk:
       title: "Palestra"
       title_plural: "palestras"
-      description: "Palestras são sessões que apresentam assuntos e ideias de forma a favorecer a compreensão e recebimento de um conhecimento do palestrante. É o formato clássico de apresentações e exige um bom domínio de quem as apresenta para manter o público entretido e, ao mesmo tempo, agregar valor."
+      description: "Palestras são sessões que apresentam assuntos e ideias de forma a favorecer a compreensão e recebimento de um conhecimento do palestrante. É o formato clássico de apresentações e exige um bom domínio de quem as apresenta para manter o público entretido e, ao mesmo tempo, agregar valor. Não existem restrições neste tipo de sessão sobre quanto tempo o palestrante deverá dedicar ao esclarecimento de dúvidas e perguntas. Contudo, recomendamos reservar ao menos 5 minutos no final da sessão."
     duel:
       title: "Duelo"
       title_plural: "duelos"
       description: "Duelos são sessões com o objetivo de incentivar o pensamento crítico e promover discussões que, quem sabe, trarão novos insights mesmo aos agilistas mais experientes. É uma submissão única com dois palestrantes defendendo pontos opostos por 15 minutos cada, seguidas de 20 minutos de debate com o público presente."
+    are_you_sure:
+      title: "Você está certo disso?"
+      title_plural: '"você está certo disso?"'
+      description: '"Você está certo disso?" são sessões que buscam instigar o debate e reflexão da comunidade sobre um tema. O palestrante poderá ou não prover respostas, mas acima de tudo ele apresentará uma perspectiva inovadora ou contestadora sobre o status quo. Essas sessões são dinâmicas, sendo compostas de uma apresentação sobre o assunto de 20 minutos ou menos e o resto do tempo dedicado à participação da audiência, seja através de perguntas ao palestrante, ou exposição de outros pontos de vista, promovendo um grande fórum de geração de conhecimento. Sessões desse tipo são para pessoas que acreditam que somente as perguntas certas obtém respostas que fazem diferença.'
 
   tracks:
     general_interest:
@@ -498,7 +502,13 @@ pt:
       description: "Qual a meta a ser atingida? Agregar valor, aumentando a qualidade da experiência de uso é possível? Estas e muitas outra questões são o foco dessa trilha que reunirá sessões abrangendo conceitos, métodos e práticas de análise ágil de negócios e tópicos de Agile UX, arquitetura da informação, design thinking e outras. Buscamos expandir a discussão sobre esse universo de descobertas e ações iterativas e incrementais, sempre visando o trabalho integrado da análise de negócio, desenvolvimento de software com design emergente."
     2014_innovation_entrepreneurship:
       title: "Inovação e Empreendedorismo"
-      description: "Os desafios de empreender e inovar datam de muito tempo atrás, mas ainda não temos respostas claras e definitivas para eles. Nesta trilha, vamos abordar esses desafios e como a agilidade pode ajudar, trazendo consigo uma gama de ideias e ferramentas. Nessa trilha teremos discussões sobre como prospectar novas oportunidades ou renovar possibilidades, acelerar a formação e validação de hipóteses. Ideias e ações disruptivas promovendo inovação são mais que bem-vindas nessa trilha."
+      description: "Seja em startups ou em dentro de grandes empresas, os desafios de empreender e inovar datam de muito tempo atrás, mas ainda não temos respostas claras e definitivas para eles. Nesta trilha, vamos abordar esses desafios e como a agilidade pode ajudar, trazendo consigo uma gama de ideias e ferramentas. Nessa trilha teremos discussões sobre como prospectar novas oportunidades ou renovar possibilidades, acelerar a formação e validação de hipóteses. Ideias e ações disruptivas promovendo inovação são mais que bem-vindas nessa trilha."
+    2015_general_interest:
+      title: "Interesse Geral"
+      description: "A trilha Interesse Geral é dedicada às sessões relevantes relacionadas a tendências cultura, valores e princípios do Agile, do Lean e afins. São sessões que trazem assuntos de interesse aos agilistas, independentemente de sua escolha de métodos ou processos. São palestras que falam do que é ser ágil, do dia-a-dia, do futuro do mercado e dos métodos ágeis e de todo tipo de assunto que possa interessar a outros agilistas."
+    2015_ux_product:
+      title: "UX, Análise e Design de Produtos"
+      description: "Qual a meta a ser atingida? Agregar valor, aumentando a qualidade da experiência de uso é possível? Como fazer o software certo, tanto do ponto de vista do dono do software, quanto do ponto de vista dos usuários? Estas e muitas outras questões são o foco dessa trilha que reunirá sessões abrangendo conceitos, métodos e práticas de análise ágil de negócios e tópicos de Agile UX, arquitetura da informação, design thinking, product ownership, gestão de produtos e outras. Buscamos expandir a discussão sobre esse universo de descobertas e ações iterativas e incrementais, sempre visando o trabalho integrado da análise de negócio, desenvolvimento de software com design emergente."
 
   audience_levels:
     beginner:
@@ -510,6 +520,18 @@ pt:
     experienced:
       title: "Experiente"
       description: "Alguém com uma compreensão mais profunda do tema, que domina o assunto a ponto de liderar uma equipe ou capacitá-la em suas práticas."
+    novice:
+      title: "Novato"
+      description: "Alguém que está começando a ter contato agora com métodos ágeis e busca criar uma base de conhecimento sobre o tema."
+    advanced_beginner:
+      title: "Iniciante avançado"
+      description: "Pessoas que já seguiram alguns métodos em seus projetos e conseguem ver o que funciona e o que não funciona em sua experiência."
+    competent:
+      title: "Competente"
+      description: "Aqueles que já têm experiência o bastante para entender a aplicação contextual de práticas ágeis e estão interessados em conhecer outros contextos."
+    proficient:
+      title: "Proficiente"
+      description: "Agilistas que têm uma compreensão mais profunda do tema e baseiam suas decisões em instintos adquiridos com experiência e em princípios ágeis, mais do que em processos ou práticas conhecidas."
 
   email:
     welcome:

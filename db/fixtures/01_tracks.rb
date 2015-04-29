@@ -173,3 +173,45 @@ Track.seed do |track|
   track.title = 'tracks.2014_innovation_entrepreneurship.title'
   track.description = 'tracks.2014_innovation_entrepreneurship.description'
 end
+
+Track.seed do |track|
+  track.id = 26
+  track.conference_id = 6
+  track.title = 'tracks.2015_general_interest.title'
+  track.description = 'tracks.2015_general_interest.description'
+end
+
+Track.seed do |track|
+  track.id = 27
+  track.conference_id = 6
+  track.title = 'tracks.2014_development_tests.title'
+  track.description = 'tracks.2014_development_tests.description'
+end
+
+Track.seed do |track|
+  track.id = 28
+  track.conference_id = 6
+  track.title = 'tracks.2014_management.title'
+  track.description = 'tracks.2014_management.description'
+end
+
+Track.seed do |track|
+  track.id = 29
+  track.conference_id = 6
+  track.title = 'tracks.2014_coaching_learning.title'
+  track.description = 'tracks.2014_coaching_learning.description'
+end
+
+Track.seed do |track|
+  track.id = 30
+  track.conference_id = 6
+  track.title = 'tracks.2015_ux_product.title'
+  track.description = 'tracks.2015_ux_product.description'
+end
+
+Track.seed do |track|
+  track.id = 31
+  track.conference_id = 6
+  track.title = 'tracks.2014_innovation_entrepreneurship.title'
+  track.description = 'tracks.2014_innovation_entrepreneurship.description'
+end

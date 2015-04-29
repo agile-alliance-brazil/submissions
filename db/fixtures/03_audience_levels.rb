@@ -103,3 +103,31 @@ AudienceLevel.seed do |audience_level|
   audience_level.title = 'audience_levels.experienced.title'
   audience_level.description = 'audience_levels.experienced.description'
 end
+
+AudienceLevel.seed do |audience_level|
+  audience_level.id = 16
+  audience_level.conference_id = 6
+  audience_level.title = 'audience_levels.novice.title'
+  audience_level.description = 'audience_levels.novice.description'
+end
+
+AudienceLevel.seed do |audience_level|
+  audience_level.id = 17
+  audience_level.conference_id = 6
+  audience_level.title = 'audience_levels.advanced_beginner.title'
+  audience_level.description = 'audience_levels.advanced_beginner.description'
+end
+
+AudienceLevel.seed do |audience_level|
+  audience_level.id = 18
+  audience_level.conference_id = 6
+  audience_level.title = 'audience_levels.competent.title'
+  audience_level.description = 'audience_levels.competent.description'
+end
+
+AudienceLevel.seed do |audience_level|
+  audience_level.id = 19
+  audience_level.conference_id = 6
+  audience_level.title = 'audience_levels.proficient.title'
+  audience_level.description = 'audience_levels.proficient.description'
+end
