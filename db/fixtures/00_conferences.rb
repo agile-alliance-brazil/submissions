@@ -77,8 +77,8 @@ Conference.seed do |conference|
   conference.name                      = 'Agile Brazil 2015'
   conference.year                      = 2015
   conference.location_and_date         = 'Porto de Galinhas PE, 21-23 Oct, 2015'
-  conference.call_for_papers           = Time.zone.local(2015, 4, 23)
-  conference.submissions_open          = Time.zone.local(2015, 4, 24)
+  conference.call_for_papers           = Time.zone.local(2015, 4, 30)
+  conference.submissions_open          = Time.zone.local(2015, 5, 4)
   conference.presubmissions_deadline   = nil# No pre review
   conference.prereview_deadline        = nil# No pre review
   conference.submissions_deadline      = Time.zone.local(2015, 6, 19, 23, 59, 59)
