@@ -78,6 +78,41 @@ form.formtastic fieldset ol li p.inline-hints {
   width: 74%;
 }
 
+form.formtastic fieldset.submission ol span.possibleDurations {
+  display: inline-block;
+  margin-left: 10em;
+  margin-top: -6em;
+  text-align: right;
+  width: 55%;
+  color: #666;
+}
+
+form.formtastic fieldset.submission ol li {
+  position: relative;
+}
+
+form.formtastic fieldset.submission ol li p.inline-hints {
+  position: absolute;
+  left: -250px; /* because it is on top of the actions column */
+  top: 0;
+  width: 220px;
+
+  border: 2px solid #369;
+  border-radius: 0.5em;
+  color: #333;
+  display: none;
+  font-size: 1.3em;
+  padding: 0.5em;
+}
+
+form.formtastic fieldset.submission ol li:nth-child(2n+1) p.inline-hints {
+  background-color: #B0DFF5;
+}
+
+form.formtastic fieldset.submission ol li:nth-child(2n) p.inline-hints {
+  background-color: #FFFF00;
+}
+
 form.formtastic fieldset ol li ul.errors {
   background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
