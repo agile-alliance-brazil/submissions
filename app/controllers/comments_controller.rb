@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_attributes)
+    @comment = @session.comments.create(comment_attributes)
     if @comment.save
       EmailNotifications.comment_submitted(@session, @comment).deliver_now
       redirect_to session_path(@conference, @session, anchor: 'comments')
@@ -48,6 +48,10 @@ class CommentsController < ApplicationController
   private
   def resource
     Comment.find(params[:id])
+  end
+
+  def resource_class
+    Comment
   end
 
   def comment_attributes

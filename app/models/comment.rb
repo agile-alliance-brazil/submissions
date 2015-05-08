@@ -9,6 +9,7 @@ class Comment < ActiveRecord::Base
 
   validates :comment, presence: true, length: {maximum: 1000}
   validates :user_id, presence: true
+  validates :commentable_type, presence: true
   validates :commentable_id, presence: true
 
   default_scope -> { order('created_at ASC') }
