@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_attributes)
+    @comment = @session.comments.create(comment_attributes)
     if @comment.save
       EmailNotifications.comment_submitted(@session, @comment).deliver_now
       redirect_to session_path(@conference, @session, anchor: 'comments')
