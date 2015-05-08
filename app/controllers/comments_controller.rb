@@ -50,6 +50,10 @@ class CommentsController < ApplicationController
     Comment.find(params[:id])
   end
 
+  def resource_class
+    Comment
+  end
+
   def comment_attributes
     attributes = params.require(:comment).permit(:comment)
     attributes.merge(inferred_attributes)
