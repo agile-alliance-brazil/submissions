@@ -1,6 +1,6 @@
-%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Dear,
 
-%p A new comment has been posted to your session <strong>'#{h(@session.title)}'</strong>:
+%p A new comment has been posted to session <strong>'#{h(@session.title)}'</strong>:
 
 %blockquote
   %em= raw textilize(@comment.comment)

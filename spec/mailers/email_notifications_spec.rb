@@ -132,27 +132,25 @@ describe EmailNotifications, type: :mailer do
     context "in pt" do
       before { user.default_locale = 'pt' }
 
-      it { should have_subject("[localhost:3000] Novo comentário para sua sessão '#{session.title}'") }
+      it { should have_subject("[localhost:3000] Novo comentário para a sessão '#{session.title}'") }
     end
 
     context "in en" do
       before { user.default_locale = 'en' }
 
-      it { should have_subject("[localhost:3000] New comment for your session '#{session.title}'") }
+      it { should have_subject("[localhost:3000] New comment for session '#{session.title}'") }
     end
 
     context "with single author" do
       let(:session) { FactoryGirl.build(:session, author: user) }
 
-      it { should deliver_to(EmailNotifications.send(:format_email, user)) }
-      it { should have_body_text(/#{session.author.full_name},/)}
+      it { should bcc_to(user.email) }
     end
 
     context "with second author" do
       let(:session) { FactoryGirl.build(:session, second_author: user) }
 
-      it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-      it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
+      it { should bcc_to(session.author.email, user.email) }
     end
 
     context "with commenters" do
@@ -162,7 +160,7 @@ describe EmailNotifications, type: :mailer do
       it "should be sent to sessions commenters and authors" do 
         session.expects(:comments).returns([ stub(user: another_user) ])
         EmailNotifications.comment_submitted(session, comment)
-        should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, another_user)) 
+        should bcc_to(session.author.email, another_user.email) 
       end
     end
   end

@@ -1,6 +1,6 @@
-%p Olá #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Olá,
 
-%p Um novo comentário foi feito na sua sessão <strong>'#{h(@session.title)}'</strong>:
+%p Um novo comentário foi feito na sessão <strong>'#{h(@session.title)}'</strong>:
 
 %blockquote
   %em= raw textilize(@comment.comment)
