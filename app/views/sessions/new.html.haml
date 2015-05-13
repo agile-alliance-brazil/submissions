@@ -2,6 +2,39 @@
 - show_actions!
 .auto_focus
 
+= t('text.examples_submissions')
+%ul
+  %li
+    = link_to("Como tomar decisões em equipe", "https://submissoes.agilebrazil.com/2014/sessions/969-como-tomar-decisoes-em-equipe") 
+    \ - 
+    = t('session_types.hands_on.title')
+  %li
+    = link_to("QA to AQ: Shifting from Quality Assurance to Agile Quality", "https://submissoes.agilebrazil.com/2014/sessions/977-qa-to-aq-shifting-from-quality-assurance-to-agile-quality") 
+    \ - 
+    = t('session_types.talk.title')    
+    (<strong>#{t('generic.en')}</strong>)
+  %li
+    = link_to("#StopTheMimimi: De vítima a protagonista", "https://submissoes.agilebrazil.com/2014/sessions/957-stopthemimimi-de-vitima-a-protagonista")
+    \ - 
+    = t('session_types.talk.title')
+  %li 
+    = link_to "Fracassando com alegria: relatos de trincheira de uma startup gaúcha", "https://submissoes.agilebrazil.com/2014/sessions/1003-fracassando-com-alegria-relatos-de-trincheira-de-uma-startup-gaucha"
+    \ - 
+    = t('session_types.talk.title')     
+  %li 
+    = link_to "Gamification e o lado negro dessa força...", "https://submissoes.agilebrazil.com/2014/sessions/1054-gamification-e-o-lado-negro-dessa-forca"
+    \ - 
+    = t('session_types.experience_report.title')
+  %li 
+    = link_to "UX para aumentar a liberdade de diabéticos", "https://submissoes.agilebrazil.com/2014/sessions/941-ux-para-aumentar-a-liberdade-de-diabeticos"
+    \ -
+    = t('session_types.experience_report.title')  
+  %li 
+    = link_to("From Zero to Agile: The Learnings of a First Time Quality Analyst", "https://submissoes.agilebrazil.com/2014/sessions/1062-from-zero-to-agile-the-learnings-of-a-first-time-quality-analyst")
+    \ - 
+    = t('session_types.experience_report.title')
+    (<strong>#{t('generic.en')}</strong>)
+
 = semantic_form_for @session, url: sessions_path(@conference) do |form|
   = render 'form', form: form
   = form.actions do

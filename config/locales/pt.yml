@@ -350,6 +350,7 @@ pt:
     reviewer:
       signs: '%{name} assina suas avaliações!'
       anonymous: '%{name} optou por NÃO assinar suas avaliações'
+    examples_submissions: "Você pode se basear nas submissões dos anos passados para escrever a sua proposta! Segue abaixo uma lista de excelentes submissões, selecionadas pelo nosso comitê de programa, que você pode utilizar de exemplo:"
 
   footer:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
