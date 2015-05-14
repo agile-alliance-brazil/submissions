@@ -74,6 +74,6 @@ AgileBrazil::Application.routes.draw do
     resources :votes, only: [:index, :create, :destroy]
     resources :review_feedbacks, only: [:new, :create, :show]
 
-    get ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help/
+    get ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help|call_for_reviewers/
   end
 end
