@@ -13,13 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20141220193221) do
 
-  create_table "all_hands", force: true do |t|
+  create_table "all_hands", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "audience_levels", force: true do |t|
+  create_table "audience_levels", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "audience_levels", ["conference_id"], name: "index_audience_levels_on_conference_id"
 
-  create_table "comments", force: true do |t|
-    t.text     "comment",          default: ""
+  create_table "comments", force: :cascade do |t|
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
-  create_table "conferences", force: true do |t|
+  create_table "conferences", force: :cascade do |t|
     t.string   "name"
     t.integer  "year"
     t.datetime "call_for_papers"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.datetime "voting_deadline"
   end
 
-  create_table "guest_sessions", force: true do |t|
+  create_table "guest_sessions", force: :cascade do |t|
     t.string   "title"
     t.string   "author"
     t.text     "summary"
@@ -71,13 +71,13 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "guest_sessions", ["conference_id"], name: "index_guest_sessions_on_conference_id"
 
-  create_table "lightning_talk_groups", force: true do |t|
+  create_table "lightning_talk_groups", force: :cascade do |t|
     t.string   "lightning_talk_info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "oauth_access_grants", force: true do |t|
+  create_table "oauth_access_grants", force: :cascade do |t|
     t.integer  "resource_owner_id", null: false
     t.integer  "application_id",    null: false
     t.string   "token",             null: false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
 
-  create_table "oauth_access_tokens", force: true do |t|
+  create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
     t.integer  "application_id",    null: false
     t.string   "token",             null: false
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
 
-  create_table "oauth_applications", force: true do |t|
+  create_table "oauth_applications", force: :cascade do |t|
     t.string   "name",                      null: false
     t.string   "uid",                       null: false
     t.string   "secret",                    null: false
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
 
-  create_table "organizers", force: true do |t|
+  create_table "organizers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "track_id"
     t.integer  "conference_id"
@@ -130,13 +130,13 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "organizers", ["track_id"], name: "index_organizers_on_track_id"
   add_index "organizers", ["user_id"], name: "index_organizers_on_user_id"
 
-  create_table "outcomes", force: true do |t|
+  create_table "outcomes", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "preferences", force: true do |t|
+  create_table "preferences", force: :cascade do |t|
     t.integer  "reviewer_id"
     t.integer  "track_id"
     t.integer  "audience_level_id"
@@ -149,19 +149,19 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "preferences", ["reviewer_id"], name: "index_preferences_on_reviewer_id"
   add_index "preferences", ["track_id"], name: "index_preferences_on_track_id"
 
-  create_table "ratings", force: true do |t|
+  create_table "ratings", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "recommendations", force: true do |t|
+  create_table "recommendations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "review_decisions", force: true do |t|
+  create_table "review_decisions", force: :cascade do |t|
     t.integer  "session_id"
     t.integer  "outcome_id"
     t.integer  "organizer_id"
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "review_decisions", ["outcome_id"], name: "index_review_decisions_on_outcome_id"
   add_index "review_decisions", ["session_id"], name: "index_review_decisions_on_session_id"
 
-  create_table "review_evaluations", force: true do |t|
+  create_table "review_evaluations", force: :cascade do |t|
     t.integer  "review_id"
     t.integer  "review_feedback_id"
     t.boolean  "helpful_review"
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.datetime "updated_at"
   end
 
-  create_table "review_feedbacks", force: true do |t|
+  create_table "review_feedbacks", force: :cascade do |t|
     t.integer  "conference_id"
     t.integer  "author_id"
     t.string   "general_comments"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.datetime "updated_at"
   end
 
-  create_table "reviewers", force: true do |t|
+  create_table "reviewers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
     t.string   "state"
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "reviewers", ["conference_id"], name: "index_reviewers_on_conference_id"
   add_index "reviewers", ["user_id"], name: "index_reviewers_on_user_id"
 
-  create_table "reviews", force: true do |t|
+  create_table "reviews", force: :cascade do |t|
     t.integer  "author_agile_xp_rating_id"
     t.integer  "author_proposal_xp_rating_id"
     t.boolean  "proposal_track"
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "reviews", ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   add_index "reviews", ["session_id"], name: "index_reviews_on_session_id"
 
-  create_table "rooms", force: true do |t|
+  create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.integer  "capacity"
     t.integer  "conference_id"
@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "rooms", ["conference_id"], name: "index_rooms_on_conference_id"
 
-  create_table "session_types", force: true do |t|
+  create_table "session_types", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "session_types", ["conference_id"], name: "index_session_types_on_conference_id"
 
-  create_table "sessions", force: true do |t|
+  create_table "sessions", force: :cascade do |t|
     t.string   "title"
     t.text     "summary"
     t.text     "description"
@@ -293,7 +293,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
   add_index "sessions", ["session_type_id"], name: "index_sessions_on_session_type_id"
   add_index "sessions", ["track_id"], name: "index_sessions_on_track_id"
 
-  create_table "taggings", force: true do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
 
-  create_table "tags", force: true do |t|
+  create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "expiration_year"
     t.integer "taggings_count",  default: 0
@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
-  create_table "tracks", force: true do |t|
+  create_table "tracks", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "conference_id"
@@ -323,7 +323,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
 
   add_index "tracks", ["conference_id"], name: "index_tracks_on_conference_id"
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "email"
     t.string   "encrypted_password"
@@ -352,7 +352,7 @@ ActiveRecord::Schema.define(version: 20141220193221) do
     t.datetime "updated_at"
   end
 
-  create_table "votes", force: true do |t|
+  create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "session_id"
     t.integer  "conference_id"
