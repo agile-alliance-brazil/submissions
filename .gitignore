@@ -13,7 +13,6 @@ turbulence
 tmp
 certs/*
 .sass-cache/
-public/assets/
 vendor/bundle/**/*
 .ruby-gemset
 app/assets/javascripts/*.js
