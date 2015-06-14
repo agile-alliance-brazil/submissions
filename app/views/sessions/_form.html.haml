@@ -10,7 +10,7 @@
 
   = form.input :audience_limit, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.audience_limit')
   = form.input :title, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.title')
-  = form.input :keyword_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil}, as: :hidden
+  = form.input :keyword_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil, value: (@session.keyword_list||[]).join(',')}, as: :hidden
   %li 
     %label 
       = t('formtastic.labels.session.keyword_list')
@@ -82,7 +82,7 @@
 
   function loadAlreadySelectedTags() {
     var commaSeparatedTags = $('#session_keyword_list').get(0).value;
-    var tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(', ');
+    var tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
     for (var i = 0; i < tags.length; i++) {
       var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
       $(tagItem).addClass('selectedTag');
@@ -103,7 +103,7 @@
       tags.splice(index, 1);
       $(this).removeClass('selectedTag');
     }
-    $('#session_keyword_list').val(tags.join());
+    $('#session_keyword_list').val(tags.join(','));
     $('#tagCounter').text(10 - tags.length);
   });
 
