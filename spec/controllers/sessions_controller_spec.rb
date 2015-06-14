@@ -26,13 +26,15 @@ describe SessionsController, type: :controller do
       session_type_id: session_type.id,
       duration_mins: session_type.valid_durations.first.to_s,
       experience: 'A lot!',
-      keyword_list: 'tag,another',
+      keyword_list: 'tags.tdd,tags.tecniques',
       language: 'pt'
     }
   end
   before(:each) do
     # Need session types to suggest durations in the form
     @session_types = [session_type]
+    ActsAsTaggableOn::Tag.create(name: 'tags.tdd')
+    ActsAsTaggableOn::Tag.create(name: 'tags.tecniques')
 
     sign_in author
     disable_authorization
@@ -40,13 +42,13 @@ describe SessionsController, type: :controller do
   end
 
   context 'index action' do
-    it 'index action should render index template' do
+    it 'should render index template' do
       get :index, year: conference.year
 
       expect(response).to render_template(:index)
     end
 
-    it 'index action should not display cancelled sessions' do
+    it 'should not display cancelled sessions' do
       session.cancel
 
       get :index, year: conference.year
@@ -114,19 +116,25 @@ describe SessionsController, type: :controller do
   end
 
   context 'create action' do
-    it 'create action should render new template when model is invalid' do
+    it 'should render new template when model is invalid' do
       post :create, year: conference.year, session: {title: 'Test'}
 
       expect(response).to render_template(:new)
     end
 
-    it 'create action should redirect when model is valid' do
+    it 'should redirect when model is valid' do
       post :create, year: conference.year, session: valid_params
 
       expect(response).to redirect_to(session_url(conference, assigns(:session)))
     end
 
-    it 'create action should send an email when model is valid' do
+    it 'should ignore unknown tags' do
+      post :create, year: conference.year, session: valid_params.merge({keyword_list: 'tags.tdd,tags.tecniques,unknown'})
+
+      expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
+    end
+
+    it 'should send an email when model is valid' do
       EmailNotifications.expects(:session_submitted).returns(mock(deliver_now: true))
 
       post :create, year: conference.year, session: valid_params
@@ -134,25 +142,25 @@ describe SessionsController, type: :controller do
   end
 
   context 'edit action' do
-    it 'edit action should render edit template' do
+    it 'should render edit template' do
       get :edit, year: conference.year, id: session.id
 
       expect(response).to render_template(:edit)
     end
 
-    it 'edit action should only assign tracks for current conference' do
+    it 'should only assign tracks for current conference' do
       get :edit, year: conference.year, id: session.id
 
       expect(assigns(:tracks) - conference.tracks).to be_empty
     end
 
-    it 'edit action should only assign audience levels for current conference' do
+    it 'should only assign audience levels for current conference' do
       get :edit, year: conference.year, id: session.id
 
       expect(assigns(:audience_levels) - conference.audience_levels).to be_empty
     end
 
-    it 'edit action should only assign session types for current conference' do
+    it 'should only assign session types for current conference' do
       get :edit, year: conference.year, id: session.id
 
       expect(assigns(:session_types) - conference.session_types).to be_empty
@@ -170,6 +178,12 @@ describe SessionsController, type: :controller do
       patch :update, year: conference.year, id: session.id, session: valid_params
 
       expect(response).to redirect_to(session_path(conference, assigns(:session)))
+    end
+
+    it 'should ignore unknown tags' do
+      post :create, year: conference.year, session: valid_params.merge({keyword_list: 'tags.tdd,tags.tecniques,unknown'})
+
+      expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
     end
   end
 

@@ -67,7 +67,7 @@ FactoryGirl.define do
     summary "Summary details of session"
     description "Full details of session"
     mechanics "Process/Mechanics"
-    keyword_list "fake, tag"
+    keyword_list "tags.tests,tags.learning"
     prerequisites "Prerequisites for this sessions"
     benefits "Benefits for audience"
     target_audience "Managers, developers, testers"
