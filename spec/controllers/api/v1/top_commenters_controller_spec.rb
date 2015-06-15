@@ -6,7 +6,7 @@ describe Api::V1::TopCommentersController, type: :controller do
   describe 'index' do
     def simplify(user)
       gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-      picture = "https://gravatar.com/avatar/#{gravatar_id}.png?s=normal&d=mm"
+      picture = "https://gravatar.com/avatar/#{gravatar_id}.png"
       { user: user.username, name: user.full_name, picture: picture, comment_count: user.comments.count }
     end
     def create_commenter_with_number_of_comments_as(number, session = session)
