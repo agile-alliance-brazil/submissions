@@ -8,6 +8,7 @@ AgileBrazil::Application.routes.draw do
         post :make_voter, on: :collection
       end
       resources :sessions, only: [:show]
+      resources :top_commenters, only: [:index]
     end
   end
 

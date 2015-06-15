@@ -129,6 +129,7 @@ describe User, type: :model do
     it { should have_many :final_reviews }
     it { should have_many :votes }
     it { should have_many(:voted_sessions).through(:votes) }
+    it { should have_many :comments }
 
     describe "organized tracks for conference" do
       it "should narrow tracks based on conference" do

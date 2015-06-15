@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :final_reviews, foreign_key: 'reviewer_id'
   has_many :votes
   has_many :voted_sessions, through: :votes, source: :session
+  has_many :comments
 
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
-  
+  scope :by_comments, lambda { |comment_filters| joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) }
 
   def organized_tracks(conference)
     Track.joins(:track_ownerships).where(organizers: {
