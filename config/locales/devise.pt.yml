@@ -39,7 +39,8 @@ pt:
       update_needs_confirmation: Sua conta foi atualizada com sucesso, mas nós precisamos verificar o novo endereço de email. Por favor, verifique seu email e clique no link de confirmação para finalizar confirmando o seu novo email.
       updated: Perfil atualizado com sucesso!
       password_updated: Senha atualizada com sucesso!
-    user_sessions:
+    sessions:
+      user:
       signed_in: Login efetuado com sucesso.
       signed_out: Logout efetuado com sucesso.
     unlocks:
