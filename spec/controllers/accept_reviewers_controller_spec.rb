@@ -4,9 +4,11 @@ require 'spec_helper'
 describe AcceptReviewersController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
   let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference) }
+  let(:track) { FactoryGirl.create(:track, conference: conference) }
+  let(:audience_level) { FactoryGirl.create(:audience_level, conference: conference) }
   before(:each) do
-    @track = FactoryGirl.create(:track, conference: conference)
-    @audience_level = FactoryGirl.create(:audience_level, conference: conference)
+    @track = track
+    @audience_level = audience_level
     sign_in reviewer.user
     disable_authorization
   end
@@ -56,18 +58,22 @@ describe AcceptReviewersController, type: :controller do
     
     expect(response).to render_template('accept_reviewers/show')
   end
-
+  let(:other_track) { FactoryGirl.create(:track, conference: conference) }
   let(:valid_params) {
     {
       reviewer_agreement: true,
       signs_review: false,
-      preferences_attributes: [
+      preferences_attributes: { '0' =>
         {
-          accepted: true,
+          accepted: '1',
           audience_level_id: @audience_level.id,
           track_id: @track.id
-        }
-      ]
+        }, '1' =>
+        {
+          accepted: '0',
+          track_id: other_track.id
+        },
+      }
     }
   }
   it "update action should redirect when model is valid" do

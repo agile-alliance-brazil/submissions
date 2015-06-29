@@ -38,8 +38,8 @@ class AcceptReviewersController < ApplicationController
           }
         ).tap do |attr|
           attr[:state_event] = 'accept'
-          attr[:preferences_attributes].each do |a|
-            a[:reviewer_id] = @reviewer.id
+          attr[:preferences_attributes].each do |index, preferences|
+            preferences[:reviewer_id] = @reviewer.id
           end
         end
     end
