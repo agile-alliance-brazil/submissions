@@ -154,7 +154,7 @@ describe Session, type: :model do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
-        expect(session.update_attributes(state_event: 'accept', author_agreement: false)).to be false
+        expect(session.update_attributes(state_event: 'accept', author_agreement: '0')).to be false
         expect(session.errors[:author_agreement]).to include(I18n.t("errors.messages.accepted"))
       end
 
@@ -162,8 +162,26 @@ describe Session, type: :model do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
-        expect(session.update_attributes(state_event: 'reject', author_agreement: false)).to be false
+        expect(session.update_attributes(state_event: 'reject', author_agreement: '0')).to be false
         expect(session.errors[:author_agreement]).to include(I18n.t("errors.messages.accepted"))
+      end
+
+      it "should be valid when author agreement was accepted on acceptance" do
+        session = FactoryGirl.build(:session)
+        session.reviewing
+        session.tentatively_accept
+        updated = session.update_attributes(state_event: 'accept', author_agreement: '1')
+        expect(session.errors).to be_empty
+        expect(updated).to be true
+      end
+
+      it "should validate that author agreement was accepted on withdraw" do
+        session = FactoryGirl.build(:session)
+        session.reviewing
+        session.tentatively_accept
+        updated = session.update_attributes(state_event: 'reject', author_agreement: '1')
+        expect(session.errors).to be_empty
+        expect(updated).to be true
       end
     end
 

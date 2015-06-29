@@ -61,8 +61,8 @@ describe AcceptReviewersController, type: :controller do
   let(:other_track) { FactoryGirl.create(:track, conference: conference) }
   let(:valid_params) {
     {
-      reviewer_agreement: true,
-      signs_review: false,
+      reviewer_agreement: '1',
+      sign_reviews: '0',
       preferences_attributes: { '0' =>
         {
           accepted: '1',

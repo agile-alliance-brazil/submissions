@@ -24,13 +24,13 @@ describe ConfirmSessionsController, type: :controller do
   end
   
   it "update action should render show template when model is invalid" do
-    patch :update, session_id: @session.id, session: {author_agreement: false}
+    patch :update, session_id: @session.id, session: {author_agreement: '0'}
 
     expect(response).to render_template(:show)
   end
 
   it "update action should redirect when model is valid" do
-    patch :update, session_id: @session.id, session: {author_agreement: true}
+    patch :update, session_id: @session.id, session: {author_agreement: '1'}
 
     expect(response).to redirect_to(user_sessions_path(@conference, @user))
   end  
