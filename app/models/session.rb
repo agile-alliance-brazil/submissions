@@ -54,7 +54,7 @@ class Session < ActiveRecord::Base
     select("sessions.*").
     joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
     where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id).
-    group('sessions.id').
+    group("sessions.id, sessions.#{review_type.underscore.pluralize}_count").
     having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
   }
 
