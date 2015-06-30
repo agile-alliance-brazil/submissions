@@ -220,36 +220,43 @@ describe Session, type: :model do
         before(:each) do
           @conference.stubs(:in_early_review_phase?).returns(true)
           @conference.stubs(:in_final_review_phase?).returns(false)
+
+          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        end
+
+        it 'should bring only one session unreviewed' do
+          expect(Session.for_reviewer(@user, @conference).count).to eq({1 => 1})
         end
 
         it "if reviewed multiple times, it should only be returned once" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
           FactoryGirl.create(:early_review, session: @session)
           FactoryGirl.create(:early_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "if already reviewed by user, it should not be returned" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it "should only be returned once even if reviewed multiple times" do
+          FactoryGirl.create(:early_review, session: @session)
+          FactoryGirl.create(:early_review, session: @session)
+          expect(Session.for_reviewer(@user, @conference)).to eq([@session])
+        end
+
+        it "should not be returned if already reviewed by user" do
           FactoryGirl.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
         context "early review deadline" do
-          it "if submitted at the early review deadline, it should be returned" do
-            FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          it "should be returned if submitted at the early review deadline" do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
-          it "if submitted 3 hours past the early review deadline, it should be returned" do
-            FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          it "should be returned if submitted 3 hours past the early review deadline" do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
-          it "if submitted after 3 hours past the early review deadline, it should not be returned" do
-            FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          it "should not be returned if submitted after 3 hours past the early review deadline" do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours + 1.second)
             expect(Session.for_reviewer(@user, @conference)).to_not include(session)
           end
@@ -260,36 +267,37 @@ describe Session, type: :model do
         before(:each) do
           @conference.stubs(:in_early_review_phase?).returns(false)
           @conference.stubs(:in_final_review_phase?).returns(true)
+
+          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
-        it "if reviewed multiple times, it should only be returned once" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it 'should bring only one session unreviewed' do
+          expect(Session.for_reviewer(@user, @conference).count).to eq({1 => 1})
+        end
+
+        it "should only be returned once if reviewed multiple times" do
           FactoryGirl.create(:final_review, session: @session)
           FactoryGirl.create(:final_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "if already reviewed by user, it should not be returned" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it "should not be returned if already reviewed by user" do
           FactoryGirl.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
-        it "if already reviewed by user and another user, it should not be returned" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it "should not be returned if already reviewed by user and another user" do
           FactoryGirl.create(:final_review, session: @session)
           FactoryGirl.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
-        it "if reviewed by user during early review, it should be returned" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it "should be returned if reviewed by user during early review" do
           FactoryGirl.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "if already reviewed 3 times, it should not be returned" do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+        it "should not be returned if already reviewed 3 times" do
           FactoryGirl.create_list(:final_review, 3, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
