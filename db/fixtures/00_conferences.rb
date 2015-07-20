@@ -82,7 +82,7 @@ Conference.seed do |conference|
   conference.presubmissions_deadline   = nil# No pre review
   conference.prereview_deadline        = nil# No pre review
   conference.submissions_deadline      = Time.zone.local(2015, 6, 28, 23, 59, 59)
-  conference.review_deadline           = Time.zone.local(2015, 7, 19, 23, 59, 59)
+  conference.review_deadline           = Time.zone.local(2015, 7, 21, 23, 59, 59)
   conference.voting_deadline           = nil# No voting
   conference.author_notification       = Time.zone.local(2015, 7, 29, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2015, 8, 10, 2, 59, 59)
