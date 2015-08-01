@@ -26,7 +26,7 @@ gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
 gem 'airbrake', '4.3.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
-gem 'mysql2', '0.3.18'
+gem 'mysql2', '0.3.19'
 gem 'doorkeeper', '2.1.1'
 gem 'newrelic_rpm'
 
