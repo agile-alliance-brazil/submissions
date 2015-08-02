@@ -30,8 +30,8 @@ The sessions whose authors do not confirm or withdraw their attendance until #{@
 
 
 If your attendance is confirmed, the organization of #{@conference_name} will contact you about the complementary registration earned by proposal for the event.
-- if @session.authors.size > 1
-  Note that, although you have two presenters for your proposal, there is only one complementary registration per proposal. When the organization contacts you, you will have to chose which presenter will use the registration. The other one will have to register as a regular attendee.
+- if @session.authors.size > 1 && @session.experience_report?
+  Note that, although you have two presenters for your proposal, there is only one complementary registration per experience report. When the organization contacts you, you will have to chose which presenter will use the registration. The other one will have to register as a regular attendee.
 
 
 Should you have any queries, requests or comments, please contact the Program Committee at programa@agilebrazil.com.

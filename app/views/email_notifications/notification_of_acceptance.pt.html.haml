@@ -30,8 +30,8 @@
 
 %p
   Caso sua sessão seja confirmada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição.
-  - if @session.authors.size > 1
-    Note que, apesar de sua proposta ter dois autores, há apenas uma inscrição gratuita por proposta. Quando a organização entrar em contato, será necessário escolher qual dos autores usará a inscrição gratuita. O outro autor deverá se inscrever como conferencista normal.
+  - if @session.authors.size > 1 && @session.experience_report?
+    Note que, apesar de sua proposta ter dois autores, há apenas uma inscrição gratuita por relato de experiência. Quando a organização entrar em contato, será necessário escolher qual dos autores usará a inscrição gratuita. O outro autor deverá se inscrever como conferencista normal.
 
 %p Em caso de dúvidas, pedidos ou comentários, contate a Comissão de Programa através do email #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
 
