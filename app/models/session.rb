@@ -45,28 +45,27 @@ class Session < ActiveRecord::Base
   scope :for_tracks, ->(track_ids) { where(track_id: track_ids) }
   scope :for_audience_level, ->(audience_level_id) { where(audience_level_id: audience_level_id) }
   scope :for_session_type, ->(session_type_id) { where(session_type_id: session_type_id) }
-
+  scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
+  scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
+  scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }
   scope :not_author, ->(u) {
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
   }
-
   scope :not_reviewed_by, ->(user, review_type) {
     joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
-    where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id).
-    group("sessions.id").
-    having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
+      where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id).
+      group("sessions.id").
+      having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
   }
-
   scope :for_preferences, ->(*preferences) {
     return none if preferences.empty?
     clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
     args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
     where(clause, *args)
   }
-
-  scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
-  scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
-  scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }
+  scope :with_outcome, ->(outcome) {
+    includes(:review_decision).where(review_decisions: {outcome_id: outcome.id, published: false})
+  }
 
   def self.for_review_in(conference)
     sessions = for_conference(conference).without_state(:cancelled)
@@ -87,6 +86,24 @@ class Session < ActiveRecord::Base
     else
       sessions
     end
+  end
+
+  def self.not_reviewed_count_for(conference)
+    Session.for_conference(conference).where(state: 'created').count
+  end
+
+  def self.not_decided_count_for(conference)
+    Session.for_conference(conference).where(state: 'in_review').count
+  end
+
+  def self.without_decision_count_for(conference)
+    Session.for_conference(conference).where(state: ['pending_confirmation', 'rejected']).
+      joins('left outer join (
+        SELECT session_id, count(*) AS cnt
+        FROM review_decisions
+        GROUP BY session_id
+      ) AS review_decision_count
+      ON review_decision_count.session_id = sessions.id').count
   end
 
   state_machine initial: :created do
