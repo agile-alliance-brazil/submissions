@@ -103,7 +103,7 @@ class Session < ActiveRecord::Base
         FROM review_decisions
         GROUP BY session_id
       ) AS review_decision_count
-      ON review_decision_count.session_id = sessions.id').count
+      ON review_decision_count.session_id = sessions.id').where('review_decision_count.cnt <> 1').count
   end
 
   state_machine initial: :created do
