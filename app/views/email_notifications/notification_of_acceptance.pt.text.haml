@@ -32,7 +32,7 @@ A sessão que não for confirmada ou cancelada até o dia #{@conference.author_c
 
 Caso sua sessão seja confirmada, a organização da #{@conference_name} entrará em contato para dar início ao processo de inscrição.
 
-- if @session.authors.size > 1 && @session.experience_report?
+- if @session.authors.size > 1 && @session.respond_to?(:experience_report?) && @session.experience_report?
   Note que, apesar de sua proposta ter dois autores, há apenas uma inscrição gratuita por relato de experiência. Quando a organização entrar em contato, será necessário escolher qual dos autores usará a inscrição gratuita. O outro autor deverá se inscrever como conferencista normal.
 
 

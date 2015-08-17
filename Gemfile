@@ -11,10 +11,10 @@ def darwin_only(require_as)
 end
 
 gem 'rails', '4.2.3'
-gem 'haml', '4.0.6'
+gem 'haml', '~> 4.0'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.3'
-gem 'devise', '3.5.1'
+gem 'devise', '~> 3.5'
 gem 'devise-encryptable', '0.2.0'
 gem 'localized_country_select', '0.9.11'
 gem 'brhelper', '3.3.0'
