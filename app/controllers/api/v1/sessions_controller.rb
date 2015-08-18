@@ -2,16 +2,38 @@
 module Api
   module V1
     class SessionsController < ::ApplicationController
-      skip_before_filter :authenticate_user!, :authorize_action, :set_conference
+      skip_before_action :authenticate_user!, :authorize_action
+      skip_before_action :set_conference, only: [:show]
 
       rescue_from ActiveRecord::RecordNotFound do |exception|
         render json: {error: "not-found"}.to_json, status: 404
       end
 
+      def accepted
+        sessions = Session.for_conference(@conference).where(state: :accepted)
+        hashes = sessions.map { |s| hash_for(s) }
+
+        respond_to do |format|
+          format.json { render json: hashes }
+          format.js { render json: hashes, callback: params[:callback] }
+        end
+      end
+
       def show
         session = Session.find(params[:id])
 
-        session_hash = {
+        session_hash = hash_for(session)
+
+        respond_to do |format|
+          format.json { render json: session_hash }
+          format.js { render json: session_hash, callback: params[:callback]}
+        end
+      end
+
+      private
+
+      def hash_for(session)
+        {
           id: session.id,
           title: session.title,
           authors: session.authors.map do |author|
@@ -31,11 +53,6 @@ module Api
           audience_limit: session.audience_limit,
           summary: session.summary
         }
-
-        respond_to do |format|
-          format.json { render json: session_hash }
-          format.js { render json: session_hash, callback: params[:callback]}
-        end
       end
     end
   end

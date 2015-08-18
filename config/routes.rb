@@ -8,6 +8,13 @@ AgileBrazil::Application.routes.draw do
         post :make_voter, on: :collection
       end
       resources :sessions, only: [:show]
+      scope "(:year)", constraints: { year: /\d{4}/ } do
+        resources :sessions, only: [] do
+          collection do
+            get :accepted
+          end
+        end
+      end
       resources :top_commenters, only: [:index]
     end
   end

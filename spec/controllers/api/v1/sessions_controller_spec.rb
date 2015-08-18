@@ -2,7 +2,8 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController, type: :controller do
-  let(:session)  { FactoryGirl.create(:session, keyword_list: %w(fake tags tags.success)) }
+  let(:conference) { FactoryGirl.create(:conference) }
+  let(:session)  { FactoryGirl.create(:session, keyword_list: %w(fake tags tags.success), conference: conference) }
 
   describe 'show' do
     context 'with pt locale' do
@@ -154,9 +155,87 @@ describe Api::V1::SessionsController, type: :controller do
       })
     end
   end
+
+  describe 'accepted' do
+    before do
+      @accepted_sessions = [
+        create_accepted_session_for(conference),
+        create_accepted_session_for(conference)
+      ]
+    end
+    context 'with pt locale' do
+      before do
+        get :accepted, format: :json, locale: 'pt', year: conference.year
+      end
+
+      it { should respond_with(:success) }
+
+      it 'should return accepted_sessions in a parseable JSON representation' do
+        sessions = @accepted_sessions.map { |s| pt_hash_for(s) }
+        
+        expect(JSON.parse(response.body)).to eq(sessions)
+      end
+
+    end
+
+    context 'with en locale' do
+      before do
+        get :accepted, format: :json, locale: 'en', year: conference.year
+      end
+
+      it { should respond_with(:success) }
+
+      it 'should return accepted_sessions in a parseable JSON representation' do
+        sessions = @accepted_sessions.map { |s| en_hash_for(s) }
+        
+        expect(JSON.parse(response.body)).to eq(sessions)
+      end
+
+    end
+  end
+
+  def pt_hash_for(session)
+    gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+    {
+      'id' => session.id,
+      'title' => session.title,
+      'authors' => [{ 'name' => session.author.full_name,
+        'gravatar_url' => gravatar_url(gravatar_id)}],
+      'prerequisites' => session.prerequisites,
+      'tags' => ['Aprendizagem', 'Testes'],
+      'session_type' => 'Palestra',
+      'audience_level' => 'Iniciante',
+      'track' => 'Engenharia',
+      'audience_limit' => nil,
+      'summary' => session.summary
+    }
+  end
+
+  def en_hash_for(session)
+    gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+    {
+      'id' => session.id,
+      'title' => session.title,
+      'authors' => [{ 'name' => session.author.full_name,
+        'gravatar_url' => gravatar_url(gravatar_id)}],
+      'prerequisites' => session.prerequisites,
+      'tags' => ['Learning', 'Tests'],
+      'session_type' => 'Lecture',
+      'audience_level' => 'Beginner',
+      'track' => 'Engineering',
+      'audience_limit' => nil,
+      'summary' => session.summary
+    }
+  end
+
+  def create_accepted_session_for(conference)
+    FactoryGirl.create(:session, state: :accepted, conference: conference)
+  end
+
   def gravatar_url(gravatar_id)
     "https://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
   end
+
   def unescape_utf8_chars(text)
     text.gsub(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
   end
