@@ -6,7 +6,7 @@ module Api
       skip_before_action :set_conference, only: [:show]
 
       rescue_from ActiveRecord::RecordNotFound do |exception|
-        render json: {error: "not-found"}.to_json, status: 404
+        render json: { error: 'not-found' }, status: 404
       end
 
       def accepted
