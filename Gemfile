@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.4'
 gem 'haml', '~> 4.0'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.3'
@@ -24,9 +24,9 @@ gem 'cancan', '1.6.10'
 gem 'acts_as_commentable', '4.0.2'
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
-gem 'airbrake', '4.3.0'
+gem 'airbrake', '~> 4.3'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
-gem 'mysql2', '0.3.19'
+gem 'mysql2', '~> 0.3'
 gem 'doorkeeper', '2.1.1'
 gem 'newrelic_rpm'
 
@@ -36,7 +36,7 @@ gem 'coffee-rails', '~> 4.1'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'therubyracer', '0.12.2'
 gem 'yui-compressor', '~> 0.12'
-gem 'fancybox-rails', '~> 0.2'
+gem 'fancybox-rails', '~> 0.3'
 gem 'uglifier', '~> 2.7'
 
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
