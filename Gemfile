@@ -60,7 +60,7 @@ end
 
 group :test do
   gem 'mocha'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '< 3.0.0' # 3.x requires ruby 2+
   gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'email_spec'
