@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 gem 'haml', '~> 4.0'
 gem 'will_paginate', '3.0.7'
 gem 'formtastic', '3.1.3'
