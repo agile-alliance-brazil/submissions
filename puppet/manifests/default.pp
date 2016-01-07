@@ -1,11 +1,13 @@
 node default {
+  include stdlib
+
   exec { 'update':
-      command => "echo updated",
-      path => "/bin",
+    command => "echo updated",
+    path => "/bin",
   }
 
   class { 'swap':
-    swapsize => 1M,
+    swapsize => to_bytes('1 MB'),
   }
 
   $app_name = "submissions"
@@ -16,7 +18,7 @@ node default {
     server_url => $server_url,
     rails_env => $rails_env,
   }
-  class { 'db-server': 
+  class { 'db-server':
     app_name => $app_name,
   }
 

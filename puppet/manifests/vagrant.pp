@@ -1,23 +1,27 @@
-exec { 'update':
-  command => "apt-get update",
-  path => "/usr/bin",
-}
+node default {
+  include stdlib
 
-$app_name = "submissions"
+  exec { 'update':
+    command => "apt-get update",
+    path => "/usr/bin",
+  }
 
-class { 'swap':
-  swapsize => 1M,
-}
+  $app_name = "submissions"
 
-class { 'web-server':
-  server_url => $server_url,
-}
-class { 'db-server': 
-  app_name => $app_name
-}
+  class { 'swap':
+    swapsize => to_bytes('1 MB'),
+  }
 
-class { 'rails-app':
-  user => "vagrant",
-  app_name => $app_name,
-  rails_env => $rails_env,
+  class { 'web-server':
+    server_url => $server_url,
+  }
+  class { 'db-server':
+    app_name => $app_name
+  }
+
+  class { 'rails-app':
+    user => "vagrant",
+    app_name => $app_name,
+    rails_env => $rails_env,
+  }
 }

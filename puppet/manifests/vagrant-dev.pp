@@ -1,4 +1,6 @@
 node default {
+  include stdlib
+
   exec { 'update':
     command => 'apt-get update',
     path => '/usr/bin',
@@ -17,11 +19,6 @@ node default {
     require => Package['sqlite3'],
   }
 
-  package { 'libmysql-ruby1.9.1': 
-    ensure => 'present',
-    require => Package['ruby1.9.3'],
-  }
-
   #required for mysql2 gem
   package { 'libmysqlclient-dev':
     ensure => 'present',
@@ -35,16 +32,7 @@ node default {
   }
 
   class { 'swap':
-    swapsize => 1M,
-  }
-
-  exec { 'bundle install':
-    path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    command => 'bundle install --path vendor/bundle',
-    cwd => '/srv/apps/submissions/current',
-    user => $user,
-    logoutput => true,
-    require => [Class['rails-app'], Package['sqlite3'], Package['libmysql-ruby1.9.1'], Package['libmysqlclient-dev'], Package['git-core']]
+    swapsize => to_bytes('1 MB'),
   }
 
   package { 'xvfb':
