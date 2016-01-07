@@ -12,7 +12,7 @@ end
 
 gem 'rails', '4.2.5'
 gem 'haml', '~> 4.0'
-gem 'will_paginate', '3.0.7'
+gem 'will_paginate', '~> 3.1'
 gem 'formtastic', '3.1.3'
 gem 'devise', '~> 3.5'
 gem 'devise-encryptable', '0.2.0'
