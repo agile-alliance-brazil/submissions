@@ -1,33 +1,4 @@
-class rails-app( $user, $app_name ) {
-  package { "ruby1.9.3":
-    ensure => "installed",
-    require => Exec["update"],
-  }
-
-  exec { "update-gem-sources":
-    command => "gem sources -u",
-    path => "/usr/bin",
-    require => Package["ruby1.9.3"],
-  }
-
-  package { "bundler":
-    provider => "gem",
-    ensure => "1.6.2",
-    require => Exec["update-gem-sources"],
-  }
-
-  package { "puppet":
-    provider => "gem",
-    ensure => "3.6.1",
-    require => Exec["update-gem-sources"],
-  }
-
-  package { "librarian-puppet":
-    provider => "gem",
-    ensure => "1.0.2",
-    require => Exec["update-gem-sources"],
-  }
-
+class railsapp( $user, $app_name ) {
   file { "/srv":
     ensure => "directory",
   }
@@ -67,7 +38,7 @@ class rails-app( $user, $app_name ) {
     file { "self-signed.config":
       ensure => "present",
       path => "/srv/apps/$app_name/shared/certs/self-signed.config",
-      source => "puppet:///modules/rails-app/self-signed.config",
+      source => "puppet:///modules/railsapp/self-signed.config",
       require => File["/srv/apps/$app_name/shared"],
     }
 

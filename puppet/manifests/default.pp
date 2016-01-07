@@ -14,16 +14,16 @@ node default {
   $domain = "agilebrazil.com"
   $use_ssl = true
 
-  class { 'web-server':
+  class { 'webserver':
     server_url => $server_url,
     rails_env => $rails_env,
   }
-  class { 'db-server':
+  class { 'dbserver':
     app_name => $app_name,
   }
 
   $user = "ubuntu"
-  class { 'rails-app':
+  class { 'railsapp':
     user => $user,
     app_name => $app_name,
   }

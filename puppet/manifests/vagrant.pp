@@ -12,14 +12,14 @@ node default {
     swapsize => to_bytes('1 MB'),
   }
 
-  class { 'web-server':
+  class { 'webserver':
     server_url => $server_url,
   }
-  class { 'db-server':
+  class { 'dbserver':
     app_name => $app_name
   }
 
-  class { 'rails-app':
+  class { 'railsapp':
     user => "vagrant",
     app_name => $app_name,
     rails_env => $rails_env,

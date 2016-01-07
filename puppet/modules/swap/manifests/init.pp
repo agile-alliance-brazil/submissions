@@ -1,4 +1,6 @@
-class swap( $ensure = 'present', $swapfile = '/swapfile', $swapsize = 1M ) {
+class swap( $ensure = 'present', $swapfile = '/swapfile', $swapsize = '1048576' ) {
+  include stdlib
+
   $swapsizes = split("${swapsize}",'[.]')
   $swapfilesize = $swapsizes[0]
 

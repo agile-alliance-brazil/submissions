@@ -9,7 +9,8 @@ Vagrant.configure('2') do |config|
   config.vm.box     = "server-precise64"
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
   config.vm.provider :virtualbox do |vm|
-    vm.customize ["modifyvm", :id, "--memory", 1024]
+    vm.memory = 2048
+    vm.cpus = 2
   end
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.auto_detect = true
@@ -20,6 +21,9 @@ Vagrant.configure('2') do |config|
     config.vbguest.auto_update = true
     config.vbguest.no_remote = true
   end
+
+  config.ssh.insert_key = false
+  config.ssh.private_key_path = "#{APP_DIR}/certs/insecure_private_key"
 
   # We want to use the same ruby version that production will use
   config.vm.provision :shell do |s|

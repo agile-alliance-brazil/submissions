@@ -11,7 +11,8 @@ if ARGV.count < 2
 end
 
 @user = ARGV[0]
-@target = ARGV[1]
+@target, @port = ARGV[1].split(':')
+@port ||= 22
 @key_path = ARGV[2] if ARGV.size > 2
 RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
 REMOTE_SHARED_FOLDER = '/srv/apps/submissions/shared'
@@ -20,6 +21,7 @@ def files_to_upload
   [
     'config/config.yml',
     'config/database.yml',
+    'config/newrelic.yml'
   ]
 end
 
@@ -53,8 +55,8 @@ def key_param
   @key_path.nil? ? '' : "-i #{@key_path}"
 end
 
-execute %Q{scp #{key_param} #{RAILS_ROOT}/puppet/script/kickstart-server.sh #{@user}@#{@target}:~}
-execute %Q{ssh #{key_param} #{@user}@#{@target} '/bin/chmod +x ~/kickstart-server.sh && /bin/bash ~/kickstart-server.sh'}
+execute %Q{scp -P #{@port} #{key_param} #{RAILS_ROOT}/puppet/script/server_bootstrap.sh #{@user}@#{@target}:~}
+execute %Q{ssh -t -t -p #{@port} #{key_param} #{@user}@#{@target} '/bin/chmod +x ~/server_bootstrap.sh && /bin/bash ~/server_bootstrap.sh'}
 unless File.exists?("config/deploy/#{@target}.rb")
   deploy_configs = File.read(File.join(RAILS_ROOT, 'config/deploy/staging.rb'))
   File.open("config/deploy/#{@target}.rb", 'w+') do |file|
@@ -66,6 +68,6 @@ end
 execute %Q{bundle}
 execute %Q{bundle exec cap #{@target} deploy:check:directories deploy:check:make_linked_dirs}
 files_to_upload.each do |file|
-  execute %Q{scp #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}}
+  execute %Q{scp -P #{@port} #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}}
 end
 execute %Q{bundle exec cap #{@target} deploy}

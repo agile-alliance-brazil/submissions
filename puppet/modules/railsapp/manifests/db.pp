@@ -1,4 +1,4 @@
-class rails-app::db ($app_name = 'rails-app', $password) {
+class railsapp::db ($app_name = 'rails-app', $password) {
 	define mysqldb( $user, $password ) {
     exec { "create-${name}-db":
       unless => "/usr/bin/mysql -uroot ${name}",

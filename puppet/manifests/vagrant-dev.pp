@@ -26,7 +26,7 @@ node default {
 
   $user = "vagrant"
 
-  class { 'rails-app':
+  class { 'railsapp':
     user => $user,
     app_name => 'submissions',
   }
