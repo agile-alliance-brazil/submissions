@@ -13,8 +13,7 @@ node default {
   }
 
   class { 'webserver':
-    server_url => $server_url,
-    rails_env => $rails_env,
+    server_url => $server_url
   }
   class { 'dbserver':
     app_name => $app_name
@@ -22,6 +21,6 @@ node default {
 
   class { 'railsapp':
     user => "vagrant",
-    app_name => $app_name,
+    app_name => $app_name
   }
 }

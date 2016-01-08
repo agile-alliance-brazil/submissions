@@ -1,11 +1,10 @@
-class webserver($app_name = "submissions", $server_url = "$app_name.$domain", $rails_env) {
+class webserver($app_name = "submissions", $server_url = "$app_name.$domain") {
   package { "git-core":
     ensure => "present",
   }
 
   class { "railsapp::passenger":
     path => "/srv/apps/$app_name/current/public",
-    server_url => $server_url,
-    rails_env => $rails_env
+    server_url => $server_url
   }
 }

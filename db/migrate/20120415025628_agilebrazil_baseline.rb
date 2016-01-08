@@ -116,7 +116,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.text        :mechanics
       t.text        :benefits
       t.string      :target_audience
-      t.integer     :audience_limit, limit: 255
+      t.integer     :audience_limit, limit: 2
       t.references  :author
       t.text        :experience
       t.references  :track

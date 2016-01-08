@@ -40,17 +40,26 @@ namespace :deploy do
 
   task :puppet do
     on roles(:all) do |host|
-      within release_path.join('puppet') do
-        execute :'librarian-puppet', :install
-      end
-      within release_path do
-        execute :sudo, '/usr/bin/env',
-          "FACTER_server_url='#{fetch(:server_url)}'",
-          "FACTER_rails_env='#{fetch(:rails_env)}'",
-          :sh, "-c '/usr/local/bin/puppet apply\
-          --modulepath /etc/puppet/modules:puppet/modules\
-          puppet/manifests/#{fetch(:manifest)}.pp'"
+      execute :sudo, '/usr/bin/env',
+        "FACTER_server_url='#{fetch(:server_url)}'",
+        "FACTER_rails_env='#{fetch(:rails_env)}'",
+        :sh, "-c '/opt/puppetlabs/bin/puppet apply\
+        --modulepath /opt/puppetlabs/puppet/modules:#{release_path.join('puppet/modules')}\
+        #{release_path.join("puppet/manifests/#{fetch(:manifest)}.pp")}'"
+    end
+  end
+end
+
+namespace :git do
+  desc 'Copy repo to releases'
+  task create_release: :'git:update' do
+    on roles(:all) do
+      with fetch(:git_environmental_variables) do
+        within repo_path do
+          execute :git, :clone, '-b', fetch(:branch), '--recursive', '.', release_path
+        end
       end
     end
   end
 end
+

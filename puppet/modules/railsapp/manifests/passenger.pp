@@ -1,30 +1,39 @@
-class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server_url, $rails_env) {
+class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server_url) {
+  class { 'apache': }
+
   file { "/etc/apache2/sites-available/$server_url":
     ensure => 'present',
     content => template('railsapp/passenger-app.erb'),
-    require => Package['apache2'],
-    notify => Service['apache2'],
+    require => Package['httpd'],
+    notify => Class['apache::service'],
   }
 
   file { "/etc/apache2/sites-enabled/000-default":
     ensure => "/etc/apache2/sites-available/$server_url",
     require => File["/etc/apache2/sites-available/$server_url"],
-    notify => Service['apache2'],
+    notify => Class['apache::service'],
   }
 
   if $use_ssl {
     file { '/etc/apache2/mods-enabled/ssl.conf':
       ensure => 'link',
       target => '/etc/apache2/mods-available/ssl.conf',
-      require => Package['apache2'],
-      notify => Service['apache2'],
+      require => Package['httpd'],
+      notify => Class['apache::service'],
     }
 
     file { '/etc/apache2/mods-enabled/ssl.load':
       ensure => 'link',
       target => '/etc/apache2/mods-available/ssl.load',
-      require => Package['apache2'],
-      notify => Service['apache2'],
+      require => Package['httpd'],
+      notify => Class['apache::service'],
+    }
+
+    file { '/etc/apache2/mods-enabled/socache_shmcb.load':
+      ensure => 'link',
+      target => '/etc/apache2/mods-available/socache_shmcb.load',
+      require => Package['httpd'],
+      notify => Class['apache::service'],
     }
   }
 }
