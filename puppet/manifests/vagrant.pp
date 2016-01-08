@@ -14,6 +14,7 @@ node default {
 
   class { 'webserver':
     server_url => $server_url,
+    rails_env => $rails_env,
   }
   class { 'dbserver':
     app_name => $app_name
