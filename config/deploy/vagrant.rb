@@ -25,13 +25,13 @@ set :branch, 'puppet'
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
 set :ssh_options, {
- keys: [
-   File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key'),
-   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'insecure_private_key')
- ],
- forward_agent: true,
- auth_methods: %w(publickey)
- # password: 'please use keys'
+  keys: [
+    File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key'),
+    File.join(File.dirname(__FILE__), '..', '..', 'certs', 'insecure_private_key')
+  ],
+  forward_agent: true,
+  auth_methods: %w(publickey)
+  # password: 'please use keys'
 }
 # and/or per server
 # server 'example.com',

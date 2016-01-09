@@ -50,6 +50,7 @@ group :development do
   gem 'net-ssh', '< 2.10' # 2.10 requires ruby 2+
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm', require: false
   gem 'travis-lint'
   gem 'foreman'
   gem 'bullet'

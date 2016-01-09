@@ -18,12 +18,14 @@ set :scm_verbose,         true
 
 set :deploy_to,           '/srv/apps/submissions'
 set :deploy_via,          :remote_cache
+set :bundle_flags,        '--no-cache'
+set :bundle_path, -> { shared_path.join('vendor/bundle') }
 
 # Default value for :format is :pretty
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+set :log_level, ENV['LOG_LEVEL'] || :debug
 
 # Default value for :pty is false
 # set :pty, true

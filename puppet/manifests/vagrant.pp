@@ -7,6 +7,7 @@ node default {
   }
 
   $app_name = "submissions"
+  $use_ssl = true
 
   class { 'swap':
     swapsize => to_bytes('1 MB'),

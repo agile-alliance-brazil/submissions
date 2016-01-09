@@ -1,5 +1,16 @@
 class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server_url) {
   class { 'apache': }
+  
+  if $rvm_installed == true {
+    class { 'rvm::passenger::apache':
+        version            => '4.0.37',
+        ruby_version       => 'ruby-1.9.3-p551',
+        mininstances       => '3',
+        maxinstancesperapp => '0',
+        maxpoolsize        => '30',
+        spawnmethod        => 'smart-lv2'
+    }
+  }
 
   file { "/etc/apache2/sites-available/$server_url":
     ensure => 'present',
@@ -18,7 +29,7 @@ class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server
     file { '/etc/apache2/mods-enabled/ssl.conf':
       ensure => 'link',
       target => '/etc/apache2/mods-available/ssl.conf',
-      require => Package['httpd'],
+      require => [Package['httpd'], File['/etc/apache2/mods-enabled/socache_shmcb.load']],
       notify => Class['apache::service'],
     }
 

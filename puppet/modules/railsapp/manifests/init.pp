@@ -1,4 +1,24 @@
 class railsapp( $user, $app_name ) {
+  class { '::rvm': }
+
+  if $rvm_installed == true {
+    rvm::system_user { $user:; }
+
+    rvm_system_ruby { 'ruby-1.9.3-p551':
+        name        => 'ruby-1.9.3-p551',
+        ensure      => 'present',
+        build_opts  => '--disable-binary',
+        default_use => true;
+    }
+
+    rvm_gem { 'bundler19':
+        name         => 'bundler',
+        ruby_version => 'ruby-1.9.3-p551@global',
+        ensure       => '1.5.2',
+        require      => Rvm_system_ruby['ruby-1.9.3-p551'];
+    }
+  }
+
   file { "/srv":
     ensure => "directory",
   }

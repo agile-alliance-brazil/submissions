@@ -14,7 +14,7 @@ require 'capistrano/deploy'
 #   https://github.com/capistrano/bundler
 #   https://github.com/capistrano/rails
 #
-# require 'capistrano/rvm'
+require 'capistrano/rvm'
 # require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
@@ -24,7 +24,7 @@ require 'capistrano/rails/migrations'
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
 
-before "bundler:install", "deploy:puppet"
+before 'bundler:install', 'deploy:puppet'
 
 namespace :deploy do
   %w(start restart).each do |name|

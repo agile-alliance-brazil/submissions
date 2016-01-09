@@ -4,15 +4,12 @@
    Redirect permanent / https://<%= @server_url %>/
 </VirtualHost>
 
-NameVirtualHost *:443
-
+Listen 443
 <VirtualHost *:443>
     DocumentRoot <%= @path %>
 
     SSLEngine on
     SSLOptions +StrictRequire
-
-    PassengerAppEnv <%= @rails_env %>
 
     <Directory />
         SSLRequireSSL
@@ -40,8 +37,6 @@ NameVirtualHost *:443
 <VirtualHost *:80>
     ServerName <%= @server_url %>
     DocumentRoot <%= @path %>
-
-    PassengerAppEnv <%= @rails_env %>
 
     <Directory <%= @path %>>
         Allow from all
