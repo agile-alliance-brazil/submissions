@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'English'
+
 if ARGV.count < 2
   puts <<-END
 Usage: #{File.basename(__FILE__)} <user> <target_machine> [<machine_type>] [<optional_ssh_key>]
@@ -59,7 +61,9 @@ end
 
 def execute(command)
   puts "Running: #{command}"
-  system(command)
+  result = system(command)
+  puts result unless $CHILD_STATUS.to_i == 0
+  result
 end
 
 def key_param
@@ -79,11 +83,13 @@ end
 execute %Q{bundle}
 execute %Q{bundle exec cap #{@target} deploy:check:directories deploy:check:make_linked_dirs LOG_LEVEL=error}
 files_to_upload.each do |file|
+  execute %Q{ssh -p #{@port} #{key_param} #{@user}@#{@target} 'mkdir -p #{File.dirname("#{REMOTE_SHARED_FOLDER}/#{file}")}'}
   execute %Q{scp -P #{@port} #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}}
 end
 optional_files.each do |file|
   if File.exist? tag_with_target(file)
-    execute "scp -P #{@port} #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}"
+    execute %Q{ssh -p #{@port} #{key_param} #{@user}@#{@target} 'mkdir -p #{File.dirname("#{REMOTE_SHARED_FOLDER}/#{file}")}'}
+    execute %Q{scp -P #{@port} #{key_param} #{tag_with_target(file)} #{@deployed_user}@#{@target}:#{REMOTE_SHARED_FOLDER}/#{file}}
   end
 end
 execute %Q{bundle exec cap #{@target} deploy LOG_LEVEL=error}
