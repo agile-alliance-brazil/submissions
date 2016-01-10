@@ -25,6 +25,5 @@ node default {
   class { 'railsapp':
     user => $user,
     app_name => $app_name,
-    rails_env => $rails_env,
   }
 }
