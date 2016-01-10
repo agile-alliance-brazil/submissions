@@ -24,10 +24,10 @@ gem 'cancan', '1.6.10'
 gem 'acts_as_commentable', '4.0.2'
 gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
-gem 'airbrake', '~> 4.3'
+gem 'airbrake', '~> 4.3' # TODO: upgrade to 5+
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'mysql2', '< 0.4' # Rails 4 cannot support mysql2 0.4
-gem 'doorkeeper', '2.1.1'
+gem 'doorkeeper', '2.1.1' # TODO: Remove. Meanwhile. Under 3 because needs Ruby2+
 gem 'newrelic_rpm'
 
 gem 'jquery-rails', '~> 4.0'
