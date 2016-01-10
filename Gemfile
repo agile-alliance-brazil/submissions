@@ -47,16 +47,15 @@ end
 
 group :development do
   gem 'capistrano', '3.4.0', require: false
-  gem 'net-ssh', '< 2.10' # 2.10 requires ruby 2+
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm', require: false
   gem 'travis-lint'
   gem 'foreman'
   gem 'bullet'
-  gem 'lol_dba', '1.6.4' # 1.6.6 requires ruby 2
+  gem 'lol_dba'
   gem 'byebug'
-  gem 'web-console', '< 3.0.0' # 3+ requires ruby 2
+  gem 'web-console'
   gem 'dotenv-rails', require: false
 end
 

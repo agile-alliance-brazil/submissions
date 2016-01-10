@@ -101,7 +101,7 @@ describe ReviewersHelper, type: :helper do
       expect(row[1]).to eq(1)
       expect(row[2]).to eq(1)
       expect(row[3]).to eq(1)
-      expect(row[4]).to eq('1<img alt="👍" src="/assets/helpful.png" /> 2<img alt="👎" src="/assets/not-helpful.png" />')
+      expect(row[4]).to match(%r{1<img alt="👍" src="/assets/helpful(?:-[a-f0-9]+)?.png" /> 2<img alt="👎" src="/assets/not-helpful(?:-[a-f0-9]+)?.png" />})
     end
   end
 
