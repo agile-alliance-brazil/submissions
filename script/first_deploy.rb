@@ -1,20 +1,23 @@
 #!/usr/bin/env ruby
 
 if ARGV.count < 2
-  puts %Q{Usage: #{File.basename(__FILE__)} <user> <target_machine> <optional_ssh_key>
+  puts <<-END
+Usage: #{File.basename(__FILE__)} <user> <target_machine> [<machine_type>] [<optional_ssh_key>]
 
-<user>: The user that will be used to ssh into the machine. Either root for Digital Ocean machines or ubuntu for AWS EC2 machines. It MUST have an ssh key already set up to ssh into.
-<target_machine>: The public DNS or public IP address of the machine to be deployed
-<optional_ssh_key>: The path to the ssh key to be used to log in with the specified user on the specified machine
-  }
+<user>:\t\t\t\t The user that will be used to ssh into the machine. Either root for Digital Ocean machines or ubuntu for AWS EC2 machines. It MUST have an ssh key already set up to ssh into.
+<target_machine>:\t The public DNS or public IP address of the machine to be deployed
+<machine_type>:\t\t Optional. Either 'production' or 'staging'. Anything other than 'production' is considered staging. Used for deploy configurations.
+<optional_ssh_key>:\t Optional. The path to the ssh key to be used to log in with the specified user on the specified machine
+END
   exit(1)
 end
 
 @user = ARGV[0]
 @target, @port = ARGV[1].split(':')
 @port ||= 22
-@key_path = ARGV[2] if ARGV.size > 2
+@type = ARGV[2].to_sym if ARGV.size > 2
 RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
+@key_path = ARGV[3] if ARGV.size > 3
 REMOTE_SHARED_FOLDER = '/srv/apps/submissions/shared'
 
 def files_to_upload
@@ -66,7 +69,7 @@ end
 execute %Q{scp -P #{@port} #{key_param} #{RAILS_ROOT}/puppet/script/server_bootstrap.sh #{@user}@#{@target}:~}
 execute %Q{ssh -t -t -p #{@port} #{key_param} #{@user}@#{@target} '/bin/chmod +x ~/server_bootstrap.sh && /bin/bash ~/server_bootstrap.sh #{@user}'}
 unless File.exists?("config/deploy/#{@target}.rb")
-  deploy_configs = File.read(File.join(RAILS_ROOT, 'config/deploy/staging.rb'))
+  deploy_configs = File.read(File.join(RAILS_ROOT, "config/deploy/#{@type}.rb"))
   File.open("config/deploy/#{@target}.rb", 'w+') do |file|
     file.write deploy_configs.gsub(/set :domain,\s*"[^"]*"/, "set :domain, \"#{@target}\"")
   end

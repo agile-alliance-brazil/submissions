@@ -57,6 +57,7 @@ group :development do
   gem 'lol_dba', '1.6.4' # 1.6.6 requires ruby 2
   gem 'debugger'
   gem 'web-console', '< 3.0.0' # 3+ requires ruby 2
+  gem 'dotenv-rails', require: false
 end
 
 group :test do
