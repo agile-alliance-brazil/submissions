@@ -81,9 +81,9 @@ group :development, :test do
   gem 'rb-inotify', require: linux_only('rb-inotify')
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'konacha'
-  gem 'sprockets-rails', '< 3.0.0' # Compatibility issue with Konacha 3.7.0
-  gem 'guard-konacha-rails'
+  # gem 'konacha'
+  # gem 'sprockets-rails', '< 3.0.0' # Compatibility issue with Konacha 3.7.0
+  # gem 'guard-konacha-rails'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'selenium-webdriver'
 end
