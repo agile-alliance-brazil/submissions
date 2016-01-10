@@ -18,3 +18,4 @@ vendor/bundle/**/*
 app/assets/javascripts/*.js
 spec/javascripts/*.js
 .env
+.vagrant
