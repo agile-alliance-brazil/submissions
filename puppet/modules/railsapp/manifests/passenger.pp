@@ -4,7 +4,7 @@ class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server
   if $rvm_installed == true {
     class { 'rvm::passenger::apache':
         version            => '5.0.23',
-        ruby_version       => 'ruby-2.2.3',
+        ruby_version       => 'ruby-2.3.0',
         mininstances       => '3',
         maxinstancesperapp => '0',
         maxpoolsize        => '30',

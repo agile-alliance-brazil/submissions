@@ -39,15 +39,9 @@ Vagrant.configure('2') do |config|
     config.vm.network :forwarded_port, id: 'ssh', guest: 22, host: 2205
     config.vm.network :forwarded_port, guest: 9292, host: 9294
 
-    config.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "puppet/manifests"
-      puppet.manifest_file = "vagrant-dev.pp"
-      puppet.module_path = "puppet/modules"
-      puppet.facter = {
-        # The work around can be removed when this issue is fixed https://github.com/mitchellh/vagrant/issues/2270
-        "SERVER_URL" => "dev.localhost"
-      }
-    end
+    config.vm.provision :shell, inline:
+      "/opt/puppetlabs/bin/puppet apply --modulepath=/srv/apps/submissions/current/puppet/modules /srv/apps/submissions/current/puppet/manifests/vagrant-dev.pp &&\
+      /opt/puppetlabs/bin/puppet apply --modulepath=/srv/apps/submissions/current/puppet/modules /srv/apps/submissions/current/puppet/manifests/vagrant-dev.pp"
   end
 
   config.vm.define :deploy do |config|
