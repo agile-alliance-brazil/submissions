@@ -83,7 +83,7 @@ def setup_droplet(droplet)
   key_path = "#{ROOT}/certs/digital_ocean#{POSTFIX.tr('-', '_')}"
   ssh_command = "ssh -i #{key_path} -o LogLevel=quiet -o StrictHostKeyChecking=no ubuntu@#{droplet[:ipv4]} 'echo \"SSH Successful!\"'"
   `#{ssh_command}` # Adding new machine to known hosts
-  first_deploy = "bundle exec ruby script/first_deploy.rb ubuntu #{droplet[:ipv4]} #{TYPE} #{key_path}"
+  first_deploy = "bundle exec ruby deploy/first_deploy.rb ubuntu #{droplet[:ipv4]} #{TYPE} #{key_path}"
   deploy_result = `#{first_deploy}`
   return "ERROR: Deploy failed on #{droplet[:ipv4]}\n\#{deploy_result}" unless $CHILD_STATUS.to_i == 0
 
