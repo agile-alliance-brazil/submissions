@@ -68,6 +68,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
+    byebug (8.2.1)
     cancan (1.6.10)
     capistrano (3.4.0)
       i18n
@@ -102,15 +103,8 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     colorize (0.7.7)
-    columnize (0.9.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    debugger (1.6.8)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.5)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.8)
     devise (3.5.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -377,6 +371,7 @@ DEPENDENCIES
   aws-ses (= 0.6.0)
   brhelper (= 3.3.0)
   bullet
+  byebug
   cancan (= 1.6.10)
   capistrano (= 3.4.0)
   capistrano-bundler
@@ -384,7 +379,6 @@ DEPENDENCIES
   capistrano-rvm
   codeclimate-test-reporter
   coffee-rails (~> 4.1)
-  debugger
   devise (~> 3.5)
   devise-encryptable (= 0.2.0)
   doorkeeper (= 2.1.1)
@@ -433,3 +427,6 @@ DEPENDENCIES
   web-console (< 3.0.0)
   will_paginate (~> 3.1)
   yui-compressor (~> 0.12)
+
+BUNDLED WITH
+   1.11.2

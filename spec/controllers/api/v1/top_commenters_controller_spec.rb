@@ -9,10 +9,10 @@ describe Api::V1::TopCommentersController, type: :controller do
       picture = "https://gravatar.com/avatar/#{gravatar_id}.png"
       { user: user.username, name: user.full_name, picture: picture, comment_count: user.comments.count }
     end
-    def create_commenter_with_number_of_comments_as(number, session = session)
+    def create_commenter_with_number_of_comments_as(number, commented_session = session)
       commenter = FactoryGirl.create(:user)
       number.times do
-        FactoryGirl.create(:comment, user: commenter, commentable: session)
+        FactoryGirl.create(:comment, user: commenter, commentable: commented_session, commentable_type: Session)
       end
       commenter
     end

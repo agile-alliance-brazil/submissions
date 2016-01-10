@@ -7,8 +7,14 @@ class railsapp( $user, $app_name ) {
     rvm_system_ruby { 'ruby-1.9.3-p551':
         name        => 'ruby-1.9.3-p551',
         ensure      => 'present',
+        build_opts  => '--disable-binary'
+    }
+
+    rvm_system_ruby { 'ruby-2.2.3':
+        name        => 'ruby-2.2.3',
+        ensure      => 'present',
         build_opts  => '--disable-binary',
-        default_use => true;
+        default_use => true
     }
 
     rvm_gem { 'bundler19':
@@ -16,6 +22,13 @@ class railsapp( $user, $app_name ) {
         ruby_version => 'ruby-1.9.3-p551@global',
         ensure       => '1.5.2',
         require      => Rvm_system_ruby['ruby-1.9.3-p551'];
+    }
+
+    rvm_gem { 'bundler22':
+        name         => 'bundler',
+        ruby_version => 'ruby-2.2.3@global',
+        ensure       => latest,
+        require      => Rvm_system_ruby['ruby-2.2.3'];
     }
   }
 

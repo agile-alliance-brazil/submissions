@@ -1,6 +1,6 @@
 # encoding: utf-8
 source 'http://rubygems.org'
-ruby '1.9.3'
+ruby '2.2.3'
 
 def linux_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /linux/ ? require_as : false
@@ -55,7 +55,7 @@ group :development do
   gem 'foreman'
   gem 'bullet'
   gem 'lol_dba', '1.6.4' # 1.6.6 requires ruby 2
-  gem 'debugger'
+  gem 'byebug'
   gem 'web-console', '< 3.0.0' # 3+ requires ruby 2
   gem 'dotenv-rails', require: false
 end
