@@ -44,8 +44,6 @@ describe Session, type: :model do
 
     should_validate_existence_of :conference, :author, :track, :session_type, :audience_level
 
-    it { should validate_numericality_of :audience_limit }
-
     it { should validate_length_of(:title).is_at_most(100) }
     it { should validate_length_of(:target_audience).is_at_most(200) }
     it { should validate_length_of(:summary).is_at_most(800) }

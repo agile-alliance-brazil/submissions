@@ -32,7 +32,7 @@ class Session < ActiveRecord::Base
   validates :keyword_list, presence: true, length: {maximum: 10}
   validates :language, presence: true, inclusion: {in: ['en', 'pt']}
   validates :mechanics, presence: true, length: {maximum: 2400}, if: :requires_mechanics?
-  validates :audience_limit, numericality: {only_integer: true, greater_than: 0}, allow_nil: true
+  validates :audience_limit, numericality: {greater_than: 0}, allow_nil: true
   validates :conference_id, existence: true
   validates :author_id, existence: true, constant: { on: :update }
   validates :track_id, presence: true, existence: true, same_conference: true

@@ -104,8 +104,7 @@ describe User, type: :model do
     context "uniqueness" do
       subject { FactoryGirl.create(:user, country: "BR") }
 
-      it { should validate_uniqueness_of(:email).with_message(I18n.t("activerecord.errors.models.user.attributes.email.taken")) }
-      it { should validate_uniqueness_of(:email).case_insensitive }
+      it { should validate_uniqueness_of(:email).case_insensitive.with_message(I18n.t("activerecord.errors.models.user.attributes.email.taken")) }
       it { should validate_uniqueness_of(:username).case_insensitive }
     end
 
