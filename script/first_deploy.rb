@@ -59,19 +59,19 @@ end
 
 def execute(command)
   puts "Running: #{command}"
-  puts `#{command}`
+  system(command)
 end
 
 def key_param
-  @key_path.nil? ? '' : "-i #{@key_path}"
+  @key_path.nil? ? '' : "-i #{File.expand_path(@key_path)}"
 end
 
-execute %Q{scp -P #{@port} #{key_param} #{RAILS_ROOT}/puppet/script/server_bootstrap.sh #{@user}@#{@target}:~}
+execute %Q{scp -P #{@port} #{key_param} #{File.expand_path(File.join(RAILS_ROOT, '/puppet/script/server_bootstrap.sh'))} #{@user}@#{@target}:~}
 execute %Q{ssh -t -t -p #{@port} #{key_param} #{@user}@#{@target} '/bin/chmod +x ~/server_bootstrap.sh && /bin/bash ~/server_bootstrap.sh #{@user}'}
 unless File.exists?("config/deploy/#{@target}.rb")
   deploy_configs = File.read(File.join(RAILS_ROOT, "config/deploy/#{@type}.rb"))
   File.open("config/deploy/#{@target}.rb", 'w+') do |file|
-    file.write deploy_configs.gsub(/set :domain,\s*"[^"]*"/, "set :domain, \"#{@target}\"")
+    file.write deploy_configs.gsub(/server '[^']+'/, "server '#{@target}'")
   end
 end
 

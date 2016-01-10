@@ -18,7 +18,7 @@
 server 'submissoes-staging.agilebrazil.com', user: 'ubuntu', roles: %w{web app db}
 set :manifest, 'default'
 set :server_url, 'submissoes-staging.agilebrazil.com'
-set :rails_env, 'staging'
+# set :rails_env, 'staging'
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
