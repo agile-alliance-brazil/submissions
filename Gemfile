@@ -85,4 +85,5 @@ group :development, :test do
   # gem 'guard-konacha-rails'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'selenium-webdriver'
+  gem 'brakeman'
 end
