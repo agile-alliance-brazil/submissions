@@ -118,7 +118,7 @@ describe ReviewPublisher do
 
       ::Rails.logger.expects(:info).with('  [FAILED ACCEPT] error')
       ::Rails.logger.expects(:info).with('  [ACCEPT] OK')
-      Airbrake.expects(:notify).with(error)
+      Airbrake.expects(:notify).with('error', action: "Publish review with ACCEPT", session: @sessions[0])
 
       @publisher.publish
     end
@@ -132,7 +132,7 @@ describe ReviewPublisher do
 
       ::Rails.logger.expects(:info).with('  [FAILED REJECT] error')
       ::Rails.logger.expects(:info).with('  [REJECT] OK')
-      Airbrake.expects(:notify).with(error)
+      Airbrake.expects(:notify).with('error', action: "Publish review with REJECT", session: @sessions[0])
 
       @publisher.publish
     end

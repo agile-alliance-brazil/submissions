@@ -46,8 +46,10 @@
  # The application can be configured to track exceptionr/errors with airbrake, by
  # providing your Airbrake access key as follows:
  #
- # airbrake:
- #   access_key: xxx111xxx
+ airbrake:
+   project_id: '12345'
+   project_key: '65236253abdcfe37627091'
+   environment: 'development'
 
  # To track user access using Google Analytics, please provide your details as follows:
  #

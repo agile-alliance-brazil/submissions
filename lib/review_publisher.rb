@@ -40,7 +40,7 @@ class ReviewPublisher
     session.review_decision.update_attribute(:published, true)
     Rails.logger.info("  [#{action}] OK")
   rescue => e
-    Airbrake.notify(e)
+    Airbrake.notify(e.message, action: "Publish review with #{action}", session: session)
     Rails.logger.info("  [FAILED #{action}] #{e.message}")
   ensure
     Rails.logger.flush

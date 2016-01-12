@@ -51,7 +51,7 @@ describe ReviewFeedbackRequester do
 
       ::Rails.logger.expects(:info).with("  [FAILED REQUEST FEEDBACK] error")
       ::Rails.logger.expects(:info).with("  [REQUEST FEEDBACK] OK")
-      Airbrake.expects(:notify).with(error)
+      Airbrake.expects(:notify).with('error', action: 'request review feedback', author: @sessions[0].author)
 
       @requester.send
     end

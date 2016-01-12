@@ -18,7 +18,7 @@ class ReviewFeedbackRequester
     EmailNotifications.review_feedback_request(author).deliver_now
     Rails.logger.info("  [REQUEST FEEDBACK] OK")
   rescue => e
-    Airbrake.notify(e)
+    Airbrake.notify(e.message, action: 'request review feedback', author: author)
     Rails.logger.info("  [FAILED REQUEST FEEDBACK] #{e.message}")
   ensure
     Rails.logger.flush
