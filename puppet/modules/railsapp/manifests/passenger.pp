@@ -46,5 +46,12 @@ class railsapp::passenger ($path = '/srv/apps/rails-app/current/public', $server
       require => Package['httpd'],
       notify => Class['apache::service'],
     }
+
+    file { '/etc/apache2/mods-enabled/headers.load':
+      ensure => 'link',
+      target => '/etc/apache2/mods-available/headers.load',
+      require => Package['httpd'],
+      notify => Class['apache::service'],
+    }
   }
 }
