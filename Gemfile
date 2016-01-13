@@ -61,7 +61,7 @@ end
 
 group :test do
   gem 'mocha'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '< 3.1.0' # Because https://github.com/thoughtbot/shoulda-matchers/issues/880
   gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'email_spec'
