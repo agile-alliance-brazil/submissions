@@ -18,7 +18,7 @@ This is an open-source conference submission system, built in Rails and has been
 
 # Development
 
-Just clone this repo, enter it and run `./dev.sh`. This should be enough to install whatever is needed on your machine and start guard to run specs and front end tests.
+Just clone this repo (including submodules so ensure you run `git clone https://github.com/agilealliancebrazil/submissions.git  --recursive` or if you already cloned, use `git submodule foreach git pull origin master`), enter it and run `./dev.sh`. This should be enough to install whatever is needed on your machine and start guard to run specs and front end tests.
 
 If you don't want to mess with your own machine, an option to use [Vagrant](https://www.vagrantup.com/) for development is available. Download [Vagrant 1.8.1](https://releases.hashicorp.com/vagrant/1.8.1/) and [Virtual Box](https://www.virtualbox.org/wiki/Downloads), install both and then run:
 
@@ -36,7 +36,7 @@ Deployment is handled by [Capistrano](http://capistranorb.com/). And can also be
 
 To test, run:
 ```sh
-vagrant destroy -f deploy && vagrant up deploy && bundle && bundle exec ruby deploy/first_deploy.rb vagrant 10.11.12.16 staging certs/insecure\_private\_key
+vagrant destroy -f deploy && vagrant up deploy && bundle && bundle exec ruby deploy/first_deploy.rb vagrant 10.11.12.16 staging certs/insecure_private_key
 ```
 
 Note that Capistrano uses the code currently available in github so you need to push to test it.
