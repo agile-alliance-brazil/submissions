@@ -26,7 +26,7 @@ gem 'state_machine', '1.2.0'
 gem 'validates_existence', '0.9.2'
 gem 'airbrake', '~> 5.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
-gem 'mysql2', '< 0.4' # Rails 4.2.5 cannot support mysql2 0.4
+gem 'mysql2', '~> 0.4'
 gem 'doorkeeper', '2.1.1' # TODO: Remove. Meanwhile. Under 3 because needs Ruby2+
 gem 'newrelic_rpm'
 
