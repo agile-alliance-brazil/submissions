@@ -27,7 +27,7 @@ gem 'validates_existence', '0.9.2'
 gem 'airbrake', '~> 5.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'mysql2', '~> 0.4'
-gem 'doorkeeper', '2.1.1' # TODO: Remove. Meanwhile. Under 3 because needs Ruby2+
+gem 'doorkeeper', '~> 3.1' # TODO: Remove
 gem 'newrelic_rpm'
 
 gem 'jquery-rails', '~> 4.0'
