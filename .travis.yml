@@ -7,4 +7,4 @@ before_script:
 script:
   - RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
   - RAILS_ENV=test bundle exec rake ci
-bundler_args: --local --without development production
+bundler_args: --without development production
