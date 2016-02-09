@@ -1,5 +1,5 @@
 # encoding: utf-8
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 ruby '2.3.0'
 
 def linux_only(require_as)
