@@ -80,7 +80,7 @@ group :development, :test do
   gem 'rb-inotify', require: linux_only('rb-inotify')
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'konacha', git: 'https://github.com/alexkravets/konacha.git'
+  gem 'konacha'
   gem 'guard-konacha-rails'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'selenium-webdriver'

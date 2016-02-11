@@ -1,16 +1,4 @@
 GIT
-  remote: https://github.com/alexkravets/konacha.git
-  revision: 92b4eca872542185e20b3c1a386f4d68022cf11c
-  specs:
-    konacha (3.8.0)
-      actionpack (>= 3.1, < 5)
-      capybara
-      colorize
-      railties (>= 3.1, < 5)
-      sprockets (>= 2, < 4)
-      tilt
-
-GIT
   remote: https://github.com/hugocorbucci/goalie.git
   revision: 116505c2530697ab9e900d042fa982d462fce13d
   specs:
@@ -61,7 +49,7 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_commentable (4.0.2)
     addressable (2.4.0)
-    airbrake (5.0.4)
+    airbrake (5.0.5)
       airbrake-ruby (~> 1.0)
     airbrake-ruby (1.0.4)
     arel (6.0.3)
@@ -198,12 +186,20 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    konacha (4.0.0)
+      actionpack (>= 4.1, < 5)
+      capybara
+      colorize
+      railties (>= 4.1, < 5)
+      sprockets (>= 2, < 4)
+      sprockets-rails (>= 2, < 4)
+      tilt
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.13)
-    listen (3.0.5)
+    listen (3.0.6)
       rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
+      rb-inotify (>= 0.9.7)
     localized_country_select (0.9.11)
       actionpack (>= 3.0)
     lol_dba (2.0.3)
@@ -228,7 +224,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.2)
-    newrelic_rpm (3.14.2.312)
+    newrelic_rpm (3.14.3.313)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
@@ -426,7 +422,7 @@ DEPENDENCIES
   haml (~> 4.0)
   jquery-rails (~> 4.0)
   jquery-ui-rails (~> 5.0)
-  konacha!
+  konacha
   localized_country_select (= 0.9.11)
   lol_dba
   mocha
