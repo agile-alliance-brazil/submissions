@@ -9,6 +9,16 @@ module Api
         render json: { error: 'not-found' }, status: 404
       end
 
+      def index
+        sessions = Session.for_conference(@conference)
+        hashes = sessions.map { |s| hash_for(s) }
+
+        respond_to do |format|
+          format.json { render json: hashes }
+          format.js { render json: hashes, callback: params[:callback] }
+        end
+      end
+
       def accepted
         sessions = Session.for_conference(@conference).where(state: :accepted)
         hashes = sessions.map { |s| hash_for(s) }
@@ -35,9 +45,13 @@ module Api
       def hash_for(session)
         {
           id: session.id,
+          session_uri: session_url(session.conference, session),
           title: session.title,
           authors: session.authors.map do |author|
             {
+              user_id: author.id,
+              user_uri: user_url(author),
+              username: author.username,
               name: author.full_name,
               gravatar_url: gravatar_url(author)
             }
@@ -52,7 +66,11 @@ module Api
           audience_level: I18n.t(session.audience_level.title),
           track: I18n.t(session.track.title),
           audience_limit: session.audience_limit,
-          summary: session.summary
+          summary: session.summary,
+          mechanics: session.mechanics,
+          status: I18n.t("session.state.#{session.state}"),
+          author_agreement: session.author_agreement,
+          image_agreement: session.image_agreement
         }
       end
     end

@@ -17,8 +17,12 @@ describe Api::V1::SessionsController, type: :controller do
         gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq({
           'id' => session.id,
+          'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
           'title' => session.title,
-          'authors' => [{ 'name' => session.author.full_name,
+          'authors' => [{ 'user_id' => session.author.id,
+            'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+            'username' => session.author.username,
+            'name' => session.author.full_name,
             'gravatar_url' => gravatar_url(gravatar_id)}],
           'prerequisites' => session.prerequisites,
           'duration_mins' => 50,
@@ -27,7 +31,11 @@ describe Api::V1::SessionsController, type: :controller do
           'audience_level' => 'Iniciante',
           'track' => 'Engenharia',
           'audience_limit' => nil,
-          'summary' => session.summary
+          'summary' => session.summary,
+          'mechanics' => session.mechanics,
+          'status' => 'Criada',
+          'author_agreement' => nil,
+          'image_agreement' => nil
         })
       end
 
@@ -40,15 +48,22 @@ describe Api::V1::SessionsController, type: :controller do
         expect(unescape_utf8_chars(response.body)).to eq(%Q{
           {
             "id":#{session.id},
+            "session_uri":"http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
             "title":"#{session.title}",
             "authors":[
               {
+                "user_id":#{session.author.id},
+                "user_uri":"http://test.host/users/#{session.author.to_param}?locale=pt",
+                "username":"#{session.author.username}",
                 "name":"#{session.author.full_name}",
                 "gravatar_url":"#{gravatar_url(Digest::MD5::hexdigest(session.author.email).downcase)}"
               },
               {
+                "user_id":#{session.second_author.id},
+                "user_uri":"http://test.host/users/#{session.second_author.to_param}?locale=pt",
+                "username":"#{session.second_author.username}",
                 "name":"#{session.second_author.full_name}",
-                "gravatar_url":"#{gravatar_url('9681863a56f1e1ac9562c72b297f6c2d')}"
+                "gravatar_url":"#{gravatar_url(Digest::MD5::hexdigest(session.second_author.email).downcase)}"
               }
             ],
             "prerequisites":"#{session.prerequisites}",
@@ -58,7 +73,11 @@ describe Api::V1::SessionsController, type: :controller do
             "audience_level":"Iniciante",
             "track":"Engenharia",
             "audience_limit":null,
-            "summary":"#{session.summary}"}
+            "summary":"#{session.summary}",
+            "mechanics":"#{session.mechanics}",
+            "status":"Criada",
+            "author_agreement":null,
+            "image_agreement":null}
         }.gsub(/\s*\n\s*/,''))
       end
     end
@@ -71,8 +90,12 @@ describe Api::V1::SessionsController, type: :controller do
         gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq({
           'id' => session.id,
+          'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=en",
           'title' => session.title,
-          'authors' => [{ 'name' => session.author.full_name,
+          'authors' => [{ 'user_id' => session.author.id,
+            'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
+            'username' => session.author.username,
+            'name' => session.author.full_name,
             'gravatar_url' => gravatar_url(gravatar_id)}],
           'prerequisites' => session.prerequisites,
           'tags' => ['fake', 'tags', 'Success Cases'],
@@ -81,7 +104,11 @@ describe Api::V1::SessionsController, type: :controller do
           'audience_level' => 'Beginner',
           'track' => 'Engineering',
           'audience_limit' => nil,
-          'summary' => session.summary
+          'summary' => session.summary,
+          'mechanics' => session.mechanics,
+          'status' => 'Created',
+          'author_agreement' => nil,
+          'image_agreement' => nil
         })
       end
     end
@@ -100,8 +127,12 @@ describe Api::V1::SessionsController, type: :controller do
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(JSON.parse(response.body)).to eq({
         'id' => session.id,
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
         'title' => session.title,
-        'authors' => [{ 'name' => session.author.full_name,
+        'authors' => [{ 'user_id' => session.author.id,
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'username' => session.author.username,
+          'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id)}],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
@@ -110,7 +141,11 @@ describe Api::V1::SessionsController, type: :controller do
         'audience_level' => 'Iniciante',
         'track' => 'Engenharia',
         'audience_limit' => nil,
-        'summary' => session.summary
+        'summary' => session.summary,
+        'mechanics' => session.mechanics,
+        'status' => 'Criada',
+        'author_agreement' => nil,
+        'image_agreement' => nil
       })
     end
 
@@ -122,8 +157,12 @@ describe Api::V1::SessionsController, type: :controller do
       expect(response.body).to match(/test\((.*)\)$/)
       expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
         'title' => session.title,
-        'authors' => [{ 'name' => session.author.full_name,
+        'authors' => [{ 'user_id' => session.author.id,
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'username' => session.author.username,
+          'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id)}],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
@@ -132,7 +171,11 @@ describe Api::V1::SessionsController, type: :controller do
         'audience_level' => 'Iniciante',
         'track' => 'Engenharia',
         'audience_limit' => nil,
-        'summary' => session.summary
+        'summary' => session.summary,
+        'mechanics' => session.mechanics,
+        'status' => 'Criada',
+        'author_agreement' => nil,
+        'image_agreement' => nil
       })
     end
 
@@ -147,8 +190,12 @@ describe Api::V1::SessionsController, type: :controller do
       expect(response.body).to match(/test\((.*)\)$/)
       expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
         'title' => session.title,
-        'authors' => [{ 'name' => session.author.full_name,
+        'authors' => [{ 'user_id' => session.author.id,
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'username' => session.author.username,
+          'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id)}],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
@@ -157,7 +204,11 @@ describe Api::V1::SessionsController, type: :controller do
         'audience_level' => 'Iniciante',
         'track' => 'Engenharia',
         'audience_limit' => 100,
-        'summary' => session.summary
+        'summary' => session.summary,
+        'mechanics' => session.mechanics,
+        'status' => 'Criada',
+        'author_agreement' => nil,
+        'image_agreement' => nil
       })
     end
   end
@@ -204,8 +255,12 @@ describe Api::V1::SessionsController, type: :controller do
     gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
     {
       'id' => session.id,
+      'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
       'title' => session.title,
-      'authors' => [{ 'name' => session.author.full_name,
+      'authors' => [{ 'user_id' => session.author.id,
+        'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+        'username' => session.author.username,
+        'name' => session.author.full_name,
         'gravatar_url' => gravatar_url(gravatar_id)}],
       'prerequisites' => session.prerequisites,
       'tags' => ['Aprendizagem', 'Testes'],
@@ -214,7 +269,11 @@ describe Api::V1::SessionsController, type: :controller do
       'audience_level' => 'Iniciante',
       'track' => 'Engenharia',
       'audience_limit' => nil,
-      'summary' => session.summary
+      'summary' => session.summary,
+      'mechanics' => session.mechanics,
+      'status' => 'Aceita',
+      'author_agreement' => true,
+      'image_agreement' => false
     }
   end
 
@@ -222,8 +281,12 @@ describe Api::V1::SessionsController, type: :controller do
     gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
     {
       'id' => session.id,
+      'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=en",
       'title' => session.title,
-      'authors' => [{ 'name' => session.author.full_name,
+      'authors' => [{ 'user_id' => session.author.id,
+        'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
+        'username' => session.author.username,
+        'name' => session.author.full_name,
         'gravatar_url' => gravatar_url(gravatar_id)}],
       'prerequisites' => session.prerequisites,
       'tags' => ['Learning', 'Tests'],
@@ -232,12 +295,16 @@ describe Api::V1::SessionsController, type: :controller do
       'audience_level' => 'Beginner',
       'track' => 'Engineering',
       'audience_limit' => nil,
-      'summary' => session.summary
+      'summary' => session.summary,
+      'mechanics' => session.mechanics,
+      'status' => 'Accepted',
+      'author_agreement' => true,
+      'image_agreement' => false
     }
   end
 
   def create_accepted_session_for(conference)
-    FactoryGirl.create(:session, state: :accepted, conference: conference)
+    FactoryGirl.create(:session, state: :accepted, author_agreement: true, image_agreement: false, conference: conference)
   end
 
   def gravatar_url(gravatar_id)
