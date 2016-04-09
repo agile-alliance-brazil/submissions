@@ -2,6 +2,8 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
+directories %w(app config db deploy lib public script spec)
+
 guard :rspec, cmd: 'bundle exec rspec' do
   watch('spec/spec_helper.rb')                        { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
