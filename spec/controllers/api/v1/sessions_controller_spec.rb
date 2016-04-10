@@ -211,10 +211,47 @@ describe Api::V1::SessionsController, type: :controller do
         'image_agreement' => nil
       })
     end
+
+    context 'before author confirmation date for a rejected session' do
+      before do
+        session.reviewing
+        session.reject
+        session.save!
+        get :show, id: session.id.to_s, format: :json, locale: 'en'
+      end
+
+      it 'should respect locale on session type, audience level, track and tags if possible' do
+        gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
+        expect(JSON.parse(response.body)).to eq({
+          'id' => session.id,
+          'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=en",
+          'title' => session.title,
+          'authors' => [{ 'user_id' => session.author.id,
+            'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
+            'username' => session.author.username,
+            'name' => session.author.full_name,
+            'gravatar_url' => gravatar_url(gravatar_id)}],
+          'prerequisites' => session.prerequisites,
+          'tags' => ['fake', 'tags', 'Success Cases'],
+          'duration_mins' => 50,
+          'session_type' => 'Lecture',
+          'audience_level' => 'Beginner',
+          'track' => 'Engineering',
+          'audience_limit' => nil,
+          'summary' => session.summary,
+          'mechanics' => session.mechanics,
+          'status' => 'Created',
+          'author_agreement' => nil,
+          'image_agreement' => nil
+        })
+      end
+    end
   end
 
   describe 'accepted' do
     before do
+      conference.author_confirmation = DateTime.now - 1.day
+      conference.save!
       @accepted_sessions = [
         create_accepted_session_for(conference),
         create_accepted_session_for(conference)
@@ -232,7 +269,6 @@ describe Api::V1::SessionsController, type: :controller do
         
         expect(JSON.parse(response.body)).to eq(sessions)
       end
-
     end
 
     context 'with en locale' do
@@ -247,7 +283,21 @@ describe Api::V1::SessionsController, type: :controller do
         
         expect(JSON.parse(response.body)).to eq(sessions)
       end
+    end
 
+    context 'before author confirmation date' do
+      before do
+        conference.author_confirmation = Time.now + 1.day
+        conference.save!
+
+        get :accepted, format: :json, locale: 'en', year: conference.year
+      end
+
+      it { should respond_with(:success) }
+
+      it 'should return an empty array' do
+        expect(JSON.parse(response.body)).to eq([])
+      end
     end
   end
 

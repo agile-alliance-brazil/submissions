@@ -20,7 +20,10 @@ module Api
       end
 
       def accepted
-        sessions = Session.for_conference(@conference).where(state: :accepted)
+        sessions = []
+        if @conference.author_confirmation < DateTime.now
+          sessions = Session.for_conference(@conference).where(state: :accepted)
+        end
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
@@ -68,7 +71,7 @@ module Api
           audience_limit: session.audience_limit,
           summary: session.summary,
           mechanics: session.mechanics,
-          status: I18n.t("session.state.#{session.state}"),
+          status: (session.conference.author_confirmation < DateTime.now) ? I18n.t("session.state.#{session.state}") : I18n.t('session.state.created'),
           author_agreement: session.author_agreement,
           image_agreement: session.image_agreement
         }
