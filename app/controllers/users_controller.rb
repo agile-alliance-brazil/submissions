@@ -41,7 +41,7 @@ class UsersController < ApplicationController
           session_id: s.id,
           session_uri: session_url(s.conference, s),
           name: s.title,
-          status: (s.conference.author_confirmation < DateTime.now) ? I18n.t("session.state.#{session.state}") : I18n.t('session.state.created')
+          status: (s.conference.author_confirmation < DateTime.now) ? I18n.t("session.state.#{s.state}") : I18n.t('session.state.created')
         }
       end
     }
