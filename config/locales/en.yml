@@ -87,6 +87,7 @@ en:
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
+        past_proposals: "Past proposals"
         roles: "Roles"
         wants_to_submit: "I want to submit sessions for the conference"
         password: "Password"

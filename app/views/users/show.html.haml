@@ -59,6 +59,10 @@
     %dt= t('formtastic.labels.user.bio')
     %dd= textilize(@user_profile.bio)
 
+  - unless @user_profile.sessions.empty?
+    %dt= t('formtastic.labels.user.past_proposals')
+    %dd= @user_profile.sessions.reject{|s| s.conference == @conference}.map{|s| link_to s.name, session_url(s.conference, s)}.join(", ")
+
 - if current_user == @user_profile
   %hr
   .hint

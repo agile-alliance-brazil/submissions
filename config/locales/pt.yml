@@ -85,6 +85,7 @@ pt:
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
+        past_proposals: "Propostas anteriores"
         roles: "Permissões"
         wants_to_submit: "Pretendo submeter palestras para a conferência"
         password: "Senha"

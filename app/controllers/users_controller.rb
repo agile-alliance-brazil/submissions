@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   private
   def resource
-    User.find(params[:id])
+    User.where(id: params[:id]).includes(:sessions).first
   end
 
   def resource_class
