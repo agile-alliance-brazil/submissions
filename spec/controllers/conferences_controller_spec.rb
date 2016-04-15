@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe ConferencesController, type: :controller do
+  before(:all) do
+    Conference.delete(:all)
+  end
+
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   let(:user){ FactoryGirl.create(:user) }

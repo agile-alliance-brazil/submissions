@@ -10,7 +10,7 @@ describe StaticPagesController, type: :controller do
   end
 
   it "should render template from page param" do
-    FactoryGirl.create(:conference, year: 2011)
+    Conference.where(year: 2011).first || FactoryGirl.create(:conference, year: 2011)
     controller.stubs(:render)
     controller.expects(:render).with(action: '2011_syntax_help')
 
