@@ -55,6 +55,14 @@ describe ConferencesController, type: :controller do
         expect(assigns(:conference)).to eq(subject)
       end
 
+      it 'should set conference assign to latest when no id or year specified' do
+        subject # Force creation
+
+        get :show
+
+        expect(assigns(:conference)).to eq(Conference.last)
+      end
+
       it 'should render static page with year and home if / page is unavailable' do
         get :show, year: subject.year
 
