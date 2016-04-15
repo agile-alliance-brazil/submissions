@@ -12,6 +12,7 @@ en:
       username_format: "please use only letters, numbers, spaces, and .-_@"
       constant: "can't be changed"
       same_conference: "doesn't belong to the same conference"
+      cant_be_after: "cannot be after %{date}"
   activerecord:
     errors:
       messages:
@@ -75,6 +76,23 @@ en:
       review_feedback:
         session: "Reviews for proposal '%{session}'"
     labels:
+      conference:
+        name: "Name"
+        year: "Edition"
+        program_chair_user_username: "Program chair username"
+        location: "City and state"
+        start_date: "Starting day"
+        end_date: "Ending day"
+        call_for_papers: "Call for paper marketing"
+        submissions_open: "Proposal submission opens"
+        submissions_deadline: "Proposal submission ends"
+        presubmissions_deadline: "Early review proposal submission opens"
+        prereview_deadline: "Early review deadline"
+        review_deadline: "Final review deadline"
+        author_notification: "Author acceptance notification deadline"
+        author_confirmation: "Author participation confirmation deadline"
+        voting_deadline: "Public best proposal vote deadline"
+        visible: "Make conference available to the public"
       user:
         first_name: "First name"
         last_name: "Last name"
@@ -252,6 +270,8 @@ en:
         comments_to_authors: "Please provide any meaningful feedback for the authors here, explaining the reason for accepting or rejecting the session. What questions are still remaining? What information would you like to have seen?"
         justification: "Explain to the organizers the reason for your recommendation. The authors won't have access to this explanation."
     actions:
+      create_conference: "Create conference"
+      update_conference: "Update conference"
       signup: "Register new account"
       reset_password: "Reset password"
       change_password: "Update my password"
@@ -285,6 +305,7 @@ en:
     change_password: "Choose new password"
     untitled: "Untitled"
     sessions: "Session proposals"
+    edit_conference: "Edit conference"
     user_sessions: "%{name}'s session proposals"
     new_session: "Propose a session"
     tracks: "Session Tracks"
@@ -306,6 +327,8 @@ en:
     previous_reviewers: 'Reviewers from other conferences'
 
   actions:
+    manage_conferences: "Manage conferences"
+    create_conference: "New conference"
     submission_date: "Submission deadline"
     review_date: "Review deadline"
     notification_date: "Author notification deadline"
@@ -335,7 +358,7 @@ en:
     section:
       session: "Sessions"
       review: "Review process"
-      organize: "Track organization"
+      organize: "Conference organization"
       user: "Profile"
     review_decision: "Decide"
     create_review_decision: "New Decision"
@@ -415,6 +438,9 @@ en:
       review_deadline: "Final review deadline"
       author_notification: "Acceptance notification"
       author_confirmation: "Session confirmation deadline to selected authors"
+      voting_deadline: "Deadline for public vote for best proposals"
+      start_date: "Conference start"
+      end_date: "Conference end"
 
   session_types:
     tutorial:

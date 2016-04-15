@@ -250,8 +250,6 @@ describe Api::V1::SessionsController, type: :controller do
 
   describe 'accepted' do
     before do
-      conference.author_confirmation = DateTime.now - 1.day
-      conference.save!
       @accepted_sessions = [
         create_accepted_session_for(conference),
         create_accepted_session_for(conference)
@@ -259,7 +257,9 @@ describe Api::V1::SessionsController, type: :controller do
     end
     context 'with pt locale' do
       before do
-        get :accepted, format: :json, locale: 'pt', year: conference.year
+        Timecop.freeze((conference.author_confirmation + 1.day).to_datetime) do
+          get :accepted, format: :json, locale: 'pt', year: conference.year
+        end
       end
 
       it { should respond_with(:success) }
@@ -273,7 +273,9 @@ describe Api::V1::SessionsController, type: :controller do
 
     context 'with en locale' do
       before do
-        get :accepted, format: :json, locale: 'en', year: conference.year
+        Timecop.freeze((conference.author_confirmation + 1.day).to_datetime) do
+          get :accepted, format: :json, locale: 'en', year: conference.year
+        end
       end
 
       it { should respond_with(:success) }
@@ -287,10 +289,9 @@ describe Api::V1::SessionsController, type: :controller do
 
     context 'before author confirmation date' do
       before do
-        conference.author_confirmation = Time.now + 1.day
-        conference.save!
-
-        get :accepted, format: :json, locale: 'en', year: conference.year
+        Timecop.freeze((conference.author_confirmation - 1.hour).to_datetime) do
+          get :accepted, format: :json, locale: 'en', year: conference.year
+        end
       end
 
       it { should respond_with(:success) }

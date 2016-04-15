@@ -1,0 +1,11 @@
+- title t('title.welcome', conference: @conference.name)
+- show_actions!
+.auto_focus
+
+= textilize(@conference.pages.with_path('/').first.content)
+
+%h3 Important dates
+
+%ul
+  - @conference.dates.each do |date_map|
+    %li= present_date(@conference, date_map)

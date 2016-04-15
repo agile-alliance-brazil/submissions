@@ -31,11 +31,12 @@ AgileBrazil::Application.routes.draw do
                sign_up: 'signup'
              }
 
+  resources :conferences, except: %i(destroy)
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
 
   scope "(:year)", constraints: { year: /\d{4}/ } do
-    root to: 'static_pages#show', page: 'home'
+    root to: 'conferences#show'
 
     resources :audience_levels, only: %i(index)
     resources :organizers, except: %i(show)

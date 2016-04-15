@@ -2,10 +2,115 @@
 require 'spec_helper'
 
 describe Conference, type: :model do
-  context "associations" do
+  context 'associations' do
     it { should have_many :tracks }
     it { should have_many :audience_levels }
     it { should have_many :session_types }
+    it { should have_many :pages }
+  end
+
+  context 'validations' do
+    it { should validate_presence_of :year }
+    it { should validate_presence_of :name }
+
+    context 'if visible' do
+      subject { FactoryGirl.build(:conference, visible: true) }
+      it { should validate_presence_of :location }
+      it { should validate_presence_of :start_date }
+      it { should validate_presence_of :end_date }
+      it { should validate_presence_of :submissions_open }
+      it { should validate_presence_of :submissions_deadline }
+      it { should validate_presence_of :review_deadline }
+      it { should validate_presence_of :author_notification }
+      it { should validate_presence_of :author_confirmation }
+    end
+
+    context 'if not visible' do
+      subject { FactoryGirl.build(:conference, visible: false) }
+      it { should_not validate_presence_of :location }
+      it { should_not validate_presence_of :start_date }
+      it { should_not validate_presence_of :end_date }
+      it { should_not validate_presence_of :submissions_open }
+      it { should_not validate_presence_of :submissions_deadline }
+      it { should_not validate_presence_of :review_deadline }
+      it { should_not validate_presence_of :author_notification }
+      it { should_not validate_presence_of :author_confirmation }
+    end
+
+    context 'date orders' do
+      subject { FactoryGirl.build(:conference) }
+      Conference::DATE_ORDERS.each_cons(2) do |date1, date2|
+        it "should validate that #{date1} comes before #{date2} if both are set" do
+          d2 = subject.send(date2)
+          subject.send("#{date1}=".to_sym, d2 + 1.day)
+
+          expect(subject).to_not be_valid
+          error_message = I18n.t('errors.messages.cant_be_after', date: I18n.t("conference.dates.#{date2}"))
+          expect(subject.errors[date1]).to include(error_message)
+        end
+      end
+      it 'should be valid if a single date is entered' do
+        Conference::DATE_ORDERS[0..-1].each{|d| subject.send("#{d}=", nil)}
+
+        expect(subject).to be_valid
+      end
+    end
+
+    it "should validate that year doesn't change" do
+      subject = FactoryGirl.create(:conference)
+      subject.year += 9999
+
+      expect(subject).to_not be_valid
+      expect(subject.errors[:year]).to include(I18n.t("errors.messages.constant"))
+    end
+  end
+
+  context 'location_and_date' do
+    context 'for start and end in the same month' do
+      subject do
+        FactoryGirl.build(:conference,
+          start_date: Time.zone.local(2010, 6, 22),
+          end_date: Time.zone.local(2010, 6, 25))
+      end
+
+      it 'should compile location_and_date to location followed by start day and end day with month and year' do
+        expect(subject.location_and_date).to eq("#{subject.location}, 22-25 Jun, 2010")
+      end
+    end
+
+    context 'for start and end in different months' do
+      subject do
+        FactoryGirl.build(:conference,
+          start_date: Time.zone.local(2011, 6, 27),
+          end_date: Time.zone.local(2011, 7, 1))
+      end
+
+      it 'should compile location_and_date to location followed by start day and month and end day with month and year' do
+        expect(subject.location_and_date).to eq("#{subject.location}, 27/Jun - 1/Jul, 2011")
+      end
+    end
+
+    context 'for start and end in different years' do
+      subject do
+        FactoryGirl.build(:conference,
+          start_date: Time.zone.local(2011, 11, 30),
+          end_date: Time.zone.local(2012, 1, 2))
+      end
+
+      it 'should compile location_and_date to location followed by start date and end date' do
+        expect(subject.location_and_date).to eq("#{subject.location}, 30/Nov, 2011 - 2/Jan, 2012")
+      end
+    end
+
+    context 'without start and end' do
+      subject do
+        FactoryGirl.build(:conference, start_date: nil, end_date: nil)
+      end
+
+      it 'should compile location_and_date to location followed by start date and end date' do
+        expect(subject.location_and_date).to eq("#{subject.location}")
+      end
+    end
   end
 
   it "should overide to_param with year" do

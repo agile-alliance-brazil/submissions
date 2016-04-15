@@ -84,7 +84,6 @@ describe ReviewersHelper, type: :helper do
       expect(row[4]).to eq('')
     end
     it 'should include feedback if past author notification' do
-      @conference.author_notification = DateTime.now - 1.minute
       @conference.save
       reviews = @recommendations.map do |r|
         session = FactoryGirl.create(:session, conference: @conference, state: 'in_review')
@@ -94,7 +93,10 @@ describe ReviewersHelper, type: :helper do
       ReviewEvaluation.new(review_feedback: feedback, review: reviews.first, helpful_review: true).save(validate: false)
       ReviewEvaluation.new(review_feedback: feedback, review: reviews.first, helpful_review: false).save(validate: false)
       ReviewEvaluation.new(review_feedback: feedback, review: reviews.last, helpful_review: false).save(validate: false)
-      row = helper.reviewer_summary_review_row(reviews, @conference)
+
+      row = Timecop.freeze((@conference.author_confirmation + 1.minute).to_datetime) do
+        helper.reviewer_summary_review_row(reviews, @conference)
+      end
 
       expect(row).to have(5).items
       expect(row[0]).to eq(1)

@@ -96,6 +96,9 @@ module ActionsHelper
   def organizer_section_for(user, conference)
     section = Section.new t('actions.section.organize')
 
+    if can? :read, Conference
+      section.add t('actions.manage_conferences'), conferences_path
+    end
     if can? :read, Organizer
       section.add t('actions.manage_organizers'), organizers_path(@conference)
     end

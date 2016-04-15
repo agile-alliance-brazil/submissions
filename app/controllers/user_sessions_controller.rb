@@ -6,6 +6,12 @@ class UserSessionsController < Devise::SessionsController
   def new
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
-    render template: "static_pages/#{Conference.current.year}_home"
+    @conference = Conference.current
+    page = @conference.pages.with_path('/').first
+    if page
+      render template: "conferences/show"
+    else
+      render template: "static_pages/#{@conference.year}_home"
+    end
   end
 end

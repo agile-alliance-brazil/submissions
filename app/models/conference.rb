@@ -1,8 +1,47 @@
 # encoding: UTF-8
 class Conference < ActiveRecord::Base
+  attr_trimmed    :program_chair_user_username
+
+  attr_autocomplete_username_as :program_chair_user
+
+  has_many :pages
   has_many :tracks
   has_many :audience_levels
   has_many :session_types
+
+  validates :name, presence: true
+  validates :year, presence: true, constant: { on: :update }
+  validates :location, presence: true, if: :visible?
+  validates :start_date, presence: true, if: :visible?
+  validates :end_date, presence: true, if: :visible?
+  validates :submissions_open, presence: true, if: :visible?
+  validates :submissions_deadline, presence: true, if: :visible?
+  validates :review_deadline, presence: true, if: :visible?
+  validates :author_notification, presence: true, if: :visible?
+  validates :author_confirmation, presence: true, if: :visible?
+
+  validate :date_orders
+
+  # TODO Define how this relationship should be shaped.
+  def program_chair_user_username
+    nil
+  end
+
+  def program_chair_user_username=(user)
+    nil
+  end
+
+  def location_and_date
+    if start_date.try(:year) != end_date.try(:year)
+      "#{location}, #{start_date.try(:strftime, '%-d/%b, %Y')} - #{end_date.try(:strftime, '%-d/%b, %Y')}"
+    elsif start_date.try(:month) != end_date.try(:month)
+      "#{location}, #{start_date.try(:strftime, '%-d/%b')} - #{end_date.try(:strftime, '%-d/%b, %Y')}"
+    elsif start_date || end_date
+      "#{location}, #{start_date.try(:strftime, '%-d')}-#{end_date.try(:strftime, '%-d %b, %Y')}"
+    else
+      "#{location}"
+    end
+  end
 
   def self.current
     order('year desc').first
@@ -42,16 +81,15 @@ class Conference < ActiveRecord::Base
     DateTime.now <= self.voting_deadline
   end
 
-  DEADLINES = [
-    :call_for_papers,
-    :submissions_open,
-    :presubmissions_deadline,
-    :prereview_deadline,
-    :submissions_deadline,
-    # :review_deadline, # Internal deadline
-    :author_notification,
-    :author_confirmation
-  ]
+  DEADLINES = %i(
+    call_for_papers
+    submissions_open
+    presubmissions_deadline
+    prereview_deadline
+    submissions_deadline
+    author_notification
+    author_confirmation
+  ) # review_deadline is out because it's an internal deadline
 
   def dates
     @dates ||= to_deadlines(DEADLINES)
@@ -66,9 +104,9 @@ class Conference < ActiveRecord::Base
   def deadlines_for(role)
     deadlines = case role.to_sym
     when :author
-      [:presubmissions_deadline, :submissions_deadline, :author_notification, :author_confirmation]
+      %i(presubmissions_deadline submissions_deadline author_notification author_confirmation)
     when :reviewer
-      [:prereview_deadline, :review_deadline]
+      %i(prereview_deadline review_deadline)
     when :organizer, :all
       DEADLINES
     end
@@ -77,5 +115,21 @@ class Conference < ActiveRecord::Base
 
   def to_deadlines(deadlines)
     deadlines.map { |name| send(name) ? [send(name), name] : nil}.compact
+  end
+
+  DATE_ORDERS = %i(call_for_papers submissions_open presubmissions_deadline prereview_deadline
+    submissions_deadline voting_deadline review_deadline author_notification author_confirmation
+    start_date end_date)
+
+  def date_orders
+    DATE_ORDERS.reject{|d| send(d).nil?}.each_cons(2) do |(d1, d2)|
+      date1 = send(d1)
+      date2 = send(d2)
+      if date1 >= date2
+        next_date = I18n.t("conference.dates.#{d2}")
+        error_message = I18n.t('errors.messages.cant_be_after', date: next_date)
+        errors.add(d1, error_message)
+      end
+    end
   end
 end

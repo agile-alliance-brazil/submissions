@@ -1,0 +1,47 @@
+- title t('title.edit_conference')
+- show_actions!
+
+= semantic_form_for @conference do |form|
+  = form.inputs do
+    = form.input :location, required: true, input_html: {tabindex: autotab}
+    = form.input :start_date, required: true, as: :date_picker, input_html: {tabindex: autotab}
+    = form.input :end_date, required: true, as: :date_picker, input_html: {tabindex: autotab}
+    = form.input :call_for_papers, as: :date_picker, input_html: {tabindex: autotab, value: @conference.call_for_papers.try(:strftime, '%F')}
+    = form.input :submissions_open, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.submissions_open.try(:strftime, '%F')}
+    = form.input :presubmissions_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.presubmissions_deadline.try(:strftime, '%F')}
+    = form.input :prereview_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.prereview_deadline.try(:strftime, '%F')}
+    = form.input :submissions_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.submissions_deadline.try(:strftime, '%F')}
+    = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
+    = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
+    = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
+    = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.voting_deadline.try(:strftime, '%F')}
+    = form.input :visible, required: true, input_html: {tabindex: autotab}
+  / Tracks
+  / Logo
+  / Tags
+  / home
+  / guidelines
+  / language support
+  / session types
+  / audience levels
+  = form.inputs do
+    #page_previews
+      %ul.pages
+        - @conference.pages.each do |page|
+          %li.page= link_to "/#{@conference.year}#{page.path}", "#page_previews-#{page.path}"
+      - @conference.pages.each do |page|
+        %div{id: "page_previews-#{page.path}"}
+          .preview= textilize(page.content)
+          .content= text_area_tag page.content
+  = form.actions do
+    = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
+
+:javascript
+  $(document).ready(function() {
+    if (!Modernizr.inputtypes.date) {
+      $("input[type='date']").datepicker({
+          dateFormat: "yy-mm-dd"
+      });
+    }
+    $('#page_previews').tabs();
+  })

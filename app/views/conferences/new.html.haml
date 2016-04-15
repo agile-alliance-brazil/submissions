@@ -1,0 +1,18 @@
+- title t('actions.create_conference')
+- show_actions!
+.auto_focus
+
+= semantic_form_for @conference do |form|
+  = form.inputs do
+    = form.input :name, required: true, input_html: {tabindex: autotab}
+    = form.input :year, required: true, input_html: {tabindex: autotab}
+    = form.input :program_chair_user_username, required: true, input_html: {tabindex: autotab}
+  = form.actions do
+    = form.action :submit, label: :create_conference, button_html: {tabindex: autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#conference_program_chair_user_username").autocomplete({
+      source: "#{users_path(format: :json)}"
+    });
+  })

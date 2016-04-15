@@ -1,0 +1,20 @@
+- title t('actions.manage_conferences')
+- show_actions!
+
+%table.conferences
+  %thead
+    %tr
+      %th.organizer= t('formtastic.labels.conference.name')
+      %th.track= t('formtastic.labels.conference.year')
+  %tbody
+    - @conferences.each do |conference|
+      = content_tag_for(:tr, conference, class: cycle(:odd, :even)) do
+        %td.conference
+          - if can? :update, conference
+            = link_to h(conference.name), edit_conference_path(conference)
+          - else
+            = conference.name
+        %td.identifier&= t(conference.year)
+
+- if can? :create, Conference
+  = link_to t('actions.create_conference'), new_conference_path

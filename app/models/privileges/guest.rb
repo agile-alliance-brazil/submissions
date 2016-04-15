@@ -3,6 +3,7 @@ class Privileges::Guest < Privileges::Base
   def privileges
     can([:read, :create], User)
     can(:update, User, id: @user.id)
+    can(:read, Conference)
     can(:read, Session)
     can(:read, Track)
     can(:read, SessionType)

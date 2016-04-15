@@ -4,18 +4,19 @@ pt:
   errors:
     messages:
       missing: 'está ausente e é obrigatório'
-      same_author: não pode ser o mesmo autor
-      incomplete: usuário não possui perfil de autor completo
-      session_type_duration: "só pode ser %{valid_durations} minutos"
-      experience_report_session_type: só pode ser uma Palestra
-      email_format: deve ter um formato de e-mail válido
+      same_author: 'não pode ser o mesmo autor'
+      incomplete: 'usuário não possui perfil de autor completo'
+      session_type_duration: 'só pode ser %{valid_durations} minutos'
+      experience_report_session_type: 'só pode ser uma Palestra'
+      email_format: 'deve ter um formato de e-mail válido'
       username_format: ! 'deve usar apenas letras, números, espaços e .-_@'
-      constant: não pode mudar
-      same_conference: não pertence à mesma conferência
+      constant: 'não pode mudar'
+      same_conference: 'não pertence à mesma conferência'
+      cant_be_after: 'não pode vir após %{date}'
   activerecord:
     errors:
       messages:
-        existence: não existe
+        existence: 'não existe'
       models:
         user:
           attributes:
@@ -73,6 +74,23 @@ pt:
       review_feedback:
         session: "Avaliações para proposta '%{session}'"
     labels:
+      conference:
+        name: "Nome"
+        year: "Edição"
+        program_chair_user_username: "Usuário do chair de programa"
+        location: "Cidade e Estado"
+        start_date: "Dia de início"
+        end_date: "Dia de fim"
+        call_for_papers: "Divulgação da chamada para propostas"
+        submissions_open: "Abertura das submissões de propostas"
+        submissions_deadline: "Deadline para submissão de propostas"
+        presubmissions_deadline: "Deadline para submissão de propostas com pré-avaliações"
+        prereview_deadline: "Deadline para pré-avaliações"
+        review_deadline: "Deadline para avaliações finais"
+        author_notification: "Deadline para notificação de aceitação aos autores"
+        author_confirmation: "Deadline para confirmação de presença dos autores"
+        voting_deadline: "Deadline para votação pública para melhores propostas"
+        visible: "Tornar a conferência visível ao público"
       user:
         first_name: "Nome"
         last_name: "Sobrenome"
@@ -251,6 +269,8 @@ pt:
         comments_to_authors: "Procurem escrever feedback útil aos autores neste campo, explicando o motivo da rejeição ou aceitação. Quais dúvidas ficaram? Quais informações mais você gostaria de ver? Vale também sugestões de alterações na própria proposta (por exemplo caso alguma resposta na parte de <strong>Sobre a proposta</strong> seja não, vale colocar aqui sugestões de alteração para melhorar isso)"
         justification: "Explique para os organizadores o motivo do seu parecer. Os autores não terão acesso a essa justificativa."
     actions:
+      create_conference: "Criar conferência"
+      update_conference: "Atualizar conferência"
       signup: "Criar novo usuário"
       reset_password: "Recuperar meus dados de acesso"
       change_password: "Atualizar senha"
@@ -284,6 +304,7 @@ pt:
     change_password: "Escolha uma nova senha"
     untitled: "Sem título"
     sessions: "Sessões submetidas"
+    edit_conference: "Editar conferência"
     user_sessions: "Sessões submetidas por %{name}"
     new_session: "Proposta de sessão"
     tracks: "Trilhas de interesse"
@@ -305,6 +326,8 @@ pt:
     previous_reviewers: 'Avaliadores de outras conferências'
 
   actions:
+    manage_conferences: "Administrar conferências"
+    create_conference: "Nova conferência"
     submission_date: "Prazo para submissões"
     review_date: "Prazo para avaliações"
     notification_date: "Prazo para notificação aos autores"
@@ -334,7 +357,7 @@ pt:
     section:
       session: "Sessões"
       review: "Processo de avaliação"
-      organize: "Organização das Trilhas"
+      organize: "Organização de eventos"
       user: "Perfil"
     review_decision: "Parecer"
     create_review_decision: "Novo Parecer"
@@ -357,9 +380,14 @@ pt:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
 
   flash:
+    conference:
+      create:
+        success: "Conferência criada com sucesso."
+      update:
+        success: "Conferência atualizada com sucesso."
     session:
       update:
-        success: "Sessão atualizado com sucesso!"
+        success: "Sessão atualizada com sucesso."
       create:
         success: "Sessão submetida com sucesso."
       confirm:
@@ -372,7 +400,7 @@ pt:
       create:
         success: "Organizador criado com sucesso."
       update:
-        success: "Organizador atualizado com sucesso!"
+        success: "Organizador atualizado com sucesso."
     reviewer:
       create:
         success: "Avaliador convidado."
@@ -414,6 +442,9 @@ pt:
       submissions_deadline: "Prazo final para submissão de propostas"
       author_notification: "Notificação aos autores selecionados"
       author_confirmation: "Limite para confirmação das palestras dos autores selecionados"
+      voting_deadline: "Limite da votação pública para melhores propostas"
+      start_date: "Início da conferência"
+      end_date: "Fim da conferência"
 
   session_types:
     tutorial:
