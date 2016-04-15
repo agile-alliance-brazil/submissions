@@ -2,10 +2,6 @@
 require 'spec_helper'
 
 describe ConferencesController, type: :controller do
-  before(:all) do
-    Conference.delete(:all)
-  end
-
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   let(:user){ FactoryGirl.create(:user) }
@@ -39,33 +35,31 @@ describe ConferencesController, type: :controller do
 
       get :index
 
-      expect(assigns(:conferences)).to eq([subject, new_conf])
+      expect(assigns(:conferences)).to eq(Conference.all.sort_by(&:created_at))
     end
   end
 
   context 'show' do
-    it 'should set conference assign according to year' do
-      subject.tap{|c| c.year = 2010; c.save(validate: false)}
+    context 'for static asset based conference' do
+      subject { Conference.where(year: 2010).first || FactoryGirl.create(:conference, year: 2010) }
 
-      get :show, year: 2010
+      it 'should set conference assign according to year' do
+        get :show, year: subject.year
 
-      expect(assigns(:conference)).to eq(subject)
-    end
+        expect(assigns(:conference)).to eq(subject)
+      end
 
-    it 'should set conference assign according to id but using year' do
-      subject.tap{|c| c.year = 2010; c.save(validate: false)} # Needs to be 2010 so that the static_pages file exists
+      it 'should set conference assign according to id but using year' do
+        get :show, id: subject.year
 
-      get :show, id: subject.year
+        expect(assigns(:conference)).to eq(subject)
+      end
 
-      expect(assigns(:conference)).to eq(subject)
-    end
+      it 'should render static page with year and home if / page is unavailable' do
+        get :show, year: subject.year
 
-    it 'should render static page with year and home if / page is unavailable' do
-      subject.tap{|c| c.year = 2010; c.save(validate: false)} # Needs to be 2010 so that the static_pages file exists
-
-      get :show, year: subject.year
-
-      expect(response).to render_template("static_pages/#{subject.year}_home")
+        expect(response).to render_template("static_pages/#{subject.year}_home")
+      end
     end
 
     it 'should render / page when available' do
