@@ -208,7 +208,7 @@ describe Conference, type: :model do
       end
     end
 
-    describe "in_submission_phase?" do
+    describe 'in_submission_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference,
           submissions_open: Time.now + 6.days,
@@ -217,114 +217,168 @@ describe Conference, type: :model do
         @end = @conference.submissions_deadline
       end
 
-      it "should return true if date is on start deadline" do
+      it 'should return true if date is on start deadline' do
         DateTime.expects(:now).returns(@start)
+
         expect(@conference).to be_in_submission_phase
       end
 
-      it "should return false if date is before start deadline" do
+      it 'should return false if date is before start deadline' do
         DateTime.expects(:now).returns(@start - 1.second)
+
         expect(@conference).to_not be_in_submission_phase
       end
 
-      it "should return true if date is after start deadline" do
+      it 'should return true if date is after start deadline' do
         DateTime.expects(:now).returns(@start + 1.second)
+
         expect(@conference).to be_in_submission_phase
       end
 
-      it "should return true if date is prior to end deadline" do
+      it 'should return true if date is prior to end deadline' do
         DateTime.expects(:now).returns(@end - 1.second)
+
         expect(@conference).to be_in_submission_phase
       end
 
-      it "should return true if date is on end deadline" do
+      it 'should return true if date is on end deadline' do
         DateTime.expects(:now).returns(@end)
+
         expect(@conference).to be_in_submission_phase
       end
 
-      it "should return false if date is after end deadline" do
+      it 'should return false if date is after end deadline' do
         DateTime.expects(:now).returns(@end + 1.second)
+
+        expect(@conference).to_not be_in_submission_phase
+      end
+
+      it 'should return false if start is nil' do
+        @conference.submissions_open = nil
+        
+        expect(@conference).to_not be_in_submission_phase
+      end
+
+      it 'should return false if end is nil' do
+        @conference.submissions_deadline = nil
+        
         expect(@conference).to_not be_in_submission_phase
       end
     end
 
-    describe "in_early_review_phase?" do
+    describe 'in_early_review_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference)
         @start = @conference.presubmissions_deadline
         @end = @conference.prereview_deadline
       end
 
-      it "should return true if date is on start deadline" do
+      it 'should return true if date is on start deadline' do
         DateTime.expects(:now).returns(@start)
+
         expect(@conference).to be_in_early_review_phase
       end
 
-      it "should return false if date is before start deadline" do
+      it 'should return false if date is before start deadline' do
         DateTime.expects(:now).returns(@start - 1.second)
+
         expect(@conference).to_not be_in_early_review_phase
       end
 
-      it "should return true if date is after start deadline" do
+      it 'should return true if date is after start deadline' do
         DateTime.expects(:now).returns(@start + 1.second)
+
         expect(@conference).to be_in_early_review_phase
       end
 
-      it "should return true if date is prior to end deadline" do
+      it 'should return true if date is prior to end deadline' do
         DateTime.expects(:now).returns(@end - 1.second)
+
         expect(@conference).to be_in_early_review_phase
       end
 
-      it "should return true if date is on end deadline" do
+      it 'should return true if date is on end deadline' do
         DateTime.expects(:now).returns(@end)
+
         expect(@conference).to be_in_early_review_phase
       end
 
-      it "should return false if date is after end deadline" do
+      it 'should return false if date is after end deadline' do
         DateTime.expects(:now).returns(@end + 1.second)
+
+        expect(@conference).to_not be_in_early_review_phase
+      end
+
+      it 'should return false if start is nil' do
+        @conference.presubmissions_deadline = nil
+        
+        expect(@conference).to_not be_in_early_review_phase
+      end
+
+      it 'should return false if end is nil' do
+        @conference.prereview_deadline = nil
+        
         expect(@conference).to_not be_in_early_review_phase
       end
     end
 
-    describe "in_final_review_phase?" do
+    describe 'in_final_review_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference)
         @start = @conference.submissions_deadline
         @end = @conference.review_deadline
       end
 
-      it "should return true if date is on start deadline" do
+      it 'should return true if date is on start deadline' do
         DateTime.expects(:now).returns(@start)
+
         expect(@conference).to be_in_final_review_phase
       end
 
-      it "should return false if date is before start deadline" do
+      it 'should return false if date is before start deadline' do
         DateTime.expects(:now).returns(@start - 1.second)
+
         expect(@conference).to_not be_in_final_review_phase
       end
 
-      it "should return true if date is after start deadline" do
+      it 'should return true if date is after start deadline' do
         DateTime.expects(:now).returns(@start + 1.second)
+
         expect(@conference).to be_in_final_review_phase
       end
 
-      it "should return true if date is prior to end deadline" do
+      it 'should return true if date is prior to end deadline' do
         DateTime.expects(:now).returns(@end - 1.second)
+
         expect(@conference).to be_in_final_review_phase
       end
 
-      it "should return true if date is on end deadline" do
+      it 'should return true if date is on end deadline' do
         DateTime.expects(:now).returns(@end)
+
         expect(@conference).to be_in_final_review_phase
       end
 
-      it "should return false if date is after end deadline" do
+      it 'should return false if date is after end deadline' do
         DateTime.expects(:now).returns(@end + 1.second)
+
+        expect(@conference).to_not be_in_final_review_phase
+      end
+
+      it 'should return false if start is nil' do
+        @conference.submissions_deadline = nil
+        
+        expect(@conference).to_not be_in_final_review_phase
+      end
+
+      it 'should return false if end is nil' do
+        @conference.review_deadline = nil
+        
         expect(@conference).to_not be_in_final_review_phase
       end
     end
 
-    describe "in_author_confirmation_phase?" do
+    describe 'in_author_confirmation_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference,
           author_notification: Time.now + 6.days,
@@ -333,65 +387,86 @@ describe Conference, type: :model do
         @end = @conference.author_confirmation
       end
 
-      it "should return true if date is on start deadline" do
+      it 'should return true if date is on start deadline' do
         DateTime.expects(:now).returns(@start)
+
         expect(@conference).to be_in_author_confirmation_phase
       end
 
-      it "should return false if date is before start deadline" do
+      it 'should return false if date is before start deadline' do
         DateTime.expects(:now).returns(@start - 1.second)
+
         expect(@conference).to_not be_in_author_confirmation_phase
       end
 
-      it "should return true if date is after start deadline" do
+      it 'should return true if date is after start deadline' do
         DateTime.expects(:now).returns(@start + 1.second)
+
         expect(@conference).to be_in_author_confirmation_phase
       end
 
-      it "should return true if date is prior to end deadline" do
+      it 'should return true if date is prior to end deadline' do
         DateTime.expects(:now).returns(@end - 1.second)
+
         expect(@conference).to be_in_author_confirmation_phase
       end
 
-      it "should return true if date is on end deadline" do
+      it 'should return true if date is on end deadline' do
         DateTime.expects(:now).returns(@end)
+
         expect(@conference).to be_in_author_confirmation_phase
       end
 
-      it "should return false if date is after end deadline" do
+      it 'should return false if date is after end deadline' do
         DateTime.expects(:now).returns(@end + 1.second)
+
+        expect(@conference).to_not be_in_author_confirmation_phase
+      end
+
+      it 'should return false if start is nil' do
+        @conference.author_notification = nil
+        
+        expect(@conference).to_not be_in_author_confirmation_phase
+      end
+
+      it 'should return false if end is nil' do
+        @conference.author_confirmation = nil
+        
         expect(@conference).to_not be_in_author_confirmation_phase
       end
     end
 
-    it "should not fail if conference doesn't have early review" do
+    it 'should not fail if conference does not have early review' do
       conference = FactoryGirl.build(:conference)
       DateTime.stubs(:now).returns(conference.submissions_open)
       expect(conference).to_not be_in_early_review_phase
     end
 
-    describe "in_voting_deadline?" do
+    describe 'in_voting_deadline?' do
       before do
         @conference = FactoryGirl.build(:conference)
         @conference.voting_deadline = @conference.submissions_deadline + 5.days
       end
 
-      it "should be true if date is prior to voting deadline" do
+      it 'should be true if date is prior to voting deadline' do
         DateTime.stubs(:now).returns(@conference.voting_deadline - 1.second)
+
         expect(@conference).to be_in_voting_phase
       end
 
-      it "should be true if date is on voting deadline" do
+      it 'should be true if date is on voting deadline' do
         DateTime.stubs(:now).returns(@conference.voting_deadline)
+
         expect(@conference).to be_in_voting_phase
       end
 
-      it "should be false if date is after voting deadline" do
+      it 'should be false if date is after voting deadline' do
         DateTime.stubs(:now).returns(@conference.voting_deadline + 1.second)
+
         expect(@conference).to_not be_in_voting_phase
       end
 
-      it "should be false if conference doesn't have a voting deadline" do
+      it 'should be false if conference does not have a voting deadline' do
         conference = FactoryGirl.build(:conference)
         conference.voting_deadline = nil
         expect(conference).to_not be_in_voting_phase

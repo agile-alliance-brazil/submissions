@@ -16,14 +16,13 @@
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
     = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.voting_deadline.try(:strftime, '%F')}
     = form.input :visible, required: true, input_html: {tabindex: autotab}
-  / Tracks
   / Logo
-  / Tags
-  / home
-  / guidelines
-  / language support
+  / Tracks
   / session types
   / audience levels
+  / Tags
+  / language support
+  / edit pages
   = form.inputs do
     #page_previews
       %ul.pages

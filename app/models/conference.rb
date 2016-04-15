@@ -22,7 +22,8 @@ class Conference < ActiveRecord::Base
 
   validate :date_orders
 
-  # TODO Define how this relationship should be shaped.
+  # TODO: Allow for logo upload
+  # TODO: Define how this relationship should be shaped.
   def program_chair_user_username
     nil
   end
@@ -52,32 +53,40 @@ class Conference < ActiveRecord::Base
   end
 
   def in_submission_phase?
+    return false if self.submissions_open.nil? || self.submissions_deadline.nil?
+
     now = DateTime.now
     self.submissions_open <= now && now <= self.submissions_deadline
   end
 
   def has_early_review?
-    self.prereview_deadline.present?
+    self.presubmissions_deadline.present? && self.prereview_deadline.present?
   end
 
   def in_early_review_phase?
     return false unless has_early_review?
+
     now = DateTime.now
     self.presubmissions_deadline <= now && now <= self.prereview_deadline
   end
 
   def in_final_review_phase?
+    return false if self.submissions_deadline.nil? || self.review_deadline.nil?
+
     now = DateTime.now
     self.submissions_deadline <= now && now <= self.review_deadline
   end
 
   def in_author_confirmation_phase?
+    return false if self.author_notification.nil? || self.author_confirmation.nil?
+
     now = DateTime.now
     self.author_notification <= now && now <= self.author_confirmation
   end
 
   def in_voting_phase?
     return false if self.voting_deadline.blank?
+
     DateTime.now <= self.voting_deadline
   end
 
