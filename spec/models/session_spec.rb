@@ -51,36 +51,40 @@ describe Session, type: :model do
     it { should validate_length_of(:benefits).is_at_most(400) }
     it { should validate_length_of(:experience).is_at_most(400) }
 
-    context "track" do
-      it "should match the conference" do
-        conference = FactoryGirl.create(:conference)
-        old_conference = FactoryGirl.create(:conference, year: 1)
-        old_track = FactoryGirl.create(:track, conference: old_conference)
-        session = FactoryGirl.build(:session, track: old_track, conference: conference)
-        expect(session).to_not be_valid
-        expect(session.errors[:track_id]).to include(I18n.t("errors.messages.same_conference"))
-      end
-    end
+    context 'with mismatched conferences' do
+      let(:conference) { FactoryGirl.create(:conference) }
+      let(:other_conference) { FactoryGirl.create(:conference) }
+      context 'track' do
+        it 'should match the conference' do
+          other_track = FactoryGirl.create(:track, conference: other_conference)
 
-    context "audience level" do
-      it "should match the conference" do
-        conference = FactoryGirl.create(:conference)
-        old_conference = FactoryGirl.create(:conference, year: 1)
-        old_level= FactoryGirl.create(:audience_level, conference: old_conference)
-        session = FactoryGirl.build(:session, audience_level: old_level, conference: conference)
-        expect(session).to_not be_valid
-        expect(session.errors[:audience_level_id]).to include(I18n.t("errors.messages.same_conference"))
-      end
-    end
+          session = FactoryGirl.build(:session, track: other_track, conference: conference)
 
-    context "session type" do
-      it "should match the conference" do
-        conference = FactoryGirl.create(:conference)
-        old_conference = FactoryGirl.create(:conference, year: 1)
-        old_type = FactoryGirl.create(:session_type, conference: old_conference)
-        session = FactoryGirl.build(:session, session_type: old_type, conference: conference)
-        expect(session).to_not be_valid
-        expect(session.errors[:session_type_id]).to include(I18n.t("errors.messages.same_conference"))
+          expect(session).to_not be_valid
+          expect(session.errors[:track_id]).to include(I18n.t('errors.messages.same_conference'))
+        end
+      end
+
+      context 'audience level' do
+        it 'should match the conference' do
+          other_level= FactoryGirl.create(:audience_level, conference: other_conference)
+
+          session = FactoryGirl.build(:session, audience_level: other_level, conference: conference)
+
+          expect(session).to_not be_valid
+          expect(session.errors[:audience_level_id]).to include(I18n.t('errors.messages.same_conference'))
+        end
+      end
+
+      context 'session type' do
+        it "should match the conference" do
+          other_type = FactoryGirl.create(:session_type, conference: other_conference)
+
+          session = FactoryGirl.build(:session, session_type: other_type, conference: conference)
+
+          expect(session).to_not be_valid
+          expect(session.errors[:session_type_id]).to include(I18n.t("errors.messages.same_conference"))
+        end
       end
     end
 
