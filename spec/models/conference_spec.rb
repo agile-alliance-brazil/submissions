@@ -51,6 +51,7 @@ describe Conference, type: :model do
       end
       it 'should be valid if a single date is entered' do
         Conference::DATE_ORDERS[0..-1].each{|d| subject.send("#{d}=", nil)}
+        subject.visible = false
 
         expect(subject).to be_valid
       end

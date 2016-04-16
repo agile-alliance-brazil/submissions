@@ -189,6 +189,7 @@ FactoryGirl.define do
     author_confirmation { DateTime.now + 6.days }
     start_date { DateTime.now + 1.month }
     end_date { DateTime.now + 1.month + 3.days }
+    visible true
   end
 
   factory :vote do
