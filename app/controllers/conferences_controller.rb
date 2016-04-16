@@ -51,7 +51,7 @@ class ConferencesController < ApplicationController
   end
 
   def resource
-    Conference.where(year: params[:id] || params[:year] || Conference.last.year)
+    Conference.where(year: params[:id] || params[:year] || Conference.where(visible: true).last.year)
   end
 
   def new_conference_params
