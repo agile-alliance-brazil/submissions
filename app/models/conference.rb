@@ -1,5 +1,12 @@
 # encoding: UTF-8
 class Conference < ActiveRecord::Base
+  has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
+  validates_attachment :logo,
+    presence: true,
+    content_type: {content_type: /\Aimage\/.*\Z/},
+    size: { in: 0..500.kilobytes },
+    if: :visible?
+
   attr_trimmed    :program_chair_user_username
 
   attr_autocomplete_username_as :program_chair_user

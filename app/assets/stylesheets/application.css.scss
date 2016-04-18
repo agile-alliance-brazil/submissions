@@ -665,3 +665,8 @@ form.session_filter.formtastic fieldset, form.reviewer_filter.formtastic fieldse
     vertical-align: middle;
   }
 }
+
+form.conference .logo_preview {
+  max-width: 300px;
+  max-height: 80px;
+}

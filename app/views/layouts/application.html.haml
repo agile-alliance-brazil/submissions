@@ -16,7 +16,7 @@
   %body
     #container
       #header
-        = link_to image_tag("#{@conference.year}_logo.png"), root_path(@conference)
+        = link_to image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png"), root_path(@conference)
         .logo
           %h1= @conference.name
           %strong= @conference.location_and_date

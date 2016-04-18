@@ -42,6 +42,7 @@ module AgileBrazil
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
+    config.active_record.raise_in_transactional_callbacks = true
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -51,7 +52,7 @@ module AgileBrazil
     config.assets.initialize_on_precompile = false 
 
     config.to_prepare do
-      Doorkeeper::ApplicationController.layout "application"
+      Doorkeeper::ApplicationController.layout 'application'
       Doorkeeper::ApplicationController.before_filter do |controller|
         I18n.locale = params[:locale] || current_user.try(:default_locale)
         @conference = Conference.current

@@ -60,7 +60,7 @@ class ConferencesController < ApplicationController
   end
 
   def conference_params
-    params.require(:conference).permit(:location, :start_date, :end_date, :call_for_papers,
+    params.require(:conference).permit(:logo, :location, :start_date, :end_date, :call_for_papers,
       :submissions_open, :presubmissions_deadline, :prereview_deadline, :submissions_deadline,
       :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :visible)
   end

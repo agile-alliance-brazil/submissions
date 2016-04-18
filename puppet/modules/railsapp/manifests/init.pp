@@ -72,9 +72,15 @@ class railsapp( $user, $app_name ) {
   }
 
   # required for asset pipeline
-  package { 'java':
+  package { "java":
     ensure => "installed",
     name => "openjdk-6-jre-headless",
     require => Exec["update"],
+  }
+
+  # required for paperclip
+  package { "imagemagick":
+    ensure => "installed",
+    require => Exec["update"]
   }
 }

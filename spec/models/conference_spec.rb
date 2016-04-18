@@ -23,6 +23,13 @@ describe Conference, type: :model do
       it { should validate_presence_of :review_deadline }
       it { should validate_presence_of :author_notification }
       it { should validate_presence_of :author_confirmation }
+      it { should have_attached_file(:logo) }
+      it { should validate_attachment_presence(:logo) }
+      it { should validate_attachment_content_type(:logo).
+                    allowing('image/png', 'image/gif').
+                    rejecting('text/plain', 'text/xml') }
+      it { should validate_attachment_size(:logo).
+                    less_than(500.kilobytes) }
     end
 
     context 'if not visible' do
@@ -35,6 +42,12 @@ describe Conference, type: :model do
       it { should_not validate_presence_of :review_deadline }
       it { should_not validate_presence_of :author_notification }
       it { should_not validate_presence_of :author_confirmation }
+      it { should_not validate_attachment_presence(:logo) }
+      it { should_not validate_attachment_content_type(:logo).
+                    allowing('image/png', 'image/gif').
+                    rejecting('text/plain', 'text/xml') }
+      it { should_not validate_attachment_size(:logo).
+                    less_than(500.kilobytes) }
     end
 
     context 'date orders' do
@@ -474,5 +487,4 @@ describe Conference, type: :model do
       end
     end
   end
-
 end

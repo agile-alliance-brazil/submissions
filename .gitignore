@@ -20,3 +20,4 @@ spec/javascripts/*.js
 .env
 .vagrant
 /vendor/cache
+/public/system

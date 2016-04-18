@@ -29,6 +29,7 @@ gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'mysql2', '~> 0.4'
 gem 'doorkeeper', '~> 3.1' # TODO: Remove
 gem 'newrelic_rpm'
+gem 'paperclip', '~> 5.0.0.beta1'
 
 gem 'jquery-rails', '~> 4.0'
 gem 'sass-rails', '~> 5.0'

@@ -6,6 +6,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/collection_matchers'
 require 'cancan/matchers'
+require 'paperclip/matchers'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
@@ -29,6 +30,7 @@ RSpec.configure do |config|
   config.include(EmailSpec::Helpers, type: :mailer)
   config.include(EmailSpec::Matchers, type: :mailer)
   config.include(TrimmerMacros)
+  config.include(Paperclip::Shoulda::Matchers, type: :model)
   config.include(ValidatesExistenceMacros)
 
   config.expect_with :rspec, :minitest
