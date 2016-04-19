@@ -1,0 +1,359 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+    - '**/application.rb'
+    - '**/Rakefile'
+  Exclude:
+    # You could specify set of files or dirs while you want to be ignored by rubocop
+    - 'vendor/**/*'
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'config/add_vagrant_config.rb'
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Lint/BlockAlignment:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
+
+Lint/EndAlignment:
+  Enabled: false
+
+Lint/IneffectiveAccessModifier:
+  Enabled: false
+
+Performance/RedundantMatch:
+  Enabled: false
+
+Performance/StringReplacement:
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  Enabled: false
+
+Performance/Size:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+
+Style/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+Style/TrailingWhitespace:
+  Enabled: false
+
+Style/EmptyLines:
+  Enabled: false
+
+Style/AlignParameters:
+  Enabled: false
+
+Style/AlignHash:
+  Enabled: false
+
+Style/IndentationWidth:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/TrailingBlankLines:
+  Enabled: false
+
+Style/DotPosition:
+  Enabled: false
+
+Style/SpaceBeforeBlockBraces:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Style/SpaceAfterComma:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/ClosingParenthesisIndentation:
+  Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Style/IndentArray:
+  Enabled: false
+
+Style/UnneededInterpolation:
+  Enabled: false
+
+Style/BlockEndNewline:
+  Enabled: false
+
+Style/MultilineBlockLayout:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/BlockEndNewline:
+  Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  Enabled: false
+
+Style/SpaceAroundOperators:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/SpaceInsideBrackets:
+  Enabled: false
+
+Style/IndentationConsistency:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/CommentAnnotation:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: false
+
+Style/Tab:
+  Enabled: false
+
+Style/EndOfLine:
+  Enabled: false
+
+Style/IndentHash:
+  Enabled: false
+
+Style/LeadingCommentSpace:
+  Enabled: false
+
+Style/EmptyLineBetweenDefs:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Style/BarePercentLiterals:
+  Enabled: false
+
+Style/ExtraSpacing:
+  Enabled: false
+
+Style/MethodDefParentheses:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/SpaceAroundEqualsInParameterDefault:
+  Enabled: false
+
+Style/UnneededPercentQ:
+  Enabled: false
+
+Style/PercentQLiterals:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+Style/NestedTernaryOperator:
+  Enabled: false
+
+Style/SpaceBeforeFirstArg:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/SpaceBeforeComment:
+  Enabled: false
+
+Style/ConstantName:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/StabbyLambdaParentheses:
+  Enabled: false
+
+Style/AlignArray:
+  Enabled: false
+
+Style/CommentIndentation:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Style/CaseIndentation:
+  Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Style/AccessorMethodName:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/LineEndConcatenation:
+  Enabled: false
+
+Style/Proc:
+  Enabled: false
+
+Style/SpaceInsideParens:
+  Enabled: false
+
+Style/DeprecatedHashMethods:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/SpaceAroundKeyword:
+  Enabled: false
+
+Style/UnneededCapitalW:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/Date:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/ActionFilter:
+  Enabled: false
+
+#Metrics/MethodLength:
+#  Exclude:
+#    - 'app/routes/**/*'
+#    - 'db/migrate/**/*'
+
+#Metrics/AbcSize:
+#  Exclude:
+#    - 'app/routes/**/*'
+#    - 'db/migrate/**/*'
+#  Max: 17.5

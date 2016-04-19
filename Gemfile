@@ -59,6 +59,7 @@ group :development do
   gem 'byebug'
   gem 'web-console'
   gem 'dotenv-rails', require: false
+  gem 'rubocop', require: false
 end
 
 group :test do
