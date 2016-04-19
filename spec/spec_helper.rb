@@ -1,8 +1,18 @@
 # encoding: UTF-8
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_group 'Workers', 'app/workers'
+  add_group 'Services', 'app/services'
+  add_group 'Uploaders', 'app/uploaders'
+  minimum_coverage 93.8
+end
+# make it possible to merge reports under spring
+SimpleCov.command_name 'RSpec'
+
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'rspec/collection_matchers'
 require 'cancan/matchers'
@@ -13,7 +23,7 @@ CodeClimate::TestReporter.start
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[::Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[::Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
 
 ::Rails.logger.level = 4
 
@@ -61,7 +71,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  config.order = 'random'
 end
 
 Shoulda::Matchers.configure do |config|
