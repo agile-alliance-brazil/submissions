@@ -157,6 +157,7 @@ pt:
         tags: "Tags"
         username: "Autor (nome de usuário)"
         track_id: "Trilha de interesse"
+        type_id: "Tipo de sessão"
         audience_level_id: "Nível da sessão"
         session_type_id: "Tipo de sessão"
         state: "Status"

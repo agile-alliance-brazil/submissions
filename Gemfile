@@ -64,7 +64,6 @@ end
 group :test do
   gem 'mocha'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'email_spec'
   gem 'codeclimate-test-reporter', require: nil
@@ -88,4 +87,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'brakeman'
   gem 'timecop'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end

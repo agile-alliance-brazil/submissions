@@ -25,10 +25,13 @@ module SessionsHelper
       valid_durations = session_type.valid_durations.sort.join(" #{I18n.t('generic.or')} ")
       [I18n.t("#{session_type.title}_plural"), "#{valid_durations} #{I18n.t('generic.minutes')}"]
     end
-    session_durations[0][0].capitalize! << " " << I18n.t("generic.duration_restriction")
-    session_durations.map! { |duration| duration.join(" ") }
+    session_durations[0][0].capitalize! << ' ' << I18n.t('generic.duration_restriction')
+    session_durations.map! { |duration| duration.join(' ') }
     last = session_durations.pop
-    session_durations.join(", ") << " " << I18n.t("generic.and") << " " << last << "."
+    session_durations.join(', ') << ' ' << I18n.t('generic.and') << ' ' << last << '.'
   end
 
+  def options_for_session_types(session_types)
+    session_types.map { |type| [type.title, type.id] }
+  end
 end

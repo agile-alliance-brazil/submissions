@@ -1,21 +1,20 @@
 # encoding: UTF-8
-require 'spec_helper'
 
-describe SessionsHelper, type: :helper do
+RSpec.describe SessionsHelper, type: :helper do
 
-  describe "#all_durations_for" do
-    context "empty session types" do
+  describe '#all_durations_for' do
+    context 'empty session types' do
       subject { helper.all_durations_for([]) }
-      it { should be_empty }
+      it { is_expected.to be_empty }
     end
 
-    context "single session types" do
+    context 'single session types' do
       subject { helper.all_durations_for([FactoryGirl.build(:session_type, valid_durations: [10, 20])]) }
-      it { should == [10, 20]}
+      it { is_expected.to eq [10, 20] }
     end
 
-    context "multiple session types" do
-      it "should merge durations" do
+    context 'multiple session types' do
+      it 'merges durations' do
         durations = helper.all_durations_for([
           FactoryGirl.build(:session_type, valid_durations: [10, 20]),
           FactoryGirl.build(:session_type, valid_durations: [30, 40]),
@@ -23,7 +22,7 @@ describe SessionsHelper, type: :helper do
         expect(durations).to eq([10, 20, 30, 40])
       end
 
-      it "should remove duplicates" do
+      it 'removes duplicates' do
         durations = helper.all_durations_for([
           FactoryGirl.build(:session_type, valid_durations: [10, 20]),
           FactoryGirl.build(:session_type, valid_durations: [20, 30]),
@@ -31,7 +30,7 @@ describe SessionsHelper, type: :helper do
         expect(durations).to eq([10, 20, 30])
       end
 
-      it "should sort durations" do
+      it 'sorts durations' do
         durations = helper.all_durations_for([
           FactoryGirl.build(:session_type, valid_durations: [20, 40]),
           FactoryGirl.build(:session_type, valid_durations: [30, 10]),
@@ -41,8 +40,8 @@ describe SessionsHelper, type: :helper do
     end
   end
 
-  describe "#options_for_durations" do
-    it "should return human readable collection of durations" do
+  describe '#options_for_durations' do
+    it 'returns human readable collection of durations' do
       options = helper.options_for_durations([
         FactoryGirl.build(:session_type, valid_durations: [20, 40]),
         FactoryGirl.build(:session_type, valid_durations: [10, 20]),
@@ -51,44 +50,53 @@ describe SessionsHelper, type: :helper do
     end
   end
 
-  describe "#durations_to_hide" do
-    it "should return durations to hide as strings" do
+  describe '#durations_to_hide' do
+    it 'returns durations to hide as strings' do
       session_type_1 = FactoryGirl.create(:session_type, valid_durations: [20, 40])
       session_type_2 = FactoryGirl.create(:session_type, valid_durations: [10, 20])
       durations_to_hide = helper.durations_to_hide([session_type_1, session_type_2])
-      expect(durations_to_hide[session_type_1.id]).to eq(["10"])
-      expect(durations_to_hide[session_type_2.id]).to eq(["40"])
+      expect(durations_to_hide[session_type_1.id]).to eq(['10'])
+      expect(durations_to_hide[session_type_2.id]).to eq(['40'])
     end
 
-    it "should hide default option when session type only accepts a single duration" do
+    it 'hides default option when session type only accepts a single duration' do
       session_type_1 = FactoryGirl.create(:session_type, valid_durations: [40])
       session_type_2 = FactoryGirl.create(:session_type, valid_durations: [10, 20])
       durations_to_hide = helper.durations_to_hide([session_type_1, session_type_2])
-      expect(durations_to_hide[session_type_1.id]).to eq(["10", "20", ""])
-      expect(durations_to_hide[session_type_2.id]).to eq(["40"])
+      expect(durations_to_hide[session_type_1.id]).to eq(['10', '20', ''])
+      expect(durations_to_hide[session_type_2.id]).to eq(['40'])
     end
   end
 
-  describe "#duration_mins_hint" do
-    it "should generate hint from session types in portuguese" do
+  describe '#duration_mins_hint' do
+    it 'generates hint from session types in portuguese' do
       I18n.with_locale('pt') do
         hint = helper.duration_mins_hint([
-          FactoryGirl.build(:session_type, title: "session_types.talk.title", valid_durations: [20, 40]),
-          FactoryGirl.build(:session_type, title: "session_types.experience_report.title", valid_durations: [10]),
-          FactoryGirl.build(:session_type, title: "session_types.hands_on.title", valid_durations: [30, 20])
+          FactoryGirl.build(:session_type, title: 'session_types.talk.title', valid_durations: [20, 40]),
+          FactoryGirl.build(:session_type, title: 'session_types.experience_report.title', valid_durations: [10]),
+          FactoryGirl.build(:session_type, title: 'session_types.hands_on.title', valid_durations: [30, 20])
         ])
-        expect(hint).to eq("Palestras devem ter duração de 20 ou 40 minutos, relatos de experiência 10 minutos e sessões mão na massa 20 ou 30 minutos.")
+        expect(hint).to eq('Palestras devem ter duração de 20 ou 40 minutos, relatos de experiência 10 minutos e sessões mão na massa 20 ou 30 minutos.')
       end
     end
 
-    it "should generate hint from session types in english" do
+    it 'generates hint from session types in english' do
       I18n.with_locale('en') do
         hint = helper.duration_mins_hint([
-          FactoryGirl.build(:session_type, title: "session_types.workshop.title", valid_durations: [20]),
-          FactoryGirl.build(:session_type, title: "session_types.hands_on.title", valid_durations: [40])
+          FactoryGirl.build(:session_type, title: 'session_types.workshop.title', valid_durations: [20]),
+          FactoryGirl.build(:session_type, title: 'session_types.hands_on.title', valid_durations: [40])
         ])
-        expect(hint).to eq("Workshops should last 20 minutes and hands on sessions 40 minutes.")
+        expect(hint).to eq('Workshops should last 20 minutes and hands on sessions 40 minutes.')
       end
     end
+  end
+
+  describe '#options_for_session_types' do
+    let!(:type) { FactoryGirl.create :session_type, title: 'zzz' }
+    let!(:other_type) { FactoryGirl.create :session_type, title: 'aaa' }
+    let(:type_array) { [other_type, type] }
+
+    subject { helper.options_for_session_types(type_array) }
+    it { is_expected.to eq [['aaa', other_type.id], ['zzz', type.id]] }
   end
 end

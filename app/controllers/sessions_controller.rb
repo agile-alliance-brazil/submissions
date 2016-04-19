@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       page(params[:page]).
       order('sessions.created_at DESC').
       includes(:author, :second_author, :session_type, :review_decision)
+    @session_types = @conference.session_types.order(title: :asc)
   end
 
   def new
@@ -97,7 +98,7 @@ class SessionsController < ApplicationController
   end
 
   def load_tracks
-    @tracks ||= @conference.tracks
+    @tracks ||= @conference.tracks.order(title: :asc)
   end
 
   def load_audience_levels
@@ -109,7 +110,7 @@ class SessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: [:tags, :username, :track_id])[:session_filter]
+    params.permit(session_filter: [:tags, :username, :track_id, :session_type_id])[:session_filter]
   end
 
   def load_tags 
