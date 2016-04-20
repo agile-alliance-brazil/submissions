@@ -60,7 +60,7 @@ describe ConferencesController, type: :controller do
 
         get :show
 
-        expect(assigns(:conference)).to eq(Conference.last)
+        expect(assigns(:conference)).to eq(Conference.where(visible: true).last)
       end
 
       it 'should render static page with year and home if / page is unavailable' do

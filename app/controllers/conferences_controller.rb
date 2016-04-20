@@ -5,7 +5,7 @@ class ConferencesController < ApplicationController
   end
 
   def show
-    @conference = resource.includes(:pages).first
+    @conference = resource_query.includes(:pages).first
     if @conference.pages.with_path('/').first.nil?
       render template: "static_pages/#{@conference.year}_home"
     else
@@ -31,11 +31,11 @@ class ConferencesController < ApplicationController
   end
 
   def edit
-    @conference = resource.includes(:pages).first
+    @conference = resource_query.includes(:pages).first
   end
 
   def update
-    @conference = resource.first
+    @conference = resource
     if @conference.update_attributes(conference_params)
       flash[:notice] = t('flash.conference.update.success')
       redirect_to "/#{@conference.year}"
@@ -51,7 +51,11 @@ class ConferencesController < ApplicationController
   end
 
   def resource
-    Conference.where(year: params[:id] || params[:year] || Conference.where(visible: true).last.year)
+    resource_query.first
+  end
+
+  def resource_query
+    Conference.where(year: (params[:id] || params[:year] || Conference.where(visible: true).last.year))
   end
 
   def new_conference_params

@@ -52,7 +52,7 @@ class Conference < ActiveRecord::Base
   end
 
   def self.current
-    order('year desc').first
+    where(visible: true).order('year desc').first
   end
 
   def to_param
