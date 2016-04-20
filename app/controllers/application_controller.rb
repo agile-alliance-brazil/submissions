@@ -91,9 +91,7 @@ class ApplicationController < ActionController::Base
       :organization, :website_url, :twitter_username, :default_locale,
       :phone, :country, :city, :bio
     ]
-    valid_registration_parameters.each do |parameter|
-      devise_parameter_sanitizer.for(:sign_up) << parameter
-      devise_parameter_sanitizer.for(:account_update) << parameter
-    end
+    devise_parameter_sanitizer.permit(:sign_up, keys: valid_registration_parameters)
+    devise_parameter_sanitizer.permit(:account_update, keys: valid_registration_parameters)
   end
 end
