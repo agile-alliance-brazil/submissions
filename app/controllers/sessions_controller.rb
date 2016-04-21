@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       page(params[:page]).
       order('sessions.created_at DESC').
       includes(:author, :second_author, :session_type, :review_decision)
-    @session_types = @conference.session_types.order(title: :asc)
+    @session_types = @conference.session_types.order(created_at: :asc)
   end
 
   def new
