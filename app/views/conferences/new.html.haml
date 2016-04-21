@@ -6,6 +6,7 @@
   = form.inputs do
     = form.input :name, required: true, input_html: {tabindex: autotab}
     = form.input :year, required: true, input_html: {tabindex: autotab}
+    = form.input :supported_languages, as: :check_boxes, collection: available_languages, required: true, input_html: {tabindex: autotab}
     = form.input :program_chair_user_username, required: true, input_html: {tabindex: autotab}
   = form.actions do
     = form.action :submit, label: :create_conference, button_html: {tabindex: autotab}

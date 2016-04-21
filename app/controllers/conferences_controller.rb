@@ -20,7 +20,9 @@ class ConferencesController < ApplicationController
 
   def create
     @conference = Conference.new(new_conference_params)
-    @conference.pages.build(path: '/', content: '')
+    @conference.languages.each do |lang|
+      @conference.pages.build(path: '/', content: lang.first, language: lang.last)
+    end
     if @conference.save
       flash[:notice] = t('flash.conference.create.success')
       redirect_to "/#{@conference.year}"
@@ -55,11 +57,11 @@ class ConferencesController < ApplicationController
   end
 
   def resource_query
-    Conference.where(year: (params[:id] || params[:year] || Conference.where(visible: true).last.year))
+    Conference.where(year: (params[:id] || params[:year] || Conference.current.year))
   end
 
   def new_conference_params
-    attributes = params.require(:conference).permit(:year, :name, :program_chair_username)
+    attributes = params.require(:conference).permit(:year, :name, :program_chair_user_username, supported_languages: [])
     attributes.merge(visible: false)
   end
 

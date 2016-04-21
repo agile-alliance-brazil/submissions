@@ -170,6 +170,7 @@ FactoryGirl.define do
     start_date { DateTime.now + 1.month }
     end_date { DateTime.now + 1.month + 3.days }
     logo { File.new(Rails.root.join('spec', 'resources', 'logo-trans.png')) }
+    supported_languages ['en', 'pt']
     visible true
   end
 

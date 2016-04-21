@@ -11,6 +11,8 @@ class Conference < ActiveRecord::Base
 
   attr_autocomplete_username_as :program_chair_user
 
+  acts_as_taggable_on :languages
+
   has_many :pages
   has_many :tracks
   has_many :audience_levels
@@ -37,6 +39,21 @@ class Conference < ActiveRecord::Base
 
   def program_chair_user_username=(user)
     nil
+  end
+
+  def supported_languages
+    @supported_languages ||= read_attribute(:supported_languages).split(',').map(&:to_sym)
+  end
+
+  def supported_languages=(languages)
+    @supported_languages = languages.reject(&:blank?).map(&:to_sym)
+    write_attribute(:supported_languages, @supported_languages.join(','))
+  end
+
+  def languages
+    ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(name, code)|
+      supported_languages.include?(code.to_sym)
+    end
   end
 
   def location_and_date

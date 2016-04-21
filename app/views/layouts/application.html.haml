@@ -20,9 +20,10 @@
         .logo
           %h1= @conference.name
           %strong= @conference.location_and_date
-        %ul#languages
-          - ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.each do |language|
-            %li= link_to language.first, "?locale=#{language.last}"
+        - if @conference.languages.size > 1
+          %ul#languages
+            - @conference.languages.each do |(name, code)|
+              %li= link_to name, "?locale=#{code}"
 
         = render partial: 'layouts/menu'
 

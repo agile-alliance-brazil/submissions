@@ -20,4 +20,8 @@ module LayoutHelper
   def show_actions?
     @show_actions
   end
+
+  def available_languages
+    ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES
+  end
 end
