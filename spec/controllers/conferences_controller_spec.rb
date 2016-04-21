@@ -150,6 +150,5 @@ describe ConferencesController, type: :controller do
   context "with views" do
     render_views
 
-
   end
 end

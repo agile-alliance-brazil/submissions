@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def sortable_column(text, column, parameters=request.parameters)
-    if(parameters[:column] == column.to_s)
+    if parameters[:column] == column.to_s
       direction = parameters[:direction] == 'down' ? 'up' : 'down'
     else
       direction = 'down'

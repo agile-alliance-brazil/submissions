@@ -98,9 +98,6 @@ Style/EmptyLinesAroundMethodBody:
 Style/TrailingWhitespace:
   Enabled: false
 
-Style/EmptyLines:
-  Enabled: false
-
 Style/AlignParameters:
   Enabled: false
 
@@ -324,9 +321,6 @@ Style/DeprecatedHashMethods:
   Enabled: false
 
 Style/Next:
-  Enabled: false
-
-Style/SpaceAroundKeyword:
   Enabled: false
 
 Style/UnneededCapitalW:

@@ -42,12 +42,12 @@ class Conference < ActiveRecord::Base
   end
 
   def supported_languages
-    @supported_languages ||= read_attribute(:supported_languages).split(',').map(&:to_sym)
+    @supported_languages ||= self[:supported_languages].split(',').map(&:to_sym)
   end
 
   def supported_languages=(languages)
     @supported_languages = languages.reject(&:blank?).map(&:to_sym)
-    write_attribute(:supported_languages, @supported_languages.join(','))
+    self[:supported_languages] = @supported_languages.join(',')
   end
 
   def languages

@@ -6,7 +6,6 @@ def accepted_sessions
   Session.for_conference(Conference.current).with_state(:accepted)
 end
 
-
 def session_fields(session)
   [session.title, session.summary]
 end
