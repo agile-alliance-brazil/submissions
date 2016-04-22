@@ -1,0 +1,118 @@
+= form.inputs :proposal do
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.summary')}:
+      = textilize(@session.try(:summary))
+    %p
+      %strong #{t('formtastic.labels.session.description')}:
+      = textilize(@session.try(:description))
+    %p
+      %strong #{t('formtastic.labels.session.keyword_list')}:
+      = @session.keyword_list.map{|keyword| t(keyword)}.join(', ')
+    - unless @session.language.blank?
+      %p
+        %strong #{t('formtastic.labels.session.language')}:
+        = t("generic.#{@session.language}")
+
+  = form.input :proposal_abstract, as: :radio, input_html: {tabindex: autotab}
+
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.track_id')}:
+      #{t(@review.session.track.title)}
+  = form.input :proposal_track, as: :radio, input_html: {tabindex: autotab}
+
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.audience_level_id')}:
+      #{t(@review.session.audience_level.title)}
+  = form.input :proposal_level, as: :radio, input_html: {tabindex: autotab}
+
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.session_type_id')}:
+      #{t(@review.session.session_type.title)}
+  = form.input :proposal_type, as: :radio, input_html: {tabindex: autotab}
+
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.duration_mins')}:
+      #{@review.session.duration_mins.to_s} #{t('generic.minutes')}
+  = form.input :proposal_duration, as: :radio, input_html: {tabindex: autotab}
+
+  .session_info
+    %p
+      %strong= @review.session.audience_limit ? t('session.audience_limit', limit: @review.session.audience_limit) : t('session.no_audience_limit')
+  = form.input :proposal_limit, as: :radio, input_html: {tabindex: autotab}
+
+= form.inputs :work do
+  .session_info
+    - unless @review.session.mechanics.blank?
+      %p
+        %strong #{t('formtastic.labels.session.mechanics')}:
+        = textilize(@session.try(:mechanics))
+    %p
+      %strong #{t('formtastic.labels.session.benefits')}:
+      = textilize(@session.try(:benefits))
+  = form.input :proposal_quality_rating_id, required: true, as: :select, collection: Rating.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+  = form.input :proposal_relevance_rating_id, required: true, as: :select, collection: Rating.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+
+= form.inputs :author do
+  = form.input :reviewer_id, as: :hidden, input_html: {tabindex: autotab}
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.final_review.authors')}:
+      = link_to h(@review.session.author.full_name), user_path(@review.session.author)
+      - if @review.session.second_author
+        = t('generic.and')
+        = link_to h(@review.session.second_author.full_name), user_path(@review.session.second_author)
+    %p
+      %strong #{t('formtastic.labels.user.bio')} (#{h(@review.session.author.full_name)}):
+      = textilize(@review.session.author.bio)
+    - if @review.session.second_author
+      %p
+        %strong #{t('formtastic.labels.user.bio')} (#{h(@review.session.second_author.full_name)}):
+        = textilize(@review.session.second_author.bio)
+  = form.input :author_agile_xp_rating_id, required: true, as: :select, collection: Rating.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+  .session_info
+    %p
+      %strong #{t('formtastic.labels.session.experience')}:
+      = textilize(@review.session.experience)
+  = form.input :author_proposal_xp_rating_id, required: true, as: :select, collection: Rating.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+
+- if @review.is_a?(FinalReview)
+  = form.inputs :conclusion do
+    = form.input :recommendation_id, required: true, as: :select, collection: Recommendation.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+    = form.input :justification, required: true, input_html: {rows: 10, tabindex: autotab}
+
+= form.inputs :to_organizers do
+  = form.input :reviewer_confidence_rating_id, required: true, as: :select, collection: Rating.all.map{|r| [t(r.title), r.id]}, input_html: {tabindex: autotab}
+  = form.input :comments_to_organizers, input_html: {rows: 3, tabindex: autotab}
+= form.inputs :to_authors do
+  = form.input :comments_to_authors, required: true, input_html: {rows: 3, tabindex: autotab, :'data-remaining' => t('generic.char_remaining')}
+= form.actions do
+  = form.action :submit, label: :submit_review, button_html: {tabindex: autotab}
+
+:javascript
+  $(document).ready(function() {
+    $("#final_review_recommendation_id").bind('updated', recommendationActions);
+    $("#final_review_recommendation_id").bindSelectUpdated();
+
+    $("#final_review_recommendation_id").trigger('updated');
+
+    $("#early_review_comments_to_authors, #final_review_comments_to_authors").charCount({
+      allowed: 150,
+      counterText: $("#early_review_comments_to_authors, #final_review_comments_to_authors").data('remaining'),
+      setMaxLength: false,
+      cssWarning: 'achieved',
+      cssExceeded: 'achieved'
+    });
+  })
+
+  function recommendationActions() {
+    if ($(this).val() === "4") {
+      $("#final_review_justification_input").find('label abbr').hide();
+    } else {
+      $("#final_review_justification_input").find('label abbr').show();
+    }
+  }

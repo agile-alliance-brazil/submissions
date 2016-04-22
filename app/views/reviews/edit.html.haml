@@ -1,0 +1,8 @@
+- title t('title.edit_review')
+.auto_focus
+
+%p
+  = link_to t('review.view_session'), session_path(@conference, @review.session), target: '_blank'
+
+= semantic_form_for [@review.session, @review], url: session_review_path(@conference, @review.session, @review) do |form|
+  = render 'form', form: form

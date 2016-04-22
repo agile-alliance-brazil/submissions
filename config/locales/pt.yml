@@ -326,6 +326,7 @@ pt:
     my_votes: "Meus votos"
     previous_reviewers: 'Avaliadores de outras conferências'
 
+    edit_review: "Editar revisão"
   actions:
     manage_conferences: "Administrar conferências"
     create_conference: "Nova conferência"
@@ -600,6 +601,7 @@ pt:
     invite: "Convidar"
     batch_invite: "Convidar avaliadores selecionados"
 
+    feedback: "Feedback"
   session:
     state:
       created: "Criada"
@@ -749,3 +751,5 @@ pt:
     tests: "Testes"
     teams: "Times"
     visualization: "Visualização"
+  general:
+    actions: "Ações"

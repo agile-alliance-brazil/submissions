@@ -9,12 +9,13 @@
         = ' - '
         = t('review.comments_to_authors')
       %th.feedback= t('reviewer.feedback')
+      %th.actions= t('general.actions')
   %tbody
     - @reviews.each do |review|
       = content_tag_for(:tr, review, class: cycle(:odd, :even)) do
         %td.title
           - if review.session.review_decision.try(:published?)
-            = (review.session.review_decision.accepted? ? t("session.state.accepted") : t("session.state.rejected")) + ": "
+            = (review.session.review_decision.accepted? ? t('session.state.accepted') : t('session.state.rejected')) + ': '
           = link_to h(review.session.try(:title)), session_path(@conference, review.session)
           - if review.session.comments.size > 0
             .commentCount= review.session.comments.size
@@ -40,6 +41,9 @@
               = evaluation.helpful_review ? image_tag('helpful.png', alt: '👍') :  image_tag('not-helpful.png', alt: '👎')
               - unless evaluation.comments.blank?
                 = ": #{evaluation.comments}"
+        %td.actions
+          = link_to edit_session_review_path(session_id: review.session, id: review) do
+            %span{ class: 'fa fa-pencil' }
 
 - if @reviews.total_pages > 1
   #pagination= will_paginate(@reviews)

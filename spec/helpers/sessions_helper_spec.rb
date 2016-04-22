@@ -92,11 +92,11 @@ RSpec.describe SessionsHelper, type: :helper do
   end
 
   describe '#options_for_session_types' do
-    let!(:type) { FactoryGirl.create :session_type, title: 'zzz' }
-    let!(:other_type) { FactoryGirl.create :session_type, title: 'aaa' }
+    let!(:type) { FactoryGirl.create :session_type, title: 'session_types.talk.title' }
+    let!(:other_type) { FactoryGirl.create :session_type, title: 'session_types.talk.title' }
     let(:type_array) { [other_type, type] }
 
     subject { helper.options_for_session_types(type_array) }
-    it { is_expected.to eq [['aaa', other_type.id], ['zzz', type.id]] }
+    it { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] }
   end
 end

@@ -10,6 +10,7 @@ class ReviewerSessionsController < ApplicationController
   end
 
   protected
+
   def scope_based_on_conference_phase
     scope = Session.includes([:track, :session_type, :audience_level])
       .for_reviewer(current_user, @conference).page(params[:page])

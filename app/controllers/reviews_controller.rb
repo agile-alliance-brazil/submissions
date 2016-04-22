@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class ReviewsController < ApplicationController
   before_filter :load_session
+  before_filter :load_review, only: [:edit, :update]
 
   def index
     @reviews = collection
@@ -27,14 +28,21 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def update
+    @review.update(review_params)
+    redirect_to session_reviews_path(session_id: @session)
+  end
+
   def show
     @review = resource
   end
 
   protected
+
   def load_session
     @session ||= Session.find(params[:session_id])
   end
+
   def review_params
     (params.permit(resource_request_name => [
       :author_agile_xp_rating_id,
@@ -83,8 +91,13 @@ class ReviewsController < ApplicationController
   end
 
   private
+
   def in_early_review_phase?
     return params[:type] == 'early' if params[:type].present?
     @conference.in_early_review_phase?
+  end
+
+  def load_review
+    @review = resource
   end
 end

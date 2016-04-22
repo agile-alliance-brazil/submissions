@@ -21,7 +21,7 @@ module ActionsHelper
     if user_signed_in?
       sections << session_section_for(user, conference)
     end
-    if user.reviewer?
+    if user.reviewer? || user.admin?
       sections << reviewer_section_for(user, conference, safe_filter_params)
     end
     if user.organizer? || user.admin?

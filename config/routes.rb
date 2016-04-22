@@ -8,7 +8,7 @@ AgileBrazil::Application.routes.draw do
         post :make_voter, on: :collection
       end
       resources :sessions, only: %i(show)
-      scope "(:year)", constraints: { year: /\d{4}/ } do
+      scope '(:year)', constraints: { year: /\d{4}/ } do
         resources :sessions, only: %i(index) do
           collection do
             get :accepted
@@ -21,9 +21,9 @@ AgileBrazil::Application.routes.draw do
 
   devise_for :users,
              controllers: {
-               sessions: "user_sessions",
-               registrations: "registrations",
-               passwords: "password_resets"
+               sessions: 'user_sessions',
+               registrations: 'registrations',
+               passwords: 'password_resets'
              },
              path_names: {
                sign_in: 'login',
@@ -35,7 +35,7 @@ AgileBrazil::Application.routes.draw do
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
 
-  scope "(:year)", constraints: { year: /\d{4}/ } do
+  scope '(:year)', constraints: { year: /\d{4}/ } do
     root to: 'conferences#show'
 
     resources :audience_levels, only: %i(index)
@@ -58,7 +58,7 @@ AgileBrazil::Application.routes.draw do
         delete :cancel
       end
       resources :comments, except: %i(new)
-      resources :reviews, except: %i(edit update destroy) do
+      resources :reviews, except: %i(destroy) do
         collection do
           get :organizer
         end

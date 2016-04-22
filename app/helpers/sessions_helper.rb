@@ -32,6 +32,6 @@ module SessionsHelper
   end
 
   def options_for_session_types(session_types)
-    session_types.map { |type| [type.title, type.id] }
+    session_types.map { |type| [I18n.t(type.title), type.id] }
   end
 end

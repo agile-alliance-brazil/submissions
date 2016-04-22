@@ -326,6 +326,7 @@ en:
     my_votes: "My votes"
     previous_reviewers: 'Reviewers from other conferences'
 
+    edit_review: "Edit review"
   actions:
     manage_conferences: "Manage conferences"
     create_conference: "New conference"
@@ -595,6 +596,7 @@ en:
     invite: "Invite"
     batch_invite: "Invite selected reviewers"
 
+    feedback: "Feedback"
   session:
     state:
       created: "Created"
@@ -744,3 +746,5 @@ en:
     tests: "Tests"
     teams: "Teams"
     visualization: "Visualization"
+  general:
+    actions: "Actions"

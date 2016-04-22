@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
     redirect_to :back rescue redirect_to root_path
   end
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def current_ability
     session = Session.find(params[:session_id]) if params[:session_id].present?
     reviewer = Reviewer.find(params[:reviewer_id]) if params[:reviewer_id].present?
@@ -62,6 +64,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def set_locale(&block)
     # if params[:locale] is nil then I18n.default_locale will be used
     I18n.with_locale(params[:locale] || current_user.try(:default_locale), &block)
@@ -93,5 +96,12 @@ class ApplicationController < ActionController::Base
     ]
     devise_parameter_sanitizer.permit(:sign_up, keys: valid_registration_parameters)
     devise_parameter_sanitizer.permit(:account_update, keys: valid_registration_parameters)
+  end
+
+  def record_not_found
+    respond_to do |format|
+      format.html { render file: "#{Rails.root}/public/404", layout: false, status: 404 }
+      format.js { render plain: '404 Not Found', status: 404 }
+    end
   end
 end

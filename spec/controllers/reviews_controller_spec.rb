@@ -19,111 +19,191 @@ describe ReviewsController, type: :controller do
       comments_to_authors: "You're the best!" * 10
     }
   end
-  let(:valid_final_review_params) do
-    valid_early_review_params.merge(recommendation_id: 1,
-      justification: 'This is great!')
-  end
-  let(:conference) { FactoryGirl.create(:conference) }
-  let(:session) { FactoryGirl.create(:session, conference: conference).tap{|s| s.reviewing} }
-  let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference)}
-  before(:each) do
-    sign_in reviewer.user
-    disable_authorization
 
-    Conference.stubs(:current).returns(conference)
-    conference.stubs(:in_early_review_phase?).returns(false)
-  end
+  context 'disabled authorization' do
+    let(:valid_final_review_params) do
+      valid_early_review_params.merge(recommendation_id: 1,
+                                      justification: 'This is great!')
+    end
+    let(:conference) { FactoryGirl.create(:conference) }
+    let(:session) { FactoryGirl.create(:session, conference: conference).tap{|s| s.reviewing} }
+    let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference)}
+    before(:each) do
+      sign_in reviewer.user
+      disable_authorization
 
-  describe "with view rendering", render_views: true do
-    render_views
-    describe 'collection' do
-      before do
-        FactoryGirl.create(:early_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-        FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-        FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-        FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+      Conference.stubs(:current).returns(conference)
+      conference.stubs(:in_early_review_phase?).returns(false)
+    end
+
+    context 'with view rendering', render_views: true do
+      render_views
+      describe 'collection' do
+        before do
+          FactoryGirl.create(:early_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+        end
+        it 'index early reviews for organizer should work' do
+          get :organizer, session_id: session.id, type: 'early'
+        end
+
+        it 'index final reviews for organizer should work' do
+          get :organizer, session_id: session.id
+        end
+
+        it 'index early reviews for author should work' do
+          get :index, session_id: session.id, type: 'early'
+        end
+
+        it 'index final reviews for author should work' do
+          get :index, session_id: session.id
+        end
       end
-      it "index early reviews for organizer should work" do
-        get :organizer, session_id: session.id, type: 'early'
+
+      it 'show should work for early review' do
+        early_review = FactoryGirl.create(:early_review,
+                                          reviewer: reviewer.user, session: session)
+
+        get :show, id: early_review.id, session_id: session.id
+
+        expect(assigns(:review)).to_not be_nil
       end
 
-      it "index final reviews for organizer should work" do
-        get :organizer, session_id: session.id
+      it 'show should work for final review' do
+        final_review = FactoryGirl.create(:final_review,
+                                          reviewer: reviewer.user, session: session)
+
+        get :show, id: final_review.id, session_id: session.id
+
+        expect(assigns(:review)).to_not be_nil
       end
 
-      it "index early reviews for author should work" do
-        get :index, session_id: session.id, type: 'early'
+      it 'new should work for early review' do
+        conference.expects(:in_early_review_phase?).returns(true)
+        get :new, session_id: session.id
       end
 
-      it "index final reviews for author should work" do
-        get :index, session_id: session.id
+      it 'show should work for final review' do
+        conference.expects(:in_early_review_phase?).returns(false)
+        get :new, session_id: session.id
       end
     end
 
-    it "show should work for early review" do
-      early_review = FactoryGirl.create(:early_review,
-        reviewer: reviewer.user, session: session)
+    it_should_require_login_for_actions :index, :show, :new, :create
 
-      get :show, id: early_review.id, session_id: session.id
-
-      expect(assigns(:review)).to_not be_nil
-    end
-
-    it "show should work for final review" do
-      final_review = FactoryGirl.create(:final_review,
-        reviewer: reviewer.user, session: session)
-
-      get :show, id: final_review.id, session_id: session.id
-
-      expect(assigns(:review)).to_not be_nil
-    end
-
-    it "new should work for early review" do
-      conference.expects(:in_early_review_phase?).returns(true)
+    it 'new action should set reviewer' do
       get :new, session_id: session.id
+
+      expect(assigns(:review).reviewer).to eq(reviewer.user)
     end
 
-    it "show should work for final review" do
+    it 'create action should render new template when model is invalid' do
+      params = valid_early_review_params.except(:comments_to_authors)
+
+      post :create, session_id: session.id, final_review: params
+
+      expect(response).to render_template(:new)
+    end
+
+    it 'create action should redirect when final review is valid' do
       conference.expects(:in_early_review_phase?).returns(false)
-      get :new, session_id: session.id
+      params = valid_final_review_params
+
+      post :create, session_id: session.id, final_review: params
+
+      expect(assigns(:review)).to_not be_nil
+      path = session_review_path(conference, assigns(:session), assigns(:review))
+      expect(response).to redirect_to(path)
+    end
+
+    it 'create action should redirect when early review is valid' do
+      conference.stubs(:in_early_review_phase?).returns(true)
+      params = valid_early_review_params
+
+      post :create, session_id: session.id, early_review: params
+
+      expect(assigns(:review)).to_not be_nil
+      path = session_review_path(conference, assigns(:session), assigns(:review))
+      expect(response).to redirect_to(path)
     end
   end
 
-  it_should_require_login_for_actions :index, :show, :new, :create
+  context 'enabled authorization' do
+    let(:conference) { FactoryGirl.create(:conference, call_for_papers: 5.days.ago, submissions_open: 4.days.ago, presubmissions_deadline: 3.days.ago, prereview_deadline: 1.day.from_now) }
+    let(:track) { FactoryGirl.create(:track, conference: conference) }
+    let(:level) { FactoryGirl.create(:audience_level, conference: conference) }
+    let!(:session) { FactoryGirl.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
 
-  it "new action should set reviewer" do
-    get :new, session_id: session.id
+    context 'unauthenticated' do
+      describe 'GET #edit' do
+        before { get :edit, session_id: session, id: 'bar' }
+        it { expect(response).to redirect_to new_user_session_path }
+      end
+      describe 'PUT #update' do
+        before { put :update, session_id: session, id: 'bar' }
+        it { expect(response).to redirect_to new_user_session_path }
+      end
+    end
 
-    expect(assigns(:review).reviewer).to eq(reviewer.user)
-  end
+    context 'authenticated as a reviewer' do
+      let(:user) { FactoryGirl.create :user, roles: [:reviewer] }
+      let(:preference) { FactoryGirl.create :preference, track: track, audience_level: level, accepted: true }
+      let!(:reviewer) { FactoryGirl.create :reviewer, conference: conference, user: user, state: 'accepted', preferences: [preference] }
+      let(:review) { FactoryGirl.create :early_review, reviewer: user, session: session }
 
-  it "create action should render new template when model is invalid" do
-    params = valid_early_review_params.except(:comments_to_authors)
-    
-    post :create, session_id: session.id, final_review: params
-    
-    expect(response).to render_template(:new)
-  end
+      before { sign_in user }
 
-  it "create action should redirect when final review is valid" do
-    conference.expects(:in_early_review_phase?).returns(false)
-    params = valid_final_review_params
-    
-    post :create, session_id: session.id, final_review: params
+      describe 'GET #edit' do
+        context 'when the user is the reviewer' do
+          before { get :edit, session_id: session, id: review }
+          it 'assings the instance variable and renders the template' do
+            expect(response).to render_template :edit
+            expect(assigns(:review)).to eq review
+          end
+        end
 
-    expect(assigns(:review)).to_not be_nil
-    path = session_review_path(conference, assigns(:session), assigns(:review))
-    expect(response).to redirect_to(path)
-  end
+        context 'when the user is not the reviewer' do
+          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          before { get :edit, session_id: session, id: other_user_review }
+          it { is_expected.to redirect_to root_path }
+        end
 
-  it "create action should redirect when early review is valid" do
-    conference.stubs(:in_early_review_phase?).returns(true)
-    params = valid_early_review_params
-    
-    post :create, session_id: session.id, early_review: params
+        context 'with an invalid session' do
+          before { get :edit, session_id: 'foo', id: review }
+          it { expect(response.status).to eq 404 }
+        end
+      end
 
-    expect(assigns(:review)).to_not be_nil
-    path = session_review_path(conference, assigns(:session), assigns(:review))
-    expect(response).to redirect_to(path)
+      describe 'PUT #update' do
+        context 'when the user is the reviewer' do
+          before { put :update, session_id: session, id: review, early_review: valid_early_review_params }
+          subject(:updated_review) { Review.last }
+          it 'assings the instance variable and renders the template' do
+            expect(response).to redirect_to session_reviews_path
+            expect(updated_review.author_agile_xp_rating_id).to eq valid_early_review_params[:author_agile_xp_rating_id]
+            expect(updated_review.author_proposal_xp_rating_id).to eq valid_early_review_params[:author_proposal_xp_rating_id]
+            expect(updated_review.proposal_track).to eq valid_early_review_params[:proposal_track]
+            expect(updated_review.proposal_level).to eq valid_early_review_params[:proposal_level]
+            expect(updated_review.proposal_type).to eq valid_early_review_params[:proposal_type]
+            expect(updated_review.proposal_limit).to eq valid_early_review_params[:proposal_limit]
+            expect(updated_review.proposal_duration).to eq valid_early_review_params[:proposal_duration]
+            expect(updated_review.proposal_abstract).to eq valid_early_review_params[:proposal_abstract]
+            expect(updated_review.proposal_quality_rating_id).to eq valid_early_review_params[:proposal_quality_rating_id]
+            expect(updated_review.proposal_relevance_rating_id).to eq valid_early_review_params[:proposal_relevance_rating_id]
+            expect(updated_review.reviewer_confidence_rating_id).to eq valid_early_review_params[:reviewer_confidence_rating_id]
+            expect(updated_review.comments_to_organizers).to eq valid_early_review_params[:comments_to_organizers]
+            expect(updated_review.comments_to_authors).to eq valid_early_review_params[:comments_to_authors]
+          end
+        end
+
+        context 'when the user is not the reviewer' do
+          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          before { get :edit, session_id: session, id: other_user_review }
+          it { is_expected.to redirect_to root_path }
+        end
+      end
+    end
   end
 end
