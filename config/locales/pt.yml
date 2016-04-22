@@ -13,7 +13,16 @@ pt:
       constant: 'não pode mudar'
       same_conference: 'não pertence à mesma conferência'
       cant_be_after: 'não pode vir após %{date}'
+      invalid_form_data: "Nós tivemos problemas durante a submissão do seu formulário. Após a correção dos erros, tente novamente. <br/>Verifique os seguintes campos: %{value}"
   activerecord:
+    models:
+      review:
+        one: 'Revisão'
+        other: 'Revisões'
+    attributes:
+      review:
+        recommendation_id: 'Recomendação'
+        author_agile_xp_rating: 'Recomendação'
     errors:
       messages:
         existence: 'não existe'
@@ -753,3 +762,9 @@ pt:
     visualization: "Visualização"
   general:
     actions: "Ações"
+  reviews:
+    edit:
+      errors:
+        conference_out_of_range: "Alteração não permitida, conferência fora do período de revisão."
+    update:
+      success: "Revisão atualizada."

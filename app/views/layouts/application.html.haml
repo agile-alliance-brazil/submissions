@@ -36,7 +36,7 @@
         - flash.each do |name, messages|
           - messages = [messages] unless messages.is_a?(Array)
           - messages.each_with_index do |msg, index|
-            = content_tag :div, msg, id: "flash_#{name}_#{index}", class: "flash_#{name}"
+            = content_tag :div, msg.html_safe, id: "flash_#{name}_#{index}", class: "flash_#{name}"
 
         - if show_title?
           %h1= yield(:title)

@@ -174,6 +174,19 @@ describe ReviewsController, type: :controller do
           before { get :edit, session_id: 'foo', id: review }
           it { expect(response.status).to eq 404 }
         end
+
+        context 'when the deadline has passed' do
+          let(:conference) { FactoryGirl.create(:conference, call_for_papers: 5.days.ago, submissions_open: 4.days.ago, presubmissions_deadline: 3.days.ago, prereview_deadline: 1.day.ago) }
+          let(:track) { FactoryGirl.create(:track, conference: conference) }
+          let(:level) { FactoryGirl.create(:audience_level, conference: conference) }
+          let!(:session) { FactoryGirl.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
+          let(:review) { FactoryGirl.create :early_review, reviewer: user, session: session }
+          before { get :edit, session_id: session, id: review }
+          it 'redirects to root_path with the error message' do
+            expect(response).to redirect_to root_path
+            expect(flash[:alert]).to eq I18n.t('reviews.edit.errors.conference_out_of_range')
+          end
+        end
       end
 
       describe 'PUT #update' do
@@ -182,6 +195,7 @@ describe ReviewsController, type: :controller do
           subject(:updated_review) { Review.last }
           it 'assings the instance variable and renders the template' do
             expect(response).to redirect_to session_reviews_path
+            expect(flash[:notice]).to eq I18n.t('reviews.update.success')
             expect(updated_review.author_agile_xp_rating_id).to eq valid_early_review_params[:author_agile_xp_rating_id]
             expect(updated_review.author_proposal_xp_rating_id).to eq valid_early_review_params[:author_proposal_xp_rating_id]
             expect(updated_review.proposal_track).to eq valid_early_review_params[:proposal_track]
@@ -200,8 +214,17 @@ describe ReviewsController, type: :controller do
 
         context 'when the user is not the reviewer' do
           let(:other_user_review) { FactoryGirl.create :early_review, session: session }
-          before { get :edit, session_id: session, id: other_user_review }
+          before { put :update, session_id: session, id: other_user_review }
           it { is_expected.to redirect_to root_path }
+        end
+
+        context 'when the parameters are invalid' do
+          before { put :update, session_id: session, id: review, early_review: { author_agile_xp_rating_id: nil, proposal_quality_rating_id: nil }  }
+          it 'renders the template again with errors and alert message' do
+            expected_flash = "#{Review.human_attribute_name(:author_agile_xp_rating_id)}, #{Review.human_attribute_name(:proposal_quality_rating_id)}"
+            expect(flash[:alert]).to eq I18n.t('errors.messages.invalid_form_data', value: expected_flash )
+            expect(response).to render_template :edit
+          end
         end
       end
     end

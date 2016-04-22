@@ -300,8 +300,8 @@ describe Reviewer, type: :model do
 
   def accepted_reviewer_for(user, conference, track, audience_level)
     FactoryGirl.create(:reviewer, user: user, conference: conference).
-        tap{|r| r.invite}.
-        tap{|r| r.preferences.build(accepted: true, track_id: track.id, audience_level_id: audience_level.id)}.
-        tap{|r| r.accept}
+        tap {|r| r.invite}.
+        tap {|r| r.preferences.build(accepted: true, track_id: track.id, audience_level_id: audience_level.id)}.
+        tap {|r| r.accept}
   end
 end

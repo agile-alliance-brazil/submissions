@@ -2,6 +2,7 @@
 class ReviewsController < ApplicationController
   before_filter :load_session
   before_filter :load_review, only: [:edit, :update]
+  before_filter :check_review_period, only: [:edit, :update]
 
   def index
     @reviews = collection
@@ -29,8 +30,13 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review.update(review_params)
-    redirect_to session_reviews_path(session_id: @session)
+    if @review.update(review_params)
+      redirect_to session_reviews_path(session_id: @session), notice: t('reviews.update.success')
+    else
+      errors = @review.errors.messages.keys.map { |key| Review.human_attribute_name(key.to_sym) }
+      flash[:alert] = t('errors.messages.invalid_form_data', value: errors.join(', '))
+      render :edit
+    end
   end
 
   def show
@@ -99,5 +105,10 @@ class ReviewsController < ApplicationController
 
   def load_review
     @review = resource
+  end
+
+  def check_review_period
+    return if @conference.in_early_review_phase? || @conference.in_final_review_phase?
+    redirect_to root_path, alert: t('reviews.edit.errors.conference_out_of_range')
   end
 end

@@ -13,6 +13,7 @@ en:
       constant: "can't be changed"
       same_conference: "doesn't belong to the same conference"
       cant_be_after: "cannot be after %{date}"
+      invalid_form_data: "We've got problems during your form submission. Please check the fields and try again."
   activerecord:
     errors:
       messages:
@@ -748,3 +749,9 @@ en:
     visualization: "Visualization"
   general:
     actions: "Actions"
+  reviews:
+    edit:
+      errors:
+        conference_out_of_range: "Not allowed change, review time has passed."
+    update:
+      success: "Review updated."
