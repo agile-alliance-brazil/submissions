@@ -4,7 +4,7 @@ class ConfirmSessionsController < ApplicationController
 
   def show
   end
-  
+
   def update
     attributes = session_params
     attributes[:state_event] = 'accept'
@@ -16,7 +16,7 @@ class ConfirmSessionsController < ApplicationController
       render :show
     end
   end
-  
+
   protected
   def load_session
     @session = Session.find(params[:session_id])

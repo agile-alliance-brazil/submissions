@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true, counter_cache: true
   belongs_to :user
 
-  validates :comment, presence: true, length: {maximum: 1000}
+  validates :comment, presence: true, length: { maximum: 1000 }
   validates :user_id, presence: true
   validates :commentable_type, presence: true
   validates :commentable_id, presence: true

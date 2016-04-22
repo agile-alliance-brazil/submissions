@@ -53,7 +53,7 @@ module ApplicationHelper
 
   def present_date(conference, date_map)
     content = raw "#{l(date_map.first.to_date)}: #{t("conference.dates.#{date_map.last}")}"
-    content = content_tag('strong'){content} if date_map.first == conference.next_deadline(:all).try(:first)
+    content = content_tag('strong') {content} if date_map.first == conference.next_deadline(:all).try(:first)
     content
   end
 end

@@ -4,8 +4,8 @@ require 'spec_helper'
 describe ConferencesController, type: :controller do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
-  let(:user){ FactoryGirl.create(:user) }
-  let(:admin){ user.tap{|u| u.add_role(:admin); u.save } }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:admin) { user.tap {|u| u.add_role(:admin); u.save } }
   let(:valid_conference_params) do
     {
       location: 'Chicago IL',
@@ -93,7 +93,7 @@ describe ConferencesController, type: :controller do
     end
 
     it 'should assign conference with provided attributes if any' do
-      get :new, conference: {name: 'My test'}
+      get :new, conference: { name: 'My test' }
 
       expect(assigns(:conference).name).to eq('My test')
     end
@@ -101,7 +101,7 @@ describe ConferencesController, type: :controller do
 
   context 'create action' do
     it 'should redirect when model is valid' do
-      post :create, conference: {year: 9999, name: "Agile Brazil 9999", program_chair_user_username: user.username}
+      post :create, conference: { year: 9999, name: "Agile Brazil 9999", program_chair_user_username: user.username }
 
       expect(response).to redirect_to("/9999")
     end
@@ -123,7 +123,7 @@ describe ConferencesController, type: :controller do
 
   context 'update action' do
     it 'should render edit template when model is invalid' do
-      patch :update, id: subject.year, conference: {start_date: Time.zone.now}
+      patch :update, id: subject.year, conference: { start_date: Time.zone.now }
 
       expect(assigns(:conference)).to eq(subject)
       expect(assigns(:conference).errors).to_not be_empty

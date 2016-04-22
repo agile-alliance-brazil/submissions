@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe TracksController, type: :controller do
   render_views
 
@@ -15,7 +15,7 @@ describe TracksController, type: :controller do
     get :index
     expect(response).to render_template(:index)
   end
-  
+
   it "index action should assign tracks for current conference" do
     get :index
     expect(assigns(:tracks)).to eq([@track])

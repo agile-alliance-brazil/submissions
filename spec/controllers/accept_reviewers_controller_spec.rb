@@ -12,14 +12,14 @@ describe AcceptReviewersController, type: :controller do
     sign_in reviewer.user
     disable_authorization
   end
-  
+
   describe "with view rendering", render_views: true do
     render_views
-  
+
     it "show pt should work" do
       get :show, year: conference.year, reviewer_id: reviewer.id, locale: :pt
     end
-  
+
     it "show en should work" do
       get :show, year: conference.year, reviewer_id: reviewer.id, locale: :en
     end
@@ -32,7 +32,7 @@ describe AcceptReviewersController, type: :controller do
 
     expect(response).to render_template(:show)
   end
-  
+
   it "show action should populate preferences for each track when empty" do
     get :show, year: conference.year, reviewer_id: reviewer.id
 
@@ -46,7 +46,7 @@ describe AcceptReviewersController, type: :controller do
 
     expect(assigns(:reviewer).preferences.size).to eq(1)
   end
-  
+
   it "show action should only assign audience levels for current conference" do
     get :show, year: conference.year, reviewer_id: reviewer.id
 
@@ -55,7 +55,7 @@ describe AcceptReviewersController, type: :controller do
 
   it "update action should render accept_reviewers/show template when model is invalid" do
     patch :update, year: conference.year, reviewer_id: reviewer.id, reviewer: {}
-    
+
     expect(response).to render_template('accept_reviewers/show')
   end
   let(:other_track) { FactoryGirl.create(:track, conference: conference) }
@@ -78,7 +78,7 @@ describe AcceptReviewersController, type: :controller do
   }
   it "update action should redirect when model is valid" do
     patch :update, year: conference.year, reviewer_id: reviewer.id, reviewer: valid_params
-    
+
     expect(response).to redirect_to(reviewer_sessions_path(conference))
   end
 end

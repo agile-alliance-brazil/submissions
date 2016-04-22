@@ -8,9 +8,9 @@ describe ReviewFeedbacksController, type: :controller do
     @conference = FactoryGirl.create(:conference)
     @author = FactoryGirl.create(:author)
     Conference.stubs(:current).returns(@conference)
-    @sessions = (1..2).map{|n| FactoryGirl.create(:session, author: @author, conference: @conference)}
+    @sessions = (1..2).map {|n| FactoryGirl.create(:session, author: @author, conference: @conference)}
     @reviews = @sessions.map do |session|
-      session_reviews = (1..3).map{|n| FactoryGirl.create(:final_review, session: session)}
+      session_reviews = (1..3).map {|n| FactoryGirl.create(:final_review, session: session)}
       session.final_reviews = session_reviews
       session_reviews
     end.flatten
@@ -99,24 +99,24 @@ describe ReviewFeedbacksController, type: :controller do
       end
 
       it 'should save the review feedback' do
-        expect(@valid_creation).to change{ReviewFeedback.count}.by(1)
+        expect(@valid_creation).to change {ReviewFeedback.count}.by(1)
       end
     end
     context 'on validation error' do
       it 'should flash failure message' do
-        post :create, review_feedback: {general_comments: ''}
+        post :create, review_feedback: { general_comments: '' }
 
         expect(flash[:error]).to eq(I18n.t('flash.failure'))
       end
 
       it 'should render new template' do
-        post :create, review_feedback: {general_comments: ''}
+        post :create, review_feedback: { general_comments: '' }
 
         expect(response).to render_template(:new)
       end
 
       it 'should assign review feedback with error' do
-        post :create, review_feedback: {general_comments: ''}
+        post :create, review_feedback: { general_comments: '' }
 
         review_feedback = assigns(:review_feedback)
         expect(review_feedback.conference).to eq(@conference)
@@ -124,7 +124,7 @@ describe ReviewFeedbacksController, type: :controller do
       end
 
       it 'should have review evaluations for each review of that authors sessions' do
-        post :create, review_feedback: {general_comments: ''}
+        post :create, review_feedback: { general_comments: '' }
 
         review_feedback = assigns(:review_feedback)
         expect(review_feedback.review_evaluations).to have(6).items
@@ -135,7 +135,7 @@ describe ReviewFeedbacksController, type: :controller do
         post :create, review_feedback: {
           general_comments: '',
           review_evaluations_attributes: [
-            {helpful_review: true, review_id: @reviews.first.id, comments: 'Thanks!'}
+            { helpful_review: true, review_id: @reviews.first.id, comments: 'Thanks!' }
           ]
         }
 
@@ -148,7 +148,7 @@ describe ReviewFeedbacksController, type: :controller do
         post :create, review_feedback: {
           general_comments: '',
           review_evaluations_attributes: [
-            {helpful_review: true, review_id: @reviews.first.id, comments: 'Thanks!'}
+            { helpful_review: true, review_id: @reviews.first.id, comments: 'Thanks!' }
           ]
         }
 
@@ -174,7 +174,7 @@ describe ReviewFeedbacksController, type: :controller do
     {
       general_comments: '',
       review_evaluations_attributes:
-        @reviews.map{|r| {helpful_review: false, review_id: r.id.to_s, comments: 'Useless'}}
+        @reviews.map {|r| { helpful_review: false, review_id: r.id.to_s, comments: 'Useless' }}
     }
   end
 end

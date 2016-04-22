@@ -4,7 +4,7 @@ class RejectReviewersController < ApplicationController
 
   def show
   end
-  
+
   def update
     if @reviewer.try(:reject)
       flash[:notice] = t('flash.reviewer.reject.success')
@@ -14,7 +14,7 @@ class RejectReviewersController < ApplicationController
       render :show
     end
   end
-  
+
   protected
   def load_reviewer
     @reviewer = Reviewer.find(params[:reviewer_id])

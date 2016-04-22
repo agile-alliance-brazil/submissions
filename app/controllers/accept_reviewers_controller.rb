@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class AcceptReviewersController < ApplicationController
   before_filter :load_reviewer, :load_audience_levels
-  
+
   def show
     if @reviewer.preferences.empty?
       @conference.tracks.each do |track|
@@ -18,8 +18,8 @@ class AcceptReviewersController < ApplicationController
       flash.now[:error] = t('flash.failure')
       render :show
     end
-  end  
-  
+  end
+
   private
   def load_audience_levels
     @audience_levels ||= @conference.audience_levels

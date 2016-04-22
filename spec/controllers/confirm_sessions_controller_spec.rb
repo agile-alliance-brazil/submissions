@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe ConfirmSessionsController, type: :controller do
   render_views
 
@@ -22,16 +22,16 @@ describe ConfirmSessionsController, type: :controller do
     get :show, session_id: @session.id
     expect(response).to render_template(:show)
   end
-  
+
   it "update action should render show template when model is invalid" do
-    patch :update, session_id: @session.id, session: {author_agreement: '0'}
+    patch :update, session_id: @session.id, session: { author_agreement: '0' }
 
     expect(response).to render_template(:show)
   end
 
   it "update action should redirect when model is valid" do
-    patch :update, session_id: @session.id, session: {author_agreement: '1'}
+    patch :update, session_id: @session.id, session: { author_agreement: '1' }
 
     expect(response).to redirect_to(user_sessions_path(@conference, @user))
-  end  
+  end
 end

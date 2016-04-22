@@ -157,10 +157,10 @@ describe EmailNotifications, type: :mailer do
       let(:another_user) { FactoryGirl.build(:user, email: "another.user@provider.com") }
       let(:another_comment) { FactoryGirl.build(:comment, commentable: session, user: another_user) }
 
-      it "should be sent to sessions commenters and authors" do 
+      it "should be sent to sessions commenters and authors" do
         session.expects(:comments).returns([ stub(user: another_user) ])
         EmailNotifications.comment_submitted(session, comment)
-        should bcc_to(session.author.email, another_user.email) 
+        should bcc_to(session.author.email, another_user.email)
       end
     end
   end
@@ -231,11 +231,11 @@ describe EmailNotifications, type: :mailer do
   describe "notification of acceptance e-mail" do
     let(:user) { FactoryGirl.build(:author) }
     let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
-    
+
     subject { EmailNotifications.notification_of_acceptance(session) }
 
     it "should not be sent if session has no decision" do
-      expect{ subject.deliver_now }.to(
+      expect { subject.deliver_now }.to(
         raise_error("Notification can't be sent before decision has been made"))
     end
 
@@ -278,14 +278,14 @@ describe EmailNotifications, type: :mailer do
   describe "notification of rejection e-mail" do
     let(:user) { FactoryGirl.build(:author) }
     let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
-    
+
     subject { EmailNotifications.notification_of_acceptance(session) }
 
     it "should not be sent if session has no decision" do
-      expect{ subject.deliver_now }.to(
+      expect { subject.deliver_now }.to(
         raise_error("Notification can't be sent before decision has been made"))
     end
-    
+
     context 'with review decision' do
       before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
       it_should_behave_like "standard conference e-mail"

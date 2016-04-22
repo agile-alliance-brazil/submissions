@@ -95,9 +95,6 @@ Style/SpaceInsideBlockBraces:
 Style/EmptyLinesAroundMethodBody:
   Enabled: false
 
-Style/TrailingWhitespace:
-  Enabled: false
-
 Style/AlignParameters:
   Enabled: false
 
@@ -116,13 +113,7 @@ Style/TrailingBlankLines:
 Style/DotPosition:
   Enabled: false
 
-Style/SpaceBeforeBlockBraces:
-  Enabled: false
-
 Style/PercentLiteralDelimiters:
-  Enabled: false
-
-Style/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Style/SpaceAfterComma:

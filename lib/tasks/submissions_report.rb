@@ -25,11 +25,11 @@ review_count = FinalReview.for_conference(conference).count
 session_count = sessions.count * 3
 grouped = sessions.group_by(&:final_reviews_count)
 reviewers = Reviewer.for_conference(conference).accepted
-non_active = reviewers.select{ |reviewer| reviewer.user.reviews.for_conference(conference).select{|r| r.type == 'FinalReview'}.count == 0}
+non_active = reviewers.select { |reviewer| reviewer.user.reviews.for_conference(conference).select {|r| r.type == 'FinalReview'}.count == 0}
 
 report = ""
 report << "#{review_count} avaliações de #{session_count} necessárias (~ #{'%.2f' % (review_count * 100.0 / session_count)}%)\n"
-grouped.sort{|group1, group2| group1.first <=> group2.first}.each do |key, value|
+grouped.sort {|group1, group2| group1.first <=> group2.first}.each do |key, value|
 	report << "#{value.size} sessões com #{key} avaliações\n"
 end
 report << "\n"
@@ -38,5 +38,5 @@ report << "\n"
 report << "Faltam #{conference.review_deadline.to_date - Date.today} dias para o fim das avaliações\n"
 puts report
 
-active_reviewers = reviewers.reject{ |reviewer| reviewer.user.reviews.for_conference(conference).select{|r| r.type == 'FinalReview'}.count == 0}
+active_reviewers = reviewers.reject { |reviewer| reviewer.user.reviews.for_conference(conference).select {|r| r.type == 'FinalReview'}.count == 0}
 puts active_reviewers.map(&:user).map(&:full_name).sort.join("\n")

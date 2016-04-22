@@ -33,6 +33,6 @@ class ReviewsListingController < ApplicationController
       for_conference(@conference).
       page(params[:page]).
       order(order).
-      includes(session: [:author, :second_author, :track, {review_decision: :outcome}])
+      includes(session: [:author, :second_author, :track, { review_decision: :outcome }])
   end
 end

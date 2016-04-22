@@ -6,7 +6,7 @@ describe ReviewerFilter, type: :model do
 
   describe 'filtering by state' do
     context 'with param state' do
-      subject { ReviewerFilter.new(reviewer_filter: {state: 'active'}) }
+      subject { ReviewerFilter.new(reviewer_filter: { state: 'active' }) }
 
       its(:state) { should == 'active' }
     end
@@ -20,7 +20,7 @@ describe ReviewerFilter, type: :model do
 
   describe 'filtering by track' do
     context 'with param track_id' do
-      subject { ReviewerFilter.new(reviewer_filter: {track_id: 8}) }
+      subject { ReviewerFilter.new(reviewer_filter: { track_id: 8 }) }
 
       its(:track_id) { should == 8 }
     end
@@ -37,7 +37,7 @@ describe ReviewerFilter, type: :model do
       scope = mock('scope')
       scope.expects(:with_state).with(:accepted)
 
-      filter = ReviewerFilter.new(reviewer_filter: {state: 'accepted'})
+      filter = ReviewerFilter.new(reviewer_filter: { state: 'accepted' })
       filter.apply(scope)
     end
 
@@ -45,7 +45,7 @@ describe ReviewerFilter, type: :model do
       scope = mock('scope')
       scope.expects(:for_track).with('1')
 
-      filter = ReviewerFilter.new(reviewer_filter: {track_id: '1'})
+      filter = ReviewerFilter.new(reviewer_filter: { track_id: '1' })
       filter.apply(scope)
     end
 
@@ -54,7 +54,7 @@ describe ReviewerFilter, type: :model do
       scope.expects(:for_track).with('1').returns(scope)
       scope.expects(:with_state).with(:inactive).returns(scope)
 
-      filter = ReviewerFilter.new(reviewer_filter: {state: 'inactive', track_id: '1'})
+      filter = ReviewerFilter.new(reviewer_filter: { state: 'inactive', track_id: '1' })
       filter.apply(scope)
     end
   end

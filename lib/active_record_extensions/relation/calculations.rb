@@ -42,7 +42,7 @@ if ActiveRecord::VERSION::MAJOR == 4
             "#{field} AS #{aliaz}"
           end
         }
-        values_to_select = having_values.map{|v| v.split(/[<=>]+/)}.flatten.select{|v| v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)}
+        values_to_select = having_values.map {|v| v.split(/[<=>]+/)}.flatten.select {|v| v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)}
         having_aliases = values_to_select.map do |v|
           having_match = v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)
           having_value = "#{having_match[1]}.#{having_match[2]}"

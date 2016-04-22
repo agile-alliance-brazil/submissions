@@ -8,7 +8,7 @@ class SessionAuthorsCSVExporter
   end
 
   def to_csv
-    individuals, pairs = @sessions.partition{|s| s.second_author.blank? }
+    individuals, pairs = @sessions.partition {|s| s.second_author.blank? }
 
     CSV.generate do |csv|
       csv << COLUMNS

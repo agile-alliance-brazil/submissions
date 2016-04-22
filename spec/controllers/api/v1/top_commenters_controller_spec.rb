@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Api::V1::TopCommentersController, type: :controller do
-  let(:session){FactoryGirl.create(:session)}
+  let(:session) {FactoryGirl.create(:session)}
   describe 'index' do
     def simplify(user)
       gravatar_id = Digest::MD5::hexdigest(user.email).downcase
@@ -42,7 +42,7 @@ describe Api::V1::TopCommentersController, type: :controller do
       end
 
       it 'should return top 3' do
-        expected_result = [@winner, @second, @third].map{|u| simplify(u)}.to_json
+        expected_result = [@winner, @second, @third].map {|u| simplify(u)}.to_json
         expect(response.body).to eq(expected_result)
       end
     end
@@ -58,7 +58,7 @@ describe Api::V1::TopCommentersController, type: :controller do
       end
 
       it 'should return top 5' do
-        expected_result = @top_commenters.map{|u| simplify(u)}.to_json
+        expected_result = @top_commenters.map {|u| simplify(u)}.to_json
         expect(response.body).to eq(expected_result)
       end
     end
@@ -74,7 +74,7 @@ describe Api::V1::TopCommentersController, type: :controller do
       end
 
       it 'should return top 5 with most recent user to untie' do
-        expected_result = @top_commenters.map{|u| simplify(u)}.to_json
+        expected_result = @top_commenters.map {|u| simplify(u)}.to_json
         expect(response.body).to eq(expected_result)
       end
     end
@@ -91,21 +91,21 @@ describe Api::V1::TopCommentersController, type: :controller do
         it 'should ignore negative limit' do
           get :index, format: 'json', limit: -1
 
-          expected_result = @top_commenters.map{|u| simplify(u)}.to_json
+          expected_result = @top_commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
 
         it 'should ignore zero limit' do
           get :index, format: 'json', limit: 0
 
-          expected_result = @top_commenters.map{|u| simplify(u)}.to_json
+          expected_result = @top_commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
 
         it 'should ignore nil limit' do
           get :index, format: 'json', limit: nil
 
-          expected_result = @top_commenters.map{|u| simplify(u)}.to_json
+          expected_result = @top_commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
       end
@@ -119,7 +119,7 @@ describe Api::V1::TopCommentersController, type: :controller do
           # curl "http://localhost:3000/api/top_commenters.json?limit=10" -i -H "Accept: application/json"
           get :index, format: 'json', limit: 10
 
-          expected_result = commenters.map{|u| simplify(u)}.to_json
+          expected_result = commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
       end
@@ -133,7 +133,7 @@ describe Api::V1::TopCommentersController, type: :controller do
 
           get :index, format: 'json', limit: 30
 
-          expected_result = top_commenters.map{|u| simplify(u)}.to_json
+          expected_result = top_commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
       end
@@ -141,14 +141,14 @@ describe Api::V1::TopCommentersController, type: :controller do
 
     context 'filtering' do
       context 'by year' do
-        let(:new_conference){FactoryGirl.create(:conference)}
+        let(:new_conference) {FactoryGirl.create(:conference)}
 
         before do
           create_commenter_with_number_of_comments_as(1)
         end
 
         it 'should ignore comments from other conferences' do
-          get :index, format: 'json', filter: {year: [new_conference.year.to_s]}
+          get :index, format: 'json', filter: { year: [new_conference.year.to_s] }
 
           expect(response.body).to eq('[]')
         end
@@ -158,9 +158,9 @@ describe Api::V1::TopCommentersController, type: :controller do
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
 
           # curl "http://localhost:3000/api/top_commenters.json?filter%5Byear%5D=2015" -i -H "Accept: application/json"
-          get :index, format: 'json', filter: {year: [new_conference.year.to_s]}
+          get :index, format: 'json', filter: { year: [new_conference.year.to_s] }
 
-          expected_result = top_commenters.map{|u| simplify(u)}.to_json
+          expected_result = top_commenters.map {|u| simplify(u)}.to_json
           expect(response.body).to eq(expected_result)
         end
 
@@ -168,10 +168,10 @@ describe Api::V1::TopCommentersController, type: :controller do
           new_session = FactoryGirl.create(:session, conference: new_conference)
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
           top_commenter = top_commenters.first
-          expected_result = top_commenters.map{|u| simplify(u)}.to_json #When only have 5 comments
+          expected_result = top_commenters.map {|u| simplify(u)}.to_json #When only have 5 comments
           FactoryGirl.create(:comment, user: top_commenter, commentable: session)
 
-          get :index, format: 'json', filter: {year: [new_conference.year.to_s]}
+          get :index, format: 'json', filter: { year: [new_conference.year.to_s] }
 
           expect(response.body).to eq(expected_result)
         end

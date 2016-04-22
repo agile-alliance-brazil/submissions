@@ -73,7 +73,7 @@ class SessionsController < ApplicationController
       :keyword_list, :language
     ]).merge(inferred_attributes)
     if valid_params[:keyword_list]
-      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject{|name| @tags.detect{|tag| tag.name == name}.nil?}
+      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject {|name| @tags.detect {|tag| tag.name == name}.nil?}
     end
     valid_params
   end
@@ -113,7 +113,7 @@ class SessionsController < ApplicationController
     params.permit(session_filter: [:tags, :username, :track_id, :session_type_id])[:session_filter]
   end
 
-  def load_tags 
+  def load_tags
     @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
   end
 end

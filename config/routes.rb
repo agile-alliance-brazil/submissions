@@ -2,7 +2,7 @@
 AgileBrazil::Application.routes.draw do
   use_doorkeeper
 
-  namespace :api, defaults: {format: 'json'} do
+  namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       resource :user, only: %i(show) do
         post :make_voter, on: :collection

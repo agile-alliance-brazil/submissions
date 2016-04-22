@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe SessionTypesController, type: :controller do
   render_views
 
@@ -15,8 +15,8 @@ describe SessionTypesController, type: :controller do
   it "index action should render index template" do
     get :index
     expect(response).to render_template(:index)
-  end  
-  
+  end
+
   it "index action should assign session types for current conference" do
     get :index
     expect(assigns(:session_types)).to eq([@session_type])

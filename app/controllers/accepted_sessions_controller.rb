@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class AcceptedSessionsController < ApplicationController
   skip_before_filter :authenticate_user!, :authorize_action
-  
+
   def index
     respond_to do |format|
       format.csv {

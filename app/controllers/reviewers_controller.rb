@@ -66,7 +66,7 @@ class ReviewersController < ApplicationController
       format.html
     end
   end
-    
+
   def destroy
     reviewer = resource_class.where(id: params[:id]).includes(:user).first
     if reviewer.nil?
@@ -77,11 +77,11 @@ class ReviewersController < ApplicationController
       reviewer.destroy
       message = t('flash.reviewer.destroy.success', full_name: reviewer.user.full_name)
       respond_to do |format|
-        format.json { render json: {message: message}.to_json, status: 200 }
+        format.json { render json: { message: message }.to_json, status: 200 }
       end
     end
   end
-  
+
   protected
   def resource_class
     Reviewer
@@ -90,7 +90,7 @@ class ReviewersController < ApplicationController
   def new_reviewer
     if params[:reviewer]
       resource_class.new(new_reviewer_params).
-        tap{|r| r.conference = @conference}
+        tap {|r| r.conference = @conference}
     end
   end
 

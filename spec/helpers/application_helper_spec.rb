@@ -24,7 +24,7 @@ describe ApplicationHelper, type: :helper do
 
   describe "sort link" do
     before(:each) do
-      @params = {controller: :organizer_sessions, action: :index}
+      @params = { controller: :organizer_sessions, action: :index }
     end
 
     it "should link down if nothing set" do
