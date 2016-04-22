@@ -101,7 +101,7 @@ RSpec.describe SessionsController, type: :controller do
 
     context 'create action' do
       it 'should render new template when model is invalid' do
-        post :create, year: conference.year, session: {title: 'Test'}
+        post :create, year: conference.year, session: { title: 'Test' }
 
         expect(response).to render_template(:new)
       end
@@ -113,7 +113,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should ignore unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge({keyword_list: 'tags.tdd,tags.tecniques,unknown'})
+        post :create, year: conference.year, session: valid_params.merge({ keyword_list: 'tags.tdd,tags.tecniques,unknown' })
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
@@ -153,7 +153,7 @@ RSpec.describe SessionsController, type: :controller do
 
     context 'update action' do
       it 'should render edit template when model is invalid' do
-        patch :update, year: conference.year, id: session.id, session: {title: nil}
+        patch :update, year: conference.year, id: session.id, session: { title: nil }
 
         expect(response).to render_template(:edit)
       end
@@ -165,7 +165,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should ignore unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge({keyword_list: 'tags.tdd,tags.tecniques,unknown'})
+        post :create, year: conference.year, session: valid_params.merge({ keyword_list: 'tags.tdd,tags.tecniques,unknown' })
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end

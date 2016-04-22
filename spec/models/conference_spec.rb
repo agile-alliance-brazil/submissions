@@ -63,7 +63,7 @@ describe Conference, type: :model do
         end
       end
       it 'should be valid if a single date is entered' do
-        Conference::DATE_ORDERS[0..-1].each{|d| subject.send("#{d}=", nil)}
+        Conference::DATE_ORDERS[0..-1].each {|d| subject.send("#{d}=", nil)}
         subject.visible = false
 
         expect(subject).to be_valid
@@ -269,13 +269,13 @@ describe Conference, type: :model do
 
       it 'should return false if start is nil' do
         @conference.submissions_open = nil
-        
+
         expect(@conference).to_not be_in_submission_phase
       end
 
       it 'should return false if end is nil' do
         @conference.submissions_deadline = nil
-        
+
         expect(@conference).to_not be_in_submission_phase
       end
     end
@@ -325,13 +325,13 @@ describe Conference, type: :model do
 
       it 'should return false if start is nil' do
         @conference.presubmissions_deadline = nil
-        
+
         expect(@conference).to_not be_in_early_review_phase
       end
 
       it 'should return false if end is nil' do
         @conference.prereview_deadline = nil
-        
+
         expect(@conference).to_not be_in_early_review_phase
       end
     end
@@ -381,13 +381,13 @@ describe Conference, type: :model do
 
       it 'should return false if start is nil' do
         @conference.submissions_deadline = nil
-        
+
         expect(@conference).to_not be_in_final_review_phase
       end
 
       it 'should return false if end is nil' do
         @conference.review_deadline = nil
-        
+
         expect(@conference).to_not be_in_final_review_phase
       end
     end
@@ -439,13 +439,13 @@ describe Conference, type: :model do
 
       it 'should return false if start is nil' do
         @conference.author_notification = nil
-        
+
         expect(@conference).to_not be_in_author_confirmation_phase
       end
 
       it 'should return false if end is nil' do
         @conference.author_confirmation = nil
-        
+
         expect(@conference).to_not be_in_author_confirmation_phase
       end
     end

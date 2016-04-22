@@ -16,7 +16,7 @@ describe SessionType, type: :model do
     before(:each) do
       @tutorial = FactoryGirl.create(:session_type, title: 'session_types.tutorial.title')
       @lightning_talk = FactoryGirl.create(:session_type, title: 'session_types.lightning_talk.title')
-      
+
       SessionType.stubs(:select).with(:title).returns(SessionType)
       SessionType.stubs(:uniq).returns([@tutorial, @lightning_talk])
     end

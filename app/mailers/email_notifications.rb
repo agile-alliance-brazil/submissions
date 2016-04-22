@@ -40,11 +40,11 @@ class EmailNotifications < ActionMailer::Base
     @comment = comment
     @conference_name = current_conference.name
     authors = session.authors.map { |author| EmailNotifications.format_email(author) }
-    commenters = session.comments.map { |comment| EmailNotifications.format_email(comment.user) }    
+    commenters = session.comments.map { |comment| EmailNotifications.format_email(comment.user) }
     I18n.with_locale(@session.author.try(:default_locale)) do
       mail subject: "[#{host}] #{I18n.t('email.comment_submitted.subject', session_name: @session.title)}",
            to: "no-reply@agilebrazil.com",
-           bcc: authors + commenters, 
+           bcc: authors + commenters,
            date: sent_at
     end
   end

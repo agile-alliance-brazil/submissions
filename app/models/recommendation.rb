@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Recommendation < ActiveRecord::Base
   validates :name, presence: true
-  
+
   has_many :reviews
 
   def self.all_names
@@ -38,7 +38,7 @@ class Recommendation < ActiveRecord::Base
   def is_name_check_method?(method_sym)
     method_sym.to_s.ends_with?('?') &&
       Recommendation.all_names.
-        map{|name| "#{name}?"}.
+        map {|name| "#{name}?"}.
         include?(method_sym.to_s)
   end
 end

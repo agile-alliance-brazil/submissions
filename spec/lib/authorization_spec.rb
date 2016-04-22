@@ -4,7 +4,7 @@ require 'spec_helper'
 class SampleUser
   include Authorization
   attr_accessor :roles_mask
-  
+
   def initialize
     roles_mask = 0
   end
@@ -21,8 +21,8 @@ describe Authorization do
       expect(@user.roles_mask).to eq(1)
       @user.roles = :admin
       expect(@user.roles_mask).to eq(1)
-    end      
-    
+    end
+
     it "- author" do
       @user.roles = "author"
       expect(@user.roles_mask).to eq(2)
@@ -36,7 +36,7 @@ describe Authorization do
       @user.roles = :reviewer
       expect(@user.roles_mask).to eq(4)
     end
-    
+
     it "- organizer" do
       @user.roles = "organizer"
       expect(@user.roles_mask).to eq(8)
@@ -57,19 +57,19 @@ describe Authorization do
       @user.roles = [:admin, :reviewer]
       expect(@user.roles_mask).to eq(5)
     end
-    
+
     it "- none" do
       @user.roles = []
       expect(@user.roles_mask).to eq(0)
     end
-    
+
     it "- invalid is ignored" do
       @user.roles = "invalid"
       expect(@user.roles_mask).to eq(0)
       @user.roles = :invalid
       expect(@user.roles_mask).to eq(0)
     end
-    
+
     it "- mixed valid and invalid (ignores invalid)" do
       @user.roles = ["invalid", "reviewer", "admin"]
       expect(@user.roles_mask).to eq(5)
@@ -99,7 +99,7 @@ describe Authorization do
       @user.roles = "voter"
       expect(@user.roles).to eq(["voter"])
     end
-    
+
     it "- multiple roles" do
       @user.roles = ["admin", "reviewer", "author"]
       expect(@user.roles).to include("admin")
@@ -108,7 +108,7 @@ describe Authorization do
       expect(@user.roles).to_not include("organizer")
     end
   end
-  
+
   context "defining boolean methods for roles" do
     it "- admin" do
       expect(@user).to_not be_admin
@@ -133,7 +133,7 @@ describe Authorization do
       @user.roles = "organizer"
       expect(@user).to be_organizer
     end
-    
+
     it "- voter" do
       expect(@user).to_not be_voter
       @user.roles = "voter"
@@ -147,32 +147,32 @@ describe Authorization do
       expect(@user).to_not be_author
       expect(@user).to be_reviewer
     end
-    
+
     it "- none (guest)" do
       @user.roles = []
       expect(@user).to be_guest
       expect(@user).to_not be_admin
       expect(@user).to_not be_author
       expect(@user).to_not be_reviewer
-    end    
+    end
   end
-  
+
   context "adding a role" do
     it "- string" do
       @user.add_role "admin"
       expect(@user).to be_admin
     end
-    
+
     it "- symbol" do
       @user.add_role :admin
       expect(@user).to be_admin
     end
-    
+
     it "- invalid" do
       @user.add_role :invalid
       expect(@user.roles_mask).to eq(0)
     end
-    
+
     it "- multiple roles" do
       @user.roles = [:admin, :author]
       @user.add_role :reviewer
@@ -186,27 +186,27 @@ describe Authorization do
     before(:each) do
       @user.add_role "admin"
     end
-    
+
     it "- string" do
       @user.remove_role "admin"
       expect(@user).to_not be_admin
     end
-    
+
     it "- symbol" do
       @user.remove_role :admin
       expect(@user).to_not be_admin
     end
-    
+
     it "- invalid" do
       @user.remove_role :invalid
       expect(@user.roles_mask).to eq(1)
     end
-    
+
     it "- multiple roles" do
       @user.add_role :reviewer
       expect(@user).to be_admin
       expect(@user).to be_reviewer
-      
+
       @user.remove_role "reviewer"
       @user.remove_role :admin
       expect(@user).to_not be_admin

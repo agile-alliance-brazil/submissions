@@ -26,7 +26,7 @@ describe ReviewsController, type: :controller do
                                       justification: 'This is great!')
     end
     let(:conference) { FactoryGirl.create(:conference) }
-    let(:session) { FactoryGirl.create(:session, conference: conference).tap{|s| s.reviewing} }
+    let(:session) { FactoryGirl.create(:session, conference: conference).tap {|s| s.reviewing} }
     let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference)}
     before(:each) do
       sign_in reviewer.user

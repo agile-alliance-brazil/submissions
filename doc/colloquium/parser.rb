@@ -11,15 +11,15 @@ session = Scraper.define do
   process "ul:nth-child(5)>li:nth-child(2)", :date => :text
   process "ul:nth-child(5)>li:nth-child(3)", :start_at => :text
   process "ul:nth-child(4)>li:nth-child(3)", :duration => :text
-  
+
   result :session_id, :date, :start_at, :duration
 end
 
 schedule = Scraper.define do
   array :sessions
-  
+
   process ".session", :sessions => session
-  
+
   result :sessions
 end
 
@@ -34,5 +34,5 @@ FasterCSV.open("sessions.csv", "w") do |csv|
     start_at =  DateTime.strptime(day + '/2011 ' + session.start_at, '%d/%m/%Y %H:%M')
     end_at = session.duration =~ /50/ ? start_at + 1.hour : start_at + 2.hours
     csv << [session.session_id, start_at, end_at]
-  end  
+  end
 end

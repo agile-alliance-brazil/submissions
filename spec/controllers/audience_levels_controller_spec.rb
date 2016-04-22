@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe AudienceLevelsController, type: :controller do
   before(:each) do
     @conference = FactoryGirl.create(:conference)
@@ -12,7 +12,7 @@ describe AudienceLevelsController, type: :controller do
     get :index, year: @conference.year
     expect(response).to render_template(:index)
   end
-  
+
   it "index action should assign audience levels for given conference" do
     get :index, year: @conference.year
     expect(assigns(:audience_levels)).to eq([@audience_level])

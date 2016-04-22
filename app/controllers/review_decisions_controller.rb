@@ -32,7 +32,7 @@ class ReviewDecisionsController < ApplicationController
   def edit
     @review_decision = resource
   end
-  
+
   def update
     @review_decision = resource
     if @review_decision.update_attributes(decision_params)
@@ -43,7 +43,7 @@ class ReviewDecisionsController < ApplicationController
       render :edit
     end
   end
-  
+
   protected
   def resource_class
     ReviewDecision
@@ -59,6 +59,6 @@ class ReviewDecisionsController < ApplicationController
   end
 
   def inferred_attributes
-    {organizer_id: @current_user.id, session_id: params[:session_id]}
+    { organizer_id: @current_user.id, session_id: params[:session_id] }
   end
 end

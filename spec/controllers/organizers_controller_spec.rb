@@ -31,14 +31,14 @@ describe OrganizersController, type: :controller do
   end
 
   it "create action should render new template when model is invalid" do
-    post :create, organizer: {track_id: nil}
+    post :create, organizer: { track_id: nil }
     expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     user = FactoryGirl.create(:user)
     track = FactoryGirl.create(:track, conference: @conference)
-    post :create, organizer: {user_username: user.username, track_id: track.id, conference_id: track.conference_id}
+    post :create, organizer: { user_username: user.username, track_id: track.id, conference_id: track.conference_id }
     expect(response).to redirect_to(organizers_path(@conference))
   end
 

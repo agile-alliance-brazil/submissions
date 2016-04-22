@@ -32,7 +32,7 @@ describe VotesController, type: :controller do
     before do
       @session = FactoryGirl.create(:session)
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
-      post :create, vote: {session_id: @session.id}
+      post :create, vote: { session_id: @session.id }
     end
 
     it { should redirect_to('http://test.com/sessions/new') }

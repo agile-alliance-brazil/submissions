@@ -37,7 +37,7 @@ class SessionType < ActiveRecord::Base
   def is_title_check_method?(method_sym)
     method_sym.to_s.ends_with?('?') &&
       SessionType.all_titles.
-        map{|title| "#{title}?"}.
+        map {|title| "#{title}?"}.
         include?(method_sym.to_s)
   end
 end

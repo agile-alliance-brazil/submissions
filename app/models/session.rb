@@ -21,18 +21,18 @@ class Session < ActiveRecord::Base
 
   has_one :review_decision
 
-  validates :title, presence: true, length: {maximum: 100}
-  validates :summary, presence: true, length: {maximum: 800}
-  validates :description, presence: true, length: {maximum: 2400}
-  validates :benefits, presence: true, length: {maximum: 400}
-  validates :target_audience, presence: true, length: {maximum: 200}
-  validates :prerequisites, presence: true, length: {maximum: 200}
-  validates :experience, presence: true, length: {maximum: 400}
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :summary, presence: true, length: { maximum: 800 }
+  validates :description, presence: true, length: { maximum: 2400 }
+  validates :benefits, presence: true, length: { maximum: 400 }
+  validates :target_audience, presence: true, length: { maximum: 200 }
+  validates :prerequisites, presence: true, length: { maximum: 200 }
+  validates :experience, presence: true, length: { maximum: 400 }
   validates :duration_mins, presence: true, session_duration: true
-  validates :keyword_list, presence: true, length: {maximum: 10}
-  validates :language, presence: true, inclusion: {in: ['en', 'pt']}
-  validates :mechanics, presence: true, length: {maximum: 2400}, if: :requires_mechanics?
-  validates :audience_limit, numericality: {greater_than: 0}, allow_nil: true
+  validates :keyword_list, presence: true, length: { maximum: 10 }
+  validates :language, presence: true, inclusion: { in: ['en', 'pt'] }
+  validates :mechanics, presence: true, length: { maximum: 2400 }, if: :requires_mechanics?
+  validates :audience_limit, numericality: { greater_than: 0 }, allow_nil: true
   validates :conference_id, existence: true
   validates :author_id, existence: true, constant: { on: :update }
   validates :track_id, presence: true, existence: true, same_conference: true
@@ -64,7 +64,7 @@ class Session < ActiveRecord::Base
     where(clause, *args)
   }
   scope :with_outcome, ->(outcome) {
-    includes(:review_decision).where(review_decisions: {outcome_id: outcome.id, published: false})
+    includes(:review_decision).where(review_decisions: { outcome_id: outcome.id, published: false })
   }
 
   def self.for_review_in(conference)
@@ -128,11 +128,11 @@ class Session < ActiveRecord::Base
     end
 
     state :accepted do
-      validates :author_agreement, acceptance: {accept: true}
+      validates :author_agreement, acceptance: { accept: true }
     end
 
     state :rejected do
-      validates :author_agreement, acceptance: {accept: true}
+      validates :author_agreement, acceptance: { accept: true }
     end
 
   end
@@ -166,10 +166,10 @@ class Session < ActiveRecord::Base
   private
   def method_is_session_type_based?(method_sym)
     SessionType.all_titles.
-      map{|title| "#{title}?"}.
+      map {|title| "#{title}?"}.
       include?(method_sym.to_s)
   end
-  
+
   def requires_mechanics?
     (respond_to?(:workshop?) && workshop?) ||
       (respond_to?(:hands_on?) && hands_on?)

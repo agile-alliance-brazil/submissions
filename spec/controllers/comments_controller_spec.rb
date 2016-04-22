@@ -31,7 +31,7 @@ describe CommentsController, type: :controller do
   end
 
   it "create action should render new template when model is invalid" do
-    post :create, session_id: session.id, comment: {comment: nil}
+    post :create, session_id: session.id, comment: { comment: nil }
 
     expect(response).to render_template('sessions/show')
   end
@@ -56,7 +56,7 @@ describe CommentsController, type: :controller do
   end
 
   it "update action should render edit template when model is invalid" do
-    patch :update, session_id: session.id, id: subject.id, comment: {comment: nil}
+    patch :update, session_id: session.id, id: subject.id, comment: { comment: nil }
 
     expect(assigns(:session).id).to eq(session.id)
     expect(response).to render_template(:edit)

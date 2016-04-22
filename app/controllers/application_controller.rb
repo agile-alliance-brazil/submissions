@@ -46,13 +46,13 @@ class ApplicationController < ActionController::Base
   def sessions_by_track
     ([['Track', 'Submitted sessions']] +
       @conference.tracks.
-        map{|track| [t(track.title), track.sessions.count]})
+        map {|track| [t(track.title), track.sessions.count]})
   end
 
   def sessions_by_type
     ([['Type', 'Submitted sessions']] +
       @conference.session_types.
-        map{|type| [t(type.title), type.sessions.count]})
+        map {|type| [t(type.title), type.sessions.count]})
   end
 
   def gravatar_url(user, options={})

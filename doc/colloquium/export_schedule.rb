@@ -24,7 +24,7 @@ end
 def schedule
   @schedule ||= {}.tap do |sch|
     FasterCSV.foreach('sessions.csv', :headers => true) do |line|
-      sch[line[0].to_i] = {:start_at => DateTime.parse(line[1]), :end_at => DateTime.parse(line[2])}
+      sch[line[0].to_i] = { :start_at => DateTime.parse(line[1]), :end_at => DateTime.parse(line[2]) }
     end
   end
 end
@@ -51,7 +51,7 @@ FasterCSV.open("agile_brazil_schedule.csv", "w") do |csv|
   accepted_sessions.each do |session|
     fields = session_fields(session) + room_fields(session.track) + schedule_fields(session) + track_fields(session.track) + author_fields(session.author)
     fields += author_fields(session.second_author) if session.second_author
-    
+
     csv << fields
   end
 end

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe RejectReviewersController, type: :controller do
   render_views
 
@@ -18,7 +18,7 @@ describe RejectReviewersController, type: :controller do
     get :show, reviewer_id: @reviewer.id
     expect(response).to render_template(:show)
   end
-  
+
   it "update action should render show template when transition is invalid" do
     @reviewer.expects(:reject).returns(false)
 
@@ -26,7 +26,7 @@ describe RejectReviewersController, type: :controller do
 
     expect(response).to render_template(:show)
   end
-  
+
   it "update action should redirect when transition is valid" do
     patch :update, reviewer_id: @reviewer.id
 

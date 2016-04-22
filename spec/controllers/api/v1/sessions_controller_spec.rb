@@ -23,7 +23,7 @@ describe Api::V1::SessionsController, type: :controller do
             'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
             'username' => session.author.username,
             'name' => session.author.full_name,
-            'gravatar_url' => gravatar_url(gravatar_id)}],
+            'gravatar_url' => gravatar_url(gravatar_id) }],
           'prerequisites' => session.prerequisites,
           'duration_mins' => 50,
           'tags' => ['fake', 'tags', 'Casos de Sucesso'],
@@ -96,7 +96,7 @@ describe Api::V1::SessionsController, type: :controller do
             'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
             'username' => session.author.username,
             'name' => session.author.full_name,
-            'gravatar_url' => gravatar_url(gravatar_id)}],
+            'gravatar_url' => gravatar_url(gravatar_id) }],
           'prerequisites' => session.prerequisites,
           'tags' => ['fake', 'tags', 'Success Cases'],
           'duration_mins' => 50,
@@ -133,7 +133,7 @@ describe Api::V1::SessionsController, type: :controller do
           'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
           'username' => session.author.username,
           'name' => session.author.full_name,
-          'gravatar_url' => gravatar_url(gravatar_id)}],
+          'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
         'duration_mins' => 50,
@@ -163,7 +163,7 @@ describe Api::V1::SessionsController, type: :controller do
           'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
           'username' => session.author.username,
           'name' => session.author.full_name,
-          'gravatar_url' => gravatar_url(gravatar_id)}],
+          'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
         'duration_mins' => 50,
@@ -196,7 +196,7 @@ describe Api::V1::SessionsController, type: :controller do
           'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
           'username' => session.author.username,
           'name' => session.author.full_name,
-          'gravatar_url' => gravatar_url(gravatar_id)}],
+          'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Casos de Sucesso'],
         'duration_mins' => 50,
@@ -230,7 +230,7 @@ describe Api::V1::SessionsController, type: :controller do
             'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
             'username' => session.author.username,
             'name' => session.author.full_name,
-            'gravatar_url' => gravatar_url(gravatar_id)}],
+            'gravatar_url' => gravatar_url(gravatar_id) }],
           'prerequisites' => session.prerequisites,
           'tags' => ['fake', 'tags', 'Success Cases'],
           'duration_mins' => 50,
@@ -266,7 +266,7 @@ describe Api::V1::SessionsController, type: :controller do
 
       it 'should return accepted_sessions in a parseable JSON representation' do
         sessions = @accepted_sessions.map { |s| pt_hash_for(s) }
-        
+
         expect(JSON.parse(response.body)).to eq(sessions)
       end
     end
@@ -282,7 +282,7 @@ describe Api::V1::SessionsController, type: :controller do
 
       it 'should return accepted_sessions in a parseable JSON representation' do
         sessions = @accepted_sessions.map { |s| en_hash_for(s) }
-        
+
         expect(JSON.parse(response.body)).to eq(sessions)
       end
     end
@@ -312,7 +312,7 @@ describe Api::V1::SessionsController, type: :controller do
         'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
         'username' => session.author.username,
         'name' => session.author.full_name,
-        'gravatar_url' => gravatar_url(gravatar_id)}],
+        'gravatar_url' => gravatar_url(gravatar_id) }],
       'prerequisites' => session.prerequisites,
       'tags' => ['Aprendizagem', 'Testes'],
       'duration_mins' => 50,
@@ -338,7 +338,7 @@ describe Api::V1::SessionsController, type: :controller do
         'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=en",
         'username' => session.author.username,
         'name' => session.author.full_name,
-        'gravatar_url' => gravatar_url(gravatar_id)}],
+        'gravatar_url' => gravatar_url(gravatar_id) }],
       'prerequisites' => session.prerequisites,
       'tags' => ['Learning', 'Tests'],
       'duration_mins' => 50,

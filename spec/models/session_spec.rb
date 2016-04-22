@@ -227,7 +227,7 @@ describe Session, type: :model do
         end
 
         it 'should bring only one session unreviewed' do
-          expect(Session.for_reviewer(@user, @conference).count).to eq({1 => 1})
+          expect(Session.for_reviewer(@user, @conference).count).to eq({ 1 => 1 })
         end
 
         it "if reviewed multiple times, it should only be returned once" do
@@ -274,7 +274,7 @@ describe Session, type: :model do
         end
 
         it 'should bring only one session unreviewed' do
-          expect(Session.for_reviewer(@user, @conference).count).to eq({1 => 1})
+          expect(Session.for_reviewer(@user, @conference).count).to eq({ 1 => 1 })
         end
 
         it "should only be returned once if reviewed multiple times" do

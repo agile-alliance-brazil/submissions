@@ -18,8 +18,8 @@ class ReviewerBatch
 
   def to_json
     hash = {
-      new_reviewers: @valid.map{|r| ReviewerJsonBuilder.new(r).to_json },
-      failed_invites: @invalid.map{|r| I18n.t('flash.reviewer.create.failure', username: r.user_username)}
+      new_reviewers: @valid.map {|r| ReviewerJsonBuilder.new(r).to_json },
+      failed_invites: @invalid.map {|r| I18n.t('flash.reviewer.create.failure', username: r.user_username)}
     }
     hash[:success_message]= I18n.t('flash.reviewer.create.multiple_successes') unless @valid.empty?
     hash
@@ -29,7 +29,7 @@ class ReviewerBatch
 
   def prepare_reviewers
     @valid, @invalid = (usernames || []).
-      map{|u| Reviewer.new(user_username: u, conference: conference) }.
+      map {|u| Reviewer.new(user_username: u, conference: conference) }.
       partition(&:valid?)
   end
 end

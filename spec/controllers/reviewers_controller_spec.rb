@@ -97,7 +97,7 @@ describe ReviewersController, type: :controller do
         expect(response.status).to eq(400)
       end
       it 'should show error message for invalid user' do
-        post :create, format: 'json', reviewer: {user_username: 'a'}
+        post :create, format: 'json', reviewer: { user_username: 'a' }
 
         expect(response.body).to eq(
           I18n.t('flash.reviewer.create.failure', username: 'a')
@@ -111,7 +111,7 @@ describe ReviewersController, type: :controller do
       it 'should show error message for user that is already a reviewer' do
         FactoryGirl.create(:reviewer, conference: conference, user_username: user.username)
 
-        post :create, format: 'json', reviewer: {user_username: user.username}
+        post :create, format: 'json', reviewer: { user_username: user.username }
 
         expect(response.body).to eq(
           I18n.t('flash.reviewer.create.failure', username: user.username)

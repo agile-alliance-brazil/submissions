@@ -257,7 +257,7 @@ describe User, type: :model do
     reviewer = FactoryGirl.create(:reviewer, user: user)
     expect(user.reviewer_for(reviewer.conference).id).to eq(reviewer.id)
   end
-  
+
   it "should not retrieve if there isn't an actual reviewer" do
     user = FactoryGirl.create(:user)
     old_conference = FactoryGirl.create(:conference, year: 1)

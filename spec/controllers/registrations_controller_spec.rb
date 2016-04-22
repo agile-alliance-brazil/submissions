@@ -68,7 +68,7 @@ describe RegistrationsController, type: :controller do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
       # if validation failed
-      patch :update, user: {username: nil}
+      patch :update, user: { username: nil }
       expect(response).to render_template(:edit)
     end
 

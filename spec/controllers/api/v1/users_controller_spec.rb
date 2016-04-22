@@ -45,7 +45,7 @@ describe Api::V1::UsersController, type: :controller do
     end
 
     it "should return success JSON" do
-      expect(JSON.parse(response.body)).to eq({"success" => true, "vote_url" => sessions_url})
+      expect(JSON.parse(response.body)).to eq({ "success" => true, "vote_url" => sessions_url })
     end
   end
 

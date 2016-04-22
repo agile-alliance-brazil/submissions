@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe "ApplicationController" do
-  
+
   describe "#authorize_action" do
 
   	context "controller with a model class" do
@@ -11,7 +11,7 @@ describe "ApplicationController" do
 	      controller.stubs(:params).returns({ :action => "create" })
 	      controller.expects(:authorize!).with(:create, Comment)
 	      controller.send(:authorize_action)
-	    end  
+	    end
 	end
 
 		context "controller without a model class" do
@@ -20,9 +20,9 @@ describe "ApplicationController" do
 	      controller.stubs(:params).returns({ :action => "index" })
 	      controller.expects(:authorize!).with(:index, 'organizer_sessions')
 	      controller.send(:authorize_action)
-	    end  
+	    end
 		end
-  end  
+  end
 
 end
 

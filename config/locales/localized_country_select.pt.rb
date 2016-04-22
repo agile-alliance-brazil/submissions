@@ -262,7 +262,7 @@
 			ZM: "Zâmbia",
 			ZW: "Zimbábue",
 			ZZ: "Região desconhecida ou inválida",
-    } 
+    }
 
   }
 }

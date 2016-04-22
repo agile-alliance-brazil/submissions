@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
   has_many :sessions
   has_many :track_ownerships, class_name: 'Organizer'
   has_many :organizers, through: :track_ownerships, source: :user
-  
+
   validates :title, presence: true
   validates :description, presence: true
 

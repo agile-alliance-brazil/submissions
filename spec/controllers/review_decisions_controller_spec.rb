@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
- 
+
 describe ReviewDecisionsController, type: :controller do
   render_views
 
@@ -31,7 +31,7 @@ describe ReviewDecisionsController, type: :controller do
       'total_confirmed' => 0
     }.to_json)
   end
-  
+
   it "new action should render new template" do
     get :new, session_id: Session.first.id
     expect(response).to render_template(:new)
@@ -40,37 +40,37 @@ describe ReviewDecisionsController, type: :controller do
 
   it "create action should render new template when model is invalid" do
     post :create, session_id: @session.id,
-      review_decision: {note_to_authors: 'bla'}
+      review_decision: { note_to_authors: 'bla' }
     expect(response).to render_template(:new)
   end
-  
+
   it "create action should redirect when model is valid" do
     post :create, session_id: @session.id,
-      review_decision: {outcome_id: '1', note_to_authors: 'Super note'}
+      review_decision: { outcome_id: '1', note_to_authors: 'Super note' }
     expect(response).to redirect_to(organizer_sessions_url(@session.conference))
   end
-  
+
   context "existing review decision" do
     before(:each) do
       @decision ||= FactoryGirl.create(:review_decision, session: @session, organizer: @organizer.user)
     end
-    
+
     it "edit action should render edit template" do
       get :edit, session_id: @session.id, id: @decision.id
       expect(response).to render_template(:edit)
       expect(assigns(:review_decision).organizer).to eq(@organizer.user)
     end
-  
+
     it "update action should render edit template when model is invalid" do
       patch :update, session_id: @session.id, id: @decision.id,
-        review_decision: {outcome_id: nil}
+        review_decision: { outcome_id: nil }
 
       expect(response).to render_template(:edit)
     end
-  
+
     it "update action should redirect when model is valid" do
       patch :update, session_id: @session.id, id: @decision.id,
-        review_decision: {outcome_id: '1', note_to_authors: 'Super note'}
+        review_decision: { outcome_id: '1', note_to_authors: 'Super note' }
 
       expect(response).to redirect_to(organizer_sessions_url(@session.conference))
     end

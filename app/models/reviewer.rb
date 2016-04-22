@@ -12,12 +12,12 @@ class Reviewer < ActiveRecord::Base
   accepts_nested_attributes_for :preferences
 
   validates :conference_id, presence: true, existence: true
-  validates :user_id, existence: true, uniqueness: {scope: :conference_id}
+  validates :user_id, existence: true, uniqueness: { scope: :conference_id }
 
   scope :for_conference, ->(c) { where(conference_id: c.id) }
   scope :for_user, ->(u) { where(user_id: u.id) }
   scope :accepted, -> { where(state: :accepted) }
-  scope :for_track, ->(track_id) { joins(:accepted_preferences).where(preferences: {track_id: track_id}) }
+  scope :for_track, ->(track_id) { joins(:accepted_preferences).where(preferences: { track_id: track_id }) }
 
   def self.user_reviewing_conference?(user, conference)
     !self.for_user(user).for_conference(conference).accepted.empty?

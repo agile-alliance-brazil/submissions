@@ -67,7 +67,7 @@ describe Vote, type: :model do
     subject { Vote }
     let(:voter) { FactoryGirl.create(:voter) }
     let(:conference) do
-      FactoryGirl.create(:conference).tap{|c| Conference.stubs(:current).returns(c) }
+      FactoryGirl.create(:conference).tap {|c| Conference.stubs(:current).returns(c) }
     end
 
     context "without user" do

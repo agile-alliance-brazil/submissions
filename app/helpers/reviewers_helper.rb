@@ -1,11 +1,11 @@
 # encoding: UTF-8
 module ReviewersHelper
   def review_level(preferences, track)
-    preference = preferences.select{ |pref| pref.track_id == track.id }.first
+    preference = preferences.select { |pref| pref.track_id == track.id }.first
     if preference
        preference.audience_level.title
     else
-      'reviewer.doesnot_review' 
+      'reviewer.doesnot_review'
      end
   end
 
@@ -21,13 +21,13 @@ module ReviewersHelper
 
   def reviewer_summary_review_row(reviews, conference)
     row = Recommendation.all_names.
-      map{|r| Recommendation.where(name: r).select(:id).map(&:id)}.
-      map{|ids| reviews.select{|r| ids.include?(r.recommendation_id)}.count}
+      map {|r| Recommendation.where(name: r).select(:id).map(&:id)}.
+      map {|ids| reviews.select {|r| ids.include?(r.recommendation_id)}.count}
     feedback_summary = ''
     if conference.author_notification.past?
       evaluations = ReviewEvaluation.where(review_id: reviews.map(&:id)).to_a
       feedback_summary = evaluations.select(&:helpful_review).size.to_s + image_tag('helpful.png', alt: '👍') + ' ' +
-        evaluations.reject(&:helpful_review).size.to_s + image_tag('not-helpful.png', alt: '👎')      
+        evaluations.reject(&:helpful_review).size.to_s + image_tag('not-helpful.png', alt: '👎')
     end
     row << feedback_summary
     row

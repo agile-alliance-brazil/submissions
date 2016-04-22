@@ -30,5 +30,5 @@ class Review < ActiveRecord::Base
 
   validates :comments_to_authors, length: { minimum: 150 }
 
-  scope :for_conference, lambda { |c| joins(:session).where(sessions: {conference_id: c.id})}
+  scope :for_conference, lambda { |c| joins(:session).where(sessions: { conference_id: c.id })}
 end

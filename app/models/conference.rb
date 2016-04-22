@@ -3,7 +3,7 @@ class Conference < ActiveRecord::Base
   has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
   validates_attachment :logo,
     presence: true,
-    content_type: {content_type: /\Aimage\/.*\Z/},
+    content_type: { content_type: /\Aimage\/.*\Z/ },
     size: { in: 0..500.kilobytes },
     if: :visible?
 
@@ -130,7 +130,7 @@ class Conference < ActiveRecord::Base
 
   def next_deadline(role)
     now = DateTime.now
-    deadlines_for(role).select{|deadline| now < deadline.first}.first
+    deadlines_for(role).select {|deadline| now < deadline.first}.first
   end
 
   private
@@ -155,7 +155,7 @@ class Conference < ActiveRecord::Base
     start_date end_date)
 
   def date_orders
-    DATE_ORDERS.reject{|d| send(d).nil?}.each_cons(2) do |(d1, d2)|
+    DATE_ORDERS.reject {|d| send(d).nil?}.each_cons(2) do |(d1, d2)|
       date1 = send(d1)
       date2 = send(d2)
       if date1 >= date2

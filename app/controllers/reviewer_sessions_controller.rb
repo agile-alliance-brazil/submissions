@@ -4,7 +4,7 @@ class ReviewerSessionsController < ApplicationController
     @tracks = @conference.tracks
     @audience_levels = @conference.audience_levels
     @session_types = @conference.session_types
-    
+
     @session_filter = SessionFilter.new(filter_params)
     @sessions = @session_filter.apply(scope_based_on_conference_phase)
   end
