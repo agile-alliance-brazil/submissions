@@ -17,26 +17,27 @@
     = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
-  / Logo
   / Tracks
   / session types
   / audience levels
   / Tags
-  / language support
-  / edit pages
-  = form.input :visible, required: true, input_html: {tabindex: autotab}
-  #page_previews
-    %ul.pages
-      - @conference.pages.each do |page|
-        %li.page= link_to "/#{@conference.year}#{page.path}?locale=#{page.language}", "#page_previews-#{page.path}-#{page.language}"
-    - @conference.pages.each do |page|
-      = form_for [@conference, page], remote: true do |f|
-        %div{id: "page_previews-#{page.path}-#{page.language}"}
-          .preview= textilize(page.content)
-          .content= f.text_area(:content)
-        = f.submit
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
+  = form.input :visible, required: true, input_html: {tabindex: autotab}
+  = form.submit
+#page_previews
+  - preview_name = -> (p) {"page_previews-#{p.path}-#{p.language}"}
+  %ul.pages
+    - @conference.pages.each do |page|
+      %li.page= link_to conference_page_path(@conference, page.path, locale: page.language), "##{preview_name.call(page)}"
+  - @conference.pages.each do |page|
+    %div{id: preview_name.call(page)}
+      = form_for [@conference, page], url: page_path(@conference, page), remote: true do |f|
+        %label{for: 'page_title'}= t('formtastic.labels.page.title')
+        = f.text_field(:title)
+        .preview= textilize(page.content)
+        .content= f.text_area(:content)
+        = f.submit
 
 :javascript
   $(document).ready(function() {

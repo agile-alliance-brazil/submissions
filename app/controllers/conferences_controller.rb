@@ -4,15 +4,6 @@ class ConferencesController < ApplicationController
     @conferences = Conference.order('conferences.created_at DESC').all
   end
 
-  def show
-    @conference = resource_query.includes(:pages).first
-    if @conference.pages.with_path('/').first.nil?
-      render template: "static_pages/#{@conference.year}_home"
-    else
-      render :show
-    end
-  end
-
   def new
     attributes = (params[:conference] && new_conference_params) || {}
     @conference = Conference.new(attributes)
@@ -20,12 +11,12 @@ class ConferencesController < ApplicationController
 
   def create
     @conference = Conference.new(new_conference_params)
-    @conference.languages.each do |lang|
-      @conference.pages.build(path: '/', content: lang.first, language: lang.last)
+    @conference.languages.each do |language|
+      @conference.pages.build(path: 'home', title: I18n.t('title.home'), content: language[:name], language: language[:code])
     end
     if @conference.save
       flash[:notice] = t('flash.conference.create.success')
-      redirect_to "/#{@conference.year}"
+      redirect_to conference_root_path(@conference.year)
     else
       flash.now[:error] = t('flash.failure')
       render :new
@@ -40,7 +31,7 @@ class ConferencesController < ApplicationController
     @conference = resource
     if @conference.update_attributes(conference_params)
       flash[:notice] = t('flash.conference.update.success')
-      redirect_to "/#{@conference.year}"
+      redirect_to conference_root_path(@conference.year)
     else
       flash.now[:error] = t('flash.failure')
       render :edit

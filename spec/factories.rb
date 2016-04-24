@@ -178,7 +178,7 @@ FactoryGirl.define do
     conference { Conference.current || FactoryGirl.create(:conference) }
     sequence(:path) {|n| "page_#{n}"}
     language 'en'
-    content { |p| "This is a page under path +#{p.path}+ for conference *#{p.conference}* that renders with @Textile@."}
+    content { |p| "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."}
   end
 
   factory :vote do

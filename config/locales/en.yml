@@ -94,6 +94,8 @@ en:
         author_confirmation: "Author participation confirmation deadline"
         voting_deadline: "Public best proposal vote deadline"
         visible: "Make conference available to the public"
+      page:
+        title: 'Title'
       user:
         first_name: "First name"
         last_name: "Last name"

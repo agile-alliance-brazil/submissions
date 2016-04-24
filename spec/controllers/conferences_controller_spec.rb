@@ -70,8 +70,8 @@ describe ConferencesController, type: :controller do
       end
     end
 
-    it 'should render / page when available' do
-      subject.pages.create(path: '/', content: 'Welcome')
+    it 'should render home page when available' do
+      subject.pages.create(path: 'home', content: 'Welcome')
 
       get :show, year: subject.year
 

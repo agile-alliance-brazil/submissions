@@ -1,8 +1,8 @@
-- title t('title.welcome', conference: @conference.name)
+- title @page.title
 - show_actions!
 .auto_focus
 
-= textilize(@conference.pages.with_path('/').first.content)
+= textilize(@page.content)
 
 %h3 Important dates
 

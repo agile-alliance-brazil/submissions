@@ -7,7 +7,7 @@ class UserSessionsController < Devise::SessionsController
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
     @conference = Conference.current
-    page = @conference.pages.with_path('/').first
+    @page = @conference.default_page
     if page
       render template: "conferences/show"
     else

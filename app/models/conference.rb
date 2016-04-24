@@ -31,7 +31,6 @@ class Conference < ActiveRecord::Base
 
   validate :date_orders
 
-  # TODO: Allow for logo upload
   # TODO: Define how this relationship should be shaped.
   def program_chair_user_username
     nil
@@ -39,6 +38,21 @@ class Conference < ActiveRecord::Base
 
   def program_chair_user_username=(user)
     nil
+  end
+
+  def default_page # TODO: tests
+    home_page = Page.for_path(self, 'home')
+    home_page = Page.for_path(self, '/') if home_page.nil? # TODO: Legacy, remove
+    home_page
+  end
+
+  def menu_links
+    if pages.count > 0
+      links = []
+      links << [I18n.t('title.home'), default_page] if default_page
+    else
+      [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guideline"]] # Legacy
+    end
   end
 
   def supported_languages
@@ -53,7 +67,7 @@ class Conference < ActiveRecord::Base
   def languages
     ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(name, code)|
       supported_languages.include?(code.to_sym)
-    end
+    end.map{|(name, code)| {name: name, code: code}}
   end
 
   def location_and_date

@@ -31,12 +31,12 @@ AgileBrazil::Application.routes.draw do
                sign_up: 'signup'
              }
 
-  resources :conferences, except: %i(destroy)
+  resources :conferences, except: %i(show destroy)
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
 
   scope '(:year)', constraints: { year: /\d{4}/ } do
-    root to: 'conferences#show'
+    root to: 'pages#show', as: :conference_root
 
     resources :audience_levels, only: %i(index)
     resources :organizers, except: %i(show)
@@ -82,8 +82,10 @@ AgileBrazil::Application.routes.draw do
 
     resources :votes, only: %i(index create destroy)
     resources :review_feedbacks, only: %i(new create show)
+    resources :pages, except: %i(destroy)
 
     get ':path' => 'pages#show', as: :conference_page
     get ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help|call_for_reviewers/
   end
+  root to: 'pages#show'
 end

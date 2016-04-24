@@ -17,14 +17,18 @@
   %body
     #container
       #header
-        = link_to image_tag(@conference.logo.blank? ? "#{@conference.year}_logo.png" : @conference.logo.url(:medium)), root_path(@conference)
+        = link_to image_tag(@conference.logo.blank? ? "#{@conference.year}_logo.png" : @conference.logo.url(:medium)), conference_page_path(@conference, @conference.default_page.try(:path) || 'home')
         .logo
           %h1= @conference.name
           %strong= @conference.location_and_date
         - if @conference.languages.size > 1
           %ul#languages
-            - @conference.languages.each do |(name, code)|
-              %li= link_to name, "?locale=#{code}"
+            - @conference.languages.each do |language|
+              %li
+                - if language[:code].to_sym == I18n.locale
+                  %span.selected= language[:name]
+                - else
+                  = link_to language[:name], "?locale=#{language[:code]}"
 
         = render partial: 'layouts/menu'
 

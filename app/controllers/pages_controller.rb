@@ -12,45 +12,54 @@ class PagesController < ApplicationController
   end
 
   def new
+    @page = Page.new((params[:page] && new_page_attributes) || {})
   end
 
   def create
-    @comment = @session.comments.create(comment_attributes)
-    if @comment.save
-      EmailNotifications.comment_submitted(@session, @comment).deliver_now
-      redirect_to session_path(@conference, @session, anchor: 'comments')
+    @page = Page.new(new_page_attributes)
+    if @page.save
+      redirect_to conference_page_path(@conference, path: @page.path)
     else
       flash.now[:error] = t('flash.failure')
-      @session.reload
-      render 'sessions/show'
+      render :new
     end
   end
 
   def edit
-    @comment = resource
+    @page = resource
   end
 
   def update
-    @comment = resource
-    if @comment.update_attributes(comment_attributes)
-      redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
+    @page = resource
+    attrs = update_page_attributes
+    attrs = attrs.merge({path: 'home'}) if @page.path == '/' || @page.path.blank? # TODO Legacy, remove
+    if @page.update_attributes(attrs)
+      redirect_to conference_page_path(@conference, path: @page.path)
     else
       flash.now[:error] = t('flash.failure')
-      @session = @comment.commentable.reload
       render :edit
     end
   end
 
   private
   def resource
-    Page.where(conference_id: @conference.id, path: path).first # TODO: Find by locale
+    Page.where(id: params[:id]).first || Page.for_path(@conference, path)
   end
 
   def path
-    params[:path] || ''
+    params[:path] || 'home'
   end
 
   def resource_class
     Page
+  end
+
+  def new_page_attributes
+    attrs = params.require(:page).permit(:path, :language, :title, :content)
+    attrs.merge(conference_id: @conference.id)
+  end
+
+  def update_page_attributes
+    params.require(:page).permit(:title, :content)
   end
 end

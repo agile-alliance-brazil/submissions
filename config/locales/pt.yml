@@ -100,6 +100,8 @@ pt:
         author_confirmation: "Deadline para confirmação de presença dos autores"
         voting_deadline: "Deadline para votação pública para melhores propostas"
         visible: "Tornar a conferência visível ao público"
+      page:
+        title: 'Título'
       user:
         first_name: "Nome"
         last_name: "Sobrenome"
