@@ -174,6 +174,13 @@ FactoryGirl.define do
     visible true
   end
 
+  factory :page do
+    conference { Conference.current || FactoryGirl.create(:conference) }
+    sequence(:path) {|n| "page_#{n}"}
+    language 'en'
+    content { |p| "This is a page under path +#{p.path}+ for conference *#{p.conference}* that renders with @Textile@."}
+  end
+
   factory :vote do
     conference { Conference.current || FactoryGirl.create(:conference) }
     association :user, factory: :voter

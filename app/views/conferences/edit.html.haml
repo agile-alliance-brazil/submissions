@@ -25,15 +25,16 @@
   / language support
   / edit pages
   = form.input :visible, required: true, input_html: {tabindex: autotab}
-  = form.inputs do
-    #page_previews
-      %ul.pages
-        - @conference.pages.each do |page|
-          %li.page= link_to "/#{@conference.year}#{page.path}?locale=#{page.language}", "#page_previews-#{page.path}-#{page.language}"
+  #page_previews
+    %ul.pages
       - @conference.pages.each do |page|
+        %li.page= link_to "/#{@conference.year}#{page.path}?locale=#{page.language}", "#page_previews-#{page.path}-#{page.language}"
+    - @conference.pages.each do |page|
+      = form_for [@conference, page], remote: true do |f|
         %div{id: "page_previews-#{page.path}-#{page.language}"}
           .preview= textilize(page.content)
-          .content= text_area_tag('page_content', page.content)
+          .content= f.text_area(:content)
+        = f.submit
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
 
