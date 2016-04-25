@@ -45,13 +45,13 @@ class ApplicationController < ActionController::Base
 
   def sessions_by_track
     ([['Track', 'Submitted sessions']] +
-      @conference.tracks.
+      @conference.tracks.includes(:translated_contents).
         map {|track| [track.title, track.sessions.count]})
   end
 
   def sessions_by_type
     ([['Type', 'Submitted sessions']] +
-      @conference.session_types.
+      @conference.session_types.includes(:translated_contents).
         map {|type| [type.title, type.sessions.count]})
   end
 
@@ -76,8 +76,8 @@ class ApplicationController < ActionController::Base
 
   def set_conference
     @conference ||= (
-      Conference.includes(:tracks, :session_types).find_by_year(params[:year]) ||
-        Conference.current)
+      Conference.includes(tracks: [:translated_contents], session_types: [:translated_contents]).
+        find_by_year(params[:year]) || Conference.current)
   end
 
   def authorize_action

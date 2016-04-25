@@ -19,7 +19,10 @@ class UsersController < ApplicationController
 
   private
   def resource
-    User.where(id: params[:id]).includes(:sessions).first
+    User.where(id: params[:id]).includes(sessions: [
+      audience_level: [:translated_contents],
+      track: [:translated_contents],
+      session_type: [:translated_contents]]).first
   end
 
   def resource_class

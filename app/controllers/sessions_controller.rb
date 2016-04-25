@@ -13,8 +13,11 @@ class SessionsController < ApplicationController
       without_state(:cancelled).
       page(params[:page]).
       order('sessions.created_at DESC').
-      includes(:author, :second_author, :session_type, :review_decision)
-    @session_types = @conference.session_types.order(created_at: :asc)
+      includes(:author, :second_author, :review_decision,
+        session_type: [:translated_contents],
+        track: [:translated_contents],
+        audience_level: [:translated_contents])
+    @session_types = @conference.session_types.includes(:translated_contents).order(created_at: :asc)
   end
 
   def new
@@ -86,7 +89,10 @@ class SessionsController < ApplicationController
   end
 
   def resource
-    Session.find(params[:id])
+    Session.includes(
+      session_type: [:translated_contents],
+      track: [:translated_contents],
+      audience_level: [:translated_contents]).find(params[:id])
   end
 
   def resource_class
@@ -98,15 +104,15 @@ class SessionsController < ApplicationController
   end
 
   def load_tracks
-    @tracks ||= @conference.tracks.order(title: :asc)
+    @tracks ||= @conference.tracks.includes(:translated_contents).order(title: :asc)
   end
 
   def load_audience_levels
-    @audience_levels ||= @conference.audience_levels
+    @audience_levels ||= @conference.audience_levels.includes(:translated_contents)
   end
 
   def load_session_types
-    @session_types ||= @conference.session_types
+    @session_types ||= @conference.session_types.includes(:translated_contents)
   end
 
   def filter_params

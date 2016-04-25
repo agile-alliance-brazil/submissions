@@ -10,7 +10,10 @@ module Api
       end
 
       def index
-        sessions = Session.for_conference(@conference)
+        sessions = Session.for_conference(@conference).includes(
+          session_type: [:translated_contents],
+          track: [:translated_contents],
+          audience_level: [:translated_contents])
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
@@ -22,7 +25,10 @@ module Api
       def accepted
         sessions = []
         if @conference.author_confirmation < DateTime.now
-          sessions = Session.for_conference(@conference).where(state: :accepted)
+          sessions = Session.for_conference(@conference).includes(
+            session_type: [:translated_contents],
+            track: [:translated_contents],
+            audience_level: [:translated_contents]).where(state: :accepted)
         end
         hashes = sessions.map { |s| hash_for(s) }
 
@@ -33,7 +39,10 @@ module Api
       end
 
       def show
-        session = Session.find(params[:id])
+        session = Session.includes(
+          session_type: [:translated_contents],
+          track: [:translated_contents],
+          audience_level: [:translated_contents]).find(params[:id])
 
         session_hash = hash_for(session)
 
