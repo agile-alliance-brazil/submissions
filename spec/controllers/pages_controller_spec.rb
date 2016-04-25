@@ -55,7 +55,7 @@ describe PagesController, type: :controller do
 
         patch :update, year: page.conference.year, id: page.id, page: {content: new_content}
 
-        expect(subject).to redirect_to(conference_page_path(page.conference, page.path))
+        expect(subject).to redirect_to(conference_page_path(page.conference, page))
       end
     end
   end

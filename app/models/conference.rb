@@ -41,8 +41,8 @@ class Conference < ActiveRecord::Base
   end
 
   def default_page # TODO: tests
-    home_page = Page.for_path(self, 'home')
-    home_page = Page.for_path(self, '/') if home_page.nil? # TODO: Legacy, remove
+    home_page = Page.for_conference(self).with_path('home').first
+    home_page = Page.for_conference(self).with_path('/').first if home_page.nil? # TODO: Legacy, remove
     home_page
   end
 

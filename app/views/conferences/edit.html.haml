@@ -125,20 +125,43 @@
           .description= content_form.text_area(:description)
       = f.submit
 
-#page_previews.tabs
+#pages.tabs
   %h4= t('title.pages')
-  - preview_name = -> (p) {"page_previews-#{p.path}-#{p.language}"}
   %ul.pages
     - @conference.pages.each do |page|
-      %li.page= link_to conference_page_path(@conference, page.path, locale: page.language), "##{preview_name.call(page)}"
+      %li.page= link_to page.title, "#page-#{page.id}"
+    %li.page= link_to '+', '#page-new'
   - @conference.pages.each do |page|
-    %div{id: preview_name.call(page)}
-      = form_for [@conference, page], url: page_path(@conference, page), remote: true do |f|
-        %label{for: 'page_title'}= t('formtastic.labels.page.title')
-        = f.text_field(:title)
-        .preview= textilize(page.content)
-        .content= f.text_area(:content)
+    %div.page_tab{id: "page-#{page.id}"}
+      = form_for [@conference, page], remote: true, html: {class: 'tabs'} do |f|
+        - if @conference.languages.size > 1
+          %ul.languages
+            - @conference.languages.each do |language|
+              %li.page_language= link_to language[:name], "#page-#{page.id}-#{language[:code]}"
+        = f.fields_for :translated_contents do |content_form|
+          %div{id: "page-#{page.id}-#{content_form.object.language}"}
+            %label{for: ''}= t('formtastic.labels.page.title')
+            = content_form.hidden_field(:language)
+            = content_form.text_field(:title)
+            .description= content_form.text_area(:description)
         = f.submit
+  %div{id: "page-new"}
+    = form_for [@conference, @new_page], remote: true, html: {class: 'tabs'} do |f|
+      %label
+        = t('formtastic.labels.page.title')
+        = f.text_field(:path)
+      - if @conference.languages.size > 1
+        %ul.languages
+          - @conference.languages.each do |language|
+            %li.page_language= link_to language[:name], "#page-new-#{language[:code]}"
+      = f.fields_for :translated_contents do |content_form|
+        %div{id: "page-new-#{content_form.object.language}"}
+          %label
+            = t('formtastic.labels.page.title')
+            = content_form.hidden_field(:language)
+          = content_form.text_field(:title)
+          .description= content_form.text_area(:description)
+      = f.submit
 
 :javascript
   $(document).ready(function() {

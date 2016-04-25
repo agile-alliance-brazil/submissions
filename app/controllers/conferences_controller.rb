@@ -11,8 +11,9 @@ class ConferencesController < ApplicationController
 
   def create
     @conference = Conference.new(new_conference_params)
+    page = @conference.pages.build(path: 'home')
     @conference.languages.each do |language|
-      @conference.pages.build(path: 'home', title: I18n.t('title.home'), content: language[:name], language: language[:code])
+      page.translated_content.build(title: I18n.t('title.home'), description: language[:name], language: language[:code])
     end
     if @conference.save
       flash[:notice] = t('flash.conference.create.success')
@@ -24,10 +25,14 @@ class ConferencesController < ApplicationController
   end
 
   def edit
-    @conference = resource_query.includes(:pages, tracks: [:translated_contents], audience_levels: [:translated_contents], session_types: [:translated_contents]).first
+    @conference = resource_query.includes(pages: [:translated_contents],
+      tracks: [:translated_contents],
+      audience_levels: [:translated_contents],
+      session_types: [:translated_contents]).first
     @new_track = Track.new(conference: @conference)
     @new_session_type = SessionType.new(conference: @conference)
     @new_audience_level = AudienceLevel.new(conference: @conference)
+    @new_page = Page.new(conference: @conference)
     @conference.supported_languages.each do |code|
       @new_track.translated_contents.build(language: code)
       @new_session_type.translated_contents.build(language: code)

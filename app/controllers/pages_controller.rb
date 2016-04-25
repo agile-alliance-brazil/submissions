@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(new_page_attributes)
     if @page.save
-      redirect_to conference_page_path(@conference, path: @page.path)
+      redirect_to conference_page_path(@conference, @page)
     else
       flash.now[:error] = t('flash.failure')
       render :new
@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     attrs = update_page_attributes
     attrs = attrs.merge({path: 'home'}) if @page.path == '/' || @page.path.blank? # TODO Legacy, remove
     if @page.update_attributes(attrs)
-      redirect_to conference_page_path(@conference, path: @page.path)
+      redirect_to conference_page_path(@conference, @page)
     else
       flash.now[:error] = t('flash.failure')
       render :edit
@@ -43,7 +43,7 @@ class PagesController < ApplicationController
 
   private
   def resource
-    Page.where(id: params[:id]).first || Page.for_path(@conference, path)
+    Page.where(id: params[:id]).first || Page.for_conference(@conference).with_path(path).first
   end
 
   def path
@@ -55,11 +55,11 @@ class PagesController < ApplicationController
   end
 
   def new_page_attributes
-    attrs = params.require(:page).permit(:path, :language, :title, :content)
+    attrs = params.require(:page).permit(:path, translated_contents_attributes: [:language, :title, :description])
     attrs.merge(conference_id: @conference.id)
   end
 
   def update_page_attributes
-    params.require(:page).permit(:title, :content)
+    params.require(:page).permit(translated_contents_attributes: [:id, :language, :title, :description])
   end
 end

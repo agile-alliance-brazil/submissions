@@ -51,12 +51,14 @@ a:hover {
     li {
       float: left;
       list-style: none;
-      span {
-        display: block; } }
+      span, a {
+        display: inline; } }
     li:before {
-      content: "\00a0|\00a0"; }
+      content: "\00a0|\00a0";
+      display: inline; }
     li:first-child:before {
-      content: ""; }
+      content: "";
+      display: inherit; }
     a {
       color: $color1;
       text-decoration: none; }
