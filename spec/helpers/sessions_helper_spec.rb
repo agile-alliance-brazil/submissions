@@ -68,35 +68,45 @@ RSpec.describe SessionsHelper, type: :helper do
     end
   end
 
-  describe '#duration_mins_hint' do
-    it 'generates hint from session types in portuguese' do
-      I18n.with_locale('pt') do
-        hint = helper.duration_mins_hint([
-          FactoryGirl.build(:session_type, title: 'session_types.talk.title', valid_durations: [20, 40]),
-          FactoryGirl.build(:session_type, title: 'session_types.experience_report.title', valid_durations: [10]),
-          FactoryGirl.build(:session_type, title: 'session_types.hands_on.title', valid_durations: [30, 20])
-        ])
-        expect(hint).to eq('Palestras devem ter duração de 20 ou 40 minutos, relatos de experiência 10 minutos e sessões mão na massa 20 ou 30 minutos.')
+  context 'type titles with language set' do
+    let(:conference) { FactoryGirl.build :conference, supported_languages: ['en','pt'] }
+    let(:palestra) { FactoryGirl.build :translated_content, language: 'pt', title: 'Palestra' }
+
+    describe '#duration_mins_hint' do
+      let(:relato) { FactoryGirl.build :translated_content, language: 'pt', title: 'Relato de Experiência' }
+      let(:na_massa) { FactoryGirl.build :translated_content, language: 'pt', title: 'Mão na massa' }
+      let(:workshop) { FactoryGirl.build :translated_content, language: 'en', title: 'Workshop' }
+      let(:hands_on) { FactoryGirl.build :translated_content, language: 'en', title: 'Hands on' }
+
+      it 'generates hint from session types in portuguese' do
+        I18n.with_locale('pt') do
+          hint = helper.duration_mins_hint([
+            FactoryGirl.build(:session_type, conference: conference, translated_contents: [palestra], valid_durations: [20, 40]),
+            FactoryGirl.build(:session_type, conference: conference, translated_contents: [relato], valid_durations: [10]),
+            FactoryGirl.build(:session_type, conference: conference, translated_contents: [na_massa], valid_durations: [30, 20])
+          ])
+          expect(hint).to eq('Palestra deve ter duração de 20 ou 40 minutos, relato de experiência 10 minutos e mão na massa 20 ou 30 minutos.')
+        end
+      end
+
+      it 'generates hint from session types in english' do
+        I18n.with_locale('en') do
+          hint = helper.duration_mins_hint([
+            FactoryGirl.build(:session_type, conference: conference, translated_contents: [workshop], valid_durations: [20]),
+            FactoryGirl.build(:session_type, conference: conference, translated_contents: [hands_on], valid_durations: [40])
+          ])
+          expect(hint).to eq('Workshop should last 20 minutes and hands on 40 minutes.')
+        end
       end
     end
 
-    it 'generates hint from session types in english' do
-      I18n.with_locale('en') do
-        hint = helper.duration_mins_hint([
-          FactoryGirl.build(:session_type, title: 'session_types.workshop.title', valid_durations: [20]),
-          FactoryGirl.build(:session_type, title: 'session_types.hands_on.title', valid_durations: [40])
-        ])
-        expect(hint).to eq('Workshops should last 20 minutes and hands on sessions 40 minutes.')
-      end
+    describe '#options_for_session_types' do
+      let!(:type) { FactoryGirl.build :session_type, conference: conference, translated_contents: [palestra] }
+      let!(:other_type) { FactoryGirl.build :session_type, conference: conference, translated_contents: [palestra.clone] }
+      let(:type_array) { [other_type, type] }
+
+      subject { helper.options_for_session_types(type_array) }
+      it { I18n.with_locale('pt') { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] } }
     end
-  end
-
-  describe '#options_for_session_types' do
-    let!(:type) { FactoryGirl.create :session_type, title: 'session_types.talk.title' }
-    let!(:other_type) { FactoryGirl.create :session_type, title: 'session_types.talk.title' }
-    let(:type_array) { [other_type, type] }
-
-    subject { helper.options_for_session_types(type_array) }
-    it { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] }
   end
 end

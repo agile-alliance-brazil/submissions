@@ -12,16 +12,16 @@ class SessionType < ActiveRecord::Base
   scope :for_conference, -> (c) { where(conference_id: c.id) }
 
   def title
-    translated_contents.for_language(I18n.locale).first.try(:title) || self[:title]
+    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || I18n.t(self[:title] || '')
   end
 
   def description
-    translated_contents.for_language(I18n.locale).first.try(:description) || self[:description]
+    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:description) || I18n.t(self[:description] || '')
   end
 
   def self.all_titles
-    self.select(:title).uniq.map do |session_type|
-      session_type.title.match(/session_types\.(\w+)\.title/).try(:[], 1)
+    self.select(:title).uniq.compact.map do |session_type|
+      session_type[:title].try(:match, /session_types\.(\w+)\.title/).try(:[], 1)
     end
   end
 
@@ -41,7 +41,7 @@ class SessionType < ActiveRecord::Base
 
   def title_matches(method_sym)
     title_name = method_sym.to_s.gsub(/\?$/,'')
-    self.title == "session_types.#{title_name}.title"
+    self[:title] == "session_types.#{title_name}.title"
   end
 
   def is_title_check_method?(method_sym)
@@ -53,9 +53,9 @@ class SessionType < ActiveRecord::Base
 
   def contents_matching_conference_languages
     translated_languages = translated_contents.map(&:language).map(&:to_sym)
-    missing_languages = conference.supported_languages - translated_languages
+    missing_languages = (conference.try(:supported_languages) || []) - translated_languages
     unless missing_languages.empty?
-      errors.add(:translated_contents, t('activerecord.models.translated_content.missing_languages', languages.join(', ')))
+      errors.add(:translated_contents, t('activerecord.models.translated_content.missing_languages', languages: missing_languages.join(', ')))
     end
   end
 end

@@ -39,46 +39,6 @@ describe ConferencesController, type: :controller do
     end
   end
 
-  context 'show' do
-    context 'for static asset based conference' do
-      subject { Conference.where(year: 2010).first || FactoryGirl.create(:conference, year: 2010) }
-
-      it 'should set conference assign according to year' do
-        get :show, year: subject.year
-
-        expect(assigns(:conference)).to eq(subject)
-      end
-
-      it 'should set conference assign according to id but using year' do
-        get :show, id: subject.year
-
-        expect(assigns(:conference)).to eq(subject)
-      end
-
-      it 'should set conference assign to latest when no id or year specified' do
-        subject # Force creation
-
-        get :show
-
-        expect(assigns(:conference)).to eq(Conference.where(visible: true).last)
-      end
-
-      it 'should render static page with year and home if / page is unavailable' do
-        get :show, year: subject.year
-
-        expect(response).to render_template("static_pages/#{subject.year}_home")
-      end
-    end
-
-    it 'should render home page when available' do
-      subject.pages.create(path: 'home', content: 'Welcome')
-
-      get :show, year: subject.year
-
-      expect(response).to render_template('conferences/show')
-    end
-  end
-
   context 'new action' do
     it 'should render new template' do
       get :new

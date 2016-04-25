@@ -4,20 +4,23 @@ require 'spec_helper'
 describe TracksController, type: :controller do
   render_views
 
+  let(:conference) { FactoryGirl.create(:conference) }
+  let(:track) { FactoryGirl.create(:track, conference: conference) }
   before(:each) do
-    @conference = FactoryGirl.create(:conference)
-    Conference.stubs(:current).returns(@conference)
-    @track = FactoryGirl.create(:track, conference: @conference)
-    FactoryGirl.create(:track, conference: FactoryGirl.create(:conference))
+    Conference.stubs(:current).returns(conference)
   end
 
-  it "index action should render index template" do
-    get :index
-    expect(response).to render_template(:index)
-  end
+  context 'index action' do
+    it 'should render index template' do
+      get :index, year: track.conference.year
 
-  it "index action should assign tracks for current conference" do
-    get :index
-    expect(assigns(:tracks)).to eq([@track])
+      expect(response).to render_template(:index)
+    end
+
+    it 'should assign tracks for current conference' do
+      get :index, year: track.conference.year
+
+      expect(assigns(:tracks)).to eq([track])
+    end
   end
 end

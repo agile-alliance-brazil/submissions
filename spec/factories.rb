@@ -37,21 +37,36 @@ FactoryGirl.define do
 
   factory :session_type do
     conference { Conference.current || FactoryGirl.create(:conference) }
-    title "session_types.talk.title"
-    description "session_types.talk.description"
     valid_durations [50]
+    title 'session_type.name.title'
+    description 'session_type.name.description'
+    translated_contents { |s|
+      s.conference.supported_languages.map do |l|
+        build :translated_content, language: l, title: "Session type title in #{l}", description: "This is a session type that renders with @Textile@."
+      end
+    }
   end
 
   factory :track do
     conference { Conference.current || FactoryGirl.create(:conference) }
-    title "tracks.engineering.title"
-    description "tracks.engineering.description"
+    title 'track.name.title'
+    description 'track.name.description'
+    translated_contents { |t|
+      t.conference.supported_languages.map do |l|
+        build :translated_content, language: l, title: "Track title in #{l}", description: "This is a track that renders with @Textile@."
+      end
+    }
   end
 
   factory :audience_level do
     conference { Conference.current || FactoryGirl.create(:conference) }
-    title "audience_levels.beginner.title"
-    description "audience_levels.beginner.description"
+    title 'audience_level.name.title'
+    description 'audience_level.name.description'
+    translated_contents { |a|
+      a.conference.supported_languages.map do |l|
+        build :translated_content, language: l, title: "Audience level title in #{l}", description: "This is an audience level that renders with @Textile@."
+      end
+    }
   end
 
   factory :comment do
@@ -170,15 +185,20 @@ FactoryGirl.define do
     start_date { DateTime.now + 1.month }
     end_date { DateTime.now + 1.month + 3.days }
     logo { File.new(Rails.root.join('spec', 'resources', 'logo-trans.png')) }
-    supported_languages ['en', 'pt']
+    supported_languages ['en']
     visible true
   end
 
   factory :page do
     conference { Conference.current || FactoryGirl.create(:conference) }
     sequence(:path) {|n| "page_#{n}"}
-    language 'en'
-    content { |p| "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."}
+    title 'page.title'
+    content 'page.content'
+    translated_contents { |p|
+      p.conference.supported_languages.map do |l|
+        build :translated_content, language: l, title: p.path, description: "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."
+      end
+    }
   end
 
   factory :vote do
@@ -190,6 +210,12 @@ FactoryGirl.define do
   factory :review_feedback do
     conference { Conference.current || FactoryGirl.create(:conference) }
     author
-    general_comments "General comments"
+    general_comments 'General comments'
+  end
+
+  factory :translated_content do
+    language 'en'
+    title 'Content title'
+    description 'Content description'
   end
 end

@@ -8,8 +8,8 @@ class UserSessionsController < Devise::SessionsController
     clean_up_passwords(resource)
     @conference = Conference.current
     @page = @conference.default_page
-    if page
-      render template: "conferences/show"
+    if @page
+      render template: 'pages/show'
     else
       render template: "static_pages/#{@conference.year}_home"
     end

@@ -3,7 +3,7 @@ class TracksController < ApplicationController
   skip_before_filter :authenticate_user!, only: %i(index)
 
   def index
-    @tracks = resource_class.for_conference(@conference).includes(:translated_contents)
+    @tracks = resource_class.for_conference(@conference).includes(:translated_contents).all
   end
 
   def create

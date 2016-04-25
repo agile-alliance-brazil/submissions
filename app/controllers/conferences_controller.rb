@@ -13,13 +13,13 @@ class ConferencesController < ApplicationController
     @conference = Conference.new(new_conference_params)
     page = @conference.pages.build(path: 'home')
     @conference.languages.each do |language|
-      page.translated_content.build(title: I18n.t('title.home'), description: language[:name], language: language[:code])
+      page.translated_contents.build(title: I18n.t('title.home'), description: language[:name], language: language[:code])
     end
     if @conference.save
-      flash[:notice] = t('flash.conference.create.success')
+      flash[:notice] = I18n.t('flash.conference.create.success')
       redirect_to conference_root_path(@conference.year)
     else
-      flash.now[:error] = t('flash.failure')
+      flash.now[:error] = I18n.t('flash.failure')
       render :new
     end
   end
@@ -43,10 +43,10 @@ class ConferencesController < ApplicationController
   def update
     @conference = resource
     if @conference.update_attributes(conference_params)
-      flash[:notice] = t('flash.conference.update.success')
+      flash[:notice] = I18n.t('flash.conference.update.success')
       redirect_to conference_root_path(@conference.year)
     else
-      flash.now[:error] = t('flash.failure')
+      flash.now[:error] = I18n.t('flash.failure')
       render :edit
     end
   end

@@ -5,7 +5,7 @@ describe Session, type: :model do
   it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
                                      :target_audience, :second_author_username, :experience
 
-  context "associations" do
+  context 'associations' do
     it { should belong_to(:author).class_name('User') }
     it { should belong_to(:second_author).class_name('User') }
     it { should belong_to :track }
@@ -20,13 +20,13 @@ describe Session, type: :model do
     it { should have_one  :review_decision }
     it { should have_many :votes }
 
-    context "second author username" do
+    context 'second author username' do
       subject { FactoryGirl.build(:session) }
-      it_should_behave_like "virtual username attribute", :second_author
+      it_should_behave_like 'virtual username attribute', :second_author
     end
   end
 
-  context "validations" do
+  context 'validations' do
     it { should validate_presence_of :title }
     it { should validate_presence_of :summary }
     it { should validate_presence_of :description }
@@ -88,8 +88,8 @@ describe Session, type: :model do
       end
     end
 
-    context "mechanics" do
-      context "workshops" do
+    context 'mechanics' do
+      context 'workshops' do
         subject { FactoryGirl.build(:session) }
         before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.workshop.title', conference: subject.conference) }
 
@@ -97,7 +97,7 @@ describe Session, type: :model do
         it { should validate_length_of(:mechanics).is_at_most(2400) }
       end
 
-      context "hands on" do
+      context 'hands on' do
         subject { FactoryGirl.build(:session) }
         before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.hands_on.title', conference: subject.conference) }
 
@@ -363,7 +363,7 @@ describe Session, type: :model do
   end
 
   SessionType.all_titles.each do |title|
-    it "should determine if it's #{title}" do
+    it "should determine if it is #{title}" do
       session = FactoryGirl.build(:session)
       session.session_type.title = "session_types.#{title}.title"
       expect(session.send(:"#{title}?")).to be true

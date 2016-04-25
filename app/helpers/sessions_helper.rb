@@ -23,15 +23,16 @@ module SessionsHelper
   def duration_mins_hint(session_types)
     session_durations = session_types.map do |session_type|
       valid_durations = session_type.valid_durations.sort.join(" #{I18n.t('generic.or')} ")
-      [I18n.t("#{session_type.title}_plural"), "#{valid_durations} #{I18n.t('generic.minutes')}"]
+      [session_type.title.downcase, "#{valid_durations} #{I18n.t('generic.minutes')}"]
     end
-    session_durations[0][0].capitalize! << ' ' << I18n.t('generic.duration_restriction')
-    session_durations.map! { |duration| duration.join(' ') }
-    last = session_durations.pop
-    session_durations.join(', ') << ' ' << I18n.t('generic.and') << ' ' << last << '.'
+    first = session_durations.first
+    start = "#{first[0].capitalize} #{I18n.t('generic.duration_restriction')} #{first[1]}"
+    middle = session_durations[1..-2].map { |duration| duration.join(' ') }
+    last = session_durations.last
+    ([start] + middle).join(', ') << ' ' << I18n.t('generic.and') << ' ' << last.join(' ') << '.'
   end
 
   def options_for_session_types(session_types)
-    session_types.map { |type| [I18n.t(type.title), type.id] }
+    session_types.map { |type| [type.title, type.id] }
   end
 end

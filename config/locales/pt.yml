@@ -702,7 +702,7 @@ pt:
     room: "Sala"
     en: "Inglês"
     pt: "Português"
-    duration_restriction: "devem ter duração de"
+    duration_restriction: "deve ter duração de"
     voted: "Votado"
     by: 'por'
     in: 'em'
