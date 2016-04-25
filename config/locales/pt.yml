@@ -310,6 +310,7 @@ pt:
   # Mensagens customizadas
   title:
     home: "Página inicial"
+    pages: "Conference pages"
     guidelines: "Regras de submissão"
     signup: "Novo usuário"
     lost_password: "Esqueceu seu nome de usuário ou senha?"

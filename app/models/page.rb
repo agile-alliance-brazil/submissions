@@ -2,6 +2,10 @@
 class Page < ActiveRecord::Base
   belongs_to :conference
 
+  validates :conference, presence: true
+  validates :path, presence: true, uniqueness: {scope: %i(conference_id) }
+  validates :language, presence: true, uniqueness: {scope: %i(conference_id path) }
+
   scope :for_conference, -> (c) { where(conference: c.is_a?(ActiveRecord::Base) ? c.id : c) }
   scope :with_path, -> (p) { where(path: p) }
   scope :with_language, -> (l) { where(language: l) }

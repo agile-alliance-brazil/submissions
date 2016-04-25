@@ -3,5 +3,9 @@
 
 %dl
   - @tracks.each do |track|
-    %dt= t(track.title)
-    %dd= t(track.description)
+    - if track.translated_contents.empty?
+      %dt= t(track.title)
+      %dd= t(track.description)
+    - else
+      %dt= textilize(track.title)
+      %dd= textilize(track.description)

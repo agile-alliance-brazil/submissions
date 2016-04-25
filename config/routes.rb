@@ -38,7 +38,6 @@ AgileBrazil::Application.routes.draw do
   scope '(:year)', constraints: { year: /\d{4}/ } do
     root to: 'pages#show', as: :conference_root
 
-    resources :audience_levels, only: %i(index)
     resources :organizers, except: %i(show)
     resources :organizer_sessions, only: %i(index)
     resources :organizer_reports, only: %i(index)
@@ -77,8 +76,9 @@ AgileBrazil::Application.routes.draw do
       end
     end
 
-    resources :session_types, only: %i(index)
-    resources :tracks, only: %i(index)
+    resources :audience_levels, only: %i(index create update), as: :conference_audience_levels
+    resources :session_types, only: %i(index create update), as: :conference_session_types
+    resources :tracks, only: %i(index create update), as: :conference_tracks
 
     resources :votes, only: %i(index create destroy)
     resources :review_feedbacks, only: %i(new create show)

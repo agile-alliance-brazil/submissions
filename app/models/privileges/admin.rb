@@ -10,6 +10,12 @@ class Privileges::Admin < Privileges::Base
     cannot(:create, EarlyReview)
     cannot(:manage, 'confirm_sessions')
     cannot(:manage, 'withdraw_sessions')
+    cannot(:read, 'organizer_sessions')
+    cannot(:read, 'organizer_reports')
+    cannot(:read, 'accepted_sessions')
+    cannot(:read, 'reviews_listing')
+    cannot(:read, 'reviewer_sessions')
     cannot(:manage, Vote)
+    cannot(:manage, ::Reviewer)
   end
 end

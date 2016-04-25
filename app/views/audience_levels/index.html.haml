@@ -3,5 +3,9 @@
 
 %dl
   - @audience_levels.each do |audience_level|
-    %dt= t(audience_level.title)
-    %dd= t(audience_level.description)
+    - if audience_level.translated_contents.empty?
+      %dt= t(audience_level.title)
+      %dd= t(audience_level.description)
+    - else
+      %dt= textilize(audience_level.title)
+      %dd= textilize(audience_level.description)

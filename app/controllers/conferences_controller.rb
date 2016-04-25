@@ -24,7 +24,15 @@ class ConferencesController < ApplicationController
   end
 
   def edit
-    @conference = resource_query.includes(:pages).first
+    @conference = resource_query.includes(:pages, tracks: [:translated_contents], audience_levels: [:translated_contents], session_types: [:translated_contents]).first
+    @new_track = Track.new(conference: @conference)
+    @new_session_type = SessionType.new(conference: @conference)
+    @new_audience_level = AudienceLevel.new(conference: @conference)
+    @conference.supported_languages.each do |code|
+      @new_track.translated_contents.build(language: code)
+      @new_session_type.translated_contents.build(language: code)
+      @new_audience_level.translated_contents.build(language: code)
+    end
   end
 
   def update

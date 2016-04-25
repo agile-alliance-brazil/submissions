@@ -3,5 +3,9 @@
 
 %dl
   - @session_types.each do |session_type|
-    %dt= t(session_type.title)
-    %dd= t(session_type.description)
+    - if session_type.translated_contents.empty?
+      %dt= t(session_type.title)
+      %dd= t(session_type.description)
+    - else
+      %dt= textilize(session_type.title)
+      %dd= textilize(session_type.description)

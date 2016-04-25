@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424181824) do
+ActiveRecord::Schema.define(version: 20160424214032) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -343,6 +343,16 @@ ActiveRecord::Schema.define(version: 20160424181824) do
   end
 
   add_index "tracks", ["conference_id"], name: "index_tracks_on_conference_id"
+
+  create_table "translated_contents", force: :cascade do |t|
+    t.integer  "model_id"
+    t.string   "model_type"
+    t.string   "title",                    null: false
+    t.string   "description", default: "", null: false
+    t.string   "language",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

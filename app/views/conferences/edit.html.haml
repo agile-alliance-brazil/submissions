@@ -17,15 +17,116 @@
     = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
-  / Tracks
-  / session types
-  / audience levels
   / Tags
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
   = form.input :visible, required: true, input_html: {tabindex: autotab}
   = form.submit
-#page_previews
+
+#tracks.tabs
+  %h4= t('title.tracks')
+  %ul.tracks
+    - @conference.tracks.each do |track|
+      %li.track= link_to track.title, "#track-#{track.id}"
+    %li.track= link_to '+', '#track-new'
+  - @conference.tracks.each do |track|
+    %div.track_tab{id: "track-#{track.id}"}
+      = form_for [@conference, track], remote: true, html: {class: 'tabs'} do |f|
+        - if @conference.languages.size > 1
+          %ul.languages
+            - @conference.languages.each do |language|
+              %li.track_language= link_to language[:name], "#track-#{track.id}-#{language[:code]}"
+        = f.fields_for :translated_contents do |content_form|
+          %div{id: "track-#{track.id}-#{content_form.object.language}"}
+            %label{for: ''}= t('formtastic.labels.track.title')
+            = content_form.hidden_field(:language)
+            = content_form.text_field(:title)
+            .description= content_form.text_area(:description)
+        = f.submit
+  %div{id: "track-new"}
+    = form_for [@conference, @new_track], remote: true, html: {class: 'tabs'} do |f|
+      - if @conference.languages.size > 1
+        %ul.languages
+          - @conference.languages.each do |language|
+            %li.track_language= link_to language[:name], "#track-new-#{language[:code]}"
+      = f.fields_for :translated_contents do |content_form|
+        %div{id: "track-new-#{content_form.object.language}"}
+          %label{for: "track_translated_content_title"}= t('formtastic.labels.track.title')
+          = content_form.hidden_field(:language)
+          = content_form.text_field(:title)
+          .description= content_form.text_area(:description)
+      = f.submit
+
+#session_types.tabs
+  %h4= t('title.session_types')
+  %ul.session_types
+    - @conference.session_types.each do |session_type|
+      %li.session_type= link_to session_type.title, "#session_type-#{session_type.id}"
+    %li.session_type= link_to '+', '#session_type-new'
+  - @conference.session_types.each do |session_type|
+    %div.session_type_tab{id: "session_type-#{session_type.id}"}
+      = form_for [@conference, session_type], remote: true, html: {class: 'tabs'} do |f|
+        - if @conference.languages.size > 1
+          %ul.languages
+            - @conference.languages.each do |language|
+              %li.session_type_language= link_to language[:name], "#session_type-#{session_type.id}-#{language[:code]}"
+        = f.fields_for :translated_contents do |content_form|
+          %div{id: "session_type-#{session_type.id}-#{content_form.object.language}"}
+            %label{for: ''}= t('formtastic.labels.session_type.title')
+            = content_form.hidden_field(:language)
+            = content_form.text_field(:title)
+            .description= content_form.text_area(:description)
+        = f.submit
+  %div{id: "session_type-new"}
+    = form_for [@conference, @new_session_type], remote: true, html: {class: 'tabs'} do |f|
+      - if @conference.languages.size > 1
+        %ul.languages
+          - @conference.languages.each do |language|
+            %li.session_type_language= link_to language[:name], "#session_type-new-#{language[:code]}"
+      = f.fields_for :translated_contents do |content_form|
+        %div{id: "session_type-new-#{content_form.object.language}"}
+          %label{for: "session_type_translated_content_title"}= t('formtastic.labels.session_type.title')
+          = content_form.hidden_field(:language)
+          = content_form.text_field(:title)
+          .description= content_form.text_area(:description)
+      = f.submit
+
+#audience_levels.tabs
+  %h4= t('title.audience_levels')
+  %ul.audience_levels
+    - @conference.audience_levels.each do |audience_level|
+      %li.audience_level= link_to audience_level.title, "#audience_level-#{audience_level.id}"
+    %li.audience_level= link_to '+', '#audience_level-new'
+  - @conference.audience_levels.each do |audience_level|
+    %div.audience_level_tab{id: "audience_level-#{audience_level.id}"}
+      = form_for [@conference, audience_level], remote: true, html: {class: 'tabs'} do |f|
+        - if @conference.languages.size > 1
+          %ul.languages
+            - @conference.languages.each do |language|
+              %li.audience_level_language= link_to language[:name], "#audience_level-#{audience_level.id}-#{language[:code]}"
+        = f.fields_for :translated_contents do |content_form|
+          %div{id: "audience_level-#{audience_level.id}-#{content_form.object.language}"}
+            %label{for: ''}= t('formtastic.labels.audience_level.title')
+            = content_form.hidden_field(:language)
+            = content_form.text_field(:title)
+            .description= content_form.text_area(:description)
+        = f.submit
+  %div{id: "audience_level-new"}
+    = form_for [@conference, @new_audience_level], remote: true, html: {class: 'tabs'} do |f|
+      - if @conference.languages.size > 1
+        %ul.languages
+          - @conference.languages.each do |language|
+            %li.audience_level_language= link_to language[:name], "#audience_level-new-#{language[:code]}"
+      = f.fields_for :translated_contents do |content_form|
+        %div{id: "audience_level-new-#{content_form.object.language}"}
+          %label{for: "audience_level_translated_content_title"}= t('formtastic.labels.audience_level.title')
+          = content_form.hidden_field(:language)
+          = content_form.text_field(:title)
+          .description= content_form.text_area(:description)
+      = f.submit
+
+#page_previews.tabs
+  %h4= t('title.pages')
   - preview_name = -> (p) {"page_previews-#{p.path}-#{p.language}"}
   %ul.pages
     - @conference.pages.each do |page|
@@ -46,7 +147,7 @@
           dateFormat: "yy-mm-dd"
       });
     }
-    $('#page_previews').tabs();
+    $('.tabs').tabs();
 
     var readURL = function(input) {
       if (input.files && input.files[0]) {

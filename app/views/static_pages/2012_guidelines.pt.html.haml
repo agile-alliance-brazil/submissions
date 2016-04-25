@@ -1,4 +1,4 @@
-- title "Regras de Submissão"
+- title 'Regras de Submissão'
 - show_actions!
 
 %p Para submeter sua proposta, crie uma conta no sistema de submissões e preencha o formulário com as informações sobre a sua proposta. <strong>Caso tenha submetido propostas no ano passado, sua conta ainda é válida</strong>. Até a data do prazo para submissões, você poderá editar o seu perfil, criar novas propostas e editar propostas existentes das quais você é um dos autores. Você pode submeter tantas propostas quantas quiser. Não é possível remover uma proposta.
@@ -8,8 +8,8 @@
 %p Para promover feedback e permitir que autores melhorem suas propostas iterativamente, além do mecanismo aberto de comentários, implementaremos um <strong>processo de avaliação em duas fases</strong>. Caso sua proposta seja submetida antes do fim do prazo de pré-avaliação, ela será revisada e avaliada por pelo menos 1 membro do Comitê de Avaliação. Os avaliadores não vão dar nenhuma recomendação de aceitação ou rejeição na primeira fase, porém encorajamos que você leia o feedback e adapte sua proposta da forma que achar adequada. No final do prazo de submissões, todas as propostas serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Em ambas as etapas, serão levados em consideração:
 
 %ul
-  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
-  %li Adequação da proposta no que diz respeito à #{link_to "trilha escolhida", tracks_path(@conference)}, #{link_to "tipo de sessão", session_types_path(@conference)} proposta, #{link_to "nível e perfil", audience_levels_path(@conference)} do público;
+  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to('perfil', user_path(current_user)) : 'perfil'} quanto o campo sobre experiência com o tema da proposta presente no formulário de submissão;
+  %li Adequação da proposta no que diz respeito à #{link_to 'trilha escolhida', conference_tracks_path(@conference)}, #{link_to 'tipo de sessão', conference_session_types_path(@conference)} proposta, #{link_to 'nível e perfil', conference_audience_levels_path(@conference)} do público;
   %li Relevância para o evento;
   %li Clareza e qualidade do material enviado.
 

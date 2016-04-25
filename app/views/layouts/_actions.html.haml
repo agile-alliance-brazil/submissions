@@ -25,10 +25,11 @@
     &= current_user.full_name
 
   - sections_for(current_user, @conference, filter_params).each do |section|
-    %h4= section.title
-    %ul
-    - section.actions.each do |action|
-      %li= link_to action[:name], action[:link], action[:options]
+    - if section.actions.size > 0
+      %h4= section.title
+      %ul
+      - section.actions.each do |action|
+        %li= link_to action[:name], action[:link], action[:options]
 
   - if (current_user.reviewer? || current_user.organizer?) && (@conference.in_early_review_phase? || @conference.in_final_review_phase?)
     :javascript

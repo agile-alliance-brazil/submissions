@@ -1,11 +1,19 @@
 # encoding: utf-8
 class Privileges::Organizer < Privileges::Base
   def privileges
-    can(:manage, ::Reviewer)
-    can(:read, 'organizer_sessions')
-    can(:read, 'organizer_reports')
-    can(:read, 'accepted_sessions')
-    can(:read, 'reviews_listing')
+    can(:manage, ::Reviewer, conference: { visible: true })
+    can(:read, 'organizer_sessions') do
+      @conference.visible?
+    end
+    can(:read, 'organizer_reports') do
+      @conference.visible?
+    end
+    can(:read, 'accepted_sessions') do
+      @conference.visible?
+    end
+    can(:read, 'reviews_listing') do
+      @conference.visible?
+    end
     can(:index, ReviewDecision)
     can(:cancel, Session) do |session|
       session.can_cancel? && @user.organized_tracks(@conference).include?(session.track)
@@ -18,14 +26,14 @@ class Privileges::Organizer < Privileges::Base
     end
     can!(:create, ReviewDecision) do |session|
       session.try(:in_review?) &&
-      @user.organized_tracks(@conference).include?(session.track) &&
-      Time.zone.now > @conference.review_deadline
+        @user.organized_tracks(@conference).include?(session.track) &&
+        Time.zone.now > @conference.review_deadline
     end
     can!(:update, ReviewDecision) do |session|
       !session.try(:author_agreement) &&
-      (session.try(:pending_confirmation?) || session.try(:rejected?)) &&
-      @user.organized_tracks(@conference).include?(session.track) &&
-      Time.zone.now > @conference.review_deadline
+        (session.try(:pending_confirmation?) || session.try(:rejected?)) &&
+        @user.organized_tracks(@conference).include?(session.track) &&
+        Time.zone.now > @conference.review_deadline
     end
   end
 end

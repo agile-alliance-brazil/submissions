@@ -50,7 +50,9 @@ a:hover {
     overflow: hidden;
     li {
       float: left;
-      list-style: none; }
+      list-style: none;
+      span {
+        display: block; } }
     li:before {
       content: "\00a0|\00a0"; }
     li:first-child:before {

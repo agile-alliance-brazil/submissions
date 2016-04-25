@@ -1,4 +1,4 @@
-- title "Regras de Submissão"
+- title 'Regras de Submissão'
 - show_actions!
 
 %p Para submeter sua proposta, crie uma conta no sistema de submissões e preencha o formulário com as informações sobre a sua proposta. <strong>Caso tenha submetido propostas no ano passado, sua conta ainda é válida</strong>. Enquanto estivermos no período de submissões, você poderá editar o seu perfil, criar novas propostas e editar suas propostas. Você pode submeter tantas propostas quantas quiser. Não é possível remover uma proposta.
@@ -8,8 +8,8 @@
 %p Todas as propostas serão revisadas e avaliadas por pelo menos 3 membros do Comitê de Avaliação. Os revisores levarão em consideração:
 
 %ul
-  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to("perfil", user_path(current_user)) : "perfil"} quanto o campo sobre experiência com o tema da proposta, presente no formulário de submissão;
-  %li Adequação da proposta no que diz respeito a #{link_to "trilha escolhida", tracks_path(@conference)}, #{link_to "tipo de sessão", session_types_path(@conference)} proposta, #{link_to "nível e perfil", audience_levels_path(@conference)} do público;
+  %li A experiência do(s) autor(es) - tanto o minicurrículo preenchido no #{user_signed_in? ? link_to('perfil', user_path(current_user)) : 'perfil'} quanto o campo sobre experiência com o tema da proposta, presente no formulário de submissão;
+  %li Adequação da proposta no que diz respeito a #{link_to 'trilha escolhida', conference_tracks_path(@conference)}, #{link_to 'tipo de sessão', conference_session_types_path(@conference)} proposta, #{link_to 'nível e perfil', conference_audience_levels_path(@conference)} do público;
   %li Relevância para o evento;
   %li Clareza e qualidade do material enviado.
 
