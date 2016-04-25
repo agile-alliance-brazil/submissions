@@ -7,7 +7,7 @@ SimpleCov.start 'rails' do
   add_group 'Workers', 'app/workers'
   add_group 'Services', 'app/services'
   add_group 'Uploaders', 'app/uploaders'
-  minimum_coverage 93.8
+  minimum_coverage 89
 end
 # make it possible to merge reports under spring
 SimpleCov.command_name 'RSpec'
