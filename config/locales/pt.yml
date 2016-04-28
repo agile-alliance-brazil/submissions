@@ -27,6 +27,8 @@ pt:
       messages:
         existence: 'não existe'
       models:
+        translated_content:
+          missing_languages: "faltaram traduções do conteúdo para as seguintes línguas: %{languages}"
         user:
           attributes:
             phone:

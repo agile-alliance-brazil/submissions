@@ -19,6 +19,8 @@ en:
       messages:
         existence: "does not exist"
       models:
+        translated_content:
+          missing_languages: "missing content translation for the following languages: %{languages}"
         user:
           attributes:
             phone:

@@ -30,7 +30,8 @@ class Track < ActiveRecord::Base
     translated_languages = translated_contents.map(&:language).map(&:to_sym)
     missing_languages = (conference.try(:supported_languages) || []) - translated_languages
     unless missing_languages.empty?
-      errors.add(:translated_contents, t('activerecord.models.translated_content.missing_languages', languages: missing_languages.join(', ')))
+      error_message = t('activerecord.models.translated_content.missing_languages', languages: missing_languages.join(', '))
+      errors.add(:translated_contents, languages: error_message)
     end
   end
 end
