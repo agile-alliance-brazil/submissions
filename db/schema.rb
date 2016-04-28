@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424214032) do
+ActiveRecord::Schema.define(version: 20160428034236) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -348,7 +348,7 @@ ActiveRecord::Schema.define(version: 20160424214032) do
     t.integer  "model_id"
     t.string   "model_type"
     t.string   "title",                    null: false
-    t.string   "description", default: "", null: false
+    t.text     "description", default: "", null: false
     t.string   "language",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
