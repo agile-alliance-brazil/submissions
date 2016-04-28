@@ -16,7 +16,7 @@
     = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.voting_deadline.try(:strftime, '%F')}
     = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
-    = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
+    = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_confirmation.try(:strftime, '%F')}
   / Tags
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
