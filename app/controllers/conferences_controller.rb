@@ -13,7 +13,7 @@ class ConferencesController < ApplicationController
     @conference = Conference.new(new_conference_params)
     page = @conference.pages.build(path: 'home')
     @conference.languages.each do |language|
-      page.translated_contents.build(title: I18n.t('title.home'), description: language[:name], language: language[:code])
+      page.translated_contents.build(title: I18n.t('title.home'), content: language[:name], language: language[:code])
     end
     if @conference.save
       flash[:notice] = I18n.t('flash.conference.create.success')

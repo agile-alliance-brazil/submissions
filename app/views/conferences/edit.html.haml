@@ -41,7 +41,7 @@
             %label{for: ''}= t('formtastic.labels.track.title')
             = content_form.hidden_field(:language)
             = content_form.text_field(:title)
-            .description= content_form.text_area(:description)
+            .description= content_form.text_area(:content)
         = f.submit
   %div{id: "track-new"}
     = form_for [@conference, @new_track], remote: true, html: {class: 'tabs'} do |f|
@@ -54,7 +54,7 @@
           %label{for: "track_translated_content_title"}= t('formtastic.labels.track.title')
           = content_form.hidden_field(:language)
           = content_form.text_field(:title)
-          .description= content_form.text_area(:description)
+          .description= content_form.text_area(:content)
       = f.submit
 
 #session_types.tabs
@@ -75,7 +75,7 @@
             %label{for: ''}= t('formtastic.labels.session_type.title')
             = content_form.hidden_field(:language)
             = content_form.text_field(:title)
-            .description= content_form.text_area(:description)
+            .description= content_form.text_area(:content)
         = f.submit
   %div{id: "session_type-new"}
     = form_for [@conference, @new_session_type], remote: true, html: {class: 'tabs'} do |f|
@@ -88,7 +88,7 @@
           %label{for: "session_type_translated_content_title"}= t('formtastic.labels.session_type.title')
           = content_form.hidden_field(:language)
           = content_form.text_field(:title)
-          .description= content_form.text_area(:description)
+          .description= content_form.text_area(:content)
       = f.submit
 
 #audience_levels.tabs
@@ -109,7 +109,7 @@
             %label{for: ''}= t('formtastic.labels.audience_level.title')
             = content_form.hidden_field(:language)
             = content_form.text_field(:title)
-            .description= content_form.text_area(:description)
+            .description= content_form.text_area(:content)
         = f.submit
   %div{id: "audience_level-new"}
     = form_for [@conference, @new_audience_level], remote: true, html: {class: 'tabs'} do |f|
@@ -122,7 +122,7 @@
           %label{for: "audience_level_translated_content_title"}= t('formtastic.labels.audience_level.title')
           = content_form.hidden_field(:language)
           = content_form.text_field(:title)
-          .description= content_form.text_area(:description)
+          .description= content_form.text_area(:content)
       = f.submit
 
 #pages.tabs
@@ -143,7 +143,7 @@
             %label{for: ''}= t('formtastic.labels.page.title')
             = content_form.hidden_field(:language)
             = content_form.text_field(:title)
-            .description= content_form.text_area(:description)
+            .description= content_form.text_area(:content)
         = f.submit
   %div{id: "page-new"}
     = form_for [@conference, @new_page], remote: true, html: {class: 'tabs'} do |f|
@@ -160,7 +160,7 @@
             = t('formtastic.labels.page.title')
             = content_form.hidden_field(:language)
           = content_form.text_field(:title)
-          .description= content_form.text_area(:description)
+          .description= content_form.text_area(:content)
       = f.submit
 
 :javascript

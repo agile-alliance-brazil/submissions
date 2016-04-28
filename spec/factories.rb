@@ -42,7 +42,7 @@ FactoryGirl.define do
     description 'session_type.name.description'
     translated_contents { |s|
       s.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Session type title in #{l}", description: "This is a session type that renders with @Textile@."
+        build :translated_content, language: l, title: "Session type title in #{l}", content: "This is a session type that renders with @Textile@."
       end
     }
   end
@@ -53,7 +53,7 @@ FactoryGirl.define do
     description 'track.name.description'
     translated_contents { |t|
       t.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Track title in #{l}", description: "This is a track that renders with @Textile@."
+        build :translated_content, language: l, title: "Track title in #{l}", content: "This is a track that renders with @Textile@."
       end
     }
   end
@@ -64,7 +64,7 @@ FactoryGirl.define do
     description 'audience_level.name.description'
     translated_contents { |a|
       a.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Audience level title in #{l}", description: "This is an audience level that renders with @Textile@."
+        build :translated_content, language: l, title: "Audience level title in #{l}", content: "This is an audience level that renders with @Textile@."
       end
     }
   end
@@ -196,7 +196,7 @@ FactoryGirl.define do
     content 'page.content'
     translated_contents { |p|
       p.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: p.path, description: "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."
+        build :translated_content, language: l, title: p.path, content: "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."
       end
     }
   end
@@ -216,6 +216,6 @@ FactoryGirl.define do
   factory :translated_content do
     language 'en'
     title 'Content title'
-    description 'Content description'
+    content 'Content description'
   end
 end

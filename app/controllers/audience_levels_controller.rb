@@ -19,6 +19,11 @@ class AudienceLevelsController < ApplicationController
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
         @new_session_type.translated_contents.build(language: code)
+        @new_page.translated_contents.build(language: code)
+      end
+
+      missing_langs = @conference.supported_languages - @new_audience_level.translated_contents.map(&:language)
+      missing_langs.each do |code|
         @new_audience_level.translated_contents.build(language: code)
       end
       flash.now[:error] = 'Something went wrong'
@@ -39,6 +44,11 @@ class AudienceLevelsController < ApplicationController
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
         @new_session_type.translated_contents.build(language: code)
+        @new_page.translated_contents.build(language: code)
+      end
+
+      missing_langs = @conference.supported_languages - @new_audience_level.translated_contents.map(&:language)
+      missing_langs.each do |code|
         @new_audience_level.translated_contents.build(language: code)
       end
       flash.now[:error] = 'Something went wrong'
@@ -52,7 +62,7 @@ class AudienceLevelsController < ApplicationController
   end
 
   def audience_level_params
-    attrs = params.require(:audience_level).permit(translated_contents_attributes: [:language, :title, :description])
+    attrs = params.require(:audience_level).permit(translated_contents_attributes: %i(id language title content))
     attrs.merge(conference_id: @conference.id)
   end
 end

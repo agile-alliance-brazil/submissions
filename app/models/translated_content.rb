@@ -4,7 +4,6 @@ class TranslatedContent < ActiveRecord::Base
 
   validates :language, presence: true, uniqueness: {scope: %i(model_id model_type)}
   validates :title, presence: true
-  validates :description, presence: true
   validates :content, presence: true
 
   scope :for_language, -> (l) { where(language: l) }
@@ -14,13 +13,15 @@ class TranslatedContent < ActiveRecord::Base
   end
 
   def description=(desc)
+    STDERR.puts "Deprecated usage. Please use #content= instead. Called from: "
+    STDERR.puts caller
     self[:content] = desc
     self[:description] = "Deprecated. This value has been migrated to content."
   end
 
   def description
-    ActiveSupport::Deprecation.warn('Deprecated usage of TranslatedContent#description. Please change to TranslatedContent#content')
+    STDERR.puts "Deprecated usage. Please use #content= instead. Called from: "
+    STDERR.puts caller
     self[:content] || self[:description]
   end
-
 end

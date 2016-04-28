@@ -82,7 +82,7 @@ AgileBrazil::Application.routes.draw do
 
     resources :votes, only: %i(index create destroy)
     resources :review_feedbacks, only: %i(new create show)
-    resources :pages, except: %i(destroy), as: :conference_pages
+    resources :pages, except: %i(new edit destroy), as: :conference_pages
 
     get ':path' => 'pages#show'
     get ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help|call_for_reviewers/

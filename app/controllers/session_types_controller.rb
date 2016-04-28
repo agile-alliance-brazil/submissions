@@ -18,8 +18,13 @@ class SessionTypesController < ApplicationController
       @new_page = Page.new(conference: @conference)
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
-        @new_session_type.translated_contents.build(language: code)
         @new_audience_level.translated_contents.build(language: code)
+        @new_page.translated_contents.build(language: code)
+      end
+
+      missing_langs = @conference.supported_languages - @new_session_type.translated_contents.map(&:language)
+      missing_langs.each do |code|
+        @new_session_type.translated_contents.build(language: code)
       end
       flash.now[:error] = 'Something went wrong'
       render template: 'conferences/edit'
@@ -38,8 +43,13 @@ class SessionTypesController < ApplicationController
       @new_page = Page.new(conference: @conference)
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
-        @new_session_type.translated_contents.build(language: code)
         @new_audience_level.translated_contents.build(language: code)
+        @new_page.translated_contents.build(language: code)
+      end
+
+      missing_langs = @conference.supported_languages - @new_session_type.translated_contents.map(&:language)
+      missing_langs.each do |code|
+        @new_session_type.translated_contents.build(language: code)
       end
       flash.now[:error] = 'Something went wrong'
       render template: 'conferences/edit'
@@ -52,7 +62,7 @@ class SessionTypesController < ApplicationController
   end
 
   def session_type_params
-    attrs = params.require(:session_type).permit(translated_contents_attributes: [:language, :title, :description])
+    attrs = params.require(:session_type).permit(translated_contents_attributes: %i(id language title content))
     attrs.merge(conference_id: @conference.id)
   end
 end
