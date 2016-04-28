@@ -134,6 +134,9 @@
   - @conference.pages.each do |page|
     %div.page_tab{id: "page-#{page.id}"}
       = form_for [@conference, page], remote: true, html: {class: 'tabs'} do |f|
+        %label
+          = t('formtastic.labels.page.path')
+          = f.text_field(:path)
         - if @conference.languages.size > 1
           %ul.languages
             - @conference.languages.each do |language|
@@ -147,8 +150,8 @@
         = f.submit
   %div{id: "page-new"}
     = form_for [@conference, @new_page], remote: true, html: {class: 'tabs'} do |f|
-      %label
-        = t('formtastic.labels.page.title')
+      %label.required
+        = t('formtastic.labels.page.path')
         = f.text_field(:path)
       - if @conference.languages.size > 1
         %ul.languages

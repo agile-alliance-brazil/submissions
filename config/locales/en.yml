@@ -98,6 +98,7 @@ en:
         visible: "Make conference available to the public"
       page:
         title: 'Title'
+        path: 'Path (used for url)'
       user:
         first_name: "First name"
         last_name: "Last name"

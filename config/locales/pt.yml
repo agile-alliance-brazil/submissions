@@ -104,6 +104,7 @@ pt:
         visible: "Tornar a conferência visível ao público"
       page:
         title: 'Título'
+        path: 'Caminho (fica na url)'
       user:
         first_name: "Nome"
         last_name: "Sobrenome"

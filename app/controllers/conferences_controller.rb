@@ -37,6 +37,7 @@ class ConferencesController < ApplicationController
       @new_track.translated_contents.build(language: code)
       @new_session_type.translated_contents.build(language: code)
       @new_audience_level.translated_contents.build(language: code)
+      @new_page.translated_contents.build(language: code)
     end
   end
 
