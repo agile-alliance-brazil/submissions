@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Page < ActiveRecord::Base
   belongs_to :conference
-  has_many :translated_contents, as: :model
+  has_many :translated_contents, as: :model, dependent: :destroy
   accepts_nested_attributes_for :translated_contents
 
   validates :conference, presence: true

@@ -4,7 +4,7 @@ class Track < ActiveRecord::Base
   has_many :sessions
   has_many :track_ownerships, class_name: 'Organizer'
   has_many :organizers, through: :track_ownerships, source: :user
-  has_many :translated_contents, as: :model
+  has_many :translated_contents, as: :model, dependent: :destroy
   accepts_nested_attributes_for :translated_contents
 
   validates :conference, presence: true
