@@ -15,6 +15,7 @@ class AudienceLevelsController < ApplicationController
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = @audience_level
+      @new_page = Page.new(conference: @conference)
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
         @new_session_type.translated_contents.build(language: code)
@@ -34,6 +35,7 @@ class AudienceLevelsController < ApplicationController
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = @audience_level
+      @new_page = Page.new(conference: @conference)
       @conference.supported_languages.each do |code|
         @new_track.translated_contents.build(language: code)
         @new_session_type.translated_contents.build(language: code)
