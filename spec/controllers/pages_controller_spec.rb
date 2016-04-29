@@ -42,12 +42,14 @@ describe PagesController, type: :controller do
     it 'should save new page with content' do
       post :create, year: page.conference.year, page: {
         path: page.path,
+        show_in_menu: '1',
         translated_contents_attributes: page.translated_contents.inject({}) { |acc, tc|
           acc[acc.size.to_s]= tc.attributes; acc
           }
         }, locale: conference.supported_languages.first
 
       expect(assigns[:page].path).to eq(page.path)
+      expect(assigns[:page].show_in_menu?).to be_truthy
       expect(assigns[:page].translated_contents.map(&:language)).to eq(page.translated_contents.map(&:language))
       expect(assigns[:page].translated_contents.map(&:title)).to eq(page.translated_contents.map(&:title))
       expect(assigns[:page].translated_contents.map(&:content)).to eq(page.translated_contents.map(&:content))
@@ -101,6 +103,7 @@ describe PagesController, type: :controller do
       language = conference.supported_languages.first
 
       patch :update, year: page.conference.year, id: page.id, page: {
+        show_in_menu: '1',
         translated_contents_attributes: {
           '0' => { id: page.translated_contents.first.id.to_s,
             content: new_content }
@@ -110,6 +113,7 @@ describe PagesController, type: :controller do
       I18n.with_locale(language) do
         expect(page.reload.content).to eq(new_content)
       end
+      expect(page.show_in_menu?).to be_truthy
     end
 
     context 'with html format' do

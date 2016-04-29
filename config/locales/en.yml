@@ -99,6 +99,7 @@ en:
       page:
         title: 'Title'
         path: 'Path (used for url)'
+        show_in_menu: 'Show in navigation'
       session_type:
         valid_durations: 'Valid durations for sessions of this type'
         session_duration: '%{duration} minutes'

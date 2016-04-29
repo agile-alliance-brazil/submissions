@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428040046) do
+ActiveRecord::Schema.define(version: 20160429060439) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -149,12 +149,13 @@ ActiveRecord::Schema.define(version: 20160428040046) do
 
   create_table "pages", force: :cascade do |t|
     t.integer  "conference_id"
-    t.string   "path",                         null: false
+    t.string   "path",                          null: false
     t.string   "content",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "language",      default: "pt", null: false
-    t.string   "title",         default: "",   null: false
+    t.string   "language",      default: "pt",  null: false
+    t.string   "title",         default: "",    null: false
+    t.boolean  "show_in_menu",  default: false, null: false
   end
 
   create_table "preferences", force: :cascade do |t|

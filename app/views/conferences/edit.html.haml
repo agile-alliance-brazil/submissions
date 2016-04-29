@@ -160,7 +160,10 @@
       = form_for [@conference, page], remote: true, html: {class: 'tabs'} do |f|
         %label
           = t('formtastic.labels.page.path')
-          = f.text_field(:path)
+          = f.text_field(:path, disabled: true)
+        %label
+          = t('formtastic.labels.page.show_in_menu')
+          = f.check_box(:show_in_menu, checked: page.show_in_menu? || (page.path == 'home'))
         - if @conference.languages.size > 1
           %ul.languages
             - @conference.languages.each do |language|
@@ -177,6 +180,9 @@
       %label.required
         = t('formtastic.labels.page.path')
         = f.text_field(:path)
+      %label
+        = t('formtastic.labels.page.show_in_menu')
+        = f.check_box(:show_in_menu)
       - if @conference.languages.size > 1
         %ul.languages
           - @conference.languages.each do |language|

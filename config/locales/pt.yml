@@ -105,6 +105,7 @@ pt:
       page:
         title: 'Título'
         path: 'Caminho (fica na url)'
+        show_in_menu: 'Exibir na navegação'
       session_type:
         valid_durations: 'Durações válidas de sessões desse tipo'
         session_duration: '%{duration} minutos'
