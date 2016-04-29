@@ -4,7 +4,7 @@ class Conference < ActiveRecord::Base
   validates_attachment :logo,
     presence: true,
     content_type: { content_type: /\Aimage\/.*\Z/ },
-    size: { in: 0..500.kilobytes },
+    size: { in: 0..1.megabytes },
     if: :visible?
 
   attr_trimmed    :program_chair_user_username
