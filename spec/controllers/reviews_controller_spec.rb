@@ -38,12 +38,17 @@ describe ReviewsController, type: :controller do
 
     context 'with view rendering', render_views: true do
       render_views
+
       describe 'collection' do
+        def new_reviewer
+          FactoryGirl.create(:reviewer, conference: conference)
+        end
+
         before do
-          FactoryGirl.create(:early_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
-          FactoryGirl.create(:final_review, session: session, reviewer: FactoryGirl.create(:reviewer, conference: conference).user)
+          FactoryGirl.create(:early_review, session: session, reviewer: new_reviewer.user)
+          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
+          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
+          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
         end
         it 'index early reviews for organizer should work' do
           get :organizer, session_id: session.id, type: 'early'

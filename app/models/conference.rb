@@ -51,7 +51,7 @@ class Conference < ActiveRecord::Base
       links = []
       links << [I18n.t('title.home'), default_page] if default_page
     else
-      [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guideline"]] # Legacy
+      [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guidelines"]] # Legacy
     end
   end
 
