@@ -47,6 +47,16 @@ class ConferencesController < ApplicationController
       flash[:notice] = I18n.t('flash.conference.update.success')
       redirect_to conference_root_path(@conference.year)
     else
+      @new_track = Track.new(conference: @conference)
+      @new_session_type = SessionType.new(conference: @conference)
+      @new_audience_level = AudienceLevel.new(conference: @conference)
+      @new_page = Page.new(conference: @conference)
+      @conference.supported_languages.each do |code|
+        @new_track.translated_contents.build(language: code)
+        @new_session_type.translated_contents.build(language: code)
+        @new_audience_level.translated_contents.build(language: code)
+        @new_page.translated_contents.build(language: code)
+      end
       flash.now[:error] = I18n.t('flash.failure')
       render :edit
     end
