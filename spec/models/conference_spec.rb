@@ -29,7 +29,7 @@ describe Conference, type: :model do
                     allowing('image/png', 'image/gif').
                     rejecting('text/plain', 'text/xml') }
       it { should validate_attachment_size(:logo).
-                    less_than(500.kilobytes) }
+                    less_than(1.megabytes) }
     end
 
     context 'if not visible' do
