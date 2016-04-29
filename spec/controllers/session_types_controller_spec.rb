@@ -116,6 +116,32 @@ describe SessionTypesController, type: :controller do
       end
     end
 
+    context 'while conference is not visible' do
+      before do
+        conference.tap{|c| c.visible=false; c.save }
+      end
+
+      it 'should allow for valid duration change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          valid_durations: ['10', '25'] }
+
+        expect(session_type.reload.valid_durations).to eq(['10', '25'])
+      end
+    end
+
+    context 'with visible conference' do
+      it 'should not allow for valid duration change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          valid_durations: ['10', '25'] }
+
+        expect(session_type.reload.valid_durations).to eq([50])
+      end
+    end
+
     context 'with html format' do
       it 'should redirect to show page' do
         language = conference.supported_languages.first

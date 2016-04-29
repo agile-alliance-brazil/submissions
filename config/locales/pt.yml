@@ -105,6 +105,11 @@ pt:
       page:
         title: 'Título'
         path: 'Caminho (fica na url)'
+      session_type:
+        valid_durations: 'Durações válidas de sessões desse tipo'
+        session_duration: '%{duration} minutos'
+        add_other_duration: 'Adicionar outra duração'
+        duration_placeholder: '# mins'
       user:
         first_name: "Nome"
         last_name: "Sobrenome"

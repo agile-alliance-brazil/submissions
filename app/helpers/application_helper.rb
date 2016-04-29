@@ -56,4 +56,8 @@ module ApplicationHelper
     content = content_tag('strong') {content} if date_map.first == conference.next_deadline(:all).try(:first)
     content
   end
+
+  def common_durations
+    SessionType::COMMON_DURATIONS
+  end
 end

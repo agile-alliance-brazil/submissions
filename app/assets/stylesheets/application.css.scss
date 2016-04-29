@@ -678,3 +678,11 @@ form.conference .logo_preview {
   max-width: 300px;
   max-height: 80px;
 }
+
+#session_types .duration_template {
+  display: none;
+}
+
+button::disabled {
+  color: gray;
+}

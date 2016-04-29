@@ -99,6 +99,11 @@ en:
       page:
         title: 'Title'
         path: 'Path (used for url)'
+      session_type:
+        valid_durations: 'Valid durations for sessions of this type'
+        session_duration: '%{duration} minutes'
+        add_other_duration: 'Add another duration'
+        duration_placeholder: '# mins'
       user:
         first_name: "First name"
         last_name: "Last name"

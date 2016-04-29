@@ -66,6 +66,18 @@
   - @conference.session_types.each do |session_type|
     %div.session_type_tab{id: "session_type-#{session_type.id}"}
       = form_for [@conference, session_type], remote: true, html: {class: 'tabs'} do |f|
+        %div.durations
+          %h6= t('formtastic.labels.session_type.valid_durations')
+          - (session_type.valid_durations + common_durations).uniq.each do |duration|
+            %label
+              = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: @conference.visible?}, duration, nil
+              = t('formtastic.labels.session_type.session_duration', duration: duration)
+          %label.duration_template
+            = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: @conference.visible?}, '%duration', nil
+            = t('formtastic.labels.session_type.session_duration', duration: '%duration')
+          %span.new_duration
+            = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input', disabled: @conference.visible?)
+            = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
         - if @conference.languages.size > 1
           %ul.languages
             - @conference.languages.each do |language|
@@ -79,6 +91,18 @@
         = f.submit
   %div{id: "session_type-new"}
     = form_for [@conference, @new_session_type], remote: true, html: {class: 'tabs'} do |f|
+      %div.durations
+        %h6= t('formtastic.labels.session_type.valid_durations')
+        - common_durations.each do |duration|
+          %label
+            = f.check_box :valid_durations, { multiple: true }, duration, nil
+            = t('formtastic.labels.session_type.session_duration', duration: duration)
+        %label.duration_template
+          = f.check_box :valid_durations, { multiple: true }, '%duration', nil
+          = t('formtastic.labels.session_type.session_duration', duration: '%duration')
+        %span.new_duration
+          = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input')
+          = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
       - if @conference.languages.size > 1
         %ul.languages
           - @conference.languages.each do |language|

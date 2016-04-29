@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class SessionType < ActiveRecord::Base
+  COMMON_DURATIONS = [25, 50, 110]
+
   has_many :sessions
   belongs_to :conference
   has_many :translated_contents, as: :model, dependent: :destroy

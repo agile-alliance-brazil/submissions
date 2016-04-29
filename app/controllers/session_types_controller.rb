@@ -62,7 +62,10 @@ class SessionTypesController < ApplicationController
   end
 
   def session_type_params
-    attrs = params.require(:session_type).permit(translated_contents_attributes: %i(id language title content))
+    allowed_params = []
+    allowed_params << { valid_durations: [] } unless @conference.visible?
+    allowed_params << { translated_contents_attributes: %i(id language title content) }
+    attrs = params.require(:session_type).permit(allowed_params)
     attrs.merge(conference_id: @conference.id)
   end
 end
