@@ -84,7 +84,7 @@ AgileBrazil::Application.routes.draw do
     resources :review_feedbacks, only: %i(new create show)
     resources :pages, except: %i(new edit destroy), as: :conference_pages
 
-    get ':path' => 'pages#show'
+    get ':path' => 'pages#show', as: :conference_page_by_path
     get ':page' => 'static_pages#show', as: :static_page, page: /home|guidelines|syntax_help|call_for_reviewers/
   end
   root to: 'pages#show'

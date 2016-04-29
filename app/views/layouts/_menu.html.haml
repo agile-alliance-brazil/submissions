@@ -1,6 +1,6 @@
 %ul#menu
   - @conference.menu_links.each do |(name, page)|
-    = link_to_menu_item(:li, name, page.is_a?(String) ? page : conference_page_path(@conference, page.path))
+    = link_to_menu_item(:li, name, page.is_a?(String) ? page : conference_page_by_path_path(@conference, path: page.path))
   = link_to_menu_item(:li, t('title.tracks'), conference_tracks_path(@conference))
   = link_to_menu_item(:li, t('title.session_types'), conference_session_types_path(@conference))
   = link_to_menu_item(:li, t('title.audience_levels'), conference_audience_levels_path(@conference))
