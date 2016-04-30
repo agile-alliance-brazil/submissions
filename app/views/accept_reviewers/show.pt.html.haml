@@ -7,49 +7,50 @@
 
 - content_for :agreement do
   %h3 TERMO DE COMPROMISSO COMO AVALIADOR DO #{@conference.name.upcase}
-  %p Para confirmar sua participação e comprometimento como AVALIADOR dos trabalhos submetidos à Conferência 
+  %p Para confirmar sua participação e comprometimento como REVISOR dos trabalhos submetidos à Conferência
   #{@conference.name} você deve estar de acordo com os termos abaixo.
 
   %p Por favor preste atenção aos termos, é muito importante que você os tenha entendido e, se tiver dúvidas, 
-  entre em contato com o comitê de programa através do e-mail programa@agilebrazil.com.
+  entre em contato com o comitê de programa através do e-mail #{mail_to 'programa@agilebrazil.com'}.
 
   %br
-  (1) Como membro do Comitê de Avaliação, contribuirei para a seleção de um programa técnico de alto nível a
-  fim de tornar o #{@conference.name} um evento de referência internacional em metodologias ágeis;
+  (1) Como membro do Comitê de Revisão, contribuirei para a seleção de um programa de alto nível a
+  fim de tornar a #{@conference.name} um evento de referência internacional em agilidade;
   %br
-  (2) Como avaliador, analisarei de forma crítica e imparcial trabalhos submetidos para a conferência,
+  (2) Como revisor, analisarei de forma crítica e imparcial trabalhos submetidos para a conferência,
   segundo diretrizes definidas pelo Comitê de Programa do evento;
   %br
-  (3) Como avaliador, seguirei as orientações do Comitê de Programa durante a realização desta atividade,
-  procurando cumprir os objetivos e metas (prazo e quantidade de avaliações) apresentadas pelo sistema de
-  avaliação;
+  (3) Como revisor, seguirei as orientações do Comitê de Programa durante a realização desta atividade,
+  procurando cumprir os objetivos e metas (prazo e quantidade de revisões) apresentados pelo sistema de
+  revisão;
   %br
-  (4) Como avaliador, não poderei divulgar os resultados das avaliações até que os mesmos sejam publicados
+  (4) Como revisor, não poderei divulgar os resultados das avaliações até que os mesmos sejam publicados
   pelo Comitê de Programa;
   %br
-  (5) Como avaliador, comprometo-me a não avaliar trabalhos que possam caracterizar interesse
-  pessoal, como as minhas próprias submissões ou as de clientes, parentes, amigos e parceiros de negócio; ou
+  (5) Como revisor, comprometo-me a não avaliar trabalhos que possam caracterizar interesse pessoal,
+  como as minhas próprias submissões ou as de clientes, parentes, amigos e parceiros de negócio; ou
   ainda de trabalhos muito similares àqueles que eu tenha submetido;
   %br
-  (6) Como avaliador, atenderei as solicitações feitas pelos Organizadores de Trilha a fim de garantir uma boa
-  distribuição de trabalhos e fluxo do processo de avaliação das submissões;
+  (6) Como revisor, atenderei as solicitações feitas pelos Organizadores de Trilha (Track Leads) a fim de
+  garantir uma boa distribuição de trabalhos e fluxo do processo de revisão das submissões;
   %br
-  (7) Como avaliador, poderei solicitar maiores informações e esclarecimentos aos respectivos autores de cada
-  submissão a fim de evitar injustiças e contribuir com a garantia da qualidade do programa;
+  (7) Como revisor, poderei solicitar maiores informações e esclarecimentos aos respectivos autores de cada
+  submissão, a fim de evitar injustiças e contribuir com a garantia da qualidade do programa;
   %br
-  (8) Como membro do Comitê de Avaliação, declaro estar ciente de que a seleção final dos trabalhos que vão
-  compor o programa do #{@conference.name} será feito pelo Comitê de Programa, com base nos critérios e pareceres
-  realizados pelos avaliadores;
+  (8) Como membro do Comitê de Revisão, declaro estar ciente de que a seleção final dos trabalhos que irão
+  compor o programa da #{@conference.name} será feita pelo Comitê de Programa, com base nos critérios e
+  pareceres realizados pelos revisores;
   %br
-  (9)Como membro do Comitê de Avaliação, reconheço ser este um trabalho voluntário e não remunerado, não
-  podendo transferir à organização do #{@conference.name} despesas de qualquer natureza;
+  (9) Como membro do Comitê de Revisão, reconheço ser este um trabalho voluntário e não remunerado, não
+  podendo transferir à organização da #{@conference.name} despesas de qualquer natureza;
   %br
-  (10) Em caso de impedimento para o cumprimento de minhas metas, comunicarei imediatamente a Coordenação de
-  Programa a necessidade de substituição e transferência de minhas responsabilidades.
+  (10) Em caso de impedimento para o cumprimento de minhas metas, comunicarei imediatamente o Comitê de
+  Programa (#{mail_to 'programa@agilebrazil.com'}) sobre a necessidade de substituição e transferência de
+  minhas responsabilidades.
   %br
-  E, por reconhecer que a Organização do #{@conference.name} está depositando em mim total confiança por uma
+  E, por reconhecer que a Organização da #{@conference.name} está depositando em mim total confiança por uma
   conduta ética e profissional no processo de seleção dos trabalhos submetidos para a conferência, estou ciente
   das possíveis consequências de atos que possam conflitar com as responsabilidades que assumo aceitando os
-  termos desse documento.
+  termos deste documento.
 
 = render 'accept_reviewers/form'
