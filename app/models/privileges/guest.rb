@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Privileges::Guest < Privileges::Base
   def privileges
-    can([:read, :create], User)
+    can(%i(read create), User)
     can(:update, User, id: @user.id)
     can(:read, Conference, visible: true)
     can(:read, Page, conference: { visible: true })
@@ -12,8 +12,8 @@ class Privileges::Guest < Privileges::Base
     can(:read, ActsAsTaggableOn::Tag)
     can(:read, 'static_pages')
     can(:manage, 'password_resets')
-    can([:read, :create], Comment)
-    can([:edit, :update, :destroy], Comment, user_id: @user.id)
+    can(%i(read create), Comment)
+    can(%i(edit update destroy), Comment, user_id: @user.id)
     can(:manage, 'accept_reviewers') do
       @conference.visible? && @reviewer.present? && @reviewer.user == @user && @reviewer.invited?
     end

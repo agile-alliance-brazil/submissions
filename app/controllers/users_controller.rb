@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class UsersController < ApplicationController
   skip_before_filter :authenticate_user!
+  skip_before_filter :authorize_action, only: %i(me)
 
   def show
     @user_profile = resource
@@ -14,6 +15,15 @@ class UsersController < ApplicationController
     collection = User.search(params[:term]).select(:username).map(&:username)
     respond_to do |format|
       format.json { render json: collection }
+    end
+  end
+
+  def me
+    if current_user
+      redirect_to user_path(current_user)
+    else
+      flash[:notice] = t('flash.no_user')
+      redirect_to new_user_session_path
     end
   end
 

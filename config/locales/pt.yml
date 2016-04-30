@@ -395,8 +395,8 @@ pt:
     private_field: "Campo privado: não visível no perfil público"
     no_votes: "Você ainda não votou. Clique <a href='/sessions?locale=pt'>aqui</a> para votar."
     reviewer:
-      signs: '%{name} assina suas avaliações!'
-      anonymous: '%{name} optou por NÃO assinar suas avaliações'
+      signs: '%{name} assina suas revisões!'
+      anonymous: '%{name} optou por NÃO assinar suas revisões'
     
 
   footer:
@@ -449,6 +449,7 @@ pt:
         failure: "Seu feedback já foi gravado. Obrigado!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
+    no_user: "Você precisa estar logado para acessar seu perfil. Se não tiver uma conta, <a href='/users/signup?locale=pt'>crie agora sua conta</a>."
     news:
       session_different_conference: "Você está acessando uma proposta da %{conference_name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da %{current_conference_name}."
     review:

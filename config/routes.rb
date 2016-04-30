@@ -32,6 +32,7 @@ AgileBrazil::Application.routes.draw do
              }
 
   resources :conferences, except: %i(show destroy)
+  get '/users/me' => 'users#me'
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
 

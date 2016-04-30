@@ -435,6 +435,7 @@ en:
         failure: "Your feedback was already recorded. Thank you!"
     failure: "Please check the highlighted fields"
     unauthorised: "You are not authorized to access this page"
+    no_user: "You must be logged in to see your profile. If you don't have an account, <a href='/users/signup?locale=en'>create one now</a>."
     news:
       session_different_conference: "You're viewing a session from %{conference_name}. Check %{current_conference_name}'s <a href='/sessions?locale=en'>sessions</a>."
     review:
