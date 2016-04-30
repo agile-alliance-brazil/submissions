@@ -717,6 +717,9 @@ pt:
     by: 'por'
     in: 'em'
 
+  date:
+    formats:
+      default: "%d/%m/%Y"
   time:
     formats:
       hour_minute: "%H:%M"

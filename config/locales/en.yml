@@ -703,6 +703,9 @@ en:
     by: 'by'
     in: 'in'
 
+  date:
+    formats:
+      default: "%m/%d/%Y"
   time:
     formats:
       hour_minute: "%H:%M"

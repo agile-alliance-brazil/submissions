@@ -12,16 +12,16 @@
 
 - content_for :agreement do
   %h3 AUTHOR TERM OF AGREEMENT - #{@conference.name.upcase}
-  On agreeing to these terms, I declare that I will:
+  On agreeing to these terms, I declare that:
   %br
-  (1) Be able to present my session at #{@conference.name} at the date and place defined by the event organization, committing to the high quality of the event;
+  (1) I will be able to present my session at #{@conference.name}, that will take place between l(@conference.start_date) and l(@conference.end_date), in #{@conference.location}, committing to value the high quality of the conference;
   %br
-  (2) Be aware that I must immediately notify the organization of #{@conference.name} should any unpredicted event prevent me from participating in the conference, thus allowing my session to be replaced or the issue be solved in any way;
+  (2) I will be aware that I must immediately notify the Program Committee of #{@conference.name} (#{mail_to 'programa@agilebrazil.com'}) should any unpredicted event prevent me from participating in the conference, thus allowing my session to be replaced or the issue be solved in any way;
   %br
-  (3) Grant the organization of #{@conference.name} the consent to use my image, in picture or in any media form, for non-commercial, non-political and non-religious purposes, in activities strictly related to the conference and without reproduction of the intellectual content without my acknowledgement;
+  (3) I will grant the organization of #{@conference.name} the consent to use my image, in picture or in any media form, for non-commercial, non-political and non-religious purposes, in activities strictly related to the conference and without reproduction of the intellectual content without my acknowledgement;
   %br
-  (4) Be responsible and accountable for the intellectual property of all the content in my presentation, as well as being legally responsible for any activities performed during its presentation at the conference;
+  (4) All content from my session is under my own civil and intellectual responsibility and accountability, being subject to legally respond to any illegal act that may be performed during the presentation at the conference;
   %br
-  (5) Stick to the time slot assigned to me, thus respecting the conference organizers and volunteers.
+  (5) I will stick to the time slot assigned to me, thus respecting the conference organizers and volunteers.
 
 = render 'confirm_sessions/form'
