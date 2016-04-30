@@ -18,10 +18,10 @@
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_confirmation.try(:strftime, '%F')}
   / TODO: Tags
+  - unless @conference.visible?
+    = form.input :visible, required: true, input_html: {tabindex: autotab}
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
-  = form.input :visible, required: true, input_html: {tabindex: autotab}
-  = form.submit
 
 #tracks.tabs
   %h4= t('title.tracks')

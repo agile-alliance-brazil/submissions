@@ -96,14 +96,19 @@ describe ConferencesController, type: :controller do
       expect(assigns(:conference).errors).to be_empty
       expect(response).to redirect_to("/#{subject.year}")
     end
-  end
 
-  context 'delete action' do
-    xit 'should redirect to session' do
-      delete :destroy, session_id: session.id, id: subject.id
+    it 'should update from invisible to visible' do
+      subject.tap{|c| c.visible=false; c.save}
 
-      path = session_path(session.conference, session, anchor: 'comments')
-      expect(response).to redirect_to(path)
+      patch :update, id: subject.year, conference: valid_conference_params.merge(visible: true)
+
+      expect(subject.reload).to be_visible
+    end
+
+    it 'should not update from visible to invisible' do
+      patch :update, id: subject.year, conference: valid_conference_params.merge(visible: false)
+
+      expect(subject.reload).to be_visible
     end
   end
 
