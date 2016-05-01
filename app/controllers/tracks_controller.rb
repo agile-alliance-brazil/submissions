@@ -12,6 +12,7 @@ class TracksController < ApplicationController
       flash[:notice] = t('flash.track.create.success')
       redirect_to conference_tracks_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = @track
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -37,6 +38,7 @@ class TracksController < ApplicationController
       flash[:notice] = t('flash.track.update.success')
       redirect_to conference_tracks_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = @track
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = AudienceLevel.new(conference: @conference)

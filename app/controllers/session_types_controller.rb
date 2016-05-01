@@ -12,6 +12,7 @@ class SessionTypesController < ApplicationController
       flash[:notice] = t('flash.session_type.create.success')
       redirect_to conference_session_types_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = @session_type
       @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -37,6 +38,7 @@ class SessionTypesController < ApplicationController
       flash[:notice] = t('flash.session_type.update.success')
       redirect_to conference_session_types_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = @session_type
       @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -66,6 +68,10 @@ class SessionTypesController < ApplicationController
     allowed_params << { valid_durations: [] } unless @conference.visible?
     allowed_params << { translated_contents_attributes: %i(id language title content) }
     attrs = params.require(:session_type).permit(allowed_params)
-    attrs.merge(conference_id: @conference.id)
+    attrs = attrs.merge(conference_id: @conference.id)
+    if (attrs[:valid_durations])
+      attrs[:valid_durations] = attrs[:valid_durations].map(&:to_i)
+    end
+    attrs
   end
 end

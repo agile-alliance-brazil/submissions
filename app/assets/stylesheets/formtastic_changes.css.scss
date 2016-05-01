@@ -141,7 +141,7 @@ form.formtastic fieldset.buttons {
   padding: 0;
 }
 
-form.formtastic fieldset ol ul.sessionTags li {
+form.formtastic fieldset ol ul.tags li {
   display: inline-block;
   background-color: #CCF;
   font-size: 0.8em;
@@ -149,15 +149,15 @@ form.formtastic fieldset ol ul.sessionTags li {
   margin: 0.2em 0;
 }
 
-form.formtastic fieldset ol ul.sessionTags li:after {
+form.formtastic fieldset ol ul.tags li:after {
     content: "";
 }
 
-form.formtastic fieldset ol ul.sessionTags li.selectedTag {
+form.formtastic fieldset ol ul.tags li.selectedTag {
 	background-color: #CFC;
 }
 
-form.formtastic fieldset ol ul.sessionTags {
+form.formtastic fieldset ol ul.tags {
     width: 90%;
     text-align: center;
 }

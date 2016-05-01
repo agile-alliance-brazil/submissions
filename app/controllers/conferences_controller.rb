@@ -29,6 +29,7 @@ class ConferencesController < ApplicationController
       tracks: [:translated_contents],
       audience_levels: [:translated_contents],
       session_types: [:translated_contents]).first
+    @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
     @new_track = Track.new(conference: @conference)
     @new_session_type = SessionType.new(conference: @conference)
     @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -47,6 +48,7 @@ class ConferencesController < ApplicationController
       flash[:notice] = I18n.t('flash.conference.update.success')
       redirect_to conference_root_path(@conference.year)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -83,7 +85,8 @@ class ConferencesController < ApplicationController
   def conference_params
     attributes = params.require(:conference).permit(:logo, :location, :start_date, :end_date, :call_for_papers,
       :submissions_open, :presubmissions_deadline, :prereview_deadline, :submissions_deadline,
-      :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :visible)
+      :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :tag_list, :allow_free_form_tags,
+      :visible)
     attributes.merge(visible: (attributes[:visible] || resource.visible?))
   end
 end

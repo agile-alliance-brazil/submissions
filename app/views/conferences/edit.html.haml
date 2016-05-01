@@ -17,7 +17,15 @@
     = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_confirmation.try(:strftime, '%F')}
-  / TODO: Tags
+    = form.input :tag_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil, value: (@conference.tag_list||[]).join(',')}, as: :hidden
+    %li
+      %label= t('formtastic.labels.conference.tag_list')
+      %ul.conferenceTags.tags
+        - @tags.each do |tag|
+          %li
+            = t(tag)
+            %span.hidden=(tag)
+    = form.input :allow_free_form_tags, input_html: {tabindex: autotab}
   - unless @conference.visible?
     = form.input :visible, required: true, input_html: {tabindex: autotab}
   = form.actions do
@@ -219,5 +227,30 @@
 
     $("#conference_logo").change(function(){
       readURL(this);
+    });
+
+    var tags = [];
+
+    function loadAlreadySelectedTags() {
+      var commaSeparatedTags = $('#conference_tag_list').get(0).value;
+      tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
+      for (var i = 0; i < tags.length; i++) {
+        var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
+        $(tagItem).addClass('selectedTag');
+      }
+    }
+    loadAlreadySelectedTags();
+
+    $('.tags li').click(function() {
+      var newTag = $(this).find('span').text().trim();
+      var index = tags.indexOf(newTag);
+      if (index == -1) {
+        tags.push(newTag);
+        $(this).addClass('selectedTag');
+      } else {
+        tags.splice(index, 1);
+        $(this).removeClass('selectedTag');
+      }
+      $('#conference_tag_list').val(tags.join(','));
     });
   })

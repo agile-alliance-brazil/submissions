@@ -16,6 +16,7 @@ class PagesController < ApplicationController
     if @page.save
       redirect_to conference_page_path(@conference, @page)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = AudienceLevel.new(conference: @conference)
@@ -41,6 +42,7 @@ class PagesController < ApplicationController
     if @page.update_attributes(attrs)
       redirect_to conference_page_path(@conference, @page)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = AudienceLevel.new(conference: @conference)

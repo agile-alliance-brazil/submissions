@@ -12,6 +12,7 @@ class AudienceLevelsController < ApplicationController
       flash[:notice] = t('flash.audience_level.create.success')
       redirect_to conference_audience_levels_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = @audience_level
@@ -37,6 +38,7 @@ class AudienceLevelsController < ApplicationController
       flash[:notice] = t('flash.audience_level.update.success')
       redirect_to conference_audience_levels_path(@conference)
     else
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
       @new_session_type = SessionType.new(conference: @conference)
       @new_audience_level = @audience_level

@@ -16,7 +16,7 @@
       = t('formtastic.labels.session.keyword_list')
       %abbr *
     %span.counter#tagCounter 10
-    %ul.sessionTags
+    %ul.sessionTags.tags
       - @tags.each do |tag|
         %li 
           = t(tag)
@@ -82,7 +82,7 @@
 
   function loadAlreadySelectedTags() {
     var commaSeparatedTags = $('#session_keyword_list').get(0).value;
-    var tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
+    tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
     for (var i = 0; i < tags.length; i++) {
       var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
       $(tagItem).addClass('selectedTag');
@@ -90,7 +90,7 @@
     $('#tagCounter').text(10 - tags.length);
   }
 
-  $('.sessionTags li').click(function() {
+  $('.tags li').click(function() {
     var newTag = $(this).find('span').text().trim();
     var index = tags.indexOf(newTag);
     if (index == -1) {

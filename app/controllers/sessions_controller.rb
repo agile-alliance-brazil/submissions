@@ -120,6 +120,10 @@ class SessionsController < ApplicationController
   end
 
   def load_tags
-    @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
+    if @conference.tags.empty?
+      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
+    else
+      @tags = @conference.tags.to_a
+    end
   end
 end

@@ -11,7 +11,7 @@ class Conference < ActiveRecord::Base
 
   attr_autocomplete_username_as :program_chair_user
 
-  acts_as_taggable_on :languages
+  acts_as_taggable_on :tags
 
   has_many :pages
   has_many :tracks
