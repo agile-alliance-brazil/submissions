@@ -169,6 +169,18 @@ RSpec.describe SessionsController, type: :controller do
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
+
+      it 'should maintain author and second_author if editing as second_author' do
+        other_author = FactoryGirl.create(:author)
+        session.author = other_author
+        session.second_author = author
+        session.save(validate: false)
+
+        patch :update, year: conference.year, id: session.id, session: valid_params
+
+        expect(session.reload.author).to eq(other_author)
+        expect(session.second_author).to eq(author)
+      end
     end
 
     context 'cancel action' do

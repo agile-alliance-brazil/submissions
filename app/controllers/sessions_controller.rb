@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   end
 
   def new
-    @session = Session.new(inferred_attributes)
+    @session = Session.new(conference_id: @conference.id, author_id: current_user.id)
   end
 
   def create
@@ -74,18 +74,12 @@ class SessionsController < ApplicationController
       :second_author_username, :track_id,
       :session_type_id, :duration_mins, :experience,
       :keyword_list, :language
-    ]).merge(inferred_attributes)
+    ]).merge(conference_id: @conference.id)
     if valid_params[:keyword_list]
       valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject {|name| @tags.detect {|tag| tag.name == name}.nil?}
     end
+    valid_params[:author_id] = current_user.id unless @session
     valid_params
-  end
-
-  def inferred_attributes
-    {
-      author_id: current_user.id,
-      conference_id: @conference.id
-    }
   end
 
   def resource
