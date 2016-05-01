@@ -17,10 +17,8 @@
       %abbr *
     %span.counter#tagCounter 10
     %ul.sessionTags.tags
-      - @tags.each do |tag|
-        %li 
-          = t(tag)
-          %span.hidden=(tag)
+      - @tags.sort{|x, y| I18n.t(x) <=> I18n.t(y)}.each do |tag|
+        %li{:'data_tag' => tag}= t(tag)
     %p.inline-hints
       = t('formtastic.hints.session.tag_list')
 
@@ -84,14 +82,14 @@
     var commaSeparatedTags = $('#session_keyword_list').get(0).value;
     tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
     for (var i = 0; i < tags.length; i++) {
-      var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
+      var tagItem = $('li[data-tag="' + tags[i] + '"]').get(0);
       $(tagItem).addClass('selectedTag');
     }
     $('#tagCounter').text(10 - tags.length);
   }
 
   $('.tags li').click(function() {
-    var newTag = $(this).find('span').text().trim();
+    var newTag = $(this).data('tag');
     var index = tags.indexOf(newTag);
     if (index == -1) {
       if (tags.length >= 10) {

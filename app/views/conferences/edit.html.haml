@@ -21,10 +21,8 @@
     %li
       %label= t('formtastic.labels.conference.tag_list')
       %ul.conferenceTags.tags
-        - @tags.each do |tag|
-          %li
-            = t(tag)
-            %span.hidden=(tag)
+        - @tags.sort{|x, y| I18n.t(x) <=> I18n.t(y)}.each do |tag|
+          %li{:'data-tag' => tag}= t(tag)
     = form.input :allow_free_form_tags, input_html: {tabindex: autotab}
   - unless @conference.visible?
     = form.input :visible, required: true, input_html: {tabindex: autotab}
@@ -235,14 +233,14 @@
       var commaSeparatedTags = $('#conference_tag_list').get(0).value;
       tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
       for (var i = 0; i < tags.length; i++) {
-        var tagItem = $('span:contains(' + tags[i] + ')').get(0).parentElement;
+        var tagItem = $('li[data-tag="' + tags[i] + '"]').get(0);
         $(tagItem).addClass('selectedTag');
       }
     }
     loadAlreadySelectedTags();
 
     $('.tags li').click(function() {
-      var newTag = $(this).find('span').text().trim();
+      var newTag = $(this).data('tag');
       var index = tags.indexOf(newTag);
       if (index == -1) {
         tags.push(newTag);
