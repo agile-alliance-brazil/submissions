@@ -43,6 +43,7 @@ pt:
           attributes:
             keyword_list:
               too_long: "não pode ter mais que %{count} palavras-chave"
+              too_short: "precisa ter pelo menos %{count} palavra-chave"
         organizer:
           attributes:
             track_id:

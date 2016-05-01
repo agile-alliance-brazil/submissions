@@ -37,6 +37,7 @@ en:
           attributes:
             keyword_list:
               too_long: "can't have more than %{count} keywords"
+              too_long: "must have at least %{count} keyword"
         organizer:
           attributes:
             track_id:

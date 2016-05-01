@@ -61,9 +61,12 @@
       $(document).ready(function() {
         $('textarea').TextAreaResizer();
         $('[placeholder]').placeholder();
+        var error = $('li.error :visible:first');
         var errorInput = $('li.error :input:visible:enabled:first');
-        if (errorInput.length > 0) {
+        if (error.length > 0 && errorInput.length > 0 && error.parent('li.error').get(0) === errorInput.parent('li.error').get(0)) {
           errorInput.focus();
+        } else if (error.length > 0) {
+          $('body').scrollTop(error.offset().top);
         } else if ($('.auto_focus').length > 0) {
           $(':input:visible:enabled:first').focus();
         }

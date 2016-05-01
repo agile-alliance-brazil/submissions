@@ -34,7 +34,6 @@ describe Session, type: :model do
     it { should validate_presence_of :target_audience }
     it { should validate_presence_of :experience }
     it { should validate_presence_of :duration_mins }
-    it { should validate_presence_of :keyword_list }
     it { should validate_presence_of :language }
     it { should validate_presence_of :track_id }
     it { should validate_presence_of :session_type_id }
@@ -187,20 +186,28 @@ describe Session, type: :model do
       end
     end
 
-    it "should validate that there are a maximum of 10 keywords" do
+    it 'should validate that there is at least 1 keyword' do
+      session = FactoryGirl.build(:session, keyword_list: %w[a])
+      expect(session).to be_valid
+      session.keyword_list = %w[]
+      expect(session).to_not be_valid
+      expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_short', count: 1))
+    end
+
+    it 'should validate that there are a maximum of 10 keywords' do
       session = FactoryGirl.build(:session, keyword_list: %w[a b c d e f g h i j])
       expect(session).to be_valid
       session.keyword_list = %w[a b c d e f g h i j k]
       expect(session).to_not be_valid
-      expect(session.errors[:keyword_list]).to include(I18n.t("activerecord.errors.models.session.attributes.keyword_list.too_long", count: 10))
+      expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10))
     end
 
-    it "should validate that there are a maximum of 10 keywords in comma-separated list" do
-      session = FactoryGirl.build(:session, keyword_list: "a, b, c, d, e, f, g, h, i, j")
+    it 'should validate that there are a maximum of 10 keywords in comma-separated list' do
+      session = FactoryGirl.build(:session, keyword_list: 'a, b, c, d, e, f, g, h, i, j')
       expect(session).to be_valid
-      session.keyword_list = "a, b, c, d, e, f, g, h, i, j, k"
+      session.keyword_list = 'a, b, c, d, e, f, g, h, i, j, k'
       expect(session).to_not be_valid
-      expect(session.errors[:keyword_list]).to include(I18n.t("activerecord.errors.models.session.attributes.keyword_list.too_long", count: 10))
+      expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10))
     end
   end
 

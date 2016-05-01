@@ -29,7 +29,7 @@ class Session < ActiveRecord::Base
   validates :prerequisites, presence: true, length: { maximum: 200 }
   validates :experience, presence: true, length: { maximum: 400 }
   validates :duration_mins, presence: true, session_duration: true
-  validates :keyword_list, presence: true, length: { maximum: 10 }
+  validates :keyword_list, length: { minimum: 1, maximum: 10 }
   validates :language, presence: true, inclusion: { in: ['en', 'pt'] }
   validates :mechanics, presence: true, length: { maximum: 2400 }, if: :requires_mechanics?
   validates :audience_limit, numericality: { greater_than: 0 }, allow_nil: true

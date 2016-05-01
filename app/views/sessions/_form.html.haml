@@ -1,4 +1,4 @@
-= form.inputs :class => "submission" do
+= form.inputs :class => 'submission' do
   = form.input :author_id, as: :hidden, input_html: {tabindex: autotab}
   = form.input :language, required: true, as: :select, collection: [[t('generic.en'), 'en'], [t('generic.pt'), 'pt']], input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.language')
   = form.input :track_id, required: true, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.track_id', year: "/#{@conference.year}")
@@ -11,7 +11,7 @@
   = form.input :audience_limit, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.audience_limit')
   = form.input :title, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.title')
   = form.input :keyword_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil, value: (@session.keyword_list||[]).join(',')}, as: :hidden
-  %li 
+  %li#tagList.input.optional{class: @session.errors[:keyword_list].empty? ? '' : 'error'}
     %label 
       = t('formtastic.labels.session.keyword_list')
       %abbr *
@@ -19,6 +19,10 @@
     %ul.sessionTags.tags
       - @tags.sort{|x, y| I18n.t(x) <=> I18n.t(y)}.each do |tag|
         %li{:'data-tag' => tag}= t(tag)
+    - unless @session.errors[:keyword_list].empty?
+      %ul.errors
+        - @session.errors[:keyword_list].each do |error|
+          %li= error
     %p.inline-hints
       = t('formtastic.hints.session.tag_list')
 
@@ -35,20 +39,20 @@
   var tags = [];
 
   $(document).ready(function() {
-    $("#session_session_type_id").filterOn("#session_track_id", {
-      "4":  ["", "1", "2"],
-      "8":  ["", "4", "5"],
-      "13": ["", "9"]
+    $('#session_session_type_id').filterOn('#session_track_id', {
+      '4':  ['', '1', '2'],
+      '8':  ['', '4', '5'],
+      '13': ['', '9']
     })
-    $("#session_track_id").bindSelectUpdated();
+    $('#session_track_id').bindSelectUpdated();
 
-    $("#session_duration_mins").filterOn("#session_session_type_id", $("#session_session_type_id").data("durations-to-hide"))
-    $("#session_session_type_id").bindSelectUpdated();
+    $('#session_duration_mins').filterOn('#session_session_type_id', $('#session_session_type_id').data('durations-to-hide'))
+    $('#session_session_type_id').bindSelectUpdated();
 
-    $("#session_session_type_id").bind('updated', sessionTypeActions);
-    $("#session_session_type_id").bindSelectUpdated();
+    $('#session_session_type_id').bind('updated', sessionTypeActions);
+    $('#session_session_type_id').bindSelectUpdated();
 
-    $("#session_session_type_id, #session_track_id").trigger('updated');
+    $('#session_session_type_id, #session_track_id').trigger('updated');
 
     $('#session_title').charCount({allowed: 100});
     loadAlreadySelectedTags();
@@ -64,7 +68,7 @@
   function sessionTypeActions() {
     // Workshops, Tutorials, or Hands On
     if ($.inArray($(this).val(), ['1', '2', '4', '5', '9', '12', '16', '21']) !== -1) {
-      $("#session_audience_limit_input").show();
+      $('#session_audience_limit_input').show();
       // Only Workshop or Hands On
       if ($.inArray($(this).val(), ['2', '5', '9', '12', '16', '21']) !== -1) {
         $('#session_mechanics_input').find('label abbr').show();
@@ -72,8 +76,8 @@
         $('#session_mechanics_input').find('label abbr').hide();
       }
     } else {
-      $("#session_audience_limit_input").hide();
-      $("#session_audience_limit").val("");
+      $('#session_audience_limit_input').hide();
+      $('#session_audience_limit').val('');
       $('#session_mechanics_input').find('label abbr').hide();
     }
   }
@@ -105,12 +109,12 @@
     $('#tagCounter').text(10 - tags.length);
   });
 
-  $('select, input').on("focus", function() {
+  $('select, input').on('focus', function() {
     $('.inline-hints').hide();
     $(this).parent().find('.inline-hints').show();
   });
 
-  $('textarea').on("focus", function() {
+  $('textarea').on('focus', function() {
     $('.inline-hints').hide();
     $(this).parent().parent().parent().find('.inline-hints').show();
   });
