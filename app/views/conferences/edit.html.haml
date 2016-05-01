@@ -239,15 +239,15 @@
     }
     loadAlreadySelectedTags();
 
-    $('.tags li').click(function() {
-      var newTag = $(this).data('tag');
+    $('.tags li').click(function(e) {
+      var newTag = $(e.currentTarget).data('tag');
       var index = tags.indexOf(newTag);
       if (index == -1) {
         tags.push(newTag);
-        $(this).addClass('selectedTag');
+        $(e.currentTarget).addClass('selectedTag');
       } else {
         tags.splice(index, 1);
-        $(this).removeClass('selectedTag');
+        $(e.currentTarget).removeClass('selectedTag');
       }
       $('#conference_tag_list').val(tags.join(','));
     });
