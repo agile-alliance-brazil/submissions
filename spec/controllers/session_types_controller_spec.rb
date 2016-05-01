@@ -127,7 +127,7 @@ describe SessionTypesController, type: :controller do
         patch :update, year: conference.year, id: session_type.id, session_type: {
           valid_durations: ['10', '25'] }
 
-        expect(session_type.reload.valid_durations).to eq(['10', '25'])
+        expect(session_type.reload.valid_durations).to eq([10, 25])
       end
     end
 
