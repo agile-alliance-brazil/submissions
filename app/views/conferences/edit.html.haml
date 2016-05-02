@@ -44,9 +44,10 @@
               %li.track_language= link_to language[:name], "#track-#{track.id}-#{language[:code]}"
         = f.fields_for :translated_contents do |content_form|
           %div{id: "track-#{track.id}-#{content_form.object.language}"}
-            %label{for: ''}= t('formtastic.labels.track.title')
             = content_form.hidden_field(:language)
-            = content_form.text_field(:title)
+            %label.field
+              %span.text= t('formtastic.labels.track.title')
+              = content_form.text_field(:title, class: 'data')
             .description= content_form.text_area(:content)
         = f.submit
   %div{id: "track-new"}
@@ -57,9 +58,10 @@
             %li.track_language= link_to language[:name], "#track-new-#{language[:code]}"
       = f.fields_for :translated_contents do |content_form|
         %div{id: "track-new-#{content_form.object.language}"}
-          %label{for: "track_translated_content_title"}= t('formtastic.labels.track.title')
           = content_form.hidden_field(:language)
-          = content_form.text_field(:title)
+          %label.field
+            %span.text= t('formtastic.labels.track.title')
+            = content_form.text_field(:title)
           .description= content_form.text_area(:content)
       = f.submit
 
@@ -90,9 +92,10 @@
               %li.session_type_language= link_to language[:name], "#session_type-#{session_type.id}-#{language[:code]}"
         = f.fields_for :translated_contents do |content_form|
           %div{id: "session_type-#{session_type.id}-#{content_form.object.language}"}
-            %label{for: ''}= t('formtastic.labels.session_type.title')
             = content_form.hidden_field(:language)
-            = content_form.text_field(:title)
+            %label.field
+              %span.text= t('formtastic.labels.session_type.title')
+              = content_form.text_field(:title)
             .description= content_form.text_area(:content)
         = f.submit
   %div{id: "session_type-new"}
@@ -115,9 +118,10 @@
             %li.session_type_language= link_to language[:name], "#session_type-new-#{language[:code]}"
       = f.fields_for :translated_contents do |content_form|
         %div{id: "session_type-new-#{content_form.object.language}"}
-          %label{for: "session_type_translated_content_title"}= t('formtastic.labels.session_type.title')
           = content_form.hidden_field(:language)
-          = content_form.text_field(:title)
+          %label.field
+            %span.text= t('formtastic.labels.session_type.title')
+            = content_form.text_field(:title)
           .description= content_form.text_area(:content)
       = f.submit
 
@@ -136,9 +140,10 @@
               %li.audience_level_language= link_to language[:name], "#audience_level-#{audience_level.id}-#{language[:code]}"
         = f.fields_for :translated_contents do |content_form|
           %div{id: "audience_level-#{audience_level.id}-#{content_form.object.language}"}
-            %label{for: ''}= t('formtastic.labels.audience_level.title')
             = content_form.hidden_field(:language)
-            = content_form.text_field(:title)
+            %label.field
+              %span.text= t('formtastic.labels.audience_level.title')
+              = content_form.text_field(:title)
             .description= content_form.text_area(:content)
         = f.submit
   %div{id: "audience_level-new"}
@@ -149,9 +154,10 @@
             %li.audience_level_language= link_to language[:name], "#audience_level-new-#{language[:code]}"
       = f.fields_for :translated_contents do |content_form|
         %div{id: "audience_level-new-#{content_form.object.language}"}
-          %label{for: "audience_level_translated_content_title"}= t('formtastic.labels.audience_level.title')
           = content_form.hidden_field(:language)
-          = content_form.text_field(:title)
+          %label.field
+            %span.text= t('formtastic.labels.audience_level.title')
+            = content_form.text_field(:title)
           .description= content_form.text_area(:content)
       = f.submit
 
@@ -164,11 +170,11 @@
   - @conference.pages.each do |page|
     %div.page_tab{id: "page-#{page.id}"}
       = form_for [@conference, page], remote: true, html: {class: 'tabs'} do |f|
-        %label
-          = t('formtastic.labels.page.path')
+        %label.field
+          %span.text= t('formtastic.labels.page.path')
           = f.text_field(:path, disabled: true)
-        %label
-          = t('formtastic.labels.page.show_in_menu')
+        %label.field
+          %span.text= t('formtastic.labels.page.show_in_menu')
           = f.check_box(:show_in_menu, checked: page.show_in_menu? || (page.path == 'home'))
         - if @conference.languages.size > 1
           %ul.languages
@@ -176,18 +182,19 @@
               %li.page_language= link_to language[:name], "#page-#{page.id}-#{language[:code]}"
         = f.fields_for :translated_contents do |content_form|
           %div{id: "page-#{page.id}-#{content_form.object.language}"}
-            %label{for: ''}= t('formtastic.labels.page.title')
             = content_form.hidden_field(:language)
-            = content_form.text_field(:title)
+            %label.field
+              %span.text= t('formtastic.labels.page.title')
+              = content_form.text_field(:title)
             .description= content_form.text_area(:content)
         = f.submit
   %div{id: "page-new"}
     = form_for [@conference, @new_page], remote: true, html: {class: 'tabs'} do |f|
-      %label.required
-        = t('formtastic.labels.page.path')
+      %label.field.required
+        %span.text= t('formtastic.labels.page.path')
         = f.text_field(:path)
-      %label
-        = t('formtastic.labels.page.show_in_menu')
+      %label.field
+        %span= t('formtastic.labels.page.show_in_menu')
         = f.check_box(:show_in_menu)
       - if @conference.languages.size > 1
         %ul.languages
@@ -195,10 +202,10 @@
             %li.page_language= link_to language[:name], "#page-new-#{language[:code]}"
       = f.fields_for :translated_contents do |content_form|
         %div{id: "page-new-#{content_form.object.language}"}
-          %label
-            = t('formtastic.labels.page.title')
-            = content_form.hidden_field(:language)
-          = content_form.text_field(:title)
+          = content_form.hidden_field(:language)
+          %label.field
+            %span.text= t('formtastic.labels.page.title')
+            = content_form.text_field(:title)
           .description= content_form.text_area(:content)
       = f.submit
 

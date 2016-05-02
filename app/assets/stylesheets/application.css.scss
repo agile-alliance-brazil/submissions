@@ -686,3 +686,81 @@ form.conference .logo_preview {
 button::disabled {
   color: gray;
 }
+
+.tabs.ui-tabs.ui-widget {
+  border-radius: 0;
+  border: 0;
+  margin: .5rem 0;
+  ul.ui-tabs-nav {
+    border-radius: 0;
+    background: transparent;
+    height: 24px;
+    li {
+      background: #ccc;
+      border: 1px solid #999;
+      border-bottom: 1px solid #333;
+      border-radius: 0;
+      display: inline-block;
+      height: 23px;
+      max-width: 10rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &.ui-state-hover {
+        background: #eee;
+        border: 1px solid #666;
+        border-bottom: 1px solid #333;
+      }
+      &.ui-tabs-active {
+        background: transparent;
+        border: 1px solid #333;
+        border-bottom: 1px solid #fff;
+      }
+      a {
+        border: 0;
+        border-radius: 0;
+        padding: 0.25rem 0.5rem 0 0.5rem;
+        line-height: 1.3rem;
+      }
+    }
+  }
+  div.ui-tabs-panel {
+    border: 1px solid #333;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.5em;
+    label.field {
+      display: table;
+      width: 100%;
+      margin-bottom: .5rem;
+      span.text {
+        width: 1%;
+        display: table-cell;
+        box-sizing: border-box;
+        padding-right: 1rem;
+      }
+      input[type='text'] {
+        width: 99%;
+        display: table-cell;
+      }
+    }
+    .description {
+      textarea {
+        min-height: 6rem;
+      }
+      textarea, .grippie {
+        width: 100%;
+      }
+    }
+    input[type='submit'] {
+      margin: .5rem 0;
+      width: 100%;
+      background-color: #336699;
+      color: #fff;
+      padding: 0.5rem;
+      text-align: center;
+      border: 0;
+      text-transform: uppercase;
+    }
+  }
+}

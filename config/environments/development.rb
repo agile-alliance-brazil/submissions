@@ -38,4 +38,6 @@ AgileBrazil::Application.configure do
     Bullet.bullet_logger = true
     Bullet.console = true
   end
+
+  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 end

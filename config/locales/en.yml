@@ -15,6 +15,14 @@ en:
       cant_be_after: "cannot be after %{date}"
       invalid_form_data: "We've got problems during your form submission. Please check the fields and try again."
   activerecord:
+    models:
+      review:
+        one: 'Review'
+        other: 'Reviews'
+      track: 'Track'
+      session_type: 'Session type'
+      audience_level: 'Audience level'
+      page: 'Page'
     errors:
       messages:
         existence: "does not exist"
@@ -99,11 +107,16 @@ en:
         tag_list: "Suggested tags"
         allow_free_form_tags: "Allow new (free-form) keyword entries"
         visible: "Make conference available to the public"
+      track:
+        title: 'Name'
+      audience_level:
+        title: 'Name'
       page:
         title: 'Title'
         path: 'Path (used for url)'
         show_in_menu: 'Show in navigation'
       session_type:
+        title: 'Name'
         valid_durations: 'Valid durations for sessions of this type'
         session_duration: '%{duration} minutes'
         add_other_duration: 'Add another duration'

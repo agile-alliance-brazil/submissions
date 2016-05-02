@@ -19,6 +19,10 @@ pt:
       review:
         one: 'Revisão'
         other: 'Revisões'
+      track: 'Trilha'
+      session_type: 'Tipo de Sessão'
+      audience_level: 'Perfil do Público'
+      page: 'Página'
     attributes:
       review:
         recommendation_id: 'Recomendação'
@@ -105,11 +109,16 @@ pt:
         tag_list: "Palavras-chave sugeridas"
         allow_free_form_tags: "Permitir entrada de novas palavras-chave"
         visible: "Tornar a conferência visível ao público"
+      track:
+        title: 'Nome'
+      audience_level:
+        title: 'Nome'
       page:
         title: 'Título'
         path: 'Caminho (fica na url)'
         show_in_menu: 'Exibir na navegação'
       session_type:
+        title: 'Nome'
         valid_durations: 'Durações válidas de sessões desse tipo'
         session_duration: '%{duration} minutos'
         add_other_duration: 'Adicionar outra duração'

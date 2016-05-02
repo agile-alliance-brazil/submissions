@@ -60,6 +60,7 @@ group :development do
   gem 'web-console'
   gem 'dotenv-rails', require: false
   gem 'rubocop', require: false
+  gem 'rack-livereload'
 end
 
 group :test do
@@ -76,6 +77,7 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'guard-rspec'
+  gem 'guard-livereload'
   gem 'pry-rails'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
