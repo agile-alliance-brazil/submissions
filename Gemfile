@@ -44,7 +44,7 @@ gem 'modernizr-rails'
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
 
 platforms :ruby do
-  gem 'RedCloth', '4.2.9', require: 'redcloth'
+  gem 'RedCloth', '4.3.0', require: 'redcloth'
 end
 
 group :development do
