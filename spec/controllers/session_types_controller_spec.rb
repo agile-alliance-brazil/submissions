@@ -5,7 +5,7 @@ describe SessionTypesController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
   let(:session_type) { FactoryGirl.build(:session_type, conference: conference) }
   let(:another_conf_type) { FactoryGirl.create(:session_type, conference: FactoryGirl.create(:conference)) }
-  let(:admin) { FactoryGirl.create(:user).tap{|u| u.add_role('admin'); u.save} }
+  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
 
   render_views
 
@@ -62,7 +62,7 @@ describe SessionTypesController, type: :controller do
 
     context 'incomplete data' do
       it 'should flash a failure message' do
-        post :create, year: conference.year, session_type: { 
+        post :create, year: conference.year, session_type: {
           translated_contents_attributes: {
             '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
           }
@@ -72,7 +72,7 @@ describe SessionTypesController, type: :controller do
       end
 
       it 'should render conference edit page' do
-        post :create, year: conference.year, session_type: { 
+        post :create, year: conference.year, session_type: {
           translated_contents_attributes: {
             '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
           }
@@ -118,7 +118,7 @@ describe SessionTypesController, type: :controller do
 
     context 'while conference is not visible' do
       before do
-        conference.tap{|c| c.visible=false; c.save }
+        conference.tap {|c| c.visible=false; c.save }
       end
 
       it 'should allow for valid duration change' do

@@ -13,11 +13,11 @@ class Track < ActiveRecord::Base
   scope :for_conference, -> (c) { where(conference_id: c.id) }
 
   def title
-    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || self[:title] || ''
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || self[:title] || ''
   end
 
   def description
-    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || self[:description] || ''
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || self[:description] || ''
   end
 
   def experience_report?

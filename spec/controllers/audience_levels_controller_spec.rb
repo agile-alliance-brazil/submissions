@@ -5,7 +5,7 @@ describe AudienceLevelsController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
   let(:other_conf_level) { FactoryGirl.create(:audience_level, conference: FactoryGirl.create(:conference)) }
   let(:audience) { FactoryGirl.build(:audience_level, conference: conference) }
-  let(:admin) { FactoryGirl.create(:user).tap{|u| u.add_role('admin'); u.save} }
+  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
 
   context 'index action' do
     before(:each) { audience.save }
@@ -56,7 +56,7 @@ describe AudienceLevelsController, type: :controller do
 
     context 'incomplete data' do
       it 'should flash a failure message' do
-        post :create, year: conference.year, audience_level: { 
+        post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt' }
           }
@@ -66,7 +66,7 @@ describe AudienceLevelsController, type: :controller do
       end
 
       it 'should render conference edit page' do
-        post :create, year: conference.year, audience_level: { 
+        post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt' }
           }

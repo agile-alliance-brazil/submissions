@@ -2,7 +2,7 @@
 class TranslatedContent < ActiveRecord::Base
   belongs_to :model, polymorphic: true
 
-  validates :language, presence: true, uniqueness: {scope: %i(model_id model_type)}
+  validates :language, presence: true, uniqueness: { scope: %i(model_id model_type) }
   validates :title, presence: true
   validates :content, presence: true
 

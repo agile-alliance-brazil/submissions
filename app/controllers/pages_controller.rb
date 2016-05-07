@@ -38,7 +38,7 @@ class PagesController < ApplicationController
   def update
     @page = resource
     attrs = update_page_attributes
-    attrs = attrs.merge({path: 'home'}) if @page.path == '/' || @page.path.blank? # TODO Legacy, remove
+    attrs = attrs.merge({ path: 'home' }) if @page.path == '/' || @page.path.blank? # TODO Legacy, remove
     if @page.update_attributes(attrs)
       redirect_to conference_page_path(@conference, @page)
     else

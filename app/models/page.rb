@@ -13,11 +13,11 @@ class Page < ActiveRecord::Base
   scope :with_language, -> (l) { where(language: l) }
 
   def title
-    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || I18n.t(self[:title] || '')
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || I18n.t(self[:title] || '')
   end
 
   def content
-    translated_contents.find{|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || I18n.t(self[:content] || '')
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || I18n.t(self[:content] || '')
   end
 
   def to_params

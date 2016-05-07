@@ -50,7 +50,7 @@ class Conference < ActiveRecord::Base
     if pages.count > 0
       links = []
       links << [I18n.t('title.home'), default_page] if default_page
-      links + pages.where(show_in_menu: true).where.not(path: 'home').map{|p| [p.title, p]}
+      links + pages.where(show_in_menu: true).where.not(path: 'home').map {|p| [p.title, p]}
     else
       [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guidelines"]] # Legacy
     end
@@ -66,9 +66,10 @@ class Conference < ActiveRecord::Base
   end
 
   def languages
-    ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(name, code)|
+    selected_languages = ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(name, code)|
       supported_languages.include?(code.to_sym)
-    end.map{|(name, code)| {name: name, code: code}}
+    end
+    selected_languages.map {|(name, code)| { name: name, code: code }}
   end
 
   def location_and_date

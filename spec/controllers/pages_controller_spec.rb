@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe PagesController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
-  let(:admin) { FactoryGirl.create(:user).tap{|u| u.add_role('admin'); u.save} }
+  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
 
   context 'show' do
     it 'should route to guidelines page' do

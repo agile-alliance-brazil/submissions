@@ -98,7 +98,7 @@ describe ConferencesController, type: :controller do
     end
 
     it 'should update from invisible to visible' do
-      subject.tap{|c| c.visible=false; c.save}
+      subject.tap {|c| c.visible=false; c.save}
 
       patch :update, id: subject.year, conference: valid_conference_params.merge(visible: true)
 

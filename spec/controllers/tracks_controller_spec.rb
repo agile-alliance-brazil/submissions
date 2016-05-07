@@ -5,7 +5,7 @@ describe TracksController, type: :controller do
   render_views
 
   let(:conference) { FactoryGirl.create(:conference) }
-  let(:admin) { FactoryGirl.create(:user).tap{|u| u.add_role('admin'); u.save} }
+  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
 
   before(:each) do
     Conference.stubs(:current).returns(conference)
@@ -62,7 +62,7 @@ describe TracksController, type: :controller do
 
     context 'incomplete data' do
       it 'should flash a failure message' do
-        post :create, year: conference.year, track: { 
+        post :create, year: conference.year, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt' }
           }
@@ -72,7 +72,7 @@ describe TracksController, type: :controller do
       end
 
       it 'should render conference edit page' do
-        post :create, year: conference.year, track: { 
+        post :create, year: conference.year, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt' }
           }
