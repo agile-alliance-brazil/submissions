@@ -16,6 +16,19 @@ class railsapp( $user, $app_name ) {
         ensure       => latest,
         require      => Rvm_system_ruby['ruby-2.3.0'];
     }
+
+    rvm_system_ruby { 'ruby-2.3.1':
+        name        => 'ruby-2.3.1',
+        ensure      => 'present',
+        build_opts  => '--disable-binary'
+    }
+
+    rvm_gem { 'bundler23':
+        name         => 'bundler',
+        ruby_version => 'ruby-2.3.1@global',
+        ensure       => latest,
+        require      => Rvm_system_ruby['ruby-2.3.1'];
+    }
   }
 
   file { "/srv":
