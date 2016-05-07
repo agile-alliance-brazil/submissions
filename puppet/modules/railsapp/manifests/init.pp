@@ -23,7 +23,7 @@ class railsapp( $user, $app_name ) {
         build_opts  => '--disable-binary'
     }
 
-    rvm_gem { 'bundler23':
+    rvm_gem { 'bundler231':
         name         => 'bundler',
         ruby_version => 'ruby-2.3.1@global',
         ensure       => latest,
