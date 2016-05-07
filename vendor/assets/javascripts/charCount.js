@@ -32,6 +32,8 @@
     function calculate(obj, target, separator){
       var count = obj.val().split(separator).length;
       var available = options.allowed - count;
+
+
       if(available <= options.warning && available >= 0){
         target.addClass(options.cssWarning);
       } else {
@@ -42,18 +44,35 @@
       } else {
         target.removeClass(options.cssExceeded);
       }
-      target.html(options.counterText + available);
-    };
+      target.html(available);
+
+      if (available <= 0) {
+        return false;
+      } else {
+        return true
+      }
+    }
 
     this.each(function() {
-      if (options.separator === '' && options.setMaxLength) {
-        $(this).attr('maxlength', options['allowed']);
-      }
       $(this).before('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');
       var target = $(this).parent().find(options.counterElement+'.'+options.css);
       calculate($(this), target, options.separator);
-      $(this).keyup(function(){calculate($(this), target, options.separator)});
-      $(this).change(function(){calculate($(this), target, options.separator)});
+
+      $(this).keypress(
+          function() {
+            return calculate($(this), target, options.separator)
+          }
+      );
+      $(this).keyup(
+          function() {
+            return calculate($(this), target, options.separator)
+          }
+      );
+      $(this).change(
+          function() {
+            calculate($(this), target, options.separator)
+          }
+      );
     });
   };
 })(jQuery);
