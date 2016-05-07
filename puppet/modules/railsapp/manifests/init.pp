@@ -6,8 +6,7 @@ class railsapp( $user, $app_name ) {
     rvm_system_ruby { 'ruby-2.3.0':
         name        => 'ruby-2.3.0',
         ensure      => 'present',
-        build_opts  => '--disable-binary',
-        default_use => true
+        build_opts  => '--disable-binary'
     }
 
     rvm_gem { 'bundler23':
@@ -20,7 +19,8 @@ class railsapp( $user, $app_name ) {
     rvm_system_ruby { 'ruby-2.3.1':
         name        => 'ruby-2.3.1',
         ensure      => 'present',
-        build_opts  => '--disable-binary'
+        build_opts  => '--disable-binary',
+        default_use => true
     }
 
     rvm_gem { 'bundler231':
