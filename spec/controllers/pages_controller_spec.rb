@@ -13,15 +13,6 @@ describe PagesController, type: :controller do
           year: '2010')
     end
 
-    it 'should render static resource if page does not exist' do
-      Conference.where(year: 2011).first || FactoryGirl.create(:conference, year: 2011)
-      controller.stubs(:render)
-      File.stubs(:exist?).returns(true)
-      controller.expects(:render).with(template: 'static_pages/2011_syntax_help')
-
-      get :show, path: 'syntax_help', year: 2011
-    end
-
     it 'should render page if page exists' do
       page = FactoryGirl.create(:page)
       controller.stubs(:render)
@@ -30,6 +21,22 @@ describe PagesController, type: :controller do
       get :show, path: page.path, year: page.conference.year
 
       expect(assigns(:page)).to eq(page)
+    end
+
+    it 'should render static resource if page does not exist' do
+      Conference.where(year: 2011).first || FactoryGirl.create(:conference, year: 2011)
+      controller.stubs(:render)
+      controller.expects(:render).with(template: 'static_pages/2011_syntax_help')
+
+      get :show, path: 'syntax_help', year: 2011
+    end
+
+    it 'should render 404 if static page does not exist' do
+      Conference.where(year: 5000).first || FactoryGirl.create(:conference, year: 5000)
+
+      get :show, path: 'syntax_help', year: 5000
+
+      expect(response.status).to eq(404)
     end
   end
 
