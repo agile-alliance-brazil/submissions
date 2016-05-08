@@ -4,10 +4,13 @@ class PagesController < ApplicationController
 
   def show
     @page = resource
+    static_path = "static_pages/#{@conference.year}_#{path}"
     if @page
       render :show
+    elsif File.exist?(File.join(Rails.root, 'app/views/', static_path))
+      render template: static_path
     else
-      render template: "static_pages/#{@conference.year}_#{path}"
+      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
     end
   end
 

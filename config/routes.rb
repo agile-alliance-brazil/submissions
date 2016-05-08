@@ -36,7 +36,7 @@ AgileBrazil::Application.routes.draw do
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
 
-  scope '(:year)', constraints: { year: /\d{4}/ } do
+  scope '(:year)', constraints: { year: /\d{1,4}/ } do
     root to: 'pages#show', as: :conference_root
 
     resources :organizers, except: %i(show)
