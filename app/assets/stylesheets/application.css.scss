@@ -691,36 +691,109 @@ button::disabled {
   border-radius: 0;
   border: 0;
   margin: .5rem 0;
-  ul.ui-tabs-nav {
-    border-radius: 0;
-    background: transparent;
-    height: 24px;
-    li {
-      background: #ccc;
-      border: 1px solid #999;
-      border-bottom: 1px solid #333;
+  .navigation-container {
+    position: relative;
+    &.with-scroll {
+      > div {
+        &.scroll_left, &.scroll_right {
+          display: inline-block;
+          background-color: white;
+          height: 24px;
+          padding: 0 .25rem;
+          cursor: pointer;
+          width: 1.5rem;
+          box-sizing: border-box;
+        }
+        &.scroll_left {
+          float: left;
+          text-align: left;
+        }
+        &.scroll_right {
+          float: right;
+          text-align: right;
+        }
+      }
+      > ul.ui-tabs-nav {
+        overflow: hidden;
+        margin-right: 3.5rem;
+        li {
+          &.ui-tabs-active {
+            position: relative;
+            border-bottom: 1px solid #fff;
+          }
+          &.add_tab {
+            position: absolute;
+            right: 1.5rem;
+            z-index: 1;
+            overflow: visible;
+          }
+        }
+      }
+    }
+    div.scroll_left, div.scroll_right {
+      display: none;
+    }
+    ul.ui-tabs-nav {
       border-radius: 0;
-      display: inline-block;
-      height: 23px;
-      max-width: 10rem;
+      background: transparent;
+      height: 24px;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &.ui-state-hover {
-        background: #eee;
-        border: 1px solid #666;
+      li {
+        background: #ccc;
+        border: 1px solid #999;
         border-bottom: 1px solid #333;
-      }
-      &.ui-tabs-active {
-        background: transparent;
-        border: 1px solid #333;
-        border-bottom: 1px solid #fff;
-      }
-      a {
-        border: 0;
         border-radius: 0;
-        padding: 0.25rem 0.5rem 0 0.5rem;
-        line-height: 1.3rem;
+        display: inline-block;
+        height: 23px;
+        max-width: 10rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0 0.25rem;
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        };
+        &.scroll_left, &.scroll_right {
+          display: none;
+        }
+        &.dirty {
+          color: red;
+          a {
+            color: red;
+          }
+        }
+        &.dirty a::before {
+          content: '*';
+        }
+        &.ui-state-hover {
+          background: #eee;
+          border: 1px solid #666;
+          border-bottom: 1px solid #333;
+        }
+        &.ui-tabs-active {
+          background: #fff;
+          border: 1px solid #333;
+          border-bottom: 1px solid #fff;
+          margin-bottom: 0;
+        }
+        &.add_tab {
+          width: 1.5rem;
+          text-align: center;
+          a {
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+        a {
+          border: 0;
+          border-radius: 0;
+          padding: 0.25rem 0.5rem 0 0.5rem;
+          line-height: 1.3rem;
+        }
       }
     }
   }

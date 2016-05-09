@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class AudienceLevelsController < ApplicationController
   skip_before_filter :authenticate_user!, only: %i(index)
+  respond_to :json, :html
 
   def index
     @audience_levels = resource_class.for_conference(@conference).includes(:translated_contents)
@@ -9,8 +10,7 @@ class AudienceLevelsController < ApplicationController
   def create
     @audience_level = resource_class.new(audience_level_params)
     if @audience_level.save
-      flash[:notice] = t('flash.audience_level.create.success')
-      redirect_to conference_audience_levels_path(@conference)
+      send_success_response(t('flash.audience_level.create.success'))
     else
       @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
@@ -35,8 +35,7 @@ class AudienceLevelsController < ApplicationController
   def update
     @audience_level = resource_class.where(id: params[:id]).first
     if @audience_level.update_attributes(audience_level_params)
-      flash[:notice] = t('flash.audience_level.update.success')
-      redirect_to conference_audience_levels_path(@conference)
+      send_success_response(t('flash.audience_level.update.success'))
     else
       @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
@@ -66,5 +65,23 @@ class AudienceLevelsController < ApplicationController
   def audience_level_params
     attrs = params.require(:audience_level).permit(translated_contents_attributes: %i(id language title content))
     attrs.merge(conference_id: @conference.id)
+  end
+
+  def send_success_response(notice)
+    respond_with @audience_level do |format|
+       format.html {
+         redirect_to conference_audience_levels_path(@conference), notice: notice
+       }
+       format.json {
+         render json: {
+           id: @audience_level.id,
+           translations: @conference.languages.map do |l|
+             I18n.with_locale(l[:code]) do
+               {title: @audience_level.title, description: @audience_level.description, language: l }
+             end
+           end
+         }
+       }
+     end
   end
 end

@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class SessionTypesController < ApplicationController
   skip_before_filter :authenticate_user!, only: %i(index)
+  respond_to :json, :html
 
   def index
     @session_types = resource_class.for_conference(@conference).includes(:translated_contents)
@@ -9,8 +10,7 @@ class SessionTypesController < ApplicationController
   def create
     @session_type = resource_class.new(session_type_params)
     if @session_type.save
-      flash[:notice] = t('flash.session_type.create.success')
-      redirect_to conference_session_types_path(@conference)
+      send_success_response(t('flash.session_type.create.success'))
     else
       @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
@@ -35,8 +35,7 @@ class SessionTypesController < ApplicationController
   def update
     @session_type = resource_class.where(id: params[:id]).first
     if @session_type.update_attributes(session_type_params)
-      flash[:notice] = t('flash.session_type.update.success')
-      redirect_to conference_session_types_path(@conference)
+      send_success_response(t('flash.session_type.update.success'))
     else
       @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
       @new_track = Track.new(conference: @conference)
@@ -65,7 +64,7 @@ class SessionTypesController < ApplicationController
 
   def session_type_params
     allowed_params = []
-    allowed_params << { valid_durations: [] } unless @conference.visible?
+    allowed_params << { valid_durations: [] } if @session_type.nil? || !@conference.visible?
     allowed_params << { translated_contents_attributes: %i(id language title content) }
     attrs = params.require(:session_type).permit(allowed_params)
     attrs = attrs.merge(conference_id: @conference.id)
@@ -73,5 +72,24 @@ class SessionTypesController < ApplicationController
       attrs[:valid_durations] = attrs[:valid_durations].map(&:to_i)
     end
     attrs
+  end
+
+  def send_success_response(notice)
+    respond_with @session_type do |format|
+       format.html {
+         redirect_to conference_session_types_path(@conference), notice: notice
+       }
+       format.json {
+         render json: {
+           id: @session_type.id,
+           valid_durations: @session_type.valid_durations,
+           translations: @conference.languages.map do |l|
+             I18n.with_locale(l[:code]) do
+               {title: @session_type.title, description: @session_type.description, language: l }
+             end
+           end
+         }
+       }
+     end
   end
 end

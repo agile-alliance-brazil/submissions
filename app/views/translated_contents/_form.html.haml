@@ -1,0 +1,23 @@
+/ Inbound: new_element and collection
+- type_name = new_element.class.to_s.underscore
+- type_name_plural = "#{type_name}s"
+.tabs{:'data-current-language' => I18n.locale, id: type_name_plural}
+  %h4= t("title.#{type_name_plural}")
+  %div.navigation-container
+    %div.scroll_left &lt;
+    %div.scroll_right &gt;
+    %ul{class: type_name_plural}<
+      - collection.each do |element|
+        %li{class: type_name}>
+          = link_to element.title, "##{type_name}-#{element.id}"
+      %li.add_tab{class: type_name}>
+        = link_to '+', "##{type_name}-new"
+  - collection.each do |element|
+    %div{id: "#{type_name}-#{element.id}", class: "#{type_name}_tab"}
+      = form_for [@conference, element], remote: true, format: :json, html: {class: 'tabs old', :'data-typename' => type_name} do |f|
+        = render layout: 'translated_contents/nested_content', locals: {f: f, element: element} do
+          = yield f
+  %div{id: "#{type_name}-new"}
+    = form_for [@conference, new_element], remote: true, format: :json, html: {class: 'tabs new', :'data-typename' => type_name} do |f|
+      = render layout: 'translated_contents/nested_content', locals: {f: f, element: new_element} do
+        = yield f

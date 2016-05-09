@@ -74,6 +74,8 @@ en:
     'yes': "Yes"
     'no': "No"
     required: 'Required'
+    create: 'Create %{model}'
+    update: 'Update %{model}'
     titles:
       user_login: "Login details"
       user_personal: "Personal details"

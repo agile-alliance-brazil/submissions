@@ -76,6 +76,8 @@ pt:
     'yes': 'Sim'
     'no': 'Não'
     required: 'Obrigatório'
+    create: 'Criar %{model}'
+    update: 'Atualizar %{model}'
     titles:
       user_login: "Informações de Login"
       user_personal: "Informações Pessoais"

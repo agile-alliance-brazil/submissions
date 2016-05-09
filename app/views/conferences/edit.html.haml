@@ -29,185 +29,33 @@
   = form.actions do
     = form.action :submit, label: :update_conference, button_html: {tabindex: autotab}
 
-#tracks.tabs
-  %h4= t('title.tracks')
-  %ul.tracks
-    - @conference.tracks.each do |track|
-      %li.track= link_to track.title, "#track-#{track.id}"
-    %li.track= link_to '+', '#track-new'
-  - @conference.tracks.each do |track|
-    %div.track_tab{id: "track-#{track.id}"}
-      = form_for [@conference, track], remote: true, html: {class: 'tabs'} do |f|
-        - if @conference.languages.size > 1
-          %ul.languages
-            - @conference.languages.each do |language|
-              %li.track_language= link_to language[:name], "#track-#{track.id}-#{language[:code]}"
-        = f.fields_for :translated_contents do |content_form|
-          %div{id: "track-#{track.id}-#{content_form.object.language}"}
-            = content_form.hidden_field(:language)
-            %label.field
-              %span.text= t('formtastic.labels.track.title')
-              = content_form.text_field(:title, class: 'data')
-            .description= content_form.text_area(:content)
-        = f.submit
-  %div{id: "track-new"}
-    = form_for [@conference, @new_track], remote: true, html: {class: 'tabs'} do |f|
-      - if @conference.languages.size > 1
-        %ul.languages
-          - @conference.languages.each do |language|
-            %li.track_language= link_to language[:name], "#track-new-#{language[:code]}"
-      = f.fields_for :translated_contents do |content_form|
-        %div{id: "track-new-#{content_form.object.language}"}
-          = content_form.hidden_field(:language)
-          %label.field
-            %span.text= t('formtastic.labels.track.title')
-            = content_form.text_field(:title)
-          .description= content_form.text_area(:content)
-      = f.submit
+= render layout: 'translated_contents/form', locals: {collection: @conference.tracks, new_element: @new_track} do |f|
+  %div
 
-#session_types.tabs
-  %h4= t('title.session_types')
-  %ul.session_types
-    - @conference.session_types.each do |session_type|
-      %li.session_type= link_to session_type.title, "#session_type-#{session_type.id}"
-    %li.session_type= link_to '+', '#session_type-new'
-  - @conference.session_types.each do |session_type|
-    %div.session_type_tab{id: "session_type-#{session_type.id}"}
-      = form_for [@conference, session_type], remote: true, html: {class: 'tabs'} do |f|
-        %div.durations
-          %h6= t('formtastic.labels.session_type.valid_durations')
-          - (session_type.valid_durations + common_durations).uniq.each do |duration|
-            %label
-              = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: @conference.visible?}, duration, nil
-              = t('formtastic.labels.session_type.session_duration', duration: duration)
-          %label.duration_template
-            = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: @conference.visible?}, '%duration', nil
-            = t('formtastic.labels.session_type.session_duration', duration: '%duration')
-          %span.new_duration
-            = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input', disabled: @conference.visible?)
-            = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
-        - if @conference.languages.size > 1
-          %ul.languages
-            - @conference.languages.each do |language|
-              %li.session_type_language= link_to language[:name], "#session_type-#{session_type.id}-#{language[:code]}"
-        = f.fields_for :translated_contents do |content_form|
-          %div{id: "session_type-#{session_type.id}-#{content_form.object.language}"}
-            = content_form.hidden_field(:language)
-            %label.field
-              %span.text= t('formtastic.labels.session_type.title')
-              = content_form.text_field(:title)
-            .description= content_form.text_area(:content)
-        = f.submit
-  %div{id: "session_type-new"}
-    = form_for [@conference, @new_session_type], remote: true, html: {class: 'tabs'} do |f|
-      %div.durations
-        %h6= t('formtastic.labels.session_type.valid_durations')
-        - common_durations.each do |duration|
-          %label
-            = f.check_box :valid_durations, { multiple: true }, duration, nil
-            = t('formtastic.labels.session_type.session_duration', duration: duration)
-        %label.duration_template
-          = f.check_box :valid_durations, { multiple: true }, '%duration', nil
-          = t('formtastic.labels.session_type.session_duration', duration: '%duration')
-        %span.new_duration
-          = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input')
-          = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
-      - if @conference.languages.size > 1
-        %ul.languages
-          - @conference.languages.each do |language|
-            %li.session_type_language= link_to language[:name], "#session_type-new-#{language[:code]}"
-      = f.fields_for :translated_contents do |content_form|
-        %div{id: "session_type-new-#{content_form.object.language}"}
-          = content_form.hidden_field(:language)
-          %label.field
-            %span.text= t('formtastic.labels.session_type.title')
-            = content_form.text_field(:title)
-          .description= content_form.text_area(:content)
-      = f.submit
+= render layout: 'translated_contents/form', locals: {collection: @conference.session_types, new_element: @new_session_type} do |f|
+  %div.durations
+    %h6= t('formtastic.labels.session_type.valid_durations')
+    - (f.object.valid_durations + common_durations).uniq.each do |duration|
+      %label
+        = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: (!f.object.new_record?) && @conference.visible?}, duration, nil
+        = t('formtastic.labels.session_type.session_duration', duration: duration)
+    %label.duration_template
+      = f.check_box :valid_durations, { multiple: true, class: 'duration', disabled: (!f.object.new_record?) && @conference.visible?}, '%duration', nil
+      = t('formtastic.labels.session_type.session_duration', duration: '%duration')
+    %span.new_duration
+      = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input', disabled: (!f.object.new_record?) && @conference.visible?)
+      = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
 
-#audience_levels.tabs
-  %h4= t('title.audience_levels')
-  %ul.audience_levels
-    - @conference.audience_levels.each do |audience_level|
-      %li.audience_level= link_to audience_level.title, "#audience_level-#{audience_level.id}"
-    %li.audience_level= link_to '+', '#audience_level-new'
-  - @conference.audience_levels.each do |audience_level|
-    %div.audience_level_tab{id: "audience_level-#{audience_level.id}"}
-      = form_for [@conference, audience_level], remote: true, html: {class: 'tabs'} do |f|
-        - if @conference.languages.size > 1
-          %ul.languages
-            - @conference.languages.each do |language|
-              %li.audience_level_language= link_to language[:name], "#audience_level-#{audience_level.id}-#{language[:code]}"
-        = f.fields_for :translated_contents do |content_form|
-          %div{id: "audience_level-#{audience_level.id}-#{content_form.object.language}"}
-            = content_form.hidden_field(:language)
-            %label.field
-              %span.text= t('formtastic.labels.audience_level.title')
-              = content_form.text_field(:title)
-            .description= content_form.text_area(:content)
-        = f.submit
-  %div{id: "audience_level-new"}
-    = form_for [@conference, @new_audience_level], remote: true, html: {class: 'tabs'} do |f|
-      - if @conference.languages.size > 1
-        %ul.languages
-          - @conference.languages.each do |language|
-            %li.audience_level_language= link_to language[:name], "#audience_level-new-#{language[:code]}"
-      = f.fields_for :translated_contents do |content_form|
-        %div{id: "audience_level-new-#{content_form.object.language}"}
-          = content_form.hidden_field(:language)
-          %label.field
-            %span.text= t('formtastic.labels.audience_level.title')
-            = content_form.text_field(:title)
-          .description= content_form.text_area(:content)
-      = f.submit
+= render layout: 'translated_contents/form', locals: {collection: @conference.audience_levels, new_element: @new_audience_level} do |f|
+  %div
 
-#pages.tabs
-  %h4= t('title.pages')
-  %ul.pages
-    - @conference.pages.each do |page|
-      %li.page= link_to page.title, "#page-#{page.id}"
-    %li.page= link_to '+', '#page-new'
-  - @conference.pages.each do |page|
-    %div.page_tab{id: "page-#{page.id}"}
-      = form_for [@conference, page], remote: true, html: {class: 'tabs'} do |f|
-        %label.field
-          %span.text= t('formtastic.labels.page.path')
-          = f.text_field(:path, disabled: true)
-        %label.field
-          %span.text= t('formtastic.labels.page.show_in_menu')
-          = f.check_box(:show_in_menu, checked: page.show_in_menu? || (page.path == 'home'))
-        - if @conference.languages.size > 1
-          %ul.languages
-            - @conference.languages.each do |language|
-              %li.page_language= link_to language[:name], "#page-#{page.id}-#{language[:code]}"
-        = f.fields_for :translated_contents do |content_form|
-          %div{id: "page-#{page.id}-#{content_form.object.language}"}
-            = content_form.hidden_field(:language)
-            %label.field
-              %span.text= t('formtastic.labels.page.title')
-              = content_form.text_field(:title)
-            .description= content_form.text_area(:content)
-        = f.submit
-  %div{id: "page-new"}
-    = form_for [@conference, @new_page], remote: true, html: {class: 'tabs'} do |f|
-      %label.field.required
-        %span.text= t('formtastic.labels.page.path')
-        = f.text_field(:path)
-      %label.field
-        %span= t('formtastic.labels.page.show_in_menu')
-        = f.check_box(:show_in_menu)
-      - if @conference.languages.size > 1
-        %ul.languages
-          - @conference.languages.each do |language|
-            %li.page_language= link_to language[:name], "#page-new-#{language[:code]}"
-      = f.fields_for :translated_contents do |content_form|
-        %div{id: "page-new-#{content_form.object.language}"}
-          = content_form.hidden_field(:language)
-          %label.field
-            %span.text= t('formtastic.labels.page.title')
-            = content_form.text_field(:title)
-          .description= content_form.text_area(:content)
-      = f.submit
+= render layout: 'translated_contents/form', locals: {collection: @conference.pages, new_element: @new_page} do |f|
+  %label.field
+    %span.text= t('formtastic.labels.page.path')
+    = f.text_field(:path, disabled: !f.object.new_record?)
+  %label.field
+    %span.text= t('formtastic.labels.page.show_in_menu')
+    = f.check_box(:show_in_menu, checked: f.object.show_in_menu? || (f.object.path == 'home'))
 
 :javascript
   $(document).ready(function() {
@@ -217,6 +65,11 @@
       });
     }
     $('.tabs').tabs();
+    $('.tabs').tabs({
+      activate: function( event, ui ) {
+        $(this).find(':input:visible:enabled:first').focus();
+      }
+    });
 
     var readURL = function(input) {
       if (input.files && input.files[0]) {
@@ -257,5 +110,105 @@
         $(e.currentTarget).removeClass('selectedTag');
       }
       $('#conference_tag_list').val(tags.join(','));
+    });
+
+    var updateScrolledClass = function(navigation) {
+      var tabWindow = navigation.children('ul');
+      var isScrollable = tabWindow.get(0).scrollWidth > tabWindow.width();
+      navigation.toggleClass('with-scroll', isScrollable);
+    }
+
+    $('.tabs').each(function(idx, e, arr) {
+      var navigation = $(e).children('.navigation-container');
+      if (navigation.size() > 0) {
+        updateScrolledClass(navigation);
+        var toFocusOn = navigation.children('ul').find('.ui-tabs-active');
+        var scrollable = $(e).children('.scrolled').children('ul');
+        scrollable.scrollLeft(scrollable.scrollLeft() + toFocusOn.position().left);
+      }
+    });
+
+    $('.scroll_left').click(function(e) {
+      var target = $(this).siblings('ul');
+      var scrollLength = target.width() * 0.9;
+      var targetScroll = target.scrollLeft() - scrollLength;
+      target.animate({scrollLeft: targetScroll});
+    });
+
+    $('.scroll_right').click(function(e) {
+      var target = $(this).siblings('ul');
+      var scrollLength = target.width() * 0.9;
+      var targetScroll = target.scrollLeft() + scrollLength;
+      target.animate({scrollLeft: targetScroll});
+    });
+
+    var markAsDirty = function(e) {
+      var parentForm = $(this).parents('form.tabs');
+      var container = parentForm.parents('.tabs').children('.navigation-container');
+      var activeTab = container.children('ul').find('.ui-tabs-active');
+      activeTab.addClass('dirty');
+    };
+    var clearDirtyMark = function(e, data, status, xhr) {
+      var container = $(this).parents('.tabs').children('.navigation-container');
+      var activeTab = container.children('ul').find('.ui-tabs-active');
+      activeTab.removeClass('dirty');
+    };
+
+    $('form.tabs.old :input').change(markAsDirty);
+
+    $('form.tabs.new').on('ajax:success', function(e, data, status, xhr) {
+      $(this).find('ul li:first-child a').click();
+      $(this).find('input[type="text"],textarea').val('');
+      $(this).find('input[type="checkbox"]').removeAttr('checked');
+      $(this).find('input[type="radiobox"]').prop('checked', false);
+      var titleToShow = data.translations[0].title;
+      var typeName = $(this).data('typename');
+      var newLi = '<li class="'+typeName+'"><a href="#'+typeName+'-'+data.id+'">'+titleToShow+'</a></li>';
+      $('.'+typeName+'s .add_tab').before(newLi);
+      var newTab = $('#'+typeName+'-new').clone();
+      newTab.attr('id', typeName + '-' + data.id);
+      newTab.addClass('track_tab');
+      var f = newTab.find('form.tabs.new');
+      f.removeClass('new').addClass('old');
+      data.translations.forEach(function(e, idx, arr) {
+        var languageLink = newTab.find('.'+typeName+'_language.'+e.language.code+' a');
+        languageLink.attr('href', languageLink.attr('href').replace('--', '-' + data.id + '-'));
+        var languageTab = newTab.find('.'+typeName+'_language_tab.' + e.language.code);
+        languageTab.attr('id', languageTab.attr('id').replace('--', '-' + data.id + '-'));
+        var titleInput = languageTab.find('.field input');
+        titleInput.val(e.title);
+        var descriptionArea = languageTab.find('.description textarea');
+        descriptionArea.val(e.description);
+        languageTab.prepend('<input id="track_translated_contents_attributes_'+idx+'_id" value="'+e.id+'" name="track[translated_contents_attributes]['+idx+'][id]" type="hidden"/>');
+      });
+      f.attr('id', 'edit_'+typeName+'_'+data.id);
+      f.attr('action', f.attr('action').replace(/([^.]+)(\.json)/g, '$1/'+data.id+'$2'));
+      f.prepend('<input name="_method" value="patch" type="hidden"/>');
+      var modelName = f.find('input[type="submit"]').data('model-name');
+      var actionText = '#{t('formtastic.update', model: '%template%')}';
+      f.find('input[type="submit"]').val(actionText.replace(/\%template\%/, modelName));
+      f.find(':input').change(markAsDirty);
+      f.tabs();
+      f.on('ajax:success', clearDirtyMark);
+      $('#'+typeName+'-new').before(newTab);
+
+      $('#'+typeName+'s.tabs').tabs('refresh');
+      var toFocusOn = $('ul.'+typeName+'s>li.'+typeName+':not(.add_tab)').last();
+      updateScrolledClass($('#'+typeName+'s>.navigation-container'));
+      var scrollable = $('.with-scroll .'+typeName+'s');
+      scrollable.scrollLeft(scrollable.scrollLeft() + toFocusOn.position().left);
+      toFocusOn.find('a').click();
+    });
+
+    $('form#page-new').on('ajax:success', function(e, data, status, xhr) {
+      $('')
+    });
+
+    $('form.tabs.old').on('ajax:success', clearDirtyMark);
+    
+    $('form.tabs').on('ajax:error', function(e, xhr, status, error) {
+      $(this).append('<p>ERROR: '+error+'</p>');
+      $(this).append('<p>STATUS: '+status+'</p>');
+      $(this).append('<p>E: '+e+'</p>');
     });
   })

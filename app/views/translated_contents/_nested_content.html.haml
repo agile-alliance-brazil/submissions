@@ -1,0 +1,19 @@
+/ Inbound: f and element
+- type_name = f.object.class.to_s.underscore
+= yield
+- if @conference.languages.size > 1
+  %div.navigation-container
+    %div.scroll_left &lt;
+    %div.scroll_right &gt;
+    %ul.languages<
+      - @conference.languages.each do |language|
+        %li{class: "#{language[:code]} #{type_name}_language"}>
+          = link_to language[:name], "##{type_name}-#{element.id}-#{language[:code]}"
+= f.fields_for :translated_contents do |content_form|
+  %div{id: "#{type_name}-#{element.id}-#{content_form.object.language}", class: "#{content_form.object.language} #{type_name}_language_tab"}
+    = content_form.hidden_field(:language)
+    %label.field
+      %span.text= t("formtastic.labels.#{type_name}.title")
+      = content_form.text_field(:title, class: 'data')
+    .description= content_form.text_area(:content)
+= f.submit(:'data-model-name' => t("activerecord.models.#{type_name}"))
