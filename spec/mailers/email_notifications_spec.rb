@@ -112,7 +112,7 @@ describe EmailNotifications, type: :mailer do
       let(:session) { FactoryGirl.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-      it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
+      it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
     end
   end
 
@@ -199,7 +199,7 @@ describe EmailNotifications, type: :mailer do
       let(:session) { FactoryGirl.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-      it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
+      it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
     end
   end
 
@@ -270,7 +270,7 @@ describe EmailNotifications, type: :mailer do
         before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.accept.title')) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-        it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
+        it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
       end
     end
   end
@@ -315,7 +315,7 @@ describe EmailNotifications, type: :mailer do
         before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-        it { should have_body_text(/#{session.author.full_name} &amp; #{user.full_name},/) }
+        it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
       end
     end
   end
