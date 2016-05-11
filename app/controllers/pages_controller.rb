@@ -38,7 +38,8 @@ class PagesController < ApplicationController
 
   private
   def resource
-    Page.where(id: params[:id]).first || Page.for_conference(@conference).with_path(path).first
+    Page.where(id: params[:id]).includes(:translated_contents).first ||
+      Page.for_conference(@conference).with_path(path).includes(:translated_contents).first
   end
 
   def path
@@ -91,6 +92,7 @@ class PagesController < ApplicationController
     result = yield
     json_page = {
       path: @page.path,
+      show_in_menu: @page.show_in_menu?,
       translations: @conference.languages.map do |l|
         c = @page.translated_contents.where(language: l[:code]).first
         {id: c.id, title: c.title, description: c.content, language: l }

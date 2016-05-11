@@ -1,7 +1,7 @@
 - title t('title.edit_conference')
 - show_actions!
 
-= semantic_form_for @conference do |form|
+= semantic_form_for @conference, html: {:'data-visible' => @conference.visible?} do |form|
   = form.inputs do
     = image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png", class: 'logo_preview image_preview', alt: 'Logo da Conferência')
     = form.file_field :logo, class: 'image_field'
@@ -52,7 +52,7 @@
 = render layout: 'translated_contents/form', locals: {collection: @conference.pages, new_element: @new_page} do |f|
   %label.field
     %span.text= t('formtastic.labels.page.path')
-    = f.text_field(:path, disabled: !f.object.new_record?)
+    = f.text_field(:path, disabled: !f.object.new_record?, class: 'path')
   %label.field
     %span.text= t('formtastic.labels.page.show_in_menu')
-    = f.check_box(:show_in_menu, checked: f.object.show_in_menu? || (f.object.path == 'home'))
+    = f.check_box(:show_in_menu, checked: f.object.show_in_menu? || (f.object.path == 'home'), class: 'show_in_menu')

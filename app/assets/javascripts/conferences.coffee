@@ -18,6 +18,7 @@
     if isValidNewDuration(input)
       template = parent.find('.duration_template')
       newCheckbox = template.clone()
+      newCheckbox.addClass('new_duration')
       newCheckbox.removeClass('duration_template')
       newInput = newCheckbox.find('input')
       val = input.val()
@@ -106,6 +107,9 @@
       else if (otherIndex > currentIndex)
         setMinDate($(input), new Date(currentDate), otherIndex - currentIndex)
 
+  fieldFocus = (form) ->
+    form.find(':input:visible:enabled:first').focus()
+
   $(document).ready () ->
     orderedDates = $('.conference_date').sort((a, b) ->
       aIndex = parseInt($(a).attr('dateindex'), 10)
@@ -138,7 +142,7 @@
       $('input[type="date"]').datepicker(dateFormat: "yy-mm-dd")
 
     $('.tabs').tabs()
-    $('.tabs').tabs(activate: (event, ui) -> $(this).find(':input:visible:enabled:first').focus())
+    $('.tabs').tabs(activate: (event, ui) -> fieldFocus($(this)))
 
     $(".image_field").change () -> readURL(this)
 
@@ -226,6 +230,23 @@
 
     $('form.tabs.translated_contents.old :input').change markAsDirty
     $('form.tabs.translated_contents.old').on 'ajax:success', clearDirtyMark
+
+    $('#new_session_type').on 'ajax:success', (e, data, status, xhr) ->
+      id = data.id
+      conference_visible = $('form.conference').data('visible')
+      $('#edit_session_type_'+id+' .durations input[type="checkbox"]').each (idx, c) ->
+        value = parseInt($(c).val(), 10)
+        $(c).prop('checked', data.valid_durations.indexOf(value) >= 0)
+        $(c).prop('disabled', conference_visible)
+      $('#edit_session_type_'+id+' .durations .duration_input').prop('disabled', conference_visible)
+      $('#edit_session_type_'+id+' .durations .add_other_duration').prop('disabled', conference_visible)
+
+    $('#new_page').on 'ajax:success', (e, data, status, xhr) ->
+      id = data.id
+      $('#edit_page_'+id+' input.path[type="text"]').val(data.path)
+      $('#edit_page_'+id+' input.path[type="text"]').prop('disabled', true)
+      $('#edit_page_'+id+' input.show_in_menu[type="checkbox"]').prop('checked', data.show_in_menu)
+      fieldFocus($(this))
 
     $('form.tabs.translated_contents').on 'ajax:error', (e, xhr, status, error) ->
       $(this).append('<p>ERROR: '+error+'</p>')

@@ -41,8 +41,8 @@ class Conference < ActiveRecord::Base
   end
 
   def default_page # TODO: tests
-    home_page = Page.for_conference(self).with_path('home').first
-    home_page = Page.for_conference(self).with_path('/').first if home_page.nil? # TODO: Legacy, remove
+    home_page = Page.for_conference(self).with_path('home').includes(:translated_contents).first
+    home_page = Page.for_conference(self).with_path('/').includes(:translated_contents).first if home_page.nil? # TODO: Legacy, remove
     home_page
   end
 
@@ -50,7 +50,7 @@ class Conference < ActiveRecord::Base
     if pages.count > 0
       links = []
       links << [I18n.t('title.home'), default_page] if default_page
-      links + pages.where(show_in_menu: true).where.not(path: 'home').map {|p| [p.title, p]}
+      links + pages.includes(:translated_contents).where(show_in_menu: true).where.not(path: 'home').map {|p| [p.title, p]}
     else
       [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guidelines"]] # Legacy
     end
