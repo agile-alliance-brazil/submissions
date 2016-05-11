@@ -3,20 +3,20 @@
 
 = semantic_form_for @conference do |form|
   = form.inputs do
-    = image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png", class: 'logo_preview', alt: 'Logo da Conferência')
-    = form.file_field :logo
+    = image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png", class: 'logo_preview image_preview', alt: 'Logo da Conferência')
+    = form.file_field :logo, class: 'image_field'
     = form.input :location, required: true, input_html: {tabindex: autotab}
-    = form.input :start_date, required: true, as: :date_picker, input_html: {tabindex: autotab}
-    = form.input :end_date, required: true, as: :date_picker, input_html: {tabindex: autotab}
-    = form.input :call_for_papers, as: :date_picker, input_html: {tabindex: autotab, value: @conference.call_for_papers.try(:strftime, '%F')}
-    = form.input :submissions_open, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.submissions_open.try(:strftime, '%F')}
-    = form.input :presubmissions_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.presubmissions_deadline.try(:strftime, '%F')}
-    = form.input :prereview_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.prereview_deadline.try(:strftime, '%F')}
-    = form.input :submissions_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.submissions_deadline.try(:strftime, '%F')}
-    = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, value: @conference.voting_deadline.try(:strftime, '%F')}
-    = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.review_deadline.try(:strftime, '%F')}
-    = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_notification.try(:strftime, '%F')}
-    = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, value: @conference.author_confirmation.try(:strftime, '%F')}
+    = form.input :start_date, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 9, class: 'conference_date'}
+    = form.input :end_date, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 10, class: 'conference_date'}
+    = form.input :call_for_papers, as: :date_picker, input_html: {tabindex: autotab, dateindex: 0, value: @conference.call_for_papers.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :submissions_open, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 1,  value: @conference.submissions_open.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :presubmissions_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 2, value: @conference.presubmissions_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :prereview_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 3, value: @conference.prereview_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :submissions_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 4, value: @conference.submissions_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 5, value: @conference.voting_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 6, value: @conference.review_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 7, value: @conference.author_notification.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 8, value: @conference.author_confirmation.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :tag_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil, value: (@conference.tag_list||[]).join(',')}, as: :hidden
     %li
       %label= t('formtastic.labels.conference.tag_list')
@@ -56,159 +56,3 @@
   %label.field
     %span.text= t('formtastic.labels.page.show_in_menu')
     = f.check_box(:show_in_menu, checked: f.object.show_in_menu? || (f.object.path == 'home'))
-
-:javascript
-  $(document).ready(function() {
-    if (!Modernizr.inputtypes.date) {
-      $("input[type='date']").datepicker({
-          dateFormat: "yy-mm-dd"
-      });
-    }
-    $('.tabs').tabs();
-    $('.tabs').tabs({
-      activate: function( event, ui ) {
-        $(this).find(':input:visible:enabled:first').focus();
-      }
-    });
-
-    var readURL = function(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $('form.conference .logo_preview').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    };
-
-    $("#conference_logo").change(function(){
-      readURL(this);
-    });
-
-    var tags = [];
-
-    function loadAlreadySelectedTags() {
-      var commaSeparatedTags = $('#conference_tag_list').get(0).value;
-      tags = commaSeparatedTags.length == 0 ? [] : commaSeparatedTags.split(',');
-      for (var i = 0; i < tags.length; i++) {
-        var tagItem = $('li[data-tag="' + tags[i] + '"]').get(0);
-        $(tagItem).addClass('selectedTag');
-      }
-    }
-    loadAlreadySelectedTags();
-
-    $('.tags li').click(function(e) {
-      var newTag = $(e.currentTarget).data('tag');
-      var index = tags.indexOf(newTag);
-      if (index == -1) {
-        tags.push(newTag);
-        $(e.currentTarget).addClass('selectedTag');
-      } else {
-        tags.splice(index, 1);
-        $(e.currentTarget).removeClass('selectedTag');
-      }
-      $('#conference_tag_list').val(tags.join(','));
-    });
-
-    var updateScrolledClass = function(navigation) {
-      var tabWindow = navigation.children('ul');
-      var isScrollable = tabWindow.get(0).scrollWidth > tabWindow.width();
-      navigation.toggleClass('with-scroll', isScrollable);
-    }
-
-    $('.tabs').each(function(idx, e, arr) {
-      var navigation = $(e).children('.navigation-container');
-      if (navigation.size() > 0) {
-        updateScrolledClass(navigation);
-        var toFocusOn = navigation.children('ul').find('.ui-tabs-active');
-        var scrollable = $(e).children('.scrolled').children('ul');
-        scrollable.scrollLeft(scrollable.scrollLeft() + toFocusOn.position().left);
-      }
-    });
-
-    $('.scroll_left').click(function(e) {
-      var target = $(this).siblings('ul');
-      var scrollLength = target.width() * 0.9;
-      var targetScroll = target.scrollLeft() - scrollLength;
-      target.animate({scrollLeft: targetScroll});
-    });
-
-    $('.scroll_right').click(function(e) {
-      var target = $(this).siblings('ul');
-      var scrollLength = target.width() * 0.9;
-      var targetScroll = target.scrollLeft() + scrollLength;
-      target.animate({scrollLeft: targetScroll});
-    });
-
-    var markAsDirty = function(e) {
-      var parentForm = $(this).parents('form.tabs');
-      var container = parentForm.parents('.tabs').children('.navigation-container');
-      var activeTab = container.children('ul').find('.ui-tabs-active');
-      activeTab.addClass('dirty');
-    };
-    var clearDirtyMark = function(e, data, status, xhr) {
-      var container = $(this).parents('.tabs').children('.navigation-container');
-      var activeTab = container.children('ul').find('.ui-tabs-active');
-      activeTab.removeClass('dirty');
-    };
-
-    $('form.tabs.old :input').change(markAsDirty);
-
-    $('form.tabs.new').on('ajax:success', function(e, data, status, xhr) {
-      $(this).find('ul li:first-child a').click();
-      $(this).find('input[type="text"],textarea').val('');
-      $(this).find('input[type="checkbox"]').removeAttr('checked');
-      $(this).find('input[type="radiobox"]').prop('checked', false);
-      var titleToShow = data.translations[0].title;
-      var typeName = $(this).data('typename');
-      var newLi = '<li class="'+typeName+'"><a href="#'+typeName+'-'+data.id+'">'+titleToShow+'</a></li>';
-      $('.'+typeName+'s .add_tab').before(newLi);
-      var newTab = $('#'+typeName+'-new').clone();
-      newTab.attr('id', typeName + '-' + data.id);
-      newTab.addClass('track_tab');
-      var f = newTab.find('form.tabs.new');
-      f.removeClass('new').addClass('old');
-      data.translations.forEach(function(e, idx, arr) {
-        var languageLink = newTab.find('.'+typeName+'_language.'+e.language.code+' a');
-        languageLink.attr('href', languageLink.attr('href').replace('--', '-' + data.id + '-'));
-        var languageTab = newTab.find('.'+typeName+'_language_tab.' + e.language.code);
-        languageTab.attr('id', languageTab.attr('id').replace('--', '-' + data.id + '-'));
-        var titleInput = languageTab.find('.field input');
-        titleInput.val(e.title);
-        var descriptionArea = languageTab.find('.description textarea');
-        descriptionArea.val(e.description);
-        languageTab.prepend('<input id="track_translated_contents_attributes_'+idx+'_id" value="'+e.id+'" name="track[translated_contents_attributes]['+idx+'][id]" type="hidden"/>');
-      });
-      f.attr('id', 'edit_'+typeName+'_'+data.id);
-      f.attr('action', f.attr('action').replace(/([^.]+)(\.json)/g, '$1/'+data.id+'$2'));
-      f.prepend('<input name="_method" value="patch" type="hidden"/>');
-      var modelName = f.find('input[type="submit"]').data('model-name');
-      var actionText = '#{t('formtastic.update', model: '%template%')}';
-      f.find('input[type="submit"]').val(actionText.replace(/\%template\%/, modelName));
-      f.find(':input').change(markAsDirty);
-      f.tabs();
-      f.on('ajax:success', clearDirtyMark);
-      $('#'+typeName+'-new').before(newTab);
-
-      $('#'+typeName+'s.tabs').tabs('refresh');
-      var toFocusOn = $('ul.'+typeName+'s>li.'+typeName+':not(.add_tab)').last();
-      updateScrolledClass($('#'+typeName+'s>.navigation-container'));
-      var scrollable = $('.with-scroll .'+typeName+'s');
-      scrollable.scrollLeft(scrollable.scrollLeft() + toFocusOn.position().left);
-      toFocusOn.find('a').click();
-    });
-
-    $('form#page-new').on('ajax:success', function(e, data, status, xhr) {
-      $('')
-    });
-
-    $('form.tabs.old').on('ajax:success', clearDirtyMark);
-    
-    $('form.tabs').on('ajax:error', function(e, xhr, status, error) {
-      $(this).append('<p>ERROR: '+error+'</p>');
-      $(this).append('<p>STATUS: '+status+'</p>');
-      $(this).append('<p>E: '+e+'</p>');
-    });
-  })

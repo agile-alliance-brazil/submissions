@@ -85,7 +85,7 @@ class Conference < ActiveRecord::Base
   end
 
   def self.current
-    where(visible: true).order('year desc').first
+    where(visible: true).order('year desc').includes(pages: [:translated_contents]).first
   end
 
   def to_param
