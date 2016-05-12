@@ -20,7 +20,7 @@ class PagesController < ApplicationController
     @page = Page.new(create_page_attributes)
     respond_with @page do |format|
       format.html { handle_html_response { @page.save } }
-      format.json { handle_json_response{ @page.save } }
+      format.json { handle_json_response { @page.save } }
     end
   end
 
@@ -32,7 +32,7 @@ class PagesController < ApplicationController
       format.html do
         handle_html_response { @page.update_attributes(attrs) }
       end
-      format.json { handle_json_response{ @page.update_attributes(attrs) } }
+      format.json { handle_json_response { @page.update_attributes(attrs) } }
     end
   end
 
@@ -95,11 +95,11 @@ class PagesController < ApplicationController
       show_in_menu: @page.show_in_menu?,
       translations: @conference.languages.map do |l|
         c = @page.translated_contents.where(language: l[:code]).first
-        {id: c.id, title: c.title, description: c.content, language: l }
+        { id: c.id, title: c.title, description: c.content, language: l }
       end
     }
     if result
-      render json: json_page.merge(id: @page.id) 
+      render json: json_page.merge(id: @page.id)
     else
       render json: json_page.merge(errors: @page.errors)
     end

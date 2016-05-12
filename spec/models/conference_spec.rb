@@ -75,7 +75,7 @@ describe Conference, type: :model do
       subject.year += 9999
 
       expect(subject).to_not be_valid
-      expect(subject.errors[:year]).to include(I18n.t("errors.messages.constant"))
+      expect(subject.errors[:year]).to include(I18n.t('errors.messages.constant'))
     end
   end
 
@@ -127,16 +127,16 @@ describe Conference, type: :model do
     end
   end
 
-  it "should overide to_param with year" do
-    expect(FactoryGirl.build(:conference, year: 2010).to_param).to eq("2010")
-    expect(FactoryGirl.build(:conference, year: 2011).to_param).to eq("2011")
-    expect(FactoryGirl.build(:conference, year: 2012).to_param).to eq("2012")
+  it 'should overide to_param with year' do
+    expect(FactoryGirl.build(:conference, year: 2010).to_param).to eq('2010')
+    expect(FactoryGirl.build(:conference, year: 2011).to_param).to eq('2011')
+    expect(FactoryGirl.build(:conference, year: 2012).to_param).to eq('2012')
   end
 
-  describe "deadlines" do
-    describe "dates" do
+  describe 'deadlines' do
+    describe 'dates' do
       subject { FactoryGirl.build(:conference) }
-      it "should return a hash with dates and symbols" do
+      it 'should return a hash with dates and symbols' do
         subject.presubmissions_deadline = nil
         subject.prereview_deadline = nil
         expect(subject.dates).to eq([
@@ -148,7 +148,7 @@ describe Conference, type: :model do
         ])
       end
 
-      it "should include pre-submission and pre-review deadlines when available" do
+      it 'should include pre-submission and pre-review deadlines when available' do
         expect(subject.dates).to eq([
           [subject.call_for_papers, :call_for_papers],
           [subject.submissions_open, :submissions_open],
@@ -161,13 +161,13 @@ describe Conference, type: :model do
       end
     end
 
-    describe "next_deadline" do
+    describe 'next_deadline' do
       before :each do
         @conference = FactoryGirl.build(:conference)
       end
 
-      context "for authors" do
-        it "should show pre submissions deadline first" do
+      context 'for authors' do
+        it 'should show pre submissions deadline first' do
           @conference.presubmissions_deadline = DateTime.now + 3.days
           DateTime.expects(:now).returns(@conference.presubmissions_deadline - 1.second)
           expect(@conference.next_deadline(:author)).to eq([@conference.presubmissions_deadline, :presubmissions_deadline])
@@ -178,33 +178,33 @@ describe Conference, type: :model do
           expect(@conference.next_deadline(:author)).to eq([@conference.submissions_deadline, :submissions_deadline])
         end
 
-        it "should show submissions deadline second" do
+        it 'should show submissions deadline second' do
           DateTime.expects(:now).returns(@conference.submissions_deadline - 1.second)
           expect(@conference.next_deadline(:author)).to eq([@conference.submissions_deadline, :submissions_deadline])
         end
 
-        it "should show author notification deadline third" do
+        it 'should show author notification deadline third' do
           DateTime.expects(:now).returns(@conference.author_notification - 1.second)
           expect(@conference.next_deadline(:author)).to eq([@conference.author_notification, :author_notification])
         end
 
-        it "should show author confirmation deadline last" do
+        it 'should show author confirmation deadline last' do
           DateTime.expects(:now).returns(@conference.author_confirmation - 1.second)
           expect(@conference.next_deadline(:author)).to eq([@conference.author_confirmation, :author_confirmation])
         end
 
-        it "should be nil after author confirmation" do
+        it 'should be nil after author confirmation' do
           DateTime.expects(:now).returns(@conference.author_confirmation + 1.second)
           expect(@conference.next_deadline(:author)).to be_nil
         end
       end
 
-      context "for reviewers" do
+      context 'for reviewers' do
         before :each do
           @conference = FactoryGirl.build(:conference)
         end
 
-        it "should show pre review deadline first" do
+        it 'should show pre review deadline first' do
           DateTime.expects(:now).returns(@conference.prereview_deadline - 1.second)
           expect(@conference.next_deadline(:reviewer)).to eq([@conference.prereview_deadline, :prereview_deadline])
         end
@@ -215,7 +215,7 @@ describe Conference, type: :model do
           expect(@conference.next_deadline(:reviewer)).to eq([@conference.review_deadline, :review_deadline])
         end
 
-        it "should be nil after review deadline" do
+        it 'should be nil after review deadline' do
           DateTime.expects(:now).returns(@conference.review_deadline + 1.second)
           expect(@conference.next_deadline(:reviewer)).to be_nil
         end
@@ -484,6 +484,47 @@ describe Conference, type: :model do
         conference = FactoryGirl.build(:conference)
         conference.voting_deadline = nil
         expect(conference).to_not be_in_voting_phase
+      end
+    end
+  end
+
+  describe '#ideal_reviews_burn' do
+    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    context 'when the conference does not have submissions' do
+      it { expect(conference.ideal_reviews_burn).to eq [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
+    end
+
+    context 'when the conference has submissions' do
+      context 'and the submissions count fits the remaining weeks to do the reviews' do
+        let!(:session_list) { FactoryGirl.create_list(:session, 18, conference: conference) }
+        it { expect(conference.ideal_reviews_burn).to eq [54, 48, 42, 36, 30, 24, 18, 12, 6, 0] }
+      end
+
+      context 'and the remaining weeks are bigger than the reviews needed' do
+        let!(:session_list) { FactoryGirl.create_list(:session, 2, conference: conference) }
+        it { expect(conference.ideal_reviews_burn).to eq [6, 5, 4, 3, 2, 1, 0, 0, 0, 0] }
+      end
+
+      context 'and the remaining weeks are smaller than the reviews needed' do
+        let!(:session_list) { FactoryGirl.create_list(:session, 20, conference: conference) }
+        it { expect(conference.ideal_reviews_burn).to eq [60, 54, 48, 42, 36, 30, 24, 18, 12, 6] }
+      end
+    end
+  end
+
+  describe '#actual_reviews_burn' do
+    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    context 'when the conference does not have submissions' do
+      it { expect(conference.ideal_reviews_burn).to eq [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
+    end
+
+    context 'when the conference has submissions' do
+      context 'and less reviews than the total required' do
+        let!(:session_list) { FactoryGirl.create_list(:session, 4, conference: conference) }
+        let!(:review_list) { FactoryGirl.create_list(:final_review, 4, session: session_list.first, created_at: 3.weeks.ago) }
+        let!(:other_review_list) { FactoryGirl.create_list(:final_review, 7, session: session_list.second, created_at: 1.week.ago) }
+        let!(:two_weeks_review_list) { FactoryGirl.create_list(:final_review, 15, session: session_list.second, created_at: Time.zone.now) }
+        it { expect(conference.actual_reviews_burn).to eq [12, 8, 8, 1, 0] }
       end
     end
   end

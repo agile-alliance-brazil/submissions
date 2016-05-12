@@ -16,7 +16,8 @@ class ConferencesController < ApplicationController
       page.translated_contents.build(
         title: I18n.t('title.home', locale: language[:code]),
         content: language[:name],
-        language: language[:code])
+        language: language[:code]
+)
     end
     if @conference.save
       flash[:notice] = I18n.t('flash.conference.create.success')

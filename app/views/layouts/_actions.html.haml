@@ -53,8 +53,8 @@
         })
       })
   - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification || next_deadline.last == :author_confirmation)
-    - goal = next_deadline.last == :author_notification ? "data.required_decisions" : "data.total_accepted"
-    - progress = next_deadline.last == :author_notification ? "data.total_decisions" : "data.total_confirmed"
+    - goal = next_deadline.last == :author_notification ? 'data.required_decisions' : 'data.total_accepted'
+    - progress = next_deadline.last == :author_notification ? 'data.total_decisions' : 'data.total_confirmed'
     :javascript
       $(document).ready(function() {
         $.getJSON('#{review_decisions_path(@conference, format: :json)}', function(data) {
@@ -82,7 +82,7 @@
       = f.input :username, required: true, input_html: {tabindex: autotab}
       = f.input :password, required: true, hint: false, input_html: {tabindex: autotab}
     = f.actions do
-      = f.action :submit, label: "Log in", button_html: {tabindex: autotab}
+      = f.action :submit, label: 'Log in', button_html: {tabindex: autotab}
 
   %ul
     - if can? :create, User
@@ -93,11 +93,16 @@
   #warning
     %p= t('tips.users_from_last_year').html_safe
 
+- if user_signed_in? && @conference.in_final_review_phase?
+  %div{id: 'burndown_container', style: 'width:100px; height:300px;', 'data-ideal': ideal_reviews_burn(@conference), 'data-actual': actual_reviews_burn(@conference) }
+
 %h4.charts= t('actions.submissionByTrack')
-%div.charts{ id: "submittedByTrack", style: "margin-left: -3em;"}
+%div.charts{ id: 'submittedByTrack', style: 'margin-left: -3em;'}
 
 %h4.charts= t('actions.submissionByType')
-%div.charts{ id: "submittedByType", style: "margin-left: -3em;"}
+%div.charts{ id: 'submittedByType', style: 'margin-left: -3em;'}
+
+= javascript_include_tag 'submissions/burndown_reviews'
 
 :javascript
   var sessionsByTrack = #{sessions_by_track.inspect};

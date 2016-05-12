@@ -24,4 +24,12 @@ module LayoutHelper
   def available_languages
     ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES
   end
+
+  def ideal_reviews_burn(conference)
+    conference.ideal_reviews_burn
+  end
+
+  def actual_reviews_burn(conference)
+    conference.actual_reviews_burn
+  end
 end

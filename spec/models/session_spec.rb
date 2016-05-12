@@ -367,6 +367,13 @@ describe Session, type: :model do
         end
       end
     end
+
+    describe '.active' do
+      let!(:session) { FactoryGirl.create :session }
+      let!(:cancelled_session) { FactoryGirl.create :session, state: :cancelled }
+
+      it { expect(Session.active).to eq [session] }
+    end
   end
 
   SessionType.all_titles.each do |title|

@@ -13,7 +13,7 @@ class AudienceLevelsController < ApplicationController
       format.html do
         handle_html_response(t('flash.audience_level.create.success')) { @audience_level.save }
       end
-      format.json { handle_json_response{ @audience_level.save } }
+      format.json { handle_json_response { @audience_level.save } }
     end
   end
 
@@ -21,9 +21,9 @@ class AudienceLevelsController < ApplicationController
     @audience_level = resource_class.where(id: params[:id]).first
     respond_with @audience_level do |format|
       format.html do
-        handle_html_response(t('flash.audience_level.create.success')){ @audience_level.update_attributes(audience_level_params) }
+        handle_html_response(t('flash.audience_level.create.success')) { @audience_level.update_attributes(audience_level_params) }
       end
-      format.json { handle_json_response{ @audience_level.update_attributes(audience_level_params) } }
+      format.json { handle_json_response { @audience_level.update_attributes(audience_level_params) } }
     end
   end
 
@@ -71,11 +71,11 @@ class AudienceLevelsController < ApplicationController
     json_level = {
       translations: @conference.languages.map do |l|
         c = @audience_level.translated_contents.where(language: l[:code]).first
-        {id: c.id, title: c.title, description: c.content, language: l }
+        { id: c.id, title: c.title, description: c.content, language: l }
       end
     }
     if result
-      render json: json_level.merge(id: @audience_level.id) 
+      render json: json_level.merge(id: @audience_level.id)
     else
       render json: json_level.merge(errors: @audience_level.errors)
     end

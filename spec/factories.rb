@@ -168,27 +168,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :conference do
-    sequence(:year)
-    name { |c| "Conference #{c.year}" }
-
-    location('Somewhere ST')
-    call_for_papers { DateTime.now + 1.day }
-    submissions_open { DateTime.now + 2.days }
-    presubmissions_deadline { DateTime.now + 2.days + 1.hour }
-    prereview_deadline { DateTime.now + 2.days + 12.hours }
-    submissions_deadline { DateTime.now + 3.days }
-    voting_deadline { DateTime.now + 3.days + 12.hours}
-    review_deadline { DateTime.now + 4.days }
-    author_notification { DateTime.now + 5.days }
-    author_confirmation { DateTime.now + 6.days }
-    start_date { DateTime.now + 1.month }
-    end_date { DateTime.now + 1.month + 3.days }
-    logo { File.new(Rails.root.join('spec', 'resources', 'logo-trans.png')) }
-    supported_languages ['en']
-    visible true
-  end
-
   factory :page do
     conference { Conference.current || FactoryGirl.create(:conference) }
     sequence(:path) {|n| "page_#{n}"}

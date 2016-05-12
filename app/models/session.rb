@@ -66,6 +66,7 @@ class Session < ActiveRecord::Base
   scope :with_outcome, ->(outcome) {
     includes(:review_decision).where(review_decisions: { outcome_id: outcome.id, published: false })
   }
+  scope :active, -> { where('state <> ?', :cancelled) }
 
   def self.for_review_in(conference)
     sessions = for_conference(conference).without_state(:cancelled)

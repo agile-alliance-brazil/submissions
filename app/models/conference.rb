@@ -149,7 +149,37 @@ class Conference < ActiveRecord::Base
     deadlines_for(role).select {|deadline| now < deadline.first}.first
   end
 
+  def ideal_reviews_burn
+    reviews_per_week = total_reviews_needed / (weeks_to_work_in_reviews - 1)
+    reviews_per_week = reviews_per_week + 1 if reviews_per_week == 0
+    ideal_remaining = [total_reviews_needed]
+    (weeks_to_work_in_reviews - 1).times { ideal_remaining << [(ideal_remaining.last - reviews_per_week), 0].max }
+    ideal_remaining
+  end
+
+  def actual_reviews_burn
+    start_date = submissions_deadline.to_date
+    end_date = [Time.zone.today, review_deadline.to_date].min
+    reviews = Review.for_conference(self)
+    weeks = start_date.step(end_date, 1.week / 1.day).to_a
+    actual_remaining = [total_reviews_needed]
+    weeks.map do |week_start|
+      count = reviews.select { |review| week_start <= review.created_at && review.created_at < (week_start + 7.days) }.count
+      actual_remaining << [(actual_remaining.last - count), 0].max
+    end
+    actual_remaining
+  end
+
   private
+
+  def weeks_to_work_in_reviews
+    (((review_deadline - submissions_deadline).to_i) / 86400) / 7
+  end
+
+  def total_reviews_needed(reviews_per_session = 3)
+    Session.active.for_conference(self).count * reviews_per_session
+  end
+
   def deadlines_for(role)
     deadlines = case role.to_sym
     when :author

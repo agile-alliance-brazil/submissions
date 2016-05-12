@@ -13,7 +13,8 @@ module Api
         sessions = Session.for_conference(@conference).includes(
           session_type: [:translated_contents],
           track: [:translated_contents],
-          audience_level: [:translated_contents])
+          audience_level: [:translated_contents]
+)
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
@@ -28,7 +29,8 @@ module Api
           sessions = Session.for_conference(@conference).includes(
             session_type: [:translated_contents],
             track: [:translated_contents],
-            audience_level: [:translated_contents]).where(state: :accepted)
+            audience_level: [:translated_contents]
+).where(state: :accepted)
         end
         hashes = sessions.map { |s| hash_for(s) }
 
@@ -42,7 +44,8 @@ module Api
         session = Session.includes(
           session_type: [:translated_contents],
           track: [:translated_contents],
-          audience_level: [:translated_contents]).find(params[:id])
+          audience_level: [:translated_contents]
+).find(params[:id])
 
         session_hash = hash_for(session)
 
