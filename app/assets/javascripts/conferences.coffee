@@ -110,6 +110,34 @@
   fieldFocus = (form) ->
     form.find(':input:visible:enabled:first').focus()
 
+  typingTimeout = 1000
+  promise = null
+
+  issueTextilizeRequest = (content, preview) ->
+    () ->
+      $.ajax({
+        url: '/api/textilize',
+        method: 'POST',
+        data: content,
+        dataType: 'html',
+        success: (data, status, xhr) ->
+          preview.html(data)
+      })
+
+  triggerPreviewUpdate = (e) ->
+    clearTimeout(promise) if promise?
+    preview = $(this).parents('.description').children('.preview')
+    content = $(this).val()
+    issueTextilizeRequest(content, preview)()
+
+  updatePreview = (e) ->
+    clearTimeout(promise) if promise?
+
+    preview = $(this).parents('.description').children('.preview')
+    content = $(this).val()
+    promise = setTimeout(issueTextilizeRequest(content, preview), typingTimeout)
+
+
   $(document).ready () ->
     orderedDates = $('.conference_date').sort((a, b) ->
       aIndex = parseInt($(a).attr('dateindex'), 10)
@@ -230,6 +258,10 @@
 
     $('form.tabs.translated_contents.old :input').change markAsDirty
     $('form.tabs.translated_contents.old').on 'ajax:success', clearDirtyMark
+
+    $('.description textarea.value,.description input.value').bind(
+      'propertychange change click keyup input paste', updatePreview)
+    $('.description textarea.value,.description input.value').bind('blur', triggerPreviewUpdate)
 
     $('#new_session_type').on 'ajax:success', (e, data, status, xhr) ->
       id = data.id

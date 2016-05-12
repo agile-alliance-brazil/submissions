@@ -818,6 +818,15 @@ button::disabled {
       }
     }
     .description {
+      .help {
+        font-size: 70%;
+      }
+      .preview {
+        margin: .5rem 0;
+        border: 1px dashed #ccc;
+        max-height: 7rem;
+        overflow: scroll;
+      }
       textarea {
         min-height: 6rem;
       }

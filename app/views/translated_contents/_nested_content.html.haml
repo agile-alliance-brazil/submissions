@@ -15,5 +15,8 @@
     %label.field
       %span.text= t("formtastic.labels.#{type_name}.title")
       = content_form.text_field(:title, class: 'data')
-    .description= content_form.text_area(:content)
+    .description
+      .help= link_to 'Textile guide', 'http://redcloth.org/hobix.com/textile/', target: '_blank'
+      .preview= textilize(content_form.object.content)
+      = content_form.text_area(:content, class: 'value')
 = f.submit(:'data-update-action' => t('formtastic.update', model: t("activerecord.models.#{type_name}")))

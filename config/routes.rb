@@ -16,6 +16,7 @@ AgileBrazil::Application.routes.draw do
         end
       end
       resources :top_commenters, only: %i(index)
+      post 'textilize' => 'html_rendering#textilize'
     end
   end
 
