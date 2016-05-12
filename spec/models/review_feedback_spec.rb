@@ -32,7 +32,8 @@ describe ReviewFeedback, type: :model do
           review_feedback: feedback,
           review: FactoryGirl.create(:final_review),
           helpful_review: false,
-          comments: '')
+          comments: ''
+)
 
         expect(feedback).to_not be_valid
         expect(feedback.errors[:review_evaluations]).to include(I18n.t("activerecord.errors.models.review_feedback.evaluations_missing"))
@@ -44,7 +45,8 @@ describe ReviewFeedback, type: :model do
           review_feedback: feedback,
           review: @review,
           helpful_review: false,
-          comments: '')
+          comments: ''
+)
         feedback.review_evaluations << evaluation
 
         expect(evaluation).to be_valid

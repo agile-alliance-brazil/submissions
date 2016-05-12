@@ -236,7 +236,8 @@ describe EmailNotifications, type: :mailer do
 
     it "should not be sent if session has no decision" do
       expect { subject.deliver_now }.to(
-        raise_error("Notification can't be sent before decision has been made"))
+        raise_error("Notification can't be sent before decision has been made")
+)
     end
 
     context 'with review decision' do
@@ -283,7 +284,8 @@ describe EmailNotifications, type: :mailer do
 
     it "should not be sent if session has no decision" do
       expect { subject.deliver_now }.to(
-        raise_error("Notification can't be sent before decision has been made"))
+        raise_error("Notification can't be sent before decision has been made")
+)
     end
 
     context 'with review decision' do

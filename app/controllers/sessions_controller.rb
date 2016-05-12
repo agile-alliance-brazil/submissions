@@ -86,7 +86,8 @@ class SessionsController < ApplicationController
     Session.includes(
       session_type: [:translated_contents],
       track: [:translated_contents],
-      audience_level: [:translated_contents]).find(params[:id])
+      audience_level: [:translated_contents]
+).find(params[:id])
   end
 
   def resource_class

@@ -85,7 +85,7 @@ class SessionTypesController < ApplicationController
            valid_durations: @session_type.valid_durations,
            translations: @conference.languages.map do |l|
              I18n.with_locale(l[:code]) do
-               {title: @session_type.title, description: @session_type.description, language: l }
+               { title: @session_type.title, description: @session_type.description, language: l }
              end
            end
          }

@@ -125,7 +125,8 @@ describe SessionTypesController, type: :controller do
         language = conference.supported_languages.first
 
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: ['10', '25'] }
+          valid_durations: ['10', '25']
+}
 
         expect(session_type.reload.valid_durations).to eq([10, 25])
       end
@@ -136,7 +137,8 @@ describe SessionTypesController, type: :controller do
         language = conference.supported_languages.first
 
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: ['10', '25'] }
+          valid_durations: ['10', '25']
+}
 
         expect(session_type.reload.valid_durations).to eq([50])
       end

@@ -56,8 +56,7 @@ RSpec.describe SessionsController, type: :controller do
                                          session_type: FactoryGirl.create(:session_type, conference: old_conference),
                                          audience_level: FactoryGirl.create(:audience_level, conference: old_conference),
                                          track: FactoryGirl.create(:track, conference: old_conference),
-                                         conference: old_conference
-        )
+                                         conference: old_conference)
 
         get :show, year: conference.year, id: old_session.id
 

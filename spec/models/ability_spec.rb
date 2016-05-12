@@ -319,8 +319,7 @@ describe Ability, type: :model do
         @session = FactoryGirl.build(:session,
           author: @user,
           state: 'pending_confirmation',
-          review_decision: FactoryGirl.build(:review_decision)
-        )
+          review_decision: FactoryGirl.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -381,8 +380,7 @@ describe Ability, type: :model do
         @session = FactoryGirl.build(:session,
           author: @user,
           state: 'pending_confirmation',
-          review_decision: FactoryGirl.build(:review_decision)
-        )
+          review_decision: FactoryGirl.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -442,8 +440,7 @@ describe Ability, type: :model do
         @session = FactoryGirl.build(:session,
           author: @user,
           conference: @conference,
-          review_decision: FactoryGirl.build(:review_decision, published: true)
-        )
+          review_decision: FactoryGirl.build(:review_decision, published: true))
         sessions = [@session]
         @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
         sessions.stubs(:includes).with(:review_decision).returns(sessions)

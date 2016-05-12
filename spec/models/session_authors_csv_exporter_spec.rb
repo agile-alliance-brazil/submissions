@@ -11,8 +11,7 @@ describe SessionAuthorsCSVExporter do
 Session id,Session title,Session Type,Author,Email
 #{csv_row_for(session, session.author)}
     CSV
-    expect(exporter.to_csv).to eq(csv
-    )
+    expect(exporter.to_csv).to eq(csv)
   end
 
   it 'should generate CSV with two rows for single session with two authors' do
@@ -26,8 +25,7 @@ Session id,Session title,Session Type,Author,Email
 #{csv_row_for(session, session.author)}
 #{csv_row_for(session, session.second_author)}
     CSV
-    expect(exporter.to_csv).to eq(csv
-    )
+    expect(exporter.to_csv).to eq(csv)
   end
 
   it 'should generate CSV with three rows for one session with one author and another with two' do
@@ -43,8 +41,7 @@ Session id,Session title,Session Type,Author,Email
 #{csv_row_for(two_authors_session, two_authors_session.author)}
 #{csv_row_for(two_authors_session, two_authors_session.second_author)}
     CSV
-    expect(exporter.to_csv).to eq(csv
-    )
+    expect(exporter.to_csv).to eq(csv)
   end
 
   it 'should generate sessions sorted by session type id' do
@@ -63,8 +60,7 @@ Session id,Session title,Session Type,Author,Email
 #{csv_row_for(second_session, second_session.author)}
 #{csv_row_for(first_session, first_session.author)}
     CSV
-    expect(exporter.to_csv).to eq(csv
-    )
+    expect(exporter.to_csv).to eq(csv)
   end
 
   it 'should generate sessions with one author first and pairs after' do
@@ -80,8 +76,7 @@ Session id,Session title,Session Type,Author,Email
 #{csv_row_for(first_session, first_session.author)}
 #{csv_row_for(first_session, first_session.second_author)}
     CSV
-    expect(exporter.to_csv).to eq(csv
-    )
+    expect(exporter.to_csv).to eq(csv)
   end
 
   def csv_row_for(session, author)

@@ -31,7 +31,8 @@ if ActiveRecord::VERSION::MAJOR == 4
           operation_over_aggregate_column(
             aggregate_column(column_name),
             operation,
-            distinct).as(aggregate_alias)
+            distinct
+).as(aggregate_alias)
         ]
         select_values += select_values unless having_values.empty?
 

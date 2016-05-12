@@ -72,8 +72,7 @@ describe AcceptReviewersController, type: :controller do
         {
           accepted: '0',
           track_id: other_track.id
-        },
-      }
+        } },
     }
   }
   it "update action should redirect when model is valid" do

@@ -61,14 +61,16 @@ class ReviewFeedbacksController < ApplicationController
   def bounce_if_already_created
     feedback_exists = ReviewFeedback.exists?(
       conference_id: @conference,
-      author_id: current_user)
+      author_id: current_user
+)
 
     if feedback_exists
       raise ActiveRecord::RecordNotUnique.new(
         "ReviewFeedback for conference id " +
         "#{@conference.id} and user id " +
         "#{current_user.id} already exists",
-        nil)
+        nil
+)
     end
   end
 end

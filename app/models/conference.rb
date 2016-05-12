@@ -151,7 +151,7 @@ class Conference < ActiveRecord::Base
 
   def ideal_reviews_burn
     reviews_per_week = total_reviews_needed / (weeks_to_work_in_reviews - 1)
-    reviews_per_week = reviews_per_week + 1 if reviews_per_week == 0
+    reviews_per_week += 1 if reviews_per_week == 0
     ideal_remaining = [total_reviews_needed]
     (weeks_to_work_in_reviews - 1).times { ideal_remaining << [(ideal_remaining.last - reviews_per_week), 0].max }
     ideal_remaining
@@ -173,7 +173,7 @@ class Conference < ActiveRecord::Base
   private
 
   def weeks_to_work_in_reviews
-    (((review_deadline - submissions_deadline).to_i) / 86400) / 7
+    ((review_deadline - submissions_deadline).to_i / 86_400) / 7
   end
 
   def total_reviews_needed(reviews_per_session = 3)

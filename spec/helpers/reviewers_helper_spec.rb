@@ -11,7 +11,8 @@ describe ReviewersHelper, type: :helper do
     track = FactoryGirl.build(:track, id: 10)
     level = helper.review_level(
       [FactoryGirl.build(:preference, track: track)],
-      FactoryGirl.build(:track))
+      FactoryGirl.build(:track)
+)
     expect(level).to eq('reviewer.doesnot_review')
   end
 

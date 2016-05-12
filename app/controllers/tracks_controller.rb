@@ -13,7 +13,7 @@ class TracksController < ApplicationController
       format.html do
         handle_html_response(t('flash.track.create.success')) { @track.save }
       end
-      format.json { handle_json_response{ @track.save } }
+      format.json { handle_json_response { @track.save } }
     end
   end
 
@@ -21,9 +21,9 @@ class TracksController < ApplicationController
     @track = resource_class.where(id: params[:id]).first
     respond_with @track do |format|
       format.html do
-        handle_html_response(t('flash.track.create.success')){ @track.update_attributes(track_params) }
+        handle_html_response(t('flash.track.create.success')) { @track.update_attributes(track_params) }
       end
-      format.json { handle_json_response{ @track.update_attributes(track_params) } }
+      format.json { handle_json_response { @track.update_attributes(track_params) } }
     end
   end
 
@@ -71,11 +71,11 @@ class TracksController < ApplicationController
     json_track = {
       translations: @conference.languages.map do |l|
         c = @track.translated_contents.where(language: l[:code]).first
-        {id: c.id, title: c.title, description: c.content, language: l }
+        { id: c.id, title: c.title, description: c.content, language: l }
       end
     }
     if result
-      render json: json_track.merge(id: @track.id) 
+      render json: json_track.merge(id: @track.id)
     else
       render json: json_track.merge(errors: @track.errors)
     end
