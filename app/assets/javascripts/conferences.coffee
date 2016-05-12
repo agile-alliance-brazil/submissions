@@ -212,6 +212,7 @@
       $(this).find('input[type="text"],textarea').val('')
       $(this).find('input[type="checkbox"]').removeAttr('checked')
       $(this).find('input[type="radiobox"]').prop('checked', false)
+      $(this).find('.preview').html('')
       titleToShow = data.translations[0].title
       typeName = $(this).data('typename')
       newLi = '<li class="'+typeName+'"><a href="#'+typeName+'-'+data.id+'">'+titleToShow+'</a></li>'
