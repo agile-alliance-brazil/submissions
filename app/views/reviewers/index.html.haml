@@ -18,7 +18,7 @@
       %th.state= t('formtastic.labels.reviewer.state')
       - Recommendation.all_names.each do |recommendation|
         %th.count= image_tag("#{recommendation}.png", alt: t("recommendation.#{recommendation}.title"))
-      - if @conference.author_notification.past?
+      - if @conference.author_notification.try(:past?)
         %th.feedback.count= t('reviewer.feedback')
       %th.actions
     %tr#mock_reviewer_row.reviewer.hidden
