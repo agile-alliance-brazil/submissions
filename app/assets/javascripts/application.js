@@ -1,11 +1,9 @@
 /*
 *= require vendor_libs
 *= require_tree .
-*= require actions
+*= require_tree ../../../vendor/assets/javascripts/.
 *= require jquery-ui/tabs
 *= require jquery-ui/datepicker
-*= require highcharts
-*
 */
 
 (function($) {
