@@ -29,6 +29,7 @@
   = form.input :second_author_username, input_html: {tabindex: autotab, :'data-autocomplete-url' => users_path(format: :json)}, hint: t('formtastic.hints.session.second_author_username')
   = form.input :target_audience, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.target_audience')
   = form.input :prerequisites, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.prerequisites')
+  %p.syntax_help= t('formtastic.hints.textile').html_safe
   = form.input :summary, required: true, input_html: {rows: 10, tabindex: autotab}, hint: t('formtastic.hints.session.summary', year: "/#{@conference.year}")
   = form.input :description, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.description', year: "/#{@conference.year}")
   = form.input :mechanics, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.mechanics', year: "/#{@conference.year}")

@@ -259,6 +259,7 @@ en:
           comments: "Comments"
         general_comments: "General Comments"
     hints:
+      textile: "The following fields accept <a href='http://redcloth.org/hobix.com/textile/'>textile syntax</a> to format your proposal."
       user:
         email: "Main e-mail address for contact purposes. We also use your e-mail to fetch your profile image from Gravatar. If you want to change your profile picture, <a href='http://en.gravatar.com/site/signup/' target='_blank'>get your gravatar</a>."
         phone: "Preferably your mobile cellphone number."
