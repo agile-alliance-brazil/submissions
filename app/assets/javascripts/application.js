@@ -2,6 +2,7 @@
 *= require vendor_libs
 *= require_tree .
 *= require_tree ../../../vendor/assets/javascripts/.
+*= require submissions/burndown_reviews
 *= require jquery-ui/tabs
 *= require jquery-ui/datepicker
 */
