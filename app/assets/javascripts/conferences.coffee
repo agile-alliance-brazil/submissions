@@ -45,6 +45,8 @@
 
   tags = []
   loadAlreadySelectedTags = () ->
+    tag_list = $('#conference_tag_list')
+    return if tag_list.size() == 0
     commaSeparatedTags = $('#conference_tag_list').get(0).value
     tags = if commaSeparatedTags.length == 0 then [] else commaSeparatedTags.split(',')
     for tag in tags
