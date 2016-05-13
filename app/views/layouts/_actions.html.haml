@@ -102,8 +102,6 @@
 %h4.charts= t('actions.submissionByType')
 %div.charts{ id: 'submittedByType', style: 'margin-left: -3em;'}
 
-= javascript_include_tag 'submissions/burndown_reviews'
-
 :javascript
   var sessionsByTrack = #{sessions_by_track.inspect};
   var sessionsByType = #{sessions_by_type.inspect};

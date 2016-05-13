@@ -5,7 +5,6 @@
  *= require actions
  *= require jquery-ui/tabs
  *= require jquery-ui/datepicker
- *
  */
 
 (function($) {
