@@ -1,12 +1,12 @@
 /*
-*= require vendor_libs
-*= require_tree .
-*= require actions
-*= require jquery-ui/tabs
-*= require jquery-ui/datepicker
-*= require highcharts
-*
-*/
+ *= require vendor_libs
+ *= require highcharts
+ *= require_tree .
+ *= require actions
+ *= require jquery-ui/tabs
+ *= require jquery-ui/datepicker
+ *
+ */
 
 (function($) {
   $.fn.bindSelectUpdated = function() {
@@ -54,34 +54,34 @@
     }
 
     $("#session_keyword_list,#session_filter_tags")
-      // don't navigate away from the field on tab when selecting an item
-      .bind( "keydown", function( event ) {
-        if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
-          event.preventDefault();
-        }
-      })
-      .autocomplete({
-        source: function(request, response) {
-          $.getJSON($("#session_keyword_list,#session_filter_tags").data("autocomplete-url"), {
-            term: extractLast(request.term)
-          }, response);
-        },
-        focus: function() {
-          // prevent value inserted on focus
-          return false;
-        },
-        select: function(event, ui) {
-          var terms = split(this.value);
-          // remove the current input
-          terms.pop();
-          // add the selected item
-          terms.push(ui.item.value);
-          // add placeholder to get the comma-and-space at the end
-          terms.push("");
-          this.value = terms.join(", ");
-          return false;
-        }
-      });
+    // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+          if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
+            event.preventDefault();
+          }
+        })
+        .autocomplete({
+          source: function(request, response) {
+            $.getJSON($("#session_keyword_list,#session_filter_tags").data("autocomplete-url"), {
+              term: extractLast(request.term)
+            }, response);
+          },
+          focus: function() {
+            // prevent value inserted on focus
+            return false;
+          },
+          select: function(event, ui) {
+            var terms = split(this.value);
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            terms.push(ui.item.value);
+            // add placeholder to get the comma-and-space at the end
+            terms.push("");
+            this.value = terms.join(", ");
+            return false;
+          }
+        });
   })
 
 })(jQuery);
