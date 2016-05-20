@@ -85,7 +85,8 @@ module Api
           mechanics: session.mechanics,
           status: (session.conference.author_confirmation < DateTime.now) ? I18n.t("session.state.#{session.state}") : I18n.t('session.state.created'),
           author_agreement: session.author_agreement,
-          image_agreement: session.image_agreement
+          image_agreement: session.image_agreement,
+          created_at: session.created_at.iso8601
         }
       end
     end

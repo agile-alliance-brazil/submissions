@@ -35,7 +35,8 @@ describe Api::V1::SessionsController, type: :controller do
           'mechanics' => session.mechanics,
           'status' => 'Criada',
           'author_agreement' => nil,
-          'image_agreement' => nil
+          'image_agreement' => nil,
+          'created_at' => session.created_at.iso8601
         })
       end
 
@@ -77,7 +78,8 @@ describe Api::V1::SessionsController, type: :controller do
             "mechanics":"#{session.mechanics}",
             "status":"Criada",
             "author_agreement":null,
-            "image_agreement":null}
+            "image_agreement":null,
+            "created_at":"#{session.created_at.iso8601}"}
         }.gsub(/\s*\n\s*/,''))
       end
     end
@@ -108,7 +110,8 @@ describe Api::V1::SessionsController, type: :controller do
           'mechanics' => session.mechanics,
           'status' => 'Created',
           'author_agreement' => nil,
-          'image_agreement' => nil
+          'image_agreement' => nil,
+          'created_at' => session.created_at.iso8601
         })
       end
     end
@@ -145,7 +148,8 @@ describe Api::V1::SessionsController, type: :controller do
         'mechanics' => session.mechanics,
         'status' => 'Criada',
         'author_agreement' => nil,
-        'image_agreement' => nil
+        'image_agreement' => nil,
+        'created_at' => session.created_at.iso8601
       })
     end
 
@@ -175,7 +179,8 @@ describe Api::V1::SessionsController, type: :controller do
         'mechanics' => session.mechanics,
         'status' => 'Criada',
         'author_agreement' => nil,
-        'image_agreement' => nil
+        'image_agreement' => nil,
+        'created_at' => session.created_at.iso8601
       })
     end
 
@@ -208,7 +213,8 @@ describe Api::V1::SessionsController, type: :controller do
         'mechanics' => session.mechanics,
         'status' => 'Criada',
         'author_agreement' => nil,
-        'image_agreement' => nil
+        'image_agreement' => nil,
+        'created_at' => session.created_at.iso8601
       })
     end
 
@@ -242,7 +248,8 @@ describe Api::V1::SessionsController, type: :controller do
           'mechanics' => session.mechanics,
           'status' => 'Created',
           'author_agreement' => nil,
-          'image_agreement' => nil
+          'image_agreement' => nil,
+          'created_at' => session.created_at.iso8601
         })
       end
     end
@@ -324,7 +331,8 @@ describe Api::V1::SessionsController, type: :controller do
       'mechanics' => session.mechanics,
       'status' => 'Aceita',
       'author_agreement' => true,
-      'image_agreement' => false
+      'image_agreement' => false,
+      'created_at' => session.created_at.iso8601
     }
   end
 
@@ -350,7 +358,8 @@ describe Api::V1::SessionsController, type: :controller do
       'mechanics' => session.mechanics,
       'status' => 'Accepted',
       'author_agreement' => true,
-      'image_agreement' => false
+      'image_agreement' => false,
+      'created_at' => session.created_at.iso8601
     }
   end
 
