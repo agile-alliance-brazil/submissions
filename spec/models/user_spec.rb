@@ -108,7 +108,7 @@ describe User, type: :model do
       it { should validate_uniqueness_of(:username).case_insensitive }
     end
 
-    it { should validate_confirmation_of :password }
+    it {should validate_confirmation_of(:password) }
 
     it "should validate that username doesn't change" do
       user = FactoryGirl.create(:user)
@@ -260,8 +260,8 @@ describe User, type: :model do
 
   it "should not retrieve if there isn't an actual reviewer" do
     user = FactoryGirl.create(:user)
-    old_conference = FactoryGirl.create(:conference, year: 1)
-    reviewer = FactoryGirl.create(:reviewer, user: user, conference: old_conference)
+    other_conference = FactoryGirl.create(:conference)
+    reviewer = FactoryGirl.create(:reviewer, user: user, conference: other_conference)
     expect(user.reviewer_for(FactoryGirl.create(:conference))).to be_nil
   end
 
@@ -273,8 +273,8 @@ describe User, type: :model do
     expect(user.to_param.ends_with?("-danilo-sato-1990-2")).to be false
   end
 
-  it "should have 'pt' as default locale" do
+  it "should have 'pt-BR' as default locale" do
     user = FactoryGirl.build(:user)
-    expect(user.default_locale).to eq('pt')
+    expect(user.default_locale).to eq('pt-BR')
   end
 end

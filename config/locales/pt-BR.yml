@@ -1,5 +1,5 @@
 # encoding: UTF-8
-pt:
+pt-BR:
 
   errors:
     messages:
@@ -726,7 +726,7 @@ pt:
     all: "Todas"
     room: "Sala"
     en: "Inglês"
-    pt: "Português"
+    pt-BR: "Português"
     duration_restriction: "deve ter duração de"
     voted: "Votado"
     by: 'por'

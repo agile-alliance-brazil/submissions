@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference, supported_languages: ['en', 'pt']) }
+  let(:conference) { FactoryGirl.create(:conference, supported_languages: ['en', 'pt-BR']) }
   let(:session)  { FactoryGirl.create(:session, keyword_list: %w(fake tags tags.success), conference: conference) }
 
   describe 'show' do
     context 'with pt locale' do
       before do
-        get :show, id: session.id.to_s, format: :json, locale: 'pt'
+        get :show, id: session.id.to_s, format: :json, locale: 'pt-BR'
       end
 
       it { should respond_with(:success) }
@@ -17,19 +17,19 @@ describe Api::V1::SessionsController, type: :controller do
         gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq({
           'id' => session.id,
-          'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+          'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
           'title' => session.title,
           'authors' => [{ 'user_id' => session.author.id,
-            'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+            'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt-BR",
             'username' => session.author.username,
             'name' => session.author.full_name,
             'gravatar_url' => gravatar_url(gravatar_id) }],
           'prerequisites' => session.prerequisites,
           'duration_mins' => 50,
           'tags' => ['fake', 'tags', 'Sucesso'],
-          'session_type' => 'Session type title in pt',
-          'audience_level' => 'Audience level title in pt',
-          'track' => 'Track title in pt',
+          'session_type' => 'Session type title in pt-BR',
+          'audience_level' => 'Audience level title in pt-BR',
+          'track' => 'Track title in pt-BR',
           'audience_limit' => nil,
           'summary' => session.summary,
           'mechanics' => session.mechanics,
@@ -44,24 +44,24 @@ describe Api::V1::SessionsController, type: :controller do
         session.second_author = FactoryGirl.create(:author, email: 'dtsato@dtsato.com')
         session.save
 
-        get :show, id: session.id.to_s, format: :json, locale: 'pt'
+        get :show, id: session.id.to_s, format: :json, locale: 'pt-BR'
 
         expect(unescape_utf8_chars(response.body)).to eq(%Q{
           {
             "id":#{session.id},
-            "session_uri":"http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+            "session_uri":"http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
             "title":"#{session.title}",
             "authors":[
               {
                 "user_id":#{session.author.id},
-                "user_uri":"http://test.host/users/#{session.author.to_param}?locale=pt",
+                "user_uri":"http://test.host/users/#{session.author.to_param}?locale=pt-BR",
                 "username":"#{session.author.username}",
                 "name":"#{session.author.full_name}",
                 "gravatar_url":"#{gravatar_url(Digest::MD5::hexdigest(session.author.email).downcase)}"
               },
               {
                 "user_id":#{session.second_author.id},
-                "user_uri":"http://test.host/users/#{session.second_author.to_param}?locale=pt",
+                "user_uri":"http://test.host/users/#{session.second_author.to_param}?locale=pt-BR",
                 "username":"#{session.second_author.username}",
                 "name":"#{session.second_author.full_name}",
                 "gravatar_url":"#{gravatar_url(Digest::MD5::hexdigest(session.second_author.email).downcase)}"
@@ -70,9 +70,9 @@ describe Api::V1::SessionsController, type: :controller do
             "prerequisites":"#{session.prerequisites}",
             "tags":["fake","tags","Sucesso"],
             "duration_mins":50,
-            "session_type":"Session type title in pt",
-            "audience_level":"Audience level title in pt",
-            "track":"Track title in pt",
+            "session_type":"Session type title in pt-BR",
+            "audience_level":"Audience level title in pt-BR",
+            "track":"Track title in pt-BR",
             "audience_limit":null,
             "summary":"#{session.summary}",
             "mechanics":"#{session.mechanics}",
@@ -125,24 +125,24 @@ describe Api::V1::SessionsController, type: :controller do
 
     it 'should respond to js as JS object as well' do
       xhr :get, :show, format: :js, id: session.id.to_s,
-        locale: 'pt'
+        locale: 'pt-BR'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(JSON.parse(response.body)).to eq({
         'id' => session.id,
-        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
         'title' => session.title,
         'authors' => [{ 'user_id' => session.author.id,
-          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt-BR",
           'username' => session.author.username,
           'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Sucesso'],
         'duration_mins' => 50,
-        'session_type' => 'Session type title in pt',
-        'audience_level' => 'Audience level title in pt',
-        'track' => 'Track title in pt',
+        'session_type' => 'Session type title in pt-BR',
+        'audience_level' => 'Audience level title in pt-BR',
+        'track' => 'Track title in pt-BR',
         'audience_limit' => nil,
         'summary' => session.summary,
         'mechanics' => session.mechanics,
@@ -155,25 +155,25 @@ describe Api::V1::SessionsController, type: :controller do
 
     it 'should respond to js with callback as JSONP if callback is provided' do
       xhr :get, :show, format: :js, id: session.id.to_s,
-        locale: 'pt', callback: 'test'
+        locale: 'pt-BR', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(response.body).to match(/test\((.*)\)$/)
       expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
-        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
         'title' => session.title,
         'authors' => [{ 'user_id' => session.author.id,
-          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt-BR",
           'username' => session.author.username,
           'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Sucesso'],
         'duration_mins' => 50,
-        'session_type' => 'Session type title in pt',
-        'audience_level' => 'Audience level title in pt',
-        'track' => 'Track title in pt',
+        'session_type' => 'Session type title in pt-BR',
+        'audience_level' => 'Audience level title in pt-BR',
+        'track' => 'Track title in pt-BR',
         'audience_limit' => nil,
         'summary' => session.summary,
         'mechanics' => session.mechanics,
@@ -189,25 +189,25 @@ describe Api::V1::SessionsController, type: :controller do
       session.save
 
       xhr :get, :show, format: :js, id: session.id.to_s,
-        locale: 'pt', callback: 'test'
+        locale: 'pt-BR', callback: 'test'
 
       gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
       expect(response.body).to match(/test\((.*)\)$/)
       expect(JSON.parse(response.body.match(/test\((.*)\)$/)[1])).to eq({
         'id' => session.id,
-        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+        'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
         'title' => session.title,
         'authors' => [{ 'user_id' => session.author.id,
-          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+          'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt-BR",
           'username' => session.author.username,
           'name' => session.author.full_name,
           'gravatar_url' => gravatar_url(gravatar_id) }],
         'prerequisites' => session.prerequisites,
         'tags' => ['fake', 'tags', 'Sucesso'],
         'duration_mins' => 50,
-        'session_type' => 'Session type title in pt',
-        'audience_level' => 'Audience level title in pt',
-        'track' => 'Track title in pt',
+        'session_type' => 'Session type title in pt-BR',
+        'audience_level' => 'Audience level title in pt-BR',
+        'track' => 'Track title in pt-BR',
         'audience_limit' => 100,
         'summary' => session.summary,
         'mechanics' => session.mechanics,
@@ -262,17 +262,17 @@ describe Api::V1::SessionsController, type: :controller do
         create_accepted_session_for(conference)
       ]
     end
-    context 'with pt locale' do
+    context 'with pt-BR locale' do
       before do
         Timecop.freeze((conference.author_confirmation + 1.day).to_datetime) do
-          get :accepted, format: :json, locale: 'pt', year: conference.year
+          get :accepted, format: :json, locale: 'pt-BR', year: conference.year
         end
       end
 
       it { should respond_with(:success) }
 
       it 'should return accepted_sessions in a parseable JSON representation' do
-        sessions = @accepted_sessions.map { |s| pt_hash_for(s) }
+        sessions = @accepted_sessions.map { |s| pt_BR_hash_for(s) }
 
         expect(JSON.parse(response.body)).to eq(sessions)
       end
@@ -309,23 +309,23 @@ describe Api::V1::SessionsController, type: :controller do
     end
   end
 
-  def pt_hash_for(session)
+  def pt_BR_hash_for(session)
     gravatar_id = Digest::MD5::hexdigest(session.author.email).downcase
     {
       'id' => session.id,
-      'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt",
+      'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
       'title' => session.title,
       'authors' => [{ 'user_id' => session.author.id,
-        'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt",
+        'user_uri' => "http://test.host/users/#{session.author.to_param}?locale=pt-BR",
         'username' => session.author.username,
         'name' => session.author.full_name,
         'gravatar_url' => gravatar_url(gravatar_id) }],
       'prerequisites' => session.prerequisites,
       'tags' => ['Aprendizagem', 'Testes'],
       'duration_mins' => 50,
-      'session_type' => 'Session type title in pt',
-      'audience_level' => 'Audience level title in pt',
-      'track' => 'Track title in pt',
+      'session_type' => 'Session type title in pt-BR',
+      'audience_level' => 'Audience level title in pt-BR',
+      'track' => 'Track title in pt-BR',
       'audience_limit' => nil,
       'summary' => session.summary,
       'mechanics' => session.mechanics,

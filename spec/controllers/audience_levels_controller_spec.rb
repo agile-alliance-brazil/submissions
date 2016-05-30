@@ -58,7 +58,7 @@ describe AudienceLevelsController, type: :controller do
       it 'should flash a failure message' do
         post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
-            '0' => { id: audience.translated_contents.first.id, language: 'pt' }
+            '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -68,7 +68,7 @@ describe AudienceLevelsController, type: :controller do
       it 'should render conference edit page' do
         post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
-            '0' => { id: audience.translated_contents.first.id, language: 'pt' }
+            '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -129,7 +129,7 @@ describe AudienceLevelsController, type: :controller do
       it 'should flash a failure message' do
         patch :update, year: conference.year, id: audience.id, audience_level: {
           translated_contents_attributes: {
-            '0' => { id: audience.translated_contents.first.id, language: 'pt' }
+            '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -139,7 +139,7 @@ describe AudienceLevelsController, type: :controller do
       it 'should render conference edit page' do
         patch :update, year: conference.year, id: audience.id, audience_level: {
           translated_contents_attributes: {
-            '0' => { id: audience.translated_contents.first.id, language: 'pt' }
+            '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 

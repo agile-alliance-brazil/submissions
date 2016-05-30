@@ -39,7 +39,7 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/#{user.username}/) }
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Cadastro realizado com sucesso") }
     end
@@ -64,7 +64,7 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/fake_token/) }
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Recuperação de senha") }
     end
@@ -88,10 +88,10 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/\/sessions\/#{session.to_param}/) }
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Proposta de sessão submetida para #{conference.name}") }
-      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :pt)}/) }
+      it { should have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :'pt-BR')}/) }
     end
 
     context "in en" do
@@ -130,7 +130,7 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/#{comment.comment}/) }
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Novo comentário para a sessão '#{session.title}'") }
     end
@@ -177,7 +177,7 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/\/sessions\/#{session.to_param}\/reviews.*early/) }
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Pré-avaliação da sua sessão '#{session.title}'") }
     end
@@ -216,7 +216,7 @@ describe EmailNotifications, type: :mailer do
     it { should have_body_text(/\/reviewers\/3\/reject/)}
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Convite para equipe de avaliação da #{conference.name}") }
     end
@@ -250,7 +250,7 @@ describe EmailNotifications, type: :mailer do
       it { should have_body_text(/\/sessions\/#{session.to_param}\/withdraw/)}
 
       context "in pt" do
-        before { user.default_locale = 'pt' }
+        before { user.default_locale = 'pt-BR' }
 
         it { should have_subject("[localhost:3000] Comunicado do Comitê de Programa da #{conference.name}") }
       end
@@ -296,7 +296,7 @@ describe EmailNotifications, type: :mailer do
       it { should have_body_text(/\/sessions\/#{session.to_param}/)}
 
       context "in pt" do
-        before { user.default_locale = 'pt' }
+        before { user.default_locale = 'pt-BR' }
 
         it { should have_subject("[localhost:3000] Comunicado do Comitê de Programa da #{conference.name}") }
       end
@@ -330,7 +330,7 @@ describe EmailNotifications, type: :mailer do
     it_should_behave_like "standard conference e-mail"
 
     context "in pt" do
-      before { user.default_locale = 'pt' }
+      before { user.default_locale = 'pt-BR' }
 
       it { should have_subject("[localhost:3000] Pedido de feedback sobre as avaliações de suas sessões na #{conference.name}") }
     end

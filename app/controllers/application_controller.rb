@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     # Keep locale when navigating links if locale is specified
-    params[:locale] ? { locale: params[:locale] } : {}
+    params[:locale] && I18n.available_locales.include?(params[:locale].try(:to_sym)) ? { locale: params[:locale] } : {}
   end
 
   def sanitize(text)
@@ -66,8 +66,18 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale(&block)
-    # if params[:locale] is nil then I18n.default_locale will be used
-    I18n.with_locale(params[:locale] || current_user.try(:default_locale), &block)
+    locales = [I18n.available_locales.first, current_user.try(:default_locale)]
+    locales.push params[:locale] if params[:locale]
+    begin
+      I18n.with_locale(locales.pop, &block)
+    rescue I18n::InvalidLocale => e
+      if locales.size > 0
+        flash.now[:error] = e.message
+        retry
+      else
+        raise e
+      end
+    end
   end
 
   def set_timezone(&block)

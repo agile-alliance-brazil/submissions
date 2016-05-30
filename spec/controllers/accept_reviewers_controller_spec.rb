@@ -17,7 +17,7 @@ describe AcceptReviewersController, type: :controller do
     render_views
 
     it "show pt should work" do
-      get :show, year: conference.year, reviewer_id: reviewer.id, locale: :pt
+      get :show, year: conference.year, reviewer_id: reviewer.id, locale: :'pt-BR'
     end
 
     it "show en should work" do

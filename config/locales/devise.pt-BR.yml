@@ -1,5 +1,5 @@
 # encoding: UTF-8
-pt:
+pt-BR:
   devise:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso. Você está autenticado.

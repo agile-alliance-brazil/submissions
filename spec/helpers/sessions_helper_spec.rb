@@ -69,17 +69,17 @@ RSpec.describe SessionsHelper, type: :helper do
   end
 
   context 'type titles with language set' do
-    let(:conference) { FactoryGirl.build :conference, supported_languages: ['en','pt'] }
-    let(:palestra) { FactoryGirl.build :translated_content, language: 'pt', title: 'Palestra' }
+    let(:conference) { FactoryGirl.build :conference, supported_languages: ['en','pt-BR'] }
+    let(:palestra) { FactoryGirl.build :translated_content, language: 'pt-BR', title: 'Palestra' }
 
     describe '#duration_mins_hint' do
-      let(:relato) { FactoryGirl.build :translated_content, language: 'pt', title: 'Relato de Experiência' }
-      let(:na_massa) { FactoryGirl.build :translated_content, language: 'pt', title: 'Mão na massa' }
+      let(:relato) { FactoryGirl.build :translated_content, language: 'pt-BR', title: 'Relato de Experiência' }
+      let(:na_massa) { FactoryGirl.build :translated_content, language: 'pt-BR', title: 'Mão na massa' }
       let(:workshop) { FactoryGirl.build :translated_content, language: 'en', title: 'Workshop' }
       let(:hands_on) { FactoryGirl.build :translated_content, language: 'en', title: 'Hands on' }
 
       it 'generates hint from session types in portuguese' do
-        I18n.with_locale('pt') do
+        I18n.with_locale('pt-BR') do
           hint = helper.duration_mins_hint([
             FactoryGirl.build(:session_type, conference: conference, translated_contents: [palestra], valid_durations: [20, 40]),
             FactoryGirl.build(:session_type, conference: conference, translated_contents: [relato], valid_durations: [10]),
@@ -106,7 +106,7 @@ RSpec.describe SessionsHelper, type: :helper do
       let(:type_array) { [other_type, type] }
 
       subject { helper.options_for_session_types(type_array) }
-      it { I18n.with_locale('pt') { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] } }
+      it { I18n.with_locale('pt-BR') { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] } }
     end
   end
 end

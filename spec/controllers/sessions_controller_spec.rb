@@ -27,7 +27,7 @@ RSpec.describe SessionsController, type: :controller do
         duration_mins: session_type.valid_durations.first.to_s,
         experience: 'A lot!',
         keyword_list: 'tags.tdd,tags.tecniques',
-        language: 'pt'
+        language: 'pt-BR'
       }
     end
     before(:each) do

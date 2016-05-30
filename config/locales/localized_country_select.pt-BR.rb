@@ -1,5 +1,5 @@
 #encoding: UTF-8
-{ pt: {
+{ :'pt-BR' => {
 
     countries: {
 			AC: "Ilha de Ascensão",

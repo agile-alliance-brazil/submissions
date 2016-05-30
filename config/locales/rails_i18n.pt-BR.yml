@@ -1,8 +1,7 @@
 # encoding: utf-8
 # Copied from https://raw.github.com/svenfuchs/rails-i18n/master/rails/locale/pt-BR.yml
-# Modified root to "pt" so we don't have to implement fallback from the official "pt-BR" to "pt"
 
-pt:
+pt-BR:
   date:
     abbr_day_names:
     - Dom

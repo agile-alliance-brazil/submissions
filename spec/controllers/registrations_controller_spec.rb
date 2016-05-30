@@ -61,7 +61,7 @@ describe RegistrationsController, type: :controller do
 
     it "edit action should set default locale regardless of params" do
       get :edit, locale: 'en'
-      expect(assigns(:user).default_locale.to_sym).to eq(:pt)
+      expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR')
     end
 
     it "update action should render edit template when model is invalid" do

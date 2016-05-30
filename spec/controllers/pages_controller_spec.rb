@@ -143,7 +143,7 @@ describe PagesController, type: :controller do
       it 'should flash a failure message' do
         patch :update, year: page.conference.year, id: page.id, page: {
           translated_contents_attributes: {
-            '0' => { id: page.translated_contents.first.id, language: 'pt' }
+            '0' => { id: page.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -152,7 +152,7 @@ describe PagesController, type: :controller do
       it 'should render conference edit page' do
         patch :update, year: page.conference.year, id: page.id, page: {
           translated_contents_attributes: {
-            '0' => { id: page.translated_contents.first.id, language: 'pt' }
+            '0' => { id: page.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 

@@ -123,6 +123,7 @@ GEM
       warden (~> 1.2.3)
     devise-encryptable (0.2.0)
       devise (>= 2.1.0)
+    devise-i18n (1.0.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
     doorkeeper (3.1.0)
@@ -430,6 +431,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1)
   devise (~> 4.0)
   devise-encryptable (= 0.2.0)
+  devise-i18n (~> 1.0)
   doorkeeper (~> 3.1)
   dotenv-rails
   email_spec

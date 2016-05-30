@@ -64,7 +64,7 @@ describe SessionTypesController, type: :controller do
       it 'should flash a failure message' do
         post :create, year: conference.year, session_type: {
           translated_contents_attributes: {
-            '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
+            '0' => { id: session_type.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -74,7 +74,7 @@ describe SessionTypesController, type: :controller do
       it 'should render conference edit page' do
         post :create, year: conference.year, session_type: {
           translated_contents_attributes: {
-            '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
+            '0' => { id: session_type.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -163,7 +163,7 @@ describe SessionTypesController, type: :controller do
       it 'should flash a failure message' do
         patch :update, year: conference.year, id: session_type.id, session_type: {
           translated_contents_attributes: {
-            '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
+            '0' => { id: session_type.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -173,7 +173,7 @@ describe SessionTypesController, type: :controller do
       it 'should render conference edit page' do
         patch :update, year: conference.year, id: session_type.id, session_type: {
           translated_contents_attributes: {
-            '0' => { id: session_type.translated_contents.first.id, language: 'pt' }
+            '0' => { id: session_type.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 

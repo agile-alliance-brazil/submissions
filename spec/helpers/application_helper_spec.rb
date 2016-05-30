@@ -59,7 +59,7 @@ describe ApplicationHelper, type: :helper do
 
   describe "translated_country" do
     it "should return translated country from code" do
-      I18n.with_locale('pt') do
+      I18n.with_locale('pt-BR') do
         expect(helper.translated_country(:BR)).to eq('Brasil')
         expect(helper.translated_country('US')).to eq('Estados Unidos')
         expect(helper.translated_country('fr')).to eq('França')
@@ -75,7 +75,7 @@ describe ApplicationHelper, type: :helper do
 
   describe "translated_state" do
     it "should return translated state from code" do
-      I18n.with_locale('pt') do
+      I18n.with_locale('pt-BR') do
         expect(helper.translated_state(:SP)).to eq('São Paulo')
         expect(helper.translated_state('RJ')).to eq('Rio de Janeiro')
       end

@@ -14,7 +14,7 @@ Conference.seed do |conference|
   conference.author_notification  = Time.zone.local(2010, 5, 3, 23, 59, 59)
   conference.author_confirmation  = Time.zone.local(2010, 5, 17, 23, 59, 59)
   conference.visible              = true
-  conference.supported_languages  = ['en', 'pt']
+  conference.supported_languages  = ['en', 'pt-BR']
 end
 
 Conference.seed do |conference|
@@ -32,7 +32,7 @@ Conference.seed do |conference|
   conference.author_notification  = Time.zone.local(2011, 4, 30, 23, 59, 59)
   conference.author_confirmation  = Time.zone.local(2011, 6, 7, 23, 59, 59)
   conference.visible              = true
-  conference.supported_languages  = ['en', 'pt']
+  conference.supported_languages  = ['en', 'pt-BR']
 end
 
 Conference.seed do |conference|
@@ -52,7 +52,7 @@ Conference.seed do |conference|
   conference.author_notification       = Time.zone.local(2012, 6, 24, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2012, 7, 4, 23, 59, 59)
   conference.visible                   = true
-  conference.supported_languages       = ['en', 'pt']
+  conference.supported_languages       = ['en', 'pt-BR']
 end
 
 Conference.seed do |conference|
@@ -73,7 +73,7 @@ Conference.seed do |conference|
   conference.author_notification       = Time.zone.local(2013, 5, 15, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2013, 6, 10, 2, 59, 59)
   conference.visible                   = true
-  conference.supported_languages       = ['en', 'pt']
+  conference.supported_languages       = ['en', 'pt-BR']
 end
 
 Conference.seed do |conference|
@@ -94,7 +94,7 @@ Conference.seed do |conference|
   conference.author_notification       = Time.zone.local(2014, 8, 25, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2014, 9, 4, 2, 59, 59)
   conference.visible                   = true
-  conference.supported_languages       = ['en', 'pt']
+  conference.supported_languages       = ['en', 'pt-BR']
   conference.allow_free_form_tags      = false
 end
 
@@ -116,6 +116,6 @@ Conference.seed do |conference|
   conference.author_notification       = Time.zone.local(2015, 8, 01, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2015, 8, 10, 23, 59, 59)
   conference.visible                   = true
-  conference.supported_languages       = ['en', 'pt']
+  conference.supported_languages       = ['en', 'pt-BR']
   conference.allow_free_form_tags      = false
 end

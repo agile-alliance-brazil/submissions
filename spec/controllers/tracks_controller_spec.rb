@@ -64,7 +64,7 @@ describe TracksController, type: :controller do
       it 'should flash a failure message' do
         post :create, year: conference.year, track: {
           translated_contents_attributes: {
-            '0' => { id: track.translated_contents.first.id, language: 'pt' }
+            '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -74,7 +74,7 @@ describe TracksController, type: :controller do
       it 'should render conference edit page' do
         post :create, year: conference.year, track: {
           translated_contents_attributes: {
-            '0' => { id: track.translated_contents.first.id, language: 'pt' }
+            '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -134,7 +134,7 @@ describe TracksController, type: :controller do
       it 'should flash a failure message' do
         patch :update, year: conference.year, id: track.id, track: {
           translated_contents_attributes: {
-            '0' => { id: track.translated_contents.first.id, language: 'pt' }
+            '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 
@@ -144,7 +144,7 @@ describe TracksController, type: :controller do
       it 'should render conference edit page' do
         patch :update, year: conference.year, id: track.id, track: {
           translated_contents_attributes: {
-            '0' => { id: track.translated_contents.first.id, language: 'pt' }
+            '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
           }
         }
 

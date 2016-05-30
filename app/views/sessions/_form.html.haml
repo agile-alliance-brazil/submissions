@@ -1,6 +1,6 @@
 = form.inputs :class => 'submission' do
   = form.input :author_id, as: :hidden, input_html: {tabindex: autotab}
-  = form.input :language, required: true, as: :select, collection: [[t('generic.en'), 'en'], [t('generic.pt'), 'pt']], input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.language')
+  = form.input :language, required: true, as: :select, collection: [[t('generic.en'), 'en'], [t('generic.pt-BR'), 'pt-BR']], input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.language')
   = form.input :track_id, required: true, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.track_id', year: "/#{@conference.year}")
   = form.input :audience_level_id, required: true, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.audience_level_id', year: "/#{@conference.year}")
   = form.input :session_type_id, required: true, as: :select, collection: @session_types.map{|st| [t(st.title), st.id]}, input_html: {tabindex: autotab, data: {:"durations-to-hide" => durations_to_hide(@session_types)}}, hint: t('formtastic.hints.session.session_type_id', year: "/#{@conference.year}")
