@@ -5,4 +5,7 @@ class StaticPagesController < ApplicationController
   def show
     render action: "#{@conference.year}_#{params[:page]}"
   end
+
+  def syntax_help
+  end
 end

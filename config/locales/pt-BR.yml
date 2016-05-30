@@ -272,16 +272,16 @@ pt-BR:
         city: "Cidade de residência, para fins estatísticos."
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
-        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
         current_password: "Para trocar de senha, é preciso confirmar sua senha atual."
         twitter_username: "Seu nome de usuário no twitter, sem o prefixo '@' (por exemplo: 'twitter_user' ao invés de '@twitter_user')"
         default_locale: "Nós mostraremos o site e enviaremos e-mail no seu idioma preferido"
       session:
         language: "Em que língua você vai falar? Certifique-se de que sua submissão esteja escrita nessa língua e considere usá-la também nos seus slides."
-        track_id: "Trilha é o primeiro filtro para participantes escolherem sessões que lhes interessam. Revisores avaliarão se sua sessão está bem colocada e coordenadores de trilha terão um número de sessões para escolher dentre as submetidas para sua trilha. Aumente suas chances de seleção e sucesso colocando sua sessão <a href='%{year}/tracks?locale=pt' target='_blank'>na trilha certa</a>."
-        audience_level_id: "O nível gera expectativas sobre a profundidade do conteúdo da sessão. É possível ter sessões de qualquer nível sobre um mesmo assunto, mas espera-se que aquelas para um público Novato sejam introdutórias, enquanto as para Proficientes não se preocupam em esclarecer conceitos básicos, mas ofereçam novas perspectivas, questionamentos e afins. Os novos níveis são baseados no modelo de Dreyfus: <a href='%{year}/audience_levels?locale=pt' target='_blank'>conheça-os</a>!"
-        session_type_id: "Este ano o programa busca palestras com formatos mais interativos e inovadores, dessa forma criamos o \"Exercite sua criatividade!\" (descubra mais <a href='/2016/session_types?locale=pt' target='_blank'>aqui</a>). Entretanto, se você acredita que um formato tradicional é o mais apropriado para a sua sessão utilize o tipo \"apresentação\" com as opções de 50 ou 25 minutos. Lembre-se, sessões curtas exigem poder de síntese e concisão, contudo se adequam melhor à capacidade de atenção das pessoas. Escolha o <a href='/2016/session_types?locale=pt' target='_blank'>tipo de sessão</a> conforme a experiência que você quer proporcionar ao seu público!"
+        track_id: "Trilha é o primeiro filtro para participantes escolherem sessões que lhes interessam. Revisores avaliarão se sua sessão está bem colocada e coordenadores de trilha terão um número de sessões para escolher dentre as submetidas para sua trilha. Aumente suas chances de seleção e sucesso colocando sua sessão <a href='%{year}/tracks?locale=pt-BR' target='_blank'>na trilha certa</a>."
+        audience_level_id: "O nível gera expectativas sobre a profundidade do conteúdo da sessão. É possível ter sessões de qualquer nível sobre um mesmo assunto, mas espera-se que aquelas para um público Novato sejam introdutórias, enquanto as para Proficientes não se preocupam em esclarecer conceitos básicos, mas ofereçam novas perspectivas, questionamentos e afins. Os novos níveis são baseados no modelo de Dreyfus: <a href='%{year}/audience_levels?locale=pt-BR' target='_blank'>conheça-os</a>!"
+        session_type_id: "Este ano o programa busca palestras com formatos mais interativos e inovadores, dessa forma criamos o \"Exercite sua criatividade!\" (descubra mais <a href='/2016/session_types?locale=pt-BR' target='_blank'>aqui</a>). Entretanto, se você acredita que um formato tradicional é o mais apropriado para a sua sessão utilize o tipo \"apresentação\" com as opções de 50 ou 25 minutos. Lembre-se, sessões curtas exigem poder de síntese e concisão, contudo se adequam melhor à capacidade de atenção das pessoas. Escolha o <a href='/2016/session_types?locale=pt-BR' target='_blank'>tipo de sessão</a> conforme a experiência que você quer proporcionar ao seu público!"
         session_duration: "A maior parte dos tipos de sessão do evento possuem duração pré-determinada, mas se você escolheu \"apresentação\", precisará decidir qual a duração mais apropriada para o seu conteúdo. Nota-se uma predileção do público por palestras mais concisas e diretas, então lembre-se de usar da melhor forma possível o tempo que escolher -- e, claro, sinta-se livre para planejar continuar sua discussão nos espaços interativos da conferência!"
         audience_limit: 'Como você escolheu mão na massa, queremos saber até quantas pessoas poderão participar da sua dinâmica. Inclusive, para esse tipo de sessão, pode ser interessante adicionar ao campo "Experiência com o assunto" se você á testou seu "mão na massa" e quantas pessoas participaram na ocasião.'
         title: "O título da sua sessão é o item com maior visibilidade da sua submissão. É a primeira e principal vitrine, tanto de revisores quanto de participantes. Ele deve ser breve, claro, coerente com a sua palestra e, preferencialmente, instigante. Muitos participantes não leem resumos da sessão e você competirá pela atenção das pessoas com várias sessões. Seja criativo, mas não tanto a ponto de perder a conexão com a realidade ou o assunto da palestra."
@@ -296,7 +296,7 @@ pt-BR:
         experience: "Não buscamos nenhum tipo específico de credenciais, mas sim os motivos que te fazem crer que suas circunstâncias, vivência, conhecimento, apresentações passadas, frentes de pesquisa, ou inspirações te qualificam. Não se trata do seu currículo: avaliaremos sua mini-bio separadamente! Esse campo é sobre <b>essa proposta em particular</b>. O público não tem acesso a esse campo. E, lembre-se: se você tem um segundo autor, fale sobre ambos aqui."
         keyword_list: "Lista de palavras chave"
       comment:
-        comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt' target='_blank'>guia de referência</a>."
+        comment: "Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='%{year}/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
       reviewer:
         user_username: "Digite o nome de usuário do avaliador neste campo."
       early_review:
@@ -408,7 +408,7 @@ pt-BR:
     lost_password:
       instructions: "Preencha abaixo o e-mail que usou para se cadastrar e seu nome de usuário e instruções para trocar sua senha serão enviados por email:"
     private_field: "Campo privado: não visível no perfil público"
-    no_votes: "Você ainda não votou. Clique <a href='/sessions?locale=pt'>aqui</a> para votar."
+    no_votes: "Você ainda não votou. Clique <a href='/sessions?locale=pt-BR'>aqui</a> para votar."
     reviewer:
       signs: '%{name} assina suas revisões!'
       anonymous: '%{name} optou por NÃO assinar suas revisões'
@@ -464,9 +464,9 @@ pt-BR:
         failure: "Seu feedback já foi gravado. Obrigado!"
     failure: "Por favor verifique os campos em destaque"
     unauthorised: "Você não está autorizado a acessar esta página"
-    no_user: "Você precisa estar logado para acessar seu perfil. Se não tiver uma conta, <a href='/users/signup?locale=pt'>crie agora sua conta</a>."
+    no_user: "Você precisa estar logado para acessar seu perfil. Se não tiver uma conta, <a href='/users/signup?locale=pt-BR'>crie agora sua conta</a>."
     news:
-      session_different_conference: "Você está acessando uma proposta da %{conference_name}. Veja as <a href='/sessions?locale=pt'>sessões</a> da %{current_conference_name}."
+      session_different_conference: "Você está acessando uma proposta da %{conference_name}. Veja as <a href='/sessions?locale=pt-BR'>sessões</a> da %{current_conference_name}."
     review:
       create:
         success: "Avaliação gravada com sucesso."

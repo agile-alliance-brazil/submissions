@@ -36,6 +36,7 @@ AgileBrazil::Application.routes.draw do
   get '/users/me' => 'users#me'
   resources :users, only: %i(index show)
   resources :tags, only: %i(index)
+  get 'syntax_help' => 'static_pages#syntax_help'
 
   scope '(:year)', constraints: { year: /\d{1,4}/ } do
     root to: 'pages#show', as: :conference_root
