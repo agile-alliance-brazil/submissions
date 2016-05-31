@@ -150,7 +150,7 @@ class Conference < ActiveRecord::Base
   end
 
   def ideal_reviews_burn
-    reviews_per_week = total_reviews_needed / (weeks_to_work_in_reviews - 1)
+    reviews_per_week = total_reviews_needed / [(weeks_to_work_in_reviews - 1), 1].max
     reviews_per_week += 1 if reviews_per_week == 0
     ideal_remaining = [total_reviews_needed]
     (weeks_to_work_in_reviews - 1).times { ideal_remaining << [(ideal_remaining.last - reviews_per_week), 0].max }

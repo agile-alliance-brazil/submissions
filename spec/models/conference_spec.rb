@@ -509,6 +509,17 @@ describe Conference, type: :model do
         let!(:session_list) { FactoryGirl.create_list(:session, 20, conference: conference) }
         it { expect(conference.ideal_reviews_burn).to eq [60, 54, 48, 42, 36, 30, 24, 18, 12, 6] }
       end
+
+      context 'but very little time to review' do
+        let(:conference) do
+          FactoryGirl.create :conference_in_review_time,
+                             submissions_deadline: 1.day.ago,
+                             voting_deadline: nil,
+                             review_deadline: 1.day.from_now
+        end
+        let!(:session_list) { FactoryGirl.create_list(:session, 2, conference: conference) }
+        it { expect(conference.ideal_reviews_burn).to eq [6] }
+      end
     end
   end
 
