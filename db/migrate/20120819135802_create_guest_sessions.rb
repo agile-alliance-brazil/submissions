@@ -8,7 +8,7 @@ class CreateGuestSessions < ActiveRecord::Migration
       t.references  :conference
       t.boolean     :keynote, default: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

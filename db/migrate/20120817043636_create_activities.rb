@@ -7,7 +7,7 @@ class CreateActivities < ActiveRecord::Migration
       t.references  :room
       t.references  :detail, polymorphic: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

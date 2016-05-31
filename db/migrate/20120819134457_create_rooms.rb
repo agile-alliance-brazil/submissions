@@ -6,7 +6,7 @@ class CreateRooms < ActiveRecord::Migration
       t.integer     :capacity
       t.references  :conference
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

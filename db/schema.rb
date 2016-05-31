@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530183638) do
+ActiveRecord::Schema.define(version: 20160531030027) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "audience_levels", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "audience_levels", ["conference_id"], name: "index_audience_levels_on_conference_id"
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.string   "location_and_date"
     t.datetime "presubmissions_deadline"
     t.datetime "prereview_deadline"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.datetime "voting_deadline"
     t.boolean  "visible",                 default: false
     t.string   "location"
@@ -77,16 +77,16 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.text     "summary"
     t.integer  "conference_id"
     t.boolean  "keynote",       default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "guest_sessions", ["conference_id"], name: "index_guest_sessions_on_conference_id"
 
   create_table "lightning_talk_groups", force: :cascade do |t|
     t.string   "lightning_talk_info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.string   "uid",                       null: false
     t.string   "secret",                    null: false
     t.string   "redirect_uri",              null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "scopes",       default: "", null: false
   end
 
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "user_id"
     t.integer  "track_id"
     t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "organizers", ["conference_id"], name: "index_organizers_on_conference_id"
@@ -144,16 +144,16 @@ ActiveRecord::Schema.define(version: 20160530183638) do
 
   create_table "outcomes", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pages", force: :cascade do |t|
     t.integer  "conference_id"
     t.string   "path",                            null: false
     t.string   "content",       default: ""
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "language",      default: "pt-BR", null: false
     t.string   "title",         default: "",      null: false
     t.boolean  "show_in_menu",  default: false,   null: false
@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "track_id"
     t.integer  "audience_level_id"
     t.boolean  "accepted",          default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "preferences", ["audience_level_id"], name: "index_preferences_on_audience_level_id"
@@ -174,14 +174,14 @@ ActiveRecord::Schema.define(version: 20160530183638) do
 
   create_table "ratings", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recommendations", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "review_decisions", force: :cascade do |t|
@@ -190,8 +190,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "organizer_id"
     t.text     "note_to_authors"
     t.boolean  "published",       default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "review_decisions", ["organizer_id"], name: "index_review_decisions_on_organizer_id"
@@ -203,24 +203,24 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "review_feedback_id"
     t.boolean  "helpful_review"
     t.string   "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "review_feedbacks", force: :cascade do |t|
     t.integer  "conference_id"
     t.integer  "author_id"
     t.string   "general_comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "reviewers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.boolean  "sign_reviews"
   end
 
@@ -246,8 +246,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "reviewer_id"
     t.integer  "session_id"
     t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "reviews", ["author_agile_xp_rating_id"], name: "index_reviews_on_author_agile_xp_rating_id"
@@ -264,22 +264,14 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.string   "name"
     t.integer  "capacity"
     t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "rooms", ["conference_id"], name: "index_rooms_on_conference_id"
 
-  create_table "session_types", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "valid_durations"
-  end
-
-  add_index "session_types", ["conference_id"], name: "index_session_types_on_conference_id"
+# Could not dump table "session_types" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "sessions", force: :cascade do |t|
     t.string   "title"
@@ -302,8 +294,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.boolean  "image_agreement"
     t.integer  "conference_id"
     t.integer  "early_reviews_count",           default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "language"
     t.integer  "comments_count",                default: 0
     t.string   "prerequisites"
@@ -340,8 +332,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.string   "title"
     t.text     "description"
     t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "tracks", ["conference_id"], name: "index_tracks_on_conference_id"
@@ -350,10 +342,10 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "model_id"
     t.string   "model_type"
     t.string   "title",                    null: false
-    t.text     "description", default: "", null: false
+    t.string   "description", default: "", null: false
     t.string   "language",                 null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.text     "content"
   end
 
@@ -382,16 +374,16 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "sign_in_count"
     t.datetime "reset_password_sent_at"
     t.string   "twitter_username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "session_id"
     t.integer  "conference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "votes", ["conference_id"], name: "index_votes_on_conference_id"

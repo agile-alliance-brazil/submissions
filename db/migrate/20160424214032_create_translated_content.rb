@@ -6,7 +6,7 @@ class CreateTranslatedContent < ActiveRecord::Migration
       t.string      :description, null: false, default: ''
       t.string      :language, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

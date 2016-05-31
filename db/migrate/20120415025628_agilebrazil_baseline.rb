@@ -5,14 +5,14 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.string      :title
       t.string      :description
       t.references  :conference
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :comments do |t|
       t.text        :comment
       t.references  :commentable, polymorphic: true
       t.references  :user
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :comments, :commentable_type
@@ -31,19 +31,19 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.string      :location_and_date
       t.datetime    :presubmissions_deadline
       t.datetime    :prereview_deadline
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :organizers do |t|
       t.references  :user
       t.references  :track
       t.references  :conference
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :outcomes do |t|
       t.string      :title
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :preferences do |t|
@@ -51,17 +51,17 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :track
       t.references  :audience_level
       t.boolean     :accepted, default: false
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :ratings do |t|
       t.string      :title
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :recommendations do |t|
       t.string      :title
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :review_decisions do |t|
@@ -70,14 +70,14 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :organizer
       t.text        :note_to_authors
       t.boolean     :published, default: false
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :reviewers do |t|
       t.references  :user
       t.references  :conference
       t.string      :state
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :reviews do |t|
@@ -99,14 +99,14 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.references  :reviewer
       t.references  :session
       t.string      :type
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :session_types do |t|
       t.string      :title
       t.string      :description
       t.references  :conference
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :sessions do |t|
@@ -130,7 +130,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.boolean     :image_agreement
       t.references  :conference
       t.integer     :early_reviews_count, default: 0
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :taggings do |t|
@@ -152,7 +152,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.string      :title
       t.text        :description
       t.references  :conference
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :users do |t|
@@ -180,7 +180,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.integer     :sign_in_count
       t.datetime    :reset_password_sent_at
       t.string      :twitter_username
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
