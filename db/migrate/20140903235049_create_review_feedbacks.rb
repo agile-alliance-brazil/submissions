@@ -5,7 +5,7 @@ class CreateReviewFeedbacks < ActiveRecord::Migration
       t.references  :author
       t.string  :general_comments
 
-      t.timestamps null: false
+      t.timestamps
     end
     create_table :review_evaluations do |t|
       t.references  :review
@@ -13,7 +13,7 @@ class CreateReviewFeedbacks < ActiveRecord::Migration
       t.boolean  :helpful_review
       t.string   :comments
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

@@ -4,7 +4,7 @@ class CreateAllHands < ActiveRecord::Migration
     create_table :all_hands do |t|
       t.string :title
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

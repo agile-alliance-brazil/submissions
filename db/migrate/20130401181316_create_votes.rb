@@ -5,7 +5,7 @@ class CreateVotes < ActiveRecord::Migration
       t.references :session
       t.references :conference
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
