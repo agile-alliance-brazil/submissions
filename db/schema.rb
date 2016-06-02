@@ -350,7 +350,7 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.integer  "model_id"
     t.string   "model_type"
     t.string   "title",                    null: false
-    t.text     "description", default: "", null: false
+    t.string   "description", default: "", null: false
     t.string   "language",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
