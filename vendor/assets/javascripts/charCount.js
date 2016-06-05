@@ -57,20 +57,19 @@
       $(this).before('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');
       var target = $(this).parent().find(options.counterElement+'.'+options.css);
       calculate($(this), target, options.separator);
-
       $(this).keypress(
           function() {
-            return calculate($(this), target, options.separator)
+            return calculate($(this), target, options.separator);
           }
       );
       $(this).keyup(
           function() {
-            return calculate($(this), target, options.separator)
+            return calculate($(this), target, options.separator);
           }
       );
       $(this).change(
           function() {
-            calculate($(this), target, options.separator)
+            return calculate($(this), target, options.separator);
           }
       );
     });

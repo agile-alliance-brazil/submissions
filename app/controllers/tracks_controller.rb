@@ -21,7 +21,7 @@ class TracksController < ApplicationController
     @track = resource_class.where(id: params[:id]).first
     respond_with @track do |format|
       format.html do
-        handle_html_response(t('flash.track.create.success')) { @track.update_attributes(track_params) }
+        handle_html_response(t('flash.track.update.success')) { @track.update_attributes(track_params) }
       end
       format.json { handle_json_response { @track.update_attributes(track_params) } }
     end

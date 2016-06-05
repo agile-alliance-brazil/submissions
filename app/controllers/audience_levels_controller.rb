@@ -21,7 +21,7 @@ class AudienceLevelsController < ApplicationController
     @audience_level = resource_class.where(id: params[:id]).first
     respond_with @audience_level do |format|
       format.html do
-        handle_html_response(t('flash.audience_level.create.success')) { @audience_level.update_attributes(audience_level_params) }
+        handle_html_response(t('flash.audience_level.update.success')) { @audience_level.update_attributes(audience_level_params) }
       end
       format.json { handle_json_response { @audience_level.update_attributes(audience_level_params) } }
     end

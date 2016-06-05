@@ -418,6 +418,21 @@ en:
         success: "Conference created successfully."
       update:
         success: "Conference updated successfully."
+    track:
+      create:
+        success: "Session track created successfully."
+      update:
+        success: "Session track updated successfully."
+    session_type:
+      create:
+        success: "Session type created successfully."
+      update:
+        success: "Session type updated successfully."
+    audience_level:
+      create:
+        success: "Audience level created successfully."
+      update:
+        success: "Audience level updated successfully."
     session:
       update:
         success: "Session was successfully updated!"

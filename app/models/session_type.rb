@@ -14,11 +14,11 @@ class SessionType < ActiveRecord::Base
   scope :for_conference, -> (c) { where(conference_id: c.id) }
 
   def title
-    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || I18n.t(self[:title] || '')
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:title) || (self[:title] && I18n.t(self[:title])) || ''
   end
 
   def description
-    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || I18n.t(self[:description] || '')
+    translated_contents.find {|c| c.language.to_sym == I18n.locale.to_sym}.try(:content) || (self[:description] && I18n.t(self[:description])) || ''
   end
 
   def self.all_titles

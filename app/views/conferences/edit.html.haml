@@ -45,6 +45,12 @@
     %span.new_duration
       = text_field_tag(:another_duration, nil, size: 5, maxlength: 3, placeholder: t('formtastic.labels.session_type.duration_placeholder'), class: 'duration_input', disabled: (!f.object.new_record?) && @conference.visible?)
       = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
+  %label.field
+    %span.text= t('formtastic.labels.session_type.needs_audience_limit')
+    = f.check_box(:needs_audience_limit, class: 'needs_audience_limit requirement')
+  %label.field
+    %span.text= t('formtastic.labels.session_type.needs_mechanics')
+    = f.check_box(:needs_mechanics, class: 'needs_mechanics requirement')
 
 = render layout: 'translated_contents/form', locals: {collection: @conference.audience_levels, new_element: @new_audience_level} do |f|
   %div

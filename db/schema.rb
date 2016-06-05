@@ -277,6 +277,8 @@ ActiveRecord::Schema.define(version: 20160530183638) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "valid_durations"
+    t.boolean  "needs_audience_limit", default: false, null: false
+    t.boolean  "needs_mechanics",      default: false, null: false
   end
 
   add_index "session_types", ["conference_id"], name: "index_session_types_on_conference_id"

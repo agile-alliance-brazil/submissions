@@ -37,12 +37,18 @@ describe SessionTypesController, type: :controller do
 
     it 'should save new session type with content' do
       post :create, year: conference.year, session_type: {
+        valid_durations: ['50'],
+        needs_audience_limit: '1',
+        needs_mechanics: '0',
         translated_contents_attributes: session_type.translated_contents.inject({}) { |acc, s|
           acc[acc.size.to_s]= s.attributes; acc
           }
         }, locale: conference.supported_languages.first
 
       new_session_type = SessionType.last
+      expect(new_session_type.valid_durations).to eq([50])
+      expect(new_session_type.needs_audience_limit?).to be_truthy
+      expect(new_session_type.needs_mechanics?).to be_falsey
       expect(new_session_type.translated_contents.map(&:language)).to eq(session_type.translated_contents.map(&:language))
       expect(new_session_type.translated_contents.map(&:title)).to eq(session_type.translated_contents.map(&:title))
       expect(new_session_type.translated_contents.map(&:content)).to eq(session_type.translated_contents.map(&:content))
@@ -130,6 +136,26 @@ describe SessionTypesController, type: :controller do
 
         expect(session_type.reload.valid_durations).to eq([10, 25])
       end
+
+      it 'should allow for need mechanics change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          needs_mechanics: '1'
+}
+
+        expect(session_type.reload.needs_mechanics?).to be_truthy
+      end
+
+      it 'should allow for need audience level change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          needs_audience_limit: '1'
+}
+
+        expect(session_type.reload.needs_audience_limit?).to be_truthy
+      end
     end
 
     context 'with visible conference' do
@@ -141,6 +167,26 @@ describe SessionTypesController, type: :controller do
 }
 
         expect(session_type.reload.valid_durations).to eq([50])
+      end
+
+      it 'should not allow for need audience limit change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          needs_audience_limit: '1'
+}
+
+        expect(session_type.reload.needs_audience_limit?).to be_falsey
+      end
+
+      it 'should not allow for need mechanics change' do
+        language = conference.supported_languages.first
+
+        patch :update, year: conference.year, id: session_type.id, session_type: {
+          needs_mechanics: '1'
+}
+
+        expect(session_type.reload.needs_mechanics?).to be_falsey
       end
     end
 

@@ -275,6 +275,10 @@
         $(c).prop('disabled', conference_visible)
       $('#edit_session_type_'+id+' .durations .duration_input').prop('disabled', conference_visible)
       $('#edit_session_type_'+id+' .durations .add_other_duration').prop('disabled', conference_visible)
+      $('#edit_session_type_'+id+' .needs_audience_limit').prop('checked', data.needs_audience_limit)
+      $('#edit_session_type_'+id+' .needs_audience_limit').prop('disabled', conference_visible)
+      $('#edit_session_type_'+id+' .needs_mechanics').prop('checked', data.needs_mechanics)
+      $('#edit_session_type_'+id+' .needs_mechanics').prop('disabled', conference_visible)
 
     $('#new_page').on 'ajax:success', (e, data, status, xhr) ->
       id = data.id

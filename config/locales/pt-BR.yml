@@ -423,6 +423,21 @@ pt-BR:
         success: "Conferência criada com sucesso."
       update:
         success: "Conferência atualizada com sucesso."
+    track:
+      create:
+        success: "Trilha de interesse criada com sucesso."
+      update:
+        success: "Trilha de interesse atualizada com sucesso."
+    session_type:
+      create:
+        success: "Tipo de sessão criado com sucesso."
+      update:
+        success: "Tipo de sessão atualizado com sucesso."
+    audience_level:
+      create:
+        success: "Perfil do público criado com sucesso."
+      update:
+        success: "Perfil do público atualizado com sucesso."
     session:
       update:
         success: "Sessão atualizada com sucesso."
