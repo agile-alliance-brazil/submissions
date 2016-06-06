@@ -51,10 +51,10 @@
       = button_tag(t('formtastic.labels.session_type.add_other_duration'), disabled: true, class: 'add_other_duration')
   %label.field
     %span.text= t('formtastic.labels.session_type.needs_audience_limit')
-    = f.check_box(:needs_audience_limit, class: 'needs_audience_limit requirement')
+    = f.check_box(:needs_audience_limit, class: 'needs_audience_limit requirement', disabled: (!f.object.new_record?) && @conference.visible?)
   %label.field
     %span.text= t('formtastic.labels.session_type.needs_mechanics')
-    = f.check_box(:needs_mechanics, class: 'needs_mechanics requirement')
+    = f.check_box(:needs_mechanics, class: 'needs_mechanics requirement', disabled: (!f.object.new_record?) && @conference.visible?)
 
 = render layout: 'translated_contents/form', locals: {collection: @conference.audience_levels, new_element: @new_audience_level} do |f|
   %div
