@@ -679,6 +679,18 @@ form.conference .logo_preview {
   max-height: 80px;
 }
 
+form.conference .logo.error {
+  color: red;
+}
+
+form.conference .logo .errors {
+  list-style-type: none;
+}
+
+form.conference .logo .errors .error {
+  display: inline;
+}
+
 #session_types .duration_template {
   display: none;
 }

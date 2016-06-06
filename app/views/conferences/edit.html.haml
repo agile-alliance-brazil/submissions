@@ -3,8 +3,12 @@
 
 = semantic_form_for @conference, html: {:'data-visible' => @conference.visible?} do |form|
   = form.inputs do
-    = image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png", class: 'logo_preview image_preview', alt: 'Logo da Conferência')
-    = form.file_field :logo, class: 'image_field'
+    .logo{class: @conference.errors_on(:logo).empty? ? '' : 'error' }
+      = image_tag(@conference.logo.try(:url, :medium) || "#{@conference.year}_logo.png", class: 'logo_preview image_preview', alt: 'Logo da Conferência')
+      = form.file_field :logo, class: 'image_field'
+      %ul.errors
+        - @conference.errors_on(:logo).each do |error_message|
+          %li.error.message= error_message
     = form.input :location, required: true, input_html: {tabindex: autotab}
     = form.input :start_date, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 9, class: 'conference_date'}
     = form.input :end_date, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 10, class: 'conference_date'}
