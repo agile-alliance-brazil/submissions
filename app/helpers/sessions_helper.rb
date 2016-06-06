@@ -35,4 +35,19 @@ module SessionsHelper
   def options_for_session_types(session_types)
     session_types.map { |type| [type.title, type.id] }
   end
+
+  def generate_session_form_config(conference)
+    session_type_ids_with_audience_limit = conference.session_types.select(&:needs_audience_limit?).map(&:id).map(&:to_s)
+    session_type_ids_with_required_mechanics = conference.session_types.select(&:needs_mechanics?).map(&:id).map(&:to_s)
+    track_ids_with_restricted_session_types = {
+      '4':  ['', '1', '2'],
+      '8':  ['', '4', '5'],
+      '13': ['', '9']
+    }
+    {
+      audienceLimitSessions: session_type_ids_with_audience_limit,
+      requiredMechanicsSessions: session_type_ids_with_required_mechanics,
+      filterSessionTypesByTrack: track_ids_with_restricted_session_types
+    }.to_json
+  end
 end
