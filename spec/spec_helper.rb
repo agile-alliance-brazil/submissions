@@ -39,7 +39,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.include(ControllerMacros, type: :controller)
   config.include(DisableAuthorization, type: :controller)
-  config.include(Devise::TestHelpers, type: :controller)
+  config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(EmailSpec::Helpers, type: :mailer)
   config.include(EmailSpec::Matchers, type: :mailer)
   config.include(TrimmerMacros)

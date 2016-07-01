@@ -38,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
           :update_needs_confirmation : :updated
         set_flash_message :notice, (needs_password? ? :password_updated : flash_key)
       end
-      sign_in resource_name, resource, bypass: true
+      bypass_sign_in resource
       respond_with resource, location: after_update_path_for(resource)
     else
       flash.now[:error] = t('flash.failure')
