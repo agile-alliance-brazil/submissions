@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2' # TODO: 5.0 needs konacha > 4.0.0 and lol_dba > 2.0.3
 gem 'haml', '~> 4.0'
 gem 'will_paginate', '~> 3.1'
 gem 'formtastic', '3.1.4'
@@ -56,7 +56,7 @@ group :development do
   gem 'travis-lint'
   gem 'foreman'
   gem 'bullet'
-  gem 'lol_dba'
+  gem 'lol_dba' # TODO: Rails 5.0 needs lol_dba > 2.0.3
   gem 'byebug'
   gem 'web-console'
   gem 'dotenv-rails', require: false
@@ -85,7 +85,7 @@ group :development, :test do
   gem 'rb-inotify', require: linux_only('rb-inotify')
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'konacha'
+  gem 'konacha' # TODO: Rails 5.0 needs konacha > 4.0.0
   gem 'guard-konacha-rails'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'selenium-webdriver'
