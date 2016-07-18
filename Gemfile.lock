@@ -49,7 +49,7 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_commentable (4.0.2)
     addressable (2.4.0)
-    airbrake (5.4.1)
+    airbrake (5.4.2)
       airbrake-ruby (~> 1.4)
     airbrake-ruby (1.4.4)
     airbrussh (1.0.2)
