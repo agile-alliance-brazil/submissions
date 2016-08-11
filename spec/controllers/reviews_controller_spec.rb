@@ -28,6 +28,7 @@ describe ReviewsController, type: :controller do
     let(:conference) { FactoryGirl.create(:conference) }
     let(:session) { FactoryGirl.create(:session, conference: conference).tap {|s| s.reviewing} }
     let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference)}
+
     before(:each) do
       sign_in reviewer.user
       disable_authorization
@@ -51,19 +52,19 @@ describe ReviewsController, type: :controller do
           FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
         end
         it 'index early reviews for organizer should work' do
-          get :organizer, session_id: session.id, type: 'early'
+          get :organizer, year: conference.year, session_id: session.id, type: 'early'
         end
 
         it 'index final reviews for organizer should work' do
-          get :organizer, session_id: session.id
+          get :organizer, year: conference.year, session_id: session.id
         end
 
         it 'index early reviews for author should work' do
-          get :index, session_id: session.id, type: 'early'
+          get :index, year: conference.year, session_id: session.id, type: 'early'
         end
 
         it 'index final reviews for author should work' do
-          get :index, session_id: session.id
+          get :index, year: conference.year, session_id: session.id
         end
       end
 
@@ -71,7 +72,7 @@ describe ReviewsController, type: :controller do
         early_review = FactoryGirl.create(:early_review,
                                           reviewer: reviewer.user, session: session)
 
-        get :show, id: early_review.id, session_id: session.id
+        get :show, year: conference.year, id: early_review.id, session_id: session.id
 
         expect(assigns(:review)).to_not be_nil
       end
@@ -80,7 +81,7 @@ describe ReviewsController, type: :controller do
         final_review = FactoryGirl.create(:final_review,
                                           reviewer: reviewer.user, session: session)
 
-        get :show, id: final_review.id, session_id: session.id
+        get :show, year: conference.year, id: final_review.id, session_id: session.id
 
         expect(assigns(:review)).to_not be_nil
       end
@@ -99,7 +100,7 @@ describe ReviewsController, type: :controller do
     it_should_require_login_for_actions :index, :show, :new, :create
 
     it 'new action should set reviewer' do
-      get :new, session_id: session.id
+      get :new, year: conference.year, session_id: session.id
 
       expect(assigns(:review).reviewer).to eq(reviewer.user)
     end
@@ -140,55 +141,79 @@ describe ReviewsController, type: :controller do
     let(:track) { FactoryGirl.create(:track, conference: conference) }
     let(:level) { FactoryGirl.create(:audience_level, conference: conference) }
     let!(:session) { FactoryGirl.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
+    let(:reviewer) do
+      user = FactoryGirl.create :user, roles: [:reviewer]
+      reviewer = FactoryGirl.build :reviewer, conference: conference, user: user
+      preference = FactoryGirl.build :preference, reviewer: reviewer, track: track, audience_level: level, accepted: true
+      reviewer.preferences = [preference]
+      reviewer.save
+      reviewer
+    end
 
     context 'unauthenticated' do
-      describe 'GET #edit' do
-        before { get :edit, session_id: session, id: 'bar' }
+      context 'GET #edit' do
+        before { get :edit, year: conference.year, session_id: session, id: 'bar' }
         it { expect(response).to redirect_to new_user_session_path }
+
+        context 'when the user is not the reviewer' do
+          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          before do
+            sign_in reviewer.user
+            get :edit, year: conference.year, session_id: session.id, id: other_user_review.id
+          end
+          it { is_expected.to redirect_to root_path }
+        end
       end
       describe 'PUT #update' do
-        before { put :update, session_id: session, id: 'bar' }
+        before { put :update, year: conference.year, session_id: session, id: 'bar' }
         it { expect(response).to redirect_to new_user_session_path }
+
+        context 'when the user is not the reviewer' do
+          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          before do
+            sign_in reviewer.user
+            put :update, year: conference.year, session_id: session, id: other_user_review
+          end
+          it { is_expected.to redirect_to root_path }
+        end
       end
     end
 
     context 'authenticated as a reviewer' do
-      let(:user) { FactoryGirl.create :user, roles: [:reviewer] }
-      let(:preference) { FactoryGirl.create :preference, track: track, audience_level: level, accepted: true }
-      let!(:reviewer) { FactoryGirl.create :reviewer, conference: conference, user: user, state: 'accepted', preferences: [preference] }
-      let(:review) { FactoryGirl.create :early_review, reviewer: user, session: session }
+      let(:review) { FactoryGirl.create :early_review, reviewer: reviewer.user, session: session }
 
-      before { sign_in user }
+      before do
+        sign_in reviewer.user
+        disable_authorization
+      end
 
       describe 'GET #edit' do
         context 'when the user is the reviewer' do
-          before { get :edit, session_id: session, id: review }
           it 'assings the instance variable and renders the template' do
+            get :edit, year: conference.year, session_id: session.id, id: review.id
+
             expect(response).to render_template :edit
             expect(assigns(:review)).to eq review
           end
         end
 
-        context 'when the user is not the reviewer' do
-          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
-          before { get :edit, session_id: session, id: other_user_review }
-          it { is_expected.to redirect_to root_path }
-        end
-
         context 'with an invalid session' do
-          before { get :edit, session_id: 'foo', id: review }
+          before { get :edit, year: conference.year, session_id: 'foo', id: review.id }
           it { expect(response.status).to eq 404 }
         end
 
         context 'when the deadline has passed' do
-          let(:conference) { FactoryGirl.create(:conference, call_for_papers: 5.days.ago, submissions_open: 4.days.ago, presubmissions_deadline: 3.days.ago, prereview_deadline: 1.day.ago) }
-          let(:track) { FactoryGirl.create(:track, conference: conference) }
-          let(:level) { FactoryGirl.create(:audience_level, conference: conference) }
-          let!(:session) { FactoryGirl.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
-          let(:review) { FactoryGirl.create :early_review, reviewer: user, session: session }
-          before { get :edit, session_id: session, id: review }
           it 'redirects to root_path with the error message' do
+            conference.call_for_papers = 5.days.ago
+            conference.submissions_open = 4.days.ago
+            conference.presubmissions_deadline = 3.days.ago
+            conference.prereview_deadline = 1.day.ago
+            conference.save!
+
+            get :edit, year: conference.year, session_id: session.id, id: review.id
+
             expect(response).to redirect_to root_path
+            expect(flash[:error]).to be_blank
             expect(flash[:alert]).to eq I18n.t('reviews.edit.errors.conference_out_of_range')
           end
         end
@@ -196,36 +221,44 @@ describe ReviewsController, type: :controller do
 
       describe 'PUT #update' do
         context 'when the user is the reviewer' do
-          before { put :update, session_id: session, id: review, early_review: valid_early_review_params }
-          subject(:updated_review) { Review.last }
-          it 'assings the instance variable and renders the template' do
-            expect(response).to redirect_to session_reviews_path
-            expect(flash[:notice]).to eq I18n.t('reviews.update.success')
-            expect(updated_review.author_agile_xp_rating_id).to eq valid_early_review_params[:author_agile_xp_rating_id]
-            expect(updated_review.author_proposal_xp_rating_id).to eq valid_early_review_params[:author_proposal_xp_rating_id]
-            expect(updated_review.proposal_track).to eq valid_early_review_params[:proposal_track]
-            expect(updated_review.proposal_level).to eq valid_early_review_params[:proposal_level]
-            expect(updated_review.proposal_type).to eq valid_early_review_params[:proposal_type]
-            expect(updated_review.proposal_limit).to eq valid_early_review_params[:proposal_limit]
-            expect(updated_review.proposal_duration).to eq valid_early_review_params[:proposal_duration]
-            expect(updated_review.proposal_abstract).to eq valid_early_review_params[:proposal_abstract]
-            expect(updated_review.proposal_quality_rating_id).to eq valid_early_review_params[:proposal_quality_rating_id]
-            expect(updated_review.proposal_relevance_rating_id).to eq valid_early_review_params[:proposal_relevance_rating_id]
-            expect(updated_review.reviewer_confidence_rating_id).to eq valid_early_review_params[:reviewer_confidence_rating_id]
-            expect(updated_review.comments_to_organizers).to eq valid_early_review_params[:comments_to_organizers]
-            expect(updated_review.comments_to_authors).to eq valid_early_review_params[:comments_to_authors]
+          before { put :update, year: conference.year, session_id: session.id, id: review.id, early_review: valid_early_review_params }
+          it { is_expected.to redirect_to session_reviews_path(conference, session) }
+          context 'flash' do
+            subject { flash[:notice] }
+            it { is_expected.to eq(I18n.t('reviews.update.success')) }
+          end
+          context 'updated review' do
+            subject { review.reload }
+            it { expect(subject.author_agile_xp_rating_id).to eq valid_early_review_params[:author_agile_xp_rating_id] }
+            it { expect(subject.author_proposal_xp_rating_id).to eq valid_early_review_params[:author_proposal_xp_rating_id] }
+            it { expect(subject.proposal_track).to eq valid_early_review_params[:proposal_track] }
+            it { expect(subject.proposal_level).to eq valid_early_review_params[:proposal_level] }
+            it { expect(subject.proposal_type).to eq valid_early_review_params[:proposal_type] }
+            it { expect(subject.proposal_limit).to eq valid_early_review_params[:proposal_limit] }
+            it { expect(subject.proposal_duration).to eq valid_early_review_params[:proposal_duration] }
+            it { expect(subject.proposal_abstract).to eq valid_early_review_params[:proposal_abstract] }
+            it { expect(subject.proposal_quality_rating_id).to eq valid_early_review_params[:proposal_quality_rating_id] }
+            it { expect(subject.proposal_relevance_rating_id).to eq valid_early_review_params[:proposal_relevance_rating_id] }
+            it { expect(subject.reviewer_confidence_rating_id).to eq valid_early_review_params[:reviewer_confidence_rating_id] }
+            it { expect(subject.comments_to_organizers).to eq valid_early_review_params[:comments_to_organizers] }
+            it { expect(subject.comments_to_authors).to eq valid_early_review_params[:comments_to_authors] }
           end
         end
 
-        context 'when the user is not the reviewer' do
-          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
-          before { put :update, session_id: session, id: other_user_review }
-          it { is_expected.to redirect_to root_path }
-        end
-
         context 'when the parameters are invalid' do
-          before { put :update, session_id: session, id: review, early_review: { author_agile_xp_rating_id: nil, proposal_quality_rating_id: nil }  }
+          before do
+            conference.prereview_deadline = 1.day.from_now
+            conference.submissions_deadline = 2.days.from_now
+            conference.voting_deadline = 3.days.from_now
+            conference.save!
+          end
           it 'renders the template again with errors and alert message' do
+            put :update,
+              year: conference.year,
+              session_id: session.id,
+              id: review.id,
+              early_review: { author_agile_xp_rating_id: nil, proposal_quality_rating_id: nil }
+
             expected_flash = "#{Review.human_attribute_name(:author_agile_xp_rating_id)}, #{Review.human_attribute_name(:proposal_quality_rating_id)}"
             expect(flash[:alert]).to eq I18n.t('errors.messages.invalid_form_data', value: expected_flash )
             expect(response).to render_template :edit
