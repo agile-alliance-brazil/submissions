@@ -16,7 +16,7 @@ class ReviewDecision < ActiveRecord::Base
     case outcome
     when Outcome.find_by_title('outcomes.accept.title')
       session.tentatively_accept unless session.pending_confirmation?
-    when Outcome.find_by_title('outcomes.reject.title')
+    when Outcome.find_by_title('outcomes.reject.title') || Outcome.find_by_title('outcomes.backup.title')
       session.reject unless session.rejected?
     end
   end
@@ -31,6 +31,7 @@ class ReviewDecision < ActiveRecord::Base
   end
 
   def rejected?
-    outcome == Outcome.find_by_title('outcomes.reject.title')
+    outcome == Outcome.find_by_title('outcomes.reject.title') ||
+      outcome == Outcome.find_by_title('outcomes.backup.title')
   end
 end

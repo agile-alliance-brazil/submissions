@@ -1,0 +1,37 @@
+Hello, #{@session.authors.map(&:full_name).join(" & ")}!
+
+
+We have good and bad news regarding your session proposal '#{h(@session.title)}' submitted to #{@conference_name}.
+
+
+Bad news is that, up to this point, your session was not selected to compose this year's program. We had a submission record this year, with 326 different session proposals - and it was a huge challenge to select the 60 (sixty) ones that are going to compose our schedule during the three conference days.
+
+
+But, the good news is that your session was highly evaluated and is listed as one of our backup sessions, so it can be still selected! :)
+
+
+Stay tuned and keep your hope: if a selected author withdraws his/her session, then backup proposals will be called immediately. If your session becomes part of our selected list, Agile Brazil's organizing committee will reach out to you.
+
+
+You can read the reviewer's specific session feedback here:
+
+= session_reviews_url(@conference, @session, type: :final, locale: 'en')
+
+
+If you have any doubts, comments or suggestions, do not hesitate to contact the Program Committee at programa@agilebrazil.com.
+
+
+We hope to have even better news soon and, regardless of the outcome, we hope to see you in Curitiba this year!
+
+
+Our best regards,
+
+
+#{"--"}
+
+Program Committee
+
+#{@conference_name}
+
+
+[Please do not reply to this e-mail. It was sent from an unmonitored email address]

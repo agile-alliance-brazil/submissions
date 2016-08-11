@@ -7,6 +7,10 @@ class ReviewPublisher
       Rails.logger.info("[SESSION] #{session.to_param}")
       try_with("REJECT", session)
     end
+    backup_sessions.each do |session|
+      Rails.logger.info("[SESSION] #{session.to_param}")
+      try_with("BACKUP", session)
+    end
     accepted_sessions.each do |session|
       Rails.logger.info("[SESSION] #{session.to_param}")
       try_with("ACCEPT", session)
@@ -29,6 +33,10 @@ class ReviewPublisher
 
   def rejected_sessions
     sessions_with_outcome('outcomes.reject.title')
+  end
+
+  def backup_sessions
+    sessions_with_outcome('outcomes.backup.title')
   end
 
   def accepted_sessions

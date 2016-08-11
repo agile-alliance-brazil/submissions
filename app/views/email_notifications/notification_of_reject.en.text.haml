@@ -1,0 +1,36 @@
+Hello, #{@session.authors.map(&:full_name).join(" & ")}!
+
+
+Unfortunately, it wasn't this time :(
+
+Your proposal '#{h(@session.title)}' was not selected to be part of #{@conference_name}'s program.
+
+
+We had a submission record this year, with 326 different session proposals - and it was a huge challenge to select the 60 (sixty) ones that are going to compose our schedule during the three conference days.
+
+
+Throughout this process, we had to say "no" to plenty of sessions with excellent feedback from our reviewers, considering our need to design a high-quality set of proposals along with a good balance between tracks, audience levels, session types and diversity that we foster on our program year after year.
+
+
+You can get access to your specific session feedback here:
+
+= session_reviews_url(@conference, @session, type: :final, locale: 'en')
+
+
+If you have any doubts, comments or suggestions, do not hesitate to contact the Program Committee at programa@agilebrazil.com.
+
+
+We thank you so much for sending your proposal and for being part of one more broken record on the history of Agile Brazil :) We hope to see you in Curitiba to this year's conference, and we hope also to receive new session proposals from you in 2017!
+
+
+Our best regards,
+
+
+#{"--"}
+
+Program Committee
+
+#{@conference_name}
+
+
+[Please do not reply to this e-mail. It was sent from an unmonitored email address]

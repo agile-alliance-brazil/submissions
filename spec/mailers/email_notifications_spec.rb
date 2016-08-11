@@ -263,7 +263,7 @@ describe EmailNotifications, type: :mailer do
 
       context "with single author" do
         it { should deliver_to(EmailNotifications.send(:format_email, session.author)) }
-        it { should have_body_text(/#{session.author.full_name},/)}
+        it { should have_body_text(/#{session.author.full_name}/)}
       end
 
       context "with second author" do
@@ -271,7 +271,7 @@ describe EmailNotifications, type: :mailer do
         before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.accept.title')) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-        it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
+        it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
       end
     end
   end
@@ -288,7 +288,7 @@ describe EmailNotifications, type: :mailer do
 )
     end
 
-    context 'with review decision' do
+    context 'with review decision of rejection' do
       before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
       it_should_behave_like "standard conference e-mail"
 
@@ -309,7 +309,7 @@ describe EmailNotifications, type: :mailer do
 
       context "with single author" do
         it { should deliver_to(EmailNotifications.send(:format_email, session.author)) }
-        it { should have_body_text(/#{session.author.full_name},/)}
+        it { should have_body_text(/#{session.author.full_name}/)}
       end
 
       context "with second author" do
@@ -317,7 +317,40 @@ describe EmailNotifications, type: :mailer do
         before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.reject.title')) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
-        it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
+        it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
+      end
+    end
+
+    context 'with review decision of backup' do
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.backup.title')) }
+      it_should_behave_like "standard conference e-mail"
+
+      it { should have_body_text(/#{session.title}/)}
+      it { should have_body_text(/\/sessions\/#{session.to_param}/)}
+
+      context "in pt" do
+        before { user.default_locale = 'pt-BR' }
+
+        it { should have_subject("[localhost:3000] Comunicado do Comitê de Programa da #{conference.name}") }
+      end
+
+      context "in en" do
+        before { user.default_locale = 'en' }
+
+        it { should have_subject("[localhost:3000] Notification from the Program Committee of #{conference.name}") }
+      end
+
+      context "with single author" do
+        it { should deliver_to(EmailNotifications.send(:format_email, session.author)) }
+        it { should have_body_text(/#{session.author.full_name}/)}
+      end
+
+      context "with second author" do
+        let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
+        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by_title('outcomes.backup.title')) }
+
+        it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
+        it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
       end
     end
   end

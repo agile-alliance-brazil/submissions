@@ -146,6 +146,9 @@ FactoryGirl.define do
     factory :accepted_outcome do
       after(:build) { |o| o.title = 'outcomes.accept.title' }
     end
+    factory :backup_outcome do
+      after(:build) { |o| o.title = 'outcomes.backup.title' }
+    end
     factory :rejected_outcome do
       after(:build) { |o| o.title = 'outcomes.reject.title' }
     end
@@ -159,6 +162,13 @@ FactoryGirl.define do
     published false
 
     factory :accepted_decision
+
+    factory :backup_decision do
+      after(:build) do |rd|
+        rd.outcome = Outcome.find_by_title('outcomes.backup.title') ||
+          FactoryGirl.create(:backup_outcome)
+      end
+    end
 
     factory :rejected_decision do
       after(:build) do |rd|

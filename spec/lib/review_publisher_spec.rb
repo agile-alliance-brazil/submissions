@@ -13,8 +13,8 @@ describe ReviewPublisher do
     @conference = FactoryGirl.create(:conference)
     Conference.stubs(:current).returns(@conference)
 
-    # TODO outcome is a mess as it depends on having only those two values. Need to figure out something better
-    @reject_outcome =Outcome.find_by_title('outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
+    @reject_outcome = Outcome.find_by_title('outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
+    @backup_outcome = Outcome.find_by_title('outcomes.backup.title') || FactoryGirl.create(:backup_outcome)
     @accept_outcome = Outcome.find_by_title('outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
 
     @publisher = ReviewPublisher.new
@@ -51,11 +51,20 @@ describe ReviewPublisher do
       mock = mock()
       Session.stubs(:for_conference).returns(mock)
       mock.expects(:with_outcome).with(@accept_outcome).returns(accept_or_reject == :accept ? @sessions : [])
+      mock.expects(:with_outcome).with(@backup_outcome).returns(accept_or_reject == :backup ? @sessions : [])
       mock.expects(:with_outcome).with(@reject_outcome).returns(accept_or_reject == :reject ? @sessions : [])
     end
 
     it 'should send reject e-mails' do
       expect_acceptance(:reject)
+
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
+
+      @publisher.publish
+    end
+
+    it 'should send backup e-mails' do
+      expect_acceptance(:backup)
 
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
 
@@ -99,6 +108,16 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
+    it 'should log backup e-mails sent' do
+      expect_acceptance(:backup)
+
+      ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
+      ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[1].to_param}")
+      ::Rails.logger.expects(:info).times(2).with('  [BACKUP] OK')
+
+      @publisher.publish
+    end
+
     it 'should log accepted e-mails sent' do
       expect_acceptance(:accept)
 
@@ -119,6 +138,20 @@ describe ReviewPublisher do
       ::Rails.logger.expects(:info).with('  [FAILED ACCEPT] error')
       ::Rails.logger.expects(:info).with('  [ACCEPT] OK')
       Airbrake.expects(:notify).with('error', action: "Publish review with ACCEPT", session: @sessions[0])
+
+      @publisher.publish
+    end
+
+    it 'should capture error when notifying backup and move on' do
+      expect_acceptance(:backup)
+
+      error = StandardError.new('error')
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).raises(error)
+      EmailNotifications.expects(:notification_of_acceptance).with(@sessions[1]).returns(mock(deliver_now: true))
+
+      ::Rails.logger.expects(:info).with('  [FAILED BACKUP] error')
+      ::Rails.logger.expects(:info).with('  [BACKUP] OK')
+      Airbrake.expects(:notify).with('error', action: "Publish review with BACKUP", session: @sessions[0])
 
       @publisher.publish
     end

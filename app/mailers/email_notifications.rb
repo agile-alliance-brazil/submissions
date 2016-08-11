@@ -70,8 +70,10 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def notification_of_acceptance(session, sent_at = Time.now)
-    raise "Notification can't be sent before decision has been made" unless session.review_decision
-    accepted = session.review_decision.accepted?
+    decision = session.review_decision
+    raise "Notification can't be sent before decision has been made" unless decision
+    accepted = decision.accepted?
+    template_name = decision.outcome.title.gsub(/^outcomes\.([^.]+)\.title$/, 'notification_of_\1').to_sym
     @session = session
     @conference_name = current_conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
@@ -79,7 +81,7 @@ class EmailNotifications < ActionMailer::Base
       mail subject: "[#{host}] #{subject}",
            to: session.authors.map { |author| EmailNotifications.format_email(author) },
            date: sent_at,
-           template_name: (accepted ? :notification_of_acceptance : :notification_of_rejection)
+           template_name: template_name
     end
   end
 

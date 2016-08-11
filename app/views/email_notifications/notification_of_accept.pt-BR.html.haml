@@ -1,0 +1,66 @@
+%p Olá, #{h(@session.authors.map(&:full_name).join(" & "))}!
+
+%p
+  É com grande satisfação que comunicamos
+  %bold a entrada da sua sessão '#{h(@session.title)}' no programa
+  da #{@conference_name}!
+
+%p Tivemos um número recorde de submissões neste ano, totalizando 326 diferentes propostas de sessão - e foi realmente um desafio selecionar as 60 (sessenta) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+
+%p
+  Agora, você precisa tomar algumas ações
+  %bold até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')}
+  para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
+
+%ol
+  %li
+    %bold Consulte as críticas e sugestões
+    feitas pelos avaliadores acessando o endereço:
+    = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR') + '.', session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
+    É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
+  %li
+    %bold Confirme sua presença
+    na conferência e
+    %bold efetue quaisquer mudanças
+    sugeridas pelos avaliadores. Para isso, acesse este formulário:
+    = link_to session_confirm_url(@conference, @session, locale: 'pt-BR'), session_confirm_url(@conference, @session, locale: 'pt-BR')
+  %li
+    %bold Caso você não possa comparecer ao evento, confirme sua desistência
+    através do formulário:
+    = link_to session_withdraw_url(@conference, @session, locale: 'pt-BR') + '.', session_withdraw_url(@conference, @session, locale: 'pt-BR')
+    Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
+
+%p
+  Sessões que não forem confirmadas serão removidas do programa e substituídas por outras propostas selecionadas que estão em backup.
+  - if(@session.authors.size > 1)
+    Qualquer um dos dois autores (#{@session.author.full_name} ou #{@session.second_author.full_name}) pode confirmar ou cancelar a proposta. Mas, basta que UM dos autores confirme ou cancele para a sessão ser confirmada ou cancelada. Se um autor já confirmou ou cancelou, o outro autor pode receber uma mensagem informando que não tem autorização para realizar a nova ação.
+
+%p
+  Se você completou os passos (1) e (2) e confirmou sua sessão na conferência, comemore! \o/
+  %br
+  A organização da #{@conference_name} entrará em contato em breve para dar início ao seu processo de inscrição.
+
+- if @session.authors.size > 1 && @session.duration_mins < 50
+  %p
+    Notem quem, apesar de sua proposta ter dois autores,
+    %bold sessões de 25 minutos têm direito apenas a uma inscrição gratuita.
+    Quando a organização entrar em contato, vocês deverão escolher qual autor usará a inscrição gratuita. A outra inscrição deverá ser feita pelas vias normais.
+
+%p Em caso de dúvidas, pedidos ou comentários, entre em contato com o Comitê de Programa através do e-mail #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+
+%p
+  Mais uma vez, parabéns!
+  %br
+  Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Curitiba em novembro!
+
+%p Um grande abraço,
+
+%p
+  %bold
+    = "--"
+    %br
+    Comissão de Programa
+    #{@conference_name}
+
+%small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]
+

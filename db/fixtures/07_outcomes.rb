@@ -8,3 +8,8 @@ Outcome.seed do |outcome|
   outcome.id = 2
   outcome.title = 'outcomes.reject.title'
 end
+
+Outcome.seed do |outcome|
+  outcome.id = 3
+  outcome.title = 'outcomes.backup.title'
+end
