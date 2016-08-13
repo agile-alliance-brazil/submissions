@@ -706,6 +706,8 @@ pt-BR:
       title: "Aceita"
     reject:
       title: "Rejeitada"
+    backup:
+      title: "Reserva"
 
   all_hands:
     opening:

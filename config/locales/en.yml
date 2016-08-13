@@ -701,6 +701,8 @@ en:
       title: "Accepted"
     reject:
       title: "Rejected"
+    backup:
+      title: "Backup"
 
   all_hands:
     opening:
