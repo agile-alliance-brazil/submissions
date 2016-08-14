@@ -15,3 +15,10 @@
     = form.action :submit, label: :confirm_session, button_html: {tabindex: autotab}
     = t('generic.or')
     = link_to t('formtastic.actions.withdraw_session'), session_withdraw_path(@conference, @session)
+
+:javascript
+  $(document).ready(function() {
+    var audienceLimitSessions = #{generate_session_form_config(@conference)}.audienceLimitSessions;
+    var needsAudienceLimit = $.inArray('#{@session.session_type_id}', audienceLimitSessions) > -1;
+    $.submissions.toggleAudienceLimit(needsAudienceLimit);
+  });

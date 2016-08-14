@@ -429,7 +429,9 @@ form.reviewer, form.review_decision_confirm, form.review_decision_withdraw, form
     -webkit-border-radius: 10px;
     border: 1px dashed $color3;
     padding: 10px;
-    font-size: 8pt; }
+    font-size: 8pt;
+    p {
+      white-space: initial; } }
   fieldset.accept {
     width: 100%;
     li.boolean {

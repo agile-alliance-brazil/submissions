@@ -5,10 +5,15 @@
   generateAudienceLimitUpdateFunction = (sessionTypeIdsWithAudienceLimit) ->
     (e) ->
       needsAudienceLimit = $.inArray($(this).val(), sessionTypeIdsWithAudienceLimit) > -1
-      $('#session_audience_limit_input').toggle(needsAudienceLimit)
-      if !needsAudienceLimit
-        $('#session_audience_limit').val('')
-      true
+      toggleAudienceLimit(needsAudienceLimit)
+
+  toggleAudienceLimit = (needsAudienceLimit) ->
+    $('#session_audience_limit_input').toggle(needsAudienceLimit)
+    if !needsAudienceLimit
+      $('#session_audience_limit').val('')
+    true
+
+  $.submissions.toggleAudienceLimit = toggleAudienceLimit
 
   generateRequiredMechanicsUpdateFunction = (sessionTypeIdsWithMechanics) ->
     (e) ->
@@ -17,7 +22,7 @@
       true
 
   loadAlreadySelectedTags = () ->
-    commaSeparatedTags = $('#session_keyword_list').get(0).value
+    commaSeparatedTags = if $('#session_keyword_list').size() > 0 then $('#session_keyword_list').get(0).value else ''
     tags = if commaSeparatedTags.length == 0 then [] else commaSeparatedTags.split(',')
     for tag in tags
       tagItem = $('li[data-tag="'+tag+'"]').get(0)
@@ -34,8 +39,8 @@
     $('#session_duration_mins').filterOn('#session_session_type_id', $('#session_session_type_id').data('durations-to-hide'))
     $('#session_session_type_id').bindSelectUpdated()
 
-    $('#session_session_type_id').bind 'updated', generateAudienceLimitUpdateFunction(config.audienceLimitSessions)
-    $('#session_session_type_id').bind 'updated', generateRequiredMechanicsUpdateFunction(config.requiredMechanicsSessions)
+    $('#session_session_type_id').bind('updated', generateAudienceLimitUpdateFunction(config.audienceLimitSessions))
+    $('#session_session_type_id').bind('updated', generateRequiredMechanicsUpdateFunction(config.requiredMechanicsSessions))
     $('#session_session_type_id').bindSelectUpdated()
 
     $('#session_session_type_id, #session_track_id').trigger('updated')
