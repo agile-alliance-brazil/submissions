@@ -25,7 +25,7 @@ class ReviewFeedbackRequester
   end
 
   def authors_for(conference)
-    Session.for_review_in(conference).map(&:authors).flatten.uniq
+    Session.for_review_in(conference).map(&:authors).flatten.uniq.compact
   end
 
   def current_conference
