@@ -62,7 +62,7 @@ class ReviewFeedbacksController < ApplicationController
     feedback_exists = ReviewFeedback.exists?(
       conference_id: @conference,
       author_id: current_user
-)
+    )
 
     if feedback_exists
       raise ActiveRecord::RecordNotUnique.new(
@@ -70,7 +70,7 @@ class ReviewFeedbacksController < ApplicationController
         "#{@conference.id} and user id " +
         "#{current_user.id} already exists",
         nil
-)
+      )
     end
   end
 end
