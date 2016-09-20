@@ -1,4 +1,6 @@
-# Conference Submission System [![Build Status](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master/build_image)](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master) [![Dependency Status](https://gemnasium.com/agile-alliance-brazil/submissions.svg)](https://gemnasium.com/agile-alliance-brazil/submissions) [![Code Climate](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/gpa.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions) [![Test Coverage](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/coverage.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions)
+# Conference Submission System
+[![Build Status](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master/build_image)](https://snap-ci.com/agile-alliance-brazil/submissions/branch/master) [![Dependency Status](https://gemnasium.com/agile-alliance-brazil/submissions.svg)](https://gemnasium.com/agile-alliance-brazil/submissions) [![Code Climate](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/gpa.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions) [![Test Coverage](https://codeclimate.com/github/agile-alliance-brazil/submissions/badges/coverage.svg)](https://codeclimate.com/github/agile-alliance-brazil/submissions)
+===================
 
 This is an open-source conference submission system, built in Rails and has been used for the [Agile Brazil](http://www.agilebrazil.com) conference since 2010. Some of the features supported are:
 
