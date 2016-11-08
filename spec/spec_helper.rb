@@ -17,8 +17,6 @@ require 'rspec/rails'
 require 'rspec/collection_matchers'
 require 'cancan/matchers'
 require 'paperclip/matchers'
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

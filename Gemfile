@@ -68,8 +68,8 @@ group :test do
   gem 'mocha'
   gem 'shoulda-matchers'
   gem 'email_spec'
-  gem 'codeclimate-test-reporter', require: nil
-  gem 'simplecov', require: false
+  gem 'simplecov'
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
 end
 
 group :development, :test do
