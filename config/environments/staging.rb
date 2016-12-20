@@ -36,10 +36,7 @@ AgileBrazil::Application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags
-  config.log_tags = [lambda_ do |_request|
-                       Time.now.strftime('%FT%T%:z')
-                     end,
-                     :uuid]
+  config.log_tags = [->(_request) { Time.now.strftime('%FT%T%:z') }, :uuid]
 
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
