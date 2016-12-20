@@ -14,6 +14,7 @@ AllCops:
     - 'Gemfile.lock'
     - !ruby/regexp /old_and_unused\.rb$/
     - 'config/add_vagrant_config.rb'
+    - 'puppet/**/*'
 
 Rails:
   Enabled: true
