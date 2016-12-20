@@ -1,8 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Recommendation, type: :model do
-  context "validations" do
+  context 'validations' do
     it { should validate_presence_of :name }
   end
 

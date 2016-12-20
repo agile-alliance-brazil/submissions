@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Ability, type: :model do
@@ -317,9 +318,9 @@ describe Ability, type: :model do
       before(:each) do
         @another_user = FactoryGirl.build(:user)
         @session = FactoryGirl.build(:session,
-          author: @user,
-          state: 'pending_confirmation',
-          review_decision: FactoryGirl.build(:review_decision))
+                                     author: @user,
+                                     state: 'pending_confirmation',
+                                     review_decision: FactoryGirl.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -378,9 +379,9 @@ describe Ability, type: :model do
       before(:each) do
         @another_user = FactoryGirl.build(:user)
         @session = FactoryGirl.build(:session,
-          author: @user,
-          state: 'pending_confirmation',
-          review_decision: FactoryGirl.build(:review_decision))
+                                     author: @user,
+                                     state: 'pending_confirmation',
+                                     review_decision: FactoryGirl.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -438,9 +439,9 @@ describe Ability, type: :model do
     context 'create review feedback' do
       before(:each) do
         @session = FactoryGirl.build(:session,
-          author: @user,
-          conference: @conference,
-          review_decision: FactoryGirl.build(:review_decision, published: true))
+                                     author: @user,
+                                     conference: @conference,
+                                     review_decision: FactoryGirl.build(:review_decision, published: true))
         sessions = [@session]
         @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
         sessions.stubs(:includes).with(:review_decision).returns(sessions)
@@ -454,7 +455,7 @@ describe Ability, type: :model do
 
       it 'with a valid and a cancelled proposal for the conference is allowed' do
         cancelled_session = FactoryGirl.build(:session,
-          author: @user, conference: @conference, state: 'cancelled')
+                                              author: @user, conference: @conference, state: 'cancelled')
         sessions = [@session, cancelled_session]
         @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
         sessions.stubs(:includes).with(:review_decision).returns(sessions)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddPrerequisitesToSession < ActiveRecord::Migration
   def change
     add_column :sessions, :prerequisites, :string

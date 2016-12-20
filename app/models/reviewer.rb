@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Reviewer < ActiveRecord::Base
-  attr_trimmed    :user_username
+  attr_trimmed :user_username
 
   attr_autocomplete_username_as :user
 
@@ -20,7 +21,7 @@ class Reviewer < ActiveRecord::Base
   scope :for_track, ->(track_id) { joins(:accepted_preferences).where(preferences: { track_id: track_id }) }
 
   def self.user_reviewing_conference?(user, conference)
-    !self.for_user(user).for_conference(conference).accepted.empty?
+    !for_user(user).for_conference(conference).accepted.empty?
   end
 
   state_machine initial: :created do
@@ -47,7 +48,7 @@ class Reviewer < ActiveRecord::Base
 
     state :accepted do
       validate do |reviewer|
-        if reviewer.preferences.select {|p| p.accepted?}.empty?
+        if reviewer.preferences.select(&:accepted?).empty?
           reviewer.errors.add(:base, :preferences)
         end
       end
@@ -60,30 +61,30 @@ class Reviewer < ActiveRecord::Base
   end
 
   after_destroy do
-    if Reviewer.where(user_id: user.id).count == 0
+    if Reviewer.where(user_id: user.id).count.zero?
       user.remove_role :reviewer
       user.save(validate: false)
     end
   end
 
   def can_review?(track)
-    !user.organized_tracks(self.conference).include?(track)
+    !user.organized_tracks(conference).include?(track)
   end
 
-  def display_name index=nil
+  def display_name(index = nil)
     return user.full_name if sign_reviews
     "#{I18n.t('formtastic.labels.reviewer.user_id')} #{index}".strip
   end
 
   def early_reviews
-    user.early_reviews.for_conference(self.conference)
+    user.early_reviews.for_conference(conference)
   end
 
   def final_reviews
-    user.final_reviews.for_conference(self.conference)
+    user.final_reviews.for_conference(conference)
   end
 
   def reviews
-    user.reviews.for_conference(self.conference)
+    user.reviews.for_conference(conference)
   end
 end

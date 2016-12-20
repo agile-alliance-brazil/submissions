@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sessions_by_track
@@ -6,11 +7,11 @@ class ApplicationController < ActionController::Base
   helper_method :gravatar_url
   protect_from_forgery
 
-  around_filter :set_locale
-  around_filter :set_timezone
-  before_filter :set_conference
-  before_filter :authenticate_user!
-  before_filter :authorize_action
+  around_action :set_locale
+  around_action :set_timezone
+  before_action :set_conference
+  before_action :authenticate_user!
+  before_action :authorize_action
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   AVATAR_SIZES = {
@@ -23,7 +24,11 @@ class ApplicationController < ActionController::Base
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
 
     flash[:error] = t('flash.unauthorised')
-    redirect_to :back rescue redirect_to root_path
+    begin
+      redirect_to :back
+    rescue
+      redirect_to root_path
+    end
   end
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
@@ -34,30 +39,30 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_user, @conference, session, reviewer)
   end
 
-  def default_url_options(options={})
+  def default_url_options(_options = {})
     # Keep locale when navigating links if locale is specified
     params[:locale] && I18n.available_locales.include?(params[:locale].try(:to_sym)) ? { locale: params[:locale] } : {}
   end
 
   def sanitize(text)
-    text.gsub(/[\s;'\"]/,'')
+    text.gsub(/[\s;'\"]/, '')
   end
 
   def sessions_by_track
     ([['Track', 'Submitted sessions']] +
-      @conference.tracks.includes(:translated_contents).
-        map {|track| [track.title, track.sessions.count]})
+      @conference.tracks.includes(:translated_contents)
+        .map { |track| [track.title, track.sessions.count] })
   end
 
   def sessions_by_type
     ([['Type', 'Submitted sessions']] +
-      @conference.session_types.includes(:translated_contents).
-        map {|type| [type.title, type.sessions.count]})
+      @conference.session_types.includes(:translated_contents)
+        .map { |type| [type.title, type.sessions.count] })
   end
 
-  def gravatar_url(user, options={})
+  def gravatar_url(user, options = {})
     options = options.with_indifferent_access
-    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    gravatar_id = Digest::MD5.hexdigest(user.email).downcase
     size = options[:size] || :normal
     default = options[:default] || :mm
     "https://gravatar.com/avatar/#{gravatar_id}.png?s=#{AVATAR_SIZES[size]}&d=#{default}"
@@ -71,12 +76,10 @@ class ApplicationController < ActionController::Base
     begin
       I18n.with_locale(locales.pop, &block)
     rescue I18n::InvalidLocale => e
-      if locales.size > 0
-        flash.now[:error] = e.message
-        retry
-      else
-        raise e
-      end
+      raise e if locales.empty?
+
+      flash.now[:error] = e.message
+      retry
     end
   end
 
@@ -85,14 +88,27 @@ class ApplicationController < ActionController::Base
   end
 
   def set_conference
-    @conference ||= (
-      Conference.includes(tracks: [:translated_contents], session_types: [:translated_contents]).
-        find_by_year(params[:year]) || Conference.current)
+    return @conference if @conference
+
+    @conference = Conference.includes(
+      tracks: [:translated_contents],
+      session_types: [:translated_contents]
+    )
+                            .find_by(year: params[:year])
+    @conference ||= Conference.current
   end
 
   def authorize_action
-    obj = resource rescue nil
-    clazz = resource_class rescue nil
+    obj = begin
+            resource
+          rescue
+            nil
+          end
+    clazz = begin
+              resource_class
+            rescue
+              nil
+            end
     action = params[:action].to_sym
     controller = obj || clazz || controller_name
     authorize!(action, controller)

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe PasswordResetsController, type: :controller do
@@ -11,12 +12,12 @@ describe PasswordResetsController, type: :controller do
     FactoryGirl.create(:conference)
   end
 
-  it "new action should render new template" do
+  it 'new action should render new template' do
     get :new
     expect(response).to render_template(:new)
   end
 
-  it "edit action should render edit template" do
+  it 'edit action should render edit template' do
     get :edit, id: @user, reset_password_token: 'aaaa'
     expect(response).to render_template(:edit)
   end

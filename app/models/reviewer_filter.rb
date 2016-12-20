@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewerFilter
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -6,11 +7,11 @@ class ReviewerFilter
 
   attr_accessor :state, :track_id
 
-  def initialize(params={})
-    if params[:reviewer_filter]
-      @state = params[:reviewer_filter][:state]
-      @track_id = params[:reviewer_filter][:track_id]
-    end
+  def initialize(params = {})
+    return unless params[:reviewer_filter]
+
+    @state = params[:reviewer_filter][:state]
+    @track_id = params[:reviewer_filter][:track_id]
   end
 
   def apply(scope)

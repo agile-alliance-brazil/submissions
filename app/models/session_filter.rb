@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class SessionFilter
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -6,16 +7,16 @@ class SessionFilter
 
   attr_accessor :user_id, :track_id, :session_type_id, :audience_level_id, :tags, :state
 
-  def initialize(filter=nil, user_id = nil)
+  def initialize(filter = nil, user_id = nil)
     @user_id = user_id
-    if filter
-      self.username = filter[:username]
-      @tags = filter[:tags]
-      @state = filter[:state]
-      @track_id = filter[:track_id]
-      @session_type_id = filter[:session_type_id]
-      @audience_level_id = filter[:audience_level_id]
-    end
+    return unless filter
+
+    self.username = filter[:username]
+    @tags = filter[:tags]
+    @state = filter[:state]
+    @track_id = filter[:track_id]
+    @session_type_id = filter[:session_type_id]
+    @audience_level_id = filter[:audience_level_id]
   end
 
   def username
@@ -24,7 +25,7 @@ class SessionFilter
 
   def username=(username)
     return if username.blank?
-    @user_id = User.find_by_username(username.strip).try(:id)
+    @user_id = User.find_by(username: username.strip).try(:id)
   end
 
   def apply(scope)

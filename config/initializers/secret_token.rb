@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Be sure to restart your server when you modify this file.
 
 # Your secret key is used for verifying the integrity of signed cookies.
@@ -9,5 +10,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-AgileBrazil::Application.config.secret_token = AppConfig[:secret_token]
-AgileBrazil::Application.config.secret_key_base = AppConfig[:secret_key_base]
+AgileBrazil::Application.config.secret_token = APP_CONFIG[:secret_token]
+AgileBrazil::Application.config.secret_key_base = APP_CONFIG[:secret_key_base]

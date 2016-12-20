@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Organizer < ActiveRecord::Base
   attr_trimmed    :user_username
 
@@ -16,7 +17,7 @@ class Organizer < ActiveRecord::Base
   scope :for_user, ->(u) { where(user_id: u.id) }
 
   def self.user_organizing_conference?(user, conference)
-    !self.for_user(user).for_conference(conference).empty?
+    !for_user(user).for_conference(conference).empty?
   end
 
   after_save do

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Session < ActiveRecord::Base
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
@@ -40,7 +41,7 @@ class Session < ActiveRecord::Base
   validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
 
-  scope :for_conference, ->(conference) { where(conference_id: conference.id)}
+  scope :for_conference, ->(conference) { where(conference_id: conference.id) }
   scope :for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) }
   scope :for_tracks, ->(track_ids) { where(track_id: track_ids) }
   scope :for_audience_level, ->(audience_level_id) { where(audience_level_id: audience_level_id) }
@@ -48,22 +49,22 @@ class Session < ActiveRecord::Base
   scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
   scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
   scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }
-  scope :not_author, ->(u) {
+  scope :not_author, lambda { |u|
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
   }
-  scope :not_reviewed_by, ->(user, review_type) {
-    joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'").
-      where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id).
-      group("sessions.id").
-      having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
+  scope :not_reviewed_by, lambda { |user, review_type|
+    joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'")
+      .where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id)
+      .group('sessions.id')
+      .having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
   }
-  scope :for_preferences, ->(*preferences) {
+  scope :for_preferences, lambda { |*preferences|
     return none if preferences.empty?
-    clause = preferences.map { |p| "(track_id = ? AND audience_level_id <= ?)" }.join(" OR ")
-    args = preferences.map {|p| [p.track_id, p.audience_level_id]}.flatten
+    clause = preferences.map { |_p| '(track_id = ? AND audience_level_id <= ?)' }.join(' OR ')
+    args = preferences.map { |p| [p.track_id, p.audience_level_id] }.flatten
     where(clause, *args)
   }
-  scope :with_outcome, ->(outcome) {
+  scope :with_outcome, lambda { |outcome|
     includes(:review_decision).where(review_decisions: { outcome_id: outcome.id, published: false })
   }
   scope :active, -> { where('state <> ?', :cancelled) }
@@ -78,10 +79,10 @@ class Session < ActiveRecord::Base
   end
 
   def self.for_reviewer(user, conference)
-    sessions = for_review_in(conference).
-      not_author(user.id).
-      for_preferences(*user.preferences(conference)).
-      not_reviewed_by(user, conference.in_early_review_phase? ? 'EarlyReview' : 'FinalReview')
+    sessions = for_review_in(conference)
+               .not_author(user.id)
+               .for_preferences(*user.preferences(conference))
+               .not_reviewed_by(user, conference.in_early_review_phase? ? 'EarlyReview' : 'FinalReview')
     if conference.in_final_review_phase?
       sessions.with_incomplete_final_reviews
     else
@@ -98,8 +99,8 @@ class Session < ActiveRecord::Base
   end
 
   def self.without_decision_count_for(conference)
-    Session.for_conference(conference).where(state: ['pending_confirmation', 'rejected']).
-      joins('left outer join (
+    Session.for_conference(conference).where(state: %w(pending_confirmation rejected))
+           .joins('left outer join (
         SELECT session_id, count(*) AS cnt
         FROM review_decisions
         GROUP BY session_id
@@ -135,7 +136,6 @@ class Session < ActiveRecord::Base
     state :rejected do
       validates :author_agreement, acceptance: { accept: true }
     end
-
   end
 
   def to_param
@@ -150,25 +150,25 @@ class Session < ActiveRecord::Base
     authors.include?(user)
   end
 
-  def respond_to?(method_sym, include_private = false)
-    method_is_session_type_based?(method_sym) ||
-      super
+  def respond_to_missing?(method_sym, include_private = false)
+    method_is_session_type_based?(method_sym) || super
   end
 
   def method_missing(method_sym, *arguments, &block)
     if method_is_session_type_based?(method_sym)
       # Responds to 'lightning_talk?' if there is a session type with that title
-      self.session_type.try(:send, method_sym, *arguments, &block)
+      session_type.try(:send, method_sym, *arguments, &block)
     else
       super
     end
   end
 
   private
+
   def method_is_session_type_based?(method_sym)
-    SessionType.all_titles.
-      map {|title| "#{title}?"}.
-      include?(method_sym.to_s)
+    SessionType.all_titles
+               .map { |title| "#{title}?" }
+               .include?(method_sym.to_s)
   end
 
   def requires_mechanics?

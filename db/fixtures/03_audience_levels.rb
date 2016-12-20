@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 AudienceLevel.seed do |audience_level|
   audience_level.id = 1
   audience_level.conference_id = 1

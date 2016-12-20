@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class PagesController < ApplicationController
-  skip_before_filter :authenticate_user!, only: :show
+  skip_before_action :authenticate_user!, only: :show
   respond_to :json, :html
 
   def show
@@ -27,7 +28,7 @@ class PagesController < ApplicationController
   def update
     @page = resource
     attrs = update_page_attributes
-    attrs = attrs.merge({ path: 'home' }) if @page.path == '/' || @page.path.blank? # TODO Legacy, remove
+    attrs = attrs.merge(path: 'home') if @page.path == '/' || @page.path.blank? # TODO: Legacy, remove
     respond_with @page do |format|
       format.html do
         handle_html_response { @page.update_attributes(attrs) }
@@ -37,6 +38,7 @@ class PagesController < ApplicationController
   end
 
   private
+
   def resource
     Page.where(id: params[:id]).includes(:translated_contents).first ||
       Page.for_conference(@conference).with_path(path).includes(:translated_contents).first

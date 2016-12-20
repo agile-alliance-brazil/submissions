@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe RejectReviewersController, type: :controller do
@@ -14,12 +15,12 @@ describe RejectReviewersController, type: :controller do
     disable_authorization
   end
 
-  it "show action should render show template" do
+  it 'show action should render show template' do
     get :show, reviewer_id: @reviewer.id
     expect(response).to render_template(:show)
   end
 
-  it "update action should render show template when transition is invalid" do
+  it 'update action should render show template when transition is invalid' do
     @reviewer.expects(:reject).returns(false)
 
     patch :update, reviewer_id: @reviewer.id
@@ -27,7 +28,7 @@ describe RejectReviewersController, type: :controller do
     expect(response).to render_template(:show)
   end
 
-  it "update action should redirect when transition is valid" do
+  it 'update action should redirect when transition is valid' do
     patch :update, reviewer_id: @reviewer.id
 
     expect(response).to redirect_to(root_path)

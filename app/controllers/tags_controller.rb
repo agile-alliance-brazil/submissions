@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class TagsController < ApplicationController
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def index
     collection = ActsAsTaggableOn::Tag.named_like(params[:term]).all
@@ -10,6 +11,7 @@ class TagsController < ApplicationController
   end
 
   private
+
   def resource_class
     ActsAsTaggableOn::Tag
   end

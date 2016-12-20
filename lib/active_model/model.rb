@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ActiveModel
   # TODO: Remove once issue #114 is solved as this is already in Rails 4.0
   # == Active \Model \Basic \Model
@@ -75,10 +76,12 @@ module ActiveModel
     #   person = Person.new(name: 'bob', age: '18')
     #   person.name # => "bob"
     #   person.age  # => "18"
-    def initialize(params={})
+    def initialize(params = {})
+      return super unless params
+
       params.each do |attr, value|
-        self.public_send("#{attr}=", value)
-      end if params
+        public_send("#{attr}=", value)
+      end
 
       super()
     end

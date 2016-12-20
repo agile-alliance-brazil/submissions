@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.commitment' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.creation' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.continuous_deploy' }

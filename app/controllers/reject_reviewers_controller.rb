@@ -1,9 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class RejectReviewersController < ApplicationController
-  before_filter :load_reviewer
+  before_action :load_reviewer
 
-  def show
-  end
+  def show; end
 
   def update
     if @reviewer.try(:reject)
@@ -16,6 +16,7 @@ class RejectReviewersController < ApplicationController
   end
 
   protected
+
   def load_reviewer
     @reviewer = Reviewer.find(params[:reviewer_id])
   end

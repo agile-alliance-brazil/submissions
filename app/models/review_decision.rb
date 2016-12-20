@@ -1,10 +1,11 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewDecision < ActiveRecord::Base
-  attr_trimmed    :note_to_authors
+  attr_trimmed :note_to_authors
 
   belongs_to :session
   belongs_to :outcome
-  belongs_to :organizer, class_name: "User"
+  belongs_to :organizer, class_name: 'User'
 
   validates :organizer_id, presence: true, existence: true
   validates :session_id, presence: true, existence: true
@@ -25,8 +26,8 @@ class ReviewDecision < ActiveRecord::Base
 
   scope :for_conference, ->(c) { joins(:session).where(sessions: { conference_id: c.id }) }
   scope :for_tracks, ->(track_ids) { joins(:session).where(sessions: { track_id: track_ids }) }
-  scope :accepted, -> { where(outcome_id: Outcome.find_by_title('outcomes.accept.title').id) }
-  scope :confirmed, -> { joins(:session).where(sessions: { state: ['accepted', 'rejected'] }) }
+  scope :accepted, -> { where(outcome_id: Outcome.find_by(title: 'outcomes.accept.title').id) }
+  scope :confirmed, -> { joins(:session).where(sessions: { state: %w(accepted rejected) }) }
 
   def accepted?
     outcome.title == 'outcomes.accept.title'

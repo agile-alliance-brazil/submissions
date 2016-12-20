@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class EarlyReview < Review
   belongs_to :session, counter_cache: true
 
@@ -7,7 +8,8 @@ class EarlyReview < Review
   end
 
   private
+
   def notify
-    EmailNotifications.early_review_submitted(self.session).deliver_now
+    EmailNotifications.early_review_submitted(session).deliver_now
   end
 end

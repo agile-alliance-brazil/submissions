@@ -1,4 +1,5 @@
-#encoding: utf-8
+# encoding: utf-8
+# frozen_string_literal: true
 module SessionsHelper
   def all_durations_for(session_types)
     session_types.map(&:valid_durations).flatten.uniq.sort
@@ -12,7 +13,7 @@ module SessionsHelper
 
   def durations_to_hide(session_types)
     all_durations = all_durations_for(session_types)
-    session_types.inject({}) do |durations_to_hide, session_type|
+    session_types.each_with_object({}) do |session_type, durations_to_hide|
       hide = (all_durations - session_type.valid_durations)
       hide << nil if session_type.valid_durations.size == 1
       durations_to_hide[session_type.id] = hide.map(&:to_s)

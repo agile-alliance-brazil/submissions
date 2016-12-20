@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class CommentsController < ApplicationController
-  before_filter :load_session
+  before_action :load_session
 
   def index
     redirect_to session_path(@conference, @session, anchor: 'comments')
@@ -46,6 +47,7 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def resource
     Comment.find(params[:id])
   end

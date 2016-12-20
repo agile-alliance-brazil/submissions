@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ConferencesController < ApplicationController
   def index
     @conferences = Conference.order('conferences.created_at DESC').all
@@ -17,7 +18,7 @@ class ConferencesController < ApplicationController
         title: I18n.t('title.home', locale: language[:code]),
         content: language[:name],
         language: language[:code]
-)
+      )
     end
     if @conference.save
       flash[:notice] = I18n.t('flash.conference.create.success')
@@ -30,9 +31,9 @@ class ConferencesController < ApplicationController
 
   def edit
     @conference = resource_query.includes(pages: [:translated_contents],
-      tracks: [:translated_contents],
-      audience_levels: [:translated_contents],
-      session_types: [:translated_contents]).first
+                                          tracks: [:translated_contents],
+                                          audience_levels: [:translated_contents],
+                                          session_types: [:translated_contents]).first
     @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
     @new_track = Track.new(conference: @conference)
     @new_session_type = SessionType.new(conference: @conference)
@@ -69,6 +70,7 @@ class ConferencesController < ApplicationController
   end
 
   protected
+
   def resource_class
     Conference
   end
@@ -88,9 +90,9 @@ class ConferencesController < ApplicationController
 
   def conference_params
     attributes = params.require(:conference).permit(:logo, :location, :start_date, :end_date, :call_for_papers,
-      :submissions_open, :presubmissions_deadline, :prereview_deadline, :submissions_deadline,
-      :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :tag_list, :allow_free_form_tags,
-      :visible)
+                                                    :submissions_open, :presubmissions_deadline, :prereview_deadline, :submissions_deadline,
+                                                    :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :tag_list, :allow_free_form_tags,
+                                                    :visible)
     attributes.merge(visible: (attributes[:visible] || resource.visible?))
   end
 end

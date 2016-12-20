@@ -1,22 +1,24 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class SessionsController < ApplicationController
-  before_filter :load_user
-  before_filter :load_tracks
-  before_filter :load_audience_levels
-  before_filter :load_session_types
-  before_filter :load_tags, except: :show
+  include ActionView::Helpers::OutputSafetyHelper
+  before_action :load_user
+  before_action :load_tracks
+  before_action :load_audience_levels
+  before_action :load_session_types
+  before_action :load_tags, except: :show
 
   def index
     @session_filter = SessionFilter.new(filter_params, params[:user_id])
-    @sessions ||= @session_filter.apply(Session).
-      for_conference(@conference).
-      without_state(:cancelled).
-      page(params[:page]).
-      order('sessions.created_at DESC').
-      includes(:author, :second_author, :review_decision,
-        session_type: [:translated_contents],
-        track: [:translated_contents],
-        audience_level: [:translated_contents])
+    @sessions ||= @session_filter.apply(Session)
+                                 .for_conference(@conference)
+                                 .without_state(:cancelled)
+                                 .page(params[:page])
+                                 .order('sessions.created_at DESC')
+                                 .includes(:author, :second_author, :review_decision,
+                                           session_type: [:translated_contents],
+                                           track: [:translated_contents],
+                                           audience_level: [:translated_contents])
     @session_types = @conference.session_types.includes(:translated_contents).order(created_at: :asc)
   end
 
@@ -39,11 +41,14 @@ class SessionsController < ApplicationController
   def show
     @session = resource
     @comment = Comment.new(user_id: current_user.id, commentable_id: @session.id)
-    if @session.conference != @conference
-      flash.now[:news] = t('flash.news.session_different_conference',
-        conference_name: @session.conference.name,
-        current_conference_name: @conference.name).html_safe
-    end
+    return if @session.conference == @conference
+    # rubocop:disable Rails/OutputSafety
+    flash.now[:news] = t(
+      'flash.news.session_different_conference',
+      conference_name: @session.conference.name,
+      current_conference_name: @conference.name
+    ).html_safe
+    # rubocop:enable Rails/OutputSafety
   end
 
   def edit
@@ -67,16 +72,17 @@ class SessionsController < ApplicationController
   end
 
   protected
+
   def session_params
     valid_params = params.require(:session).permit([
-      :title, :summary, :description, :mechanics, :benefits,
-      :target_audience, :prerequisites, :audience_level_id, :audience_limit,
-      :second_author_username, :track_id,
-      :session_type_id, :duration_mins, :experience,
-      :keyword_list, :language
-    ]).merge(conference_id: @conference.id)
+                                                     :title, :summary, :description, :mechanics, :benefits,
+                                                     :target_audience, :prerequisites, :audience_level_id, :audience_limit,
+                                                     :second_author_username, :track_id,
+                                                     :session_type_id, :duration_mins, :experience,
+                                                     :keyword_list, :language
+                                                   ]).merge(conference_id: @conference.id)
     if valid_params[:keyword_list]
-      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject {|name| @tags.detect {|tag| tag.name == name}.nil?}
+      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject { |name| @tags.detect { |tag| tag.name == name }.nil? }
     end
     valid_params[:author_id] = current_user.id unless @session
     valid_params
@@ -87,7 +93,7 @@ class SessionsController < ApplicationController
       session_type: [:translated_contents],
       track: [:translated_contents],
       audience_level: [:translated_contents]
-).find(params[:id])
+    ).find(params[:id])
   end
 
   def resource_class
@@ -115,10 +121,14 @@ class SessionsController < ApplicationController
   end
 
   def load_tags
-    if @conference.tags.empty?
-      @tags = ActsAsTaggableOn::Tag.where('name like ? and (expiration_year IS NULL or expiration_year >= ?)', 'tags.%', @conference.year).to_a
-    else
-      @tags = @conference.tags.to_a
+    @tags = @conference.tags
+    if @tags.empty?
+      @tags = ActsAsTaggableOn::Tag.where(
+        'name like ? and (expiration_year IS NULL or expiration_year >= ?)',
+        'tags.%',
+        @conference.year
+      )
     end
+    @tags.tap(&:to_a)
   end
 end

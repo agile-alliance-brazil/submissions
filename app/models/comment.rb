@@ -1,8 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
 
-  attr_trimmed    :comment
+  attr_trimmed :comment
 
   belongs_to :commentable, polymorphic: true, counter_cache: true
   belongs_to :user

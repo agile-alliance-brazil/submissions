@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewFeedback < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
@@ -12,13 +13,18 @@ class ReviewFeedback < ActiveRecord::Base
   validate :has_all_review_evaluations
 
   def has_all_review_evaluations
-    has_reviews = author
-    reviews_to_be_evaluated = author.nil? ? [] :
-      author.sessions_for_conference(conference).
-        includes(:final_reviews).map(&:final_review_ids).flatten
+    reviews_to_be_evaluated = if author.nil?
+                                []
+                              else
+                                author.sessions_for_conference(conference)
+                                      .includes(:final_reviews).map(&:final_review_ids).flatten
+                              end
     evaluations_available = review_evaluations.map(&:review_id)
-    unless (reviews_to_be_evaluated - evaluations_available).empty?
-      errors.add(:review_evaluations, I18n.t('activerecord.errors.models.review_feedback.evaluations_missing'))
-    end
+
+    missing_evaluations = reviews_to_be_evaluated - evaluations_available
+    return if missing_evaluations.empty?
+
+    error_message = I18n.t('activerecord.errors.models.review_feedback.evaluations_missing')
+    errors.add(:review_evaluations, error_message)
   end
 end

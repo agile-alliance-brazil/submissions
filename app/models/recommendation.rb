@@ -1,11 +1,12 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Recommendation < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :reviews
 
   def self.all_names
-    %W(strong_accept weak_accept weak_reject strong_reject)
+    %w(strong_accept weak_accept weak_reject strong_reject)
   end
 
   def self.title_for(name)
@@ -13,7 +14,7 @@ class Recommendation < ActiveRecord::Base
   end
 
   def title
-    Recommendation.title_for(self.name)
+    Recommendation.title_for(name)
   end
 
   def respond_to_missing?(method_sym, include_private = false)
@@ -31,14 +32,14 @@ class Recommendation < ActiveRecord::Base
   private
 
   def name_matches(method_sym)
-    name_to_check = method_sym.to_s.gsub(/\?$/,'')
-    self.name == "#{name_to_check}"
+    name_to_check = method_sym.to_s.gsub(/\?$/, '')
+    name == name_to_check.to_s
   end
 
   def is_name_check_method?(method_sym)
     method_sym.to_s.ends_with?('?') &&
-      Recommendation.all_names.
-        map {|name| "#{name}?"}.
-        include?(method_sym.to_s)
+      Recommendation.all_names
+                    .map { |name| "#{name}?" }
+                    .include?(method_sym.to_s)
   end
 end

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 # Methods added to this helper will be available to all templates in the application.
 module ActionsHelper
   class Section
@@ -18,18 +19,14 @@ module ActionsHelper
   def sections_for(user, conference, safe_filter_params)
     sections = []
 
-    if user_signed_in?
-      sections << session_section_for(user, conference)
-    end
+    sections << session_section_for(user, conference) if user_signed_in?
     if user.reviewer? || user.admin?
       sections << reviewer_section_for(user, conference, safe_filter_params)
     end
     if user.organizer? || user.admin?
       sections << organizer_section_for(user, conference)
     end
-    if user_signed_in?
-      sections << user_section_for(user)
-    end
+    sections << user_section_for(user) if user_signed_in?
 
     sections
   end
@@ -37,14 +34,12 @@ module ActionsHelper
   def user_section_for(user)
     section = Section.new t('actions.section.user')
 
-    if can? :read, User
-      section.add t('actions.profile'), user_path(user)
-    end
+    section.add t('actions.profile'), user_path(user) if can? :read, User
     if can? :update, user
       section.add t('actions.edit_profile'), edit_user_registration_path
       section.add t('actions.change_password'), edit_user_registration_path(update_password: true)
     end
-    section.add 'Logout', destroy_user_session_path, { method: :delete }
+    section.add 'Logout', destroy_user_session_path, method: :delete
 
     section
   end
@@ -58,7 +53,7 @@ module ActionsHelper
     if can? :read, Session
       sessions_count = Session.for_conference(conference).without_state(:cancelled).count
       section.add t('actions.browse_sessions', count: sessions_count), sessions_path(conference)
-      if user.sessions_for_conference(conference).count > 0
+      if user.sessions_for_conference(conference).count.positive?
         section.add t('actions.my_sessions'), user_sessions_path(conference, user)
       end
     end
@@ -73,9 +68,9 @@ module ActionsHelper
     section = Section.new t('actions.section.review')
     if (conference.in_early_review_phase? ||
           conference.in_final_review_phase?) &&
-          can?(:read, 'reviewer_sessions')
-      sessions_to_review = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).to_a.count
-      section.add t('actions.reviewer_sessions', count: sessions_to_review), reviewer_sessions_path(conference)
+       can?(:read, 'reviewer_sessions')
+      sessions_to_review_count = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).count
+      section.add t('actions.reviewer_sessions', count: sessions_to_review_count), reviewer_sessions_path(conference)
     end
     if can? :reviewer, 'reviews_listing'
       reviews_count = user.reviews.for_conference(conference).count
@@ -89,11 +84,11 @@ module ActionsHelper
   end
 
   def filter_params
-    params.permit(:session_filter).
-      permit(:track_id, :session_type_id, :audience_level_id)[:session_filter]
+    params.permit(:session_filter)
+          .permit(:track_id, :session_type_id, :audience_level_id)[:session_filter]
   end
 
-  def organizer_section_for(user, conference)
+  def organizer_section_for(_user, _conference)
     section = Section.new t('actions.section.organize')
 
     if can? :read, Conference

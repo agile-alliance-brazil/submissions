@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe WithdrawSessionsController, type: :controller do
@@ -18,18 +19,18 @@ describe WithdrawSessionsController, type: :controller do
     disable_authorization
   end
 
-  it "show action should render show template" do
+  it 'show action should render show template' do
     get :show, session_id: @session.id
     expect(response).to render_template(:show)
   end
 
-  it "update action should render show template when model is invalid" do
+  it 'update action should render show template when model is invalid' do
     patch :update, session_id: @session.id, session: { author_agreement: '0' }
 
     expect(response).to render_template(:show)
   end
 
-  it "update action should redirect when model is valid" do
+  it 'update action should redirect when model is valid' do
     patch :update, session_id: @session.id, session: { author_agreement: '1' }
 
     expect(response).to redirect_to(user_sessions_path(@conference, @user))

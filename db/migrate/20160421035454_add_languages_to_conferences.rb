@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddLanguagesToConferences < ActiveRecord::Migration
   def change
     add_column :conferences, :supported_languages, :string, null: false, default: 'en,pt'

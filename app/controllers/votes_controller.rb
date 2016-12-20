@@ -1,4 +1,5 @@
-#encoding:utf-8
+# encoding:utf-8
+# frozen_string_literal: true
 class VotesController < ApplicationController
   def index
     @sessions = current_user.voted_sessions.for_conference(@conference)
@@ -18,6 +19,7 @@ class VotesController < ApplicationController
   end
 
   private
+
   def resource
     Vote.find(params[:id])
   end

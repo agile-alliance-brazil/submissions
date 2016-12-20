@@ -1,9 +1,10 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Session, type: :model do
   it_should_trim_attributes Session, :title, :summary, :description, :mechanics, :benefits,
-                                     :target_audience, :second_author_username, :experience
+                            :target_audience, :second_author_username, :experience
 
   context 'associations' do
     it { should belong_to(:author).class_name('User') }
@@ -66,7 +67,7 @@ describe Session, type: :model do
 
       context 'audience level' do
         it 'should match the conference' do
-          other_level= FactoryGirl.create(:audience_level, conference: other_conference)
+          other_level = FactoryGirl.create(:audience_level, conference: other_conference)
 
           session = FactoryGirl.build(:session, audience_level: other_level, conference: conference)
 
@@ -76,13 +77,13 @@ describe Session, type: :model do
       end
 
       context 'session type' do
-        it "should match the conference" do
+        it 'should match the conference' do
           other_type = FactoryGirl.create(:session_type, conference: other_conference)
 
           session = FactoryGirl.build(:session, session_type: other_type, conference: conference)
 
           expect(session).to_not be_valid
-          expect(session.errors[:session_type_id]).to include(I18n.t("errors.messages.same_conference"))
+          expect(session.errors[:session_type_id]).to include(I18n.t('errors.messages.same_conference'))
         end
       end
     end
@@ -105,32 +106,32 @@ describe Session, type: :model do
       end
     end
 
-    context "second author" do
+    context 'second author' do
       before(:each) do
         @session = FactoryGirl.build(:session)
       end
 
-      it "should be a valid user" do
+      it 'should be a valid user' do
         @session.second_author_username = 'invalid_username'
         expect(@session).to_not be_valid
-        expect(@session.errors[:second_author_username]).to include(I18n.t("activerecord.errors.messages.existence"))
+        expect(@session.errors[:second_author_username]).to include(I18n.t('activerecord.errors.messages.existence'))
       end
 
-      it "should not be the same as first author" do
+      it 'should not be the same as first author' do
         @session.second_author_username = @session.author.username
         expect(@session).to_not be_valid
-        expect(@session.errors[:second_author_username]).to include(I18n.t("errors.messages.same_author"))
+        expect(@session.errors[:second_author_username]).to include(I18n.t('errors.messages.same_author'))
       end
 
-      it "should be author" do
+      it 'should be author' do
         guest = FactoryGirl.create(:user)
         @session.second_author_username = guest.username
         expect(@session).to_not be_valid
-        expect(@session.errors[:second_author_username]).to include(I18n.t("errors.messages.incomplete"))
+        expect(@session.errors[:second_author_username]).to include(I18n.t('errors.messages.incomplete'))
       end
     end
 
-    it "should only accept valid durations for session type" do
+    it 'should only accept valid durations for session type' do
       @session = FactoryGirl.build(:session)
       @session.session_type.valid_durations = [25, 50]
       @session.duration_mins = 25
@@ -147,27 +148,27 @@ describe Session, type: :model do
       session = FactoryGirl.create(:session)
       session.author_id = FactoryGirl.create(:user).id
       expect(session).to_not be_valid
-      expect(session.errors[:author_id]).to include(I18n.t("errors.messages.constant"))
+      expect(session.errors[:author_id]).to include(I18n.t('errors.messages.constant'))
     end
 
-    context "confirming attendance:" do
-      it "should validate that author agreement was accepted on acceptance" do
+    context 'confirming attendance:' do
+      it 'should validate that author agreement was accepted on acceptance' do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
         expect(session.update_attributes(state_event: 'accept', author_agreement: '0')).to be false
-        expect(session.errors[:author_agreement]).to include(I18n.t("errors.messages.accepted"))
+        expect(session.errors[:author_agreement]).to include(I18n.t('errors.messages.accepted'))
       end
 
-      it "should validate that author agreement was accepted on withdraw" do
+      it 'should validate that author agreement was accepted on withdraw' do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
         expect(session.update_attributes(state_event: 'reject', author_agreement: '0')).to be false
-        expect(session.errors[:author_agreement]).to include(I18n.t("errors.messages.accepted"))
+        expect(session.errors[:author_agreement]).to include(I18n.t('errors.messages.accepted'))
       end
 
-      it "should be valid when author agreement was accepted on acceptance" do
+      it 'should be valid when author agreement was accepted on acceptance' do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
@@ -176,7 +177,7 @@ describe Session, type: :model do
         expect(updated).to be true
       end
 
-      it "should validate that author agreement was accepted on withdraw" do
+      it 'should validate that author agreement was accepted on withdraw' do
         session = FactoryGirl.build(:session)
         session.reviewing
         session.tentatively_accept
@@ -187,17 +188,17 @@ describe Session, type: :model do
     end
 
     it 'should validate that there is at least 1 keyword' do
-      session = FactoryGirl.build(:session, keyword_list: %w[a])
+      session = FactoryGirl.build(:session, keyword_list: %w(a))
       expect(session).to be_valid
-      session.keyword_list = %w[]
+      session.keyword_list = %w()
       expect(session).to_not be_valid
       expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_short', count: 1))
     end
 
     it 'should validate that there are a maximum of 10 keywords' do
-      session = FactoryGirl.build(:session, keyword_list: %w[a b c d e f g h i j])
+      session = FactoryGirl.build(:session, keyword_list: %w(a b c d e f g h i j))
       expect(session).to be_valid
-      session.keyword_list = %w[a b c d e f g h i j k]
+      session.keyword_list = %w(a b c d e f g h i j k)
       expect(session).to_not be_valid
       expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10))
     end
@@ -211,8 +212,8 @@ describe Session, type: :model do
     end
   end
 
-  context "named scopes" do
-    context "for_reviewer / for_review_in" do
+  context 'named scopes' do
+    context 'for_reviewer / for_review_in' do
       before(:each) do
         # TODO: review this
         @reviewer = FactoryGirl.create(:reviewer)
@@ -221,11 +222,11 @@ describe Session, type: :model do
         @track = FactoryGirl.create(:track, conference: @conference)
         @audience_level = FactoryGirl.create(:audience_level, conference: @conference)
 
-        @conference.presubmissions_deadline = DateTime.now
+        @conference.presubmissions_deadline = Time.zone.now
         @session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline - 1.day)
       end
 
-      context "during early review phase" do
+      context 'during early review phase' do
         before(:each) do
           @conference.stubs(:in_early_review_phase?).returns(true)
           @conference.stubs(:in_final_review_phase?).returns(false)
@@ -234,45 +235,45 @@ describe Session, type: :model do
         end
 
         it 'should bring only one session unreviewed' do
-          expect(Session.for_reviewer(@user, @conference).count).to eq({ 1 => 1 })
+          expect(Session.for_reviewer(@user, @conference).count).to eq(1 => 1)
         end
 
-        it "if reviewed multiple times, it should only be returned once" do
+        it 'if reviewed multiple times, it should only be returned once' do
           FactoryGirl.create(:early_review, session: @session)
           FactoryGirl.create(:early_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "should only be returned once even if reviewed multiple times" do
+        it 'should only be returned once even if reviewed multiple times' do
           FactoryGirl.create(:early_review, session: @session)
           FactoryGirl.create(:early_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "should not be returned if already reviewed by user" do
+        it 'should not be returned if already reviewed by user' do
           FactoryGirl.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
-        context "early review deadline" do
-          it "should be returned if submitted at the early review deadline" do
+        context 'early review deadline' do
+          it 'should be returned if submitted at the early review deadline' do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
-          it "should be returned if submitted 3 hours past the early review deadline" do
+          it 'should be returned if submitted 3 hours past the early review deadline' do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
-          it "should not be returned if submitted after 3 hours past the early review deadline" do
+          it 'should not be returned if submitted after 3 hours past the early review deadline' do
             session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours + 1.second)
             expect(Session.for_reviewer(@user, @conference)).to_not include(session)
           end
         end
       end
 
-      context "during final review phase" do
+      context 'during final review phase' do
         before(:each) do
           @conference.stubs(:in_early_review_phase?).returns(false)
           @conference.stubs(:in_final_review_phase?).returns(true)
@@ -281,48 +282,48 @@ describe Session, type: :model do
         end
 
         it 'should bring only one session unreviewed' do
-          expect(Session.for_reviewer(@user, @conference).count).to eq({ 1 => 1 })
+          expect(Session.for_reviewer(@user, @conference).count).to eq(1 => 1)
         end
 
-        it "should only be returned once if reviewed multiple times" do
+        it 'should only be returned once if reviewed multiple times' do
           FactoryGirl.create(:final_review, session: @session)
           FactoryGirl.create(:final_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "should not be returned if already reviewed by user" do
+        it 'should not be returned if already reviewed by user' do
           FactoryGirl.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
-        it "should not be returned if already reviewed by user and another user" do
+        it 'should not be returned if already reviewed by user and another user' do
           FactoryGirl.create(:final_review, session: @session)
           FactoryGirl.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
-        it "should be returned if reviewed by user during early review" do
+        it 'should be returned if reviewed by user during early review' do
           FactoryGirl.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "should not be returned if already reviewed 3 times" do
+        it 'should not be returned if already reviewed 3 times' do
           FactoryGirl.create_list(:final_review, 3, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
       end
 
-      context "preferences" do
-        it "if user has no preferences, no sessions to review" do
+      context 'preferences' do
+        it 'if user has no preferences, no sessions to review' do
           expect(Session.for_reviewer(@user, @conference)).to be_empty
         end
 
-        it "one preference" do
+        it 'one preference' do
           FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "multiple preferences" do
+        it 'multiple preferences' do
           track = FactoryGirl.create(:track, conference: @conference)
           session = FactoryGirl.create(:session, conference: @conference, track: track, audience_level: @audience_level)
 
@@ -333,33 +334,33 @@ describe Session, type: :model do
         end
       end
 
-      context "cancelled" do
+      context 'cancelled' do
         before(:each) do
           FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
-        it "non-cancelled should be returned" do
+        it 'non-cancelled should be returned' do
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
-        it "cancelled should not be returned" do
+        it 'cancelled should not be returned' do
           @session.cancel
           expect(Session.for_reviewer(@user, @conference)).to be_empty
         end
       end
 
-      context "author" do
+      context 'author' do
         before(:each) do
           FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
-        it "if reviewer is first author, should not be returned" do
+        it 'if reviewer is first author, should not be returned' do
           FactoryGirl.create(:reviewer, user: @session.author)
 
           expect(Session.for_reviewer(@session.author, @conference)).to be_empty
         end
 
-        it "if reviewer is second author, should not be returned" do
+        it 'if reviewer is second author, should not be returned' do
           second_author = FactoryGirl.create(:author)
           @session.update_attributes!(second_author_username: second_author.username)
 
@@ -381,39 +382,39 @@ describe Session, type: :model do
       session = FactoryGirl.build(:session)
       session.session_type.title = "session_types.#{title}.title"
       expect(session.send(:"#{title}?")).to be true
-      session.session_type.title = "session_types.other.title"
+      session.session_type.title = 'session_types.other.title'
       expect(session.send(:"#{title}?")).to be false
     end
   end
 
-  it "should overide to_param with session title" do
-    session = FactoryGirl.create(:session, title: "refatoração e código limpo: na prática.")
-    expect(session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica")).to be true
+  it 'should overide to_param with session title' do
+    session = FactoryGirl.create(:session, title: 'refatoração e código limpo: na prática.')
+    expect(session.to_param.ends_with?('-refatoracao-e-codigo-limpo-na-pratica')).to be true
 
     session.title = nil
-    expect(session.to_param.ends_with?("-refatoracao-e-codigo-limpo-na-pratica")).to be false
+    expect(session.to_param.ends_with?('-refatoracao-e-codigo-limpo-na-pratica')).to be false
   end
 
-  context "authors" do
-    it "should provide main author" do
+  context 'authors' do
+    it 'should provide main author' do
       session = FactoryGirl.build(:session)
       expect(session.authors).to eq([session.author])
     end
 
-    it "should provide second author if available" do
+    it 'should provide second author if available' do
       user = FactoryGirl.build(:user)
       user.add_role(:author)
       session = FactoryGirl.build(:session, second_author: user)
       expect(session.authors).to eq([session.author, user])
     end
 
-    it "should be empty if no authors" do
+    it 'should be empty if no authors' do
       session = FactoryGirl.build(:session)
       session.author = nil
       expect(session.authors).to be_empty
     end
 
-    it "should state that first author is author" do
+    it 'should state that first author is author' do
       user = FactoryGirl.build(:user)
       user.add_role(:author)
 
@@ -423,7 +424,7 @@ describe Session, type: :model do
       expect(session.is_author?(user)).to be false
     end
 
-    it "should state that second author is author" do
+    it 'should state that second author is author' do
       user = FactoryGirl.build(:user)
       user.add_role(:author)
 
@@ -434,135 +435,135 @@ describe Session, type: :model do
     end
   end
 
-  context "state machine" do
+  context 'state machine' do
     before(:each) do
       @session = FactoryGirl.build(:session)
     end
 
-    context "State: created" do
-      it "should be the initial state" do
+    context 'State: created' do
+      it 'should be the initial state' do
         expect(@session).to be_created
       end
 
-      it "should allow reviewing" do
+      it 'should allow reviewing' do
         expect(@session.reviewing).to be true
         expect(@session).to_not be_created
         expect(@session).to be_in_review
       end
 
-      it "should allow cancel" do
+      it 'should allow cancel' do
         expect(@session.cancel).to be true
         expect(@session).to_not be_created
         expect(@session).to be_cancelled
       end
 
-      it "should not allow tentatively accept" do
+      it 'should not allow tentatively accept' do
         expect(@session.tentatively_accept).to be false
       end
 
-      it "should not allow accepting" do
+      it 'should not allow accepting' do
         expect(@session.accept).to be false
       end
 
-      it "should not allow rejecting" do
+      it 'should not allow rejecting' do
         expect(@session.reject).to be false
       end
     end
 
-    context "State: in review" do
+    context 'State: in review' do
       before(:each) do
         @session.reviewing
         expect(@session).to be_in_review
       end
 
-      it "should allow reviewing again" do
+      it 'should allow reviewing again' do
         expect(@session.reviewing).to be true
         expect(@session).to be_in_review
       end
 
-      it "should allow cancel" do
+      it 'should allow cancel' do
         expect(@session.cancel).to be true
         expect(@session).to_not be_in_review
         expect(@session).to be_cancelled
       end
 
-      it "should allow tentatively accept" do
+      it 'should allow tentatively accept' do
         expect(@session.tentatively_accept).to be true
         expect(@session).to_not be_in_review
         expect(@session).to be_pending_confirmation
       end
 
-      it "should not allow accepting" do
+      it 'should not allow accepting' do
         expect(@session.accept).to be false
       end
 
-      it "should allow rejecting" do
+      it 'should allow rejecting' do
         expect(@session.reject).to be true
         expect(@session).to_not be_in_review
         expect(@session).to be_rejected
       end
     end
 
-    context "State: cancelled" do
+    context 'State: cancelled' do
       before(:each) do
         @session.cancel
         expect(@session).to be_cancelled
       end
 
-      it "should not allow reviewing" do
+      it 'should not allow reviewing' do
         expect(@session.reviewing).to be false
       end
 
-      it "should not allow cancelling" do
+      it 'should not allow cancelling' do
         expect(@session.cancel).to be false
       end
 
-      it "should not allow tentatively accept" do
+      it 'should not allow tentatively accept' do
         expect(@session.tentatively_accept).to be false
       end
 
-      it "should not allow accepting" do
+      it 'should not allow accepting' do
         expect(@session.accept).to be false
       end
 
-      it "should not allow rejecting" do
+      it 'should not allow rejecting' do
         expect(@session.reject).to be false
       end
     end
 
-    context "State: pending confirmation" do
+    context 'State: pending confirmation' do
       before(:each) do
         @session.reviewing
         @session.tentatively_accept
         expect(@session).to be_pending_confirmation
       end
 
-      it "should not allow reviewing" do
+      it 'should not allow reviewing' do
         expect(@session.reviewing).to be false
       end
 
-      it "should not allow cancelling" do
+      it 'should not allow cancelling' do
         expect(@session.cancel).to be false
       end
 
-      it "should not allow tentatively accept" do
+      it 'should not allow tentatively accept' do
         expect(@session.tentatively_accept).to be false
       end
 
-      it "should allow accepting" do
+      it 'should allow accepting' do
         expect(@session.accept).to be true
         expect(@session).to_not be_pending_confirmation
         expect(@session).to be_accepted
       end
 
-      it "should allow rejecting" do
+      it 'should allow rejecting' do
         expect(@session.reject).to be true
         expect(@session).to_not be_pending_confirmation
         expect(@session).to be_rejected
       end
     end
 
-    context "State: accepted" do
+    context 'State: accepted' do
       before(:each) do
         @session.reviewing
         @session.tentatively_accept
@@ -570,53 +571,53 @@ describe Session, type: :model do
         expect(@session).to be_accepted
       end
 
-      it "should not allow reviewing" do
+      it 'should not allow reviewing' do
         expect(@session.reviewing).to be false
       end
 
-      it "should not allow cancelling" do
+      it 'should not allow cancelling' do
         expect(@session.cancel).to be false
       end
 
-      it "should not allow tentatively accept" do
+      it 'should not allow tentatively accept' do
         expect(@session.tentatively_accept).to be false
       end
 
-      it "should not allow accepting" do
+      it 'should not allow accepting' do
         expect(@session.accept).to be false
       end
 
-      it "should not allow rejecting" do
+      it 'should not allow rejecting' do
         expect(@session.reject).to be false
       end
     end
 
-    context "State: rejected" do
+    context 'State: rejected' do
       before(:each) do
         @session.reviewing
         @session.reject
         expect(@session).to be_rejected
       end
 
-      it "should not allow reviewing" do
+      it 'should not allow reviewing' do
         expect(@session.reviewing).to be false
       end
 
-      it "should not allow cancelling" do
+      it 'should not allow cancelling' do
         expect(@session.cancel).to be false
       end
 
-      it "should allow tentatively accept" do
+      it 'should allow tentatively accept' do
         expect(@session.tentatively_accept).to be true
         expect(@session).to_not be_rejected
         expect(@session).to be_pending_confirmation
       end
 
-      it "should not allow accepting" do
+      it 'should not allow accepting' do
         expect(@session.accept).to be false
       end
 
-      it "should not allow rejecting" do
+      it 'should not allow rejecting' do
         expect(@session.reject).to be false
       end
     end

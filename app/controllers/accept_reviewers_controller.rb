@@ -1,12 +1,13 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class AcceptReviewersController < ApplicationController
-  before_filter :load_reviewer, :load_audience_levels
+  before_action :load_reviewer, :load_audience_levels
 
   def show
-    if @reviewer.preferences.empty?
-      @conference.tracks.each do |track|
-        @reviewer.preferences.build(track_id: track.id)
-      end
+    return unless @reviewer.preferences.empty?
+
+    @conference.tracks.each do |track|
+      @reviewer.preferences.build(track_id: track.id)
     end
   end
 
@@ -21,6 +22,7 @@ class AcceptReviewersController < ApplicationController
   end
 
   private
+
   def load_audience_levels
     @audience_levels ||= @conference.audience_levels
   end
@@ -30,16 +32,16 @@ class AcceptReviewersController < ApplicationController
   end
 
   def accept_params
-    unless params[:reviewer].blank?
-      params.require(:reviewer).
-        permit(:reviewer_agreement, :sign_reviews,
-          { preferences_attributes:
-            [:accepted, :audience_level_id, :track_id] }).tap do |attr|
-          attr[:state_event] = 'accept'
-          attr[:preferences_attributes].each do |index, preferences|
-            preferences[:reviewer_id] = @reviewer.id
-          end
-        end
+    return if params[:reviewer].blank?
+
+    params.require(:reviewer)
+          .permit(:reviewer_agreement, :sign_reviews,
+                  preferences_attributes:
+                    [:accepted, :audience_level_id, :track_id]).tap do |attr|
+      attr[:state_event] = 'accept'
+      attr[:preferences_attributes].each do |_index, preferences|
+        preferences[:reviewer_id] = @reviewer.id
+      end
     end
   end
 end

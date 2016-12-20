@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
@@ -15,7 +16,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '10.11.12.16', user: 'vagrant', roles: %w{web app db}
+server '10.11.12.16', user: 'vagrant', roles: %w(web app db)
 set :manifest, 'vagrant'
 set :server_url, 'submissoes.localhost'
 
@@ -23,15 +24,15 @@ set :server_url, 'submissoes.localhost'
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
-set :ssh_options, {
-  keys: [
-    File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key'),
-    File.join(File.dirname(__FILE__), '..', '..', 'certs', 'insecure_private_key')
-  ],
-  forward_agent: true,
-  auth_methods: %w(publickey)
-  # password: 'please use keys'
-}
+set :ssh_options,
+    keys: [
+      File.join(ENV['HOME'], '.vagrant.d', 'insecure_private_key'),
+      File.join(File.dirname(__FILE__), '..', '..', 'certs', 'insecure_private_key')
+    ],
+    forward_agent: true,
+    auth_methods: %w(publickey)
+# password: 'please use keys'
+
 # and/or per server
 # server 'example.com',
 #   user: 'user_name',

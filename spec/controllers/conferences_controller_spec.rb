@@ -1,11 +1,17 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ConferencesController, type: :controller do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:admin) { user.tap {|u| u.add_role(:admin); u.save } }
+  let(:admin) do
+    user.tap do |u|
+      u.add_role(:admin)
+      u.save
+    end
+  end
   let(:valid_conference_params) do
     {
       location: 'Chicago IL',
@@ -31,7 +37,7 @@ describe ConferencesController, type: :controller do
 
   context 'index action' do
     it 'should render all conferences' do
-      new_conf = FactoryGirl.create(:conference)
+      FactoryGirl.create(:conference)
 
       get :index
 
@@ -61,9 +67,9 @@ describe ConferencesController, type: :controller do
 
   context 'create action' do
     it 'should redirect when model is valid' do
-      post :create, conference: { year: 9999, name: "Agile Brazil 9999", program_chair_user_username: user.username }
+      post :create, conference: { year: 9999, name: 'Agile Brazil 9999', program_chair_user_username: user.username }
 
-      expect(response).to redirect_to("/9999")
+      expect(response).to redirect_to('/9999')
     end
   end
 
@@ -98,7 +104,8 @@ describe ConferencesController, type: :controller do
     end
 
     it 'should update from invisible to visible' do
-      subject.tap {|c| c.visible=false; c.save}
+      subject.visible = false
+      subject.save
 
       patch :update, id: subject.year, conference: valid_conference_params.merge(visible: true)
 
@@ -112,8 +119,7 @@ describe ConferencesController, type: :controller do
     end
   end
 
-  context "with views" do
+  context 'with views' do
     render_views
-
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 if ActiveRecord::VERSION::MAJOR == 4
   module ActiveRecord
     module Calculations
@@ -12,38 +13,38 @@ if ActiveRecord::VERSION::MAJOR == 4
           group_fields = group_attrs
         end
 
-        group_aliases = group_fields.map { |field|
+        group_aliases = group_fields.map do |field|
           column_alias_for(field)
-        }
-        group_columns = group_aliases.zip(group_fields).map { |aliaz,field|
+        end
+        group_columns = group_aliases.zip(group_fields).map do |aliaz, field|
           [aliaz, field]
-        }
+        end
 
         group = group_fields
 
-        if operation == 'count' && column_name == :all
-          aggregate_alias = 'count_all'
-        else
-          aggregate_alias = column_alias_for([operation, column_name].join(' '))
-        end
+        aggregate_alias = if operation == 'count' && column_name == :all
+                            'count_all'
+                          else
+                            column_alias_for([operation, column_name].join(' '))
+                          end
 
         select_values = [
           operation_over_aggregate_column(
             aggregate_column(column_name),
             operation,
             distinct
-).as(aggregate_alias)
+          ).as(aggregate_alias)
         ]
         select_values += select_values unless having_values.empty?
 
-        select_values.concat group_fields.zip(group_aliases).map { |field,aliaz|
+        select_values.concat group_fields.zip(group_aliases).map { |field, aliaz|
           if field.respond_to?(:as)
             field.as(aliaz)
           else
             "#{field} AS #{aliaz}"
           end
         }
-        values_to_select = having_values.map {|v| v.split(/[<=>]+/)}.flatten.select {|v| v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)}
+        values_to_select = having_values.map { |v| v.split(/[<=>]+/) }.flatten.select { |v| v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/) }
         having_aliases = values_to_select.map do |v|
           having_match = v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)
           having_value = "#{having_match[1]}.#{having_match[2]}"
@@ -64,12 +65,12 @@ if ActiveRecord::VERSION::MAJOR == 4
         end
 
         Hash[calculated_data.map do |row|
-          key = group_columns.map { |aliaz, col_name|
+          key = group_columns.map do |aliaz, col_name|
             column = calculated_data.column_types.fetch(aliaz) do
               type_for(col_name)
             end
             type_cast_calculated_value(row[aliaz], column)
-          }
+          end
           key = key.first if key.size == 1
           key = key_records[key] if associated
 
@@ -80,5 +81,5 @@ if ActiveRecord::VERSION::MAJOR == 4
     end
   end
 else
-  puts "WARNING: Extension #{__FILE__} may not apply. Please check the condition and remove if possible."
+  Rails.logger.warn "WARNING: Extension #{__FILE__} may not apply. Please check the condition and remove if possible."
 end

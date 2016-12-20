@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 RSpec.describe SessionsController, type: :controller do
   let(:author) { FactoryGirl.create(:author) }
   let(:conference) { FactoryGirl.create(:conference) }
@@ -11,7 +12,7 @@ RSpec.describe SessionsController, type: :controller do
     let(:audience_level) { FactoryGirl.create(:audience_level, conference: conference) }
     let(:session_type) { FactoryGirl.create(:session_type, conference: conference) }
     let(:track) { FactoryGirl.create(:track, conference: conference) }
-    let(:session) { FactoryGirl.create(:session, conference: conference, author: author)}
+    let(:session) { FactoryGirl.create(:session, conference: conference, author: author) }
     let(:valid_params) do
       {
         title: 'Testing',
@@ -112,7 +113,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should ignore unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge({ keyword_list: 'tags.tdd,tags.tecniques,unknown' })
+        post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
@@ -164,7 +165,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should ignore unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge({ keyword_list: 'tags.tdd,tags.tecniques,unknown' })
+        post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end

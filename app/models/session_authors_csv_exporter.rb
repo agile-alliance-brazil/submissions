@@ -1,14 +1,15 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'csv'
 class SessionAuthorsCSVExporter
-  COLUMNS = ['Session id', 'Session title', 'Session Type', 'Author', 'Email']
+  COLUMNS = ['Session id', 'Session title', 'Session Type', 'Author', 'Email'].freeze
 
   def initialize(sessions)
     @sessions = sessions
   end
 
   def to_csv
-    individuals, pairs = @sessions.partition {|s| s.second_author.blank? }
+    individuals, pairs = @sessions.partition { |s| s.second_author.blank? }
 
     CSV.generate do |csv|
       csv << COLUMNS

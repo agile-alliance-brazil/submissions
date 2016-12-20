@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use.
   # Currently supported options are :active_record, :mongoid2, :mongoid3, :mongo_mapper
@@ -13,7 +14,7 @@ Doorkeeper.configure do
   admin_authenticator do
     # Put your admin authentication logic here.
     # Example implementation:
-    (current_user && current_user.admin?) ? current_user : redirect_to(root_url)
+    current_user && current_user.admin? ? current_user : redirect_to(root_url)
   end
 
   # Authorization Code expiration time (default 10 minutes).

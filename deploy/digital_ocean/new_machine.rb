@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'json'
 require 'net/https'
@@ -6,7 +7,7 @@ require 'uri'
 require 'English'
 require 'dotenv'
 
-APP_NAME='submissoes'
+APP_NAME = 'submissoes'
 
 Dotenv.load
 unless ENV['TOKEN']
@@ -15,7 +16,12 @@ unless ENV['TOKEN']
 end
 
 TOKEN = ENV['TOKEN']
-TYPE = ARGV.size > 0 ? (ARGV[0] == 'production' ? :production : :staging) : :staging
+TYPE = if !ARGV.empty? && ARGV[0] == 'production'
+         :production
+       else
+         :staging
+       end
+
 staging = TYPE != :production
 SSH = staging ? '36:18:0e:5c:aa:0c:58:9e:d2:72:5b:f7:f8:e7:f2:5d' : 'ba:49:c2:40:4e:18:dd:cb:bb:cd:9c:f6:99:11:67:db'
 POSTFIX = staging ? '-staging' : ''
@@ -27,10 +33,8 @@ def get_json(uri)
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   request = Net::HTTP::Get.new(uri.request_uri,
-    initheader = {
-      'Content-Type' => 'application/json',
-      'Authorization' => "Bearer #{TOKEN}"
-    })
+                               'Content-Type' => 'application/json',
+                               'Authorization' => "Bearer #{TOKEN}")
   http.request(request)
 end
 
@@ -40,10 +44,8 @@ def post_json(uri, body)
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   request = Net::HTTP::Post.new(uri.request_uri,
-    initheader = {
-      'Content-Type' => 'application/json',
-      'Authorization' => "Bearer #{TOKEN}"
-    })
+                                'Content-Type' => 'application/json',
+                                'Authorization' => "Bearer #{TOKEN}")
   request.body = body
   http.request(request)
 end
@@ -78,18 +80,18 @@ def setup_droplet(droplet)
     #{link_files(droplet[:ipv4], 'server_key.pem')} &&\
     #{link_files(droplet[:ipv4], 'intermediate.crt')}"
   result = `#{setup}`
-  return "ERROR: Cannot generate config files and certs for #{droplet[:ipv4]}.\n#{result}" unless $CHILD_STATUS.to_i == 0
+  return "ERROR: Cannot generate config files and certs for #{droplet[:ipv4]}.\n#{result}" unless $CHILD_STATUS.to_i.zero?
 
   key_path = "#{ROOT}/certs/digital_ocean#{POSTFIX.tr('-', '_')}"
   ssh_command = "ssh -i #{key_path} -o LogLevel=quiet -o StrictHostKeyChecking=no ubuntu@#{droplet[:ipv4]} 'echo \"SSH Successful!\"'"
   `#{ssh_command}` # Adding new machine to known hosts
   first_deploy = "bundle exec ruby deploy/first_deploy.rb ubuntu #{droplet[:ipv4]} #{TYPE} #{key_path}"
   deploy_result = `#{first_deploy}`
-  return "ERROR: Deploy failed on #{droplet[:ipv4]}\n\#{deploy_result}" unless $CHILD_STATUS.to_i == 0
+  return "ERROR: Deploy failed on #{droplet[:ipv4]}\n\#{deploy_result}" unless $CHILD_STATUS.to_i.zero?
 
   url = "https://#{droplet[:ipv4]}"
   `curl -k "#{url}"`
-  return "ERROR: Deploy successful on #{url} but HTTPS is not working.\n#{deploy_result}" unless $CHILD_STATUS.to_i == 0
+  return "ERROR: Deploy successful on #{url} but HTTPS is not working.\n#{deploy_result}" unless $CHILD_STATUS.to_i.zero?
 
   "SUCCESS: #{url} is up an running!"
 end
@@ -108,11 +110,11 @@ if response.code.to_i < 400
     end
   end
   errors, successes = droplet_infos.partition { |i| i.is_a? String }
-  if errors.size > 0
+  unless errors.empty?
     puts 'ERRORS: The following are unknown droplets'
     puts errors
   end
-  if successes.size > 0
+  unless successes.empty?
     droplets = successes.map do |d|
       {
         id: d['droplet']['id'],

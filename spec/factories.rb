@@ -1,21 +1,22 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 FactoryGirl.define do
-  sequence(:last_name) {|n| "Name#{n}"}
+  sequence(:last_name) { |n| "Name#{n}" }
 
   factory :user do
-    first_name "User"
+    first_name 'User'
     last_name
     username { |a| "#{a.first_name}.#{a.last_name}".downcase }
     email { |a| "#{a.username.parameterize}@example.com" }
-    password "secret"
-    password_confirmation "secret"
-    phone "(11) 3322-1234"
-    country "BR"
-    state "SP"
-    city "São Paulo"
-    organization "ThoughtWorks"
-    website_url "www.dtsato.com"
-    bio "Some text about me..."
+    password 'secret'
+    password_confirmation 'secret'
+    phone '(11) 3322-1234'
+    country 'BR'
+    state 'SP'
+    city 'São Paulo'
+    organization 'ThoughtWorks'
+    website_url 'www.dtsato.com'
+    bio 'Some text about me...'
 
     factory :author do
       after(:build) { |u| u.add_role(:author) }
@@ -27,12 +28,12 @@ FactoryGirl.define do
   end
 
   factory :simple_user, class: User do
-    first_name "User"
+    first_name 'User'
     last_name
     username { |a| "#{a.first_name}.#{a.last_name}".downcase }
     email { |a| "#{a.username.parameterize}@example.com" }
-    password "secret"
-    password_confirmation "secret"
+    password 'secret'
+    password_confirmation 'secret'
   end
 
   factory :session_type do
@@ -40,39 +41,39 @@ FactoryGirl.define do
     valid_durations [50]
     title 'session_type.name.title'
     description 'session_type.name.description'
-    translated_contents { |s|
+    translated_contents do |s|
       s.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Session type title in #{l}", content: "This is a session type that renders with @Textile@."
+        build :translated_content, language: l, title: "Session type title in #{l}", content: 'This is a session type that renders with @Textile@.'
       end
-    }
+    end
   end
 
   factory :track do
     conference { Conference.current || FactoryGirl.create(:conference) }
     title 'track.name.title'
     description 'track.name.description'
-    translated_contents { |t|
+    translated_contents do |t|
       t.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Track title in #{l}", content: "This is a track that renders with @Textile@."
+        build :translated_content, language: l, title: "Track title in #{l}", content: 'This is a track that renders with @Textile@.'
       end
-    }
+    end
   end
 
   factory :audience_level do
     conference { Conference.current || FactoryGirl.create(:conference) }
     title 'audience_level.name.title'
     description 'audience_level.name.description'
-    translated_contents { |a|
+    translated_contents do |a|
       a.conference.supported_languages.map do |l|
-        build :translated_content, language: l, title: "Audience level title in #{l}", content: "This is an audience level that renders with @Textile@."
+        build :translated_content, language: l, title: "Audience level title in #{l}", content: 'This is an audience level that renders with @Textile@.'
       end
-    }
+    end
   end
 
   factory :comment do
     association :commentable, factory: :session
     user
-    comment "Fake comment body..."
+    comment 'Fake comment body...'
   end
 
   factory :organizer do
@@ -126,8 +127,8 @@ FactoryGirl.define do
 
     association :reviewer_confidence_rating, factory: :rating
 
-    comments_to_organizers "Fake"
-    comments_to_authors "Fake " * 40
+    comments_to_organizers 'Fake'
+    comments_to_authors 'Fake ' * 40
 
     association :reviewer, factory: :user
     session
@@ -137,11 +138,11 @@ FactoryGirl.define do
 
   factory :final_review, class: FinalReview, traits: [:review] do
     recommendation
-    justification "Fake"
+    justification 'Fake'
   end
 
   factory :outcome do
-    sequence(:title) {|n| "outcomes.name#{n}.title"}
+    sequence(:title) { |n| "outcomes.name#{n}.title" }
 
     factory :accepted_outcome do
       after(:build) { |o| o.title = 'outcomes.accept.title' }
@@ -158,36 +159,36 @@ FactoryGirl.define do
     association :organizer, factory: :user
     session { FactoryGirl.create(:session, state: 'in_review') }
     outcome
-    note_to_authors "Some note to the authors"
+    note_to_authors 'Some note to the authors'
     published false
 
     factory :accepted_decision
 
     factory :backup_decision do
       after(:build) do |rd|
-        rd.outcome = Outcome.find_by_title('outcomes.backup.title') ||
-          FactoryGirl.create(:backup_outcome)
+        rd.outcome = Outcome.find_by(title: 'outcomes.backup.title') ||
+                     FactoryGirl.create(:backup_outcome)
       end
     end
 
     factory :rejected_decision do
       after(:build) do |rd|
-        rd.outcome = Outcome.find_by_title('outcomes.reject.title') ||
-          FactoryGirl.create(:rejected_outcome)
+        rd.outcome = Outcome.find_by(title: 'outcomes.reject.title') ||
+                     FactoryGirl.create(:rejected_outcome)
       end
     end
   end
 
   factory :page do
     conference { Conference.current || FactoryGirl.create(:conference) }
-    sequence(:path) {|n| "page_#{n}"}
+    sequence(:path) { |n| "page_#{n}" }
     title 'page.title'
     content 'page.content'
-    translated_contents { |p|
+    translated_contents do |p|
       p.conference.supported_languages.map do |l|
         build :translated_content, language: l, title: p.path, content: "This is a page under path +#{p.path}+ for conference *#{p.conference.name}* that renders with @Textile@."
       end
-    }
+    end
   end
 
   factory :vote do

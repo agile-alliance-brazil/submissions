@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeLanguageToPtBr < ActiveRecord::Migration
   def up
     TranslatedContent.where(language: 'pt').update_all(language: 'pt-BR')
@@ -14,6 +15,7 @@ class ChangeLanguageToPtBr < ActiveRecord::Migration
     Page.where(language: 'pt').update_all(language: 'pt-BR')
     change_column_default(:pages, :language, 'pt-BR')
   end
+
   def down
     TranslatedContent.where(language: 'pt-BR').update_all(language: 'pt')
 

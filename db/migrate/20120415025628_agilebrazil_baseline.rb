@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class AgilebrazilBaseline < ActiveRecord::Migration
   def change
     create_table :audience_levels do |t|
@@ -42,7 +43,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     create_table :outcomes do |t|
-      t.string      :title
+      t.string :title
       t.timestamps
     end
 
@@ -55,12 +56,12 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     create_table :ratings do |t|
-      t.string      :title
+      t.string :title
       t.timestamps
     end
 
     create_table :recommendations do |t|
-      t.string      :title
+      t.string :title
       t.timestamps
     end
 
@@ -174,7 +175,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
       t.datetime    :last_sign_in_at
       t.string      :current_sign_in_ip
       t.string      :last_sign_in_ip
-      t.string      :default_locale, default: "pt"
+      t.string      :default_locale, default: 'pt'
       t.string      :reset_password_token
       t.string      :authentication_token
       t.integer     :sign_in_count

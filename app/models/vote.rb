@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Vote < ActiveRecord::Base
   VOTE_LIMIT = 5
 
@@ -16,11 +17,11 @@ class Vote < ActiveRecord::Base
     end
   end
 
-  scope :for_conference, lambda { |c| where(conference_id: c.id) }
-  scope :for_user, lambda { |u| where(user_id: u.id) }
+  scope :for_conference, ->(c) { where(conference_id: c.id) }
+  scope :for_user, ->(u) { where(user_id: u.id) }
 
   def self.within_limit?(user, conference)
     return false unless user.present? && conference.present?
-    self.for_conference(conference).for_user(user).count < VOTE_LIMIT
+    for_conference(conference).for_user(user).count < VOTE_LIMIT
   end
 end

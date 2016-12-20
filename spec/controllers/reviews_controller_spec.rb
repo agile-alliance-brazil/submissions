@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewsController, type: :controller do
@@ -26,8 +27,8 @@ describe ReviewsController, type: :controller do
                                       justification: 'This is great!')
     end
     let(:conference) { FactoryGirl.create(:conference) }
-    let(:session) { FactoryGirl.create(:session, conference: conference).tap {|s| s.reviewing} }
-    let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference)}
+    let(:session) { FactoryGirl.create(:session, conference: conference).tap(&:reviewing) }
+    let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference) }
 
     before(:each) do
       sign_in reviewer.user
@@ -254,13 +255,13 @@ describe ReviewsController, type: :controller do
           end
           it 'renders the template again with errors and alert message' do
             put :update,
-              year: conference.year,
-              session_id: session.id,
-              id: review.id,
-              early_review: { author_agile_xp_rating_id: nil, proposal_quality_rating_id: nil }
+                year: conference.year,
+                session_id: session.id,
+                id: review.id,
+                early_review: { author_agile_xp_rating_id: nil, proposal_quality_rating_id: nil }
 
             expected_flash = "#{Review.human_attribute_name(:author_agile_xp_rating_id)}, #{Review.human_attribute_name(:proposal_quality_rating_id)}"
-            expect(flash[:alert]).to eq I18n.t('errors.messages.invalid_form_data', value: expected_flash )
+            expect(flash[:alert]).to eq I18n.t('errors.messages.invalid_form_data', value: expected_flash)
             expect(response).to render_template :edit
           end
         end

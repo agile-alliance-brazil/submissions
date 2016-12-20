@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 # config valid only for Capistrano 3.6.1
 lock '3.6.1'
 
@@ -9,7 +10,7 @@ set :rails_env,           'production'
 set :keep_releases,       5
 
 set :application,         'submissions'
-SSHKit.config.command_map[:rake]  = 'bundle exec rake' #8
+SSHKit.config.command_map[:rake]  = 'bundle exec rake' # 8
 SSHKit.config.command_map[:rails] = 'bundle exec rails'
 
 set :scm,                 :git
@@ -34,10 +35,10 @@ set :log_level, ENV['LOG_LEVEL'] || :debug
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/config.yml config/newrelic.yml}
+set :linked_files, %w(config/database.yml config/config.yml config/newrelic.yml)
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log certs tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w(bin log certs tmp/pids tmp/cache tmp/sockets vendor/bundle public/system)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

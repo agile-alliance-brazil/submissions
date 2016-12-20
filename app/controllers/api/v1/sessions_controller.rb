@@ -1,11 +1,12 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 module Api
   module V1
     class SessionsController < ::ApplicationController
       skip_before_action :authenticate_user!, :authorize_action
       skip_before_action :set_conference, only: [:show]
 
-      rescue_from ActiveRecord::RecordNotFound do |exception|
+      rescue_from ActiveRecord::RecordNotFound do |_exception|
         render json: { error: 'not-found' }, status: 404
       end
 
@@ -14,7 +15,7 @@ module Api
           session_type: [:translated_contents],
           track: [:translated_contents],
           audience_level: [:translated_contents]
-)
+        )
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
@@ -25,12 +26,12 @@ module Api
 
       def accepted
         sessions = []
-        if @conference.author_confirmation < DateTime.now
+        if @conference.author_confirmation < Time.zone.now
           sessions = Session.for_conference(@conference).includes(
             session_type: [:translated_contents],
             track: [:translated_contents],
             audience_level: [:translated_contents]
-).where(state: :accepted)
+          ).where(state: :accepted)
         end
         hashes = sessions.map { |s| hash_for(s) }
 
@@ -45,13 +46,13 @@ module Api
           session_type: [:translated_contents],
           track: [:translated_contents],
           audience_level: [:translated_contents]
-).find(params[:id])
+        ).find(params[:id])
 
         session_hash = hash_for(session)
 
         respond_to do |format|
           format.json { render json: session_hash }
-          format.js { render json: session_hash, callback: params[:callback]}
+          format.js { render json: session_hash, callback: params[:callback] }
         end
       end
 
@@ -62,20 +63,9 @@ module Api
           id: session.id,
           session_uri: session_url(session.conference, session),
           title: session.title,
-          authors: session.authors.map do |author|
-            {
-              user_id: author.id,
-              user_uri: user_url(author),
-              username: author.username,
-              name: author.full_name,
-              gravatar_url: gravatar_url(author)
-            }
-          end,
+          authors: authors_for(session),
           prerequisites: session.prerequisites,
-          tags: session.keywords.map(&:name).sort.map do |n|
-            value = I18n.t(n, default: n)
-            value.is_a?(String) ? value : n
-          end,
+          tags: tags_for(session),
           duration_mins: session.duration_mins,
           session_type: session.session_type.title,
           audience_level: session.audience_level.title,
@@ -83,11 +73,38 @@ module Api
           audience_limit: session.audience_limit,
           summary: session.summary,
           mechanics: session.mechanics,
-          status: (session.conference.author_confirmation < DateTime.now) ? I18n.t("session.state.#{session.state}") : I18n.t('session.state.created'),
+          status: status_for(session),
           author_agreement: session.author_agreement,
           image_agreement: session.image_agreement,
           created_at: session.created_at.iso8601
         }
+      end
+
+      def authors_for(session)
+        session.authors.map do |author|
+          {
+            user_id: author.id,
+            user_uri: user_url(author),
+            username: author.username,
+            name: author.full_name,
+            gravatar_url: gravatar_url(author)
+          }
+        end
+      end
+
+      def tags_for(session)
+        session.keywords.map(&:name).sort.map do |n|
+          value = I18n.t(n, default: n)
+          value.is_a?(String) ? value : n
+        end
+      end
+
+      def status_for(session)
+        if session.conference.author_confirmation < Time.zone.now
+          I18n.t("session.state.#{session.state}")
+        else
+          I18n.t('session.state.created')
+        end
       end
     end
   end

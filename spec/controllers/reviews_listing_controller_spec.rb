@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewsListingController, type: :controller do
@@ -6,7 +7,7 @@ describe ReviewsListingController, type: :controller do
 
   it_should_require_login_for_actions :index, :reviewer
 
-  describe "#index" do
+  describe '#index' do
     before(:each) do
       user = FactoryGirl.create(:user)
       sign_in user
@@ -15,7 +16,7 @@ describe ReviewsListingController, type: :controller do
       Conference.stubs(:current).returns(@conference)
     end
 
-    it "index action (JS) should render JSON for early reviews" do
+    it 'index action (JS) should render JSON for early reviews' do
       @conference.stubs(:in_early_review_phase?).returns(true)
       @conference.presubmissions_deadline = DateTime.now
 
@@ -32,7 +33,7 @@ describe ReviewsListingController, type: :controller do
       }.to_json)
     end
 
-    it "index action (JS) should render JSON for final reviews" do
+    it 'index action (JS) should render JSON for final reviews' do
       @conference.stubs(:in_early_review_phase?).returns(false)
       FactoryGirl.create_list(:final_review, 2)
 
@@ -45,7 +46,7 @@ describe ReviewsListingController, type: :controller do
     end
   end
 
-  context "as a reviewer" do
+  context 'as a reviewer' do
     before(:each) do
       @reviewer = FactoryGirl.create(:reviewer)
       @conference = @reviewer.conference
@@ -53,12 +54,12 @@ describe ReviewsListingController, type: :controller do
       disable_authorization
     end
 
-    it "index action should redirect to reviewer action" do
+    it 'index action should redirect to reviewer action' do
       get :index
       expect(response).to redirect_to(reviewer_reviews_url(@conference))
     end
 
-    it "reviewer action should render reviewer template" do
+    it 'reviewer action should render reviewer template' do
       get :reviewer
       expect(response).to render_template(:reviewer)
     end

@@ -1,16 +1,17 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe SessionType, type: :model do
   context 'validations' do
     it { should validate_presence_of :conference }
-    # TODO Validations of languages
+    # TODO: Validations of languages
   end
 
   context 'associations' do
     it { should have_many :sessions }
     it { should belong_to :conference }
-    it { should have_many :translated_contents}
+    it { should have_many :translated_contents }
   end
 
   context 'types' do
@@ -22,7 +23,7 @@ describe SessionType, type: :model do
       SessionType.stubs(:uniq).returns([@tutorial, @lightning_talk])
     end
     it 'should detect all titles' do
-      expect(SessionType.all_titles).to eq(%w[tutorial lightning_talk])
+      expect(SessionType.all_titles).to eq(%w(tutorial lightning_talk))
     end
 
     it 'should determine if it is tutorial' do

@@ -1,14 +1,18 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 module Api
   module V1
     class TopCommentersController < ::ApplicationController
-      skip_before_filter :authenticate_user!, :authorize_action, :set_conference
+      skip_before_action :authenticate_user!, :authorize_action, :set_conference
       MAX_LIMIT = 20
       DEFAULT_LIMIT = 5
 
       def index
-        top_commenters = User.by_comments(filters).limit(valid_limit).select {|u| u.comments.count > 0}.map do |user|
-          gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+        commenters = User.by_comments(filters).limit(valid_limit).select do |u|
+          u.comments.count.positive?
+        end
+        top_commenters = commenters.map do |user|
+          gravatar_id = Digest::MD5.hexdigest(user.email).downcase
           picture = "https://gravatar.com/avatar/#{gravatar_id}.png"
           { user: user.username, name: user.full_name, picture: picture, comment_count: user.comments.where(filters).count }
         end

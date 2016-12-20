@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe RegistrationsController, type: :controller do
@@ -12,17 +13,17 @@ describe RegistrationsController, type: :controller do
     EmailNotifications.stubs(:welcome).returns(stub(deliver_now: true))
   end
 
-  it "new action should render new template" do
+  it 'new action should render new template' do
     get :new
     expect(response).to render_template(:new)
   end
 
-  it "new action should build user with default locale" do
+  it 'new action should build user with default locale' do
     get :new, locale: 'en'
     expect(assigns(:user).default_locale.to_sym).to eq(:en)
   end
 
-  it "create action should render new template when model is invalid" do
+  it 'create action should render new template when model is invalid' do
     # +stubs(:valid?).returns(false)+ doesn't work here because
     # inherited_resources does +obj.errors.empty?+ to determine
     # if validation failed
@@ -30,41 +31,41 @@ describe RegistrationsController, type: :controller do
     expect(response).to render_template(:new)
   end
 
-  it "create action should redirect when model is valid" do
+  it 'create action should redirect when model is valid' do
     User.any_instance.stubs(:valid?).returns(true)
     post :create
     expect(response).to redirect_to(root_url)
   end
 
-  it "create action should login new user" do
+  it 'create action should login new user' do
     User.any_instance.stubs(:valid?).returns(true)
     post :create
     expect(controller.current_user).to_not be_nil
   end
 
-  it "create action should send welcome e-mail" do
+  it 'create action should send welcome e-mail' do
     EmailNotifications.expects(:welcome).returns(mock(deliver_now: true))
     User.any_instance.stubs(:valid?).returns(true)
     post :create
   end
 
-  context "logged in" do
+  context 'logged in' do
     before(:each) do
       sign_in @user
       disable_authorization
     end
 
-    it "edit action should render edit template" do
+    it 'edit action should render edit template' do
       get :edit
       expect(response).to render_template(:edit)
     end
 
-    it "edit action should set default locale regardless of params" do
+    it 'edit action should set default locale regardless of params' do
       get :edit, locale: 'en'
       expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR')
     end
 
-    it "update action should render edit template when model is invalid" do
+    it 'update action should render edit template when model is invalid' do
       # +stubs(:valid?).returns(false)+ doesn't work here because
       # inherited_resources does +obj.errors.empty?+ to determine
       # if validation failed
@@ -78,7 +79,7 @@ describe RegistrationsController, type: :controller do
     #   expect(assigns(:update_password)).to eq("true")
     # end
 
-    it "update action should redirect when model is valid" do
+    it 'update action should redirect when model is valid' do
       patch :update, user: {
         current_password: 'secret',
         password: 'new',
@@ -87,5 +88,4 @@ describe RegistrationsController, type: :controller do
       expect(response).to redirect_to(user_path(assigns(:user)))
     end
   end
-
 end

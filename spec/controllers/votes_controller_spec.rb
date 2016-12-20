@@ -1,16 +1,16 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe VotesController, type: :controller do
   render_views
 
-  it "show should work" do
+  it 'show should work' do
     get :index
   end
 end
 
 describe VotesController, type: :controller do
-
   it_should_require_login_for_actions :index, :create, :destroy
 
   before(:each) do
@@ -19,7 +19,7 @@ describe VotesController, type: :controller do
     disable_authorization
   end
 
-  describe "#index" do
+  describe '#index' do
     before do
       get :index
     end
@@ -28,7 +28,7 @@ describe VotesController, type: :controller do
     it { should == [@vote.session] }
   end
 
-  describe "#create" do
+  describe '#create' do
     before do
       @session = FactoryGirl.create(:session)
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
@@ -39,13 +39,13 @@ describe VotesController, type: :controller do
     it { expect(@session.votes).to_not be_empty }
   end
 
-  describe "#destroy" do
+  describe '#destroy' do
     before do
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
       delete :destroy, id: @vote.id
     end
 
     it { should redirect_to('http://test.com/sessions/new') }
-    it { expect(lambda { Vote.find(@vote.id) }).to raise_error(ActiveRecord::RecordNotFound) }
+    it { expect(-> { Vote.find(@vote.id) }).to raise_error(ActiveRecord::RecordNotFound) }
   end
 end

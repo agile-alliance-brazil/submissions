@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class TracksController < ApplicationController
-  skip_before_filter :authenticate_user!, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i(index)
   respond_to :json, :html
 
   def index
@@ -28,6 +29,7 @@ class TracksController < ApplicationController
   end
 
   private
+
   def resource_class
     Track
   end

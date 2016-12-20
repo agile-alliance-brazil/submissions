@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewsListingController < ApplicationController
   def index
     respond_to do |format|
@@ -29,10 +30,10 @@ class ReviewsListingController < ApplicationController
     direction = params[:direction] == 'up' ? 'ASC' : 'DESC'
     column = sanitize(params[:column].presence || 'created_at')
     order = "reviews.#{column} #{direction}"
-    @reviews = current_user.reviews.
-      for_conference(@conference).
-      page(params[:page]).
-      order(order).
-      includes(session: [:author, :second_author, :track, { review_decision: :outcome }])
+    @reviews = current_user.reviews
+                           .for_conference(@conference)
+                           .page(params[:page])
+                           .order(order)
+                           .includes(session: [:author, :second_author, :track, { review_decision: :outcome }])
   end
 end

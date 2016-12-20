@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
@@ -15,7 +16,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'submissoes.agilebrazil.com', user: 'ubuntu', roles: %w{web app db}
+server 'submissoes.agilebrazil.com', user: 'ubuntu', roles: %w(web app db)
 set :manifest, 'default'
 set :server_url, 'submissoes.agilebrazil.com'
 set :rails_env, 'production'
@@ -24,14 +25,14 @@ set :rails_env, 'production'
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
 # set it globally
-set :ssh_options, {
- keys: [
-   File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean')
- ],
- forward_agent: true,
- auth_methods: %w(publickey)
- # password: 'please use keys'
-}
+set :ssh_options,
+    keys: [
+      File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean')
+    ],
+    forward_agent: true,
+    auth_methods: %w(publickey)
+# password: 'please use keys'
+
 # and/or per server
 # server 'example.com',
 #   user: 'user_name',

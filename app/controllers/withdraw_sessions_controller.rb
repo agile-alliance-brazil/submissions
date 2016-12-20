@@ -1,9 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class WithdrawSessionsController < ApplicationController
-  before_filter :load_session
+  before_action :load_session
 
-  def show
-  end
+  def show; end
 
   def update
     attributes = session_params
@@ -18,6 +18,7 @@ class WithdrawSessionsController < ApplicationController
   end
 
   protected
+
   def load_session
     @session = Session.find(params[:session_id])
   end

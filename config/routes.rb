@@ -1,4 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
+# rubocop:disable Metrics/BlockLength
 AgileBrazil::Application.routes.draw do
   use_doorkeeper
 

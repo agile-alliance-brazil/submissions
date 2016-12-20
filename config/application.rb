@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
@@ -32,7 +33,7 @@ module AgileBrazil
     config.i18n.default_locale = :'pt-BR'
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
@@ -52,7 +53,7 @@ module AgileBrazil
 
     config.to_prepare do
       Doorkeeper::ApplicationController.layout 'application'
-      Doorkeeper::ApplicationController.before_filter do |controller|
+      Doorkeeper::ApplicationController.before_filter do |_controller|
         I18n.locale = params[:locale] || current_user.try(:default_locale)
         @conference = Conference.current
       end

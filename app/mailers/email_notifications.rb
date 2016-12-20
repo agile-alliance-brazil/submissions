@@ -1,7 +1,8 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class EmailNotifications < ActionMailer::Base
-  default from:     Proc.new { "\"#{current_conference.name}\" <#{from_address}>" },
-          reply_to: Proc.new { "\"#{current_conference.name}\" <#{from_address}>" }
+  default from:     proc { "\"#{current_conference.name}\" <#{from_address}>" },
+          reply_to: proc { "\"#{current_conference.name}\" <#{from_address}>" }
 
   def welcome(user, sent_at = Time.now)
     @user = user
@@ -13,7 +14,7 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
-  def reset_password_instructions(user, token, sent_at = Time.now, opts = {})
+  def reset_password_instructions(user, token, sent_at = Time.now, _opts = {})
     @user = user
     @token = token
     @conference_name = current_conference.name
@@ -40,10 +41,10 @@ class EmailNotifications < ActionMailer::Base
     @comment = comment
     @conference_name = current_conference.name
     authors = session.authors.map { |author| EmailNotifications.format_email(author) }
-    commenters = session.comments.map { |comment| EmailNotifications.format_email(comment.user) }
+    commenters = session.comments.map { |other_comment| EmailNotifications.format_email(other_comment.user) }
     I18n.with_locale(@session.author.try(:default_locale)) do
       mail subject: "[#{host}] #{I18n.t('email.comment_submitted.subject', session_name: @session.title)}",
-           to: "no-reply@agilebrazil.com",
+           to: 'no-reply@agilebrazil.com',
            bcc: authors + commenters,
            date: sent_at
     end
@@ -89,21 +90,24 @@ class EmailNotifications < ActionMailer::Base
     @conference_name = current_conference.name
     @author = author
     I18n.with_locale(author.try(:default_locale)) do
-      subject = I18n.t("email.review_feedback.subject", :conference_name => @conference_name)
-      mail :subject  => "[#{host}] #{subject}",
-           :to       => EmailNotifications.format_email(author),
-           :date     => sent_at,
-           :template_name => :review_feedback_request
+      subject = I18n.t('email.review_feedback.subject', conference_name: @conference_name)
+      mail subject: "[#{host}] #{subject}",
+           to: EmailNotifications.format_email(author),
+           date: sent_at,
+           template_name: :review_feedback_request
     end
   end
 
-  private
+  private_class_method
+
   def self.format_email(user)
     "\"#{user.full_name}\" <#{user.email}>"
   end
 
+  private
+
   def from_address
-    AppConfig[:sender_address]
+    APP_CONFIG[:sender_address]
   end
 
   def host

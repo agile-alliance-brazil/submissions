@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 Dir.glob("#{Rails.root}/lib/*_extensions/**/*.rb") do |file|
   require file
 end

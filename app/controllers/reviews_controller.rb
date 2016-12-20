@@ -1,8 +1,9 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewsController < ApplicationController
-  before_filter :load_session
-  before_filter :load_review, only: [:edit, :update]
-  before_filter :check_review_period, only: [:edit, :update]
+  before_action :load_session
+  before_action :load_review, only: [:edit, :update]
+  before_action :check_review_period, only: [:edit, :update]
 
   def index
     @reviews = collection
@@ -51,22 +52,22 @@ class ReviewsController < ApplicationController
 
   def review_params
     (params.permit(resource_request_name => [
-      :author_agile_xp_rating_id,
-      :author_proposal_xp_rating_id,
-      :proposal_track,
-      :proposal_level,
-      :proposal_type,
-      :proposal_duration,
-      :proposal_limit,
-      :proposal_abstract,
-      :proposal_quality_rating_id,
-      :proposal_relevance_rating_id,
-      :recommendation_id,
-      :justification,
-      :reviewer_confidence_rating_id,
-      :comments_to_organizers,
-      :comments_to_authors
-    ])[resource_request_name] || {}).merge(inferred_params)
+                     :author_agile_xp_rating_id,
+                     :author_proposal_xp_rating_id,
+                     :proposal_track,
+                     :proposal_level,
+                     :proposal_type,
+                     :proposal_duration,
+                     :proposal_limit,
+                     :proposal_abstract,
+                     :proposal_quality_rating_id,
+                     :proposal_relevance_rating_id,
+                     :recommendation_id,
+                     :justification,
+                     :reviewer_confidence_rating_id,
+                     :comments_to_organizers,
+                     :comments_to_authors
+                   ])[resource_request_name] || {}).merge(inferred_params)
   end
 
   def resource_request_name
@@ -81,7 +82,7 @@ class ReviewsController < ApplicationController
   end
 
   def resource
-    EarlyReview.find_by_id(params[:id]) || FinalReview.find_by_id(params[:id])
+    EarlyReview.find_by(id: params[:id]) || FinalReview.find_by(id: params[:id])
   end
 
   def resource_class
@@ -89,11 +90,11 @@ class ReviewsController < ApplicationController
   end
 
   def collection
-    resource_class.where(session_id: params[:session_id]).
-      includes(:reviewer, :recommendation,
-        :reviewer_confidence_rating, :author_agile_xp_rating,
-        :author_proposal_xp_rating, :proposal_quality_rating,
-        :proposal_relevance_rating)
+    resource_class.where(session_id: params[:session_id])
+                  .includes(:reviewer, :recommendation,
+                            :reviewer_confidence_rating, :author_agile_xp_rating,
+                            :author_proposal_xp_rating, :proposal_quality_rating,
+                            :proposal_relevance_rating)
   end
 
   private

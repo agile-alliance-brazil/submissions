@@ -1,8 +1,8 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe OrganizerReportsController, type: :controller do
-
   before(:each) do
     @organizer = FactoryGirl.create(:organizer)
     @conference = @organizer.conference
@@ -10,17 +10,17 @@ describe OrganizerReportsController, type: :controller do
     disable_authorization
   end
 
-  describe "with view rendering", render_views: true do
+  describe 'with view rendering', render_views: true do
     render_views
 
-    it "index should work" do
+    it 'index should work' do
       get :index, format: :xls
     end
   end
 
   it_should_require_login_for_actions :index
 
-  describe "#index" do
+  describe '#index' do
     before(:each) do
       @session = FactoryGirl.build(:session)
       Session.stubs(:for_conference).returns(Session)

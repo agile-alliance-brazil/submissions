@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -8,7 +9,7 @@ Devise.setup do |config|
   # config.mailer_sender = "please-change-me@config-initializers-devise.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "EmailNotifications"
+  config.mailer = 'EmailNotifications'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -83,8 +84,8 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 20
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = AppConfig[:devise][:pepper]
-  config.secret_key = AppConfig[:devise][:secret_key]
+  config.pepper = APP_CONFIG[:devise][:pepper]
+  config.secret_key = APP_CONFIG[:devise][:secret_key]
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

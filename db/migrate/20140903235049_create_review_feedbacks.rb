@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 class CreateReviewFeedbacks < ActiveRecord::Migration
   def change
     create_table :review_feedbacks do |t|
       t.references  :conference
       t.references  :author
-      t.string  :general_comments
+      t.string :general_comments
 
       t.timestamps
     end

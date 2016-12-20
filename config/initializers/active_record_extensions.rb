@@ -1,5 +1,8 @@
 # encoding: UTF-8
-class ActiveRecord::Base
-  include Trimmer
-  include AutoCompleteUsername
+# frozen_string_literal: true
+module ActiveRecord
+  class Base
+    include Trimmer
+    include AutoCompleteUsername
+  end
 end

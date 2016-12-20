@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateTranslatedContent < ActiveRecord::Migration
   def change
     create_table :translated_contents do |t|

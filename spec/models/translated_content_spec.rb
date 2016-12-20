@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe TranslatedContent, type: :model do
@@ -17,12 +18,12 @@ describe TranslatedContent, type: :model do
 
   context 'deprecated methods' do
     it 'should assign description to content' do
-      subject.description='Just testing'
+      subject.description = 'Just testing'
 
       expect(subject.content).to eq('Just testing')
     end
     it 'should return content if asking for description' do
-      subject.content='Just testing'
+      subject.content = 'Just testing'
 
       expect(subject.description).to eq('Just testing')
     end

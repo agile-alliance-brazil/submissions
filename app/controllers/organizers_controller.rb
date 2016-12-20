@@ -1,12 +1,13 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class OrganizersController < ApplicationController
-  before_filter :load_tracks
+  before_action :load_tracks
 
   def index
-    @organizers = Organizer.for_conference(@conference).
-      page(params[:page]).
-      order('organizers.created_at DESC').
-      includes(:user, :track)
+    @organizers = Organizer.for_conference(@conference)
+                           .page(params[:page])
+                           .order('organizers.created_at DESC')
+                           .includes(:user, :track)
   end
 
   def new
@@ -48,6 +49,7 @@ class OrganizersController < ApplicationController
   end
 
   protected
+
   def resource_class
     Organizer
   end

@@ -1,11 +1,17 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe AudienceLevelsController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
   let(:other_conf_level) { FactoryGirl.create(:audience_level, conference: FactoryGirl.create(:conference)) }
   let(:audience) { FactoryGirl.build(:audience_level, conference: conference) }
-  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
+  let(:admin) do
+    FactoryGirl.create(:user).tap do |u|
+      u.add_role('admin')
+      u.save
+    end
+  end
 
   context 'index action' do
     before(:each) { audience.save }
@@ -30,11 +36,13 @@ describe AudienceLevelsController, type: :controller do
     end
 
     it 'should save new audience level with content' do
+      attributes = audience.translated_contents.each_with_object({}) do |a, acc|
+        acc[acc.size.to_s] = a.attributes
+        acc
+      end
       post :create, year: conference.year, audience_level: {
-        translated_contents_attributes: audience.translated_contents.inject({}) { |acc, a|
-          acc[acc.size.to_s]= a.attributes; acc
-          }
-        }, locale: conference.supported_languages.first
+        translated_contents_attributes: attributes
+      }, locale: conference.supported_languages.first
 
       new_audience_level = AudienceLevel.last
       expect(new_audience_level.translated_contents.map(&:language)).to eq(audience.translated_contents.map(&:language))
@@ -44,11 +52,13 @@ describe AudienceLevelsController, type: :controller do
 
     context 'with html format' do
       it 'should redirect to audience levels index' do
+        attributes = audience.translated_contents.each_with_object({}) do |a, acc|
+          acc[acc.size.to_s] = a.attributes
+          acc
+        end
         post :create, year: conference.year, audience_level: {
-          translated_contents_attributes: audience.translated_contents.inject({}) { |acc, a|
-              acc[acc.size.to_s]= a.attributes; acc
-            }
-          }, locale: conference.supported_languages.first
+          translated_contents_attributes: attributes
+        }, locale: conference.supported_languages.first
 
         expect(subject).to redirect_to(conference_audience_levels_path(conference))
       end
@@ -101,9 +111,9 @@ describe AudienceLevelsController, type: :controller do
       patch :update, year: conference.year, id: audience.id, audience_level: {
         translated_contents_attributes: {
           '0' => { id: audience.translated_contents.first.id.to_s,
-            content: new_content }
-          }
-        }, locale: language
+                   content: new_content }
+        }
+      }, locale: language
 
       I18n.with_locale(language) do
         expect(audience.reload.description).to eq(new_content)
@@ -117,9 +127,9 @@ describe AudienceLevelsController, type: :controller do
         patch :update, year: conference.year, id: audience.id, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id.to_s,
-              content: new_content }
-            }
-          }, locale: language
+                     content: new_content }
+          }
+        }, locale: language
 
         expect(subject).to redirect_to(conference_audience_levels_path(conference))
       end

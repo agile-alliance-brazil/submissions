@@ -1,10 +1,11 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe AcceptedSessionsController, type: :controller do
-  describe "#index" do
+  describe '#index' do
     context 'csv' do
-      let(:conference) {FactoryGirl.create(:conference)}
+      let(:conference) { FactoryGirl.create(:conference) }
       context 'unauthorized user' do
         before(:each) do
           @user = FactoryGirl.build(:user)
@@ -25,7 +26,7 @@ describe AcceptedSessionsController, type: :controller do
       end
       context 'authorized user' do
         before(:each) do
-          controller.stubs(:current_ability).returns(stub(:can? => true))
+          controller.stubs(:current_ability).returns(stub(can?: true))
         end
         it 'should generate CSV from accepted sessions' do
           session = FactoryGirl.create(:session, state: 'accepted', conference: conference)

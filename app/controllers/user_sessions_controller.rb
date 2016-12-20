@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class UserSessionsController < Devise::SessionsController
-  skip_before_filter :authorize_action
+  skip_before_action :authorize_action
 
   # GET /resource/sign_in
   def new

@@ -1,11 +1,16 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewFeedbacksController < ApplicationController
-  before_filter :bounce_if_already_created
+  before_action :bounce_if_already_created
 
-  rescue_from ActiveRecord::RecordNotUnique do |exception|
+  rescue_from ActiveRecord::RecordNotUnique do |_exception|
     flash[:error] = t('flash.review_feedback.new.failure')
 
-    redirect_to :back rescue redirect_to root_path(@conference)
+    begin
+      redirect_to :back
+    rescue
+      redirect_to root_path(@conference)
+    end
   end
 
   def new
@@ -31,6 +36,7 @@ class ReviewFeedbacksController < ApplicationController
   end
 
   private
+
   def build_review_feedback(attributes = {})
     review_feedback = ReviewFeedback.new(attributes)
     review_feedback.author = current_user
@@ -42,8 +48,8 @@ class ReviewFeedbacksController < ApplicationController
   end
 
   def add_evaluations_for(review_feedback)
-    reviews = current_user.sessions_for_conference(@conference).
-      includes(final_reviews: [:session]).map(&:final_reviews).flatten
+    reviews = current_user.sessions_for_conference(@conference)
+                          .includes(final_reviews: [:session]).map(&:final_reviews).flatten
     missing_evaluation_reviews = reviews - review_feedback.review_evaluations.map(&:review)
     missing_evaluation_reviews.each do |review|
       review_feedback.review_evaluations.build(review: review, review_feedback: @review_feedback)
@@ -64,13 +70,10 @@ class ReviewFeedbacksController < ApplicationController
       author_id: current_user
     )
 
-    if feedback_exists
-      raise ActiveRecord::RecordNotUnique.new(
-        "ReviewFeedback for conference id " +
-        "#{@conference.id} and user id " +
-        "#{current_user.id} already exists",
-        nil
-      )
-    end
+    return unless feedback_exists
+
+    error_message = %(ReviewFeedback for conference id "#{@conference.id} and \
+user id #{current_user.id} already exists)
+    raise ActiveRecord::RecordNotUnique.new(error_message, nil)
   end
 end

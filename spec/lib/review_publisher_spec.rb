@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewPublisher do
@@ -13,27 +14,27 @@ describe ReviewPublisher do
     @conference = FactoryGirl.create(:conference)
     Conference.stubs(:current).returns(@conference)
 
-    @reject_outcome = Outcome.find_by_title('outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
-    @backup_outcome = Outcome.find_by_title('outcomes.backup.title') || FactoryGirl.create(:backup_outcome)
-    @accept_outcome = Outcome.find_by_title('outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
+    @reject_outcome = Outcome.find_by(title: 'outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
+    @backup_outcome = Outcome.find_by(title: 'outcomes.backup.title') || FactoryGirl.create(:backup_outcome)
+    @accept_outcome = Outcome.find_by(title: 'outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
 
     @publisher = ReviewPublisher.new
   end
 
   it 'should raise error if there are sessions not reviewed' do
     Session.expects(:not_reviewed_count_for).with(@conference).returns(2)
-    expect(-> {@publisher.publish}).to raise_error('There are 2 sessions not reviewed')
+    expect(-> { @publisher.publish }).to raise_error('There are 2 sessions not reviewed')
   end
 
   context 'validating sessions without decision' do
     it 'should raise error if sessions in_review' do
       Session.expects(:not_decided_count_for).with(@conference).returns(3)
-      expect(-> {@publisher.publish}).to raise_error('There are 3 sessions without decision')
+      expect(-> { @publisher.publish }).to raise_error('There are 3 sessions without decision')
     end
 
     it "should raise error if reviewed sessions don't have decisions" do
       Session.expects(:without_decision_count_for).with(@conference).returns(4)
-      expect(-> {@publisher.publish}).to raise_error('There are 4 sessions without decision')
+      expect(-> { @publisher.publish }).to raise_error('There are 4 sessions without decision')
     end
   end
 
@@ -44,7 +45,7 @@ describe ReviewPublisher do
       @sessions = [in_review_session_for(@conference), in_review_session_for(@conference)]
       FactoryGirl.create(:review_decision, session: @sessions[0])
       FactoryGirl.create(:review_decision, session: @sessions[1])
-      Session.stubs(:for_conference).returns(stub(:with_outcome => @sessions))
+      Session.stubs(:for_conference).returns(stub(with_outcome: @sessions))
     end
 
     def expect_acceptance(accept_or_reject)
@@ -81,19 +82,19 @@ describe ReviewPublisher do
 
     it 'should mark review decisions as published' do
       @publisher.publish
-      expect(@sessions.map(&:review_decision).all? {|r| r.published?}).to be true
+      expect(@sessions.map(&:review_decision).all?(&:published?)).to be true
     end
 
     it 'should send reject e-mails before acceptance e-mails' do
       notifications = sequence('notification')
 
-      EmailNotifications.expects(:notification_of_acceptance).
-        with(@sessions[0]).
-        with(@sessions[1]).
-        with(@sessions[0]).
-        with(@sessions[1]).
-        in_sequence(notifications).
-        returns(mock(deliver_now: true))
+      EmailNotifications.expects(:notification_of_acceptance)
+                        .with(@sessions[0])
+                        .with(@sessions[1])
+                        .with(@sessions[0])
+                        .with(@sessions[1])
+                        .in_sequence(notifications)
+                        .returns(mock(deliver_now: true))
 
       @publisher.publish
     end
@@ -137,7 +138,7 @@ describe ReviewPublisher do
 
       ::Rails.logger.expects(:info).with('  [FAILED ACCEPT] error')
       ::Rails.logger.expects(:info).with('  [ACCEPT] OK')
-      Airbrake.expects(:notify).with('error', action: "Publish review with ACCEPT", session: @sessions[0])
+      Airbrake.expects(:notify).with('error', action: 'Publish review with ACCEPT', session: @sessions[0])
 
       @publisher.publish
     end
@@ -151,7 +152,7 @@ describe ReviewPublisher do
 
       ::Rails.logger.expects(:info).with('  [FAILED BACKUP] error')
       ::Rails.logger.expects(:info).with('  [BACKUP] OK')
-      Airbrake.expects(:notify).with('error', action: "Publish review with BACKUP", session: @sessions[0])
+      Airbrake.expects(:notify).with('error', action: 'Publish review with BACKUP', session: @sessions[0])
 
       @publisher.publish
     end
@@ -165,7 +166,7 @@ describe ReviewPublisher do
 
       ::Rails.logger.expects(:info).with('  [FAILED REJECT] error')
       ::Rails.logger.expects(:info).with('  [REJECT] OK')
-      Airbrake.expects(:notify).with('error', action: "Publish review with REJECT", session: @sessions[0])
+      Airbrake.expects(:notify).with('error', action: 'Publish review with REJECT', session: @sessions[0])
 
       @publisher.publish
     end

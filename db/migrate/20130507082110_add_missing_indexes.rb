@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddMissingIndexes < ActiveRecord::Migration
   def change
     add_index :tracks, :conference_id

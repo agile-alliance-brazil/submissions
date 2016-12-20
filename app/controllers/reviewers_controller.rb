@@ -1,20 +1,21 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewersController < ApplicationController
   def index
     filter_params = params.permit(reviewer_filter: [:state_id, :track_id])
     @reviewer_filter = ReviewerFilter.new(filter_params)
     @tracks = @conference.tracks
     @states = resource_class.state_machine.states.map(&:name)
-    @reviewers = @reviewer_filter.apply(Reviewer).
-      for_conference(@conference).
-      joins(:user).
-      order('first_name, last_name').
-      includes(user: [:reviews], accepted_preferences: [], conference: [])
+    @reviewers = @reviewer_filter.apply(Reviewer)
+                                 .for_conference(@conference)
+                                 .joins(:user)
+                                 .order('first_name, last_name')
+                                 .includes(user: [:reviews], accepted_preferences: [], conference: [])
     @reviewer_batch = ReviewerBatch.new(conference: @conference)
-    @previous_reviewers = resource_class.
-      where('conference_id != ? and user_id not in (?) and state = ?',
-        @conference.id, @reviewers.map(&:user_id), :accepted).
-      includes(user: [:reviews], conference: []).group_by(&:user)
+    @previous_reviewers = resource_class
+                          .where('conference_id != ? and user_id not in (?) and state = ?',
+                                 @conference.id, @reviewers.map(&:user_id), :accepted)
+                          .includes(user: [:reviews], conference: []).group_by(&:user)
     @reviewer = resource_class.new(conference: @conference)
     respond_to do |format|
       format.html
@@ -28,10 +29,12 @@ class ReviewersController < ApplicationController
       reviewer = ReviewerJsonBuilder.new(reviewer).to_json
 
       respond_to do |format|
-        format.json { render json: {
-          message: message,
-          reviewer: reviewer
-        }.to_json, status: 201 }
+        format.json do
+          render json: {
+            message: message,
+            reviewer: reviewer
+          }.to_json, status: 201
+        end
       end
     else
       message = t('flash.reviewer.create.failure', username: reviewer.try(:user_username))
@@ -51,17 +54,17 @@ class ReviewersController < ApplicationController
   end
 
   def show
-    @reviewer = Reviewer.where(id: params[:id]).
-      includes(
-        user: {
-          reviews: {
-            session: [:track],
-            recommendation: [],
-            review_evaluations: []
-          }
-        },
-        conference: [], accepted_preferences: [:audience_level, :track]
-      ).first
+    @reviewer = Reviewer.where(id: params[:id])
+                        .includes(
+                          user: {
+                            reviews: {
+                              session: [:track],
+                              recommendation: [],
+                              review_evaluations: []
+                            }
+                          },
+                          conference: [], accepted_preferences: [:audience_level, :track]
+                        ).first
     respond_to do |format|
       format.html
     end
@@ -83,14 +86,15 @@ class ReviewersController < ApplicationController
   end
 
   protected
+
   def resource_class
     Reviewer
   end
 
   def new_reviewer
-    if params[:reviewer]
-      resource_class.new(new_reviewer_params).
-        tap {|r| r.conference = @conference}
+    return unless params[:reviewer]
+    resource_class.new(new_reviewer_params).tap do |r|
+      r.conference = @conference
     end
   end
 

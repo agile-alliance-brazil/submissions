@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewersController, type: :controller do
@@ -22,13 +23,13 @@ describe ReviewersController, type: :controller do
         FactoryGirl.create(:reviewer, conference: conference)
       ]
     end
-    it "index action should render index template" do
+    it 'index action should render index template' do
       get :index, year: conference.year
 
       expect(response).to render_template(:index)
     end
 
-    it "index action should assign tracks for current conference" do
+    it 'index action should assign tracks for current conference' do
       expected_tracks = [track] # need to force creation
 
       get :index, year: conference.year
@@ -36,19 +37,19 @@ describe ReviewersController, type: :controller do
       expect(assigns(:tracks)).to eq(expected_tracks)
     end
 
-    it "index action should assign states for current conference" do
+    it 'index action should assign states for current conference' do
       get :index, year: conference.year
 
       expect(assigns(:states)).to eq([:created, :invited, :accepted, :rejected])
     end
 
-    it "index action should assign reviewers for current conference" do
+    it 'index action should assign reviewers for current conference' do
       get :index, year: conference.year
 
       expect(assigns(:reviewers).sort).to eq(@reviewers)
     end
 
-    it "index action should assign new reviewer for current conference" do
+    it 'index action should assign new reviewer for current conference' do
       reviewer = Reviewer.new(conference: conference)
       Reviewer.expects(:new).with(conference: conference).returns(reviewer)
 
@@ -62,20 +63,20 @@ describe ReviewersController, type: :controller do
     let(:valid_params) { { user_username: user.username } }
 
     context 'valid creation' do
-      it "should allow only reviewer username" do
+      it 'should allow only reviewer username' do
         params = valid_params
         params[:state] = 'accepted'
 
         post :create, year: conference.year, format: 'json', reviewer: params
 
         expect(response.status).to eq(201)
-        expect(JSON.parse(response.body)['reviewer']['status']).to eq(I18n.t("reviewer.state.invited"))
+        expect(JSON.parse(response.body)['reviewer']['status']).to eq(I18n.t('reviewer.state.invited'))
       end
-      it "should return success message upon creation" do
+      it 'should return success message upon creation' do
         post :create, year: conference.year, format: 'json', reviewer: valid_params
 
         expect(response.status).to eq(201)
-        expect(JSON.parse(response.body)['message']).to eq(I18n.t("flash.reviewer.create.success"))
+        expect(JSON.parse(response.body)['message']).to eq(I18n.t('flash.reviewer.create.success'))
       end
       context 'regarding response data' do
         subject do
@@ -86,7 +87,7 @@ describe ReviewersController, type: :controller do
         it { should have_key('id') }
         it { should include('full_name' => user.full_name) }
         it { should include('username' => user.username) }
-        it { should include('status' => I18n.t("reviewer.state.invited")) }
+        it { should include('status' => I18n.t('reviewer.state.invited')) }
         it { should include('url' => reviewer_path(conference, id: subject['id'])) }
       end
     end
@@ -132,14 +133,14 @@ describe ReviewersController, type: :controller do
   context 'destroy' do
     context 'valid reviewer' do
       subject { FactoryGirl.create(:reviewer, user_id: user.id) }
-      it "should render message" do
+      it 'should render message' do
         delete :destroy, id: subject.id, year: conference.year, format: 'json'
 
         expect(JSON.parse(response.body)['message']).to eq(
           I18n.t('flash.reviewer.destroy.success', full_name: user.full_name)
         )
       end
-      it "should return 200" do
+      it 'should return 200' do
         delete :destroy, id: subject.id, year: conference.year, format: 'json'
 
         expect(response.status).to eq(200)
@@ -149,12 +150,12 @@ describe ReviewersController, type: :controller do
       before(:each) do
         @id = (Reviewer.last.try(:id) || 0) + 1
       end
-      it "should render not found message" do
+      it 'should render not found message' do
         delete :destroy, id: @id, year: conference.year, format: 'json'
 
         expect(response.body).to eq('not-found')
       end
-      it "should return 404" do
+      it 'should return 404' do
         delete :destroy, id: @id, year: conference.year, format: 'json'
 
         expect(response.status).to eq(404)

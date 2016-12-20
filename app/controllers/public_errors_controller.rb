@@ -1,6 +1,7 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class PublicErrorsController < ApplicationController
-  skip_before_filter :authenticate_user!, :authorize_action
+  skip_before_action :authenticate_user!, :authorize_action
 
   def unprocessable_entity
     render action: 'internal_server_error'

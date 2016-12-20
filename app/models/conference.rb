@@ -1,13 +1,14 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class Conference < ActiveRecord::Base
   has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
   validates_attachment :logo,
-    presence: true,
-    content_type: { content_type: /\Aimage\/.*\Z/ },
-    size: { in: 0..1.megabytes },
-    if: :visible?
+                       presence: true,
+                       content_type: { content_type: %r{\Aimage/.*\Z} },
+                       size: { in: 0..1.megabytes },
+                       if: :visible?
 
-  attr_trimmed    :program_chair_user_username
+  attr_trimmed :program_chair_user_username
 
   attr_autocomplete_username_as :program_chair_user
 
@@ -36,7 +37,7 @@ class Conference < ActiveRecord::Base
     nil
   end
 
-  def program_chair_user_username=(user)
+  def program_chair_user_username=(_user)
     nil
   end
 
@@ -47,10 +48,10 @@ class Conference < ActiveRecord::Base
   end
 
   def menu_links
-    if pages.count > 0
+    if pages.count.positive?
       links = []
       links << [I18n.t('title.home'), default_page] if default_page
-      links + pages.includes(:translated_contents).where(show_in_menu: true).where.not(path: 'home').map {|p| [p.title, p]}
+      links + pages.includes(:translated_contents).where(show_in_menu: true).where.not(path: 'home').map { |p| [p.title, p] }
     else
       [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guidelines"]] # Legacy
     end
@@ -66,10 +67,10 @@ class Conference < ActiveRecord::Base
   end
 
   def languages
-    selected_languages = ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(name, code)|
+    selected_languages = ActionView::Helpers::FormOptionsHelper::SUPPORTED_LANGUAGES.select do |(_name, code)|
       supported_languages.include?(code.to_sym)
     end
-    selected_languages.map {|(name, code)| { name: name, code: code }}
+    selected_languages.map { |(name, code)| { name: name, code: code } }
   end
 
   def location_and_date
@@ -80,7 +81,7 @@ class Conference < ActiveRecord::Base
     elsif start_date || end_date
       "#{location}, #{start_date.try(:strftime, '%-d')}-#{end_date.try(:strftime, '%-d %b, %Y')}"
     else
-      "#{location}"
+      location.to_s
     end
   end
 
@@ -93,41 +94,41 @@ class Conference < ActiveRecord::Base
   end
 
   def in_submission_phase?
-    return false if self.submissions_open.nil? || self.submissions_deadline.nil?
+    return false if submissions_open.nil? || submissions_deadline.nil?
 
     now = DateTime.now
-    self.submissions_open <= now && now <= self.submissions_deadline
+    submissions_open <= now && now <= submissions_deadline
   end
 
   def has_early_review?
-    self.presubmissions_deadline.present? && self.prereview_deadline.present?
+    presubmissions_deadline.present? && prereview_deadline.present?
   end
 
   def in_early_review_phase?
     return false unless has_early_review?
 
     now = DateTime.now
-    self.presubmissions_deadline <= now && now <= self.prereview_deadline
+    presubmissions_deadline <= now && now <= prereview_deadline
   end
 
   def in_final_review_phase?
-    return false if self.submissions_deadline.nil? || self.review_deadline.nil?
+    return false if submissions_deadline.nil? || review_deadline.nil?
 
     now = DateTime.now
-    self.submissions_deadline <= now && now <= self.review_deadline
+    submissions_deadline <= now && now <= review_deadline
   end
 
   def in_author_confirmation_phase?
-    return false if self.author_notification.nil? || self.author_confirmation.nil?
+    return false if author_notification.nil? || author_confirmation.nil?
 
     now = DateTime.now
-    self.author_notification <= now && now <= self.author_confirmation
+    author_notification <= now && now <= author_confirmation
   end
 
   def in_voting_phase?
-    return false if self.voting_deadline.blank?
+    return false if voting_deadline.blank?
 
-    DateTime.now <= self.voting_deadline
+    DateTime.now <= voting_deadline
   end
 
   DEADLINES = %i(
@@ -138,7 +139,7 @@ class Conference < ActiveRecord::Base
     submissions_deadline
     author_notification
     author_confirmation
-  ) # review_deadline is out because it's an internal deadline
+  ).freeze # review_deadline is out because it's an internal deadline
 
   def dates
     @dates ||= to_deadlines(DEADLINES)
@@ -146,12 +147,12 @@ class Conference < ActiveRecord::Base
 
   def next_deadline(role)
     now = DateTime.now
-    deadlines_for(role).select {|deadline| now < deadline.first}.first
+    deadlines_for(role).select { |deadline| now < deadline.first }.first
   end
 
   def ideal_reviews_burn
     reviews_per_week = total_reviews_needed / [(weeks_to_work_in_reviews - 1), 1].max
-    reviews_per_week += 1 if reviews_per_week == 0
+    reviews_per_week += 1 if reviews_per_week.zero?
     ideal_remaining = [total_reviews_needed]
     (weeks_to_work_in_reviews - 1).times { ideal_remaining << [(ideal_remaining.last - reviews_per_week), 0].max }
     ideal_remaining
@@ -182,33 +183,32 @@ class Conference < ActiveRecord::Base
 
   def deadlines_for(role)
     deadlines = case role.to_sym
-    when :author
-      %i(presubmissions_deadline submissions_deadline author_notification author_confirmation)
-    when :reviewer
-      %i(prereview_deadline review_deadline)
-    when :organizer, :all
-      DEADLINES
-    end
+                when :author
+                  %i(presubmissions_deadline submissions_deadline author_notification author_confirmation)
+                when :reviewer
+                  %i(prereview_deadline review_deadline)
+                when :organizer, :all
+                  DEADLINES
+                end
     to_deadlines(deadlines)
   end
 
   def to_deadlines(deadlines)
-    deadlines.map { |name| send(name) ? [send(name), name] : nil}.compact
+    deadlines.map { |name| send(name) ? [send(name), name] : nil }.compact
   end
 
   DATE_ORDERS = %i(call_for_papers submissions_open presubmissions_deadline prereview_deadline
-    submissions_deadline voting_deadline review_deadline author_notification author_confirmation
-    start_date end_date)
+                   submissions_deadline voting_deadline review_deadline author_notification author_confirmation
+                   start_date end_date).freeze
 
   def date_orders
-    DATE_ORDERS.reject {|d| send(d).nil?}.each_cons(2) do |(d1, d2)|
+    DATE_ORDERS.reject { |d| send(d).nil? }.each_cons(2) do |(d1, d2)|
       date1 = send(d1)
       date2 = send(d2)
-      if date1 >= date2
-        next_date = I18n.t("conference.dates.#{d2}")
-        error_message = I18n.t('errors.messages.cant_be_after', date: next_date)
-        errors.add(d1, error_message)
-      end
+      next unless date1 >= date2
+      next_date = I18n.t("conference.dates.#{d2}")
+      error_message = I18n.t('errors.messages.cant_be_after', date: next_date)
+      errors.add(d1, error_message)
     end
   end
 end

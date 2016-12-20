@@ -1,13 +1,12 @@
 # encoding: utf-8
+# frozen_string_literal: true
 require 'rspec/expectations'
 
 RSpec::Matchers.define :be_valid do
-  match do |model|
-    model.valid?
-  end
+  match(&:valid?)
 
   failure_message do |model|
-    "#{model.class} expected to be valid but had errors: #{model.errors.full_messages.join(", ")}"
+    "#{model.class} expected to be valid but had errors: #{model.errors.full_messages.join(', ')}"
   end
 
   failure_message_when_negated do |model|
@@ -15,6 +14,6 @@ RSpec::Matchers.define :be_valid do
   end
 
   description do
-    "be valid"
+    'be valid'
   end
 end

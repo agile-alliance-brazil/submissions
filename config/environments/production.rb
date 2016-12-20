@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 AgileBrazil::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -36,7 +37,7 @@ AgileBrazil::Application.configure do
   config.assets.version = '1.0'
 
   # Specifies the header that your server uses for sending files.
-  config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+  config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -47,10 +48,10 @@ AgileBrazil::Application.configure do
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
-  config.log_tags = [ -> request {
-      Time.now.strftime('%FT%T%:z')
-    },
-    :uuid]
+  config.log_tags = [lambda_ do |_request|
+                       Time.now.strftime('%FT%T%:z')
+                     end,
+                     :uuid]
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)

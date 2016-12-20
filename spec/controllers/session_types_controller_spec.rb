@@ -1,11 +1,17 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe SessionTypesController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference) }
   let(:session_type) { FactoryGirl.build(:session_type, conference: conference) }
   let(:another_conf_type) { FactoryGirl.create(:session_type, conference: FactoryGirl.create(:conference)) }
-  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
+  let(:admin) do
+    FactoryGirl.create(:user).tap do |u|
+      u.add_role('admin')
+      u.save
+    end
+  end
 
   render_views
 
@@ -36,14 +42,16 @@ describe SessionTypesController, type: :controller do
     end
 
     it 'should save new session type with content' do
+      attributes = session_type.translated_contents.each_with_object({}) do |s, acc|
+        acc[acc.size.to_s] = s.attributes
+        acc
+      end
       post :create, year: conference.year, session_type: {
         valid_durations: ['50'],
         needs_audience_limit: '1',
         needs_mechanics: '0',
-        translated_contents_attributes: session_type.translated_contents.inject({}) { |acc, s|
-          acc[acc.size.to_s]= s.attributes; acc
-          }
-        }, locale: conference.supported_languages.first
+        translated_contents_attributes: attributes
+      }, locale: conference.supported_languages.first
 
       new_session_type = SessionType.last
       expect(new_session_type.valid_durations).to eq([50])
@@ -56,11 +64,13 @@ describe SessionTypesController, type: :controller do
 
     context 'with html format' do
       it 'should redirect to session types index' do
+        attributes = session_type.translated_contents.each_with_object({}) do |s, acc|
+          acc[acc.size.to_s] = s.attributes
+          acc
+        end
         post :create, year: conference.year, session_type: {
-          translated_contents_attributes: session_type.translated_contents.inject({}) { |acc, s|
-              acc[acc.size.to_s]= s.attributes; acc
-            }
-          }, locale: conference.supported_languages.first
+          translated_contents_attributes: attributes
+        }, locale: conference.supported_languages.first
 
         expect(subject).to redirect_to(conference_session_types_path(conference))
       end
@@ -113,9 +123,9 @@ describe SessionTypesController, type: :controller do
       patch :update, year: conference.year, id: session_type.id, session_type: {
         translated_contents_attributes: {
           '0' => { id: session_type.translated_contents.first.id.to_s,
-            content: new_content }
-          }
-        }, locale: language
+                   content: new_content }
+        }
+      }, locale: language
 
       I18n.with_locale(language) do
         expect(session_type.reload.description).to eq(new_content)
@@ -124,35 +134,32 @@ describe SessionTypesController, type: :controller do
 
     context 'while conference is not visible' do
       before do
-        conference.tap {|c| c.visible=false; c.save }
+        conference.tap do |c|
+          c.visible = false
+          c.save
+        end
       end
 
       it 'should allow for valid duration change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: ['10', '25']
-}
+          valid_durations: %w(10 25)
+        }
 
         expect(session_type.reload.valid_durations).to eq([10, 25])
       end
 
       it 'should allow for need mechanics change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
           needs_mechanics: '1'
-}
+        }
 
         expect(session_type.reload.needs_mechanics?).to be_truthy
       end
 
       it 'should allow for need audience level change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
           needs_audience_limit: '1'
-}
+        }
 
         expect(session_type.reload.needs_audience_limit?).to be_truthy
       end
@@ -160,31 +167,25 @@ describe SessionTypesController, type: :controller do
 
     context 'with visible conference' do
       it 'should not allow for valid duration change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: ['10', '25']
-}
+          valid_durations: %w(10 25)
+        }
 
         expect(session_type.reload.valid_durations).to eq([50])
       end
 
       it 'should not allow for need audience limit change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
           needs_audience_limit: '1'
-}
+        }
 
         expect(session_type.reload.needs_audience_limit?).to be_falsey
       end
 
       it 'should not allow for need mechanics change' do
-        language = conference.supported_languages.first
-
         patch :update, year: conference.year, id: session_type.id, session_type: {
           needs_mechanics: '1'
-}
+        }
 
         expect(session_type.reload.needs_mechanics?).to be_falsey
       end
@@ -197,9 +198,9 @@ describe SessionTypesController, type: :controller do
         patch :update, year: conference.year, id: session_type.id, session_type: {
           translated_contents_attributes: {
             '0' => { id: session_type.translated_contents.first.id.to_s,
-              content: new_content }
-            }
-          }, locale: language
+                     content: new_content }
+          }
+        }, locale: language
 
         expect(subject).to redirect_to(conference_session_types_path(conference))
       end

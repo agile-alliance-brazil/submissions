@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class FinalReview < Review
   attr_trimmed :justification
 
@@ -12,8 +13,8 @@ class FinalReview < Review
   end
 
   Recommendation.all_names.each do |type|
-    define_method("#{type}?") do             # def strong_accept?
-      self.recommendation.try(:"#{type}?")   #   recommendation.try(:strong_accept?)
-    end                                      # end
+    define_method("#{type}?") do # def strong_accept?
+      recommendation.try(:"#{type}?") #   recommendation.try(:strong_accept?)
+    end # end
   end
 end

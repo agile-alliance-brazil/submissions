@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class ReviewDecisionsController < ApplicationController
   def index
     respond_to do |format|
@@ -45,16 +46,18 @@ class ReviewDecisionsController < ApplicationController
   end
 
   protected
+
   def resource_class
     ReviewDecision
   end
+
   def resource
     ReviewDecision.includes(:session).find(params[:id])
   end
 
   def decision_params
-    attributes = params.require(:review_decision).
-      permit(:outcome_id, :note_to_authors)
+    attributes = params.require(:review_decision)
+                       .permit(:outcome_id, :note_to_authors)
     attributes.merge(inferred_attributes)
   end
 

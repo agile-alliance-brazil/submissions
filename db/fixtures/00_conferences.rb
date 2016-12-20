@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 Conference.seed do |conference|
   conference.id                   = 1
   conference.name                 = 'Agile Brazil 2010'
@@ -65,8 +66,8 @@ Conference.seed do |conference|
   conference.end_date                  = Time.zone.local(2013, 6, 28)
   conference.call_for_papers           = Time.zone.local(2013, 1, 27)
   conference.submissions_open          = Time.zone.local(2013, 2, 8)
-  conference.presubmissions_deadline   = nil# No pre review
-  conference.prereview_deadline        = nil# No pre review
+  conference.presubmissions_deadline   = nil # No pre review
+  conference.prereview_deadline        = nil # No pre review
   conference.submissions_deadline      = Time.zone.local(2013, 4, 7, 23, 59, 59)
   conference.review_deadline           = Time.zone.local(2013, 5, 2, 23, 59, 59)
   conference.voting_deadline           = Time.zone.local(2013, 5, 14, 23, 59, 59)
@@ -86,11 +87,11 @@ Conference.seed do |conference|
   conference.end_date                  = Time.zone.local(2014, 11, 7)
   conference.call_for_papers           = Time.zone.local(2014, 5, 7)
   conference.submissions_open          = Time.zone.local(2014, 5, 14)
-  conference.presubmissions_deadline   = nil# No pre review
-  conference.prereview_deadline        = nil# No pre review
+  conference.presubmissions_deadline   = nil # No pre review
+  conference.prereview_deadline        = nil # No pre review
   conference.submissions_deadline      = Time.zone.local(2014, 7, 20, 23, 59, 59)
   conference.review_deadline           = Time.zone.local(2014, 8, 11, 23, 59, 59)
-  conference.voting_deadline           = nil# No voting
+  conference.voting_deadline           = nil # No voting
   conference.author_notification       = Time.zone.local(2014, 8, 25, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2014, 9, 4, 2, 59, 59)
   conference.visible                   = true
@@ -108,12 +109,12 @@ Conference.seed do |conference|
   conference.end_date                  = Time.zone.local(2015, 10, 23)
   conference.call_for_papers           = Time.zone.local(2015, 4, 30)
   conference.submissions_open          = Time.zone.local(2015, 5, 4)
-  conference.presubmissions_deadline   = nil# No pre review
-  conference.prereview_deadline        = nil# No pre review
+  conference.presubmissions_deadline   = nil # No pre review
+  conference.prereview_deadline        = nil # No pre review
   conference.submissions_deadline      = Time.zone.local(2015, 6, 28, 23, 59, 59)
   conference.review_deadline           = Time.zone.local(2015, 7, 21, 23, 59, 59)
-  conference.voting_deadline           = nil# No voting
-  conference.author_notification       = Time.zone.local(2015, 8, 01, 23, 59, 59)
+  conference.voting_deadline           = nil # No voting
+  conference.author_notification       = Time.zone.local(2015, 8, 1, 23, 59, 59)
   conference.author_confirmation       = Time.zone.local(2015, 8, 10, 23, 59, 59)
   conference.visible                   = true
   conference.supported_languages       = ['en', 'pt-BR']

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewFeedbacksController, type: :controller do
@@ -8,9 +9,9 @@ describe ReviewFeedbacksController, type: :controller do
     @conference = FactoryGirl.create(:conference)
     @author = FactoryGirl.create(:author)
     Conference.stubs(:current).returns(@conference)
-    @sessions = (1..2).map {|n| FactoryGirl.create(:session, author: @author, conference: @conference)}
+    @sessions = (1..2).map { |_n| FactoryGirl.create(:session, author: @author, conference: @conference) }
     @reviews = @sessions.map do |session|
-      session_reviews = (1..3).map {|n| FactoryGirl.create(:final_review, session: session)}
+      session_reviews = (1..3).map { |_n| FactoryGirl.create(:final_review, session: session) }
       session.final_reviews = session_reviews
       session_reviews
     end.flatten
@@ -84,7 +85,7 @@ describe ReviewFeedbacksController, type: :controller do
     context 'success' do
       before(:each) do
         params = valid_params
-        @valid_creation = lambda { post :create, review_feedback: params }
+        @valid_creation = -> { post :create, review_feedback: params }
       end
       it 'should flash success message' do
         @valid_creation.call
@@ -99,7 +100,7 @@ describe ReviewFeedbacksController, type: :controller do
       end
 
       it 'should save the review feedback' do
-        expect(@valid_creation).to change {ReviewFeedback.count}.by(1)
+        expect(@valid_creation).to change { ReviewFeedback.count }.by(1)
       end
     end
     context 'on validation error' do
@@ -174,7 +175,7 @@ describe ReviewFeedbacksController, type: :controller do
     {
       general_comments: '',
       review_evaluations_attributes:
-        @reviews.map {|r| { helpful_review: false, review_id: r.id.to_s, comments: 'Useless' }}
+        @reviews.map { |r| { helpful_review: false, review_id: r.id.to_s, comments: 'Useless' } }
     }
   end
 end

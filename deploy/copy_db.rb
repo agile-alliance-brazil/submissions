@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'English'
 require 'yaml'
@@ -15,7 +16,11 @@ end
 ORIGIN = ARGV[0]
 DESTINATION = ARGV[1]
 
-TYPE = ARGV.size > 2 ? (ARGV[2].to_sym == :production ? :production : :staging) : :staging
+TYPE = if ARGV.size > 2 && ARGV[2].to_sym == :production
+         :production
+       else
+         :staging
+       end
 staging = TYPE != :production
 POSTFIX = staging ? '_staging' : ''
 ROOT = File.expand_path(File.join(File.dirname(__FILE__), '../'))
@@ -29,7 +34,7 @@ def execute(command)
   puts "executing #{command}"
   result = `#{command}`
   status = $CHILD_STATUS.to_i
-  return true if status == 0
+  return true if status.zero?
 
   puts "ERROR: #{result}"
   exit status

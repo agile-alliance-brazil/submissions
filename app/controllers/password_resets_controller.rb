@@ -1,6 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class PasswordResetsController < Devise::PasswordsController
-
   # PATCH /resource/password
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
@@ -18,7 +18,8 @@ class PasswordResetsController < Devise::PasswordsController
   end
 
   protected
-  def after_sending_reset_password_instructions_path_for(resource)
+
+  def after_sending_reset_password_instructions_path_for(_resource)
     root_path
   end
 end

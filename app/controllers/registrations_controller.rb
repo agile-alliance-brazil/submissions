@@ -1,6 +1,6 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class RegistrationsController < Devise::RegistrationsController
-
   # POST /resource
   def create
     build_resource(sign_up_params)
@@ -34,8 +34,11 @@ class RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource_updated
       if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
+        flash_key = if update_needs_confirmation?(resource, prev_unconfirmed_email)
+                      :update_needs_confirmation
+                    else
+                      :updated
+                    end
         set_flash_message :notice, (needs_password? ? :password_updated : flash_key)
       end
       bypass_sign_in resource
@@ -49,6 +52,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
   def build_resource(hash = nil)
     super.tap do |u|
       u.default_locale = I18n.locale
@@ -58,17 +62,17 @@ class RegistrationsController < Devise::RegistrationsController
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |u|
       u.permit(:first_name, :last_name, :username,
-        :email, :password, :password_confirmation,
-        :phone, :country, :state, :city, :organization,
-        :website_url, :bio, :wants_to_submit,
-        :default_locale, :twitter_username)
+               :email, :password, :password_confirmation,
+               :phone, :country, :state, :city, :organization,
+               :website_url, :bio, :wants_to_submit,
+               :default_locale, :twitter_username)
     end
     devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:first_name, :last_name, :username,
-        :email, :current_password, :password, :password_confirmation,
-        :phone, :country, :state, :city, :organization,
-        :website_url, :bio, :wants_to_submit,
-        :default_locale, :twitter_username)
+               :email, :current_password, :password, :password_confirmation,
+               :phone, :country, :state, :city, :organization,
+               :website_url, :bio, :wants_to_submit,
+               :default_locale, :twitter_username)
     end
   end
 
@@ -77,13 +81,16 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_resource(resource, params)
-    needs_password? ?
-      resource.update_with_password(params) :
+    if needs_password?
+      resource.update_with_password(params)
+    else
       resource.update_without_password(params)
+    end
   end
 
   private
+
   def needs_password?
-    !!account_update_params.has_key?(:password)
+    account_update_params.key?(:password)
   end
 end

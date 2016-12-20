@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe ReviewFeedbackRequester do
@@ -14,14 +15,14 @@ describe ReviewFeedbackRequester do
     @requester = ReviewFeedbackRequester.new
   end
 
-  it "should raise error if there are sessions not published" do
+  it 'should raise error if there are sessions not published' do
     Session.expects(:joins).with(:review_decision).returns(Session)
     Session.expects(:where).with(['review_decisions.published = ? AND sessions.conference_id = ?', false, @conference.id]).returns(Session)
     Session.expects(:count).returns(2)
-    expect(lambda {@requester.send}).to raise_error("There are 2 sessions not published")
+    expect(-> { @requester.send }).to raise_error('There are 2 sessions not published')
   end
 
-  context "Sessions are all published" do
+  context 'Sessions are all published' do
     before(:each) do
       @requester.stubs(:ensure_all_sessions_published)
       @sessions = [FactoryGirl.create(:session), FactoryGirl.create(:session)]
@@ -30,33 +31,33 @@ describe ReviewFeedbackRequester do
       Session.stubs(:for_review_in).returns(@sessions)
     end
 
-    it "should send feedback e-mails" do
+    it 'should send feedback e-mails' do
       EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).with(@sessions[1].author).returns(mock(deliver_now: true))
 
       @requester.send
     end
 
-    it "should log e-mails sent" do
+    it 'should log e-mails sent' do
       ::Rails.logger.expects(:info).with("[USER] #{@sessions[0].author.to_param}")
       ::Rails.logger.expects(:info).with("[USER] #{@sessions[1].author.to_param}")
-      ::Rails.logger.expects(:info).times(2).with("  [REQUEST FEEDBACK] OK")
+      ::Rails.logger.expects(:info).times(2).with('  [REQUEST FEEDBACK] OK')
 
       @requester.send
     end
 
-    it "should capture error when sending feedback request and move on" do
+    it 'should capture error when sending feedback request and move on' do
       error = StandardError.new('error')
       EmailNotifications.expects(:review_feedback_request).with(@sessions[0].author).raises(error)
       EmailNotifications.expects(:review_feedback_request).with(@sessions[1].author).returns(mock(deliver_now: true))
 
-      ::Rails.logger.expects(:info).with("  [FAILED REQUEST FEEDBACK] error")
-      ::Rails.logger.expects(:info).with("  [REQUEST FEEDBACK] OK")
+      ::Rails.logger.expects(:info).with('  [FAILED REQUEST FEEDBACK] error')
+      ::Rails.logger.expects(:info).with('  [REQUEST FEEDBACK] OK')
       Airbrake.expects(:notify).with('error', action: 'request review feedback', author: @sessions[0].author)
 
       @requester.send
     end
 
-    it "should flush log at the end" do
+    it 'should flush log at the end' do
       ::Rails.logger.expects(:flush)
 
       @requester.send

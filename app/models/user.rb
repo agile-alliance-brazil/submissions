@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 class User < ActiveRecord::Base
   include Authorization
 
@@ -37,29 +38,29 @@ class User < ActiveRecord::Base
     user.state = '' unless in_brazil?
   end
 
-  scope :search, lambda { |q| where("username LIKE ?", "%#{q}%") }
-  scope :by_comments, lambda { |comment_filters| joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) }
+  scope :search, ->(q) { where('username LIKE ?', "%#{q}%") }
+  scope :by_comments, ->(comment_filters) { joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) }
 
   def organized_tracks(conference)
     Track.joins(:track_ownerships).where(organizers: {
-        conference_id: conference.id,
-        user_id: self.id
-    })
+                                           conference_id: conference.id,
+                                           user_id: id
+                                         })
   end
 
   def preferences(conference)
     Preference.joins(:reviewer).where(reviewers: {
-        conference_id: conference.id,
-        user_id: self.id
-    })
+                                        conference_id: conference.id,
+                                        user_id: id
+                                      })
   end
 
-  def reviewer_for conference
+  def reviewer_for(conference)
     reviewers.for_conference(conference).first
   end
 
   def sessions_for_conference(conference)
-    Session.for_user(self.id).for_conference(conference)
+    Session.for_user(id).for_conference(conference)
   end
 
   # TODO: Stop using Conference.current
@@ -77,7 +78,7 @@ class User < ActiveRecord::Base
   alias_method_chain :organizer?, :conference
 
   def full_name
-    [self.first_name, self.last_name].join(' ')
+    [first_name, last_name].join(' ')
   end
 
   def to_param
@@ -85,7 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def in_brazil?
-    self.country == "BR"
+    country == 'BR'
   end
 
   def wants_to_submit
@@ -93,10 +94,10 @@ class User < ActiveRecord::Base
   end
 
   def wants_to_submit=(wants_to_submit)
-    self.add_role('author') if wants_to_submit == '1'
+    add_role('author') if wants_to_submit == '1'
   end
 
   def has_approved_session?(conference)
-    Session.for_user(self.id).for_conference(conference).with_state(:accepted).count > 0
+    Session.for_user(id).for_conference(conference).with_state(:accepted).count.positive?
   end
 end

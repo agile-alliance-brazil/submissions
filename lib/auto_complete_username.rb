@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 module AutoCompleteUsername
   extend ActiveSupport::Concern
 
@@ -20,7 +21,7 @@ module AutoCompleteUsername
       define_method(:"#{attribute_name}=") do |username|
         username = username.try(:strip)
         instance_variable_set(:"@#{attribute_name}", username)
-        send(:"#{user_attr}=", (username.present? ? User.find_by_username(username) : nil))
+        send(:"#{user_attr}=", (username.present? ? User.find_by(username: username) : nil))
         username
       end
 
@@ -29,7 +30,6 @@ module AutoCompleteUsername
         errors[:"#{user_attr}_id"].each { |error| errors.add(attribute_name, error) }
         errors[user_attr.to_sym].each { |error| errors.add(attribute_name, error) }
       end
-
     end
   end
 end

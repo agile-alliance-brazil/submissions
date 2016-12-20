@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Conference, type: :model do
@@ -25,11 +26,15 @@ describe Conference, type: :model do
       it { should validate_presence_of :author_confirmation }
       it { should have_attached_file(:logo) }
       it { should validate_attachment_presence(:logo) }
-      it { should validate_attachment_content_type(:logo).
-                    allowing('image/png', 'image/gif').
-                    rejecting('text/plain', 'text/xml') }
-      it { should validate_attachment_size(:logo).
-                    less_than(1.megabytes) }
+      it do
+        should validate_attachment_content_type(:logo)
+          .allowing('image/png', 'image/gif')
+          .rejecting('text/plain', 'text/xml')
+      end
+      it do
+        should validate_attachment_size(:logo)
+          .less_than(1.megabytes)
+      end
     end
 
     context 'if not visible' do
@@ -43,11 +48,15 @@ describe Conference, type: :model do
       it { should_not validate_presence_of :author_notification }
       it { should_not validate_presence_of :author_confirmation }
       it { should_not validate_attachment_presence(:logo) }
-      it { should_not validate_attachment_content_type(:logo).
-                    allowing('image/png', 'image/gif').
-                    rejecting('text/plain', 'text/xml') }
-      it { should_not validate_attachment_size(:logo).
-                    less_than(1.megabytes) }
+      it do
+        should_not validate_attachment_content_type(:logo)
+          .allowing('image/png', 'image/gif')
+          .rejecting('text/plain', 'text/xml')
+      end
+      it do
+        should_not validate_attachment_size(:logo)
+          .less_than(1.megabytes)
+      end
     end
 
     context 'date orders' do
@@ -63,7 +72,7 @@ describe Conference, type: :model do
         end
       end
       it 'should be valid if a single date is entered' do
-        Conference::DATE_ORDERS[0..-1].each {|d| subject.send("#{d}=", nil)}
+        Conference::DATE_ORDERS[0..-1].each { |d| subject.send("#{d}=", nil) }
         subject.visible = false
 
         expect(subject).to be_valid
@@ -83,8 +92,8 @@ describe Conference, type: :model do
     context 'for start and end in the same month' do
       subject do
         FactoryGirl.build(:conference,
-          start_date: Time.zone.local(2010, 6, 22),
-          end_date: Time.zone.local(2010, 6, 25))
+                          start_date: Time.zone.local(2010, 6, 22),
+                          end_date: Time.zone.local(2010, 6, 25))
       end
 
       it 'should compile location_and_date to location followed by start day and end day with month and year' do
@@ -95,8 +104,8 @@ describe Conference, type: :model do
     context 'for start and end in different months' do
       subject do
         FactoryGirl.build(:conference,
-          start_date: Time.zone.local(2011, 6, 27),
-          end_date: Time.zone.local(2011, 7, 1))
+                          start_date: Time.zone.local(2011, 6, 27),
+                          end_date: Time.zone.local(2011, 7, 1))
       end
 
       it 'should compile location_and_date to location followed by start day and month and end day with month and year' do
@@ -107,8 +116,8 @@ describe Conference, type: :model do
     context 'for start and end in different years' do
       subject do
         FactoryGirl.build(:conference,
-          start_date: Time.zone.local(2011, 11, 30),
-          end_date: Time.zone.local(2012, 1, 2))
+                          start_date: Time.zone.local(2011, 11, 30),
+                          end_date: Time.zone.local(2012, 1, 2))
       end
 
       it 'should compile location_and_date to location followed by start date and end date' do
@@ -122,7 +131,7 @@ describe Conference, type: :model do
       end
 
       it 'should compile location_and_date to location followed by start date and end date' do
-        expect(subject.location_and_date).to eq("#{subject.location}")
+        expect(subject.location_and_date).to eq(subject.location.to_s)
       end
     end
   end
@@ -140,24 +149,24 @@ describe Conference, type: :model do
         subject.presubmissions_deadline = nil
         subject.prereview_deadline = nil
         expect(subject.dates).to eq([
-          [subject.call_for_papers, :call_for_papers],
-          [subject.submissions_open, :submissions_open],
-          [subject.submissions_deadline, :submissions_deadline],
-          [subject.author_notification, :author_notification],
-          [subject.author_confirmation, :author_confirmation]
-        ])
+                                      [subject.call_for_papers, :call_for_papers],
+                                      [subject.submissions_open, :submissions_open],
+                                      [subject.submissions_deadline, :submissions_deadline],
+                                      [subject.author_notification, :author_notification],
+                                      [subject.author_confirmation, :author_confirmation]
+                                    ])
       end
 
       it 'should include pre-submission and pre-review deadlines when available' do
         expect(subject.dates).to eq([
-          [subject.call_for_papers, :call_for_papers],
-          [subject.submissions_open, :submissions_open],
-          [subject.presubmissions_deadline, :presubmissions_deadline],
-          [subject.prereview_deadline, :prereview_deadline],
-          [subject.submissions_deadline, :submissions_deadline],
-          [subject.author_notification, :author_notification],
-          [subject.author_confirmation, :author_confirmation]
-        ])
+                                      [subject.call_for_papers, :call_for_papers],
+                                      [subject.submissions_open, :submissions_open],
+                                      [subject.presubmissions_deadline, :presubmissions_deadline],
+                                      [subject.prereview_deadline, :prereview_deadline],
+                                      [subject.submissions_deadline, :submissions_deadline],
+                                      [subject.author_notification, :author_notification],
+                                      [subject.author_confirmation, :author_confirmation]
+                                    ])
       end
     end
 
@@ -225,8 +234,8 @@ describe Conference, type: :model do
     describe 'in_submission_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference,
-          submissions_open: Time.now + 6.days,
-          submissions_deadline: Time.now + 10.days)
+                                        submissions_open: Time.now + 6.days,
+                                        submissions_deadline: Time.now + 10.days)
         @start = @conference.submissions_open
         @end = @conference.submissions_deadline
       end
@@ -395,8 +404,8 @@ describe Conference, type: :model do
     describe 'in_author_confirmation_phase?' do
       before(:each) do
         @conference = FactoryGirl.build(:conference,
-          author_notification: Time.now + 6.days,
-          author_confirmation: Time.now + 10.days)
+                                        author_notification: Time.now + 6.days,
+                                        author_confirmation: Time.now + 10.days)
         @start = @conference.author_notification
         @end = @conference.author_confirmation
       end

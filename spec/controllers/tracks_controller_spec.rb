@@ -1,11 +1,17 @@
 # encoding: UTF-8
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe TracksController, type: :controller do
   render_views
 
   let(:conference) { FactoryGirl.create(:conference) }
-  let(:admin) { FactoryGirl.create(:user).tap {|u| u.add_role('admin'); u.save} }
+  let(:admin) do
+    FactoryGirl.create(:user).tap do |u|
+      u.add_role('admin')
+      u.save
+    end
+  end
 
   before(:each) do
     Conference.stubs(:current).returns(conference)
@@ -36,11 +42,13 @@ describe TracksController, type: :controller do
     end
 
     it 'should save new track with content' do
+      attributes = track.translated_contents.each_with_object({}) do |t, acc|
+        acc[acc.size.to_s] = t.attributes
+        acc
+      end
       post :create, year: conference.year, track: {
-        translated_contents_attributes: track.translated_contents.inject({}) { |acc, t|
-          acc[acc.size.to_s]= t.attributes; acc
-          }
-        }, locale: conference.supported_languages.first
+        translated_contents_attributes: attributes
+      }, locale: conference.supported_languages.first
 
       new_track = Track.last
       expect(new_track.translated_contents.map(&:language)).to eq(track.translated_contents.map(&:language))
@@ -50,11 +58,13 @@ describe TracksController, type: :controller do
 
     context 'with html format' do
       it 'should redirect to track index' do
+        attributes = track.translated_contents.each_with_object({}) do |t, acc|
+          acc[acc.size.to_s] = t.attributes
+          acc
+        end
         post :create, year: conference.year, track: {
-          translated_contents_attributes: track.translated_contents.inject({}) { |acc, t|
-              acc[acc.size.to_s]= t.attributes; acc
-            }
-          }, locale: conference.supported_languages.first
+          translated_contents_attributes: attributes
+        }, locale: conference.supported_languages.first
 
         expect(subject).to redirect_to(conference_tracks_path(conference))
       end
@@ -106,9 +116,9 @@ describe TracksController, type: :controller do
       patch :update, year: conference.year, id: track.id, track: {
         translated_contents_attributes: {
           '0' => { id: track.translated_contents.first.id.to_s,
-            content: new_content }
-          }
-        }, locale: language
+                   content: new_content }
+        }
+      }, locale: language
 
       I18n.with_locale(language) do
         expect(track.reload.description).to eq(new_content)
@@ -122,9 +132,9 @@ describe TracksController, type: :controller do
         patch :update, year: conference.year, id: track.id, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id.to_s,
-              content: new_content }
-            }
-          }, locale: language
+                     content: new_content }
+          }
+        }, locale: language
 
         expect(subject).to redirect_to(conference_tracks_path(conference))
       end
