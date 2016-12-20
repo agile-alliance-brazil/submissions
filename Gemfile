@@ -57,7 +57,6 @@ group :development do
   gem 'foreman'
   gem 'lol_dba'
   gem 'rack-livereload'
-  gem 'rubocop', require: false
   gem 'travis-lint'
   gem 'web-console'
 end
@@ -91,4 +90,5 @@ group :development, :test do
   gem 'sqlite3'
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
   gem 'timecop'
+  gem 'rubocop', require: false
 end
