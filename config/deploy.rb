@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
-# config valid only for Capistrano 3.6.1
-lock '3.6.1'
+# config valid only for Capistrano 3.7.1
+lock '3.7.1'
 
 set :stages, %w(vagrant staging production 10.11.12.16 107.170.116.137 162.243.121.252)
 set :default_stage, 'vagrant'
@@ -13,7 +13,6 @@ set :application,         'submissions'
 SSHKit.config.command_map[:rake]  = 'bundle exec rake' # 8
 SSHKit.config.command_map[:rails] = 'bundle exec rails'
 
-set :scm,                 :git
 set :repo_url,            'git://github.com/agile-alliance-brazil/submissions.git'
 set :scm_verbose,         true
 

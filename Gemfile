@@ -49,8 +49,9 @@ end
 group :development do
   gem 'bullet'
   gem 'byebug'
-  gem 'capistrano', '3.6.1', require: false
+  gem 'capistrano', '3.7.1', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-git-with-submodules', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'dotenv-rails', require: false

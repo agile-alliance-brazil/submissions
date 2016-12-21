@@ -20,6 +20,8 @@ require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
+require 'capistrano/scm/git-with-submodules'
+install_plugin Capistrano::SCM::Git::WithSubmodules
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
@@ -49,17 +51,3 @@ namespace :deploy do
     end
   end
 end
-
-namespace :git do
-  desc 'Copy repo to releases'
-  task create_release: :'git:update' do
-    on roles(:all) do
-      with fetch(:git_environmental_variables) do
-        within repo_path do
-          execute :git, :clone, '-b', fetch(:branch), '--recursive', '.', release_path
-        end
-      end
-    end
-  end
-end
-
