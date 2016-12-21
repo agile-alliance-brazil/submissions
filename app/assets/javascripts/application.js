@@ -3,8 +3,8 @@
  *= require highcharts
  *= require_tree .
  *= require actions
- *= require jquery-ui/tabs
- *= require jquery-ui/datepicker
+ *= require jquery-ui/widgets/tabs
+ *= require jquery-ui/widgets/datepicker
  */
 
 (function($) {

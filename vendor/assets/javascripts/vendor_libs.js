@@ -1,7 +1,7 @@
 /*
  *=require jquery
  *=require jquery_ujs
- *=require jquery-ui/autocomplete
+ *=require jquery-ui/widgets/autocomplete
  *
  *=require charCount
  *=require jquery.placeholder
