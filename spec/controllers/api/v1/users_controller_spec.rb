@@ -27,7 +27,8 @@ describe Api::V1::UsersController, type: :controller do
                                               'reviewer?' => user.reviewer?,
                                               'organizer?' => user.organizer?,
                                               'twitter_username' => user.twitter_username,
-                                              'phone' => user.phone)
+                                              'phone' => user.phone,
+                                              'default_locale' => user.default_locale)
     end
   end
 

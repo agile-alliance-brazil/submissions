@@ -87,7 +87,8 @@ module Api
             user_uri: user_url(author),
             username: author.username,
             name: author.full_name,
-            gravatar_url: gravatar_url(author)
+            gravatar_url: gravatar_url(author),
+            default_locale: author.default_locale
           }
         end
       end

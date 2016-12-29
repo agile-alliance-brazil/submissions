@@ -10,7 +10,7 @@ module Api
       def show
         json_user = current_user.as_json(only: [
                                            :id, :email, :username, :first_name, :last_name, :twitter_username,
-                                           :organization, :phone, :country, :state, :city
+                                           :organization, :phone, :country, :state, :city, :default_locale
                                          ],
                                          methods: [:reviewer?, :organizer?])
         render json: json_user
