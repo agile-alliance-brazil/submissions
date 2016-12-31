@@ -20,7 +20,7 @@ require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
-require "capistrano/scm/git"
+require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 require 'capistrano/scm/git-with-submodules'
 install_plugin Capistrano::SCM::Git::WithSubmodules
