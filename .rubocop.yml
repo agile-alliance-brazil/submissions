@@ -1,5 +1,6 @@
 AllCops:
   TargetRubyVersion: 2.3
+  DisplayCopNames: true
   Include:
     - '**/Rakefile'
     - '**/config.ru'
@@ -37,6 +38,12 @@ Metrics/CyclomaticComplexity:
 Metrics/ClassLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'
+    - 'spec/factories.rb'
+    - 'spec/factories/**/*.rb'
+
 Style/Documentation:
   Enabled: false
 
@@ -51,3 +58,7 @@ Rails/TimeZone:
 
 Rails/HttpPositionalArguments:
   Enabled: false # Can only be enabled once we're on Rails 5
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'db/migrate/**/*.rb'

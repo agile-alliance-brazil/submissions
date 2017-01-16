@@ -47,7 +47,9 @@ class ReviewPublisher
 
   def try_with(action, session)
     EmailNotifications.notification_of_acceptance(session).deliver_now
-    session.review_decision.update_attribute(:published, true)
+    decision = session.review_decision
+    decision.published = true
+    decision.save!
     Rails.logger.info("  [#{action}] OK")
   rescue => e
     Airbrake.notify(e.message, action: "Publish review with #{action}", session: session)

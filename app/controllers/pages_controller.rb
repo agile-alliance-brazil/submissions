@@ -12,7 +12,7 @@ class PagesController < ApplicationController
       begin
         render template: "static_pages/#{@conference.year}_#{path}"
       rescue ActionView::MissingTemplate
-        render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+        render file: Rails.root.join('public', '404.html'), layout: false, status: 404
       end
     end
   end

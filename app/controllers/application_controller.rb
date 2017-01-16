@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
 
   def record_not_found
     respond_to do |format|
-      format.html { render file: "#{Rails.root}/public/404", layout: false, status: 404 }
+      format.html { render file: Rails.root.join('public', '404'), layout: false, status: 404 }
       format.js { render plain: '404 Not Found', status: 404 }
     end
   end

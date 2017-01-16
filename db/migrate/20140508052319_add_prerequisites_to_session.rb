@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Rails/ReversibleMigration
 class AddPrerequisitesToSession < ActiveRecord::Migration
   def change
     add_column :sessions, :prerequisites, :string
