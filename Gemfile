@@ -36,7 +36,7 @@ gem 'rails', '~> 4.2' # TODO: 5.0 needs konacha > 4.0.0
 gem 'sass-rails', '~> 5.0'
 gem 'seed-fu', '~> 2.3'
 gem 'state_machine', '1.2.0'
-gem 'therubyracer', '0.12.2'
+gem 'therubyracer', '0.12.3'
 gem 'uglifier', '~> 3.0'
 gem 'validates_existence', '0.9.2'
 gem 'will_paginate', '~> 3.1'
