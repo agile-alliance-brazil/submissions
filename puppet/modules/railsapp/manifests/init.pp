@@ -10,11 +10,25 @@ class railsapp( $user, $app_name ) {
         default_use => true
     }
 
+    rvm_system_ruby { 'ruby-2.4.0':
+        name        => 'ruby-2.4.0',
+        ensure      => 'present',
+        build_opts  => '--disable-binary',
+        default_use => false
+    }
+
     rvm_gem { 'bundler231':
         name         => 'bundler',
         ruby_version => 'ruby-2.3.1@global',
         ensure       => latest,
         require      => Rvm_system_ruby['ruby-2.3.1'];
+    }
+
+    rvm_gem { 'bundler240':
+        name         => 'bundler',
+        ruby_version => 'ruby-2.4.0@global',
+        ensure       => latest,
+        require      => Rvm_system_ruby['ruby-2.4.0'];
     }
   }
 
