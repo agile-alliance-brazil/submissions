@@ -1,10 +1,11 @@
 language: ruby
 rvm:
   - 2.3.3
+before_install:
+  - gem update --system
 before_script:
   - cp ./config/config.{example,yml}
   - cp ./config/database.{travis,yml}
-  - gem update --system
 script:
   - RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
   - RAILS_ENV=test bundle exec rake ci
