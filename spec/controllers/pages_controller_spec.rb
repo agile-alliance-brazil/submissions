@@ -19,6 +19,21 @@ describe PagesController, type: :controller do
                                                   year: '2010')
     end
 
+    context 'rendering view' do
+      render_views
+
+      it 'should not double escape html content' do
+        page = FactoryGirl.create(:page)
+
+        get :show, path: page.path, year: page.conference.year
+
+        expect(response.body).to(
+          match(%r{<p>This is a page under path <ins>#{page.path}</ins> for conference \
+<strong>#{page.conference.name}</strong> that renders with <code>Textile</code>.</p>}m)
+        )
+      end
+    end
+
     it 'should render page if page exists' do
       page = FactoryGirl.create(:page)
       controller.stubs(:render)

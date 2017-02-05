@@ -2,4 +2,4 @@
 - show_actions!
 .auto_focus
 
-= @page.content
+= raw RedCloth.new(@page.content).to_html
