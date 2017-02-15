@@ -62,3 +62,6 @@ Rails/HttpPositionalArguments:
 Rails/SkipsModelValidations:
   Exclude:
     - 'db/migrate/**/*.rb'
+
+Rails/OutputSafety:
+  Enabled: false # Having weird errors with safe_join

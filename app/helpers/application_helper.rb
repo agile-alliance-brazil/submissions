@@ -12,7 +12,7 @@ module ApplicationHelper
     content_tag(:div, class: 'avatar') do
       avatar = link_to(image_tag(gravatar_url(user, options), alt: user.full_name), user_path(user))
       tip = content_tag(:div, class: 'tip') do
-        I18n.t('tips.change_gravatar', email: safe_join([CGI.escape(user.email)]))
+        I18n.t('tips.change_gravatar', email: CGI.escape(user.email).html_safe)
       end
       options[:display_tip] ? avatar + tip : avatar
     end
@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def textilize(text)
-    safe_join([::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile)])
+    ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
   end
 
   def translated_country(country_code)
@@ -54,7 +54,7 @@ module ApplicationHelper
   end
 
   def present_date(conference, date_map)
-    content = safe_join(["#{l(date_map.first.to_date)}: #{t("conference.dates.#{date_map.last}")}"])
+    content = "#{l(date_map.first.to_date)}: #{t("conference.dates.#{date_map.last}")}".html_safe
     content = content_tag('strong') { content } if date_map.first == conference.next_deadline(:all).try(:first)
     content
   end

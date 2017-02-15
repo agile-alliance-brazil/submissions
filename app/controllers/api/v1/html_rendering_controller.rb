@@ -8,7 +8,7 @@ module Api
 
       def textilize
         content = request.raw_post
-        textilized = safe_join([::RedCloth.new(content, [:filter_html, :sanitize_html]).to_html(:textile)])
+        textilized = ::RedCloth.new(content, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
         render html: textilized, content_type: 'text/html; charset=UTF-8'
       end
     end

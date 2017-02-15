@@ -1,7 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 class SessionsController < ApplicationController
-  include ActionView::Helpers::OutputSafetyHelper
   before_action :load_user
   before_action :load_tracks
   before_action :load_audience_levels
@@ -42,13 +41,11 @@ class SessionsController < ApplicationController
     @session = resource
     @comment = Comment.new(user_id: current_user.id, commentable_id: @session.id)
     return if @session.conference == @conference
-    # rubocop:disable Rails/OutputSafety
     flash.now[:news] = t(
       'flash.news.session_different_conference',
       conference_name: @session.conference.name,
       current_conference_name: @conference.name
     ).html_safe
-    # rubocop:enable Rails/OutputSafety
   end
 
   def edit
