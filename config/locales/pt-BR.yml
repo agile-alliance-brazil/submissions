@@ -634,7 +634,7 @@ pt-BR:
     early_review_submitted:
       subject: "Pré-avaliação da sua sessão '%{session_name}'"
     reviewer_invitation:
-      subject: "Convite para equipe de avaliação da %{conference_name}"
+      subject: "Convite para integrar a equipe de revisores da %{conference_name}"
     session_accepted:
       subject: "Comunicado do Comitê de Programa da %{conference_name}"
     session_rejected:

@@ -1,16 +1,16 @@
 %p Olá #{h(@reviewer.user.full_name)}!
 
-%p O Comitê de Programa da #{@conference_name} (#{link_to "www.agilebrazil.com", "http://www.agilebrazil.com/#{@conference.year}"}) gostaria de convidá-lo para integrar o seu Comitê de Revisão das submissões. Sabemos que você possui um forte envolvimento com Métodos Ágeis, empreendedorismo digital ou uso de agilidade no Governo que são focos da nossa conferência. Assim, gostaríamos de contar com o seu conhecimento para a seleção de sessões que comporão a grade deste ano. O trabalho realizado pelo Comitê de Revisão é totalmente voluntário, assim como toda a organização do evento. Fazer parte deste Comitê é uma forma de apoiar a conferência e contribuir para o desenvolvimento da comunidade ágil brasileira.
+%p O Comitê de Programa da #{@conference_name} (#{link_to "www.agilebrazil.com", "http://www.agilebrazil.com/#{@conference.year}"}) gostaria de convidr você para integrar o seu Comitê de Revisão das submissões. Sabemos que você possui um forte envolvimento com Métodos Ágeis, empreendedorismo digital ou uso de agilidade na prática que são focos da nossa conferência. Assim, gostaríamos de contar com o seu conhecimento para a seleção de sessões que comporão a grade deste ano. O trabalho realizado pelo Comitê de Revisão é totalmente voluntário, assim como toda a organização do evento. Fazer parte deste Comitê é uma forma de apoiar a conferência e contribuir para o desenvolvimento da comunidade ágil brasileira.
 
-%p Antes de aceitar o convite, é importante saber da responsabilidade e do compromisso que você está assumindo. Participar do processo de avaliação requer <strong>tempo</strong> e <strong>imparcialidade</strong> para que possamos montar um evento com palestras da melhor qualidade. Para maiores informações acesse o #{link_to 'manual do revisor', 'https://docs.google.com/document/d/1crGzZcfLG9BmzInKtSsUyKW85xXkmfAlNBqZvtAxnjE/edit?usp=sharing'}.
+%p Antes de aceitar o convite, é importante saber da responsabilidade e do compromisso que você está assumindo. Participar do processo de avaliação requer <strong>tempo</strong> e <strong>imparcialidade</strong> para que possamos montar um evento com palestras da melhor qualidade. Para maiores informações acesse o #{link_to 'manual do revisor', 'https://docs.google.com/document/d/1dja2bOwNN2HFMGGPylcbMeSKvLHpUvC-MXPKQGsUzQM'}.
 
 %ul
-  %li Durante o período de submissões, leia as propostas submetidas e comente nelas! Esses comentários servem como uma fase de pré-revisão e ajuda os autores a melhorarem suas submissões.
+  %li Durante o período de submissões, leia as propostas submetidas e comente nelas! Esses comentários servem como uma fase de pré-revisão e ajuda os(as) autores(as) a melhorarem suas submissões.
   %li Na etapa de revisão, que deve ir até #{l(@conference.submissions_deadline, format: :short)}, cada proposta deverá receber 3 revisões independentes.
 
-%p Importante lembrar que <strong>é impossível prever</strong> quantas propostas receberemos, mas esperamos que cada revisor acesse diariamente o sistema comentando as propostas durante o período de submissão e prepare-se para analisar em torno de 15 submissões na etapa de revisão. As revisões não precisam ser feitas de uma vez - elas estarão online e fica a seu critério definir como o tempo será alocado.
+%p Importante lembrar que <strong>é impossível prever</strong> quantas propostas receberemos, mas esperamos que cada revisor acesse diariamente o sistema comentando as propostas durante o período de submissão e prepare-se para analisar em torno de 20 submissões na etapa de revisão. As revisões não precisam ser feitas de uma vez - elas estarão online e fica a seu critério definir como o tempo será alocado.
 
-%p Vale ressaltar que fazer parte do comitê não o impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{link_to root_url(year: @conference.year), root_url(year: @conference.year)}.
+%p Vale ressaltar que fazer parte do comitê não o(a) impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{link_to root_url(year: @conference.year), root_url(year: @conference.year)}.
 
 %p Para aceitar este convite, clique no link abaixo:
 
@@ -26,6 +26,6 @@
 
 %p Gratos,
 
-%p Comitê de programa da #{@conference_name}
+%p Comitê de Programa
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

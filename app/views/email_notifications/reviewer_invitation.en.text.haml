@@ -1,22 +1,20 @@
 Dear #{h(@reviewer.user.full_name)},
 
 
-The Organizing Committee for #{@conference_name} (http://www.agilebrazil.com/#{@conference.year}/en/) is pleased to invite you to join its Reviewing Committee. We learned that you have a strong relationship with Agile Methods, startups, or Agile in the government environment which are the subjects of our conference. As such, we would like to incorporate your knowledge in selecting the session talks, workshops and lightning talks for this year's program. The work performed by the Reviewing Committee as well as the Organizing Committee is completely voluntary. Joining the Committee is a way to support the conference and contribute towards the development the Brazilian Agile community.
+The Program Committee for #{@conference_name} (http://www.agilebrazil.com/#{@conference.year}/en/) is pleased to invite you to join its Reviewing Committee. We learned that you have a strong relationship with Agile Methods, startups, or using agility in practice which are themes of our conference. As such, we would like to incorporate your knowledge in selecting the sessions for this year's program. The work performed by the Reviewing Committee as well as the Organizing Committee is completely voluntary. Joining the Committee is a way to support the conference and contribute towards the development the Brazilian Agile community.
 
 
-Before accepting your invitation, it is important to acknowledge the commitment that you are about to take. To participate in the evaluation process requires time and impartiality to create a conference with the best possible program. This year, although we won't have the pre-review phase, we strongly recommend you to start giving feedback as early as possible! Practice offering advice to the authors that have already submitted their talks through the proposal comments!
+Before accepting your invitation, it is important to acknowledge the commitment that you are about to take. To participate in the evaluation process requires time and impartiality to create a conference with the best possible program.
+
+* During the submission period, read the proposals and add comments to those! This feedback works like a pre-review, providing the authors with the opportunity to enhance their submissions.
+
+* During the review period, which ends on #{l(@conference.submissions_deadline, format: :short)}, each submitted proposal must receive 3 independent reviews.
 
 
-During the submission period, read the proposals and add comments to those! This feedback works like a pre-review, providing the authors with the opportunity to enhance their proposals.
+It is important to point out that we are not able to predict how many proposals we are going to receive, but we do ask each reviewer to access the submission system daily during the submission period in order to comment on the proposals and afterwards - during the review period - to be prepared to evaluate around 20 sessions. The reviews themselves do not need to be delivered all at once - the sessions will be available online and it is up to you to organize your schedule to meet the deadlines.
 
 
-On the review period, which ends on #{l(@conference.submissions_deadline, format: :short)}, each submitted proposal must receive 3 independent reviews.
-
-
-To date, we are not able to predict how many proposals we are expected to receive, but we do ask each reviewer to dedicate about 4 hours per week during each stage to conduct the reviews. The reviews themselves do not need to be delivered all at once - the sessions will be available online and it is up to you to organize your schedule to meet the deadlines.
-
-
-A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via #{root_url(year: @conference.year)}.
+A note worthy of mention: as a Committee member, you are also eligible to submit proposals to the conference. Submissions are open and can be sent via #{root_url(year: @conference.year, locale: 'en')}.
 
 
 To accept this invitation, please go to the following url:
@@ -31,16 +29,16 @@ To decline this invitation, please go to the following url:
 = reviewer_reject_url(@conference, @reviewer, locale: 'en')
 
 
-If any of the above URLs do not work try copying and pasting into your browser.
+If any of the above URLs does not work, try copying and pasting into your browser.
 
 
-Please respond this invitation by #{l(Time.zone.local(2014, 07, 20), format: :short)}. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at programa@agilebrazil.com.
+Please respond this invitation as soon as possible. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at programa@agilebrazil.com.
 
 
 Regards,
 
 
-Program Committee of #{@conference_name} Conference
+Program Committee
 
 
 [Please do not reply to this e-mail. It was sent from an unmonitored email address]

@@ -1,16 +1,16 @@
 %p Dear #{h(@reviewer.user.full_name)},
 
-%p The Program Committee for #{@conference_name} (#{link_to "www.agilebrazil.com", "http://www.agilebrazil.com/#{@conference.year}/en/"}) is pleased to invite you to join its Reviewing Committee. We learned that you have a strong relationship with Agile Methods, startups, or Agile in the government environment which are the subjects of our conference. As such, we would like to incorporate your knowledge in selecting the session for this year's program. The work performed by the Reviewing Committee as well as the Organizing Committee is completely voluntary. Joining the Committee is a way to support the conference and contribute towards the development the Brazilian Agile community.
+%p The Program Committee for #{@conference_name} (#{link_to "www.agilebrazil.com", "http://www.agilebrazil.com/#{@conference.year}/en/"}) is pleased to invite you to join its Reviewing Committee. We learned that you have a strong relationship with Agile Methods, startups, or using agility in practice which are themes of our conference. As such, we would like to incorporate your knowledge in selecting the session for this year's program. The work performed by the Reviewing Committee as well as the Organizing Committee is completely voluntary. Joining the Committee is a way to support the conference and contribute towards the development the Brazilian Agile community.
 
 %p Before accepting your invitation, it is important to acknowledge the commitment that you are about to take. To participate in the evaluation process requires <strong>time</strong> and <strong>impartiality</strong> to create a conference with the best possible program.
 
 %ul
   %li During the submission period, read the proposals and add comments to those! This feedback works like a pre-review, providing the authors with the opportunity to enhance their submissions.
-  %li On the review period, which ends on #{l(@conference.submissions_deadline, format: :short)}, each submitted proposal must receive 3 independent reviews.
+  %li During the review period, which ends on #{l(@conference.submissions_deadline, format: :short)}, each submitted proposal must receive 3 independent reviews.
 
-%p It is important to point it out that <strong>we are not able to predict</strong> how many proposals we are going to receive, but we do ask each reviewer to access the submission system daily during the submission period in order to comment the proposals and afterwards - during the review period - to be prepared to evaluate around 15 sessions. The reviews themselves do not need to be delivered all at once - the sessions will be available online and it is up to you to organize your schedule to meet the deadlines.
+%p It is important to point it out that <strong>we are not able to predict</strong> how many proposals we are going to receive, but we do ask each reviewer to access the submission system daily during the submission period in order to comment on the proposals and afterwards - during the review period - to be prepared to evaluate around 20 sessions. The reviews themselves do not need to be delivered all at once - the sessions will be available online and it is up to you to organize your schedule to meet the deadlines.
 
-%p A note worthy of mention: as a Committee member, you are also free to submit proposals to the conference. Submissions are open and can be sent via  #{link_to root_url(year: @conference.year), root_url(year: @conference.year)}.
+%p A note worthy of mention: as a Committee member, you are also eligible to submit proposals to the conference. Submissions are open and can be sent via  #{link_to root_url(year: @conference.year, locale: 'en'), root_url(year: @conference.year, locale: 'en')}.
 
 %p To accept this invitation, please click on the link below:
 
@@ -20,12 +20,12 @@
 
 %p= link_to reviewer_reject_url(@conference, @reviewer, locale: 'en'), reviewer_reject_url(@conference, @reviewer, locale: 'en')
 
-%p If any of the above URLs do not work try copying and pasting into your browser.
+%p If any of the above URLs does not work try copying and pasting into your browser.
 
 %p Please respond to this invitation as soon as possible. We are looking forward to a successful collaboration in building an outstanding program for #{@conference_name}. If you have any questions please feel free to contact us at #{link_to "programa@agilebrazil.com", "mailto:programa@agilebrazil.com"}.
 
 %p Best Regards,
 
-%p Program Committee of #{@conference_name} Conference
+%p Program Committee
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]
