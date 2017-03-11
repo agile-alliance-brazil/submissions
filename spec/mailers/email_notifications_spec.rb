@@ -219,7 +219,7 @@ describe EmailNotifications, type: :mailer do
     context 'in pt' do
       before { user.default_locale = 'pt-BR' }
 
-      it { should have_subject("[localhost:3000] Convite para equipe de avaliação da #{conference.name}") }
+      it { should have_subject("[localhost:3000] Convite para integrar a equipe de revisores da #{conference.name}") }
     end
 
     context 'in en' do
