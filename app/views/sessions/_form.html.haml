@@ -15,6 +15,7 @@
     %label 
       = t('formtastic.labels.session.keyword_list')
       %abbr *
+      %span.warning= t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10)
     %span.counter#tagCounter 10
     %ul.sessionTags.tags
       - @tags.sort{|x, y| I18n.t(x) <=> I18n.t(y)}.each do |tag|

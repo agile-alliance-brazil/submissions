@@ -391,7 +391,14 @@ ul.spaced {
 form#new_session {
   li#session_mechanics_input {
     abbr {
-      display: none; } } }
+      display: none; } }
+  li#tagList {
+    .warning {
+      visibility: hidden;
+      font-weight: normal;
+      color: red;
+      &.show {
+        visibility: inherit; } } } }
 
 li#user_wants_to_submit_input {
   background-color: #d8ffdc;

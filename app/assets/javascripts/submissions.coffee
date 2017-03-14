@@ -59,10 +59,13 @@
       newTag = $(e.currentTarget).data('tag')
       index = tags.indexOf(newTag)
       if (index == -1)
-        return if tags.length >= 10
+        if tags.length >= 10
+          $('#tagList .warning').addClass('show')
+          return
         tags.push(newTag)
       else
         tags.splice(index, 1)
+        $('#tagList .warning').removeClass('show')
       $(e.currentTarget).toggleClass('selectedTag', index == -1)
 
       $('#session_keyword_list').val tags.join(',')
