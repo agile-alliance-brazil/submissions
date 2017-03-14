@@ -87,3 +87,7 @@ ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.hypothesis_validation
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.value' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.visualization' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.xp' }
+# 2017 new tags
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.evolution' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.innovation' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.portfolio' }

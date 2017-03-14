@@ -45,3 +45,27 @@ conferences.each do |id|
     end
   end
 end
+tags = ActsAsTaggableOn::Tag.where(name: ['tags.analysis', 'tags.learning', 'tags.architecture', 'tags.automation', 'tags.self_organizing',
+                                          'tags.big_data', 'tags.coaching', 'tags.legacy', 'tags.continuous', 'tags.culture', 'tags.deploy',
+                                          'tags.development', 'tags.design', 'tags.devops', 'tags.disruptive', 'tags.emergent', 'tags.empowering',
+                                          'tags.entrepreneurship', 'tags.teaching', 'tags.delivery', 'tags.scale', 'tags.estimates',
+                                          'tags.strategies', 'tags.evolution', 'tags.facilitation', 'tags.failure', 'tags.front',
+                                          'tags.incremental', 'tags.information', 'tags.integração', 'tags.artificial_intelligence', 'tags.iot',
+                                          'tags.innovation', 'tags.kanban', 'tags.lean', 'tags.leadership', 'tags.improvement', 'tags.mentoring',
+                                          'tags.market', 'tags.goals', 'tags.method', 'tags.metrics', 'tags.motivation', 'tags.mvp', 'tags.business',
+                                          'tags.portfolio', 'tags.patterns', 'tags.planning', 'tags.principles_and_values', 'tags.processes',
+                                          'tags.product', 'tags.project', 'tags.psychology', 'tags.quality', 'tags.refactoring',
+                                          'tags.experience_report', 'tags.requirements', 'tags.restrictions', 'tags.code_review', 'tags.risks',
+                                          'tags.safe', 'tags.scrum', 'tags.startup', 'tags.success', 'tags.tecniques', 'tags.trends', 'tags.tests',
+                                          'tags.teams', 'tags.ux', 'tags.hypothesis_validation', 'tags.value', 'tags.visualization', 'tags.xp']).map(&:id)
+conferences = [Conference.where(year: 2017).first.try(:id)].compact
+conferences.each do |id|
+  tags.each do |tag_id|
+    ActsAsTaggableOn::Tagging.seed(:tag_id, :taggable_id, :taggable_type) do |t|
+      t.tag_id = tag_id
+      t.taggable_id = id
+      t.taggable_type = 'Conference'
+      t.context = 'tags'
+    end
+  end
+end
