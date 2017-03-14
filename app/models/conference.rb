@@ -75,11 +75,11 @@ class Conference < ActiveRecord::Base
 
   def location_and_date
     if start_date.try(:year) != end_date.try(:year)
-      "#{location}, #{start_date.try(:strftime, '%-d/%b, %Y')} - #{end_date.try(:strftime, '%-d/%b, %Y')}"
+      "#{location}, #{I18n.localize(start_date, format: '%-d/%b, %Y')} - #{I18n.localize(end_date, format: '%-d/%b, %Y')}"
     elsif start_date.try(:month) != end_date.try(:month)
-      "#{location}, #{start_date.try(:strftime, '%-d/%b')} - #{end_date.try(:strftime, '%-d/%b, %Y')}"
+      "#{location}, #{I18n.localize(start_date, format: '%-d/%b')} - #{I18n.localize(end_date, format: '%-d/%b, %Y')}"
     elsif start_date || end_date
-      "#{location}, #{start_date.try(:strftime, '%-d')}-#{end_date.try(:strftime, '%-d %b, %Y')}"
+      "#{location}, #{I18n.localize(start_date, format: '%-d')} - #{I18n.localize(end_date, format: '%-d/%b, %Y')}"
     else
       location.to_s
     end
