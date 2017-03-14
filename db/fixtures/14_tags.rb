@@ -4,7 +4,6 @@ ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.commitment' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.creation' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.continuous_deploy' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.emergent_design' }
-ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.evolution' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.skill' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.ideas' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.implementation' }

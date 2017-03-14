@@ -49,7 +49,7 @@ tags = ActsAsTaggableOn::Tag.where(name: ['tags.analysis', 'tags.learning', 'tag
                                           'tags.big_data', 'tags.coaching', 'tags.legacy', 'tags.continuous', 'tags.culture', 'tags.deploy',
                                           'tags.development', 'tags.design', 'tags.devops', 'tags.disruptive', 'tags.emergent', 'tags.empowering',
                                           'tags.entrepreneurship', 'tags.teaching', 'tags.delivery', 'tags.scale', 'tags.estimates',
-                                          'tags.strategies', 'tags.evolution', 'tags.facilitation', 'tags.failure', 'tags.front',
+                                          'tags.strategies', 'tags.evolution', 'tags.facilitation', 'tags.failure', 'tags.front', 'tags.management',
                                           'tags.incremental', 'tags.information', 'tags.integração', 'tags.artificial_intelligence', 'tags.iot',
                                           'tags.innovation', 'tags.kanban', 'tags.lean', 'tags.leadership', 'tags.improvement', 'tags.mentoring',
                                           'tags.market', 'tags.goals', 'tags.method', 'tags.metrics', 'tags.motivation', 'tags.mvp', 'tags.business',
