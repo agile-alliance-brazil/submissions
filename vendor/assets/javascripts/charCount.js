@@ -33,7 +33,6 @@
       var count = obj.val().split(separator).length;
       var available = options.allowed - count;
 
-
       if(available <= options.warning && available >= 0){
         target.addClass(options.cssWarning);
       } else {
@@ -46,32 +45,31 @@
       }
       target.html(available);
 
-      if (available <= 0) {
-        return false;
-      } else {
-        return true
-      }
+      return available
     }
 
     this.each(function() {
       $(this).before('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');
       var target = $(this).parent().find(options.counterElement+'.'+options.css);
       calculate($(this), target, options.separator);
-      $(this).keypress(
-          function() {
-            return calculate($(this), target, options.separator);
+      var updateCount = function(e) {
+        var available = calculate($(this), target, options.separator);
+        if (options.setMaxLength && available <= 0) {
+          var key = e.keyCode || e.charCode;
+          var isShift = !!e.shiftKey;
+
+          if(key === 8 || key === 46 || isShift || (key >= 37 && key <= 40)) {
+            return true;
+          } else {
+            return false;
           }
-      );
-      $(this).keyup(
-          function() {
-            return calculate($(this), target, options.separator);
-          }
-      );
-      $(this).change(
-          function() {
-            return calculate($(this), target, options.separator);
-          }
-      );
+        } else {
+          return true;
+        }
+      };
+      $(this).keydown(updateCount);
+      $(this).keyup(updateCount);
+      $(this).change(updateCount);
     });
   };
 })(jQuery);
