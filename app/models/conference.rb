@@ -79,7 +79,7 @@ class Conference < ActiveRecord::Base
     elsif start_date.try(:month) != end_date.try(:month)
       "#{location}, #{I18n.localize(start_date, format: '%-d/%b')} - #{I18n.localize(end_date, format: '%-d/%b, %Y')}"
     elsif start_date || end_date
-      "#{location}, #{I18n.localize(start_date, format: '%-d')} - #{I18n.localize(end_date, format: '%-d/%b, %Y')}"
+      "#{location}, #{I18n.localize(start_date, format: '%-d')}-#{I18n.localize(end_date, format: '%-d %b, %Y')}"
     else
       location.to_s
     end
