@@ -72,9 +72,8 @@ GEM
       uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     cancancan (1.16.0)
-    capistrano (3.7.1)
+    capistrano (3.8.0)
       airbrussh (>= 1.0.0)
-      capistrano-harrow
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
@@ -83,7 +82,6 @@ GEM
       sshkit (~> 1.2)
     capistrano-git-with-submodules (2.0.2)
       capistrano (~> 3.7)
-    capistrano-harrow (0.5.3)
     capistrano-rails (1.2.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -425,7 +423,7 @@ DEPENDENCIES
   bullet
   byebug
   cancancan (~> 1.10)
-  capistrano (= 3.7.1)
+  capistrano (= 3.8.0)
   capistrano-bundler
   capistrano-git-with-submodules
   capistrano-rails

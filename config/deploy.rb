@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
-# config valid only for Capistrano 3.7.1
-lock '3.7.1'
+# config valid only for Capistrano 3.8.0
+lock '3.8.0'
 
 set :stages, %w(vagrant staging production 10.11.12.16 107.170.116.137 162.243.121.252)
 set :default_stage, 'vagrant'
