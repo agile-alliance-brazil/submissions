@@ -55,7 +55,7 @@
     $('#session_benefits').charCount({allowed: 400})
     $('#session_experience').charCount({allowed: 400})
 
-    $('.tags li').click (e) ->
+    $('#new_session .tags li').click (e) ->
       newTag = $(e.currentTarget).data('tag')
       index = tags.indexOf(newTag)
       if (index == -1)

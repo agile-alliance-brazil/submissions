@@ -178,7 +178,7 @@
 
     loadAlreadySelectedTags()
 
-    $('.tags li').click (e) ->
+    $('.conferenceTags.tags li').click (e) ->
       newTag = $(e.currentTarget).data('tag')
       index = tags.indexOf(newTag)
       if (index == -1)
