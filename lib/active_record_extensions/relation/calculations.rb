@@ -38,13 +38,14 @@ if ActiveRecord::VERSION::MAJOR == 4
         ]
         select_values += select_values unless having_values.empty?
 
-        select_values.concat group_fields.zip(group_aliases).map do |field, aliaz|
+        fields = group_fields.zip(group_aliases).map do |field, aliaz|
           if field.respond_to?(:as)
             field.as(aliaz)
           else
             "#{field} AS #{aliaz}"
           end
         end
+        select_values.concat(fields)
         values_to_select = having_values.map { |v| v.split(/[<=>]+/) }.flatten.select { |v| v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/) }
         having_aliases = values_to_select.map do |v|
           having_match = v.match(/([^\.\s\(]*)\.([^\.\s\)]*)/)
