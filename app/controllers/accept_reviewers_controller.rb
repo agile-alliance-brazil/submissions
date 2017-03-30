@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class AcceptReviewersController < ApplicationController
   before_action :load_reviewer, :load_audience_levels
 
@@ -37,7 +38,7 @@ class AcceptReviewersController < ApplicationController
     params.require(:reviewer)
           .permit(:reviewer_agreement, :sign_reviews,
                   preferences_attributes:
-                    [:accepted, :audience_level_id, :track_id]).tap do |attr|
+                    %i(accepted audience_level_id track_id)).tap do |attr|
       attr[:state_event] = 'accept'
       attr[:preferences_attributes].each do |_index, preferences|
         preferences[:reviewer_id] = @reviewer.id

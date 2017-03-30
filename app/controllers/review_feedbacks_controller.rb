@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class ReviewFeedbacksController < ApplicationController
   before_action :bounce_if_already_created
 
@@ -60,7 +61,7 @@ class ReviewFeedbacksController < ApplicationController
   def feedback_parameters
     params.require(:review_feedback).permit(
       :general_comments,
-      review_evaluations_attributes: [:helpful_review, :review_id, :comments]
+      review_evaluations_attributes: %i(helpful_review review_id comments)
     )
   end
 

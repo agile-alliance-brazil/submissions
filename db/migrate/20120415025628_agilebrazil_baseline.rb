@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class AgilebrazilBaseline < ActiveRecord::Migration
   def change
     create_table :audience_levels do |t|
@@ -143,7 +144,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     add_index :taggings, :tag_id
-    add_index :taggings, [:taggable_id, :taggable_type, :context]
+    add_index :taggings, %i(taggable_id taggable_type context)
 
     create_table :tags do |t|
       t.string :name

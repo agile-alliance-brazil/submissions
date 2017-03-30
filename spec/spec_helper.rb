@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -36,6 +37,9 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  # rubocop:disable Style/MixinGrouping
+  # This is due to a bug in rubocop 0.48.0 already fixed in master
+  # Remove the disable after rubocop is upgraded past 0.48.0
   config.include(ControllerMacros, type: :controller)
   config.include(DisableAuthorization, type: :controller)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
@@ -44,6 +48,7 @@ RSpec.configure do |config|
   config.include(TrimmerMacros)
   config.include(Paperclip::Shoulda::Matchers, type: :model)
   config.include(ValidatesExistenceMacros)
+  # rubocop:enable Style/MixinGrouping
 
   config.expect_with :rspec, :minitest
   # == Mock Framework

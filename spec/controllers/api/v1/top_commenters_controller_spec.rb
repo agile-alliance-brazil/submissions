@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Api::V1::TopCommentersController, type: :controller do

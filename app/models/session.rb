@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Session < ActiveRecord::Base
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
@@ -110,15 +111,15 @@ class Session < ActiveRecord::Base
 
   state_machine initial: :created do
     event :reviewing do
-      transition [:created, :in_review] => :in_review
+      transition %i(created in_review) => :in_review
     end
 
     event :cancel do
-      transition [:created, :in_review] => :cancelled
+      transition %i(created in_review) => :cancelled
     end
 
     event :tentatively_accept do
-      transition [:rejected, :in_review] => :pending_confirmation
+      transition %i(rejected in_review) => :pending_confirmation
     end
 
     event :accept do
@@ -126,7 +127,7 @@ class Session < ActiveRecord::Base
     end
 
     event :reject do
-      transition [:pending_confirmation, :in_review] => :rejected
+      transition %i(pending_confirmation in_review) => :rejected
     end
 
     state :accepted do

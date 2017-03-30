@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require 'csv'
 class SessionAuthorsCSVExporter
   COLUMNS = ['Session id', 'Session title', 'Session Type', 'Author', 'Email'].freeze

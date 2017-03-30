@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class ConferencesController < ApplicationController
   def index
     @conferences = Conference.order('conferences.created_at DESC').all

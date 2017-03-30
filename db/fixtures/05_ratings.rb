@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 Rating.seed do |rating|
   rating.id = 1
   rating.title = 'rating.none.title'

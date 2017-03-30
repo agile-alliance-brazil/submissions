@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Rails/ReversibleMigration
 class AddCollationToTagName < ActiveRecord::Migration
   def change

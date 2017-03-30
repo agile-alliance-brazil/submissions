@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 Conference.seed do |conference|
   conference.id                   = 1
   conference.name                 = 'Agile Brazil 2010'

@@ -1,8 +1,9 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class ReviewersController < ApplicationController
   def index
-    filter_params = params.permit(reviewer_filter: [:state_id, :track_id])
+    filter_params = params.permit(reviewer_filter: %i(state_id track_id))
     @reviewer_filter = ReviewerFilter.new(filter_params)
     @tracks = @conference.tracks
     @states = resource_class.state_machine.states.map(&:name)
@@ -63,7 +64,7 @@ class ReviewersController < ApplicationController
                               review_evaluations: []
                             }
                           },
-                          conference: [], accepted_preferences: [:audience_level, :track]
+                          conference: [], accepted_preferences: %i(audience_level track)
                         ).first
     respond_to do |format|
       format.html

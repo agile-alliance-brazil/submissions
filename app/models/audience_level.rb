@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class AudienceLevel < ActiveRecord::Base
   has_many :sessions
   belongs_to :conference

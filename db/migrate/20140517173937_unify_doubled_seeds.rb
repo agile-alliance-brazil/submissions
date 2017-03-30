@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UnifyDoubledSeeds < ActiveRecord::Migration
   def up
     seeded_tags = ActsAsTaggableOn::Tag.where('expiration_year IS NULL').all
@@ -15,7 +16,10 @@ class UnifyDoubledSeeds < ActiveRecord::Migration
       grouped = taggings.group_by do |tagging|
         [tagging.taggable_id, tagging.taggable_type, tagging.context]
       end
-      duplicated_ids << grouped.values.map { |dup| dup[1..-1].map(&:id) }
+      values = grouped.values.map do |dup|
+        dup[1..-1].map(&:id)
+      end
+      duplicated_ids << values
     end
 
     ActsAsTaggableOn::Tagging.delete_all(id: duplicated_ids.flatten)

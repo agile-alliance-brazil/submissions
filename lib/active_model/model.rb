@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ActiveModel
   # TODO: Remove once issue #114 is solved as this is already in Rails 4.0
   # == Active \Model \Basic \Model

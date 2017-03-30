@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Vote < ActiveRecord::Base
   VOTE_LIMIT = 5
 
@@ -8,7 +9,7 @@ class Vote < ActiveRecord::Base
   belongs_to :conference
 
   validates :session_id, existence: true, same_conference: true
-  validates :user_id, existence: true, voter: true, uniqueness: { scope: [:session_id, :conference_id] }
+  validates :user_id, existence: true, voter: true, uniqueness: { scope: %i(session_id conference_id) }
   validates :conference_id, existence: true
 
   validate do |record|

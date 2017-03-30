@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class SameConferenceValidator < ActiveModel::EachValidator
   def initialize(options)
     options[:message] ||= :same_conference

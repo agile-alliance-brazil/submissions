@@ -55,6 +55,8 @@ Metrics/BlockLength:
     - '**/*_spec.rb'
     - 'spec/factories.rb'
     - 'spec/factories/**/*.rb'
+    - 'Guardfile'
+    - 'Vagrantfile'
 
 Style/Documentation:
   Enabled: false
@@ -77,3 +79,10 @@ Rails/SkipsModelValidations:
 
 Rails/OutputSafety:
   Enabled: false # Having weird errors with safe_join
+
+Style/FileName:
+  Exclude:
+    - 'Guardfile'
+    - 'Vagrantfile'
+    - 'Procfile'
+    - 'puppet/Puppetfile'

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class CreateGuestSessions < ActiveRecord::Migration
   def change
     create_table :guest_sessions do |t|

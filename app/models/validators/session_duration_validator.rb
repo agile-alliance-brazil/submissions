@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class SessionDurationValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     valid_durations = record.session_type.try(:valid_durations) || []

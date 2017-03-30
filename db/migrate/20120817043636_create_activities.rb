@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class CreateActivities < ActiveRecord::Migration
   def change
     create_table :activities do |t|

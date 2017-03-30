@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Page < ActiveRecord::Base
   belongs_to :conference
   has_many :translated_contents, as: :model, dependent: :destroy

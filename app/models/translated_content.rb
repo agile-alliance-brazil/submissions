@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class TranslatedContent < ActiveRecord::Base
   belongs_to :model, polymorphic: true
 

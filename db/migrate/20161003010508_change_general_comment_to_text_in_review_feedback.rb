@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ChangeGeneralCommentToTextInReviewFeedback < ActiveRecord::Migration
   def up
     change_column :review_feedbacks, :general_comments, :text

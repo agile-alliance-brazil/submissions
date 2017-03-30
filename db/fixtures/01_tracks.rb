@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 Track.seed do |track|
   track.id = 1
   track.conference_id = 1

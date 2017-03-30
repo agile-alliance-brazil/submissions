@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class AddMissingIndexes < ActiveRecord::Migration
   def change
     add_index :tracks, :conference_id
     add_index :activities, :room_id
-    add_index :activities, [:detail_id, :detail_type]
+    add_index :activities, %i(detail_id detail_type)
     add_index :review_decisions, :session_id
     add_index :review_decisions, :organizer_id
     add_index :review_decisions, :outcome_id
@@ -13,7 +14,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :sessions, :second_author_id
     add_index :sessions, :audience_level_id
     add_index :sessions, :conference_id
-    add_index :reviews, [:id, :type]
+    add_index :reviews, %i(id type)
     add_index :reviews, :proposal_quality_rating_id
     add_index :reviews, :recommendation_id
     add_index :reviews, :proposal_relevance_rating_id
@@ -27,7 +28,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :votes, :session_id
     add_index :votes, :user_id
     add_index :votes, :conference_id
-    add_index :votes, [:session_id, :user_id]
+    add_index :votes, %i(session_id user_id)
     add_index :guest_sessions, :conference_id
     add_index :audience_levels, :conference_id
     add_index :reviewers, :user_id
@@ -35,7 +36,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :organizers, :track_id
     add_index :organizers, :user_id
     add_index :organizers, :conference_id
-    add_index :organizers, [:track_id, :user_id]
+    add_index :organizers, %i(track_id user_id)
     add_index :preferences, :track_id
     add_index :preferences, :reviewer_id
     add_index :preferences, :audience_level_id

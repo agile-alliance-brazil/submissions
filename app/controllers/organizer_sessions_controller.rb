@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class OrganizerSessionsController < ApplicationController
   def index
     @session_filter = SessionFilter.new(filter_params)
@@ -22,6 +23,6 @@ class OrganizerSessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: [:track_id, :state])[:session_filter]
+    params.permit(session_filter: %i(track_id state))[:session_filter]
   end
 end

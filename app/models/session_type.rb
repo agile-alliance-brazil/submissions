@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class SessionType < ActiveRecord::Base
   COMMON_DURATIONS = [25, 50, 110].freeze
 

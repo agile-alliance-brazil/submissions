@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddCommentsCountToSessions < ActiveRecord::Migration
   def change
     add_column :sessions, :comments_count, :integer, default: 0

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class AudienceLevelsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i(index)
   respond_to :json, :html

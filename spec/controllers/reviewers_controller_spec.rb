@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe ReviewersController, type: :controller do
@@ -40,7 +41,7 @@ describe ReviewersController, type: :controller do
     it 'index action should assign states for current conference' do
       get :index, year: conference.year
 
-      expect(assigns(:states)).to eq([:created, :invited, :accepted, :rejected])
+      expect(assigns(:states)).to eq(%i(created invited accepted rejected))
     end
 
     it 'index action should assign reviewers for current conference' do

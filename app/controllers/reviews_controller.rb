@@ -1,9 +1,10 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :load_session
-  before_action :load_review, only: [:edit, :update]
-  before_action :check_review_period, only: [:edit, :update]
+  before_action :load_review, only: %i(edit update)
+  before_action :check_review_period, only: %i(edit update)
 
   def index
     @reviews = collection
@@ -51,23 +52,23 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    (params.permit(resource_request_name => [
-                     :author_agile_xp_rating_id,
-                     :author_proposal_xp_rating_id,
-                     :proposal_track,
-                     :proposal_level,
-                     :proposal_type,
-                     :proposal_duration,
-                     :proposal_limit,
-                     :proposal_abstract,
-                     :proposal_quality_rating_id,
-                     :proposal_relevance_rating_id,
-                     :recommendation_id,
-                     :justification,
-                     :reviewer_confidence_rating_id,
-                     :comments_to_organizers,
-                     :comments_to_authors
-                   ])[resource_request_name] || {}).merge(inferred_params)
+    (params.permit(resource_request_name => %i(
+                     author_agile_xp_rating_id
+                     author_proposal_xp_rating_id
+                     proposal_track
+                     proposal_level
+                     proposal_type
+                     proposal_duration
+                     proposal_limit
+                     proposal_abstract
+                     proposal_quality_rating_id
+                     proposal_relevance_rating_id
+                     recommendation_id
+                     justification
+                     reviewer_confidence_rating_id
+                     comments_to_organizers
+                     comments_to_authors
+                   ))[resource_request_name] || {}).merge(inferred_params)
   end
 
   def resource_request_name

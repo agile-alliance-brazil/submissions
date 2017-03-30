@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddExpirationYearToTags < ActiveRecord::Migration
   def up
     add_column :tags, :expiration_year, :integer

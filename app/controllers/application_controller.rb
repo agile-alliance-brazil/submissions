@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sessions_by_track
@@ -49,15 +50,15 @@ class ApplicationController < ActionController::Base
   end
 
   def sessions_by_track
-    ([['Track', 'Submitted sessions']] +
-      @conference.tracks.includes(:translated_contents)
-        .map { |track| [track.title, track.sessions.count] })
+    tracks = @conference.tracks.includes(:translated_contents)
+                        .map { |track| [track.title, track.sessions.count] }
+    [['Track', 'Submitted sessions']] + tracks
   end
 
   def sessions_by_type
-    ([['Type', 'Submitted sessions']] +
-      @conference.session_types.includes(:translated_contents)
-        .map { |type| [type.title, type.sessions.count] })
+    types = @conference.session_types.includes(:translated_contents)
+                       .map { |type| [type.title, type.sessions.count] }
+    [['Type', 'Submitted sessions']] + types
   end
 
   def gravatar_url(user, options = {})
@@ -115,11 +116,11 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    valid_registration_parameters = [
-      :first_name, :last_name, :email, :wants_to_submit, :state,
-      :organization, :website_url, :twitter_username, :default_locale,
-      :phone, :country, :city, :bio
-    ]
+    valid_registration_parameters = %i(
+      first_name last_name email wants_to_submit state
+      organization website_url twitter_username default_locale
+      phone country city bio
+    )
     devise_parameter_sanitizer.permit(:sign_up, keys: valid_registration_parameters)
     devise_parameter_sanitizer.permit(:account_update, keys: valid_registration_parameters)
   end

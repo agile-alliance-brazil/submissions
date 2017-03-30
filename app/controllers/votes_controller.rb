@@ -1,5 +1,6 @@
 # encoding:utf-8
 # frozen_string_literal: true
+
 class VotesController < ApplicationController
   def index
     @sessions = current_user.voted_sessions.for_conference(@conference)

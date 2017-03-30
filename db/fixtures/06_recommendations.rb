@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 Recommendation.seed do |recommendation|
   recommendation.id = 1
   recommendation.name = 'strong_reject'

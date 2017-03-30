@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ChangeLanguageToPtBr < ActiveRecord::Migration
   def up
     TranslatedContent.where(language: 'pt').update_all(language: 'pt-BR')

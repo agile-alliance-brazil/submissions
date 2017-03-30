@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 RSpec.describe SessionsController, type: :controller do
   let(:author) { FactoryGirl.create(:author) }
   let(:conference) { FactoryGirl.create(:conference) }

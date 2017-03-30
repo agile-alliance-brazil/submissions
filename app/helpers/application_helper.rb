@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def prepend_http(url)
@@ -39,7 +40,7 @@ module ApplicationHelper
   end
 
   def textilize(text)
-    ::RedCloth.new(text, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
+    ::RedCloth.new(text, %i(filter_html sanitize_html)).to_html(:textile).html_safe
   end
 
   def translated_country(country_code)

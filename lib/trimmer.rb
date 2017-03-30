@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 module Trimmer
   # Make a class method available to define space-trimming behavior.
   def self.included(base)

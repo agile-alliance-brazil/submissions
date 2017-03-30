@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 # config valid only for Capistrano 3.8.0
 lock '3.8.0'
 

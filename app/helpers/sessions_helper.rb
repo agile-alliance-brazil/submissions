@@ -1,5 +1,6 @@
 # encoding: utf-8
 # frozen_string_literal: true
+
 module SessionsHelper
   def all_durations_for(session_types)
     session_types.map(&:valid_durations).flatten.uniq.sort

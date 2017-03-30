@@ -1,12 +1,13 @@
 # encoding: utf-8
 # frozen_string_literal: true
+
 module Privileges
   class Admin < Privileges::Base
     def privileges
       can(:manage, :all)
       # Revoke these actions, to use the ones appropriate for each role, below
       cannot(:create, Session)
-      cannot([:create, :update], ReviewDecision)
+      cannot(%i(create update), ReviewDecision)
       cannot(:create, Review)
       cannot(:create, FinalReview)
       cannot(:create, EarlyReview)

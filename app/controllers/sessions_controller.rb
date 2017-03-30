@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class SessionsController < ApplicationController
   before_action :load_user
   before_action :load_tracks
@@ -71,13 +72,13 @@ class SessionsController < ApplicationController
   protected
 
   def session_params
-    valid_params = params.require(:session).permit([
-                                                     :title, :summary, :description, :mechanics, :benefits,
-                                                     :target_audience, :prerequisites, :audience_level_id, :audience_limit,
-                                                     :second_author_username, :track_id,
-                                                     :session_type_id, :duration_mins, :experience,
-                                                     :keyword_list, :language
-                                                   ]).merge(conference_id: @conference.id)
+    valid_params = params.require(:session).permit(%i(
+                                                     title summary description mechanics benefits
+                                                     target_audience prerequisites audience_level_id audience_limit
+                                                     second_author_username track_id
+                                                     session_type_id duration_mins experience
+                                                     keyword_list language
+                                                   )).merge(conference_id: @conference.id)
     if valid_params[:keyword_list]
       valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject { |name| @tags.detect { |tag| tag.name == name }.nil? }
     end
@@ -114,7 +115,7 @@ class SessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: [:tags, :username, :track_id, :session_type_id])[:session_filter]
+    params.permit(session_filter: %i(tags username track_id session_type_id))[:session_filter]
   end
 
   def load_tags

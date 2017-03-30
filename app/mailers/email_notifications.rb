@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class EmailNotifications < ActionMailer::Base
   default from:     proc { "\"#{current_conference.name}\" <#{from_address}>" },
           reply_to: proc { "\"#{current_conference.name}\" <#{from_address}>" }

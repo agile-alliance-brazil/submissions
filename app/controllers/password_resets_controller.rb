@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class PasswordResetsController < Devise::PasswordsController
   # PATCH /resource/password
   def update

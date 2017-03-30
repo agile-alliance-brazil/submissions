@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 # Rails 4.1.0.rc1 and StateMachine don't play nice
 # https://github.com/pluginaweek/state_machine/issues/295
 require 'state_machine/version'

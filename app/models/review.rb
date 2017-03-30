@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Review < ActiveRecord::Base
   attr_trimmed :comments_to_organizers, :comments_to_authors
 
@@ -19,7 +20,7 @@ class Review < ActiveRecord::Base
   validates :proposal_quality_rating_id, presence: true
   validates :proposal_relevance_rating_id, presence: true
   validates :reviewer_confidence_rating_id, presence: true
-  validates :reviewer_id, presence: true, uniqueness: { scope: [:session_id, :type] }
+  validates :reviewer_id, presence: true, uniqueness: { scope: %i(session_id type) }
   validates :session_id, presence: true
 
   validates :proposal_track, inclusion: { in: [true, false] }

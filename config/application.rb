@@ -1,11 +1,12 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require(*Rails.groups) if defined?(Bundler)
 
-I18n.available_locales = [:en, :'pt-BR'] # for guard-konacha
+I18n.available_locales = %i(en pt-BR) # for guard-konacha
 
 module AgileBrazil
   class Application < Rails::Application
@@ -32,7 +33,7 @@ module AgileBrazil
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.available_locales = [:en, :'pt-BR']
+    config.i18n.available_locales = %i(en pt-BR)
     config.i18n.default_locale = :'pt-BR'
 
     # Configure the default encoding used in templates for Ruby 1.9.

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 module Api
   module V1
     class HtmlRenderingController < ::ApplicationController
@@ -8,7 +9,7 @@ module Api
 
       def textilize
         content = request.raw_post
-        textilized = ::RedCloth.new(content, [:filter_html, :sanitize_html]).to_html(:textile).html_safe
+        textilized = ::RedCloth.new(content, %i(filter_html sanitize_html)).to_html(:textile).html_safe
         render html: textilized, content_type: 'text/html; charset=UTF-8'
       end
     end

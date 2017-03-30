@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 class SampleUser
@@ -55,7 +56,7 @@ describe Authorization do
     it '- multiple' do
       @user.roles = %w(admin reviewer)
       expect(@user.roles_mask).to eq(5)
-      @user.roles = [:admin, :reviewer]
+      @user.roles = %i(admin reviewer)
       expect(@user.roles_mask).to eq(5)
     end
 
@@ -74,7 +75,7 @@ describe Authorization do
     it '- mixed valid and invalid (ignores invalid)' do
       @user.roles = %w(invalid reviewer admin)
       expect(@user.roles_mask).to eq(5)
-      @user.roles = [:invalid, :reviewer, :admin]
+      @user.roles = %i(invalid reviewer admin)
       expect(@user.roles_mask).to eq(5)
     end
   end
@@ -175,7 +176,7 @@ describe Authorization do
     end
 
     it '- multiple roles' do
-      @user.roles = [:admin, :author]
+      @user.roles = %i(admin author)
       @user.add_role :reviewer
       expect(@user).to be_admin
       expect(@user).to be_author

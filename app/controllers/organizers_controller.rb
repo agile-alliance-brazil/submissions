@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class OrganizersController < ApplicationController
   before_action :load_tracks
 

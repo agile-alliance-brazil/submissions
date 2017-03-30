@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Organizer < ActiveRecord::Base
   attr_trimmed    :user_username
 
@@ -9,7 +10,7 @@ class Organizer < ActiveRecord::Base
   belongs_to :track
   belongs_to :conference
 
-  validates :track_id, presence: true, existence: true, same_conference: true, uniqueness: { scope: [:conference_id, :user_id] }
+  validates :track_id, presence: true, existence: true, same_conference: true, uniqueness: { scope: %i(conference_id user_id) }
   validates :conference_id, existence: true
   validates :user, existence: true
 

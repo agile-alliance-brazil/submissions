@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Conference < ActiveRecord::Base
   has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
   validates_attachment :logo,
@@ -51,7 +52,10 @@ class Conference < ActiveRecord::Base
     if pages.count.positive?
       links = []
       links << [I18n.t('title.home'), default_page] if default_page
-      links + pages.includes(:translated_contents).where(show_in_menu: true).where.not(path: 'home').map { |p| [p.title, p] }
+      conference_pages = pages.includes(:translated_contents).where(show_in_menu: true).where.not(path: 'home').map do |p|
+        [p.title, p]
+      end
+      links + conference_pages
     else
       [[I18n.t('title.home'), "/#{year}/home"], [I18n.t('title.guidelines'), "/#{year}/guidelines"]] # Legacy
     end

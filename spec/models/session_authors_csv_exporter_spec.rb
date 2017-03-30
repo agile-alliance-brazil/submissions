@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe SessionAuthorsCSVExporter do
@@ -8,9 +9,9 @@ describe SessionAuthorsCSVExporter do
 
     exporter = SessionAuthorsCSVExporter.new([session])
 
-    csv = <<-CSV
-Session id,Session title,Session Type,Author,Email
-#{csv_row_for(session, session.author)}
+    csv = <<~CSV
+      Session id,Session title,Session Type,Author,Email
+      #{csv_row_for(session, session.author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
   end
@@ -21,10 +22,10 @@ Session id,Session title,Session Type,Author,Email
 
     exporter = SessionAuthorsCSVExporter.new([session])
 
-    csv = <<-CSV
-Session id,Session title,Session Type,Author,Email
-#{csv_row_for(session, session.author)}
-#{csv_row_for(session, session.second_author)}
+    csv = <<~CSV
+      Session id,Session title,Session Type,Author,Email
+      #{csv_row_for(session, session.author)}
+      #{csv_row_for(session, session.second_author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
   end
@@ -36,11 +37,11 @@ Session id,Session title,Session Type,Author,Email
 
     exporter = SessionAuthorsCSVExporter.new([single_author_session, two_authors_session])
 
-    csv = <<-CSV
-Session id,Session title,Session Type,Author,Email
-#{csv_row_for(single_author_session, single_author_session.author)}
-#{csv_row_for(two_authors_session, two_authors_session.author)}
-#{csv_row_for(two_authors_session, two_authors_session.second_author)}
+    csv = <<~CSV
+      Session id,Session title,Session Type,Author,Email
+      #{csv_row_for(single_author_session, single_author_session.author)}
+      #{csv_row_for(two_authors_session, two_authors_session.author)}
+      #{csv_row_for(two_authors_session, two_authors_session.second_author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
   end
@@ -56,10 +57,10 @@ Session id,Session title,Session Type,Author,Email
 
     exporter = SessionAuthorsCSVExporter.new([first_session, second_session])
 
-    csv = <<-CSV
-Session id,Session title,Session Type,Author,Email
-#{csv_row_for(second_session, second_session.author)}
-#{csv_row_for(first_session, first_session.author)}
+    csv = <<~CSV
+      Session id,Session title,Session Type,Author,Email
+      #{csv_row_for(second_session, second_session.author)}
+      #{csv_row_for(first_session, first_session.author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
   end
@@ -71,11 +72,11 @@ Session id,Session title,Session Type,Author,Email
 
     exporter = SessionAuthorsCSVExporter.new([first_session, second_session])
 
-    csv = <<-CSV
-Session id,Session title,Session Type,Author,Email
-#{csv_row_for(second_session, second_session.author)}
-#{csv_row_for(first_session, first_session.author)}
-#{csv_row_for(first_session, first_session.second_author)}
+    csv = <<~CSV
+      Session id,Session title,Session Type,Author,Email
+      #{csv_row_for(second_session, second_session.author)}
+      #{csv_row_for(first_session, first_session.author)}
+      #{csv_row_for(first_session, first_session.second_author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
   end

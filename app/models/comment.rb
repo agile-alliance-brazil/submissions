@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
 
@@ -13,5 +14,5 @@ class Comment < ActiveRecord::Base
   validates :commentable_type, presence: true
   validates :commentable_id, presence: true
 
-  default_scope -> { order('created_at ASC') }
+  default_scope(-> { order('created_at ASC') })
 end

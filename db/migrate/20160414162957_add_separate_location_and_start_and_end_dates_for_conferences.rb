@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddSeparateLocationAndStartAndEndDatesForConferences < ActiveRecord::Migration
   def change
     add_column :conferences, :location, :string, default: nil

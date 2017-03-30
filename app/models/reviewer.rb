@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class Reviewer < ActiveRecord::Base
   attr_trimmed :user_username
 
@@ -35,7 +36,7 @@ class Reviewer < ActiveRecord::Base
     end
 
     event :invite do
-      transition [:created, :invited] => :invited
+      transition %i(created invited) => :invited
     end
 
     event :accept do

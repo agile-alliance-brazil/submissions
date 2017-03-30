@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RenameTitleToNameInRecommendations < ActiveRecord::Migration
   def change
     rename_column :recommendations, :title, :name

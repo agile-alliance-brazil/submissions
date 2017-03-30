@@ -4,13 +4,13 @@
 require 'English'
 
 if ARGV.count < 2
-  puts <<-END
-Usage: #{File.basename(__FILE__)} <user> <target_machine> [<machine_type>] [<optional_ssh_key>]
+  puts <<~END
+    Usage: #{File.basename(__FILE__)} <user> <target_machine> [<machine_type>] [<optional_ssh_key>]
 
-<user>:\t\t\t\t The user that will be used to ssh into the machine. Either root for Digital Ocean machines or ubuntu for AWS EC2 machines. It MUST have an ssh key already set up to ssh into.
-<target_machine>:\t The public DNS or public IP address of the machine to be deployed
-<machine_type>:\t\t Optional. Either 'production' or 'staging'. Anything other than 'production' is considered staging. Used for deploy configurations.
-<optional_ssh_key>:\t Optional. The path to the ssh key to be used to log in with the specified user on the specified machine
+    <user>:\t\t\t\t The user that will be used to ssh into the machine. Either root for Digital Ocean machines or ubuntu for AWS EC2 machines. It MUST have an ssh key already set up to ssh into.
+    <target_machine>:\t The public DNS or public IP address of the machine to be deployed
+    <machine_type>:\t\t Optional. Either 'production' or 'staging'. Anything other than 'production' is considered staging. Used for deploy configurations.
+    <optional_ssh_key>:\t Optional. The path to the ssh key to be used to log in with the specified user on the specified machine
 END
   exit(1)
 end

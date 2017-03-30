@@ -1,5 +1,6 @@
 # encoding: UTF-8
 # frozen_string_literal: true
+
 class SessionAcceptanceValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, _value)
     case record.outcome
