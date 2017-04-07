@@ -427,6 +427,11 @@ form.reviewer, form.review_decision_confirm, form.review_decision_withdraw, form
     width: 74%;
     color: #999999;
     font-style: italic; }
+  .hints {
+    width: 74%;
+    color: #999999;
+    font-style: italic;
+    float: left; }
   pre#reviewer_agreement, pre#author_agreement {
     width: 80%;
     display: block;

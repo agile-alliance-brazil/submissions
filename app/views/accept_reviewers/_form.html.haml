@@ -1,10 +1,14 @@
 = semantic_form_for @reviewer, url: reviewer_accept_path(@conference, @reviewer) do |form|
   = form.semantic_fields_for :preferences do |p|
     = p.inputs class: 'inputs preferences' do
+      - track = p.instance_variable_get("@object").track
       = p.input :track_id, as: :hidden
-      = p.input :accepted, label: t(p.instance_variable_get("@object").track.title), input_html: {tabindex: autotab}
+      = p.input :accepted, label: (track.translated_contents.empty? ? t(track.title) : textilize(track.title, true)), input_html: {tabindex: autotab}
       = p.input :audience_level_id, required: true, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}
-      %p.inline-hints= t(p.instance_variable_get("@object").track.description)
+      - if track.translated_contents.empty?
+        %p.inline.hints= t(track.description)
+      - else
+        %div.hints= textilize(track.description)
   = form.inputs do
     = form.semantic_errors :base
   %pre#reviewer_agreement= yield(:agreement)

@@ -39,8 +39,12 @@ module ApplicationHelper
     link_to text, parameters.merge(column: column, direction: direction, page: nil)
   end
 
-  def textilize(text)
-    ::RedCloth.new(text, %i(filter_html sanitize_html)).to_html(:textile).html_safe
+  def textilize(text, inline = false)
+    if inline
+      ::RedCloth.new(text, %i(filter_html sanitize_html lite_mode)).to_html(:textile).html_safe
+    else
+      ::RedCloth.new(text, %i(filter_html sanitize_html)).to_html(:textile).html_safe
+    end
   end
 
   def translated_country(country_code)
