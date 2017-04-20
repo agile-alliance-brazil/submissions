@@ -58,6 +58,19 @@ describe ReviewersController, type: :controller do
 
       expect(assigns(:reviewer)).to eq(reviewer)
     end
+
+    context 'filtering' do
+      it 'should filter the index by state' do
+        reviewer = @reviewers.first
+        reviewer.reject
+
+        get :index, year: conference.year, reviewer_filter: { state: :rejected }
+
+        expect(assigns(:reviewers)).to_not be_nil
+        expect(assigns(:reviewers).size).to eq(1)
+        expect(assigns(:reviewers)).to include(reviewer)
+      end
+    end
   end
 
   context 'create' do

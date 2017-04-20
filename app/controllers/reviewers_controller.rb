@@ -3,7 +3,7 @@
 
 class ReviewersController < ApplicationController
   def index
-    filter_params = params.permit(reviewer_filter: %i(state_id track_id))
+    filter_params = params.permit(reviewer_filter: %i(state track_id))
     @reviewer_filter = ReviewerFilter.new(filter_params)
     @tracks = @conference.tracks
     @states = resource_class.state_machine.states.map(&:name)
