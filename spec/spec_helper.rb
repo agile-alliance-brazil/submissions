@@ -37,7 +37,6 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  # rubocop:disable Style/MixinGrouping
   # This is due to a bug in rubocop 0.48.0 already fixed in master
   # Remove the disable after rubocop is upgraded past 0.48.0
   config.include(ControllerMacros, type: :controller)

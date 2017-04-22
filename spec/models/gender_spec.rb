@@ -11,7 +11,7 @@ describe Gender, type: :model do
   end
 
   it 'should provide valid values' do
-    expect(Gender.valid_values).to eq(%w(M F))
+    expect(Gender.valid_values).to eq(%w[M F])
   end
 
   it 'should provide title for given value' do

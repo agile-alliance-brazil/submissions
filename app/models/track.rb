@@ -12,7 +12,7 @@ class Track < ActiveRecord::Base
   validates :conference, presence: true
   validate :contents_matching_conference_languages
 
-  scope :for_conference, ->(c) { where(conference_id: c.id) }
+  scope(:for_conference, ->(c) { where(conference_id: c.id) })
 
   def title
     translated_contents.find { |c| c.language.to_sym == I18n.locale.to_sym }.try(:title) || (self[:title] && I18n.t(self[:title])) || ''

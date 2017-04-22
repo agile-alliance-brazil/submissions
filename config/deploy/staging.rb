@@ -17,7 +17,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'submissoes-staging.agilebrazil.com', user: 'ubuntu', roles: %w(web app db)
+server 'submissoes-staging.agilebrazil.com', user: 'ubuntu', roles: %w[web app db]
 set :manifest, 'default'
 set :server_url, 'submissoes-staging.agilebrazil.com'
 # set :rails_env, 'staging'
@@ -31,7 +31,7 @@ set :ssh_options,
       File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging')
     ],
     forward_agent: true,
-    auth_methods: %w(publickey)
+    auth_methods: %w[publickey]
 # password: 'please use keys'
 
 # and/or per server

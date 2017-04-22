@@ -24,7 +24,7 @@ describe SessionType, type: :model do
       SessionType.stubs(:uniq).returns([@tutorial, @lightning_talk])
     end
     it 'should detect all titles' do
-      expect(SessionType.all_titles).to eq(%w(tutorial lightning_talk))
+      expect(SessionType.all_titles).to eq(%w[tutorial lightning_talk])
     end
 
     it 'should determine if it is tutorial' do

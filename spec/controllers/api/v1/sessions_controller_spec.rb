@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe Api::V1::SessionsController, type: :controller do
   let(:conference) { FactoryGirl.create(:conference, supported_languages: ['en', 'pt-BR']) }
-  let(:session) { FactoryGirl.create(:session, keyword_list: %w(fake tags tags.success), conference: conference) }
+  let(:session) { FactoryGirl.create(:session, keyword_list: %w[fake tags tags.success], conference: conference) }
 
   describe 'show' do
     context 'with pt locale' do
@@ -28,7 +28,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                 'default_locale' => 'pt-BR' }],
                                                 'prerequisites' => session.prerequisites,
                                                 'duration_mins' => 50,
-                                                'tags' => %w(fake tags Sucesso),
+                                                'tags' => %w[fake tags Sucesso],
                                                 'session_type' => 'Session type title in pt-BR',
                                                 'audience_level' => 'Audience level title in pt-BR',
                                                 'track' => 'Track title in pt-BR',
@@ -103,7 +103,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                 'gravatar_url' => gravatar_url(gravatar_id),
                                                                 'default_locale' => 'pt-BR' }],
                                                 'prerequisites' => session.prerequisites,
-                                                'tags' => %w(fake tags Success),
+                                                'tags' => %w[fake tags Success],
                                                 'duration_mins' => 50,
                                                 'session_type' => 'Session type title in en',
                                                 'audience_level' => 'Audience level title in en',
@@ -140,7 +140,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                               'gravatar_url' => gravatar_url(gravatar_id),
                                                               'default_locale' => 'pt-BR' }],
                                               'prerequisites' => session.prerequisites,
-                                              'tags' => %w(fake tags Sucesso),
+                                              'tags' => %w[fake tags Sucesso],
                                               'duration_mins' => 50,
                                               'session_type' => 'Session type title in pt-BR',
                                               'audience_level' => 'Audience level title in pt-BR',
@@ -170,7 +170,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                                         'gravatar_url' => gravatar_url(gravatar_id),
                                                                                         'default_locale' => 'pt-BR' }],
                                                                         'prerequisites' => session.prerequisites,
-                                                                        'tags' => %w(fake tags Sucesso),
+                                                                        'tags' => %w[fake tags Sucesso],
                                                                         'duration_mins' => 50,
                                                                         'session_type' => 'Session type title in pt-BR',
                                                                         'audience_level' => 'Audience level title in pt-BR',
@@ -203,7 +203,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                                         'gravatar_url' => gravatar_url(gravatar_id),
                                                                                         'default_locale' => 'pt-BR' }],
                                                                         'prerequisites' => session.prerequisites,
-                                                                        'tags' => %w(fake tags Sucesso),
+                                                                        'tags' => %w[fake tags Sucesso],
                                                                         'duration_mins' => 50,
                                                                         'session_type' => 'Session type title in pt-BR',
                                                                         'audience_level' => 'Audience level title in pt-BR',
@@ -237,7 +237,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                 'gravatar_url' => gravatar_url(gravatar_id),
                                                                 'default_locale' => 'pt-BR' }],
                                                 'prerequisites' => session.prerequisites,
-                                                'tags' => %w(fake tags Success),
+                                                'tags' => %w[fake tags Success],
                                                 'duration_mins' => 50,
                                                 'session_type' => 'Session type title in en',
                                                 'audience_level' => 'Audience level title in en',
@@ -320,7 +320,7 @@ describe Api::V1::SessionsController, type: :controller do
                       'gravatar_url' => gravatar_url(gravatar_id),
                       'default_locale' => 'pt-BR' }],
       'prerequisites' => session.prerequisites,
-      'tags' => %w(Aprendizagem Testes),
+      'tags' => %w[Aprendizagem Testes],
       'duration_mins' => 50,
       'session_type' => 'Session type title in pt-BR',
       'audience_level' => 'Audience level title in pt-BR',
@@ -348,7 +348,7 @@ describe Api::V1::SessionsController, type: :controller do
                       'gravatar_url' => gravatar_url(gravatar_id),
                       'default_locale' => 'pt-BR' }],
       'prerequisites' => session.prerequisites,
-      'tags' => %w(Learning Tests),
+      'tags' => %w[Learning Tests],
       'duration_mins' => 50,
       'session_type' => 'Session type title in en',
       'audience_level' => 'Audience level title in en',

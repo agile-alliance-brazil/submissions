@@ -144,7 +144,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
     end
 
     add_index :taggings, :tag_id
-    add_index :taggings, %i(taggable_id taggable_type context)
+    add_index :taggings, %i[taggable_id taggable_type context]
 
     create_table :tags do |t|
       t.string :name

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class AudienceLevelsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i[index]
   respond_to :json, :html
 
   def index
@@ -36,7 +36,7 @@ class AudienceLevelsController < ApplicationController
   end
 
   def audience_level_params
-    attrs = params.require(:audience_level).permit(translated_contents_attributes: %i(id language title content))
+    attrs = params.require(:audience_level).permit(translated_contents_attributes: %i[id language title content])
     attrs.merge(conference_id: @conference.id)
   end
 

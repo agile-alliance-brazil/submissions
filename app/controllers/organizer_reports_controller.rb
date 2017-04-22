@@ -11,7 +11,7 @@ class OrganizerReportsController < ApplicationController
                          :audience_level,
                          :author,
                          :second_author,
-                         final_reviews: %i(
+                         final_reviews: %i[
                            reviewer
                            author_agile_xp_rating
                            author_proposal_xp_rating
@@ -19,7 +19,7 @@ class OrganizerReportsController < ApplicationController
                            proposal_relevance_rating
                            recommendation
                            reviewer_confidence_rating
-                         )
+                         ]
                        )
 
     respond_to do |format|

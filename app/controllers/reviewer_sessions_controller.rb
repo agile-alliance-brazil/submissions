@@ -14,7 +14,7 @@ class ReviewerSessionsController < ApplicationController
   protected
 
   def scope_based_on_conference_phase
-    scope = Session.includes(%i(track session_type audience_level))
+    scope = Session.includes(%i[track session_type audience_level])
                    .for_reviewer(current_user, @conference).page(params[:page])
     if @conference.in_early_review_phase?
       scope.order('sessions.early_reviews_count ASC')
@@ -26,8 +26,8 @@ class ReviewerSessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: %i(
+    params.permit(session_filter: %i[
                     track_id session_type_id audience_level_id
-                  ))[:session_filter]
+                  ])[:session_filter]
   end
 end

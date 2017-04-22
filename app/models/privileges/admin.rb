@@ -7,7 +7,7 @@ module Privileges
       can(:manage, :all)
       # Revoke these actions, to use the ones appropriate for each role, below
       cannot(:create, Session)
-      cannot(%i(create update), ReviewDecision)
+      cannot(%i[create update], ReviewDecision)
       cannot(:create, Review)
       cannot(:create, FinalReview)
       cannot(:create, EarlyReview)

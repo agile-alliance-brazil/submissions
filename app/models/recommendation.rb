@@ -7,7 +7,7 @@ class Recommendation < ActiveRecord::Base
   has_many :reviews
 
   def self.all_names
-    %w(strong_accept weak_accept weak_reject strong_reject)
+    %w[strong_accept weak_accept weak_reject strong_reject]
   end
 
   def self.title_for(name)

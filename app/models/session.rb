@@ -42,33 +42,33 @@ class Session < ActiveRecord::Base
   validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
 
-  scope :for_conference, ->(conference) { where(conference_id: conference.id) }
-  scope :for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) }
-  scope :for_tracks, ->(track_ids) { where(track_id: track_ids) }
-  scope :for_audience_level, ->(audience_level_id) { where(audience_level_id: audience_level_id) }
-  scope :for_session_type, ->(session_type_id) { where(session_type_id: session_type_id) }
-  scope :with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) }
-  scope :with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) }
-  scope :submitted_before, ->(date) { where('sessions.created_at <= ?', date) }
-  scope :not_author, lambda { |u|
+  scope(:for_conference, ->(conference) { where(conference_id: conference.id) })
+  scope(:for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) })
+  scope(:for_tracks, ->(track_ids) { where(track_id: track_ids) })
+  scope(:for_audience_level, ->(audience_level_id) { where(audience_level_id: audience_level_id) })
+  scope(:for_session_type, ->(session_type_id) { where(session_type_id: session_type_id) })
+  scope(:with_incomplete_final_reviews, -> { where('final_reviews_count < ?', 3) })
+  scope(:with_incomplete_early_reviews, -> { where('early_reviews_count < ?', 1) })
+  scope(:submitted_before, ->(date) { where('sessions.created_at <= ?', date) })
+  scope(:not_author, lambda { |u|
     where('author_id <> ? AND (second_author_id IS NULL OR second_author_id <> ?)', u.to_i, u.to_i)
-  }
-  scope :not_reviewed_by, lambda { |user, review_type|
+  })
+  scope(:not_reviewed_by, lambda { |user, review_type|
     joins("LEFT OUTER JOIN reviews ON sessions.id = reviews.session_id AND reviews.type = '#{review_type}'")
       .where('reviews.reviewer_id IS NULL OR reviews.reviewer_id <> ?', user.id)
       .group('sessions.id')
       .having("count(reviews.id) = sessions.#{review_type.underscore.pluralize}_count")
-  }
-  scope :for_preferences, lambda { |*preferences|
+  })
+  scope(:for_preferences, lambda { |*preferences|
     return none if preferences.empty?
     clause = preferences.map { |_p| '(track_id = ? AND audience_level_id <= ?)' }.join(' OR ')
     args = preferences.map { |p| [p.track_id, p.audience_level_id] }.flatten
     where(clause, *args)
-  }
-  scope :with_outcome, lambda { |outcome|
+  })
+  scope(:with_outcome, lambda { |outcome|
     includes(:review_decision).where(review_decisions: { outcome_id: outcome.id, published: false })
-  }
-  scope :active, -> { where('state <> ?', :cancelled) }
+  })
+  scope(:active, -> { where('state <> ?', :cancelled) })
 
   def self.for_review_in(conference)
     sessions = for_conference(conference).without_state(:cancelled)
@@ -100,7 +100,7 @@ class Session < ActiveRecord::Base
   end
 
   def self.without_decision_count_for(conference)
-    Session.for_conference(conference).where(state: %w(pending_confirmation rejected))
+    Session.for_conference(conference).where(state: %w[pending_confirmation rejected])
            .joins('left outer join (
         SELECT session_id, count(*) AS cnt
         FROM review_decisions
@@ -111,15 +111,15 @@ class Session < ActiveRecord::Base
 
   state_machine initial: :created do
     event :reviewing do
-      transition %i(created in_review) => :in_review
+      transition %i[created in_review] => :in_review
     end
 
     event :cancel do
-      transition %i(created in_review) => :cancelled
+      transition %i[created in_review] => :cancelled
     end
 
     event :tentatively_accept do
-      transition %i(rejected in_review) => :pending_confirmation
+      transition %i[rejected in_review] => :pending_confirmation
     end
 
     event :accept do
@@ -127,7 +127,7 @@ class Session < ActiveRecord::Base
     end
 
     event :reject do
-      transition %i(pending_confirmation in_review) => :rejected
+      transition %i[pending_confirmation in_review] => :rejected
     end
 
     state :accepted do

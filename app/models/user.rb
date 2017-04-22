@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
     user.state = '' unless in_brazil?
   end
 
-  scope :search, ->(q) { where('username LIKE ?', "%#{q}%") }
-  scope :by_comments, ->(comment_filters) { joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) }
+  scope(:search, ->(q) { where('username LIKE ?', "%#{q}%") })
+  scope(:by_comments, ->(comment_filters) { joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) })
 
   def organized_tracks(conference)
     Track.joins(:track_ownerships).where(organizers: {

@@ -3,8 +3,8 @@
 
 class ReviewsController < ApplicationController
   before_action :load_session
-  before_action :load_review, only: %i(edit update)
-  before_action :check_review_period, only: %i(edit update)
+  before_action :load_review, only: %i[edit update]
+  before_action :check_review_period, only: %i[edit update]
 
   def index
     @reviews = collection
@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    (params.permit(resource_request_name => %i(
+    (params.permit(resource_request_name => %i[
                      author_agile_xp_rating_id
                      author_proposal_xp_rating_id
                      proposal_track
@@ -68,7 +68,7 @@ class ReviewsController < ApplicationController
                      reviewer_confidence_rating_id
                      comments_to_organizers
                      comments_to_authors
-                   ))[resource_request_name] || {}).merge(inferred_params)
+                   ])[resource_request_name] || {}).merge(inferred_params)
   end
 
   def resource_request_name

@@ -135,7 +135,7 @@ class Conference < ActiveRecord::Base
     DateTime.now <= voting_deadline
   end
 
-  DEADLINES = %i(
+  DEADLINES = %i[
     call_for_papers
     submissions_open
     presubmissions_deadline
@@ -143,7 +143,7 @@ class Conference < ActiveRecord::Base
     submissions_deadline
     author_notification
     author_confirmation
-  ).freeze # review_deadline is out because it's an internal deadline
+  ].freeze # review_deadline is out because it's an internal deadline
 
   def dates
     @dates ||= to_deadlines(DEADLINES)
@@ -188,9 +188,9 @@ class Conference < ActiveRecord::Base
   def deadlines_for(role)
     deadlines = case role.to_sym
                 when :author
-                  %i(presubmissions_deadline submissions_deadline author_notification author_confirmation)
+                  %i[presubmissions_deadline submissions_deadline author_notification author_confirmation]
                 when :reviewer
-                  %i(prereview_deadline review_deadline)
+                  %i[prereview_deadline review_deadline]
                 when :organizer, :all
                   DEADLINES
                 end
@@ -201,9 +201,9 @@ class Conference < ActiveRecord::Base
     deadlines.map { |name| send(name) ? [send(name), name] : nil }.compact
   end
 
-  DATE_ORDERS = %i(call_for_papers submissions_open presubmissions_deadline prereview_deadline
+  DATE_ORDERS = %i[call_for_papers submissions_open presubmissions_deadline prereview_deadline
                    submissions_deadline voting_deadline review_deadline author_notification author_confirmation
-                   start_date end_date).freeze
+                   start_date end_date].freeze
 
   def date_orders
     DATE_ORDERS.reject { |d| send(d).nil? }.each_cons(2) do |(d1, d2)|

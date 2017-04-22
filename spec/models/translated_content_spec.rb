@@ -10,7 +10,7 @@ describe TranslatedContent, type: :model do
     it { should validate_presence_of :title }
     it { should validate_presence_of :content }
     it { should validate_presence_of :language }
-    it { should validate_uniqueness_of(:language).scoped_to(%i(model_id model_type)) }
+    it { should validate_uniqueness_of(:language).scoped_to(%i[model_id model_type]) }
   end
 
   context 'associations' do

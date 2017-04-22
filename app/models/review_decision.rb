@@ -25,10 +25,10 @@ class ReviewDecision < ActiveRecord::Base
     end
   end
 
-  scope :for_conference, ->(c) { joins(:session).where(sessions: { conference_id: c.id }) }
-  scope :for_tracks, ->(track_ids) { joins(:session).where(sessions: { track_id: track_ids }) }
-  scope :accepted, -> { where(outcome_id: Outcome.find_by(title: 'outcomes.accept.title').id) }
-  scope :confirmed, -> { joins(:session).where(sessions: { state: %w(accepted rejected) }) }
+  scope(:for_conference, ->(c) { joins(:session).where(sessions: { conference_id: c.id }) })
+  scope(:for_tracks, ->(track_ids) { joins(:session).where(sessions: { track_id: track_ids }) })
+  scope(:accepted, -> { where(outcome_id: Outcome.find_by(title: 'outcomes.accept.title').id) })
+  scope(:confirmed, -> { joins(:session).where(sessions: { state: %w[accepted rejected] }) })
 
   def accepted?
     outcome.title == 'outcomes.accept.title'

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class SessionTypesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i[index]
   respond_to :json, :html
 
   def index
@@ -42,7 +42,7 @@ class SessionTypesController < ApplicationController
       allowed_params << :needs_mechanics
       allowed_params << { valid_durations: [] }
     end
-    allowed_params << { translated_contents_attributes: %i(id language title content) }
+    allowed_params << { translated_contents_attributes: %i[id language title content] }
     attrs = params.require(:session_type).permit(allowed_params)
     attrs = attrs.merge(conference_id: @conference.id)
     if attrs[:valid_durations]

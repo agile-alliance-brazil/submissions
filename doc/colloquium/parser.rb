@@ -29,7 +29,7 @@ html = File.read('schedule.html')
 sessions = schedule.scrape(html)
 
 FasterCSV.open('sessions.csv', 'w') do |csv|
-  csv << %w(session_id start_at end_at)
+  csv << %w[session_id start_at end_at]
 
   sessions.each do |session|
     day = session.date.match(%r{\d+/\d+})[0]

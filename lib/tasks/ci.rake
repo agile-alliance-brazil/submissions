@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 desc 'Task to run on CI: runs RSpec specs and Konacha specs'
-task ci: %i(spec codeclimate-test-reporter rubocop konacha)
+task ci: %i[spec codeclimate-test-reporter rubocop konacha]
 
 namespace :ci do
   desc 'Task to run on CI: runs RSpec specs and Konacha specs'
-  task all: %i(spec codeclimate-test-reporter rubocop konacha)
+  task all: %i[spec codeclimate-test-reporter rubocop konacha]
 end
 
 task :'codeclimate-test-reporter' do

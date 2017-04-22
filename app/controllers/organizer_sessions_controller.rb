@@ -23,6 +23,6 @@ class OrganizerSessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: %i(track_id state))[:session_filter]
+    params.permit(session_filter: %i[track_id state])[:session_filter]
   end
 end

@@ -4,7 +4,7 @@
 module ActionView
   module Helpers
     module FormOptionsHelper
-      SUPPORTED_LANGUAGES = [['Português', 'pt-BR'], %w(English en)].freeze
+      SUPPORTED_LANGUAGES = [['Português', 'pt-BR'], %w[English en]].freeze
     end
   end
 end

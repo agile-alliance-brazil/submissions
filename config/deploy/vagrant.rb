@@ -17,7 +17,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server '10.11.12.16', user: 'vagrant', roles: %w(web app db)
+server '10.11.12.16', user: 'vagrant', roles: %w[web app db]
 set :manifest, 'vagrant'
 set :server_url, 'submissoes.localhost'
 
@@ -31,7 +31,7 @@ set :ssh_options,
       File.join(File.dirname(__FILE__), '..', '..', 'certs', 'insecure_private_key')
     ],
     forward_agent: true,
-    auth_methods: %w(publickey)
+    auth_methods: %w[publickey]
 # password: 'please use keys'
 
 # and/or per server

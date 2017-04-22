@@ -4,7 +4,7 @@
 # config valid only for Capistrano 3.8.0
 lock '3.8.0'
 
-set :stages, %w(vagrant staging production 10.11.12.16 107.170.116.137 162.243.121.252)
+set :stages, %w[vagrant staging production 10.11.12.16 107.170.116.137 162.243.121.252]
 set :default_stage, 'vagrant'
 
 set :rails_env,           'production'
@@ -20,7 +20,7 @@ set :scm_verbose,         true
 set :deploy_to,           '/srv/apps/submissions'
 set :deploy_via,          :remote_cache
 # set :bundle_flags,        '--no-cache'
-set :bundle_path, -> { shared_path.join('vendor/bundle') }
+set(:bundle_path, -> { shared_path.join('vendor/bundle') })
 
 # Default value for :format is :pretty
 # set :format, :pretty
@@ -35,10 +35,10 @@ set :log_level, ENV['LOG_LEVEL'] || :debug
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default value for :linked_files is []
-set :linked_files, %w(config/database.yml config/config.yml config/newrelic.yml)
+set :linked_files, %w[config/database.yml config/config.yml config/newrelic.yml]
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w(bin log certs tmp/pids tmp/cache tmp/sockets vendor/bundle public/system)
+set :linked_dirs, %w[bin log certs tmp/pids tmp/cache tmp/sockets vendor/bundle public/system]
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

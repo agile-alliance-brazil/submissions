@@ -16,7 +16,7 @@ module Privileges
       can!(:index, FinalReview) do |session|
         session.try(:is_author?, @user) && session.review_decision.try(:published?)
       end
-      can(:manage, %w(confirm_sessions withdraw_sessions)) do
+      can(:manage, %w[confirm_sessions withdraw_sessions]) do
         @session.present? &&
           @session.is_author?(@user) &&
           @session.pending_confirmation? &&

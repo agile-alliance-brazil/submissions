@@ -54,9 +54,9 @@ describe Authorization do
     end
 
     it '- multiple' do
-      @user.roles = %w(admin reviewer)
+      @user.roles = %w[admin reviewer]
       expect(@user.roles_mask).to eq(5)
-      @user.roles = %i(admin reviewer)
+      @user.roles = %i[admin reviewer]
       expect(@user.roles_mask).to eq(5)
     end
 
@@ -73,9 +73,9 @@ describe Authorization do
     end
 
     it '- mixed valid and invalid (ignores invalid)' do
-      @user.roles = %w(invalid reviewer admin)
+      @user.roles = %w[invalid reviewer admin]
       expect(@user.roles_mask).to eq(5)
-      @user.roles = %i(invalid reviewer admin)
+      @user.roles = %i[invalid reviewer admin]
       expect(@user.roles_mask).to eq(5)
     end
   end
@@ -103,7 +103,7 @@ describe Authorization do
     end
 
     it '- multiple roles' do
-      @user.roles = %w(admin reviewer author)
+      @user.roles = %w[admin reviewer author]
       expect(@user.roles).to include('admin')
       expect(@user.roles).to include('author')
       expect(@user.roles).to include('reviewer')
@@ -143,7 +143,7 @@ describe Authorization do
     end
 
     it '- multiple' do
-      @user.roles = %w(admin reviewer)
+      @user.roles = %w[admin reviewer]
       expect(@user).to_not be_guest
       expect(@user).to be_admin
       expect(@user).to_not be_author
@@ -176,7 +176,7 @@ describe Authorization do
     end
 
     it '- multiple roles' do
-      @user.roles = %i(admin author)
+      @user.roles = %i[admin author]
       @user.add_role :reviewer
       expect(@user).to be_admin
       expect(@user).to be_author

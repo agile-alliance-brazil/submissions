@@ -9,11 +9,11 @@ module Api
       before_action :doorkeeper_authorize!
 
       def show
-        json_user = current_user.as_json(only: %i(
+        json_user = current_user.as_json(only: %i[
                                            id email username first_name last_name twitter_username
                                            organization phone country state city default_locale
-                                         ),
-                                         methods: %i(reviewer? organizer?))
+                                         ],
+                                         methods: %i[reviewer? organizer?])
         render json: json_user
       end
 

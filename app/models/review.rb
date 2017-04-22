@@ -20,7 +20,7 @@ class Review < ActiveRecord::Base
   validates :proposal_quality_rating_id, presence: true
   validates :proposal_relevance_rating_id, presence: true
   validates :reviewer_confidence_rating_id, presence: true
-  validates :reviewer_id, presence: true, uniqueness: { scope: %i(session_id type) }
+  validates :reviewer_id, presence: true, uniqueness: { scope: %i[session_id type] }
   validates :session_id, presence: true
 
   validates :proposal_track, inclusion: { in: [true, false] }
@@ -32,5 +32,5 @@ class Review < ActiveRecord::Base
 
   validates :comments_to_authors, length: { minimum: 150 }
 
-  scope :for_conference, ->(c) { joins(:session).where(sessions: { conference_id: c.id }) }
+  scope(:for_conference, ->(c) { joins(:session).where(sessions: { conference_id: c.id }) })
 end

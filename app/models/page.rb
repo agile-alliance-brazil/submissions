@@ -7,12 +7,12 @@ class Page < ActiveRecord::Base
   accepts_nested_attributes_for :translated_contents
 
   validates :conference, presence: true
-  validates :path, presence: true, uniqueness: { scope: %i(conference_id) }
+  validates :path, presence: true, uniqueness: { scope: %i[conference_id] }
   validate :contents_matching_conference_languages
 
-  scope :for_conference, ->(c) { where(conference: c.is_a?(ActiveRecord::Base) ? c.id : c) }
-  scope :with_path, ->(p) { where(path: p) }
-  scope :with_language, ->(l) { where(language: l) }
+  scope(:for_conference, ->(c) { where(conference: c.is_a?(ActiveRecord::Base) ? c.id : c) })
+  scope(:with_path, ->(p) { where(path: p) })
+  scope(:with_language, ->(l) { where(language: l) })
 
   def title
     translated_contents.find { |c| c.language.to_sym == I18n.locale.to_sym }.try(:title) ||

@@ -116,11 +116,11 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    valid_registration_parameters = %i(
+    valid_registration_parameters = %i[
       first_name last_name email wants_to_submit state
       organization website_url twitter_username default_locale
       phone country city bio
-    )
+    ]
     devise_parameter_sanitizer.permit(:sign_up, keys: valid_registration_parameters)
     devise_parameter_sanitizer.permit(:account_update, keys: valid_registration_parameters)
   end

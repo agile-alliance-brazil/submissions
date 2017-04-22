@@ -10,12 +10,12 @@ class Organizer < ActiveRecord::Base
   belongs_to :track
   belongs_to :conference
 
-  validates :track_id, presence: true, existence: true, same_conference: true, uniqueness: { scope: %i(conference_id user_id) }
+  validates :track_id, presence: true, existence: true, same_conference: true, uniqueness: { scope: %i[conference_id user_id] }
   validates :conference_id, existence: true
   validates :user, existence: true
 
-  scope :for_conference, ->(c) { where(conference_id: c.id) }
-  scope :for_user, ->(u) { where(user_id: u.id) }
+  scope(:for_conference, ->(c) { where(conference_id: c.id) })
+  scope(:for_user, ->(u) { where(user_id: u.id) })
 
   def self.user_organizing_conference?(user, conference)
     !for_user(user).for_conference(conference).empty?

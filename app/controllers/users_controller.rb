@@ -3,7 +3,7 @@
 
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_before_action :authorize_action, only: %i(me)
+  skip_before_action :authorize_action, only: %i[me]
 
   def show
     @user_profile = resource

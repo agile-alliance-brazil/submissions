@@ -143,7 +143,7 @@ describe SessionTypesController, type: :controller do
 
       it 'should allow for valid duration change' do
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: %w(10 25)
+          valid_durations: %w[10 25]
         }
 
         expect(session_type.reload.valid_durations).to eq([10, 25])
@@ -169,7 +169,7 @@ describe SessionTypesController, type: :controller do
     context 'with visible conference' do
       it 'should not allow for valid duration change' do
         patch :update, year: conference.year, id: session_type.id, session_type: {
-          valid_durations: %w(10 25)
+          valid_durations: %w[10 25]
         }
 
         expect(session_type.reload.valid_durations).to eq([50])

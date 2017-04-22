@@ -61,7 +61,7 @@ class ReviewFeedbacksController < ApplicationController
   def feedback_parameters
     params.require(:review_feedback).permit(
       :general_comments,
-      review_evaluations_attributes: %i(helpful_review review_id comments)
+      review_evaluations_attributes: %i[helpful_review review_id comments]
     )
   end
 

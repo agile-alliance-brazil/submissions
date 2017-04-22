@@ -41,9 +41,9 @@ module ApplicationHelper
 
   def textilize(text, inline = false)
     if inline
-      ::RedCloth.new(text, %i(filter_html sanitize_html lite_mode)).to_html(:textile).html_safe
+      ::RedCloth.new(text, %i[filter_html sanitize_html lite_mode]).to_html(:textile).html_safe
     else
-      ::RedCloth.new(text, %i(filter_html sanitize_html)).to_html(:textile).html_safe
+      ::RedCloth.new(text, %i[filter_html sanitize_html]).to_html(:textile).html_safe
     end
   end
 

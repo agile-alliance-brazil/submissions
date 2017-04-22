@@ -54,12 +54,12 @@ class PagesController < ApplicationController
   end
 
   def create_page_attributes
-    attrs = params.require(:page).permit(:path, :show_in_menu, translated_contents_attributes: %i(language title content))
+    attrs = params.require(:page).permit(:path, :show_in_menu, translated_contents_attributes: %i[language title content])
     attrs.merge(conference_id: @conference.id)
   end
 
   def update_page_attributes
-    params.require(:page).permit(:show_in_menu, translated_contents_attributes: %i(id language title content))
+    params.require(:page).permit(:show_in_menu, translated_contents_attributes: %i[id language title content])
   end
 
   def handle_html_response

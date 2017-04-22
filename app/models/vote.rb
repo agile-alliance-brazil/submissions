@@ -9,7 +9,7 @@ class Vote < ActiveRecord::Base
   belongs_to :conference
 
   validates :session_id, existence: true, same_conference: true
-  validates :user_id, existence: true, voter: true, uniqueness: { scope: %i(session_id conference_id) }
+  validates :user_id, existence: true, voter: true, uniqueness: { scope: %i[session_id conference_id] }
   validates :conference_id, existence: true
 
   validate do |record|
@@ -18,8 +18,8 @@ class Vote < ActiveRecord::Base
     end
   end
 
-  scope :for_conference, ->(c) { where(conference_id: c.id) }
-  scope :for_user, ->(u) { where(user_id: u.id) }
+  scope(:for_conference, ->(c) { where(conference_id: c.id) })
+  scope(:for_user, ->(u) { where(user_id: u.id) })
 
   def self.within_limit?(user, conference)
     return false unless user.present? && conference.present?
