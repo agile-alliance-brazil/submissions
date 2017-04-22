@@ -12,7 +12,7 @@ end
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'acts_as_commentable', '4.0.2'
-gem 'airbrake', '~> 5.0'
+gem 'airbrake', '~> 6.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'brhelper', '3.3.0'
 gem 'cancancan', '~> 1.10'
