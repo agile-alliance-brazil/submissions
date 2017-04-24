@@ -43,7 +43,7 @@ describe ActionsHelper, type: :helper do
         helper.reviewer_section_for(@user, @conference, @filter_params).actions
       end
       it 'should be able to view list of sessions to review' do
-        Session.stubs(for_reviewer: stub(count: 0))
+        Session.stubs(for_reviewer: stub(to_a: []))
 
         expect(subject[0][:name]).to eq(t('actions.reviewer_sessions', count: 0))
       end
@@ -54,7 +54,7 @@ describe ActionsHelper, type: :helper do
         expect(subject[0][:name]).to_not eq(t('actions.reviewer_sessions', count: 0))
       end
       it 'should be able to view how many sessions are left to review' do
-        Session.stubs(for_reviewer: stub(count: 3))
+        Session.stubs(for_reviewer: stub(to_a: %i[a b c]))
 
         actions = helper.reviewer_section_for(@user, @conference, @filter_params).actions
 
