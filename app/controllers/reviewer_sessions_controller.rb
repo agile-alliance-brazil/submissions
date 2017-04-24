@@ -3,9 +3,9 @@
 
 class ReviewerSessionsController < ApplicationController
   def index
-    @tracks = @conference.tracks
-    @audience_levels = @conference.audience_levels
-    @session_types = @conference.session_types
+    @tracks = @conference.tracks.includes(%i[translated_contents])
+    @audience_levels = @conference.audience_levels.includes(%i[translated_contents])
+    @session_types = @conference.session_types.includes(%i[translated_contents])
 
     @session_filter = SessionFilter.new(filter_params)
     @sessions = @session_filter.apply(scope_based_on_conference_phase)
@@ -14,7 +14,7 @@ class ReviewerSessionsController < ApplicationController
   protected
 
   def scope_based_on_conference_phase
-    scope = Session.includes(%i[track session_type audience_level])
+    scope = Session.includes(track: %i[translated_contents], session_type: %i[translated_contents], audience_level: %i[translated_contents])
                    .for_reviewer(current_user, @conference).page(params[:page])
     if @conference.in_early_review_phase?
       scope.order('sessions.early_reviews_count ASC')

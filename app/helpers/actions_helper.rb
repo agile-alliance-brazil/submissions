@@ -70,7 +70,7 @@ module ActionsHelper
     if (conference.in_early_review_phase? ||
           conference.in_final_review_phase?) &&
        can?(:read, 'reviewer_sessions')
-      sessions_to_review_count = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).count
+      sessions_to_review_count = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).to_a.size
       section.add t('actions.reviewer_sessions', count: sessions_to_review_count), reviewer_sessions_path(conference)
     end
     if can? :reviewer, 'reviews_listing'
