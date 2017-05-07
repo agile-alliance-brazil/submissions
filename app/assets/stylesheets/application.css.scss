@@ -370,15 +370,14 @@ ul.spaced {
     @include grid(9);
     .raw {
       @include grid(4);
-      border: 1px dashed #666666;
+      border: 1px dashed #666;
       padding: 10px;
       min-height: 150px; }
     .space {
       @include grid(1); }
     .preview {
       @include grid(4);
-      @include clearfix;
-      border: 1px dashed #666666;
+      border: 1px dashed #666;
       padding: 10px;
       min-height: 150px;
       p {
@@ -386,7 +385,9 @@ ul.spaced {
       ul {
         padding-left: 10px; }
       ol {
-        padding-left: 10px; } } } }
+        padding-left: 10px; }
+      >ul,>ol {
+        margin-bottom: 16px; } } } }
 
 form.session {
   li#session_mechanics_input {
