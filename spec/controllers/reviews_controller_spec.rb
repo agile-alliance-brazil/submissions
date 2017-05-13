@@ -224,7 +224,7 @@ describe ReviewsController, type: :controller do
       describe 'PUT #update' do
         context 'when the user is the reviewer' do
           before { put :update, year: conference.year, session_id: session.id, id: review.id, early_review: valid_early_review_params }
-          it { is_expected.to redirect_to session_reviews_path(conference, session) }
+          it { is_expected.to redirect_to session_review_path(conference, session, review) }
           context 'flash' do
             subject { flash[:notice] }
             it { is_expected.to eq(I18n.t('reviews.update.success')) }

@@ -33,7 +33,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to session_reviews_path(session_id: @session), notice: t('reviews.update.success')
+      redirect_to session_review_path(@conference, @session, @review), notice: t('reviews.update.success')
     else
       errors = @review.errors.messages.keys.map { |key| Review.human_attribute_name(key.to_sym) }
       flash[:alert] = t('errors.messages.invalid_form_data', value: errors.join(', '))
