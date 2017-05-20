@@ -17,6 +17,9 @@ end
 
 describe EmailNotifications, type: :mailer do
   let(:conference) { FactoryGirl.create(:conference) }
+  let(:accept_outcome) { FactoryGirl.build(:accepted_outcome) }
+  let(:reject_outcome) { FactoryGirl.build(:rejected_outcome) }
+  let(:backup_outcome) { FactoryGirl.build(:backup_outcome) }
 
   # TODO: Remove usage of Conference.current
   before(:each) do
@@ -243,7 +246,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.accept.title')) }
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: accept_outcome) }
 
       it_should_behave_like 'standard conference e-mail'
 
@@ -270,7 +273,7 @@ describe EmailNotifications, type: :mailer do
 
       context 'with second author' do
         let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.accept.title')) }
+        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: accept_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
@@ -291,7 +294,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision of rejection' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.reject.title')) }
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: reject_outcome) }
       it_should_behave_like 'standard conference e-mail'
 
       it { should have_body_text(/#{session.title}/) }
@@ -316,7 +319,7 @@ describe EmailNotifications, type: :mailer do
 
       context 'with second author' do
         let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.reject.title')) }
+        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: reject_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
@@ -324,7 +327,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision of backup' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.backup.title')) }
+      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: backup_outcome) }
       it_should_behave_like 'standard conference e-mail'
 
       it { should have_body_text(/#{session.title}/) }
@@ -349,7 +352,7 @@ describe EmailNotifications, type: :mailer do
 
       context 'with second author' do
         let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: Outcome.find_by(title: 'outcomes.backup.title')) }
+        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: backup_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
