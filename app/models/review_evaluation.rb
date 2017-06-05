@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class ReviewEvaluation < ActiveRecord::Base
+class ReviewEvaluation < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :review

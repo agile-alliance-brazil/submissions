@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Vote < ActiveRecord::Base
+class Vote < ApplicationRecord
   VOTE_LIMIT = 5
 
   belongs_to :session

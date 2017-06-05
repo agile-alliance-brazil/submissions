@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Review < ActiveRecord::Base
+class Review < ApplicationRecord
   attr_trimmed :comments_to_organizers, :comments_to_authors
 
   belongs_to :session # Just for joining (without counter cache)

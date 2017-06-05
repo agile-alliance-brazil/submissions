@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
 
@@ -31,7 +34,7 @@ Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
 before 'bundler:install', 'deploy:puppet'
 
 namespace :deploy do
-  %w(start restart).each do |name|
+  %w[start restart].each do |name|
     desc "#{name.capitalize} application"
     task name.to_sym do
       on roles(:app), in: :sequence, wait: 5 do
@@ -43,11 +46,11 @@ namespace :deploy do
   after :publishing, :restart
 
   task :puppet do
-    on roles(:all) do |host|
+    on roles(:all) do |_host|
       execute :sudo, '/usr/bin/env',
-        "FACTER_server_url='#{fetch(:server_url)}'",
-        "FACTER_rails_env='#{fetch(:rails_env)}'",
-        :sh, "-c '/opt/puppetlabs/bin/puppet apply\
+              "FACTER_server_url='#{fetch(:server_url)}'",
+              "FACTER_rails_env='#{fetch(:rails_env)}'",
+              :sh, "-c '/opt/puppetlabs/bin/puppet apply\
         --modulepath /opt/puppetlabs/puppet/modules:#{release_path.join('puppet/modules')}\
         #{release_path.join("puppet/manifests/#{fetch(:manifest)}.pp")}'"
     end

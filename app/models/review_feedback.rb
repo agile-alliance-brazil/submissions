@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class ReviewFeedback < ActiveRecord::Base
+class ReviewFeedback < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :conference

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Authorization
 
   devise :database_authenticatable, :registerable, :recoverable, :encryptable, :trackable, :validatable

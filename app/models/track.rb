@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Track < ActiveRecord::Base
+class Track < ApplicationRecord
   belongs_to :conference
   has_many :sessions
   has_many :track_ownerships, class_name: 'Organizer'

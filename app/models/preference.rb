@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Preference < ActiveRecord::Base
+class Preference < ApplicationRecord
   belongs_to :reviewer
   belongs_to :track
   belongs_to :audience_level

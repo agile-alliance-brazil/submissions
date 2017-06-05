@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Reviewer < ActiveRecord::Base
+class Reviewer < ApplicationRecord
   attr_trimmed :user_username
 
   attr_autocomplete_username_as :user

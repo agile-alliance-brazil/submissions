@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Conference < ActiveRecord::Base
+class Conference < ApplicationRecord
   has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
   validates_attachment :logo,
                        presence: true,

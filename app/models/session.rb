@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Session < ActiveRecord::Base
+class Session < ApplicationRecord
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
 

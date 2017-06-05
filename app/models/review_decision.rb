@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class ReviewDecision < ActiveRecord::Base
+class ReviewDecision < ApplicationRecord
   attr_trimmed :note_to_authors
 
   belongs_to :session

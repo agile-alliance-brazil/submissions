@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class TranslatedContent < ActiveRecord::Base
+class TranslatedContent < ApplicationRecord
   belongs_to :model, polymorphic: true
 
   validates :language, presence: true, uniqueness: { scope: %i[model_id model_type] }

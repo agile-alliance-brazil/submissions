@@ -1,7 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   belongs_to :conference
   has_many :translated_contents, as: :model, dependent: :destroy
   accepts_nested_attributes_for :translated_contents
