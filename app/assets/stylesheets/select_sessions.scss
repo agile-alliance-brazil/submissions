@@ -1,0 +1,177 @@
+// Place all the styles related to the SelectSessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.grid-12 {
+  width: 100%;
+
+  &:before,&:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .col {
+    display: inline-block;
+    float: left;
+    box-sizing: border-box;
+  }
+
+  .col-1 {
+    width: 8.3%;
+  }
+
+  .col-2 {
+    width: 16.6%;
+  }
+
+  .col-3 {
+    width: 25%;
+  }
+
+  .col-8 {
+    width: 66.6%;
+  }
+
+  .col-9 {
+    width: 75%;
+  }
+
+  .col-10 {
+    width: 83.3%;
+  }
+
+  .col-12 {
+    display: block;
+    width: 100%;
+  }
+}
+
+.p-h-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.p-t-5 {
+  padding-top: 5px;
+}
+.p-b-5 {
+  padding-bottom: 5px;
+}
+.p-v-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body {
+  position: relative;
+}
+
+#vue_app {
+  .clearfix {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .full {
+    width: 100%;
+  }
+
+  ul.board {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    right: 10px;
+    min-height: 580px;
+    display: flex;
+    list-style: none;
+
+    .outcome {
+      flex: 1;
+      flex-direction: column;
+      display: block;
+      vertical-align: top;
+      box-sizing: border-box;
+      border-right: 1px solid black;
+      padding: 5px;
+      &:last-child {
+        border-right: 0;
+      }
+
+      .title {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    .stickies {
+      li.sticky {
+        width: 200px;
+        background-color: lightyellow;
+        border: 1px solid black;
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 5px;
+        margin: 5px;
+        position: relative;
+        font-size: 80%;
+
+        h3.title {
+          margin: 0;
+          text-align: center;
+          font-size: 150%;
+        }
+
+        .authors {
+          display: block;
+          text-align: center;
+        }
+
+        .duration {
+          text-align: right;
+        }
+
+        .meta {
+          padding: 10px 0;
+          text-align: center;
+
+          .track, .audience {
+            display: block;
+          }
+        }
+
+        .reviews {
+          list-style: none;
+
+          .review {
+            display: flex;
+            width: 100%;
+
+            .recommendation {
+              order: 1;
+              width: 20px;
+              font-size: 120%;
+            }
+
+            .confidence {
+              order: 3;
+              width: 20px;
+              text-align: right;
+              font-size: 120%;
+            }
+
+            .comment {
+              order: 2;
+              margin: 0;
+              padding: 0 5px;
+              box-sizing: border-box;
+              width: 100%;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: scroll;
+            }
+          }
+        }
+      }
+    }
+  }
+}

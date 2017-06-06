@@ -45,6 +45,7 @@ AgileBrazil::Application.routes.draw do
     root to: 'pages#show', as: :conference_root
 
     resources :organizers, except: %i[show]
+    resources :select_sessions, only: %i[index]
     resources :organizer_sessions, only: %i[index]
     resources :organizer_reports, only: %i[index]
     resources :accepted_sessions, only: %i[index]

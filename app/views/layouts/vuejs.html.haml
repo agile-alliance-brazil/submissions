@@ -1,0 +1,61 @@
+!!! 5
+%html{html_attrs(I18n.locale)}
+  %head
+    %title
+      #{@conference.name} -
+      = content_for?(:title) ? yield(:title) : t('title.untitled')
+    %meta{"http-equiv"=>"Content-Type", content:"text/html; charset=utf-8"}/
+    %link{"rel" => "shortcut icon", "href" => "#{image_path('favicon.ico')}"}/
+    = csrf_meta_tag
+    = stylesheet_link_tag :application
+    = javascript_include_tag :modernizr
+    = javascript_include_tag :application
+
+    = yield(:head)
+
+  %body
+    #container
+      #header
+        = link_to image_tag(@conference.logo.blank? ? image_path("#{@conference.year}_logo.png") : @conference.logo.url(:medium)), conference_page_by_path_path(@conference, path: @conference.default_page.try(:path) || 'home')
+        .logo
+          %h1= @conference.name
+          %strong= @conference.location_and_date
+        - if @conference.languages.size > 1
+          %ul#languages
+            - @conference.languages.each do |language|
+              %li
+                - if language[:code].to_sym == I18n.locale
+                  %span.selected= language[:name]
+                - else
+                  = link_to language[:name], "?locale=#{language[:code]}"
+
+        = render partial: 'layouts/menu'
+
+      - if show_actions?
+        #actions.grid_3
+          = render partial: 'layouts/actions'
+
+      #content{ class: show_actions? ? 'grid_9' : 'grid_12' }
+        - flash.each do |name, messages|
+          - messages = [messages] unless messages.is_a?(Array)
+          - messages.each_with_index do |msg, index|
+            = content_tag :div, msg.html_safe, id: "flash_#{name}_#{index}", class: "flash_#{name}"
+
+        #vue_app
+          %component{ ':is' => 'currentView'}
+
+        - if show_title?
+          %h1= yield(:title)
+
+        = yield
+
+      #footer Copyleft - Agile Brazil 2010-2014 - #{t('footer.help').html_safe}
+
+    - unless APP_CONFIG[:google].nil?
+      :javascript
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        try{
+          var pageTracker = _gat._getTracker("UA-#{APP_CONFIG[:google][:tracker_id]}");
+          pageTracker._trackPageview();
+        } catch(err) {}

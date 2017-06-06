@@ -387,6 +387,7 @@ pt-BR:
     manage_reviewers: "Avaliadores"
     create_reviewer: "Convidar novo avaliador"
     organizer_sessions: "Organizar sessões"
+    select_sessions: "Selecionar propostas"
     organizer_reports: "Baixar relatório de avaliações"
     accepted_sessions: "Baixar CSV de sessões aceitas"
     reviewer_sessions: "Avaliar sessões (%{count})"

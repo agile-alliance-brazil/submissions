@@ -382,6 +382,7 @@ en:
     manage_reviewers: "Reviewers"
     create_reviewer: "Invite reviewer"
     organizer_sessions: "Track organized sessions"
+    select_sessions: "Select proposals"
     organizer_reports: "Download reviews report"
     accepted_sessions: "Download CSV for accepted sessions"
     reviewer_sessions: "Sessions to review (%{count})"

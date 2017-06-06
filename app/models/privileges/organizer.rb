@@ -8,6 +8,9 @@ module Privileges
       can(:read, 'organizer_sessions') do
         @conference.visible?
       end
+      can(:read, 'select_sessions') do
+        @conference.visible?
+      end
       can(:read, 'organizer_reports') do
         @conference.visible?
       end
