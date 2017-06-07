@@ -38,7 +38,7 @@
         #actions.grid_3
           = render partial: 'layouts/actions'
 
-      #content{ class: show_actions? ? 'grid_9' : 'grid_12' }
+      #content
         - flash.each do |name, messages|
           - messages = [messages] unless messages.is_a?(Array)
           - messages.each_with_index do |msg, index|
@@ -51,8 +51,6 @@
           %h1= yield(:title)
 
         = yield
-
-      #footer Copyleft - Agile Brazil 2010-2014 - #{t('footer.help').html_safe}
 
     - unless APP_CONFIG[:google].nil?
       :javascript

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003011011) do
+ActiveRecord::Schema.define(version: 20170607172801) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20161003011011) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order",      default: 0, null: false
   end
 
   create_table "pages", force: :cascade do |t|

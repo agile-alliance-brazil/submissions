@@ -73,8 +73,8 @@
       <review
         v-for="review in reviews"
         :key="review.recommendation_id"
-        :comment="review.comment"
-        :confidence="review.confidence"
+        :comment="review.comments_to_organizers"
+        :confidence="review.reviewer_confidence_rating_id"
         :recommendation="review.recommendation_id">
       </review>
     </ul>
@@ -84,10 +84,10 @@
         title: () -> this.session.title,
         id: () -> this.session.id,
         duration: () -> this.session.duration,
-        authors: () -> this.session.authors,
-        track: () -> this.session.track,
-        audience: () -> this.session.audience,
-        reviews: () -> this.session.reviews,
+        authors: () -> this.session.authors.map((a) -> "#{a.first_name} #{a.last_name}"),
+        track: () -> this.session.track.title,
+        audience: () -> this.session.audience_level.title,
+        reviews: () -> this.session.final_reviews,
         htmlId: () -> 'session_' + this.id,
         limitedTitle: () ->
           v = this.title + ''
@@ -102,11 +102,6 @@
       }
     })
     Vue.component('sticky', sticky)
-
-    logEvent = (name) ->
-      (event) ->
-        console.log(name)
-        console.log(event)
 
     outcome = Vue.extend({
       props: {
@@ -134,7 +129,8 @@
           sessionId = event.item.dataset.sessionId
           session = this.allSessions[sessionId]
           if session
-            session.outcome = newOutcome
+            session.review_decision ||= {}
+            session.review_decision.outcome = newOutcome
       },
       computed: {
         title: () -> this.outcome.title,
@@ -172,48 +168,30 @@
       },
       methods: {
         sessionsFor: (outcome) ->
-          ss = this.sessions.filter((session, idx) -> (session.outcome || {id: 0}).id == outcome.id)
+          ss = this.sessions.filter((session, idx) -> ((session.review_decision || {}).outcome || {id: 0}).id == outcome.id)
           reviews_score = (reviews) ->
              reviews.reduce(((acc, r) -> acc + r.recommendation_id), 0)
-          ss.sort((a, b) -> reviews_score(a.reviews) - reviews_score(b.reviews))
+          ss.sort((a, b) -> reviews_score(a.final_reviews) - reviews_score(b.final_reviews))
       },
-      data: () ->
-        {
-          outcomes: [
-            { id: 1, title: "Rejected"},
-            { id: 0, title: "Undecided"},
-            { id: 2, title: "Backup"},
-            { id: 3, title: "Accepted"}
-          ],
-          sessions: [
-            {
-              title: 'very long test title',
-              id: 1,
-              duration: 50,
-              authors: ['Jeferson Brizeno', 'Andreza Vitorina'],
-              track: 'Você está certo disso?',
-              audience: 'Iniciante',
-              reviews: [
-                { recommendation_id: 2, comment: 'Legal mas público pequeno', confidence: 3 },
-                { recommendation_id: 4, comment: 'Porque é contestadora? Mudar trilha', confidence: 2 },
-                { recommendation_id: 1, comment: 'Bom tópico de discussão', confidence: 4 },
-              ]
-            },
-            {
-              title: 'another very long test title',
-              id: 2,
-              duration: 110,
-              authors: ['Hugo Corbucci'],
-              track: 'É caindo que se aprende a levantar',
-              audience: 'Iniciante avançado',
-              reviews: [
-                { recommendation_id: 3, comment: 'Vai saber o que esse cara quer', confidence: 1 },
-                { recommendation_id: 2, comment: 'Agora vai!', confidence: 3 },
-                { recommendation_id: 1, comment: '', confidence: 4 },
-              ]
-            }
-          ],
-        }
+      data: () -> { outcomes: [], sessions: [] },
+      mounted: () ->
+        self = this
+        $.ajax({
+          url: 'outcomes.json',
+          method: 'GET',
+          success: (data) ->
+            remoteOutcomes = data || []
+            remoteOutcomes.splice(1, 0, {id: 0, title: '?'})
+            self.outcomes = remoteOutcomes
+          error: (error) -> console.log(JSON.stringify(error))
+        })
+        $.ajax({
+          url: 'organizer_sessions.json',
+          method: 'GET',
+          success: (data) ->
+            self.sessions = data || []
+          error: (error) -> console.log(JSON.stringify(error))
+        })
     })
     Vue.component('select-sessions', component)
 

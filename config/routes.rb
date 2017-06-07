@@ -49,6 +49,7 @@ AgileBrazil::Application.routes.draw do
     resources :organizer_sessions, only: %i[index]
     resources :organizer_reports, only: %i[index]
     resources :accepted_sessions, only: %i[index]
+    resources :outcomes, only: %i[index], constraints: { format: /(js|json)/ }
     resources :review_decisions, only: %i[index]
     resources :reviewers, only: %i[index show create destroy] do
       collection do

@@ -9,9 +9,22 @@ class OrganizerSessionsController < ApplicationController
     @tracks = current_user.organized_tracks(@conference)
     prefilter_scope = Session.for_conference(@conference)
                              .for_tracks(@tracks.map(&:id)).page(params[:page]).order(order_from_params)
-                             .includes(:author, :second_author, :track)
+                             .includes(:author, :second_author, :track, :final_reviews, :review_decision, :track, :audience_level, :session_type)
 
     @sessions = @session_filter.apply(prefilter_scope)
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @sessions, include: {
+          authors: { only: %i[id first_name last_name] },
+          final_reviews: { only: %i[recommendation_id justification comments_to_organizers comments_to_authors reviewer_confidence_rating_id] },
+          review_decision: { only: %i[outcome_id] },
+          track: { only: %i[id title] },
+          audience_level: { only: %i[id title] },
+          session_type: { only: %i[id title] }
+        }
+      end
+    end
   end
 
   protected
