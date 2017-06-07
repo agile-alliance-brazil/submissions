@@ -104,6 +104,8 @@ body {
     }
 
     .stickies {
+      min-height: 560px;
+
       li.sticky {
         width: 200px;
         background-color: lightyellow;

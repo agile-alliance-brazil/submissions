@@ -1,7 +1,6 @@
 /*
  *= require vendor_libs
  *= require highcharts
- *= require vue
  *= require_tree .
  *= require actions
  *= require jquery-ui/widgets/tabs

@@ -51,16 +51,10 @@
 
     sticky = Vue.extend({
       props: {
-        title: String,
-        id: Number,
-        duration: Number,
-        authors: Array,
-        track: String,
-        audience: String,
-        reviews: Array
+        session: Object
       },
       template: """
-<li class="sticky">
+<li class="sticky" :data-session-id="id" :id="htmlId">
   <h3 class="title">
     <abbr :title="title" v-if="abbrTitle">{{ limitedTitle }}</abbr>
     <span v-else>{{ title }}</span>
@@ -87,6 +81,14 @@
   </div>
 </li>""",
       computed: {
+        title: () -> this.session.title,
+        id: () -> this.session.id,
+        duration: () -> this.session.duration,
+        authors: () -> this.session.authors,
+        track: () -> this.session.track,
+        audience: () -> this.session.audience,
+        reviews: () -> this.session.reviews,
+        htmlId: () -> 'session_' + this.id,
         limitedTitle: () ->
           v = this.title + ''
           if v.length > 20
@@ -101,34 +103,53 @@
     })
     Vue.component('sticky', sticky)
 
+    logEvent = (name) ->
+      (event) ->
+        console.log(name)
+        console.log(event)
+
     outcome = Vue.extend({
       props: {
-        title: String,
+        outcome: Object,
+        outcomes: Object,
         sessions: Array,
+        allSessions: Object
       },
       template: """
-<li :class="outcomeClasses">
+<li :class="outcomeClasses" :id="htmlId">
   <h2 class="title">{{ title }}</h2>
-  <ul class="stickies">
+  <draggable v-model="sessions" class="stickies" element="ul" :options="options" @add="addSession" :data-outcome-id="id">
     <sticky
       v-for="session in sessions"
       :key="session.id"
-      :title="session.title"
-      :id="session.id"
-      :duration="session.duration"
-      :authors="session.authors"
-      :track="session.track"
-      :audience="session.audience"
-      :reviews="session.reviews">
+      :session="session">
     </sticky>
-  </ul>
-</div>
+  </draggable>
+</li>
 """,
+      methods: {
+        addSession: (event) ->
+          newOutcomeId = event.to.dataset.outcomeId
+          newOutcome = this.outcomes[newOutcomeId]
+          sessionId = event.item.dataset.sessionId
+          session = this.allSessions[sessionId]
+          if session
+            session.outcome = newOutcome
+      },
       computed: {
-        outcomeClasses: () -> 'outcome type_' + this.key
+        title: () -> this.outcome.title,
+        id: () -> this.outcome.id,
+        htmlId: () -> 'outcome_' + this.id
+        outcomeClasses: () -> 'outcome type_' + this.id,
+        options: () ->
+          {
+            dragClass: '.sticky',
+            group: 'sessions'
+          }
       }
     })
     Vue.component('outcome', outcome)
+
 
     component = Vue.extend({
       template: """
@@ -136,14 +157,26 @@
   <outcome
     v-for="outcome in outcomes"
     :key="outcome.id"
-    :title="outcome.title"
-    :sessions="sessionsFor(outcome)">
+    :outcome="outcome"
+    :outcomes="outcomesMap"
+    :sessions="sessionsFor(outcome)"
+    :allSessions="sessionsMap">
   </outcome>
-</ul>""",
+</ul>
+""",
+      computed: {
+        outcomesMap: () ->
+          this.outcomes.reduce(((acc, item) -> acc[item.id] = item; acc), {})
+        sessionsMap: () ->
+          this.sessions.reduce(((acc, item) -> acc[item.id] = item; acc), {})
+      },
       methods: {
         sessionsFor: (outcome) ->
-          this.sessions.filter((session, idx) -> (session.outcome || {id: 0}).id == outcome.id)
-      }
+          ss = this.sessions.filter((session, idx) -> (session.outcome || {id: 0}).id == outcome.id)
+          reviews_score = (reviews) ->
+             reviews.reduce(((acc, r) -> acc + r.recommendation_id), 0)
+          ss.sort((a, b) -> reviews_score(a.reviews) - reviews_score(b.reviews))
+      },
       data: () ->
         {
           outcomes: [
@@ -176,7 +209,7 @@
               reviews: [
                 { recommendation_id: 3, comment: 'Vai saber o que esse cara quer', confidence: 1 },
                 { recommendation_id: 2, comment: 'Agora vai!', confidence: 3 },
-                { recommendation_id: 3, comment: '', confidence: 4 },
+                { recommendation_id: 1, comment: '', confidence: 4 },
               ]
             }
           ],
