@@ -4,5 +4,4 @@
 require 'spec_helper'
 
 RSpec.describe SelectSessionsController, type: :controller do
-
 end
