@@ -23,11 +23,25 @@ class ReviewDecisionsController < ApplicationController
   def create
     @review_decision = ReviewDecision.new(decision_params)
     if @review_decision.save
-      flash[:notice] = t('flash.review_decision.create.success')
-      redirect_to organizer_sessions_path(@conference)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = t('flash.review_decision.create.success')
+          redirect_to organizer_sessions_path(@conference)
+        end
+        format.json do
+          render json: @review_decision
+        end
+      end
     else
-      flash.now[:error] = t('flash.failure')
-      render :new
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = t('flash.failure')
+          render :new
+        end
+        format.json do
+          render json: { errors: @review_decision.errors.full_messages }, status: 422
+        end
+      end
     end
   end
 
@@ -38,11 +52,25 @@ class ReviewDecisionsController < ApplicationController
   def update
     @review_decision = resource
     if @review_decision.update_attributes(decision_params)
-      flash[:notice] = t('flash.review_decision.update.success')
-      redirect_to organizer_sessions_path(@conference)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = t('flash.review_decision.update.success')
+          redirect_to organizer_sessions_path(@conference)
+        end
+        format.json do
+          render json: @review_decision
+        end
+      end
     else
-      flash.now[:error] = t('flash.failure')
-      render :edit
+      respond_to do |format|
+        format.html do
+          flash.now[:error] = t('flash.failure')
+          render :edit
+        end
+        format.json do
+          render json: { errors: @review_decision.errors.full_messages }, status: 422
+        end
+      end
     end
   end
 

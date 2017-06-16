@@ -12,6 +12,9 @@
         replace(/\W/g, '').
         toUpperCase()
 
+    getYear = (vue) ->
+      ((vue.$router || {}).path || '').replace(/^\/(\d+)\/.*/, '/$1')
+
     review = Vue.extend({
       props: {
         comment: String,
@@ -108,7 +111,8 @@
         outcome: Object,
         outcomes: Object,
         sessions: Array,
-        allSessions: Object
+        allSessions: Object,
+        showNoteModal: Boolean,
       },
       template: """
 <li :class="outcomeClasses" :id="htmlId">
@@ -128,9 +132,29 @@
           newOutcome = this.outcomes[newOutcomeId]
           sessionId = event.item.dataset.sessionId
           session = this.allSessions[sessionId]
+          previousOutcomeId = event.from.dataset.outcomeId
+          previousOutcome = this.outcomes[previousOutcomeId]
+          self = this
           if session
-            session.review_decision ||= {}
-            session.review_decision.outcome = newOutcome
+            method = 'POST'
+            path = "#{getYear(self)}/sessions/#{session.id}/review_decisions"
+            if session.review_decision
+              method = 'PATCH'
+              path += "/#{session.review_decision.id}"
+            path += '.json'
+            self.showNoteModal = true
+            data = { review_decision: { outcome_id: newOutcomeId, note_to_authors: newOutcome.title } }
+            $.ajax({
+              url: path,
+              method: method,
+              data: JSON.stringify(data),
+              contentType: 'application/json; charset=utf-8',
+              dataType: 'json',
+              success: (data) ->
+                session.review_decision = data
+              error: (error) ->
+                console.log(JSON.stringify(error))
+            })
       },
       computed: {
         title: () -> this.outcome.title,
@@ -146,19 +170,74 @@
     })
     Vue.component('outcome', outcome)
 
-
-    component = Vue.extend({
+    modal = Vue.extend({
       template: """
-<ul class="board">
-  <outcome
-    v-for="outcome in outcomes"
-    :key="outcome.id"
-    :outcome="outcome"
-    :outcomes="outcomesMap"
-    :sessions="sessionsFor(outcome)"
-    :allSessions="sessionsMap">
-  </outcome>
-</ul>
+<div class="modal-mask" @click="close" v-show="show" transition="modal">
+  <div class="modal-container" @click.stop>
+    <slot></slot>
+  </div>
+</div>
+""",
+      props: ['show', 'onClose'],
+      methods: {
+        close: () ->
+          this.onClose()
+      },
+      ready: () ->
+        document.addEventListener "keydown", (e) ->
+          if (this.show && e.keyCode == 27)
+            this.onClose()
+    })
+    Vue.component('modal', modal)
+
+    noteModal = Vue.extend({
+      template: """
+<modal :show.sync="show" :on-close="close">
+  <div class="modal-header">
+    <slot name="header">Session title</slot>
+  </div>
+
+  <div class="modal-body">
+    <slot name="body">Note to authors</slot>
+  </div>
+
+  <div class="modal-footer">
+    <slot name="footer">
+      <button class="modal-default-button" @click="$emit('close')">Save</button>
+    </slot>
+  </div>
+</modal>
+""",
+      props: {
+        show: Boolean,
+      },
+      data: () ->
+        { title: '', body: '' }
+      methods: {
+        close: () ->
+          this.show = false
+          this.title = ''
+          this.body = ''
+      }
+    })
+    Vue.component('note-modal', noteModal)
+
+    outcomesBoard = Vue.extend({
+      template: """
+<div>
+  <ul class="board">
+    <outcome
+      v-for="outcome in outcomes"
+      :key="outcome.id"
+      :outcome="outcome"
+      :outcomes="outcomesMap"
+      :sessions="sessionsFor(outcome)"
+      :allSessions="sessionsMap"
+      :modal-sync="showNoteModal">
+    </outcome>
+  </ul>
+  <note-modal :show.sync="showNoteModal"></note-modal>
+</div>
 """,
       computed: {
         outcomesMap: () ->
@@ -173,11 +252,15 @@
              reviews.reduce(((acc, r) -> acc + r.recommendation_id), 0)
           ss.sort((a, b) -> reviews_score(a.final_reviews) - reviews_score(b.final_reviews))
       },
-      data: () -> { outcomes: [], sessions: [] },
+      data: () -> {
+        outcomes: [],
+        sessions: [],
+        showNoteModal: false,
+      },
       mounted: () ->
         self = this
         $.ajax({
-          url: 'outcomes.json',
+          url: "#{getYear(self)}/outcomes.json",
           method: 'GET',
           success: (data) ->
             remoteOutcomes = data || []
@@ -186,14 +269,14 @@
           error: (error) -> console.log(JSON.stringify(error))
         })
         $.ajax({
-          url: 'organizer_sessions.json',
+          url: "#{getYear(self)}/organizer_sessions.json",
           method: 'GET',
           success: (data) ->
             self.sessions = data || []
           error: (error) -> console.log(JSON.stringify(error))
         })
     })
-    Vue.component('select-sessions', component)
+    Vue.component('select-sessions', outcomesBoard)
 
     app = new Vue(el: '#vue_app', data: { currentView: 'select-sessions' })
   )()
