@@ -2,28 +2,28 @@
 
 %p
   We are thrilled to announce that
-  %bold your session '#{h(@session.title)}' was approved
+  %strong your session '#{h(@session.title)}' was approved
   for #{@conference_name}'s program!
 
-%p We had a record number of submissions this year, with 326 different session proposals - and it was a huge challenge to select the 60 (sixty) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
+%p We received a great number of submissions and it was a challenge to select the 62 (sixty two) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
 
 %p
   Now, you must take some actions
-  %bold until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')}
+  %strong until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')}
   to confirm or withdraw your participation as a speaker this year. Let's check those:
 
 %ol
   %li
-    %bold Review critics and suggestions
+    %strong Review critics and suggestions
     made by the reviewers at:
     = link_to session_reviews_url(@conference, @session, type: :final, locale: 'en') + '.', session_reviews_url(@conference, @session, type: :final, locale: 'en')
-    It is possible that something needs to be changed and, if that is the case, you will be able to take care of it in the next step.
+    It is possible that something needs to be changed and, if that is the case, this will be done on action (2).
   %li
-    %bold Confirm your attendance
+    %strong Confirm your attendance
     on the conference and perform any suggested changes made by the reviewers. To do so, access this form:
     = link_to session_confirm_url(@conference, @session, locale: 'en'), session_confirm_url(@conference, @session, locale: 'en')
   %li
-    %bold In case you won't be able to attend the conference, confirm your withdrawal
+    %strong In case you won't be able to attend the conference, confirm your withdrawal
     through the form:
     = link_to session_withdraw_url(@conference, @session, locale: 'en'), session_withdraw_url(@conference, @session, locale: 'en')
     Note that, once you confirm your withdrawal, this is a final decision that cannot be changed.
@@ -41,7 +41,7 @@
 - if @session.authors.size > 1 && @session.duration_mins < 50
   %p
     Note that, although you have two presenters for your proposal, there is
-    %bold only one complementary registration per 25 minutes proposal.
+    %strong only one complementary registration per 25 minutes proposal.
     When the organization contacts you, you will have to chose which presenter will use the registration.
     The other one will have to register as a regular attendee.
 
@@ -50,7 +50,7 @@
 %p
   Once again, congratulations!
   %br
-  We hope to see you in Curitiba in November!
+  We hope to see you in Belem in September!
 
 %p Our best regards,
 
@@ -58,7 +58,7 @@
   %br
   = "--"
   %br
-  %bold Program Committee
-  %bold= @conference_name
+  %strong Program Committee
+  %strong= @conference_name
 
 %small [Please do not reply to this e-mail. It was sent from an unmonitored email address]

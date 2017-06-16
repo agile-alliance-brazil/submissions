@@ -4,7 +4,7 @@ Olá, #{@session.authors.map(&:full_name).join(" & ")}!
 Temos uma boa e uma má notícia sobre a sua proposta '#{h(@session.title)}', submetida para a #{@conference_name}.
 
 
-A má notícia é que, neste momento, sua sessão não foi selecionada para compor o programa. Tivemos um número recorde de submissões neste ano, totalizando 326 diferentes propostas de sessão - e foi realmente um desafio selecionar as 60 (sessenta) que integrarão nossa grade ao longo dos três dias de conferência.
+A má notícia é que, neste momento, sua sessão não foi selecionada para compor o programa. Tivemos um número grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência.
 
 
 Porém, a boa notícia é que sua sessão foi muito bem avaliada e consta na lista de propostas backup, podendo ainda vir a ser selecionada! :)
@@ -13,15 +13,15 @@ Porém, a boa notícia é que sua sessão foi muito bem avaliada e consta na lis
 Fique atento(a) e não perca as esperanças, pois havendo desistência de autores aprovados as sessões em backup serão chamadas gradualmente. Caso sua proposta seja selecionada, a organização da #{@conference_name} entrará em contato.
 
 
-Por enquanto, você#{@session.authors.size > 1 ? "s":""} pode#{@session.authors.size > 1 ? "m":""} ver o feedback específico da sua proposta por aqui:
+Veja as revisões específicas sobre sua sessão aqui:
 
 = session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
 
 
-Se tiver#{@session.authors.size > 1 ? "em":""} qualquer dúvida, comentário ou sugestão, não hesite#{@session.authors.size > 1 ? "m":""} em entrar em contato com o Comitê de Programa através do email programa@agilebrazil.com.
+Em caso de dúvidas, pedidos ou comentários, não hesite#{@session.authors.size > 1 ? "m":""} em procurar o Comitê de Programa através do email programa@agilebrazil.com.
 
 
-Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais esse recorde quebrado na história da Agile Brazil :) Esperamos recepcioná-lo#{@session.authors.size > 1 ? "s":""} em Curitiba para a conferência deste ano, e também receber novas propostas de submissão suas em 2017!
+Esperamos ter boas notícias em breve e, independentemente disso, esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém este ano!
 
 
 Um grande abraço,

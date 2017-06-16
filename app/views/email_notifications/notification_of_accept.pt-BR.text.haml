@@ -4,7 +4,7 @@ Olá, #{@session.authors.map(&:full_name).join(" & ")}!
 É com grande satisfação que comunicamos a entrada da sua sessão '#{h(@session.title)}' no programa da #{@conference_name}!
 
 
-Tivemos um número recorde de submissões neste ano, totalizando 326 diferentes propostas de sessão - e foi realmente um desafio selecionar as 60 (sessenta) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
 
 
 Agora, você precisa tomar algumas ações até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')} para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
@@ -30,7 +30,7 @@ A organização da #{@conference_name} entrará em contato em breve para dar in�
 
 
 - if @session.authors.size > 1 && @session.duration_mins < 50
-  Notem quem, apesar de sua proposta ter dois autores, sessões de 25 minutos têm direito a *apenas uma inscrição gratuita*.
+  Notem que, apesar de sua proposta ter dois autores, sessões de 25 minutos têm direito a *apenas uma inscrição gratuita*.
   Quando a organização entrar em contato, vocês deverão escolher qual autor usará a inscrição gratuita. A outra inscrição deverá ser feita pelas vias normais.
 
 
@@ -39,7 +39,7 @@ Em caso de dúvidas, pedidos ou comentários, entre em contato com o Comitê de 
 
 Mais uma vez, parabéns!
 
-Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Curitiba em novembro!
+Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém em setembro!
 
 
 Um grande abraço,

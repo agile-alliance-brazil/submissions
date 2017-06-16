@@ -2,30 +2,30 @@
 
 %p
   É com grande satisfação que comunicamos
-  %bold a entrada da sua sessão '#{h(@session.title)}' no programa
+  %strong a entrada da sua sessão '#{h(@session.title)}' no programa
   da #{@conference_name}!
 
-%p Tivemos um número recorde de submissões neste ano, totalizando 326 diferentes propostas de sessão - e foi realmente um desafio selecionar as 60 (sessenta) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
 
 %p
   Agora, você precisa tomar algumas ações
-  %bold até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')}
+  %strong até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')}
   para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
 
 %ol
   %li
-    %bold Consulte as críticas e sugestões
+    %strong Consulte as críticas e sugestões
     feitas pelos avaliadores acessando o endereço:
     = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR') + '.', session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
     É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
   %li
-    %bold Confirme sua presença
+    %strong Confirme sua presença
     na conferência e
-    %bold efetue quaisquer mudanças
+    %strong efetue quaisquer mudanças
     sugeridas pelos avaliadores. Para isso, acesse este formulário:
     = link_to session_confirm_url(@conference, @session, locale: 'pt-BR'), session_confirm_url(@conference, @session, locale: 'pt-BR')
   %li
-    %bold Caso você não possa comparecer ao evento, confirme sua desistência
+    %strong Caso você não possa comparecer ao evento, confirme sua desistência
     através do formulário:
     = link_to session_withdraw_url(@conference, @session, locale: 'pt-BR') + '.', session_withdraw_url(@conference, @session, locale: 'pt-BR')
     Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
@@ -42,8 +42,8 @@
 
 - if @session.authors.size > 1 && @session.duration_mins < 50
   %p
-    Notem quem, apesar de sua proposta ter dois autores, sessões de 25 minutos têm direito a
-    %bold apenas uma inscrição gratuita.
+    Notem que, apesar de sua proposta ter dois autores, sessões de 25 minutos têm direito a
+    %strong apenas uma inscrição gratuita.
     Quando a organização entrar em contato, vocês deverão escolher qual autor usará a inscrição gratuita. A outra inscrição deverá ser feita pelas vias normais.
 
 %p Em caso de dúvidas, pedidos ou comentários, entre em contato com o Comitê de Programa através do e-mail #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
@@ -51,12 +51,12 @@
 %p
   Mais uma vez, parabéns!
   %br
-  Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Curitiba em novembro!
+  Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém em setembro!
 
 %p Um grande abraço,
 
 %p
-  %bold
+  %strong
     = "--"
     %br
     Comissão de Programa

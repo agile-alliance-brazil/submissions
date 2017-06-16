@@ -3,9 +3,11 @@
 %p
   Infelizmente, não foi dessa vez :(
   %br
-  Sua proposta '#{h(@session.title)}' <strong>não foi selecionada</strong> para compor o programa da #{@conference_name}.
+  Sua proposta '#{h(@session.title)}'
+  %strong não foi selecionada
+  para compor o programa da #{@conference_name}.
 
-%p Tivemos um número recorde de submissões neste ano, totalizando 326 diferentes propostas de sessão - e foi realmente um desafio selecionar as 60 (sessenta) que integrarão nossa grade ao longo dos três dias de conferência.
+%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência.
 
 %p Nesse processo, tivemos que abrir mão de muitas sessões com excelentes feedbacks dos revisores, considerando nossa necessidade de manter um conjunto de alta qualidade e com um bom equilíbrio entre as trilhas, os níveis de audiência, os tipos de sessão e a diversidade que valorizamos em nosso programa ano após ano.
 
@@ -14,9 +16,9 @@
   %br
   = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR'), session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
 
-%p Se tiver#{@session.authors.size > 1 ? "em":""} qualquer dúvida, comentário ou sugestão, não hesite#{@session.authors.size > 1 ? "m":""} em entrar em contato com o Comitê de Programa através do e-mail #{link_to 'programa@agilebrazil.com', 'mailto:programa@agilebrazil.com'}.
+%p Em caso de dúvidas, pedidos ou comentários, não hesite#{@session.authors.size > 1 ? "m":""} em procurar o Comitê de Programa através do email #{mail_to 'programa@agilebrazil.com'}.
 
-%p Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais esse recorde quebrado na história da Agile Brazil :) Esperamos recepcioná-lo#{@session.authors.size > 1 ? "s":""} em Curitiba para a conferência deste ano, e também receber novas propostas de submissão suas em 2017!
+%p Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais um ano na história da #{@conference_name} :) Esperamos recepcioná-lo#{@session.authors.size > 1 ? "s":""} em Belém para a conferência deste ano, e também receber novas propostas de submissão suas em #{@conference.year + 1}!
 
 %p Um grande abraço,
 
@@ -24,7 +26,7 @@
   %br
   = "--"
   %br
-  %bold Comitê de Programa
-  %bold= @conference_name
+  %strong Comitê de Programa
+  %strong= @conference_name
 
 %small [Por favor não responda este e-mail. Ele foi enviado através de um endereço não monitorado]

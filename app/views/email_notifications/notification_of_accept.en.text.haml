@@ -4,7 +4,7 @@ Hello, #{h(@session.authors.map(&:full_name).join(" & "))}!
 We are thrilled to announce that your session '#{h(@session.title)}' was approved for #{@conference_name}'s program!
 
 
-We had a record number of submissions this year, with 326 different session proposals - and it was a huge challenge to select the 60 (sixty) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
+We received a great number of submissions and it was a challenge to select the 62 (sixty two) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
 
 Now, you must take some actions until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')} to confirm or withdraw your participation as a speaker this year. Let's check those:
 
@@ -13,7 +13,7 @@ Now, you must take some actions until #{@conference.author_confirmation.strftime
 
 = session_reviews_url(@conference, @session, type: :final, locale: 'en')
 
-It is possible that something needs to be changed and, if that is the case, you will be able to take care of it in the next step.
+It is possible that something needs to be changed and, if that is the case, this will be done on action (2).
 
 
 2) Confirm your attendance on the conference and perform any suggested changes made by the reviewers. To do so, access this form:
@@ -47,7 +47,7 @@ In case you have any doubts, requests or comments, you can contact the Program C
 
 Once again, congratulations!
 
-We hope to see you in Curitiba in November!
+We hope to see you in Belem in September!
 
 
 Our best regards,
