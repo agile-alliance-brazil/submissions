@@ -22,16 +22,16 @@ class ReviewPublisher
   private
 
   def ensure_all_sessions_reviewed
-    not_reviewed_count = Session.not_reviewed_count_for(current_conference)
-    raise "There are #{not_reviewed_count} sessions not reviewed" if not_reviewed_count.positive?
+    not_reviewed = Session.not_reviewed_for(current_conference)
+    raise "There are #{not_reviewed.count} sessions not reviewed: #{not_reviewed.map(&:id)}" if not_reviewed.count.positive?
   end
 
   def ensure_all_decisions_made
-    not_decided_count = Session.not_decided_count_for(current_conference)
-    raise "There are #{not_decided_count} sessions without decision" if not_decided_count.positive?
+    not_decided = Session.not_decided_for(current_conference)
+    raise "There are #{not_decided.count} sessions without decision: #{not_decided.map(&:id)}" if not_decided.count.positive?
 
-    missing_decision = Session.without_decision_count_for(current_conference)
-    raise "There are #{missing_decision} sessions without decision" if missing_decision.positive?
+    missing_decision = Session.without_decision_for(current_conference)
+    raise "There are #{missing_decision.count} sessions without decision: #{missing_decision.map(&:id)}" if missing_decision.count.positive?
   end
 
   def rejected_sessions

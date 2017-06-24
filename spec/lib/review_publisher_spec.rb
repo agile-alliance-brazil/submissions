@@ -23,19 +23,22 @@ describe ReviewPublisher do
   end
 
   it 'should raise error if there are sessions not reviewed' do
-    Session.expects(:not_reviewed_count_for).with(@conference).returns(2)
-    expect(-> { @publisher.publish }).to raise_error('There are 2 sessions not reviewed')
+    sessions = [ FactoryGirl.build(:session), FactoryGirl.build(:session) ]
+    Session.expects(:not_reviewed_for).with(@conference).returns(sessions)
+    expect(-> { @publisher.publish }).to raise_error("There are 2 sessions not reviewed: #{sessions.map(&:id)}")
   end
 
   context 'validating sessions without decision' do
     it 'should raise error if sessions in_review' do
-      Session.expects(:not_decided_count_for).with(@conference).returns(3)
-      expect(-> { @publisher.publish }).to raise_error('There are 3 sessions without decision')
+      sessions = [ FactoryGirl.build(:session), FactoryGirl.build(:session), FactoryGirl.build(:session) ]
+      Session.expects(:not_decided_for).with(@conference).returns(sessions)
+      expect(-> { @publisher.publish }).to raise_error("There are 3 sessions without decision: #{sessions.map(&:id)}")
     end
 
     it "should raise error if reviewed sessions don't have decisions" do
-      Session.expects(:without_decision_count_for).with(@conference).returns(4)
-      expect(-> { @publisher.publish }).to raise_error('There are 4 sessions without decision')
+      sessions = [ FactoryGirl.build(:session), FactoryGirl.build(:session), FactoryGirl.build(:session) ]
+      Session.expects(:without_decision_for).with(@conference).returns(sessions)
+      expect(-> { @publisher.publish }).to raise_error("There are 4 sessions without decision: #{sessions.map(&:id)}")
     end
   end
 

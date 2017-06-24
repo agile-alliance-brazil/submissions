@@ -262,11 +262,8 @@ describe Api::V1::SessionsController, type: :controller do
     end
     context 'with pt-BR locale' do
       before do
-        Timecop.freeze((conference.author_confirmation + 1.day).to_datetime) do
-          get :accepted, format: :json, locale: 'pt-BR', year: conference.year
-        end
+        get :accepted, format: :json, locale: 'pt-BR', year: conference.year
       end
-
       it { should respond_with(:success) }
 
       it 'should return accepted_sessions in a parseable JSON representation' do
@@ -278,11 +275,8 @@ describe Api::V1::SessionsController, type: :controller do
 
     context 'with en locale' do
       before do
-        Timecop.freeze((conference.author_confirmation + 1.day).to_datetime) do
-          get :accepted, format: :json, locale: 'en', year: conference.year
-        end
+        get :accepted, format: :json, locale: 'en', year: conference.year
       end
-
       it { should respond_with(:success) }
 
       it 'should return accepted_sessions in a parseable JSON representation' do
@@ -292,11 +286,10 @@ describe Api::V1::SessionsController, type: :controller do
       end
     end
 
-    context 'before author confirmation date' do
+    context 'before review decision publication' do
       before do
-        Timecop.freeze((conference.author_confirmation - 1.hour).to_datetime) do
-          get :accepted, format: :json, locale: 'en', year: conference.year
-        end
+        @accepted_sessions.map(&:review_decision).each{|rd| rd.published = false; rd.save!}
+        get :accepted, format: :json, locale: 'pt-BR', year: conference.year
       end
 
       it { should respond_with(:success) }
@@ -364,7 +357,10 @@ describe Api::V1::SessionsController, type: :controller do
   end
 
   def create_accepted_session_for(conference)
-    FactoryGirl.create(:session, state: :accepted, author_agreement: true, image_agreement: false, conference: conference)
+    session = FactoryGirl.create(:session, state: :accepted,
+      author_agreement: true, image_agreement: false, conference: conference)
+    FactoryGirl.create(:accepted_decision, session: session, published: true)
+    session
   end
 
   def gravatar_url(gravatar_id)

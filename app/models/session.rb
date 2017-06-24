@@ -91,22 +91,22 @@ class Session < ApplicationRecord
     end
   end
 
-  def self.not_reviewed_count_for(conference)
-    Session.for_conference(conference).where(state: 'created').count
+  def self.not_reviewed_for(conference)
+    Session.for_conference(conference).where(state: 'created')
   end
 
-  def self.not_decided_count_for(conference)
-    Session.for_conference(conference).where(state: 'in_review').count
+  def self.not_decided_for(conference)
+    Session.for_conference(conference).where(state: 'in_review')
   end
 
-  def self.without_decision_count_for(conference)
+  def self.without_decision_for(conference)
     Session.for_conference(conference).where(state: %w[pending_confirmation rejected])
            .joins('left outer join (
         SELECT session_id, count(*) AS cnt
         FROM review_decisions
         GROUP BY session_id
       ) AS review_decision_count
-      ON review_decision_count.session_id = sessions.id').where('review_decision_count.cnt <> 1').count
+      ON review_decision_count.session_id = sessions.id').where('review_decision_count.cnt <> 1')
   end
 
   state_machine initial: :created do

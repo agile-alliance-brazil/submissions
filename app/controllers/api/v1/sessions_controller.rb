@@ -13,6 +13,7 @@ module Api
 
       def index
         sessions = Session.for_conference(@conference).includes(
+          :conference, :author, :second_author, :review_decision,
           session_type: [:translated_contents],
           track: [:translated_contents],
           audience_level: [:translated_contents]
@@ -26,14 +27,12 @@ module Api
       end
 
       def accepted
-        sessions = []
-        if @conference.author_confirmation < Time.zone.now
-          sessions = Session.for_conference(@conference).includes(
-            session_type: [:translated_contents],
-            track: [:translated_contents],
-            audience_level: [:translated_contents]
-          ).where(state: :accepted)
-        end
+        sessions = Session.for_conference(@conference).includes(
+          :conference, :author, :second_author, :review_decision,
+          session_type: [:translated_contents],
+          track: [:translated_contents],
+          audience_level: [:translated_contents]
+        ).where(state: [:pending_confirmation, :accepted], review_decisions: { published: true })
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
@@ -44,6 +43,7 @@ module Api
 
       def show
         session = Session.includes(
+          :conference, :author, :second_author, :review_decision,
           session_type: [:translated_contents],
           track: [:translated_contents],
           audience_level: [:translated_contents]
@@ -102,7 +102,7 @@ module Api
       end
 
       def status_for(session)
-        if session.conference.author_confirmation < Time.zone.now
+        if session.review_decision.try(:published?)
           I18n.t("session.state.#{session.state}")
         else
           I18n.t('session.state.created')
