@@ -288,7 +288,10 @@ describe Api::V1::SessionsController, type: :controller do
 
     context 'before review decision publication' do
       before do
-        @accepted_sessions.map(&:review_decision).each{|rd| rd.published = false; rd.save!}
+        @accepted_sessions.map(&:review_decision).each do |rd|
+          rd.published = false
+          rd.save!
+        end
         get :accepted, format: :json, locale: 'pt-BR', year: conference.year
       end
 
@@ -357,8 +360,9 @@ describe Api::V1::SessionsController, type: :controller do
   end
 
   def create_accepted_session_for(conference)
-    session = FactoryGirl.create(:session, state: :accepted,
-      author_agreement: true, image_agreement: false, conference: conference)
+    session = FactoryGirl.create(:session,
+                                 state: :accepted, author_agreement: true,
+                                 image_agreement: false, conference: conference)
     FactoryGirl.create(:accepted_decision, session: session, published: true)
     session
   end

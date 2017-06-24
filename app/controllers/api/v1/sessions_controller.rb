@@ -32,7 +32,7 @@ module Api
           session_type: [:translated_contents],
           track: [:translated_contents],
           audience_level: [:translated_contents]
-        ).where(state: [:pending_confirmation, :accepted], review_decisions: { published: true })
+        ).where(state: %i[pending_confirmation accepted], review_decisions: { published: true })
         hashes = sessions.map { |s| hash_for(s) }
 
         respond_to do |format|
