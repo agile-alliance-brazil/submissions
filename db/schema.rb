@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003011011) do
+ActiveRecord::Schema.define(version: 20170703152849) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20161003011011) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order",      default: 0, null: false
   end
 
   create_table "pages", force: :cascade do |t|
@@ -328,7 +329,14 @@ ActiveRecord::Schema.define(version: 20161003011011) do
     t.datetime "created_at"
   end
 
+  add_index "taggings", ["context"], name: "index_taggings_on_context"
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+  add_index "taggings", ["taggable_id"], name: "index_taggings_on_taggable_id"
+  add_index "taggings", ["taggable_type"], name: "index_taggings_on_taggable_type"
+  add_index "taggings", ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+  add_index "taggings", ["tagger_id"], name: "index_taggings_on_tagger_id"
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"

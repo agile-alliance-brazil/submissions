@@ -44,8 +44,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts-as-taggable-on (4.0.0)
-      activerecord (>= 4.0)
+    acts-as-taggable-on (5.0.0)
+      activerecord (>= 4.2.8)
     acts_as_commentable (4.0.2)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
@@ -418,7 +418,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.3)
-  acts-as-taggable-on (~> 4.0)
+  acts-as-taggable-on (~> 5.0)
   acts_as_commentable (= 4.0.2)
   airbrake (~> 6.0)
   aws-ses (= 0.6.0)

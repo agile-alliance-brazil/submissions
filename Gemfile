@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'acts-as-taggable-on', '~> 4.0'
+gem 'acts-as-taggable-on', '~> 5.0'
 gem 'acts_as_commentable', '4.0.2'
 gem 'airbrake', '~> 6.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
