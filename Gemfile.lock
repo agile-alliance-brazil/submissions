@@ -182,7 +182,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    haml (4.0.7)
+    haml (5.0.1)
+      temple (>= 0.8.0)
       tilt
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
@@ -378,6 +379,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
+    temple (0.8.0)
     terminal-notifier-guard (1.7.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
@@ -447,7 +449,7 @@ DEPENDENCIES
   guard-konacha-rails
   guard-livereload
   guard-rspec
-  haml (~> 4.0)
+  haml (~> 5.0)
   jquery-rails (~> 4.0)
   jquery-ui-rails (~> 6.0)
   konacha

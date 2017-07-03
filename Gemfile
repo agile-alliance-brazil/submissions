@@ -24,7 +24,7 @@ gem 'doorkeeper', '~> 3.1' # TODO: Remove
 gem 'fancybox-rails', '~> 0.3'
 gem 'formtastic', '3.1.5'
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
-gem 'haml', '~> 4.0'
+gem 'haml', '~> 5.0'
 gem 'jquery-rails', '~> 4.0'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'localized_country_select', '0.9.11'
