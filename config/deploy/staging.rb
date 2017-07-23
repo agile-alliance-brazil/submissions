@@ -28,7 +28,8 @@ set :server_url, 'submissoes-staging.agilebrazil.com'
 # set it globally
 set :ssh_options,
     keys: [
-      File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging')
+      File.join(File.dirname(__FILE__), '..', '..', 'certs', 'digital_ocean_staging'),
+      File.expand_path("$HOME/.ssh/id_submissoes-staging.agilebrazil.com")
     ],
     forward_agent: true,
     auth_methods: %w[publickey]
