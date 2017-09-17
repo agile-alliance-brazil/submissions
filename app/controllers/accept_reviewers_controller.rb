@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class AcceptReviewersController < ApplicationController
@@ -40,7 +39,7 @@ class AcceptReviewersController < ApplicationController
                   preferences_attributes:
                     %i[accepted audience_level_id track_id]).tap do |attr|
       attr[:state_event] = 'accept'
-      attr[:preferences_attributes].each do |_index, preferences|
+      attr[:preferences_attributes].each_value do |preferences|
         preferences[:reviewer_id] = @reviewer.id
       end
     end

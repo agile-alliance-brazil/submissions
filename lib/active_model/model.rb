@@ -78,8 +78,6 @@ module ActiveModel
     #   person.name # => "bob"
     #   person.age  # => "18"
     def initialize(params = {})
-      return super unless params
-
       params.each do |attr, value|
         public_send("#{attr}=", value)
       end

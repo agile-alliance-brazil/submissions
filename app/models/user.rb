@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class User < ApplicationRecord
@@ -9,16 +8,16 @@ class User < ApplicationRecord
   attr_trimmed    :first_name, :last_name, :username, :email, :twitter_username,
                   :phone, :state, :city, :organization, :website_url, :bio
 
-  has_many :sessions, foreign_key: 'author_id'
-  has_many :organizers
-  has_many :all_organized_tracks, through: :organizers, source: :track
-  has_many :reviewers
-  has_many :reviews, foreign_key: 'reviewer_id'
-  has_many :early_reviews, foreign_key: 'reviewer_id'
-  has_many :final_reviews, foreign_key: 'reviewer_id'
-  has_many :votes
-  has_many :voted_sessions, through: :votes, source: :session
-  has_many :comments
+  has_many :sessions, foreign_key: 'author_id', dependent: :restrict_with_exception
+  has_many :organizers, dependent: :destroy
+  has_many :all_organized_tracks, through: :organizers, source: :track, dependent: :nullify
+  has_many :reviewers, dependent: :destroy
+  has_many :reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
+  has_many :early_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
+  has_many :final_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
+  has_many :votes, dependent: :destroy
+  has_many :voted_sessions, through: :votes, source: :session, dependent: :destroy
+  has_many :comments, dependent: :nullify
 
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }

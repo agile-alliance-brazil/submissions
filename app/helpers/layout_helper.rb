@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 # These helper methods can be called in your template to set variables to be used in the layout

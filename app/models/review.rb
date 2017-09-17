@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Review < ApplicationRecord
@@ -13,7 +12,7 @@ class Review < ApplicationRecord
   belongs_to :reviewer_confidence_rating, class_name: 'Rating'
   belongs_to :recommendation # Early review doesn't have it but needs for feedbacks
 
-  has_many :review_evaluations
+  has_many :review_evaluations, dependent: :restrict_with_exception
 
   validates :author_agile_xp_rating_id, presence: true
   validates :author_proposal_xp_rating_id, presence: true

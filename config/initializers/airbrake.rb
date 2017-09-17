@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 require File.join(File.dirname(__FILE__), '00_app_config') unless defined?(APP_CONFIG)

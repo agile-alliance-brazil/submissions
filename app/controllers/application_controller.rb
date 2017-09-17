@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
@@ -27,7 +26,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = t('flash.unauthorised')
     begin
       redirect_to :back
-    rescue
+    rescue ActionController::RedirectBackError
       redirect_to root_path
     end
   end
@@ -102,12 +101,12 @@ class ApplicationController < ActionController::Base
   def authorize_action
     obj = begin
             resource
-          rescue
+          rescue StandardError
             nil
           end
     clazz = begin
               resource_class
-            rescue
+            rescue StandardError
               nil
             end
     action = params[:action].to_sym

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 ActionMailer::Base.smtp_settings = APP_CONFIG[:smtp_settings]

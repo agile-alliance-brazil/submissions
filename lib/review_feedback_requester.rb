@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class ReviewFeedbackRequester
@@ -20,7 +19,7 @@ class ReviewFeedbackRequester
   def try_with(author)
     EmailNotifications.review_feedback_request(author).deliver_now
     Rails.logger.info('  [REQUEST FEEDBACK] OK')
-  rescue => e
+  rescue StandardError => e
     Airbrake.notify(e.message, action: 'request review feedback', author: author)
     Rails.logger.info("  [FAILED REQUEST FEEDBACK] #{e.message}")
   ensure

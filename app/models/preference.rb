@@ -1,11 +1,10 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Preference < ApplicationRecord
   belongs_to :reviewer
   belongs_to :track
   belongs_to :audience_level
-  has_one :user, through: :reviewer
+  has_one :user, through: :reviewer, dependent: :restrict_with_exception
 
   validates :accepted, inclusion: { in: [true, false] }, reviewer_track: { if: :accepted? }
   validates :reviewer, existence: true

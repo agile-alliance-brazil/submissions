@@ -61,10 +61,10 @@ Metrics/BlockLength:
 Style/Documentation:
   Enabled: false
 
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Enabled: false
 
 Rails/TimeZone:
@@ -80,7 +80,7 @@ Rails/SkipsModelValidations:
 Rails/OutputSafety:
   Enabled: false # Having weird errors with safe_join
 
-Style/FileName:
+Naming/FileName:
   Exclude:
     - 'Guardfile'
     - 'Vagrantfile'

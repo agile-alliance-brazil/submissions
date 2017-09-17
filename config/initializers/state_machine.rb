@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 # Rails 4.1.0.rc1 and StateMachine don't play nice

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 Dir.glob(Rails.root.join('lib', '*_extensions', '**', '*.rb')) do |file|

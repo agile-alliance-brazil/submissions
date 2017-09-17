@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Session < ApplicationRecord
@@ -17,11 +16,11 @@ class Session < ApplicationRecord
   belongs_to :audience_level
   belongs_to :conference
 
-  has_many :early_reviews
-  has_many :final_reviews
-  has_many :votes
+  has_many :early_reviews, dependent: :restrict_with_exception
+  has_many :final_reviews, dependent: :restrict_with_exception
+  has_many :votes, dependent: :destroy
 
-  has_one :review_decision
+  has_one :review_decision, dependent: :restrict_with_exception
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :summary, presence: true, length: { maximum: 800 }

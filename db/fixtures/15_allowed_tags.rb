@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 tags = ActsAsTaggableOn::Tag.where(name: ['tags.continuous_improvement', 'tags.learning', 'tags.culture', 'tags.ideas',

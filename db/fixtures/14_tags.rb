@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.commitment' }

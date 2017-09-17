@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 desc 'Task to run on CI: runs RSpec specs and Konacha specs'

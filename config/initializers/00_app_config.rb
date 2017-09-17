@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 config_file = File.join(File.dirname(__FILE__), '..', '..', 'config', 'config.yml')

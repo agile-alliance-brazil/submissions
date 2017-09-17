@@ -87,7 +87,7 @@ def setup_droplet(droplet)
   `#{ssh_command}` # Adding new machine to known hosts
   first_deploy = "bundle exec ruby deploy/first_deploy.rb ubuntu #{droplet[:ipv4]} #{TYPE} #{key_path}"
   deploy_result = `#{first_deploy}`
-  return "ERROR: Deploy failed on #{droplet[:ipv4]}\n\#{deploy_result}" unless $CHILD_STATUS.to_i.zero?
+  return "ERROR: Deploy failed on #{droplet[:ipv4]}\n#{deploy_result}" unless $CHILD_STATUS.to_i.zero?
 
   url = "https://#{droplet[:ipv4]}"
   `curl -k "#{url}"`

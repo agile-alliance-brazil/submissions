@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 # This module is included in your user model which makes
@@ -39,7 +38,7 @@ module Authorization
 
   def role_index(role)
     2**ROLES.index(role)
-  rescue
+  rescue StandardError
     0
   end
 end

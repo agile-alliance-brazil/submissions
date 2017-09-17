@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class SameConferenceValidator < ActiveModel::EachValidator
@@ -14,7 +13,7 @@ class SameConferenceValidator < ActiveModel::EachValidator
 
     target = options[:target] ? record.send(options[:target].to_sym) : record
 
-    return if model && model.conference_id == target.conference_id
+    return if model&.conference_id == target.conference_id
 
     record.errors.add(attribute, options[:message])
   end

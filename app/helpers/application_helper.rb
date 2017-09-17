@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 # Methods added to this helper will be available to all templates in the application.

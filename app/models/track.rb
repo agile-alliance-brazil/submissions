@@ -1,11 +1,10 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Track < ApplicationRecord
   belongs_to :conference
-  has_many :sessions
-  has_many :track_ownerships, class_name: 'Organizer'
-  has_many :organizers, through: :track_ownerships, source: :user
+  has_many :sessions, dependent: :restrict_with_exception
+  has_many :track_ownerships, class_name: 'Organizer', dependent: :destroy
+  has_many :organizers, through: :track_ownerships, source: :user, dependent: :destroy
   has_many :translated_contents, as: :model, dependent: :destroy
   accepts_nested_attributes_for :translated_contents
 

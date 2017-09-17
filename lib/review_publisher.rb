@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class ReviewPublisher
@@ -52,7 +51,7 @@ class ReviewPublisher
     decision.published = true
     decision.save!
     Rails.logger.info("  [#{action}] OK")
-  rescue => e
+  rescue StandardError => e
     Airbrake.notify(e.message, action: "Publish review with #{action}", session: session)
     Rails.logger.info("  [FAILED #{action}] #{e.message}")
   ensure

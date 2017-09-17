@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Conference < ApplicationRecord
@@ -15,10 +14,10 @@ class Conference < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-  has_many :pages
-  has_many :tracks
-  has_many :audience_levels
-  has_many :session_types
+  has_many :pages, dependent: :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :audience_levels, dependent: :destroy
+  has_many :session_types, dependent: :destroy
 
   validates :name, presence: true
   validates :year, presence: true, constant: { on: :update }

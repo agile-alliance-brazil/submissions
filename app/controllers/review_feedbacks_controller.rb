@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class ReviewFeedbacksController < ApplicationController
@@ -9,7 +8,7 @@ class ReviewFeedbacksController < ApplicationController
 
     begin
       redirect_to :back
-    rescue
+    rescue ActionController::RedirectBackError
       redirect_to root_path(@conference)
     end
   end

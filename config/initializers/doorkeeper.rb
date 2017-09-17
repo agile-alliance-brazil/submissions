@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 Doorkeeper.configure do
@@ -15,7 +14,7 @@ Doorkeeper.configure do
   admin_authenticator do
     # Put your admin authentication logic here.
     # Example implementation:
-    current_user && current_user.admin? ? current_user : redirect_to(root_url)
+    current_user&.admin? ? current_user : redirect_to(root_url)
   end
 
   # Authorization Code expiration time (default 10 minutes).

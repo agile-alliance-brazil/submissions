@@ -1,8 +1,7 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class AudienceLevel < ApplicationRecord
-  has_many :sessions
+  has_many :sessions, dependent: :restrict_with_exception
   belongs_to :conference
   has_many :translated_contents, as: :model, dependent: :destroy
   accepts_nested_attributes_for :translated_contents

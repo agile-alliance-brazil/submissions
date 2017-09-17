@@ -1,10 +1,9 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class Recommendation < ApplicationRecord
   validates :name, presence: true
 
-  has_many :reviews
+  has_many :reviews, dependent: :restrict_with_exception
 
   def self.all_names
     %w[strong_accept weak_accept weak_reject strong_reject]

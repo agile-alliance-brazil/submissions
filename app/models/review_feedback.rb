@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # frozen_string_literal: true
 
 class ReviewFeedback < ApplicationRecord
@@ -6,7 +5,7 @@ class ReviewFeedback < ApplicationRecord
 
   belongs_to :conference
   belongs_to :author, class_name: 'User'
-  has_many :review_evaluations, inverse_of: :review_feedback
+  has_many :review_evaluations, inverse_of: :review_feedback, dependent: :restrict_with_exception
   accepts_nested_attributes_for :review_evaluations
 
   validates :conference, presence: true, existence: true
