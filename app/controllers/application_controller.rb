@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :sessions_by_track
   helper_method :sessions_by_type
   helper_method :gravatar_url
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   around_action :set_locale
   around_action :set_timezone
