@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-desc 'Task to run on CI: runs RSpec specs and Konacha specs'
-task ci: %i[spec codeclimate-test-reporter rubocop brakeman konacha]
+desc 'Task to run on CI: runs RSpec specs and Brakeman specs'
+task ci: %i[spec codeclimate-test-reporter rubocop brakeman]
 
 namespace :ci do
-  desc 'Task to run on CI: runs RSpec specs and Konacha specs'
-  task all: %i[spec codeclimate-test-reporter rubocop brakeman konacha]
+  desc 'Task to run on CI: runs RSpec specs and Brakeman specs'
+  task all: %i[spec codeclimate-test-reporter rubocop brakeman]
 end
 
 task :'codeclimate-test-reporter' do
@@ -16,12 +16,6 @@ end
 
 task :rubocop do
   sh 'bundle exec rubocop'
-end
-
-task :konacha do
-  MY_DIR = File.expand_path(File.join(File.dirname(__FILE__), '../../'))
-  ENV['PATH'] = "#{ENV['PATH']}:#{MY_DIR}/bin:#{MY_DIR}/bin/#{`uname`}"
-  system("PATH=#{ENV['PATH']} bundle exec rake konacha:run")
 end
 
 task :brakeman do

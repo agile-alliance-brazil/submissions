@@ -32,7 +32,7 @@ gem 'modernizr-rails'
 gem 'mysql2', '~> 0.4'
 gem 'newrelic_rpm'
 gem 'paperclip', '~> 5.0'
-gem 'rails', '~> 4.2' # TODO: 5.0 needs konacha > 4.0.0
+gem 'rails', '~> 4.2' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0'
 gem 'seed-fu', '~> 2.3'
 gem 'state_machine', '1.2.0'
@@ -74,10 +74,8 @@ group :development, :test do
   gem 'brakeman'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'guard-konacha-rails'
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'konacha' # TODO: Rails 5.0 needs konacha > 4.0.0
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'pry-rails'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')

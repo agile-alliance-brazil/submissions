@@ -5,8 +5,6 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups) if defined?(Bundler)
 
-I18n.available_locales = %i[en pt-BR] # for guard-konacha
-
 module AgileBrazil
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
