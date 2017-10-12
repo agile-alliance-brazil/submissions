@@ -20,3 +20,4 @@ spec/javascripts/*.js
 .vagrant
 /vendor/cache
 /public/system
+*.iml
