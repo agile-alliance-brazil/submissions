@@ -44,6 +44,14 @@ vagrant destroy -f deploy && vagrant up deploy && bundle && bundle exec ruby dep
 Note that Capistrano uses the code currently available in github so you need to push to test it.
 You can set up `config/deploy/vagrant.rb` to use a different branch with `set :branch, 'your_branch'`.
 
+
+local without vagrant:
+brew install mysql
+bundle install
+cp config/config.example config/config.yml
+brew install imagemagick
+bundle exec rspec
+
 ### Deploying to a cloud
 
 If you're deploying to any cloud, after you've created your virtual machine, add `config/<vms_ip>_config.yml`, `config/<vms_ip>_database.yml`, `config/<vms_ip>_newrelic.yml`. You can, optionally, also add `certs/<vms_ip>_server.crt`, `certs/<vms_ip>_server_key.pem` and `certs/<vms_ip>_server_key.pem` to set up apache to work with SSL. Then run:
