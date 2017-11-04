@@ -13,8 +13,12 @@ class FinalReview < Review
   end
 
   Recommendation.all_names.each do |type|
-    define_method("#{type}?") do # def strong_accept?
-      recommendation.try(:"#{type}?") #   recommendation.try(:strong_accept?)
-    end # end
+    define_method("#{type}?") do
+      recommendation.try(:"#{type}?")
+    end
+    # Generates
+    # def strong_accept?
+    #   recommendation.try(:strong_accept?)
+    # end
   end
 end

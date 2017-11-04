@@ -44,7 +44,7 @@ class Conference < ApplicationRecord
   # TODO: tests
   def default_page
     home_page = Page.for_conference(self).with_path('home').includes(:translated_contents).first
-     # TODO: The next conditional is legacy, remove once confirmed it is never executed
+    # TODO: The next conditional is legacy, remove once confirmed it is never executed
     home_page = Page.for_conference(self).with_path('/').includes(:translated_contents).first if home_page.nil?
     home_page
   end
