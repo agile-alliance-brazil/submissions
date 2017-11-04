@@ -1,4 +1,4 @@
-%p Hello, #{h(@session.authors.map(&:full_name).join(" & "))}!
+%p Hello, #{h(@session.authors.map(&:full_name).join(" & ").html_safe)}!
 
 %p
   We are thrilled to announce that

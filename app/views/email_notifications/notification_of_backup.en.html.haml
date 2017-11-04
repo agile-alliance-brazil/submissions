@@ -1,4 +1,4 @@
-%p Hello, #{h(@session.authors.map(&:full_name).join(" & "))}!
+%p Hello, #{h(@session.authors.map(&:full_name).join(" & ").html_safe)}!
 
 %p We have good and bad news regarding your session proposal '#{h(@session.title)}' submitted to #{@conference_name}.
 

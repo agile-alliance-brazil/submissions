@@ -1,4 +1,4 @@
-%p Dear #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Dear #{h(@session.authors.map(&:full_name).join(" & ").html_safe)},
 
 %p
   An early review has been submitted to your session <strong>'#{h(@session.title)}'</strong>. It can be found at:

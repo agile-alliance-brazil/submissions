@@ -1,4 +1,4 @@
-%p Olá #{h(@session.authors.map(&:full_name).join(" & "))},
+%p Olá #{h(@session.authors.map(&:full_name).join(" & ").html_safe)},
 
 %p
   Uma pré-avaliação foi submetida para sua sessão <strong>'#{h(@session.title)}'</strong>. Ela pode ser visualizada em:
