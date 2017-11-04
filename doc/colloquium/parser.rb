@@ -32,7 +32,7 @@ FasterCSV.open('sessions.csv', 'w') do |csv|
 
   sessions.each do |session|
     day = session.date.match(%r{\d+/\d+})[0]
-    start_at = DateTime.strptime(day + '/2011 ' + session.start_at, '%d/%m/%Y %H:%M')
+    start_at = Time.strptime(day + '/2011 ' + session.start_at, '%d/%m/%Y %H:%M')
     end_at = session.duration =~ /50/ ? start_at + 1.hour : start_at + 2.hours
     csv << [session.session_id, start_at, end_at]
   end

@@ -41,9 +41,11 @@ class Conference < ApplicationRecord
     nil
   end
 
-  def default_page # TODO: tests
+  # TODO: tests
+  def default_page
     home_page = Page.for_conference(self).with_path('home').includes(:translated_contents).first
-    home_page = Page.for_conference(self).with_path('/').includes(:translated_contents).first if home_page.nil? # TODO: Legacy, remove
+     # TODO: The next conditional is legacy, remove once confirmed it is never executed
+    home_page = Page.for_conference(self).with_path('/').includes(:translated_contents).first if home_page.nil?
     home_page
   end
 
@@ -99,7 +101,7 @@ class Conference < ApplicationRecord
   def in_submission_phase?
     return false if submissions_open.nil? || submissions_deadline.nil?
 
-    now = DateTime.now
+    now = Time.now
     submissions_open <= now && now <= submissions_deadline
   end
 
@@ -110,28 +112,28 @@ class Conference < ApplicationRecord
   def in_early_review_phase?
     return false unless has_early_review?
 
-    now = DateTime.now
+    now = Time.now
     presubmissions_deadline <= now && now <= prereview_deadline
   end
 
   def in_final_review_phase?
     return false if submissions_deadline.nil? || review_deadline.nil?
 
-    now = DateTime.now
+    now = Time.now
     submissions_deadline <= now && now <= review_deadline
   end
 
   def in_author_confirmation_phase?
     return false if author_notification.nil? || author_confirmation.nil?
 
-    now = DateTime.now
+    now = Time.now
     author_notification <= now && now <= author_confirmation
   end
 
   def in_voting_phase?
     return false if voting_deadline.blank?
 
-    DateTime.now <= voting_deadline
+    Time.now <= voting_deadline
   end
 
   DEADLINES = %i[
@@ -149,7 +151,7 @@ class Conference < ApplicationRecord
   end
 
   def next_deadline(role)
-    now = DateTime.now
+    now = Time.now
     deadlines_for(role).select { |deadline| now < deadline.first }.first
   end
 

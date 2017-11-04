@@ -24,7 +24,7 @@ end
 def schedule
   @schedule ||= {}.tap do |sch|
     FasterCSV.foreach('sessions.csv', headers: true) do |line|
-      sch[line[0].to_i] = { start_at: DateTime.parse(line[1]), end_at: DateTime.parse(line[2]) }
+      sch[line[0].to_i] = { start_at: Time.parse(line[1]), end_at: Time.parse(line[2]) }
     end
   end
 end
