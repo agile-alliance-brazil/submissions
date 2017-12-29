@@ -9,8 +9,8 @@ class Session < ApplicationRecord
 
   attr_autocomplete_username_as :second_author
 
-  belongs_to :author, class_name: 'User'
-  belongs_to :second_author, class_name: 'User'
+  belongs_to :author, class_name: 'User', inverse_of: :sessions
+  belongs_to :second_author, class_name: 'User', inverse_of: :sessions
   belongs_to :track
   belongs_to :session_type
   belongs_to :audience_level

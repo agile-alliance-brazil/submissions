@@ -7,3 +7,4 @@ class AddPrerequisitesToSession < ActiveRecord::Migration
     execute 'update sessions set prerequisites="Este campo foi criado na AgileBrazil 2014"'
   end
 end
+# rubocop:enable Rails/ReversibleMigration

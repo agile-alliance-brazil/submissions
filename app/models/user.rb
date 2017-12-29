@@ -8,25 +8,27 @@ class User < ApplicationRecord
   attr_trimmed    :first_name, :last_name, :username, :email, :twitter_username,
                   :phone, :state, :city, :organization, :website_url, :bio
 
-  has_many :sessions, foreign_key: 'author_id', dependent: :restrict_with_exception
+  has_many :sessions, foreign_key: 'author_id', dependent: :restrict_with_exception, inverse_of: :author
   has_many :organizers, dependent: :destroy
-  has_many :all_organized_tracks, through: :organizers, source: :track, dependent: :nullify
+  has_many :all_organized_tracks, through: :organizers, source: :track, dependent: :nullify, inverse_of: :organizers
   has_many :reviewers, dependent: :destroy
-  has_many :reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
-  has_many :early_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
-  has_many :final_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception
+  has_many :reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception, inverse_of: :reviewer
+  has_many :early_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception, inverse_of: :reviewer
+  has_many :final_reviews, foreign_key: 'reviewer_id', dependent: :restrict_with_exception, inverse_of: :reviewer
   has_many :votes, dependent: :destroy
-  has_many :voted_sessions, through: :votes, source: :session, dependent: :destroy
+  has_many :voted_sessions, through: :votes, source: :session, dependent: :destroy, inverse_of: :votes
   has_many :comments, dependent: :nullify
+  has_many :review_decisions, dependent: :restrict_with_exception, inverse_of: :organizer
+  has_many :review_feedbacks, dependent: :restrict_with_exception, inverse_of: :author
 
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }
-  with_options if: :author? do |author|
-    author.validates :phone, presence: true, length: { maximum: 100 }, format: { with: /\A[0-9\(\) .\-\+]+\Z/i }
-    author.validates :country, presence: true
-    author.validates :city, presence: true, length: { maximum: 100 }
-    author.validates :bio, presence: true, length: { maximum: 1600 }
-    author.validates :state, presence: { if: ->(u) { u.author? && u.in_brazil? } }
+  with_options if: :author? do
+    validates :phone, presence: true, length: { maximum: 100 }, format: { with: /\A[0-9\(\) .\-\+]+\Z/i }
+    validates :country, presence: true
+    validates :city, presence: true, length: { maximum: 100 }
+    validates :bio, presence: true, length: { maximum: 1600 }
+    validates :state, presence: { if: -> { author? && in_brazil? } }
   end
   validates :organization, length: { maximum: 100 }, allow_blank: true
   validates :website_url, length: { maximum: 100 }, allow_blank: true

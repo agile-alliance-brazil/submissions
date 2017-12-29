@@ -147,6 +147,7 @@ class AgilebrazilBaseline < ActiveRecord::Migration
 
     create_table :tags do |t|
       t.string :name
+      t.timestamps
     end
 
     create_table :tracks do |t|

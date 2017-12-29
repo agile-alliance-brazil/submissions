@@ -3,12 +3,6 @@ class railsapp( $user, $app_name ) {
 
   if $rvm_installed == true {
     rvm::system_user { $user:; }
-    rvm_system_ruby { 'ruby-2.3.1':
-        name        => 'ruby-2.3.1',
-        ensure      => 'present',
-        build_opts  => '--disable-binary',
-        default_use => false
-    }
 
     rvm_system_ruby { 'ruby-2.3.3':
         name        => 'ruby-2.3.3',
@@ -17,18 +11,11 @@ class railsapp( $user, $app_name ) {
         default_use => true
     }
 
-    rvm_system_ruby { 'ruby-2.4.0':
-        name        => 'ruby-2.4.0',
+    rvm_system_ruby { 'ruby-2.4.3':
+        name        => 'ruby-2.4.3',
         ensure      => 'present',
         build_opts  => '--disable-binary',
         default_use => false
-    }
-
-    rvm_gem { 'bundler231':
-        name         => 'bundler',
-        ruby_version => 'ruby-2.3.1@global',
-        ensure       => latest,
-        require      => Rvm_system_ruby['ruby-2.3.1'];
     }
 
     rvm_gem { 'bundler233':
@@ -38,11 +25,11 @@ class railsapp( $user, $app_name ) {
         require      => Rvm_system_ruby['ruby-2.3.3'];
     }
 
-    rvm_gem { 'bundler240':
+    rvm_gem { 'bundler243':
         name         => 'bundler',
-        ruby_version => 'ruby-2.4.0@global',
-        ensure       => latest,
-        require      => Rvm_system_ruby['ruby-2.4.0'];
+        ruby_version => 'ruby-2.4.3@global',
+        ensure       => '1.16.0',
+        require      => Rvm_system_ruby['ruby-2.4.3'];
     }
   }
 

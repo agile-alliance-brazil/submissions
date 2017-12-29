@@ -94,3 +94,4 @@ AgileBrazil::Application.routes.draw do
   end
   root to: 'pages#show'
 end
+# rubocop:enable Metrics/BlockLength

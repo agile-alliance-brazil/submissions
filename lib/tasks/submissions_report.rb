@@ -43,3 +43,4 @@ puts report
 
 active_reviewers = reviewers.reject { |reviewer| reviewer.user.reviews.for_conference(conference).select { |r| r.type == 'FinalReview' }.count.zero? }
 puts active_reviewers.map(&:user).map(&:full_name).sort.join("\n")
+# rubocop:enable Rails/Output

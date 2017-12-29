@@ -5,7 +5,7 @@ class ReviewDecision < ApplicationRecord
 
   belongs_to :session
   belongs_to :outcome
-  belongs_to :organizer, class_name: 'User'
+  belongs_to :organizer, class_name: 'User', inverse_of: :review_decisions
 
   validates :organizer_id, presence: true, existence: true
   validates :session_id, presence: true, existence: true

@@ -2,10 +2,10 @@
 
 class Track < ApplicationRecord
   belongs_to :conference
-  has_many :sessions, dependent: :restrict_with_exception
-  has_many :track_ownerships, class_name: 'Organizer', dependent: :destroy
-  has_many :organizers, through: :track_ownerships, source: :user, dependent: :destroy
-  has_many :translated_contents, as: :model, dependent: :destroy
+  has_many :sessions, dependent: :restrict_with_exception, inverse_of: :track
+  has_many :track_ownerships, class_name: 'Organizer', dependent: :destroy, inverse_of: :track
+  has_many :organizers, through: :track_ownerships, source: :user, dependent: :destroy, inverse_of: :track
+  has_many :translated_contents, as: :model, dependent: :destroy, inverse_of: :model
   accepts_nested_attributes_for :translated_contents
 
   validates :conference, presence: true

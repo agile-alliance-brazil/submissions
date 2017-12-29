@@ -4,7 +4,7 @@ class ReviewFeedback < ApplicationRecord
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :conference
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', inverse_of: :review_feedbacks
   has_many :review_evaluations, inverse_of: :review_feedback, dependent: :restrict_with_exception
   accepts_nested_attributes_for :review_evaluations
 

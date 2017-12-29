@@ -16,7 +16,7 @@ fi
 
 if [[ -z `which bundle` ]]; then
   echo "Installing bundler..."
-  gem --version &> /dev/null && gem install bundler &> /dev/null
+  gem --version &> /dev/null && gem install -v 1.16.0 &> /dev/null
 fi
 
 OSX="false"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TranslatedContent < ApplicationRecord
-  belongs_to :model, polymorphic: true
+  belongs_to :model, polymorphic: true, inverse_of: :translated_contents
 
   validates :language, presence: true, uniqueness: { scope: %i[model_id model_type] }
   validates :title, presence: true

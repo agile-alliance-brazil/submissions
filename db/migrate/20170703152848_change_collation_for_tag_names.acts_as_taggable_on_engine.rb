@@ -16,3 +16,4 @@ ChangeCollationForTagNames.class_eval do
     end
   end
 end
+# rubocop:enable Style/GuardClause

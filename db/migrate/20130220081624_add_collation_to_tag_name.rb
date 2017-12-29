@@ -6,3 +6,4 @@ class AddCollationToTagName < ActiveRecord::Migration
     execute 'ALTER TABLE tags MODIFY name VARCHAR(255) DEFAULT NULL COLLATE utf8_bin' if connection.adapter_name =~ /mysql/i
   end
 end
+# rubocop:enable Rails/ReversibleMigration

@@ -30,6 +30,8 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit; end
+
   def update
     if @review.update(review_params)
       redirect_to session_review_path(@conference, @session, @review), notice: t('reviews.update.success')

@@ -8,7 +8,7 @@ class Reviewer < ApplicationRecord
   belongs_to :user
   belongs_to :conference
   has_many :preferences, dependent: :destroy
-  has_many :accepted_preferences, -> { where('preferences.accepted = ?', true) }, class_name: 'Preference'
+  has_many :accepted_preferences, -> { where('preferences.accepted = ?', true) }, class_name: 'Preference', inverse_of: :reviewer
 
   accepts_nested_attributes_for :preferences
 
