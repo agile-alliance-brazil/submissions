@@ -3,8 +3,6 @@ rvm:
   - 2.4.3
 before_install:
   - gem update --system
-  - gem uninstall -i /home/travis/.rvm/gems/ruby-2.4.3@global -x bundler
-  - gem install bundler -v 1.16.0
 before_script:
   - cp ./config/config.{example,yml}
   - cp ./config/database.{example,yml}
