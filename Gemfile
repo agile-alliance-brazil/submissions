@@ -20,7 +20,7 @@ gem 'coffee-rails', '~> 4.1'
 gem 'devise', '~> 4.0'
 gem 'devise-encryptable', '0.2.0'
 gem 'devise-i18n', '~> 1.0'
-gem 'doorkeeper', '~> 4.0.0' # TODO: Remove in favor of oauth in another app
+gem 'doorkeeper', '~> 4.0' # TODO: Remove in favor of oauth in another app
 gem 'fancybox-rails', '~> 0.3'
 gem 'formtastic', '3.1.5'
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
