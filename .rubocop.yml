@@ -20,18 +20,6 @@ AllCops:
 Rails:
   Enabled: true
 
-Rails/Blank:
-  Exclude: # Rubocop 0.48.0 bug. Already fixed in master. Remove after 0.48.0
-    - 'config/initializers/doorkeeper.rb'
-    - 'lib/auto_complete_username.rb'
-    - 'lib/authorization.rb'
-    - 'app/helpers/actions_helper.rb'
-    - 'app/models/reviewer_batch.rb'
-    - 'app/models/conference.rb'
-    - 'app/models/recommendation.rb'
-    - 'app/models/session_type.rb'
-    - 'app/models/session.rb'
-
 Metrics/LineLength:
   Enabled: false
 
