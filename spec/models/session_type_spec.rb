@@ -16,8 +16,8 @@ describe SessionType, type: :model do
 
   context 'types' do
     before(:each) do
-      @tutorial = FactoryGirl.create(:session_type, title: 'session_types.tutorial.title')
-      @lightning_talk = FactoryGirl.create(:session_type, title: 'session_types.lightning_talk.title')
+      @tutorial = FactoryBot.create(:session_type, title: 'session_types.tutorial.title')
+      @lightning_talk = FactoryBot.create(:session_type, title: 'session_types.lightning_talk.title')
 
       SessionType.stubs(:select).with(:title).returns(SessionType)
       SessionType.stubs(:uniq).returns([@tutorial, @lightning_talk])
@@ -27,16 +27,16 @@ describe SessionType, type: :model do
     end
 
     it 'should determine if it is tutorial' do
-      session_type = FactoryGirl.build(:session_type, title: 'session_types.tutorial.title')
+      session_type = FactoryBot.build(:session_type, title: 'session_types.tutorial.title')
       expect(session_type.send(:tutorial?)).to be true
-      session_type = FactoryGirl.build(:session_type, title: 'session_types.other.title')
+      session_type = FactoryBot.build(:session_type, title: 'session_types.other.title')
       expect(session_type.send(:tutorial?)).to be false
     end
 
     it 'should determine if it is lightning talk' do
-      session_type = FactoryGirl.build(:session_type, title: 'session_types.lightning_talk.title')
+      session_type = FactoryBot.build(:session_type, title: 'session_types.lightning_talk.title')
       expect(session_type.send(:lightning_talk?)).to be true
-      session_type = FactoryGirl.build(:session_type, title: 'session_types.other.title')
+      session_type = FactoryBot.build(:session_type, title: 'session_types.other.title')
       expect(session_type.send(:lightning_talk?)).to be false
     end
   end

@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 describe AcceptReviewersController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference) }
-  let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference) }
-  let(:track) { FactoryGirl.create(:track, conference: conference) }
-  let(:audience_level) { FactoryGirl.create(:audience_level, conference: conference) }
+  let(:conference) { FactoryBot.create(:conference) }
+  let(:reviewer) { FactoryBot.create(:reviewer, conference: conference) }
+  let(:track) { FactoryBot.create(:track, conference: conference) }
+  let(:audience_level) { FactoryBot.create(:audience_level, conference: conference) }
   before(:each) do
     @track = track
     @audience_level = audience_level
@@ -59,7 +59,7 @@ describe AcceptReviewersController, type: :controller do
 
     expect(response).to render_template('accept_reviewers/show')
   end
-  let(:other_track) { FactoryGirl.create(:track, conference: conference) }
+  let(:other_track) { FactoryBot.create(:track, conference: conference) }
   let(:valid_params) do
     {
       reviewer_agreement: '1',

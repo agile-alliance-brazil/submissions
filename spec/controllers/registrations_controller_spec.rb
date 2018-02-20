@@ -7,9 +7,9 @@ describe RegistrationsController, type: :controller do
   it_should_behave_like_a_devise_controller
 
   before(:each) do
-    @user ||= FactoryGirl.create(:user)
+    @user ||= FactoryBot.create(:user)
     # TODO: Remove conference dependency
-    FactoryGirl.create(:conference)
+    FactoryBot.create(:conference)
     EmailNotifications.stubs(:welcome).returns(stub(deliver_now: true))
   end
 

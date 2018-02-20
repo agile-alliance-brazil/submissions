@@ -2,7 +2,7 @@
 
 shared_examples 'virtual username attribute' do |attribute|
   it 'should set by username' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     subject.send(:"#{attribute}_username=", user.username)
     expect(subject.send(attribute)).to eq(user)
   end
@@ -23,7 +23,7 @@ shared_examples 'virtual username attribute' do |attribute|
   end
 
   it 'should provide username from association' do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     subject.send(:"#{attribute}_username=", user.username)
     expect(subject.send(:"#{attribute}_username")).to eq(user.username)
   end

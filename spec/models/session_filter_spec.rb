@@ -12,7 +12,7 @@ describe SessionFilter, type: :model do
       its(:user_id) { should == '1' }
 
       it 'should provide username reader' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         User.expects(:find).with('1').returns(user)
 
         expect(subject.username).to eq(user.username)
@@ -30,7 +30,7 @@ describe SessionFilter, type: :model do
       subject { SessionFilter.new(username: 'dtsato') }
 
       before(:each) do
-        @user = FactoryGirl.build(:user, id: 1)
+        @user = FactoryBot.build(:user, id: 1)
         User.stubs(:find_by).with(username: 'dtsato').returns(@user)
       end
 
@@ -45,7 +45,7 @@ describe SessionFilter, type: :model do
     end
 
     it 'should provide username writer' do
-      user = FactoryGirl.build(:user, id: 1)
+      user = FactoryBot.build(:user, id: 1)
       User.expects(:find_by).twice.with(username: user.username).returns(user)
 
       subject.username = user.username

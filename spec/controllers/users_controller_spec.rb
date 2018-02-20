@@ -4,10 +4,10 @@ require 'spec_helper'
 
 describe UsersController, type: :controller do
   fixtures :users
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   # TODO: Shouldn't need a conference to render
   before do
-    FactoryGirl.create(:conference)
+    FactoryBot.create(:conference)
   end
 
   context 'with views' do

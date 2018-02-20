@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe SessionTypesController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference) }
-  let(:session_type) { FactoryGirl.build(:session_type, conference: conference) }
-  let(:another_conf_type) { FactoryGirl.create(:session_type, conference: FactoryGirl.create(:conference)) }
+  let(:conference) { FactoryBot.create(:conference) }
+  let(:session_type) { FactoryBot.build(:session_type, conference: conference) }
+  let(:another_conf_type) { FactoryBot.create(:session_type, conference: FactoryBot.create(:conference)) }
   let(:admin) do
-    FactoryGirl.create(:user).tap do |u|
+    FactoryBot.create(:user).tap do |u|
       u.add_role('admin')
       u.save
     end

@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference, supported_languages: ['en', 'pt-BR']) }
-  let(:session) { FactoryGirl.create(:session, keyword_list: %w[fake tags tags.success], conference: conference) }
+  let(:conference) { FactoryBot.create(:conference, supported_languages: ['en', 'pt-BR']) }
+  let(:session) { FactoryBot.create(:session, keyword_list: %w[fake tags tags.success], conference: conference) }
 
   describe 'show' do
     context 'with pt locale' do
@@ -41,7 +41,7 @@ describe Api::V1::SessionsController, type: :controller do
       end
 
       it 'should return session raw JSON with 2 authors' do
-        session.second_author = FactoryGirl.create(:author, email: 'dtsato@dtsato.com')
+        session.second_author = FactoryBot.create(:author, email: 'dtsato@dtsato.com')
         session.save
 
         get :show, id: session.id.to_s, format: :json, locale: 'pt-BR'
@@ -359,10 +359,10 @@ describe Api::V1::SessionsController, type: :controller do
   end
 
   def create_accepted_session_for(conference)
-    session = FactoryGirl.create(:session,
-                                 state: :accepted, author_agreement: true,
-                                 image_agreement: false, conference: conference)
-    FactoryGirl.create(:accepted_decision, session: session, published: true)
+    session = FactoryBot.create(:session,
+                                state: :accepted, author_agreement: true,
+                                image_agreement: false, conference: conference)
+    FactoryBot.create(:accepted_decision, session: session, published: true)
     session
   end
 

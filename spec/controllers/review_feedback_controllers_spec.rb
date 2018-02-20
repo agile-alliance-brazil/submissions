@@ -6,17 +6,17 @@ describe ReviewFeedbacksController, type: :controller do
   it_should_require_login_for_actions :new, :create, :show
 
   before :each do
-    @conference = FactoryGirl.create(:conference)
-    @author = FactoryGirl.create(:author)
+    @conference = FactoryBot.create(:conference)
+    @author = FactoryBot.create(:author)
     Conference.stubs(:current).returns(@conference)
-    @sessions = (1..2).map { |_n| FactoryGirl.create(:session, author: @author, conference: @conference) }
+    @sessions = (1..2).map { |_n| FactoryBot.create(:session, author: @author, conference: @conference) }
     @reviews = @sessions.map do |session|
-      session_reviews = (1..3).map { |_n| FactoryGirl.create(:final_review, session: session) }
+      session_reviews = (1..3).map { |_n| FactoryBot.create(:final_review, session: session) }
       session.final_reviews = session_reviews
       session_reviews
     end.flatten
     @sessions.map do |session|
-      FactoryGirl.create(:review_decision, session: session, published: true)
+      FactoryBot.create(:review_decision, session: session, published: true)
     end
     sign_in @author
     subject.current_user.stubs(:sessions_for_conference).with(@conference).returns(@sessions)

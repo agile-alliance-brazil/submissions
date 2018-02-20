@@ -7,9 +7,9 @@ describe PasswordResetsController, type: :controller do
   it_should_behave_like_a_devise_controller
 
   before(:each) do
-    @user = FactoryGirl.build(:user)
+    @user = FactoryBot.build(:user)
     # TODO: Remove conference dependency
-    FactoryGirl.create(:conference)
+    FactoryBot.create(:conference)
   end
 
   it 'new action should render new template' do

@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe ReviewersController, type: :controller do
   it_should_require_login_for_actions :index, :destroy, :create
-  let(:user) { FactoryGirl.create(:user) }
-  let(:conference) { FactoryGirl.create(:conference) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:conference) { FactoryBot.create(:conference) }
   before(:each) do
     # TODO: Improve use of conference
     Conference.stubs(:current).returns(conference)
@@ -15,12 +15,12 @@ describe ReviewersController, type: :controller do
   end
 
   context 'index' do
-    let(:track) { FactoryGirl.create(:track, conference: conference) }
+    let(:track) { FactoryBot.create(:track, conference: conference) }
     before(:each) do
-      FactoryGirl.create(:track, conference: FactoryGirl.create(:conference))
+      FactoryBot.create(:track, conference: FactoryBot.create(:conference))
       @reviewers = [
-        FactoryGirl.create(:reviewer, conference: conference),
-        FactoryGirl.create(:reviewer, conference: conference)
+        FactoryBot.create(:reviewer, conference: conference),
+        FactoryBot.create(:reviewer, conference: conference)
       ]
     end
     it 'index action should render index template' do
@@ -123,7 +123,7 @@ describe ReviewersController, type: :controller do
         expect(response.body).to eq(I18n.t('flash.reviewer.create.failure', username: ''))
       end
       it 'should show error message for user that is already a reviewer' do
-        FactoryGirl.create(:reviewer, conference: conference, user_username: user.username)
+        FactoryBot.create(:reviewer, conference: conference, user_username: user.username)
 
         post :create, format: 'json', reviewer: { user_username: user.username }
 
@@ -135,7 +135,7 @@ describe ReviewersController, type: :controller do
   end
 
   context 'show' do
-    subject { FactoryGirl.create(:reviewer, user_id: user.id) }
+    subject { FactoryBot.create(:reviewer, user_id: user.id) }
     it 'should assign the reviewer according to the id' do
       get :show, id: subject.id
 
@@ -145,7 +145,7 @@ describe ReviewersController, type: :controller do
 
   context 'destroy' do
     context 'valid reviewer' do
-      subject { FactoryGirl.create(:reviewer, user_id: user.id) }
+      subject { FactoryBot.create(:reviewer, user_id: user.id) }
       it 'should render message' do
         delete :destroy, id: subject.id, year: conference.year, format: 'json'
 

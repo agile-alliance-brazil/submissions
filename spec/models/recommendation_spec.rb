@@ -9,9 +9,9 @@ describe Recommendation, type: :model do
 
   Recommendation.all_names.each do |title|
     it "should determine if it's #{title}" do
-      recommendation = FactoryGirl.build(:recommendation, name: title)
+      recommendation = FactoryBot.build(:recommendation, name: title)
       expect(recommendation.send(:"#{title}?")).to be true
-      recommendation = FactoryGirl.build(:recommendation, name: 'other')
+      recommendation = FactoryBot.build(:recommendation, name: 'other')
       expect(recommendation.send(:"#{title}?")).to be false
     end
   end
@@ -30,7 +30,7 @@ describe Recommendation, type: :model do
 
   context 'title' do
     before(:each) do
-      @recommendation = FactoryGirl.build(:recommendation)
+      @recommendation = FactoryBot.build(:recommendation)
     end
     it 'should return the translation text' do
       expect(@recommendation.title).to eq(Recommendation.title_for(@recommendation.name))

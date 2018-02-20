@@ -11,31 +11,31 @@ describe ReviewPublisher do
     Airbrake.stubs(:notify)
 
     # TODO: Improve conference usage
-    @conference = FactoryGirl.create(:conference)
+    @conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(@conference)
 
-    @reject_outcome = Outcome.find_by(title: 'outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
-    @backup_outcome = Outcome.find_by(title: 'outcomes.backup.title') || FactoryGirl.create(:backup_outcome)
-    @accept_outcome = Outcome.find_by(title: 'outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
+    @reject_outcome = Outcome.find_by(title: 'outcomes.reject.title') || FactoryBot.create(:rejected_outcome)
+    @backup_outcome = Outcome.find_by(title: 'outcomes.backup.title') || FactoryBot.create(:backup_outcome)
+    @accept_outcome = Outcome.find_by(title: 'outcomes.accept.title') || FactoryBot.create(:accepted_outcome)
 
     @publisher = ReviewPublisher.new
   end
 
   it 'should raise error if there are sessions not reviewed' do
-    sessions = [FactoryGirl.build(:session), FactoryGirl.build(:session)]
+    sessions = [FactoryBot.build(:session), FactoryBot.build(:session)]
     Session.expects(:not_reviewed_for).with(@conference).returns(sessions)
     expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions not reviewed: #{sessions.map(&:id)}")
   end
 
   context 'validating sessions without decision' do
     it 'should raise error if sessions in_review' do
-      sessions = [FactoryGirl.build(:session), FactoryGirl.build(:session), FactoryGirl.build(:session)]
+      sessions = [FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session)]
       Session.expects(:not_decided_for).with(@conference).returns(sessions)
       expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions without decision: #{sessions.map(&:id)}")
     end
 
     it "should raise error if reviewed sessions don't have decisions" do
-      sessions = [FactoryGirl.build(:session), FactoryGirl.build(:session), FactoryGirl.build(:session), FactoryGirl.build(:session)]
+      sessions = [FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session)]
       Session.expects(:without_decision_for).with(@conference).returns(sessions)
       expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions without decision: #{sessions.map(&:id)}")
     end
@@ -46,8 +46,8 @@ describe ReviewPublisher do
       @publisher.stubs(:ensure_all_sessions_reviewed)
       @publisher.stubs(:ensure_all_decisions_made)
       @sessions = [in_review_session_for(@conference), in_review_session_for(@conference)]
-      FactoryGirl.create(:review_decision, session: @sessions[0])
-      FactoryGirl.create(:review_decision, session: @sessions[1])
+      FactoryBot.create(:review_decision, session: @sessions[0])
+      FactoryBot.create(:review_decision, session: @sessions[1])
       Session.stubs(:for_conference).returns(stub(with_outcome: @sessions))
     end
 
@@ -182,6 +182,6 @@ describe ReviewPublisher do
   end
 
   def in_review_session_for(conference)
-    FactoryGirl.create(:session, conference: conference).tap(&:reviewing)
+    FactoryBot.create(:session, conference: conference).tap(&:reviewing)
   end
 end

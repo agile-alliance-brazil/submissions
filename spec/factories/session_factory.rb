@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :session do
-    conference { Conference.current || FactoryGirl.create(:conference) }
-    track { |s| FactoryGirl.create(:track, conference: s.conference) }
-    session_type { |s| FactoryGirl.create(:session_type, conference: s.conference) }
-    audience_level { |s| FactoryGirl.create(:audience_level, conference: s.conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
+    track { |s| FactoryBot.create(:track, conference: s.conference) }
+    session_type { |s| FactoryBot.create(:session_type, conference: s.conference) }
+    audience_level { |s| FactoryBot.create(:audience_level, conference: s.conference) }
     author
     duration_mins 50
     language 'en'

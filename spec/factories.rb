@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:last_name) { |n| "Name#{n}" }
 
   factory :user do
@@ -37,7 +37,7 @@ FactoryGirl.define do
   end
 
   factory :session_type do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     valid_durations [50]
     title 'session_type.name.title'
     description 'session_type.name.description'
@@ -49,7 +49,7 @@ FactoryGirl.define do
   end
 
   factory :track do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     title 'track.name.title'
     description 'track.name.description'
     translated_contents do |t|
@@ -60,7 +60,7 @@ FactoryGirl.define do
   end
 
   factory :audience_level do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     title 'audience_level.name.title'
     description 'audience_level.name.description'
     translated_contents do |a|
@@ -78,27 +78,27 @@ FactoryGirl.define do
 
   factory :organizer do
     user
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     track do |o|
       o.conference.tracks.first ||
-        FactoryGirl.create(:track, conference: o.conference)
+        FactoryBot.create(:track, conference: o.conference)
     end
   end
 
   factory :reviewer do
     user
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
   end
 
   factory :preference do
     reviewer
     track do |p|
       p.reviewer.conference.tracks.first ||
-        FactoryGirl.create(:track, conference: p.reviewer.conference)
+        FactoryBot.create(:track, conference: p.reviewer.conference)
     end
     audience_level do |p|
       p.reviewer.conference.audience_levels.first ||
-        FactoryGirl.create(:audience_level, conference: p.reviewer.conference)
+        FactoryBot.create(:audience_level, conference: p.reviewer.conference)
     end
     accepted true
   end
@@ -157,7 +157,7 @@ FactoryGirl.define do
 
   factory :review_decision do
     association :organizer, factory: :user
-    session { FactoryGirl.create(:session, state: 'in_review') }
+    session { FactoryBot.create(:session, state: 'in_review') }
     outcome
     note_to_authors 'Some note to the authors'
     published false
@@ -167,20 +167,20 @@ FactoryGirl.define do
     factory :backup_decision do
       after(:build) do |rd|
         rd.outcome = Outcome.find_by(title: 'outcomes.backup.title') ||
-                     FactoryGirl.create(:backup_outcome)
+                     FactoryBot.create(:backup_outcome)
       end
     end
 
     factory :rejected_decision do
       after(:build) do |rd|
         rd.outcome = Outcome.find_by(title: 'outcomes.reject.title') ||
-                     FactoryGirl.create(:rejected_outcome)
+                     FactoryBot.create(:rejected_outcome)
       end
     end
   end
 
   factory :page do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     sequence(:path) { |n| "page_#{n}" }
     title 'page.title'
     content 'page.content'
@@ -192,13 +192,13 @@ FactoryGirl.define do
   end
 
   factory :vote do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     association :user, factory: :voter
     session
   end
 
   factory :review_feedback do
-    conference { Conference.current || FactoryGirl.create(:conference) }
+    conference { Conference.current || FactoryBot.create(:conference) }
     author
     general_comments 'General comments'
   end

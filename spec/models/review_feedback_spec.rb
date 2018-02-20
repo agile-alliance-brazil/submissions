@@ -11,10 +11,10 @@ describe ReviewFeedback, type: :model do
 
     context 'review evaluations' do
       before(:each) do
-        session = FactoryGirl.create(:session)
+        session = FactoryBot.create(:session)
         session.reviewing
-        @review = FactoryGirl.create(:final_review, session: session)
-        FactoryGirl.create(:review_decision, session: session, published: true)
+        @review = FactoryBot.create(:final_review, session: session)
+        FactoryBot.create(:review_decision, session: session, published: true)
 
         @author = session.author
         @conference = session.conference
@@ -31,7 +31,7 @@ describe ReviewFeedback, type: :model do
         feedback = ReviewFeedback.new(author: @author, conference: @conference)
         feedback.review_evaluations.build(
           review_feedback: feedback,
-          review: FactoryGirl.create(:final_review),
+          review: FactoryBot.create(:final_review),
           helpful_review: false,
           comments: ''
         )

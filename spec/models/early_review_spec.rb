@@ -38,14 +38,14 @@ describe EarlyReview, type: :model do
     it { should validate_length_of(:comments_to_authors).is_at_least(150) }
 
     context 'uniqueness' do
-      before { FactoryGirl.create(:early_review) }
+      before { FactoryBot.create(:early_review) }
       it { should validate_uniqueness_of(:reviewer_id).scoped_to(:session_id, :type) }
     end
   end
 
   context 'notifications' do
     it 'should notify session author(s) after creation' do
-      review = FactoryGirl.build(:early_review)
+      review = FactoryBot.build(:early_review)
       EarlyReview.send(:public, :notify)
 
       EmailNotifications.expects(:early_review_submitted).with(review.session).returns(mock(deliver_now: true))

@@ -6,10 +6,10 @@ describe Reviewer, type: :model do
   before(:each) do
     EmailNotifications.stubs(:reviewer_invitation).returns(stub(deliver_now: true))
     # TODO: Improve outcome and conference usage
-    @conference = FactoryGirl.create(:conference)
+    @conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(@conference)
-    @track = FactoryGirl.create(:track, conference: @conference)
-    @audience_level = FactoryGirl.create(:audience_level, conference: @conference)
+    @track = FactoryBot.create(:track, conference: @conference)
+    @audience_level = FactoryBot.create(:audience_level, conference: @conference)
   end
 
   it_should_trim_attributes Reviewer, :user_username
@@ -18,36 +18,36 @@ describe Reviewer, type: :model do
     it { should validate_presence_of :conference_id }
 
     context 'uniqueness' do
-      before { FactoryGirl.create(:reviewer, conference: @conference) }
+      before { FactoryBot.create(:reviewer, conference: @conference) }
       it { should validate_uniqueness_of(:user_id).scoped_to(:conference_id) }
     end
 
     should_validate_existence_of :conference, :user
 
     it 'should validate that at least 1 preference was accepted' do
-      reviewer = FactoryGirl.create(:reviewer, conference: @conference)
+      reviewer = FactoryBot.create(:reviewer, conference: @conference)
       reviewer.preferences.build(accepted: false)
       expect(reviewer.accept).to be false
       expect(reviewer.errors[:base]).to include(I18n.t('activerecord.errors.models.reviewer.preferences'))
     end
 
     it 'should validate that reviewer agreement was accepted' do
-      reviewer = FactoryGirl.create(:reviewer, reviewer_agreement: false, conference: @conference)
+      reviewer = FactoryBot.create(:reviewer, reviewer_agreement: false, conference: @conference)
       reviewer.preferences.build(accepted: true, track_id: 1, audience_level_id: 1)
       expect(reviewer.accept).to be false
       expect(reviewer.errors[:reviewer_agreement]).to include(I18n.t('errors.messages.accepted'))
     end
 
     it 'should copy user errors to user_username' do
-      reviewer = FactoryGirl.create(:reviewer, conference: @conference)
-      new_reviewer = FactoryGirl.build(:reviewer, user: reviewer.user, conference: reviewer.conference)
+      reviewer = FactoryBot.create(:reviewer, conference: @conference)
+      new_reviewer = FactoryBot.build(:reviewer, user: reviewer.user, conference: reviewer.conference)
       expect(new_reviewer).to_not be_valid
       expect(new_reviewer.errors[:user_username]).to include(I18n.t('activerecord.errors.messages.taken'))
     end
 
     context 'user' do
       before(:each) do
-        @reviewer = FactoryGirl.create(:reviewer, conference: @conference)
+        @reviewer = FactoryBot.create(:reviewer, conference: @conference)
       end
 
       it 'should be a valid user' do
@@ -67,13 +67,13 @@ describe Reviewer, type: :model do
     it { should accept_nested_attributes_for :preferences }
 
     context 'reviewer username' do
-      subject { FactoryGirl.build(:reviewer, conference: @conference) }
+      subject { FactoryBot.build(:reviewer, conference: @conference) }
       it_should_behave_like 'virtual username attribute', :user
     end
 
     context 'inferred' do
       before(:each) do
-        @reviewer = FactoryGirl.build(:reviewer, conference: @conference)
+        @reviewer = FactoryBot.build(:reviewer, conference: @conference)
       end
       it 'should find early reviews for this reviewer' do
         @reviewer.user.expects(:early_reviews).returns(Review)
@@ -98,7 +98,7 @@ describe Reviewer, type: :model do
 
   context 'state machine' do
     before(:each) do
-      @reviewer = FactoryGirl.build(:reviewer, conference: @conference)
+      @reviewer = FactoryBot.build(:reviewer, conference: @conference)
     end
 
     context 'State: created' do
@@ -199,13 +199,13 @@ describe Reviewer, type: :model do
 
   context 'callbacks' do
     it 'should invite after created' do
-      reviewer = FactoryGirl.build(:reviewer)
+      reviewer = FactoryBot.build(:reviewer)
       reviewer.save
       expect(reviewer).to be_invited
     end
 
     it 'should not invite if validation failed' do
-      reviewer = FactoryGirl.build(:reviewer, user_id: nil)
+      reviewer = FactoryBot.build(:reviewer, user_id: nil)
       reviewer.save
       expect(reviewer).to_not be_invited
     end
@@ -213,15 +213,15 @@ describe Reviewer, type: :model do
 
   shared_examples_for 'reviewer role' do
     it 'should make given user reviewer role after invitation accepted' do
-      reviewer = FactoryGirl.create(:reviewer, user: subject, conference: @conference)
+      reviewer = FactoryBot.create(:reviewer, user: subject, conference: @conference)
       reviewer.invite
       expect(subject).to_not be_reviewer
     end
 
     it 'should not remove organizer role if more reviewers for user are available' do
-      old_conference = FactoryGirl.create(:conference, year: 1)
-      old_track = FactoryGirl.create(:track, conference: old_conference)
-      old_audience_level = FactoryGirl.create(:audience_level, conference: old_conference)
+      old_conference = FactoryBot.create(:conference, year: 1)
+      old_track = FactoryBot.create(:track, conference: old_conference)
+      old_audience_level = FactoryBot.create(:audience_level, conference: old_conference)
       accepted_reviewer_for(subject, old_conference, old_track, old_audience_level)
 
       reviewer = accepted_reviewer_for(subject, @conference, @track, @audience_level)
@@ -246,25 +246,25 @@ describe Reviewer, type: :model do
   end
 
   context 'managing reviewer role for complete user' do
-    subject { FactoryGirl.create(:user) }
+    subject { FactoryBot.create(:user) }
     it_should_behave_like 'reviewer role'
   end
 
   context 'managing reviewer role for simple user' do
-    subject { FactoryGirl.create(:simple_user) }
+    subject { FactoryBot.create(:simple_user) }
     it_should_behave_like 'reviewer role'
   end
 
   context 'checking if able to review a track' do
     before(:each) do
-      @conference = FactoryGirl.create(:conference)
-      @track = FactoryGirl.create(:track, conference: @conference)
-      @organizer = FactoryGirl.create(:organizer, track: @track, conference: @conference)
-      @reviewer = FactoryGirl.create(:reviewer, user: @organizer.user, conference: @conference)
+      @conference = FactoryBot.create(:conference)
+      @track = FactoryBot.create(:track, conference: @conference)
+      @organizer = FactoryBot.create(:organizer, track: @track, conference: @conference)
+      @reviewer = FactoryBot.create(:reviewer, user: @organizer.user, conference: @conference)
     end
 
     it 'can review track when not organizer' do
-      expect(@reviewer).to be_can_review(FactoryGirl.create(:track, conference: @conference))
+      expect(@reviewer).to be_can_review(FactoryBot.create(:track, conference: @conference))
     end
 
     it 'can not review track when organizer on the same conference' do
@@ -272,24 +272,24 @@ describe Reviewer, type: :model do
     end
 
     it 'can review track when organizer for different conference' do
-      other_conference = FactoryGirl.create(:conference)
-      reviewer = FactoryGirl.create(:reviewer, user: @organizer.user, conference: other_conference)
+      other_conference = FactoryBot.create(:conference)
+      reviewer = FactoryBot.create(:reviewer, user: @organizer.user, conference: other_conference)
       expect(reviewer).to be_can_review(@organizer.track)
     end
   end
 
   context 'display name rules' do
     before :each do
-      @user = FactoryGirl.build(:user, first_name: 'Raphael', last_name: 'Molesim', default_locale: 'en')
+      @user = FactoryBot.build(:user, first_name: 'Raphael', last_name: 'Molesim', default_locale: 'en')
     end
     context 'for signing reviewer' do
-      subject { FactoryGirl.build(:reviewer, user: @user, sign_reviews: true) }
+      subject { FactoryBot.build(:reviewer, user: @user, sign_reviews: true) }
       it 'should display reviewer name' do
         expect(subject.display_name).to eq('Raphael Molesim')
       end
     end
     context 'for non signing reviewer' do
-      subject { FactoryGirl.build(:reviewer, user: @user, sign_reviews: false) }
+      subject { FactoryBot.build(:reviewer, user: @user, sign_reviews: false) }
       it 'should display generic reviewer title' do
         expect(subject.display_name).to eq(I18n.t('formtastic.labels.reviewer.user_id'))
       end
@@ -300,9 +300,9 @@ describe Reviewer, type: :model do
   end
 
   def accepted_reviewer_for(user, conference, track, audience_level)
-    FactoryGirl.create(:reviewer, user: user, conference: conference)
-               .tap(&:invite)
-               .tap { |r| r.preferences.build(accepted: true, track_id: track.id, audience_level_id: audience_level.id) }
-               .tap(&:accept)
+    FactoryBot.create(:reviewer, user: user, conference: conference)
+              .tap(&:invite)
+              .tap { |r| r.preferences.build(accepted: true, track_id: track.id, audience_level_id: audience_level.id) }
+              .tap(&:accept)
   end
 end

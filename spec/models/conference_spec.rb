@@ -15,7 +15,7 @@ describe Conference, type: :model do
     it { should validate_presence_of :name }
 
     context 'if visible' do
-      subject { FactoryGirl.build(:conference, visible: true) }
+      subject { FactoryBot.build(:conference, visible: true) }
       it { should validate_presence_of :location }
       it { should validate_presence_of :start_date }
       it { should validate_presence_of :end_date }
@@ -38,7 +38,7 @@ describe Conference, type: :model do
     end
 
     context 'if not visible' do
-      subject { FactoryGirl.build(:conference, visible: false) }
+      subject { FactoryBot.build(:conference, visible: false) }
       it { should_not validate_presence_of :location }
       it { should_not validate_presence_of :start_date }
       it { should_not validate_presence_of :end_date }
@@ -60,7 +60,7 @@ describe Conference, type: :model do
     end
 
     context 'date orders' do
-      subject { FactoryGirl.build(:conference) }
+      subject { FactoryBot.build(:conference) }
       Conference::DATE_ORDERS.each_cons(2) do |date1, date2|
         it "should validate that #{date1} comes before #{date2} if both are set" do
           d2 = subject.send(date2)
@@ -80,7 +80,7 @@ describe Conference, type: :model do
     end
 
     it "should validate that year doesn't change" do
-      subject = FactoryGirl.create(:conference)
+      subject = FactoryBot.create(:conference)
       subject.year += 9999
 
       expect(subject).to_not be_valid
@@ -91,9 +91,9 @@ describe Conference, type: :model do
   context 'location_and_date' do
     context 'for start and end in the same month' do
       subject do
-        FactoryGirl.build(:conference,
-                          start_date: Time.zone.local(2010, 6, 22),
-                          end_date: Time.zone.local(2010, 6, 25))
+        FactoryBot.build(:conference,
+                         start_date: Time.zone.local(2010, 6, 22),
+                         end_date: Time.zone.local(2010, 6, 25))
       end
 
       it 'should compile location_and_date to location followed by start day and end day with month and year' do
@@ -103,9 +103,9 @@ describe Conference, type: :model do
 
     context 'for start and end in different months' do
       subject do
-        FactoryGirl.build(:conference,
-                          start_date: Time.zone.local(2011, 6, 27),
-                          end_date: Time.zone.local(2011, 7, 1))
+        FactoryBot.build(:conference,
+                         start_date: Time.zone.local(2011, 6, 27),
+                         end_date: Time.zone.local(2011, 7, 1))
       end
 
       it 'should compile location_and_date to location followed by start day and month and end day with month and year' do
@@ -115,9 +115,9 @@ describe Conference, type: :model do
 
     context 'for start and end in different years' do
       subject do
-        FactoryGirl.build(:conference,
-                          start_date: Time.zone.local(2011, 11, 30),
-                          end_date: Time.zone.local(2012, 1, 2))
+        FactoryBot.build(:conference,
+                         start_date: Time.zone.local(2011, 11, 30),
+                         end_date: Time.zone.local(2012, 1, 2))
       end
 
       it 'should compile location_and_date to location followed by start date and end date' do
@@ -127,7 +127,7 @@ describe Conference, type: :model do
 
     context 'without start and end' do
       subject do
-        FactoryGirl.build(:conference, start_date: nil, end_date: nil)
+        FactoryBot.build(:conference, start_date: nil, end_date: nil)
       end
 
       it 'should compile location_and_date to location followed by start date and end date' do
@@ -137,14 +137,14 @@ describe Conference, type: :model do
   end
 
   it 'should overide to_param with year' do
-    expect(FactoryGirl.build(:conference, year: 2010).to_param).to eq('2010')
-    expect(FactoryGirl.build(:conference, year: 2011).to_param).to eq('2011')
-    expect(FactoryGirl.build(:conference, year: 2012).to_param).to eq('2012')
+    expect(FactoryBot.build(:conference, year: 2010).to_param).to eq('2010')
+    expect(FactoryBot.build(:conference, year: 2011).to_param).to eq('2011')
+    expect(FactoryBot.build(:conference, year: 2012).to_param).to eq('2012')
   end
 
   describe 'deadlines' do
     describe 'dates' do
-      subject { FactoryGirl.build(:conference) }
+      subject { FactoryBot.build(:conference) }
       it 'should return a hash with dates and symbols' do
         subject.presubmissions_deadline = nil
         subject.prereview_deadline = nil
@@ -172,7 +172,7 @@ describe Conference, type: :model do
 
     describe 'next_deadline' do
       before :each do
-        @conference = FactoryGirl.build(:conference)
+        @conference = FactoryBot.build(:conference)
       end
 
       context 'for authors' do
@@ -210,7 +210,7 @@ describe Conference, type: :model do
 
       context 'for reviewers' do
         before :each do
-          @conference = FactoryGirl.build(:conference)
+          @conference = FactoryBot.build(:conference)
         end
 
         it 'should show pre review deadline first' do
@@ -233,9 +233,9 @@ describe Conference, type: :model do
 
     describe 'in_submission_phase?' do
       before(:each) do
-        @conference = FactoryGirl.build(:conference,
-                                        submissions_open: Time.now + 6.days,
-                                        submissions_deadline: Time.now + 10.days)
+        @conference = FactoryBot.build(:conference,
+                                       submissions_open: Time.now + 6.days,
+                                       submissions_deadline: Time.now + 10.days)
         @start = @conference.submissions_open
         @end = @conference.submissions_deadline
       end
@@ -291,7 +291,7 @@ describe Conference, type: :model do
 
     describe 'in_early_review_phase?' do
       before(:each) do
-        @conference = FactoryGirl.build(:conference)
+        @conference = FactoryBot.build(:conference)
         @start = @conference.presubmissions_deadline
         @end = @conference.prereview_deadline
       end
@@ -347,7 +347,7 @@ describe Conference, type: :model do
 
     describe 'in_final_review_phase?' do
       before(:each) do
-        @conference = FactoryGirl.build(:conference)
+        @conference = FactoryBot.build(:conference)
         @start = @conference.submissions_deadline
         @end = @conference.review_deadline
       end
@@ -403,9 +403,9 @@ describe Conference, type: :model do
 
     describe 'in_author_confirmation_phase?' do
       before(:each) do
-        @conference = FactoryGirl.build(:conference,
-                                        author_notification: Time.now + 6.days,
-                                        author_confirmation: Time.now + 10.days)
+        @conference = FactoryBot.build(:conference,
+                                       author_notification: Time.now + 6.days,
+                                       author_confirmation: Time.now + 10.days)
         @start = @conference.author_notification
         @end = @conference.author_confirmation
       end
@@ -460,14 +460,14 @@ describe Conference, type: :model do
     end
 
     it 'should not fail if conference does not have early review' do
-      conference = FactoryGirl.build(:conference)
+      conference = FactoryBot.build(:conference)
       Time.stubs(:now).returns(conference.submissions_open)
       expect(conference).to_not be_in_early_review_phase
     end
 
     describe 'in_voting_deadline?' do
       before do
-        @conference = FactoryGirl.build(:conference)
+        @conference = FactoryBot.build(:conference)
         @conference.voting_deadline = @conference.submissions_deadline + 5.days
       end
 
@@ -490,7 +490,7 @@ describe Conference, type: :model do
       end
 
       it 'should be false if conference does not have a voting deadline' do
-        conference = FactoryGirl.build(:conference)
+        conference = FactoryBot.build(:conference)
         conference.voting_deadline = nil
         expect(conference).to_not be_in_voting_phase
       end
@@ -498,52 +498,52 @@ describe Conference, type: :model do
   end
 
   describe '#ideal_reviews_burn' do
-    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    let(:conference) { FactoryBot.create :conference_in_review_time }
     context 'when the conference does not have submissions' do
       it { expect(conference.ideal_reviews_burn).to eq [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
     end
 
     context 'when the conference has submissions' do
       context 'and the submissions count fits the remaining weeks to do the reviews' do
-        let!(:session_list) { FactoryGirl.create_list(:session, 18, conference: conference) }
+        let!(:session_list) { FactoryBot.create_list(:session, 18, conference: conference) }
         it { expect(conference.ideal_reviews_burn).to eq [54, 48, 42, 36, 30, 24, 18, 12, 6, 0] }
       end
 
       context 'and the remaining weeks are bigger than the reviews needed' do
-        let!(:session_list) { FactoryGirl.create_list(:session, 2, conference: conference) }
+        let!(:session_list) { FactoryBot.create_list(:session, 2, conference: conference) }
         it { expect(conference.ideal_reviews_burn).to eq [6, 5, 4, 3, 2, 1, 0, 0, 0, 0] }
       end
 
       context 'and the remaining weeks are smaller than the reviews needed' do
-        let!(:session_list) { FactoryGirl.create_list(:session, 20, conference: conference) }
+        let!(:session_list) { FactoryBot.create_list(:session, 20, conference: conference) }
         it { expect(conference.ideal_reviews_burn).to eq [60, 54, 48, 42, 36, 30, 24, 18, 12, 6] }
       end
 
       context 'but very little time to review' do
         let(:conference) do
-          FactoryGirl.create :conference_in_review_time,
-                             submissions_deadline: 1.day.ago,
-                             voting_deadline: nil,
-                             review_deadline: 1.day.from_now
+          FactoryBot.create :conference_in_review_time,
+                            submissions_deadline: 1.day.ago,
+                            voting_deadline: nil,
+                            review_deadline: 1.day.from_now
         end
-        let!(:session_list) { FactoryGirl.create_list(:session, 2, conference: conference) }
+        let!(:session_list) { FactoryBot.create_list(:session, 2, conference: conference) }
         it { expect(conference.ideal_reviews_burn).to eq [6] }
       end
     end
   end
 
   describe '#actual_reviews_burn' do
-    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    let(:conference) { FactoryBot.create :conference_in_review_time }
     context 'when the conference does not have submissions' do
       it { expect(conference.ideal_reviews_burn).to eq [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }
     end
 
     context 'when the conference has submissions' do
       context 'and less reviews than the total required' do
-        let!(:session_list) { FactoryGirl.create_list(:session, 4, conference: conference) }
-        let!(:review_list) { FactoryGirl.create_list(:final_review, 4, session: session_list.first, created_at: 3.weeks.ago) }
-        let!(:other_review_list) { FactoryGirl.create_list(:final_review, 7, session: session_list.second, created_at: 1.week.ago) }
-        let!(:two_weeks_review_list) { FactoryGirl.create_list(:final_review, 15, session: session_list.second, created_at: Time.zone.now) }
+        let!(:session_list) { FactoryBot.create_list(:session, 4, conference: conference) }
+        let!(:review_list) { FactoryBot.create_list(:final_review, 4, session: session_list.first, created_at: 3.weeks.ago) }
+        let!(:other_review_list) { FactoryBot.create_list(:final_review, 7, session: session_list.second, created_at: 1.week.ago) }
+        let!(:two_weeks_review_list) { FactoryBot.create_list(:final_review, 15, session: session_list.second, created_at: Time.zone.now) }
         it { expect(conference.actual_reviews_burn).to eq [12, 8, 8, 1, 0] }
       end
     end

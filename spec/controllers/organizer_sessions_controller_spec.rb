@@ -4,11 +4,11 @@ require 'spec_helper'
 
 describe OrganizerSessionsController, type: :controller do
   before(:each) do
-    @conference = FactoryGirl.create(:conference)
+    @conference = FactoryBot.create(:conference)
     # TODO: Improve conference usage
     Conference.stubs(:current).returns(@conference)
-    @track = FactoryGirl.create(:track, conference: @conference)
-    @organizer = FactoryGirl.create(:organizer, track: @track, conference: @conference)
+    @track = FactoryBot.create(:track, conference: @conference)
+    @organizer = FactoryBot.create(:organizer, track: @track, conference: @conference)
     sign_in @organizer.user
     disable_authorization
   end
@@ -25,7 +25,7 @@ describe OrganizerSessionsController, type: :controller do
 
   describe '#index' do
     before(:each) do
-      @session = FactoryGirl.build(:session)
+      @session = FactoryBot.build(:session)
       SessionFilter.any_instance.stubs(:apply).returns([@session])
     end
 

@@ -14,19 +14,19 @@ describe ReviewDecision, type: :model do
     should_validate_existence_of :organizer, :session, :outcome
 
     it 'should validate outcome can transition session on acceptance' do
-      session = FactoryGirl.build(:session)
-      review_decision = FactoryGirl.build(:review_decision,
-                                          session: session,
-                                          outcome: outcome_with_title('outcomes.accept.title'))
+      session = FactoryBot.build(:session)
+      review_decision = FactoryBot.build(:review_decision,
+                                         session: session,
+                                         outcome: outcome_with_title('outcomes.accept.title'))
       expect(review_decision).to_not be_valid
       expect(review_decision.errors[:session_id]).to include(I18n.t('activerecord.errors.models.review_decision.cant_accept'))
     end
 
     it 'should validate outcome can transition session on rejection' do
-      session = FactoryGirl.build(:session)
-      review_decision = FactoryGirl.build(:review_decision,
-                                          session: session,
-                                          outcome: outcome_with_title('outcomes.reject.title'))
+      session = FactoryBot.build(:session)
+      review_decision = FactoryBot.build(:review_decision,
+                                         session: session,
+                                         outcome: outcome_with_title('outcomes.reject.title'))
       expect(review_decision).to_not be_valid
       expect(review_decision.errors[:session_id]).to include(I18n.t('activerecord.errors.models.review_decision.cant_reject'))
     end
@@ -107,10 +107,10 @@ describe ReviewDecision, type: :model do
   end
 
   def review_decision_with_outcome(outcome)
-    FactoryGirl.build(:review_decision, outcome: outcome_with_title(outcome))
+    FactoryBot.build(:review_decision, outcome: outcome_with_title(outcome))
   end
 
   def outcome_with_title(outcome)
-    Outcome.find_by(title: outcome) || FactoryGirl.create(:outcome, title: outcome)
+    Outcome.find_by(title: outcome) || FactoryBot.create(:outcome, title: outcome)
   end
 end

@@ -8,21 +8,21 @@ describe ReviewDecisionsController, type: :controller do
   it_should_require_login_for_actions :new, :create, :edit, :update, :index
 
   before(:each) do
-    conference = FactoryGirl.create(:conference)
+    conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(conference)
-    @session ||= FactoryGirl.create(:session, conference: conference)
+    @session ||= FactoryBot.create(:session, conference: conference)
     @session.reviewing
-    @organizer ||= FactoryGirl.create(:organizer, track: @session.track, conference: @session.conference)
+    @organizer ||= FactoryBot.create(:organizer, track: @session.track, conference: @session.conference)
     sign_in @organizer.user
     disable_authorization
     # TODO: Remove need to create outcomes. This is a mess
-    Outcome.find_by(title: 'outcomes.accept.title') || FactoryGirl.create(:accepted_outcome)
-    Outcome.find_by(title: 'outcomes.reject.title') || FactoryGirl.create(:rejected_outcome)
+    Outcome.find_by(title: 'outcomes.accept.title') || FactoryBot.create(:accepted_outcome)
+    Outcome.find_by(title: 'outcomes.reject.title') || FactoryBot.create(:rejected_outcome)
   end
 
   it 'index action (JS) should render JSON' do
-    FactoryGirl.create(:session, track: @session.track, conference: @session.conference)
-    FactoryGirl.create(:rejected_decision, session: @session, organizer: @organizer.user)
+    FactoryBot.create(:session, track: @session.track, conference: @session.conference)
+    FactoryBot.create(:rejected_decision, session: @session, organizer: @organizer.user)
 
     xhr :get, :index, format: :json
     expect(response.body).to eq({
@@ -51,7 +51,7 @@ describe ReviewDecisionsController, type: :controller do
 
   context 'existing review decision' do
     before(:each) do
-      @decision ||= FactoryGirl.create(:review_decision, session: @session, organizer: @organizer.user)
+      @decision ||= FactoryBot.create(:review_decision, session: @session, organizer: @organizer.user)
     end
 
     it 'edit action should render edit template' do

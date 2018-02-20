@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe SessionAuthorsCSVExporter do
   it 'should generate CSV for single session' do
-    session = FactoryGirl.build(:session)
+    session = FactoryBot.build(:session)
 
     exporter = SessionAuthorsCSVExporter.new([session])
 
@@ -16,8 +16,8 @@ describe SessionAuthorsCSVExporter do
   end
 
   it 'should generate CSV with two rows for single session with two authors' do
-    session = FactoryGirl.build(:session)
-    session.second_author = FactoryGirl.build(:author)
+    session = FactoryBot.build(:session)
+    session.second_author = FactoryBot.build(:author)
 
     exporter = SessionAuthorsCSVExporter.new([session])
 
@@ -30,9 +30,9 @@ describe SessionAuthorsCSVExporter do
   end
 
   it 'should generate CSV with three rows for one session with one author and another with two' do
-    single_author_session = FactoryGirl.build(:session)
-    two_authors_session = FactoryGirl.build(:session)
-    two_authors_session.second_author = FactoryGirl.build(:author)
+    single_author_session = FactoryBot.build(:session)
+    two_authors_session = FactoryBot.build(:session)
+    two_authors_session.second_author = FactoryBot.build(:author)
 
     exporter = SessionAuthorsCSVExporter.new([single_author_session, two_authors_session])
 
@@ -46,13 +46,13 @@ describe SessionAuthorsCSVExporter do
   end
 
   it 'should generate sessions sorted by session type id' do
-    conference = FactoryGirl.build(:conference)
-    first_session_type = FactoryGirl.build(:session_type, conference: conference)
+    conference = FactoryBot.build(:conference)
+    first_session_type = FactoryBot.build(:session_type, conference: conference)
     first_session_type.id = 1
-    last_session_type = FactoryGirl.build(:session_type, conference: conference)
+    last_session_type = FactoryBot.build(:session_type, conference: conference)
     last_session_type.id = 2
-    first_session = FactoryGirl.build(:session, conference: conference, session_type: last_session_type)
-    second_session = FactoryGirl.build(:session, conference: conference, session_type: first_session_type)
+    first_session = FactoryBot.build(:session, conference: conference, session_type: last_session_type)
+    second_session = FactoryBot.build(:session, conference: conference, session_type: first_session_type)
 
     exporter = SessionAuthorsCSVExporter.new([first_session, second_session])
 
@@ -65,9 +65,9 @@ describe SessionAuthorsCSVExporter do
   end
 
   it 'should generate sessions with one author first and pairs after' do
-    first_session = FactoryGirl.build(:session)
-    first_session.second_author = FactoryGirl.build(:author)
-    second_session = FactoryGirl.build(:session)
+    first_session = FactoryBot.build(:session)
+    first_session.second_author = FactoryBot.build(:author)
+    second_session = FactoryBot.build(:session)
 
     exporter = SessionAuthorsCSVExporter.new([first_session, second_session])
 

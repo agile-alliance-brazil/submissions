@@ -3,9 +3,9 @@
 require 'spec_helper'
 
 describe PagesController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference) }
+  let(:conference) { FactoryBot.create(:conference) }
   let(:admin) do
-    FactoryGirl.create(:user).tap do |u|
+    FactoryBot.create(:user).tap do |u|
       u.add_role('admin')
       u.save
     end
@@ -23,7 +23,7 @@ describe PagesController, type: :controller do
       render_views
 
       it 'should not double escape html content' do
-        page = FactoryGirl.create(:page)
+        page = FactoryBot.create(:page)
 
         get :show, path: page.path, year: page.conference.year
 
@@ -35,7 +35,7 @@ describe PagesController, type: :controller do
     end
 
     it 'should render page if page exists' do
-      page = FactoryGirl.create(:page)
+      page = FactoryBot.create(:page)
       controller.stubs(:render)
       controller.expects(:render).with(:show)
 
@@ -45,7 +45,7 @@ describe PagesController, type: :controller do
     end
 
     it 'should render static resource if page does not exist' do
-      Conference.where(year: 2011).first || FactoryGirl.create(:conference, year: 2011)
+      Conference.where(year: 2011).first || FactoryBot.create(:conference, year: 2011)
       controller.stubs(:render)
       controller.expects(:render).with(template: 'static_pages/2011_syntax_help')
 
@@ -53,7 +53,7 @@ describe PagesController, type: :controller do
     end
 
     it 'should render 404 if static page does not exist' do
-      Conference.where(year: 5000).first || FactoryGirl.create(:conference, year: 5000)
+      Conference.where(year: 5000).first || FactoryBot.create(:conference, year: 5000)
 
       get :show, path: 'syntax_help', year: 5000
 
@@ -62,7 +62,7 @@ describe PagesController, type: :controller do
   end
 
   context 'create action' do
-    let(:page) { FactoryGirl.build(:page, conference: conference) }
+    let(:page) { FactoryBot.build(:page, conference: conference) }
     before(:each) do
       sign_in admin
       disable_authorization
@@ -124,7 +124,7 @@ describe PagesController, type: :controller do
   end
 
   context 'update' do
-    let(:page) { FactoryGirl.create(:page, conference: conference) }
+    let(:page) { FactoryBot.create(:page, conference: conference) }
     let(:new_content) { '*New* content!' }
 
     before(:each) do

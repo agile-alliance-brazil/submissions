@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe AudienceLevelsController, type: :controller do
-  let(:conference) { FactoryGirl.create(:conference) }
-  let(:other_conf_level) { FactoryGirl.create(:audience_level, conference: FactoryGirl.create(:conference)) }
-  let(:audience) { FactoryGirl.build(:audience_level, conference: conference) }
+  let(:conference) { FactoryBot.create(:conference) }
+  let(:other_conf_level) { FactoryBot.create(:audience_level, conference: FactoryBot.create(:conference)) }
+  let(:audience) { FactoryBot.build(:audience_level, conference: conference) }
   let(:admin) do
-    FactoryGirl.create(:user).tap do |u|
+    FactoryBot.create(:user).tap do |u|
       u.add_role('admin')
       u.save
     end

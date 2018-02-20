@@ -8,11 +8,11 @@ describe WithdrawSessionsController, type: :controller do
   it_should_require_login_for_actions :show, :update
 
   before(:each) do
-    @user ||= FactoryGirl.create(:user)
-    @session ||= FactoryGirl.create(:session, author: @user)
+    @user ||= FactoryBot.create(:user)
+    @session ||= FactoryBot.create(:session, author: @user)
     @conference ||= @session.conference
     @session.reviewing
-    FactoryGirl.create(:review_decision, session: @session)
+    FactoryBot.create(:review_decision, session: @session)
     @session.tentatively_accept
     Session.stubs(:find).returns(@session)
     sign_in @user

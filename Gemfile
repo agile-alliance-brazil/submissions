@@ -72,7 +72,7 @@ end
 
 group :development, :test do
   gem 'brakeman'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe OrganizerReportsController, type: :controller do
   before(:each) do
-    @organizer = FactoryGirl.create(:organizer)
+    @organizer = FactoryBot.create(:organizer)
     @conference = @organizer.conference
     sign_in @organizer.user
     disable_authorization
@@ -22,7 +22,7 @@ describe OrganizerReportsController, type: :controller do
 
   describe '#index' do
     before(:each) do
-      @session = FactoryGirl.build(:session)
+      @session = FactoryBot.build(:session)
       Session.stubs(:for_conference).returns(Session)
       Session.stubs(:for_tracks).returns(Session)
       Session.stubs(:includes).returns([@session])

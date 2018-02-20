@@ -5,9 +5,9 @@ require 'spec_helper'
 describe TracksController, type: :controller do
   render_views
 
-  let(:conference) { FactoryGirl.create(:conference) }
+  let(:conference) { FactoryBot.create(:conference) }
   let(:admin) do
-    FactoryGirl.create(:user).tap do |u|
+    FactoryBot.create(:user).tap do |u|
       u.add_role('admin')
       u.save
     end
@@ -18,7 +18,7 @@ describe TracksController, type: :controller do
   end
 
   context 'index action' do
-    let(:track) { FactoryGirl.create(:track, conference: conference) }
+    let(:track) { FactoryBot.create(:track, conference: conference) }
 
     it 'should render index template' do
       get :index, year: track.conference.year
@@ -34,7 +34,7 @@ describe TracksController, type: :controller do
   end
 
   context 'create action' do
-    let(:track) { FactoryGirl.build(:track, conference: conference) }
+    let(:track) { FactoryBot.build(:track, conference: conference) }
 
     before(:each) do
       sign_in admin
@@ -102,7 +102,7 @@ describe TracksController, type: :controller do
   end
 
   context 'update' do
-    let(:track) { FactoryGirl.create(:track, conference: conference) }
+    let(:track) { FactoryBot.create(:track, conference: conference) }
     let(:new_content) { '*New* content!' }
 
     before(:each) do

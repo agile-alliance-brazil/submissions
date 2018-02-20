@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe SessionsController, type: :controller do
-  let(:author) { FactoryGirl.create(:author) }
-  let(:conference) { FactoryGirl.create(:conference) }
+  let(:author) { FactoryBot.create(:author) }
+  let(:conference) { FactoryBot.create(:conference) }
 
   context 'disabled authorizations' do
     render_views
 
     it_should_require_login_for_actions :index, :show, :new, :create, :edit, :update
 
-    let(:audience_level) { FactoryGirl.create(:audience_level, conference: conference) }
-    let(:session_type) { FactoryGirl.create(:session_type, conference: conference) }
-    let(:track) { FactoryGirl.create(:track, conference: conference) }
-    let(:session) { FactoryGirl.create(:session, conference: conference, author: author) }
+    let(:audience_level) { FactoryBot.create(:audience_level, conference: conference) }
+    let(:session_type) { FactoryBot.create(:session_type, conference: conference) }
+    let(:track) { FactoryBot.create(:track, conference: conference) }
+    let(:session) { FactoryBot.create(:session, conference: conference, author: author) }
     let(:valid_params) do
       {
         title: 'Testing',
@@ -52,12 +52,12 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should display flash news if session from previous conference' do
-        old_conference = FactoryGirl.create(:conference, year: 1)
-        old_session = FactoryGirl.create(:session,
-                                         session_type: FactoryGirl.create(:session_type, conference: old_conference),
-                                         audience_level: FactoryGirl.create(:audience_level, conference: old_conference),
-                                         track: FactoryGirl.create(:track, conference: old_conference),
-                                         conference: old_conference)
+        old_conference = FactoryBot.create(:conference, year: 1)
+        old_session = FactoryBot.create(:session,
+                                        session_type: FactoryBot.create(:session_type, conference: old_conference),
+                                        audience_level: FactoryBot.create(:audience_level, conference: old_conference),
+                                        track: FactoryBot.create(:track, conference: old_conference),
+                                        conference: old_conference)
 
         get :show, year: conference.year, id: old_session.id
 
@@ -171,7 +171,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'should maintain author and second_author if editing as second_author' do
-        other_author = FactoryGirl.create(:author)
+        other_author = FactoryBot.create(:author)
         session.author = other_author
         session.second_author = author
         session.save(validate: false)
@@ -215,26 +215,26 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'authenticated as normal user' do
-      let(:user) { FactoryGirl.create :user }
+      let(:user) { FactoryBot.create :user }
       before { sign_in user }
 
       describe 'GET #index' do
         context 'with valid sessions' do
-          let(:conference) { FactoryGirl.create(:conference) }
-          let(:other_conference) { FactoryGirl.create(:conference) }
+          let(:conference) { FactoryBot.create(:conference) }
+          let(:other_conference) { FactoryBot.create(:conference) }
 
-          let!(:track) { FactoryGirl.create :track, conference: conference, title: 'zzz' }
-          let!(:other_track) { FactoryGirl.create :track, conference: conference, title: 'aaa' }
-          let!(:out_track) { FactoryGirl.create :track, title: 'out', conference: other_conference }
+          let!(:track) { FactoryBot.create :track, conference: conference, title: 'zzz' }
+          let!(:other_track) { FactoryBot.create :track, conference: conference, title: 'aaa' }
+          let!(:out_track) { FactoryBot.create :track, title: 'out', conference: other_conference }
 
-          let!(:type) { FactoryGirl.create :session_type, conference: conference, title: 'zzz' }
-          let!(:other_type) { FactoryGirl.create :session_type, conference: conference, title: 'aaa' }
-          let!(:out_type) { FactoryGirl.create :session_type, title: 'out', conference: other_conference }
+          let!(:type) { FactoryBot.create :session_type, conference: conference, title: 'zzz' }
+          let!(:other_type) { FactoryBot.create :session_type, conference: conference, title: 'aaa' }
+          let!(:out_type) { FactoryBot.create :session_type, title: 'out', conference: other_conference }
 
-          let!(:session) { FactoryGirl.create(:session, conference: conference, author: author, track: track, session_type: type) }
-          let!(:other_session) { FactoryGirl.create(:session, conference: conference, author: author, track: other_track, session_type: other_type) }
-          let!(:cancelled_session) { FactoryGirl.create :session_cancelled }
-          let!(:out_session) { FactoryGirl.create(:session, conference: other_conference, author: author, track: out_track, session_type: out_type) }
+          let!(:session) { FactoryBot.create(:session, conference: conference, author: author, track: track, session_type: type) }
+          let!(:other_session) { FactoryBot.create(:session, conference: conference, author: author, track: other_track, session_type: other_type) }
+          let!(:cancelled_session) { FactoryBot.create :session_cancelled }
+          let!(:out_session) { FactoryBot.create(:session, conference: other_conference, author: author, track: out_track, session_type: out_type) }
 
           before { get :index, year: conference.year }
 

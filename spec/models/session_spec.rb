@@ -22,7 +22,7 @@ describe Session, type: :model do
     it { should have_many :votes }
 
     context 'second author username' do
-      subject { FactoryGirl.build(:session) }
+      subject { FactoryBot.build(:session) }
       it_should_behave_like 'virtual username attribute', :second_author
     end
   end
@@ -52,13 +52,13 @@ describe Session, type: :model do
     it { should validate_length_of(:experience).is_at_most(400) }
 
     context 'with mismatched conferences' do
-      let(:conference) { FactoryGirl.create(:conference) }
-      let(:other_conference) { FactoryGirl.create(:conference) }
+      let(:conference) { FactoryBot.create(:conference) }
+      let(:other_conference) { FactoryBot.create(:conference) }
       context 'track' do
         it 'should match the conference' do
-          other_track = FactoryGirl.create(:track, conference: other_conference)
+          other_track = FactoryBot.create(:track, conference: other_conference)
 
-          session = FactoryGirl.build(:session, track: other_track, conference: conference)
+          session = FactoryBot.build(:session, track: other_track, conference: conference)
 
           expect(session).to_not be_valid
           expect(session.errors[:track_id]).to include(I18n.t('errors.messages.same_conference'))
@@ -67,9 +67,9 @@ describe Session, type: :model do
 
       context 'audience level' do
         it 'should match the conference' do
-          other_level = FactoryGirl.create(:audience_level, conference: other_conference)
+          other_level = FactoryBot.create(:audience_level, conference: other_conference)
 
-          session = FactoryGirl.build(:session, audience_level: other_level, conference: conference)
+          session = FactoryBot.build(:session, audience_level: other_level, conference: conference)
 
           expect(session).to_not be_valid
           expect(session.errors[:audience_level_id]).to include(I18n.t('errors.messages.same_conference'))
@@ -78,9 +78,9 @@ describe Session, type: :model do
 
       context 'session type' do
         it 'should match the conference' do
-          other_type = FactoryGirl.create(:session_type, conference: other_conference)
+          other_type = FactoryBot.create(:session_type, conference: other_conference)
 
-          session = FactoryGirl.build(:session, session_type: other_type, conference: conference)
+          session = FactoryBot.build(:session, session_type: other_type, conference: conference)
 
           expect(session).to_not be_valid
           expect(session.errors[:session_type_id]).to include(I18n.t('errors.messages.same_conference'))
@@ -90,16 +90,16 @@ describe Session, type: :model do
 
     context 'mechanics' do
       context 'workshops' do
-        subject { FactoryGirl.build(:session) }
-        before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.workshop.title', conference: subject.conference) }
+        subject { FactoryBot.build(:session) }
+        before { subject.session_type = FactoryBot.create(:session_type, title: 'session_types.workshop.title', conference: subject.conference) }
 
         it { should validate_presence_of(:mechanics) }
         it { should validate_length_of(:mechanics).is_at_most(2400) }
       end
 
       context 'hands on' do
-        subject { FactoryGirl.build(:session) }
-        before { subject.session_type = FactoryGirl.create(:session_type, title: 'session_types.hands_on.title', conference: subject.conference) }
+        subject { FactoryBot.build(:session) }
+        before { subject.session_type = FactoryBot.create(:session_type, title: 'session_types.hands_on.title', conference: subject.conference) }
 
         it { should validate_presence_of(:mechanics) }
         it { should validate_length_of(:mechanics).is_at_most(2400) }
@@ -108,7 +108,7 @@ describe Session, type: :model do
 
     context 'second author' do
       before(:each) do
-        @session = FactoryGirl.build(:session)
+        @session = FactoryBot.build(:session)
       end
 
       it 'should be a valid user' do
@@ -124,7 +124,7 @@ describe Session, type: :model do
       end
 
       it 'should be author' do
-        guest = FactoryGirl.create(:user)
+        guest = FactoryBot.create(:user)
         @session.second_author_username = guest.username
         expect(@session).to_not be_valid
         expect(@session.errors[:second_author_username]).to include(I18n.t('errors.messages.incomplete'))
@@ -132,7 +132,7 @@ describe Session, type: :model do
     end
 
     it 'should only accept valid durations for session type' do
-      @session = FactoryGirl.build(:session)
+      @session = FactoryBot.build(:session)
       @session.session_type.valid_durations = [25, 50]
       @session.duration_mins = 25
       expect(@session).to be_valid
@@ -145,15 +145,15 @@ describe Session, type: :model do
     end
 
     it "should validate that author doesn't change" do
-      session = FactoryGirl.create(:session)
-      session.author_id = FactoryGirl.create(:user).id
+      session = FactoryBot.create(:session)
+      session.author_id = FactoryBot.create(:user).id
       expect(session).to_not be_valid
       expect(session.errors[:author_id]).to include(I18n.t('errors.messages.constant'))
     end
 
     context 'confirming attendance:' do
       it 'should validate that author agreement was accepted on acceptance' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
         expect(session.update_attributes(state_event: 'accept', author_agreement: '0')).to be false
@@ -161,7 +161,7 @@ describe Session, type: :model do
       end
 
       it 'should validate that author agreement was accepted on withdraw' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
         expect(session.update_attributes(state_event: 'reject', author_agreement: '0')).to be false
@@ -169,7 +169,7 @@ describe Session, type: :model do
       end
 
       it 'should be valid when author agreement was accepted on acceptance' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
         updated = session.update_attributes(state_event: 'accept', author_agreement: '1')
@@ -178,7 +178,7 @@ describe Session, type: :model do
       end
 
       it 'should validate that author agreement was accepted on withdraw' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
         updated = session.update_attributes(state_event: 'reject', author_agreement: '1')
@@ -188,7 +188,7 @@ describe Session, type: :model do
     end
 
     it 'should validate that there is at least 1 keyword' do
-      session = FactoryGirl.build(:session, keyword_list: %w[a])
+      session = FactoryBot.build(:session, keyword_list: %w[a])
       expect(session).to be_valid
       session.keyword_list = %w[]
       expect(session).to_not be_valid
@@ -196,7 +196,7 @@ describe Session, type: :model do
     end
 
     it 'should validate that there are a maximum of 10 keywords' do
-      session = FactoryGirl.build(:session, keyword_list: %w[a b c d e f g h i j])
+      session = FactoryBot.build(:session, keyword_list: %w[a b c d e f g h i j])
       expect(session).to be_valid
       session.keyword_list = %w[a b c d e f g h i j k]
       expect(session).to_not be_valid
@@ -204,7 +204,7 @@ describe Session, type: :model do
     end
 
     it 'should validate that there are a maximum of 10 keywords in comma-separated list' do
-      session = FactoryGirl.build(:session, keyword_list: 'a, b, c, d, e, f, g, h, i, j')
+      session = FactoryBot.build(:session, keyword_list: 'a, b, c, d, e, f, g, h, i, j')
       expect(session).to be_valid
       session.keyword_list = 'a, b, c, d, e, f, g, h, i, j, k'
       expect(session).to_not be_valid
@@ -216,14 +216,14 @@ describe Session, type: :model do
     context 'for_reviewer / for_review_in' do
       before(:each) do
         # TODO: review this
-        @reviewer = FactoryGirl.create(:reviewer)
+        @reviewer = FactoryBot.create(:reviewer)
         @user = @reviewer.user
         @conference = @reviewer.conference
-        @track = FactoryGirl.create(:track, conference: @conference)
-        @audience_level = FactoryGirl.create(:audience_level, conference: @conference)
+        @track = FactoryBot.create(:track, conference: @conference)
+        @audience_level = FactoryBot.create(:audience_level, conference: @conference)
 
         @conference.presubmissions_deadline = Time.zone.now
-        @session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline - 1.day)
+        @session = FactoryBot.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline - 1.day)
       end
 
       context 'during early review phase' do
@@ -231,7 +231,7 @@ describe Session, type: :model do
           @conference.stubs(:in_early_review_phase?).returns(true)
           @conference.stubs(:in_final_review_phase?).returns(false)
 
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
         it 'should bring only one session unreviewed' do
@@ -239,35 +239,35 @@ describe Session, type: :model do
         end
 
         it 'if reviewed multiple times, it should only be returned once' do
-          FactoryGirl.create(:early_review, session: @session)
-          FactoryGirl.create(:early_review, session: @session)
+          FactoryBot.create(:early_review, session: @session)
+          FactoryBot.create(:early_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
         it 'should only be returned once even if reviewed multiple times' do
-          FactoryGirl.create(:early_review, session: @session)
-          FactoryGirl.create(:early_review, session: @session)
+          FactoryBot.create(:early_review, session: @session)
+          FactoryBot.create(:early_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
         it 'should not be returned if already reviewed by user' do
-          FactoryGirl.create(:early_review, session: @session, reviewer: @user)
+          FactoryBot.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
         context 'early review deadline' do
           it 'should be returned if submitted at the early review deadline' do
-            session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline)
+            session = FactoryBot.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
           it 'should be returned if submitted 3 hours past the early review deadline' do
-            session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours)
+            session = FactoryBot.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours)
             expect(Session.for_reviewer(@user, @conference)).to include(session)
           end
 
           it 'should not be returned if submitted after 3 hours past the early review deadline' do
-            session = FactoryGirl.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours + 1.second)
+            session = FactoryBot.create(:session, conference: @conference, track: @track, audience_level: @audience_level, created_at: @conference.presubmissions_deadline + 3.hours + 1.second)
             expect(Session.for_reviewer(@user, @conference)).to_not include(session)
           end
         end
@@ -278,7 +278,7 @@ describe Session, type: :model do
           @conference.stubs(:in_early_review_phase?).returns(false)
           @conference.stubs(:in_final_review_phase?).returns(true)
 
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
         it 'should bring only one session unreviewed' do
@@ -286,29 +286,29 @@ describe Session, type: :model do
         end
 
         it 'should only be returned once if reviewed multiple times' do
-          FactoryGirl.create(:final_review, session: @session)
-          FactoryGirl.create(:final_review, session: @session)
+          FactoryBot.create(:final_review, session: @session)
+          FactoryBot.create(:final_review, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
         it 'should not be returned if already reviewed by user' do
-          FactoryGirl.create(:final_review, session: @session, reviewer: @user)
+          FactoryBot.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
         it 'should not be returned if already reviewed by user and another user' do
-          FactoryGirl.create(:final_review, session: @session)
-          FactoryGirl.create(:final_review, session: @session, reviewer: @user)
+          FactoryBot.create(:final_review, session: @session)
+          FactoryBot.create(:final_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
 
         it 'should be returned if reviewed by user during early review' do
-          FactoryGirl.create(:early_review, session: @session, reviewer: @user)
+          FactoryBot.create(:early_review, session: @session, reviewer: @user)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
         it 'should not be returned if already reviewed 3 times' do
-          FactoryGirl.create_list(:final_review, 3, session: @session)
+          FactoryBot.create_list(:final_review, 3, session: @session)
           expect(Session.for_reviewer(@user, @conference)).to eq([])
         end
       end
@@ -319,16 +319,16 @@ describe Session, type: :model do
         end
 
         it 'one preference' do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
           expect(Session.for_reviewer(@user, @conference)).to eq([@session])
         end
 
         it 'multiple preferences' do
-          track = FactoryGirl.create(:track, conference: @conference)
-          session = FactoryGirl.create(:session, conference: @conference, track: track, audience_level: @audience_level)
+          track = FactoryBot.create(:track, conference: @conference)
+          session = FactoryBot.create(:session, conference: @conference, track: track, audience_level: @audience_level)
 
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: track, audience_level: @audience_level)
 
           expect((Session.for_reviewer(@user, @conference) - [session, @session])).to be_empty
         end
@@ -336,7 +336,7 @@ describe Session, type: :model do
 
       context 'cancelled' do
         before(:each) do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
         it 'non-cancelled should be returned' do
@@ -351,17 +351,17 @@ describe Session, type: :model do
 
       context 'author' do
         before(:each) do
-          FactoryGirl.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
+          FactoryBot.create(:preference, reviewer: @reviewer, track: @track, audience_level: @audience_level)
         end
 
         it 'if reviewer is first author, should not be returned' do
-          FactoryGirl.create(:reviewer, user: @session.author)
+          FactoryBot.create(:reviewer, user: @session.author)
 
           expect(Session.for_reviewer(@session.author, @conference)).to be_empty
         end
 
         it 'if reviewer is second author, should not be returned' do
-          second_author = FactoryGirl.create(:author)
+          second_author = FactoryBot.create(:author)
           @session.update_attributes!(second_author_username: second_author.username)
 
           expect(Session.for_reviewer(second_author, @conference)).to be_empty
@@ -370,8 +370,8 @@ describe Session, type: :model do
     end
 
     describe '.active' do
-      let!(:session) { FactoryGirl.create :session }
-      let!(:cancelled_session) { FactoryGirl.create :session, state: :cancelled }
+      let!(:session) { FactoryBot.create :session }
+      let!(:cancelled_session) { FactoryBot.create :session, state: :cancelled }
 
       it { expect(Session.active).to eq [session] }
     end
@@ -379,7 +379,7 @@ describe Session, type: :model do
 
   SessionType.all_titles.each do |title|
     it "should determine if it is #{title}" do
-      session = FactoryGirl.build(:session)
+      session = FactoryBot.build(:session)
       session.session_type.title = "session_types.#{title}.title"
       expect(session.send(:"#{title}?")).to be true
       session.session_type.title = 'session_types.other.title'
@@ -388,7 +388,7 @@ describe Session, type: :model do
   end
 
   it 'should overide to_param with session title' do
-    session = FactoryGirl.create(:session, title: 'refatoração e código limpo: na prática.')
+    session = FactoryBot.create(:session, title: 'refatoração e código limpo: na prática.')
     expect(session.to_param.ends_with?('-refatoracao-e-codigo-limpo-na-pratica')).to be true
 
     session.title = nil
@@ -397,38 +397,38 @@ describe Session, type: :model do
 
   context 'authors' do
     it 'should provide main author' do
-      session = FactoryGirl.build(:session)
+      session = FactoryBot.build(:session)
       expect(session.authors).to eq([session.author])
     end
 
     it 'should provide second author if available' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       user.add_role(:author)
-      session = FactoryGirl.build(:session, second_author: user)
+      session = FactoryBot.build(:session, second_author: user)
       expect(session.authors).to eq([session.author, user])
     end
 
     it 'should be empty if no authors' do
-      session = FactoryGirl.build(:session)
+      session = FactoryBot.build(:session)
       session.author = nil
       expect(session.authors).to be_empty
     end
 
     it 'should state that first author is author' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       user.add_role(:author)
 
-      session = FactoryGirl.build(:session, author: user)
+      session = FactoryBot.build(:session, author: user)
       expect(session.is_author?(user)).to be true
       session.author = nil
       expect(session.is_author?(user)).to be false
     end
 
     it 'should state that second author is author' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       user.add_role(:author)
 
-      session = FactoryGirl.build(:session, second_author: user)
+      session = FactoryBot.build(:session, second_author: user)
       expect(session.is_author?(user)).to be true
       session.second_author = nil
       expect(session.is_author?(user)).to be false
@@ -437,7 +437,7 @@ describe Session, type: :model do
 
   context 'state machine' do
     before(:each) do
-      @session = FactoryGirl.build(:session)
+      @session = FactoryBot.build(:session)
     end
 
     context 'State: created' do

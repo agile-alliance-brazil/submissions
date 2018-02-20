@@ -20,8 +20,8 @@ describe FinalReview, type: :model do
   end
 
   it "should determine if it's strong accept" do
-    strong = FactoryGirl.build(:recommendation, name: 'strong_accept')
-    review = FactoryGirl.build(:final_review)
+    strong = FactoryBot.build(:recommendation, name: 'strong_accept')
+    review = FactoryBot.build(:final_review)
     expect(review).to_not be_strong_accept
     review.recommendation = strong
     expect(review).to be_strong_accept
@@ -44,12 +44,12 @@ describe FinalReview, type: :model do
     it { should validate_length_of(:comments_to_authors).is_at_least(150) }
 
     context 'uniqueness' do
-      before { FactoryGirl.create(:final_review) }
+      before { FactoryBot.create(:final_review) }
       it { should validate_uniqueness_of(:reviewer_id).scoped_to(:session_id, :type) }
     end
 
     context 'strong acceptance' do
-      subject { FactoryGirl.build(:final_review) }
+      subject { FactoryBot.build(:final_review) }
       before(:each) { subject.recommendation.name = 'strong_accept' }
 
       it 'should not validate presence of justification' do
@@ -63,7 +63,7 @@ describe FinalReview, type: :model do
     end
 
     context 'weak acceptance' do
-      subject { FactoryGirl.build(:final_review) }
+      subject { FactoryBot.build(:final_review) }
       before(:each) { subject.recommendation.name = 'weak_accept' }
 
       it 'should validate presence of justification' do
@@ -79,7 +79,7 @@ describe FinalReview, type: :model do
     end
 
     context 'weak rejection' do
-      subject { FactoryGirl.build(:final_review) }
+      subject { FactoryBot.build(:final_review) }
       before(:each) { subject.recommendation.name = 'weak_reject' }
 
       it 'should validate presence of justification' do
@@ -95,7 +95,7 @@ describe FinalReview, type: :model do
     end
 
     context 'strong rejection' do
-      subject { FactoryGirl.build(:final_review) }
+      subject { FactoryBot.build(:final_review) }
       before(:each) { subject.recommendation.name = 'strong_reject' }
 
       it 'should validate presence of justification' do
@@ -113,13 +113,13 @@ describe FinalReview, type: :model do
 
   context 'callbacks' do
     it 'should set session in review after created' do
-      review = FactoryGirl.build(:final_review)
+      review = FactoryBot.build(:final_review)
       review.save
       expect(review.session).to be_in_review
     end
 
     it 'should not set session in review if validation failed' do
-      review = FactoryGirl.build(:final_review, reviewer_id: nil)
+      review = FactoryBot.build(:final_review, reviewer_id: nil)
       review.save
       expect(review.session).to be_created
     end

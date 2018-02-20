@@ -26,9 +26,9 @@ describe ReviewsController, type: :controller do
       valid_early_review_params.merge(recommendation_id: 1,
                                       justification: 'This is great!')
     end
-    let(:conference) { FactoryGirl.create(:conference) }
-    let(:session) { FactoryGirl.create(:session, conference: conference).tap(&:reviewing) }
-    let(:reviewer) { FactoryGirl.create(:reviewer, conference: conference) }
+    let(:conference) { FactoryBot.create(:conference) }
+    let(:session) { FactoryBot.create(:session, conference: conference).tap(&:reviewing) }
+    let(:reviewer) { FactoryBot.create(:reviewer, conference: conference) }
 
     before(:each) do
       sign_in reviewer.user
@@ -43,14 +43,14 @@ describe ReviewsController, type: :controller do
 
       describe 'collection' do
         def new_reviewer
-          FactoryGirl.create(:reviewer, conference: conference)
+          FactoryBot.create(:reviewer, conference: conference)
         end
 
         before do
-          FactoryGirl.create(:early_review, session: session, reviewer: new_reviewer.user)
-          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
-          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
-          FactoryGirl.create(:final_review, session: session, reviewer: new_reviewer.user)
+          FactoryBot.create(:early_review, session: session, reviewer: new_reviewer.user)
+          FactoryBot.create(:final_review, session: session, reviewer: new_reviewer.user)
+          FactoryBot.create(:final_review, session: session, reviewer: new_reviewer.user)
+          FactoryBot.create(:final_review, session: session, reviewer: new_reviewer.user)
         end
         it 'index early reviews for organizer should work' do
           get :organizer, year: conference.year, session_id: session.id, type: 'early'
@@ -70,8 +70,8 @@ describe ReviewsController, type: :controller do
       end
 
       it 'show should work for early review' do
-        early_review = FactoryGirl.create(:early_review,
-                                          reviewer: reviewer.user, session: session)
+        early_review = FactoryBot.create(:early_review,
+                                         reviewer: reviewer.user, session: session)
 
         get :show, year: conference.year, id: early_review.id, session_id: session.id
 
@@ -79,8 +79,8 @@ describe ReviewsController, type: :controller do
       end
 
       it 'show should work for final review' do
-        final_review = FactoryGirl.create(:final_review,
-                                          reviewer: reviewer.user, session: session)
+        final_review = FactoryBot.create(:final_review,
+                                         reviewer: reviewer.user, session: session)
 
         get :show, year: conference.year, id: final_review.id, session_id: session.id
 
@@ -138,14 +138,14 @@ describe ReviewsController, type: :controller do
   end
 
   context 'enabled authorization' do
-    let(:conference) { FactoryGirl.create(:conference, call_for_papers: 5.days.ago, submissions_open: 4.days.ago, presubmissions_deadline: 3.days.ago, prereview_deadline: 1.day.from_now) }
-    let(:track) { FactoryGirl.create(:track, conference: conference) }
-    let(:level) { FactoryGirl.create(:audience_level, conference: conference) }
-    let!(:session) { FactoryGirl.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
+    let(:conference) { FactoryBot.create(:conference, call_for_papers: 5.days.ago, submissions_open: 4.days.ago, presubmissions_deadline: 3.days.ago, prereview_deadline: 1.day.from_now) }
+    let(:track) { FactoryBot.create(:track, conference: conference) }
+    let(:level) { FactoryBot.create(:audience_level, conference: conference) }
+    let!(:session) { FactoryBot.create(:session, conference: conference, track: track, audience_level: level, created_at: 4.days.ago) }
     let(:reviewer) do
-      user = FactoryGirl.create :user, roles: [:reviewer]
-      reviewer = FactoryGirl.build :reviewer, conference: conference, user: user
-      preference = FactoryGirl.build :preference, reviewer: reviewer, track: track, audience_level: level, accepted: true
+      user = FactoryBot.create :user, roles: [:reviewer]
+      reviewer = FactoryBot.build :reviewer, conference: conference, user: user
+      preference = FactoryBot.build :preference, reviewer: reviewer, track: track, audience_level: level, accepted: true
       reviewer.preferences = [preference]
       reviewer.save
       reviewer
@@ -157,7 +157,7 @@ describe ReviewsController, type: :controller do
         it { expect(response).to redirect_to new_user_session_path }
 
         context 'when the user is not the reviewer' do
-          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          let(:other_user_review) { FactoryBot.create :early_review, session: session }
           before do
             sign_in reviewer.user
             get :edit, year: conference.year, session_id: session.id, id: other_user_review.id
@@ -170,7 +170,7 @@ describe ReviewsController, type: :controller do
         it { expect(response).to redirect_to new_user_session_path }
 
         context 'when the user is not the reviewer' do
-          let(:other_user_review) { FactoryGirl.create :early_review, session: session }
+          let(:other_user_review) { FactoryBot.create :early_review, session: session }
           before do
             sign_in reviewer.user
             put :update, year: conference.year, session_id: session, id: other_user_review
@@ -181,7 +181,7 @@ describe ReviewsController, type: :controller do
     end
 
     context 'authenticated as a reviewer' do
-      let(:review) { FactoryGirl.create :early_review, reviewer: reviewer.user, session: session }
+      let(:review) { FactoryBot.create :early_review, reviewer: reviewer.user, session: session }
 
       before do
         sign_in reviewer.user

@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe Ability, type: :model do
   before(:each) do
-    @user ||= FactoryGirl.build(:user)
-    @conference = FactoryGirl.create(:conference)
+    @user ||= FactoryBot.build(:user)
+    @conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(@conference)
   end
 
@@ -40,21 +40,21 @@ describe Ability, type: :model do
     end
 
     it 'can edit their comments' do
-      comment = FactoryGirl.build(:comment, user: @user)
+      comment = FactoryBot.build(:comment, user: @user)
       expect(@ability).to be_able_to(:edit, comment)
       comment.user_id = 0
       expect(@ability).to_not be_able_to(:edit, comment)
     end
 
     it 'can update their comments' do
-      comment = FactoryGirl.build(:comment, user: @user)
+      comment = FactoryBot.build(:comment, user: @user)
       expect(@ability).to be_able_to(:update, comment)
       comment.user_id = 0
       expect(@ability).to_not be_able_to(:update, comment)
     end
 
     it 'can destroy their comments' do
-      comment = FactoryGirl.build(:comment, user: @user)
+      comment = FactoryBot.build(:comment, user: @user)
       expect(@ability).to be_able_to(:destroy, comment)
       comment.user_id = 0
       expect(@ability).to_not be_able_to(:destroy, comment)
@@ -103,7 +103,7 @@ describe Ability, type: :model do
     end
 
     it 'can accept reviewer invitation if invited' do
-      reviewer = FactoryGirl.build(:reviewer, user: @user)
+      reviewer = FactoryBot.build(:reviewer, user: @user)
 
       @ability = Ability.new(@user, @conference, nil, reviewer)
       expect(@ability).to_not be_able_to(:manage, 'accept_reviewers')
@@ -113,7 +113,7 @@ describe Ability, type: :model do
     end
 
     it 'can reject reviewer invitation if invited' do
-      reviewer = FactoryGirl.build(:reviewer, user: @user)
+      reviewer = FactoryBot.build(:reviewer, user: @user)
 
       @ability = Ability.new(@user, @conference, nil, reviewer)
       expect(@ability).to_not be_able_to(:manage, 'reject_reviewers')
@@ -158,7 +158,7 @@ describe Ability, type: :model do
 
     context 'index early reviews of' do
       before(:each) do
-        @session = FactoryGirl.build(:session)
+        @session = FactoryBot.build(:session)
       end
 
       it 'his sessions as first author is allowed' do
@@ -182,7 +182,7 @@ describe Ability, type: :model do
       end
 
       it 'other peoples sessions is forbidden' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         expect(@ability).to_not be_able_to(:index, EarlyReview)
         expect(@ability).to_not be_able_to(:index, EarlyReview, session)
 
@@ -194,7 +194,7 @@ describe Ability, type: :model do
 
     context 'index final reviews of' do
       before(:each) do
-        @session = FactoryGirl.build(:session, review_decision: FactoryGirl.build(:review_decision, published: true))
+        @session = FactoryBot.build(:session, review_decision: FactoryBot.build(:review_decision, published: true))
       end
 
       it 'his sessions as first author is allowed' do
@@ -225,7 +225,7 @@ describe Ability, type: :model do
       end
 
       it 'other peoples sessions is forbidden' do
-        session = FactoryGirl.build(:session)
+        session = FactoryBot.build(:session)
         expect(@ability).to_not be_able_to(:index, FinalReview)
         expect(@ability).to_not be_able_to(:index, FinalReview, session)
 
@@ -278,7 +278,7 @@ describe Ability, type: :model do
 
     describe 'can update session if:' do
       before(:each) do
-        @session = FactoryGirl.build(:session, conference: @conference)
+        @session = FactoryBot.build(:session, conference: @conference)
         @conference.stubs(:in_submission_phase?).returns(true)
       end
 
@@ -309,18 +309,18 @@ describe Ability, type: :model do
       it '- session on current conference' do
         @session.author = @user
         expect(@ability).to be_able_to(:update, @session)
-        @session.conference = FactoryGirl.create(:conference)
+        @session.conference = FactoryBot.create(:conference)
         expect(@ability).to_not be_able_to(:update, @session)
       end
     end
 
     describe 'can confirm session if:' do
       before(:each) do
-        @another_user = FactoryGirl.build(:user)
-        @session = FactoryGirl.build(:session,
-                                     author: @user,
-                                     state: 'pending_confirmation',
-                                     review_decision: FactoryGirl.build(:review_decision))
+        @another_user = FactoryBot.build(:user)
+        @session = FactoryBot.build(:session,
+                                    author: @user,
+                                    state: 'pending_confirmation',
+                                    review_decision: FactoryBot.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -377,11 +377,11 @@ describe Ability, type: :model do
 
     describe 'can withdraw session if:' do
       before(:each) do
-        @another_user = FactoryGirl.build(:user)
-        @session = FactoryGirl.build(:session,
-                                     author: @user,
-                                     state: 'pending_confirmation',
-                                     review_decision: FactoryGirl.build(:review_decision))
+        @another_user = FactoryBot.build(:user)
+        @session = FactoryBot.build(:session,
+                                    author: @user,
+                                    state: 'pending_confirmation',
+                                    review_decision: FactoryBot.build(:review_decision))
         @conference.stubs(:in_author_confirmation_phase?).returns(true)
       end
 
@@ -438,10 +438,10 @@ describe Ability, type: :model do
 
     context 'create review feedback' do
       before(:each) do
-        @session = FactoryGirl.build(:session,
-                                     author: @user,
-                                     conference: @conference,
-                                     review_decision: FactoryGirl.build(:review_decision, published: true))
+        @session = FactoryBot.build(:session,
+                                    author: @user,
+                                    conference: @conference,
+                                    review_decision: FactoryBot.build(:review_decision, published: true))
         sessions = [@session]
         @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
         sessions.stubs(:includes).with(:review_decision).returns(sessions)
@@ -454,8 +454,8 @@ describe Ability, type: :model do
       end
 
       it 'with a valid and a cancelled proposal for the conference is allowed' do
-        cancelled_session = FactoryGirl.build(:session,
-                                              author: @user, conference: @conference, state: 'cancelled')
+        cancelled_session = FactoryBot.build(:session,
+                                             author: @user, conference: @conference, state: 'cancelled')
         sessions = [@session, cancelled_session]
         @user.stubs(:sessions_for_conference).with(@conference).returns(sessions)
         sessions.stubs(:includes).with(:review_decision).returns(sessions)
@@ -534,8 +534,8 @@ describe Ability, type: :model do
 
     context 'organizer index reviews of' do
       before(:each) do
-        track = FactoryGirl.build(:track, conference: @conference)
-        @session = FactoryGirl.build(:session, conference: @conference, track: track)
+        track = FactoryBot.build(:track, conference: @conference)
+        @session = FactoryBot.build(:session, conference: @conference, track: track)
       end
 
       it 'session on organizers track is allowed' do
@@ -560,8 +560,8 @@ describe Ability, type: :model do
 
     context 'can cancel session if:' do
       before(:each) do
-        track = FactoryGirl.create(:track, conference: @conference)
-        @session = FactoryGirl.build(:session, conference: @conference, track: track)
+        track = FactoryBot.create(:track, conference: @conference)
+        @session = FactoryBot.build(:session, conference: @conference, track: track)
       end
 
       it '- session on organizers track' do
@@ -581,8 +581,8 @@ describe Ability, type: :model do
 
     context 'can create review decision if:' do
       before(:each) do
-        track = FactoryGirl.create(:track, conference: @conference)
-        @session = FactoryGirl.build(:session, conference: @conference, track: track)
+        track = FactoryBot.create(:track, conference: @conference)
+        @session = FactoryBot.build(:session, conference: @conference, track: track)
         @session.reviewing
         Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
@@ -659,8 +659,8 @@ describe Ability, type: :model do
 
     context 'can edit review decision session' do
       before(:each) do
-        track = FactoryGirl.create(:track, conference: @conference)
-        @session = FactoryGirl.build(:session, conference: @conference, track: track)
+        track = FactoryBot.create(:track, conference: @conference)
+        @session = FactoryBot.build(:session, conference: @conference, track: track)
         @session.reviewing
         Time.zone.stubs(:now).returns(@conference.review_deadline + 1.day)
       end
@@ -672,7 +672,7 @@ describe Ability, type: :model do
         @ability = Ability.new(@user, @conference, @session)
         expect(@ability).to_not be_able_to(:update, ReviewDecision)
 
-        FactoryGirl.build(:organizer, track: @session.track, user: @user)
+        FactoryBot.build(:organizer, track: @session.track, user: @user)
         expect(@ability).to_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
@@ -689,7 +689,7 @@ describe Ability, type: :model do
         @ability = Ability.new(@user, @conference, @session)
         expect(@ability).to_not be_able_to(:update, ReviewDecision)
 
-        FactoryGirl.build(:organizer, track: @session.track, user: @user)
+        FactoryBot.build(:organizer, track: @session.track, user: @user)
         expect(@ability).to_not be_able_to(:update, ReviewDecision)
 
         @ability = Ability.new(@user, @conference)
@@ -701,7 +701,7 @@ describe Ability, type: :model do
         @session.tentatively_accept
         @session.accept
 
-        FactoryGirl.build(:organizer, track: @session.track, user: @user)
+        FactoryBot.build(:organizer, track: @session.track, user: @user)
         expect(@ability).to_not be_able_to(:update, ReviewDecision, @session)
         expect(@ability).to_not be_able_to(:update, ReviewDecision)
 
@@ -795,9 +795,9 @@ describe Ability, type: :model do
       @user.add_role 'reviewer'
       Reviewer.stubs(:user_reviewing_conference?).returns(true)
       # TODO: review this
-      reviewer = FactoryGirl.build(:reviewer, user: @user, conference: @conference, state: 'accepted')
-      track = FactoryGirl.build(:track, conference: @conference)
-      audience_level = FactoryGirl.build(:audience_level, conference: @conference)
+      reviewer = FactoryBot.build(:reviewer, user: @user, conference: @conference, state: 'accepted')
+      track = FactoryBot.build(:track, conference: @conference)
+      audience_level = FactoryBot.build(:audience_level, conference: @conference)
       reviewer.preferences.build(accepted: true, track: track, audience_level: audience_level)
       @ability = Ability.new(@user, @conference)
     end
@@ -846,14 +846,14 @@ describe Ability, type: :model do
     end
 
     it 'can show own early reviews' do
-      review = FactoryGirl.build(:early_review)
+      review = FactoryBot.build(:early_review)
       expect(@ability).to_not be_able_to(:show, review)
       review.reviewer = @user
       expect(@ability).to be_able_to(:show, review)
     end
 
     it 'can show own final reviews' do
-      review = FactoryGirl.build(:final_review)
+      review = FactoryBot.build(:final_review)
       expect(@ability).to_not be_able_to(:show, review)
       review.reviewer = @user
       expect(@ability).to be_able_to(:show, review)
@@ -861,7 +861,7 @@ describe Ability, type: :model do
 
     context 'can create a new final review if:' do
       before(:each) do
-        @session = FactoryGirl.build(:session)
+        @session = FactoryBot.build(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
         @conference.stubs(:in_final_review_phase?).returns(true)
       end
@@ -907,7 +907,7 @@ describe Ability, type: :model do
 
     context 'can create a new early review if:' do
       before(:each) do
-        @session = FactoryGirl.build(:session)
+        @session = FactoryBot.build(:session)
         Session.stubs(:for_reviewer).with(@user, @conference).returns([@session])
         @conference.stubs(:in_early_review_phase?).returns(true)
       end
@@ -966,7 +966,7 @@ describe Ability, type: :model do
 
     context 'can create a new vote if:' do
       before(:each) do
-        @vote = FactoryGirl.build(:vote)
+        @vote = FactoryBot.build(:vote)
         @session = @vote.session
         @conference.stubs(:in_voting_phase?).returns(true)
       end
@@ -1018,7 +1018,7 @@ describe Ability, type: :model do
 
     context 'can destroy votes if:' do
       before do
-        @vote = FactoryGirl.build(:vote, user: @user)
+        @vote = FactoryBot.build(:vote, user: @user)
         @conference.stubs(:in_voting_phase?).returns(true)
       end
 

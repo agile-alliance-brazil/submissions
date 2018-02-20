@@ -8,12 +8,12 @@ describe ReviewEvaluation, type: :model do
     should_validate_existence_of :review
 
     it 'should validate conference of feedback matches the one in review' do
-      session = FactoryGirl.build(:session)
+      session = FactoryBot.build(:session)
 
-      review = FactoryGirl.build(:final_review, session: session)
-      review_feedback = FactoryGirl.build(:review_feedback,
-                                          author: session.author,
-                                          conference: FactoryGirl.build(:conference))
+      review = FactoryBot.build(:final_review, session: session)
+      review_feedback = FactoryBot.build(:review_feedback,
+                                         author: session.author,
+                                         conference: FactoryBot.build(:conference))
 
       evaluation = ReviewEvaluation.new(review: review, review_feedback: review_feedback)
 
@@ -22,12 +22,12 @@ describe ReviewEvaluation, type: :model do
     end
 
     it "should validate author of review's session matches the one on feedback" do
-      session = FactoryGirl.build(:session)
+      session = FactoryBot.build(:session)
 
-      review = FactoryGirl.build(:final_review, session: session)
-      review_feedback = FactoryGirl.build(:review_feedback,
-                                          author: FactoryGirl.build(:author),
-                                          conference: session.conference)
+      review = FactoryBot.build(:final_review, session: session)
+      review_feedback = FactoryBot.build(:review_feedback,
+                                         author: FactoryBot.build(:author),
+                                         conference: session.conference)
 
       evaluation = ReviewEvaluation.new(review: review, review_feedback: review_feedback)
 

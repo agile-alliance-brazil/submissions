@@ -9,10 +9,10 @@ describe ReviewsListingController, type: :controller do
 
   describe '#index' do
     before(:each) do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       sign_in user
       disable_authorization
-      @conference = FactoryGirl.create(:conference)
+      @conference = FactoryBot.create(:conference)
       Conference.stubs(:current).returns(@conference)
     end
 
@@ -20,10 +20,10 @@ describe ReviewsListingController, type: :controller do
       @conference.stubs(:in_early_review_phase?).returns(true)
       @conference.presubmissions_deadline = Time.now
 
-      sessions = FactoryGirl.create_list(:session, 2, created_at: @conference.presubmissions_deadline - 1.day)
-      FactoryGirl.create(:session, created_at: @conference.presubmissions_deadline + 1.day)
+      sessions = FactoryBot.create_list(:session, 2, created_at: @conference.presubmissions_deadline - 1.day)
+      FactoryBot.create(:session, created_at: @conference.presubmissions_deadline + 1.day)
 
-      FactoryGirl.create(:early_review, session: sessions[0])
+      FactoryBot.create(:early_review, session: sessions[0])
 
       xhr :get, :index, format: :js
 
@@ -35,7 +35,7 @@ describe ReviewsListingController, type: :controller do
 
     it 'index action (JS) should render JSON for final reviews' do
       @conference.stubs(:in_early_review_phase?).returns(false)
-      FactoryGirl.create_list(:final_review, 2)
+      FactoryBot.create_list(:final_review, 2)
 
       xhr :get, :index, format: :js
 
@@ -48,7 +48,7 @@ describe ReviewsListingController, type: :controller do
 
   context 'as a reviewer' do
     before(:each) do
-      @reviewer = FactoryGirl.create(:reviewer)
+      @reviewer = FactoryBot.create(:reviewer)
       @conference = @reviewer.conference
       sign_in @reviewer.user
       disable_authorization

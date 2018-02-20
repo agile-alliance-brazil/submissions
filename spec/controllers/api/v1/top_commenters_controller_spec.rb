@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Api::V1::TopCommentersController, type: :controller do
-  let(:session) { FactoryGirl.create(:session) }
+  let(:session) { FactoryBot.create(:session) }
   describe 'index' do
     def simplify(user)
       gravatar_id = Digest::MD5.hexdigest(user.email).downcase
@@ -12,9 +12,9 @@ describe Api::V1::TopCommentersController, type: :controller do
     end
 
     def create_commenter_with_number_of_comments_as(number, commented_session = session)
-      commenter = FactoryGirl.create(:user)
+      commenter = FactoryBot.create(:user)
       number.times do
-        FactoryGirl.create(:comment, user: commenter, commentable: commented_session, commentable_type: Session)
+        FactoryBot.create(:comment, user: commenter, commentable: commented_session, commentable_type: Session)
       end
       commenter
     end
@@ -143,7 +143,7 @@ describe Api::V1::TopCommentersController, type: :controller do
 
     context 'filtering' do
       context 'by year' do
-        let(:new_conference) { FactoryGirl.create(:conference) }
+        let(:new_conference) { FactoryBot.create(:conference) }
 
         before do
           create_commenter_with_number_of_comments_as(1)
@@ -156,7 +156,7 @@ describe Api::V1::TopCommentersController, type: :controller do
         end
 
         it 'should show commenters from specified conference' do
-          new_session = FactoryGirl.create(:session, conference: new_conference)
+          new_session = FactoryBot.create(:session, conference: new_conference)
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
 
           # curl "http://localhost:3000/api/top_commenters.json?filter%5Byear%5D=2015" -i -H "Accept: application/json"
@@ -167,11 +167,11 @@ describe Api::V1::TopCommentersController, type: :controller do
         end
 
         it 'should show comments from specified conference' do
-          new_session = FactoryGirl.create(:session, conference: new_conference)
+          new_session = FactoryBot.create(:session, conference: new_conference)
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
           top_commenter = top_commenters.first
           expected_result = top_commenters.map { |u| simplify(u) }.to_json # When only have 5 comments
-          FactoryGirl.create(:comment, user: top_commenter, commentable: session)
+          FactoryBot.create(:comment, user: top_commenter, commentable: session)
 
           get :index, format: 'json', filter: { year: [new_conference.year.to_s] }
 

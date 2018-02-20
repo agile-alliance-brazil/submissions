@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe ReviewerSessionsController, type: :controller do
   before(:each) do
-    @reviewer ||= FactoryGirl.create(:reviewer)
+    @reviewer ||= FactoryBot.create(:reviewer)
     sign_in @reviewer.user
     controller.stubs(:current_user).returns(@reviewer.user)
     disable_authorization
@@ -25,7 +25,7 @@ describe ReviewerSessionsController, type: :controller do
       @conference = @reviewer.conference
       @conference.presubmissions_deadline = Time.now + 1.day
       Conference.stubs(:current).returns(@conference)
-      @session = FactoryGirl.build(:session, conference: @conference)
+      @session = FactoryBot.build(:session, conference: @conference)
       SessionFilter.any_instance.stubs(:apply).returns([@session])
     end
 

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 shared_examples_for 'standard conference e-mail' do
-  let(:conference) { FactoryGirl.create(:conference) }
+  let(:conference) { FactoryBot.create(:conference) }
 
   # TODO: Remove usage of Conference.current
   before(:each) do
@@ -15,10 +15,10 @@ shared_examples_for 'standard conference e-mail' do
 end
 
 describe EmailNotifications, type: :mailer do
-  let(:conference) { FactoryGirl.create(:conference) }
-  let(:accept_outcome) { FactoryGirl.build(:accepted_outcome) }
-  let(:reject_outcome) { FactoryGirl.build(:rejected_outcome) }
-  let(:backup_outcome) { FactoryGirl.build(:backup_outcome) }
+  let(:conference) { FactoryBot.create(:conference) }
+  let(:accept_outcome) { FactoryBot.build(:accepted_outcome) }
+  let(:reject_outcome) { FactoryBot.build(:rejected_outcome) }
+  let(:backup_outcome) { FactoryBot.build(:backup_outcome) }
 
   # TODO: Remove usage of Conference.current
   before(:each) do
@@ -34,7 +34,7 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'user subscription e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
     subject { EmailNotifications.welcome(user) }
 
     it_should_behave_like 'standard conference e-mail'
@@ -56,7 +56,7 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'reset password instructions e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
     before { user.send(:send_reset_password_instructions) }
 
     subject { EmailNotifications.reset_password_instructions(user, :fake_token) }
@@ -81,8 +81,8 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'session submission e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, author: user) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:session) { FactoryBot.build(:session, author: user) }
 
     subject { EmailNotifications.session_submitted(session) }
 
@@ -106,14 +106,14 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with single author' do
-      let(:session) { FactoryGirl.build(:session, author: user) }
+      let(:session) { FactoryBot.build(:session, author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name},/) }
     end
 
     context 'with second author' do
-      let(:session) { FactoryGirl.build(:session, second_author: user) }
+      let(:session) { FactoryBot.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
@@ -121,9 +121,9 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'comment submission e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, author: user) }
-    let(:comment) { FactoryGirl.build(:comment, commentable: session) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:session) { FactoryBot.build(:session, author: user) }
+    let(:comment) { FactoryBot.build(:comment, commentable: session) }
 
     subject { EmailNotifications.comment_submitted(session, comment) }
 
@@ -146,20 +146,20 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with single author' do
-      let(:session) { FactoryGirl.build(:session, author: user) }
+      let(:session) { FactoryBot.build(:session, author: user) }
 
       it { should bcc_to(user.email) }
     end
 
     context 'with second author' do
-      let(:session) { FactoryGirl.build(:session, second_author: user) }
+      let(:session) { FactoryBot.build(:session, second_author: user) }
 
       it { should bcc_to(session.author.email, user.email) }
     end
 
     context 'with commenters' do
-      let(:another_user) { FactoryGirl.build(:user, email: 'another.user@provider.com') }
-      let(:another_comment) { FactoryGirl.build(:comment, commentable: session, user: another_user) }
+      let(:another_user) { FactoryBot.build(:user, email: 'another.user@provider.com') }
+      let(:another_comment) { FactoryBot.build(:comment, commentable: session, user: another_user) }
 
       it 'should be sent to sessions commenters and authors' do
         session.expects(:comments).returns([stub(user: another_user)])
@@ -170,8 +170,8 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'early review submission e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:session) { FactoryGirl.build(:session, author: user) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:session) { FactoryBot.build(:session, author: user) }
 
     subject { EmailNotifications.early_review_submitted(session) }
 
@@ -193,14 +193,14 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with single author' do
-      let(:session) { FactoryGirl.build(:session, author: user) }
+      let(:session) { FactoryBot.build(:session, author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name},/) }
     end
 
     context 'with second author' do
-      let(:session) { FactoryGirl.build(:session, second_author: user) }
+      let(:session) { FactoryBot.build(:session, second_author: user) }
 
       it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
       it { should have_body_text(/#{session.author.full_name} & #{user.full_name},/) }
@@ -208,8 +208,8 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'reviewer invitation e-mail' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:reviewer) { FactoryGirl.build(:reviewer, user: user, id: 3) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:reviewer) { FactoryBot.build(:reviewer, user: user, id: 3) }
 
     subject { EmailNotifications.reviewer_invitation(reviewer) }
 
@@ -233,8 +233,8 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'notification of acceptance e-mail' do
-    let(:user) { FactoryGirl.build(:author) }
-    let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
+    let(:user) { FactoryBot.build(:author) }
+    let(:session) { FactoryBot.build(:session, state: 'in_review', author: user) }
 
     subject { EmailNotifications.notification_of_acceptance(session) }
 
@@ -245,7 +245,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: accept_outcome) }
+      before { session.review_decision = FactoryBot.build(:review_decision, outcome: accept_outcome) }
 
       it_should_behave_like 'standard conference e-mail'
 
@@ -271,8 +271,8 @@ describe EmailNotifications, type: :mailer do
       end
 
       context 'with second author' do
-        let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: accept_outcome) }
+        let(:session) { FactoryBot.build(:session, state: 'in_review', second_author: user) }
+        before { session.review_decision = FactoryBot.build(:review_decision, outcome: accept_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
@@ -281,8 +281,8 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'notification of rejection e-mail' do
-    let(:user) { FactoryGirl.build(:author) }
-    let(:session) { FactoryGirl.build(:session, state: 'in_review', author: user) }
+    let(:user) { FactoryBot.build(:author) }
+    let(:session) { FactoryBot.build(:session, state: 'in_review', author: user) }
 
     subject { EmailNotifications.notification_of_acceptance(session) }
 
@@ -293,7 +293,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision of rejection' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: reject_outcome) }
+      before { session.review_decision = FactoryBot.build(:review_decision, outcome: reject_outcome) }
       it_should_behave_like 'standard conference e-mail'
 
       it { should have_body_text(/#{session.title}/) }
@@ -317,8 +317,8 @@ describe EmailNotifications, type: :mailer do
       end
 
       context 'with second author' do
-        let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: reject_outcome) }
+        let(:session) { FactoryBot.build(:session, state: 'in_review', second_author: user) }
+        before { session.review_decision = FactoryBot.build(:review_decision, outcome: reject_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
@@ -326,7 +326,7 @@ describe EmailNotifications, type: :mailer do
     end
 
     context 'with review decision of backup' do
-      before { session.review_decision = FactoryGirl.build(:review_decision, outcome: backup_outcome) }
+      before { session.review_decision = FactoryBot.build(:review_decision, outcome: backup_outcome) }
       it_should_behave_like 'standard conference e-mail'
 
       it { should have_body_text(/#{session.title}/) }
@@ -350,8 +350,8 @@ describe EmailNotifications, type: :mailer do
       end
 
       context 'with second author' do
-        let(:session) { FactoryGirl.build(:session, state: 'in_review', second_author: user) }
-        before { session.review_decision = FactoryGirl.build(:review_decision, outcome: backup_outcome) }
+        let(:session) { FactoryBot.build(:session, state: 'in_review', second_author: user) }
+        before { session.review_decision = FactoryBot.build(:review_decision, outcome: backup_outcome) }
 
         it { should deliver_to(EmailNotifications.send(:format_email, session.author), EmailNotifications.send(:format_email, user)) }
         it { should have_body_text(/#{session.author.full_name} & #{user.full_name}/) }
@@ -360,7 +360,7 @@ describe EmailNotifications, type: :mailer do
   end
 
   describe 'review feedback request' do
-    let(:user) { FactoryGirl.build(:author) }
+    let(:user) { FactoryBot.build(:author) }
 
     subject { EmailNotifications.review_feedback_request(user) }
 

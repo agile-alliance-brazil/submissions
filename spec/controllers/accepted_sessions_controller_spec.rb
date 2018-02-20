@@ -5,10 +5,10 @@ require 'spec_helper'
 describe AcceptedSessionsController, type: :controller do
   describe '#index' do
     context 'csv' do
-      let(:conference) { FactoryGirl.create(:conference) }
+      let(:conference) { FactoryBot.create(:conference) }
       context 'unauthorized user' do
         before(:each) do
-          @user = FactoryGirl.build(:user)
+          @user = FactoryBot.build(:user)
           @user.add_role('organizer')
           controller.stubs(:current_user).returns(@user)
         end
@@ -29,7 +29,7 @@ describe AcceptedSessionsController, type: :controller do
           controller.stubs(:current_ability).returns(stub(can?: true))
         end
         it 'should generate CSV from accepted sessions' do
-          session = FactoryGirl.create(:session, state: 'accepted', conference: conference)
+          session = FactoryBot.create(:session, state: 'accepted', conference: conference)
 
           get :index, year: conference.year, format: :csv
 

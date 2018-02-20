@@ -5,7 +5,7 @@ require 'spec_helper'
 describe ConferencesController, type: :controller do
   it_should_require_login_for_actions :index, :new, :create, :edit, :update, :destroy
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:admin) do
     user.tap do |u|
       u.add_role(:admin)
@@ -28,7 +28,7 @@ describe ConferencesController, type: :controller do
       visible: false
     }
   end
-  subject { FactoryGirl.create(:conference) }
+  subject { FactoryBot.create(:conference) }
 
   before(:each) do
     sign_in admin
@@ -37,7 +37,7 @@ describe ConferencesController, type: :controller do
 
   context 'index action' do
     it 'should render all conferences' do
-      FactoryGirl.create(:conference)
+      FactoryBot.create(:conference)
 
       get :index
 

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe TranslatedContent, type: :model do
-  subject { FactoryGirl.build :translated_content }
+  subject { FactoryBot.build :translated_content }
 
   context 'validations' do
     it { should validate_presence_of :title }

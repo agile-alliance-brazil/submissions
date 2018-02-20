@@ -2,7 +2,7 @@
 
 describe ReviewersHelper, type: :helper do
   describe '#ideal_reviews_burn' do
-    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    let(:conference) { FactoryBot.create :conference_in_review_time }
     it 'calls the proper method in the conference object' do
       conference.expects(:ideal_reviews_burn).once
       helper.ideal_reviews_burn(conference)
@@ -10,7 +10,7 @@ describe ReviewersHelper, type: :helper do
   end
 
   describe '#actual_reviews_burn' do
-    let(:conference) { FactoryGirl.create :conference_in_review_time }
+    let(:conference) { FactoryBot.create :conference_in_review_time }
     it 'calls the proper method in the conference object' do
       conference.expects(:actual_reviews_burn).once
       helper.actual_reviews_burn(conference)

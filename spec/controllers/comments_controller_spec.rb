@@ -6,11 +6,11 @@ describe CommentsController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :index, :show, :create, :edit, :update, :destroy
-  let(:session) { FactoryGirl.create(:session) }
+  let(:session) { FactoryBot.create(:session) }
   let(:valid_comment_params) do
     { comment: 'Super comment!' }
   end
-  subject { FactoryGirl.create(:comment, commentable: session) }
+  subject { FactoryBot.create(:comment, commentable: session) }
   before(:each) do
     sign_in subject.user
     disable_authorization

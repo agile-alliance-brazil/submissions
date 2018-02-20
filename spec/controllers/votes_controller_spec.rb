@@ -14,7 +14,7 @@ describe VotesController, type: :controller do
   it_should_require_login_for_actions :index, :create, :destroy
 
   before(:each) do
-    @vote ||= FactoryGirl.create(:vote)
+    @vote ||= FactoryBot.create(:vote)
     sign_in @vote.user
     disable_authorization
   end
@@ -30,7 +30,7 @@ describe VotesController, type: :controller do
 
   describe '#create' do
     before do
-      @session = FactoryGirl.create(:session)
+      @session = FactoryBot.create(:session)
       @request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
       post :create, vote: { session_id: @session.id }
     end

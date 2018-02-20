@@ -9,7 +9,7 @@ describe ReviewFeedbackRequester do
     ::Rails.logger.stubs(:flush)
     Airbrake.stubs(:notify)
 
-    @conference = FactoryGirl.create(:conference)
+    @conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(@conference)
 
     @requester = ReviewFeedbackRequester.new
@@ -25,9 +25,9 @@ describe ReviewFeedbackRequester do
   context 'Sessions are all published' do
     before(:each) do
       @requester.stubs(:ensure_all_sessions_published)
-      @sessions = [FactoryGirl.create(:session), FactoryGirl.create(:session)]
-      FactoryGirl.create(:review_decision, session: @sessions[0], published: true)
-      FactoryGirl.create(:review_decision, session: @sessions[1], published: true)
+      @sessions = [FactoryBot.create(:session), FactoryBot.create(:session)]
+      FactoryBot.create(:review_decision, session: @sessions[0], published: true)
+      FactoryBot.create(:review_decision, session: @sessions[1], published: true)
       Session.stubs(:for_review_in).returns(@sessions)
     end
 
