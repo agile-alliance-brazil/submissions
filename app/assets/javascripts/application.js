@@ -84,10 +84,11 @@
         });
     var year = $('#container').data('conference-year');
     if ($('.tagcloud').length > 0 && year) {
+      var lang = $('html')[0].lang;
       $.ajax({
-        url: '/api/'+year+'/tags',
+        url: '/api/'+year+'/tags?locale='+lang,
       }).done(function(data) {
-        if (data.len > 0) {
+        if (data.length > 0) {
           $('.tagcloud').jQCloud(data);
         }
       });
