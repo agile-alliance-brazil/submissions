@@ -356,6 +356,7 @@ pt-BR:
       default: "Perfil de público padrão"
     edit_profile: "Atualizar perfil de %{user}"
     edit_session: "Editar sessão"
+    cancel_session: "Cancelar sessão"
     comments: "Comentários"
     edit_comment: "Editar comentário"
     edit_organizer: "Atualizar organizador"

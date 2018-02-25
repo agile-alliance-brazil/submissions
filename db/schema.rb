@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703152849) do
+ActiveRecord::Schema.define(version: 20180225205352) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170703152849) do
     t.datetime "logo_updated_at"
     t.string   "supported_languages",     default: "en,pt-BR", null: false
     t.boolean  "allow_free_form_tags",    default: true,       null: false
+    t.integer  "submission_limit",        default: 0,          null: false
   end
 
   add_index "conferences", ["year"], name: "index_conferences_on_year", unique: true

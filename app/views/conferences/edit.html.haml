@@ -22,6 +22,7 @@
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 7, value: @conference.author_notification.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :author_confirmation, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 8, value: @conference.author_confirmation.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :tag_list, input_html: {tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json), maxlength: nil, value: (@conference.tag_list||[]).join(',')}, as: :hidden
+    = form.input :submission_limit, required: true, min: 0, step: 1, type: 'number', input_html: {tabindex: autotab}
     %li
       %label= t('formtastic.labels.conference.tag_list')
       %ul.conferenceTags.tags

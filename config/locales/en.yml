@@ -46,7 +46,7 @@ en:
           attributes:
             keyword_list:
               too_long: "can't have more than %{count} keywords"
-              too_long: "must have at least %{count} keyword"
+              too_short: "must have at least %{count} keyword"
         organizer:
           attributes:
             track_id:
@@ -351,6 +351,7 @@ en:
       default: "Default Audience Level"
     edit_profile: "Edit profile for %{user}"
     edit_session: "Edit session"
+    cancel_session: "Cancel session"
     comments: "Comments"
     edit_comment: "Edit comment"
     edit_organizer: "Update organizer"

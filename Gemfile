@@ -49,7 +49,6 @@ end
 
 group :development do
   gem 'bullet'
-  gem 'byebug'
   gem 'capistrano', '3.10.1', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-git-with-submodules', require: false
@@ -78,6 +77,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'byebug'
   gem 'pry-rails'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')

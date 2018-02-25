@@ -184,22 +184,49 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'cancel action' do
-      it 'should cancel and redirect to organizer sessions' do
-        delete :cancel, year: conference.year, id: session.id
+      context 'for author' do
+        it 'should cancel and redirect to sessions index' do
+          delete :cancel, year: conference.year, id: session.id
 
-        expect(response).to redirect_to(organizer_sessions_path(conference))
+          expect(response).to redirect_to(sessions_path(conference))
+        end
+
+        it 'should redirect to sessions index with error' do
+          session.cancel
+
+          delete :cancel, year: conference.year, id: session.id
+
+          expect(response).to redirect_to(sessions_path(conference))
+
+          error_message = I18n.t('flash.session.cancel.failure',
+                                 locale: author.default_locale)
+          expect(flash[:error]).to eq(error_message)
+        end
       end
 
-      it 'should redirect to organizer sessions with error' do
-        session.cancel
+      context 'for organizer' do
+        let(:organizer) { FactoryBot.create(:organizer, conference: session.conference, track: session.track) }
+        before(:each) do
+          sign_in organizer.user
+        end
 
-        delete :cancel, year: conference.year, id: session.id
+        it 'should cancel and redirect to organizer sessions' do
+          delete :cancel, year: conference.year, id: session.id
 
-        expect(response).to redirect_to(organizer_sessions_path(conference))
+          expect(response).to redirect_to(organizer_sessions_path(conference))
+        end
 
-        error_message = I18n.t('flash.session.cancel.failure',
-                               locale: author.default_locale)
-        expect(flash[:error]).to eq(error_message)
+        it 'should redirect to organizer sessions with error' do
+          session.cancel
+
+          delete :cancel, year: conference.year, id: session.id
+
+          expect(response).to redirect_to(organizer_sessions_path(conference))
+
+          error_message = I18n.t('flash.session.cancel.failure',
+                                 locale: author.default_locale)
+          expect(flash[:error]).to eq(error_message)
+        end
       end
     end
   end

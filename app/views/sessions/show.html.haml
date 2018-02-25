@@ -9,6 +9,8 @@
     %li= link_to h(@session.second_author.full_name), user_path(@session.second_author)
   - if can? :update, @session
     %li= link_to t('title.edit_session'), edit_session_path(@conference, @session)
+  - if can? :cancel, @session
+    %li= link_to t('title.cancel_session'), cancel_session_path(@conference, @session), method: :delete, data: { confirm: I18n.t('generic.are_you_sure', action: I18n.t('title.cancel_session')) }
   %li #{t('formtastic.labels.session.updated_at')}: #{l(@session.updated_at, format: :short)}
 
 %ul.spaced

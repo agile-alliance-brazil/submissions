@@ -717,8 +717,10 @@ button::disabled {
 }
 
 #content .tagcloud {
-  width: 100%;
+  max-width: 100%;
+  width: 700px;
   height: 300px;
+  position: relative;
 }
 
 .tabs.ui-tabs.ui-widget {

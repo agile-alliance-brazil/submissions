@@ -65,7 +65,11 @@ class SessionsController < ApplicationController
 
   def cancel
     flash[:error] = t('flash.session.cancel.failure') unless resource.cancel
-    redirect_to organizer_sessions_path(@conference)
+    if resource.author_id == current_user.id || resource.second_author_id == current_user.id
+      redirect_to sessions_path(@conference)
+    else
+      redirect_to organizer_sessions_path(@conference)
+    end
   end
 
   protected
