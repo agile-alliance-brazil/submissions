@@ -30,6 +30,7 @@ pt-BR:
     errors:
       messages:
         existence: 'não existe'
+        at_least_one: "precisa de pelo menos um elemento"
       models:
         translated_content:
           missing_languages: "faltaram traduções do conteúdo para as seguintes línguas: %{languages}"

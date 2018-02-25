@@ -219,6 +219,6 @@ class Conference < ApplicationRecord
   end
 
   def at_least_one_language
-    languages.size > 0
+    errors.add(:languages, I18n.t('errors.messages.at_least_one')) if languages.empty?
   end
 end

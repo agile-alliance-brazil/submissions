@@ -26,6 +26,7 @@ en:
     errors:
       messages:
         existence: "does not exist"
+        at_least_one: "needs at least one element"
       models:
         translated_content:
           missing_languages: "missing content translation for the following languages: %{languages}"
