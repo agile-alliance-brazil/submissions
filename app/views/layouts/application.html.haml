@@ -15,7 +15,7 @@
     = yield(:head)
 
   %body
-    #container
+    #container{'data-conference-year': "#{@conference.year}"}
       #header
         = link_to image_tag(@conference.logo.blank? ? image_path("#{@conference.year}_logo.png") : @conference.logo.url(:medium)), conference_page_by_path_path(@conference, path: @conference.default_page.try(:path) || 'home')
         .logo

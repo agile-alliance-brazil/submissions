@@ -3,6 +3,7 @@
  *=require formtastic_changes
  *=require jquery-ui/datepicker
  *=require jquery.ui.autocomplete_changes
+ *=require jqcloud
  */
 @import "mixins/grid";
 @import "mixins/helper";
@@ -713,6 +714,11 @@ form.conference .logo .errors .error {
 
 button::disabled {
   color: gray;
+}
+
+#content .tagcloud {
+  width: 100%;
+  height: 300px;
 }
 
 .tabs.ui-tabs.ui-widget {

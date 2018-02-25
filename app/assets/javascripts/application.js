@@ -5,6 +5,7 @@
  *= require actions
  *= require jquery-ui/widgets/tabs
  *= require jquery-ui/widgets/datepicker
+ *= require jqcloud
  */
 
 (function($) {
@@ -81,6 +82,15 @@
             return false;
           }
         });
-  })
-
+    var year = $('#container').data('conference-year');
+    if ($('.tagcloud').length > 0 && year) {
+      $.ajax({
+        url: '/api/'+year+'/tags',
+      }).done(function(data) {
+        if (data.len > 0) {
+          $('.tagcloud').jQCloud(data);
+        }
+      });
+    }
+  });
 })(jQuery);

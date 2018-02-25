@@ -16,6 +16,7 @@ AgileBrazil::Application.routes.draw do
             get :accepted
           end
         end
+        resources :tags, only: %i[index]
       end
       resources :top_commenters, only: %i[index]
       post 'textilize' => 'html_rendering#textilize'
