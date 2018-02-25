@@ -340,8 +340,14 @@ en:
     user_sessions: "%{name}'s session proposals"
     new_session: "Propose a session"
     tracks: "Session Tracks"
+    track:
+      default: "Default Track"
     session_types: "Session Types"
+    session_type:
+      default: "Default Session Type"
     audience_levels: "Audience Levels"
+    audience_level:
+      default: "Default Audience Level"
     edit_profile: "Edit profile for %{user}"
     edit_session: "Edit session"
     comments: "Comments"

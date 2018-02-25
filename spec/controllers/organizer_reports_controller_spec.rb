@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 describe OrganizerReportsController, type: :controller do
+  let(:conference) { FactoryBot.create(:conference) }
+  let(:organizer) { FactoryBot.create(:organizer, conference: conference) }
   before(:each) do
-    @organizer = FactoryBot.create(:organizer)
-    @conference = @organizer.conference
-    sign_in @organizer.user
+    sign_in organizer.user
     disable_authorization
   end
 
@@ -14,25 +14,25 @@ describe OrganizerReportsController, type: :controller do
     render_views
 
     it 'index should work' do
-      get :index, format: :xls
+      get :index, format: :xls, year: conference.year
     end
   end
 
   it_should_require_login_for_actions :index
 
   describe '#index' do
+    let(:session) { FactoryBot.build(:session, conference: conference, track: organizer.track) }
     before(:each) do
-      @session = FactoryBot.build(:session)
       Session.stubs(:for_conference).returns(Session)
       Session.stubs(:for_tracks).returns(Session)
-      Session.stubs(:includes).returns([@session])
+      Session.stubs(:includes).returns([session])
     end
 
     it "should report sessions on organizer's tracks" do
-      Session.expects(:for_tracks).with([@organizer.track.id]).returns(Session)
+      Session.expects(:for_tracks).with([organizer.track.id]).returns(Session)
 
-      get :index, format: :xls
-      expect(assigns(:sessions)).to eq([@session])
+      get :index, format: :xls, year: conference.year
+      expect(assigns(:sessions)).to eq([session])
     end
   end
 end

@@ -5,9 +5,12 @@
   = f.inputs do
     = f.input :tags, input_html: { tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json) }
     = f.input :username, input_html: { tabindex: autotab, :'data-autocomplete-url' => users_path(format: :json) }
-    = f.input :track_id, as: :select, collection: @tracks.map { |tr| [t(tr.title), tr.id]}, input_html: { tabindex: autotab }, include_blank: t('generic.all')
-  = f.inputs do
-    = f.input :session_type_id, as: :select, collection: options_for_session_types(@session_types), input_html: { tabindex: autotab }, include_blank: t('generic.all')
+  - if @conference.tracks.size > 1 || @conference.session_types.size > 1
+    = f.inputs do
+      - if @conference.tracks.size > 1
+        = f.input :track_id, as: :select, collection: @tracks.map { |tr| [t(tr.title), tr.id]}, input_html: { tabindex: autotab }, include_blank: t('generic.all')
+      - if @conference.session_types.size > 1
+        = f.input :session_type_id, as: :select, collection: options_for_session_types(@session_types), input_html: { tabindex: autotab }, include_blank: t('generic.all')
   = f.actions do
     = f.action :submit, label: :filter_session, button_html: { tabindex: autotab }
 

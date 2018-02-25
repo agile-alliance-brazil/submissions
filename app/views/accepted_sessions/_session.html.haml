@@ -1,7 +1,9 @@
-.tab.left{class: "session_type_#{session.session_type.id}"}
-  = t(session.session_type.title)
-.tab.right{class: "audience_level_#{session.audience_level.id}"}
-  = t(session.audience_level.title)
+- if @conference.session_types.size > 1
+  .tab.left{class: "session_type_#{session.session_type.id}"}
+    = t(session.session_type.title)
+- if @conference.audience_levels.size > 1
+  .tab.right{class: "audience_level_#{session.audience_level.id}"}
+    = t(session.audience_level.title)
 .details
   %strong
     = link_to session.title, "#session_#{session.id}", class: "fancybox"
@@ -11,7 +13,8 @@
     %br
     %br
     = t('session.audience_limit', limit: session.audience_limit)
-.tab.bottom{class: "track_#{session.track.id}"}= t(session.track.title)
+- if @conference.tracks.size > 1
+  .tab.bottom{class: "track_#{session.track.id}"}= t(session.track.title)
 
 .hidden
   = render partial: "session_details", locals: {session: session, activity: activity}

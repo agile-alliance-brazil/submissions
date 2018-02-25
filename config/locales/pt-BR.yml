@@ -345,8 +345,14 @@ pt-BR:
     user_sessions: "Sessões submetidas por %{name}"
     new_session: "Proposta de sessão"
     tracks: "Trilhas de interesse"
+    track:
+      default: "Trilha Padrão"
     session_types: "Tipos de sessão"
+    session_type:
+      default: "Tipo de sessão padrão"
     audience_levels: "Perfis do público"
+    audience_level:
+      default: "Perfil de público padrão"
     edit_profile: "Atualizar perfil de %{user}"
     edit_session: "Editar sessão"
     comments: "Comentários"

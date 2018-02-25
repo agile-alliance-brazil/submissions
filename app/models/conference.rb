@@ -29,6 +29,7 @@ class Conference < ApplicationRecord
   validates :review_deadline, presence: true, if: :visible?
   validates :author_notification, presence: true, if: :visible?
   validates :author_confirmation, presence: true, if: :visible?
+  validate :at_least_one_language
 
   validate :date_orders
 
@@ -215,5 +216,9 @@ class Conference < ApplicationRecord
       error_message = I18n.t('errors.messages.cant_be_after', date: next_date)
       errors.add(d1, error_message)
     end
+  end
+
+  def at_least_one_language
+    languages.size > 0
   end
 end

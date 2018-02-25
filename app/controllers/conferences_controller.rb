@@ -13,9 +13,27 @@ class ConferencesController < ApplicationController
   def create
     @conference = Conference.new(new_conference_params)
     page = @conference.pages.build(path: 'home')
+    track = @conference.tracks.build
+    audience_level = @conference.audience_levels.build
+    session_type = @conference.session_types.build(valid_durations: SessionType::COMMON_DURATIONS)
     @conference.languages.each do |language|
       page.translated_contents.build(
         title: I18n.t('title.home', locale: language[:code]),
+        content: language[:name],
+        language: language[:code]
+      )
+      track.translated_contents.build(
+        title: I18n.t('title.track.default', locale: language[:code]),
+        content: language[:name],
+        language: language[:code]
+      )
+      audience_level.translated_contents.build(
+        title: I18n.t('title.audience_level.default', locale: language[:code]),
+        content: language[:name],
+        language: language[:code]
+      )
+      session_type.translated_contents.build(
+        title: I18n.t('title.session_type.default', locale: language[:code]),
         content: language[:name],
         language: language[:code]
       )

@@ -96,15 +96,17 @@
 - if user_signed_in? && @conference.in_final_review_phase?
   %div{id: 'burndown_container', style: 'width:100px; height:300px;', 'data-ideal': ideal_reviews_burn(@conference), 'data-actual': actual_reviews_burn(@conference) }
 
-%h4.charts= t('actions.submissionByTrack')
-%div.charts{ id: 'submittedByTrack', style: 'margin-left: -3em;'}
+- if @conference.tracks.size > 1
+  %h4.charts= t('actions.submissionByTrack')
+  %div.charts{ id: 'submittedByTrack', style: 'margin-left: -3em;'}
 
-%h4.charts= t('actions.submissionByType')
-%div.charts{ id: 'submittedByType', style: 'margin-left: -3em;'}
+- if @conference.session_types.size > 1
+  %h4.charts= t('actions.submissionByType')
+  %div.charts{ id: 'submittedByType', style: 'margin-left: -3em;'}
 
 :javascript
-  var sessionsByTrack = #{sessions_by_track.inspect};
-  var sessionsByType = #{sessions_by_type.inspect};
+  var sessionsByTrack = #{sessions_by_track.inspect.html_safe};
+  var sessionsByType = #{sessions_by_type.inspect.html_safe};
   var chartData = {
     'submittedByTrack': {
       'data': sessionsByTrack,
