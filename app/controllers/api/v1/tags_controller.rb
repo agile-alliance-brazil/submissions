@@ -10,13 +10,12 @@ module Api
       end
 
       def index
-        tags = Session.for_conference(@conference).active.map{|s| s.keywords.map{|k| I18n.t(k) }}.flatten
-        counts = tags.reduce({}) do |acc, tag|
+        tags = Session.for_conference(@conference).active.map { |s| s.keywords.map { |k| I18n.t(k) } }.flatten
+        counts = tags.each_with_object({}) do |tag, acc|
           acc[tag] ||= 0
           acc[tag] += 1
-          acc
         end
-        hashes = counts.map do |tag ,count|
+        hashes = counts.map do |tag, count|
           { text: tag, weight: count }
         end
 
