@@ -12,7 +12,7 @@ module ApplicationHelper
     content_tag(:div, class: 'avatar') do
       avatar = link_to(image_tag(gravatar_url(user, options), alt: user.full_name), user_path(user))
       tip = content_tag(:div, class: 'tip') do
-        I18n.t('tips.change_gravatar', email: CGI.escape(user.email).html_safe)
+        I18n.t('tips.change_gravatar', email: CGI.escape(user.email)).html_safe
       end
       options[:display_tip] ? avatar + tip : avatar
     end
