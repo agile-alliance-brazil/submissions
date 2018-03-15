@@ -178,17 +178,18 @@ class Session < ApplicationRecord
   end
 
   def session_conference_has_limits?
-    (conference.try(:submission_limit) || 0) > 0
+    (conference.try(:submission_limit) || 0).positive?
   end
 
   def authors_submission_limit
-    validate_submission_limit(self.author, :author)
-    validate_submission_limit(self.second_author, :second_author) if self.second_author
+    validate_submission_limit(author, :author)
+    validate_submission_limit(second_author, :second_author) if second_author
   end
 
   def validate_submission_limit(user, field_name)
-    if session_conference_has_limits? && user.sessions_for_conference(conference).count >= conference.submission_limit
-      errors.add(field_name, I18n.t('errors.activerecord.models.session.attributes.submission_limit', max: self.conference.submission_limit))
-    end
+    return unless session_conference_has_limits?
+    return unless user.sessions_for_conference(conference).count >= conference.submission_limit
+
+    errors.add(field_name, I18n.t('errors.activerecord.models.session.attributes.submission_limit', max: conference.submission_limit))
   end
 end
