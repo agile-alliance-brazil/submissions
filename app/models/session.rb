@@ -40,6 +40,7 @@ class Session < ApplicationRecord
   validates :session_type_id, presence: true, existence: true, same_conference: true
   validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
+  validate :authors_submission_limit, if: :session_conference_has_limits?
 
   scope(:for_conference, ->(conference) { where(conference_id: conference.id) })
   scope(:for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) })
@@ -174,5 +175,20 @@ class Session < ApplicationRecord
   def requires_mechanics?
     (respond_to?(:workshop?) && workshop?) ||
       (respond_to?(:hands_on?) && hands_on?)
+  end
+
+  def session_conference_has_limits?
+    (conference.try(:submission_limit) || 0) > 0
+  end
+
+  def authors_submission_limit
+    validate_submission_limit(self.author, :author)
+    validate_submission_limit(self.second_author, :second_author) if self.second_author
+  end
+
+  def validate_submission_limit(user, field_name)
+    if session_conference_has_limits? && user.sessions_for_conference(conference).count >= conference.submission_limit
+      errors.add(field_name, I18n.t('errors.activerecord.models.session.attributes.submission_limit', max: self.conference.submission_limit))
+    end
   end
 end

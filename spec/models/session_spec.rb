@@ -210,6 +210,31 @@ describe Session, type: :model do
       expect(session).to_not be_valid
       expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10))
     end
+
+    it 'should validate session limit for first author' do
+      session = FactoryBot.build(:session)
+      session.conference.submission_limit = 1
+      c = stub()
+      session.author.stubs(:sessions_for_conference).with(session.conference).returns(c)
+      c.stubs(:count).returns(0)
+      expect(session).to be_valid
+      c.stubs(:count).returns(1)
+      expect(session).to_not be_valid
+      expect(session.errors[:author]).to include(I18n.t('errors.activerecord.models.session.attributes.submission_limit', max: 1))
+    end
+
+    it 'should validate session limit for second author' do
+      session = FactoryBot.build(:session)
+      session.conference.submission_limit = 1
+      c = stub()
+      session.second_author = FactoryBot.build(:author)
+      session.second_author.stubs(:sessions_for_conference).with(session.conference).returns(c)
+      c.stubs(:count).returns(0)
+      expect(session).to be_valid
+      c.stubs(:count).returns(1)
+      expect(session).to_not be_valid
+      expect(session.errors[:second_author]).to include(I18n.t('errors.activerecord.models.session.attributes.submission_limit', max: 1))
+    end
   end
 
   context 'named scopes' do

@@ -47,6 +47,8 @@ en:
             keyword_list:
               too_long: "can't have more than %{count} keywords"
               too_short: "must have at least %{count} keyword"
+            authors:
+              submission_limit: "cannot have more than %{max} proposals in this conference"
         organizer:
           attributes:
             track_id:

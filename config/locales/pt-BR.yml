@@ -49,6 +49,8 @@ pt-BR:
             keyword_list:
               too_long: "não pode ter mais que %{count} palavras-chave"
               too_short: "precisa ter pelo menos %{count} palavra-chave"
+            authors:
+              submission_limit: "não pode ter mais de %{max} submissões nessa conferência"
         organizer:
           attributes:
             track_id:
