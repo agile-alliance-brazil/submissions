@@ -90,3 +90,17 @@ ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.xp' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.evolution' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.innovation' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.portfolio' }
+# 2018 new tags
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.beyond_it' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.analytics' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.feedback' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.large_companies' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.government' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.hybrid' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.mindset' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.practices' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.people' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.pmo' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.transformation' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.hypothesis' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.code' }
