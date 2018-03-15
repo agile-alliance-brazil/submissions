@@ -220,7 +220,7 @@ describe Session, type: :model do
       expect(session).to be_valid
       c.stubs(:count).returns(1)
       expect(session).to_not be_valid
-      expect(session.errors[:author]).to include(I18n.t('activerecord.errors.models.session.attributes.submission_limit', max: 1))
+      expect(session.errors[:author]).to include(I18n.t('activerecord.errors.models.session.attributes.authors.submission_limit', max: 1))
     end
 
     it 'should validate session limit for second author' do
@@ -233,7 +233,7 @@ describe Session, type: :model do
       expect(session).to be_valid
       c.stubs(:count).returns(1)
       expect(session).to_not be_valid
-      expect(session.errors[:second_author]).to include(I18n.t('activerecord.errors.models.session.attributes.submission_limit', max: 1))
+      expect(session.errors[:second_author]).to include(I18n.t('activerecord.errors.models.session.attributes.authors.submission_limit', max: 1))
     end
   end
 
