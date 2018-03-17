@@ -69,7 +69,7 @@ module ActionsHelper
     if (conference.in_early_review_phase? ||
           conference.in_final_review_phase?) &&
        can?(:read, 'reviewer_sessions')
-      sessions_to_review_count = SessionFilter.new(safe_params, params[:user_id]).apply(Session.for_reviewer(current_user, conference)).to_a.size
+      sessions_to_review_count = SessionFilter.new(safe_params.merge(conference: conference), params[:user_id]).apply(Session.for_reviewer(current_user, conference)).to_a.size
       section.add t('actions.reviewer_sessions', count: sessions_to_review_count), reviewer_sessions_path(conference)
     end
     if can? :reviewer, 'reviews_listing'
@@ -85,7 +85,7 @@ module ActionsHelper
 
   def filter_params
     params.permit(:session_filter)
-          .permit(:track_id, :session_type_id, :audience_level_id)[:session_filter]
+          .permit(:track_id, :session_type_id, :audience_level_id)[:session_filter] || {}
   end
 
   def organizer_section_for(_user, _conference)

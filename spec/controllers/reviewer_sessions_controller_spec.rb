@@ -45,8 +45,8 @@ describe ReviewerSessionsController, type: :controller do
     end
 
     it 'should filter sessions' do
-      filter_params = { 'audience_level_id' => '1', 'session_type_id' => '2' }
-      filter = SessionFilter.new(@reviewer.user, filter_params)
+      filter_params = { 'audience_level_id' => '1', 'session_type_id' => '2', 'conference' => @conference }
+      filter = SessionFilter.new(filter_params, @reviewer.user)
       SessionFilter.expects(:new).with(filter_params).returns(filter)
 
       get :index, session_filter: filter_params

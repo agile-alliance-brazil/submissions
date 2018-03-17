@@ -2,7 +2,7 @@
 
 class OrganizerSessionsController < ApplicationController
   def index
-    @session_filter = SessionFilter.new(filter_params)
+    @session_filter = SessionFilter.new(filter_params.merge(conference: @conference))
     @states = Session.state_machine.states.map(&:name)
 
     @tracks = current_user.organized_tracks(@conference)
@@ -22,6 +22,6 @@ class OrganizerSessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: %i[track_id state])[:session_filter]
+    params.permit(session_filter: %i[track_id state])[:session_filter] || {}
   end
 end

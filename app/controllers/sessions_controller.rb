@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   before_action :load_tags, except: :show
 
   def index
-    @session_filter = SessionFilter.new(filter_params, params[:user_id])
+    @session_filter = SessionFilter.new(filter_params.merge(conference: @conference), params[:user_id])
     @sessions ||= @session_filter.apply(Session)
                                  .for_conference(@conference)
                                  .without_state(:cancelled)
@@ -118,7 +118,7 @@ class SessionsController < ApplicationController
   end
 
   def filter_params
-    params.permit(session_filter: %i[tags username track_id session_type_id])[:session_filter]
+    params.permit(session_filter: %i[tags username track_id session_type_id])[:session_filter] || {}
   end
 
   def load_tags
