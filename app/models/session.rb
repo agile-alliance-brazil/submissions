@@ -188,7 +188,7 @@ class Session < ApplicationRecord
 
   def validate_submission_limit(user, field_name)
     return unless session_conference_has_limits?
-    return unless user.sessions_for_conference(conference).count >= conference.submission_limit
+    return unless user.sessions_for_conference(conference).active.count >= conference.submission_limit
 
     errors.add(field_name, I18n.t('activerecord.errors.models.session.attributes.authors.submission_limit', max: conference.submission_limit))
   end

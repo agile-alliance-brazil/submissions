@@ -215,6 +215,7 @@ describe Session, type: :model do
       session = FactoryBot.build(:session)
       session.conference.submission_limit = 1
       c = stub
+      c.stubs(:active).returns(c)
       session.author.stubs(:sessions_for_conference).with(session.conference).returns(c)
       c.stubs(:count).returns(0)
       expect(session).to be_valid
@@ -227,6 +228,7 @@ describe Session, type: :model do
       session = FactoryBot.build(:session)
       session.conference.submission_limit = 1
       c = stub
+      c.stubs(:active).returns(c)
       session.second_author = FactoryBot.build(:author)
       session.second_author.stubs(:sessions_for_conference).with(session.conference).returns(c)
       c.stubs(:count).returns(0)
