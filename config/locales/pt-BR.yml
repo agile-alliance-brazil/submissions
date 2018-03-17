@@ -288,7 +288,7 @@ pt-BR:
         session_duration: "A maior parte dos tipos de sessão do evento possuem duração pré-determinada, mas se você escolheu \"Apresentação\", precisará decidir qual a duração mais apropriada para o seu conteúdo. Nota-se uma predileção do público por palestras mais concisas e diretas em tratando-se de apresentações, então lembre-se de usar o tempo que escolher da melhor forma possível."
         audience_limit: 'Como você escolheu mão na massa, queremos saber até quantas pessoas poderão participar da sua dinâmica. Inclusive, para esse tipo de sessão, pode ser interessante adicionar ao campo "Experiência com o assunto" se você á testou seu "mão na massa" e quantas pessoas participaram na ocasião.'
         title: "O título da sua sessão é o item com maior visibilidade da sua submissão. É a primeira e principal vitrine, tanto de revisores quanto de participantes. Ele deve ser breve, claro, coerente com a sua palestra e, preferencialmente, instigante. Use sua criatividade, mas não tanto a ponto de perder a conexão com a realidade ou o assunto da palestra."
-        tag_list: "Participantes usarão essa informação no sistema de grade, para encontrar as sessões que mais lhes interessam. Escolha bem até 10 tags para ajudar seu público ideal a achar sua sessão. O casamento \"público certo\" versus \"sessão certa\" gera satisfação e resulta em bons feedbacks."
+        tag_list: "Participantes usarão essa informação no sistema de grade, para encontrar as sessões que mais lhes interessam. Escolha bem até %{count} tags para ajudar seu público ideal a achar sua sessão. O casamento \"público certo\" versus \"sessão certa\" gera satisfação e resulta em bons feedbacks."
         second_author_username: "O(a) segundo(a) autor(a) precisa estar registrado(a) para submeter sessões. Durante o período de submissões você poderá voltar e editar/preencher esse campo. Revisores avaliarão autores(as) como iguais, não há pesos diferentes para 1º ou 2º autor. Lembramos também que \"Apresentações\" de 25 minutos aprovadas podem ser apresentadas em dupla, mas só recebem uma inscrição cortesia. Ser 2º autor também influencia no seu limite de 3 propostas."
         target_audience: "Exatamente a quem sua sessão se destina? Brevemente descreva quem você acredita que seja seu público alvo, quem mais se interessa pelo que você tem a dizer, por exemplo: desenvolvedores, analistas, arquitetos, gerentes de projeto, executivos, etc. Esse campo é usado especialmente pelos revisores para avaliar a coerência do seu conteúdo."
         prerequisites: "Qual o conhecimento prévio que uma pessoa deveria ter para participar e tirar proveito da sua palestra? Ele é usado pelos revisores para avaliar a coerência entre conteúdo, nível e duração. Ele também estará visível nos detalhes da sua sessão na grade do programa."
@@ -758,6 +758,7 @@ pt-BR:
     voted: "Votado"
     by: 'por'
     in: 'em'
+    you: 'Você'
 
   date:
     formats:

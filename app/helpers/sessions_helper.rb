@@ -48,7 +48,8 @@ module SessionsHelper
     {
       audienceLimitSessions: session_type_ids_with_audience_limit,
       requiredMechanicsSessions: session_type_ids_with_required_mechanics,
-      filterSessionTypesByTrack: track_ids_with_restricted_session_types
+      filterSessionTypesByTrack: track_ids_with_restricted_session_types,
+      tagLimit: conference.tag_limit
     }.to_json
   end
 end

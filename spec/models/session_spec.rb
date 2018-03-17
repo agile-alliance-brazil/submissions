@@ -201,6 +201,11 @@ describe Session, type: :model do
       session.keyword_list = %w[a b c d e f g h i j k]
       expect(session).to_not be_valid
       expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10))
+      session.conference.tag_limit = 5
+      expect(session).to_not be_valid
+      expect(session.errors[:keyword_list]).to include(I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 5))
+      session.keyword_list = %w[a b c d e]
+      expect(session).to be_valid
     end
 
     it 'should validate that there are a maximum of 10 keywords in comma-separated list' do

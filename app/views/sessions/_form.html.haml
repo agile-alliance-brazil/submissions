@@ -1,3 +1,6 @@
+- @session.errors[:author].each do |msg|
+  .flash_error= [I18n.t('generic.you'), msg].join(' ')
+
 = form.inputs :class => 'submission' do
   = form.input :author_id, as: :hidden, input_html: {tabindex: autotab}
   - if @conference.languages.size == 1
@@ -27,8 +30,8 @@
     %label 
       = t('formtastic.labels.session.keyword_list')
       %abbr *
-      %span.warning= t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: 10)
-    %span.counter#tagCounter 10
+      %span.warning= t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: @session.conference.tag_limit)
+    %span.counter#tagCounter= @session.conference.tag_limit
     %ul.sessionTags.tags
       - @tags.sort{|x, y| I18n.t(x) <=> I18n.t(y)}.each do |tag|
         %li{:'data-tag' => tag}= t(tag)
@@ -37,7 +40,7 @@
         - @session.errors[:keyword_list].each do |error|
           %li= error
     %p.inline-hints
-      = t('formtastic.hints.session.tag_list')
+      = t('formtastic.hints.session.tag_list', count: @session.conference.tag_limit)
 
   = form.input :second_author_username, input_html: {tabindex: autotab, :'data-autocomplete-url' => users_path(format: :json)}, hint: t('formtastic.hints.session.second_author_username')
   = form.input :target_audience, required: true, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.target_audience')

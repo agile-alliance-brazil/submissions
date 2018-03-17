@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Session < ApplicationRecord
+  HARDCODED_KEYWORD_LIST_MAX_LIMIT = 10
+
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
 
@@ -30,7 +32,7 @@ class Session < ApplicationRecord
   validates :prerequisites, presence: true, length: { maximum: 200 }
   validates :experience, presence: true, length: { maximum: 400 }
   validates :duration_mins, presence: true, session_duration: true
-  validates :keyword_list, length: { minimum: 1, maximum: 10 }
+  validates :keyword_list, length: { minimum: 1 }
   validates :language, presence: true, inclusion: { in: ['en', 'pt-BR'] } # TODO: Base on conference languages
   validates :mechanics, presence: true, length: { maximum: 2400 }, if: :requires_mechanics?
   validates :audience_limit, numericality: { greater_than: 0 }, allow_nil: true
@@ -41,6 +43,7 @@ class Session < ApplicationRecord
   validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
   validate :authors_submission_limit, if: :session_conference_has_limits?
+  validate :conference_keyword_list_limit
 
   scope(:for_conference, ->(conference) { where(conference_id: conference.id) })
   scope(:for_user, ->(user) { where('author_id = ? OR second_author_id = ?', user.to_i, user.to_i) })
@@ -191,5 +194,16 @@ class Session < ApplicationRecord
     return unless user.sessions_for_conference(conference).active.count >= conference.submission_limit
 
     errors.add(field_name, I18n.t('activerecord.errors.models.session.attributes.authors.submission_limit', max: conference.submission_limit))
+  end
+
+  def session_conference_has_tag_limit?
+    (conference.try(:tag_limit) || 0).positive?
+  end
+
+  def conference_keyword_list_limit
+    max_tag_count = session_conference_has_tag_limit? ? conference.tag_limit : HARDCODED_KEYWORD_LIST_MAX_LIMIT
+    return if keyword_list.size <= max_tag_count
+
+    errors.add(:keyword_list, I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: max_tag_count))
   end
 end

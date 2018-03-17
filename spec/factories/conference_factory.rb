@@ -20,6 +20,7 @@ FactoryBot.define do
     logo { File.new(Rails.root.join('spec', 'resources', 'logo-trans.png')) }
     supported_languages ['en']
     visible true
+    tag_limit 10
 
     factory :conference_in_review_time do
       call_for_papers { 7.weeks.ago }

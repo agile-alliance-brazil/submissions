@@ -16,6 +16,7 @@ Conference.seed do |conference|
   conference.author_confirmation  = Time.zone.local(2010, 5, 17, 23, 59, 59)
   conference.visible              = true
   conference.supported_languages  = ['en', 'pt-BR']
+  conference.tag_limit            = 10
 end
 
 Conference.seed do |conference|
@@ -34,6 +35,7 @@ Conference.seed do |conference|
   conference.author_confirmation  = Time.zone.local(2011, 6, 7, 23, 59, 59)
   conference.visible              = true
   conference.supported_languages  = ['en', 'pt-BR']
+  conference.tag_limit            = 10
 end
 
 Conference.seed do |conference|
@@ -54,6 +56,7 @@ Conference.seed do |conference|
   conference.author_confirmation       = Time.zone.local(2012, 7, 4, 23, 59, 59)
   conference.visible                   = true
   conference.supported_languages       = ['en', 'pt-BR']
+  conference.tag_limit                 = 10
 end
 
 Conference.seed do |conference|
@@ -75,6 +78,7 @@ Conference.seed do |conference|
   conference.author_confirmation       = Time.zone.local(2013, 6, 10, 2, 59, 59)
   conference.visible                   = true
   conference.supported_languages       = ['en', 'pt-BR']
+  conference.tag_limit                 = 10
 end
 
 Conference.seed do |conference|
@@ -97,6 +101,7 @@ Conference.seed do |conference|
   conference.visible                   = true
   conference.supported_languages       = ['en', 'pt-BR']
   conference.allow_free_form_tags      = false
+  conference.tag_limit                 = 10
 end
 
 Conference.seed do |conference|
@@ -119,4 +124,5 @@ Conference.seed do |conference|
   conference.visible                   = true
   conference.supported_languages       = ['en', 'pt-BR']
   conference.allow_free_form_tags      = false
+  conference.tag_limit                 = 10
 end

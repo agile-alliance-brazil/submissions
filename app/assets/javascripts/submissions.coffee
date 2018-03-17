@@ -21,13 +21,13 @@
       $('#session_mechanics_input').find('label abbr').toggle(needsMechanics)
       true
 
-  loadAlreadySelectedTags = () ->
+  loadAlreadySelectedTags = (tagLimit) ->
     commaSeparatedTags = if $('#session_keyword_list').size() > 0 then $('#session_keyword_list').get(0).value else ''
     tags = if commaSeparatedTags.length == 0 then [] else commaSeparatedTags.split(',')
     for tag in tags
       tagItem = $('li[data-tag="'+tag+'"]').get(0)
       $(tagItem).addClass('selectedTag')
-    $('#tagCounter').text(10 - tags.length)
+    $('#tagCounter').text(tagLimit - tags.length)
 
   filterSessionTypeBasedOnTrack = (trackToSessionTypesLimitations) ->
     $('#session_session_type_id').filterOn('#session_track_id', trackToSessionTypesLimitations)
@@ -46,7 +46,7 @@
     $('#session_session_type_id, #session_track_id').trigger('updated')
 
     $('#session_title').charCount({allowed: 100})
-    loadAlreadySelectedTags()
+    loadAlreadySelectedTags(config.tagLimit)
     $('#session_target_audience').charCount({allowed: 200})
     $('#session_prerequisites').charCount({allowed: 200})
     $('#session_summary').charCount({allowed: 800})
@@ -69,7 +69,7 @@
       $(e.currentTarget).toggleClass('selectedTag', index == -1)
 
       $('#session_keyword_list').val tags.join(',')
-      $('#tagCounter').text(10 - tags.length)
+      $('#tagCounter').text(config.tagLimit - tags.length)
 
     $('select, input').on 'focus', (e) ->
       $('.inline-hints').hide()

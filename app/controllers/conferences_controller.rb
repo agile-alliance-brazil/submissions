@@ -110,7 +110,7 @@ class ConferencesController < ApplicationController
     attributes = params.require(:conference).permit(:logo, :location, :start_date, :end_date, :call_for_papers,
                                                     :submissions_open, :presubmissions_deadline, :prereview_deadline, :submissions_deadline,
                                                     :review_deadline, :author_notification, :author_confirmation, :voting_deadline, :tag_list, :allow_free_form_tags,
-                                                    :submission_limit, :visible)
+                                                    :submission_limit, :tag_limit, :visible)
     attributes.merge(visible: (attributes[:visible] || resource.visible?))
   end
 end

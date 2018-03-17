@@ -25,7 +25,9 @@ describe ConferencesController, type: :controller do
       review_deadline: '9998-10-30',
       author_notification: '9998-11-31',
       author_confirmation: '9998-12-15',
-      visible: false
+      visible: false,
+      submission_limit: 3,
+      tag_limit: 10
     }
   end
   subject { FactoryBot.create(:conference) }

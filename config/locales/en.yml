@@ -285,7 +285,7 @@ en:
         session_duration: "Most session types have a predetermined duration, but if you chose \"Presentation\", you will need to decide on the most appropriate duration for your content. We notice a public predilection for more concise and straightforward presentations, so remember to use the time you choose the best way you possibly can."
         audience_limit: "As you have chosen the 'Hands On' session type, we would like to know how many people can be part of your session. Also, for that kind of session, it might be interesting to add to your experience on the previous tries of this session and how many people attended."
         title: "The title of your session is the item with the highest visibility of your submission, both for reviewers and participants, it should be brief, clear, consistent with your talk and preferably thought-provoking. Be creative, but not so much to the point of losing the connection with reality or the subject of the talk."
-        tag_list: "Attendees will use this information on the schedule app to find sessions that interests them most, orthogonally to tracks. Choose wisely up to 10 tags in order to help your targeted audience find your session. A good match between right attendees and the right session turns into good feedback."
+        tag_list: "Attendees will use this information on the schedule app to find sessions that interests them most, orthogonally to tracks. Choose wisely up to %{count} tags in order to help your targeted audience find your session. A good match between right attendees and the right session turns into good feedback."
         second_author_username: "The second author must be registered to submit proposals. During the submission period you can go back and edit / fill in this field. Reviewers will evaluate authors as equals, there are no preference or advantage for being 1st and 2nd speaker. We also remind you that \"25 minute presentations\" can be presented in pair, but only one receives a free registration. Being a 2nd author also counts towards your 3 proposals limit."
         target_audience: "Who are your target audience? Briefly describe who you believe your target audience should be, who else would be interested in what you have to say, for example: developers, analysts, architects, project managers, executives, etc. This field is used especially by reviewers to assess the consistency of its content."
         prerequisites: "What prior knowledge a person should have to participate and take advantage of this talk is used by reviewers to assess consistency between content, level and duration, and will be visible in the details of your session in the program schedule."
@@ -753,6 +753,7 @@ en:
     voted: "Voted"
     by: 'by'
     in: 'in'
+    you: 'You'
 
   date:
     formats:
