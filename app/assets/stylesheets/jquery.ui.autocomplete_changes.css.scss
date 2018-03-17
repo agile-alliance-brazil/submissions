@@ -1,3 +1,21 @@
 .ui-autocomplete-loading {
 	background: white url(image-path('ajax-loader.gif')) right center no-repeat;
 }
+
+.ui-autocomplete {
+  li.ui-menu-item {
+    list-style: none;
+    padding: 0.2em 0.5em 0.2em;
+  }
+}
+
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}

@@ -3,7 +3,7 @@
 
 = semantic_form_for @session_filter, url: sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :tags, input_html: { tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json) }
+    = f.input :tags, input_html: { tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json, year: @conference.year, locale: I18n.locale) }
     = f.input :username, input_html: { tabindex: autotab, :'data-autocomplete-url' => users_path(format: :json) }
   - if @conference.tracks.size > 1 || @conference.session_types.size > 1
     = f.inputs do
