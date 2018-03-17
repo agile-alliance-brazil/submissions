@@ -15,7 +15,7 @@ class TagsController < ApplicationController
         tag.name
       end
     end
-    regex = /.*#{term}.*/
+    regex = /.*#{term}.*/i
     collection = tag_names.select do |tag_name|
       regex.match(tag_name)
     end
