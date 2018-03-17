@@ -21,7 +21,7 @@ class TagsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: collection }
+      format.json { render json: collection.sort }
     end
   end
 
