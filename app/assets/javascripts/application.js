@@ -88,6 +88,7 @@
         url: '/api/'+year+'/tags?locale='+lang,
       }).done(function(data) {
         if (data.length > 0) {
+          $('.tagcloud').show();
           $('.tagcloud').jQCloud(data);
         } else {
           $('.tagcloud').hide();
