@@ -6,7 +6,7 @@ class TagsController < ApplicationController
   def index
     year = params[:year]
     collection = []
-    term = params[:term]
+    term = sanitize(params[:term])
     tags = year ? @conference.tags.all : resource_class.all
     tag_names = tags.map do |tag|
       if I18n.exists?(tag.name, I18n.locale)
@@ -29,5 +29,9 @@ class TagsController < ApplicationController
 
   def resource_class
     ActsAsTaggableOn::Tag
+  end
+
+  def sanitize(search_term)
+    search_term.gsub(/[^a-zA-Z0-9,.\s]*/, '').gsub(/\./, '\\.')
   end
 end
