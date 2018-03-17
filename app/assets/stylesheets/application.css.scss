@@ -3,7 +3,6 @@
  *=require formtastic_changes
  *=require jquery-ui/datepicker
  *=require jquery.ui.autocomplete_changes
- *=require jqcloud
  */
 @import "mixins/grid";
 @import "mixins/helper";
@@ -718,8 +717,6 @@ button::disabled {
 
 #content .tagcloud {
   max-width: 100%;
-  width: 700px;
-  height: 300px;
   position: relative;
 }
 

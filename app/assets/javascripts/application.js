@@ -5,7 +5,6 @@
  *= require actions
  *= require jquery-ui/widgets/tabs
  *= require jquery-ui/widgets/datepicker
- *= require jqcloud
  */
 
 (function($) {
@@ -90,6 +89,8 @@
       }).done(function(data) {
         if (data.length > 0) {
           $('.tagcloud').jQCloud(data);
+        } else {
+          $('.tagcloud').hide();
         }
       });
     }
