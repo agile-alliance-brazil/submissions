@@ -32,13 +32,20 @@
   filterSessionTypeBasedOnTrack = (trackToSessionTypesLimitations) ->
     $('#session_session_type_id').filterOn('#session_track_id', trackToSessionTypesLimitations)
 
+  autoSelectOptionIfPossible = (selector) ->
+    (e) ->
+      options = $(selector + ' option')
+      if options.size() == 1
+        $(selector).val($(options[0]).val())
+      true
+
   $.submissions.initializeSessionProposalForm = (config) ->
     filterSessionTypeBasedOnTrack(config.filterSessionTypesByTrack)
     $('#session_track_id').bindSelectUpdated()
 
     $('#session_duration_mins').filterOn('#session_session_type_id', $('#session_session_type_id').data('durations-to-hide'))
-    $('#session_session_type_id').bindSelectUpdated()
 
+    $('#session_session_type_id').bind('updated', autoSelectOptionIfPossible('#session_duration_mins'))
     $('#session_session_type_id').bind('updated', generateAudienceLimitUpdateFunction(config.audienceLimitSessions))
     $('#session_session_type_id').bind('updated', generateRequiredMechanicsUpdateFunction(config.requiredMechanicsSessions))
     $('#session_session_type_id').bindSelectUpdated()
