@@ -66,7 +66,7 @@
       newTag = $(e.currentTarget).data('tag')
       index = tags.indexOf(newTag)
       if (index == -1)
-        if tags.length >= 10
+        if tags.length >= config.tagLimit
           $('#tagList .warning').addClass('show')
           return
         tags.push(newTag)
