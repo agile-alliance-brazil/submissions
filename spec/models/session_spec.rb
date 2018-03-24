@@ -156,7 +156,7 @@ describe Session, type: :model do
         session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
-        expect(session.update_attributes(state_event: 'accept', author_agreement: '0')).to be false
+        expect(session.update(state_event: 'accept', author_agreement: '0')).to be false
         expect(session.errors[:author_agreement]).to include(I18n.t('errors.messages.accepted'))
       end
 
@@ -164,7 +164,7 @@ describe Session, type: :model do
         session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
-        expect(session.update_attributes(state_event: 'reject', author_agreement: '0')).to be false
+        expect(session.update(state_event: 'reject', author_agreement: '0')).to be false
         expect(session.errors[:author_agreement]).to include(I18n.t('errors.messages.accepted'))
       end
 
@@ -172,7 +172,7 @@ describe Session, type: :model do
         session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
-        updated = session.update_attributes(state_event: 'accept', author_agreement: '1')
+        updated = session.update(state_event: 'accept', author_agreement: '1')
         expect(session.errors).to be_empty
         expect(updated).to be true
       end
@@ -181,7 +181,7 @@ describe Session, type: :model do
         session = FactoryBot.build(:session)
         session.reviewing
         session.tentatively_accept
-        updated = session.update_attributes(state_event: 'reject', author_agreement: '1')
+        updated = session.update(state_event: 'reject', author_agreement: '1')
         expect(session.errors).to be_empty
         expect(updated).to be true
       end
@@ -394,7 +394,7 @@ describe Session, type: :model do
 
         it 'if reviewer is second author, should not be returned' do
           second_author = FactoryBot.create(:author)
-          @session.update_attributes!(second_author_username: second_author.username)
+          @session.update!(second_author_username: second_author.username)
 
           expect(Session.for_reviewer(second_author, @conference)).to be_empty
         end

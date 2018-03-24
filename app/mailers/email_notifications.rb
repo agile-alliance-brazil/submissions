@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class EmailNotifications < ActionMailer::Base
-  default from:     proc { "\"#{current_conference.name}\" <#{from_address}>" },
-          reply_to: proc { "\"#{current_conference.name}\" <#{from_address}>" }
+  default from:     proc { "\"#{conference.name}\" <#{from_address}>" },
+          reply_to: proc { "\"#{conference.name}\" <#{from_address}>" }
 
   def welcome(user, sent_at = Time.now)
     @user = user
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     I18n.with_locale(@user.default_locale) do
       mail subject: "[#{host}] #{I18n.t('email.welcome.subject')}",
            to: EmailNotifications.format_email(user),
@@ -17,7 +17,7 @@ class EmailNotifications < ActionMailer::Base
   def reset_password_instructions(user, token, sent_at = Time.now, _opts = {})
     @user = user
     @token = token
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     I18n.with_locale(@user.default_locale) do
       mail subject: "[#{host}] #{I18n.t('email.password_reset.subject')}",
            to: EmailNotifications.format_email(user),
@@ -27,8 +27,7 @@ class EmailNotifications < ActionMailer::Base
 
   def session_submitted(session, sent_at = Time.now)
     @session = session
-    @conference_name = current_conference.name
-    @conference = current_conference
+    @conference_name = conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
       mail subject: "[#{host}] #{I18n.t('email.session_submitted.subject', conference_name: @conference_name)}",
            to: session.authors.map { |author| EmailNotifications.format_email(author) },
@@ -39,7 +38,7 @@ class EmailNotifications < ActionMailer::Base
   def comment_submitted(session, comment, sent_at = Time.now)
     @session = session
     @comment = comment
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     authors = session.authors.map { |author| EmailNotifications.format_email(author) }
     commenters = session.comments.map { |other_comment| EmailNotifications.format_email(other_comment.user) }
     I18n.with_locale(@session.author.try(:default_locale)) do
@@ -52,7 +51,7 @@ class EmailNotifications < ActionMailer::Base
 
   def early_review_submitted(session, sent_at = Time.now)
     @session = session
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
       mail subject: "[#{host}] #{I18n.t('email.early_review_submitted.subject', session_name: @session.title)}",
            to: session.authors.map { |author| EmailNotifications.format_email(author) },
@@ -62,7 +61,7 @@ class EmailNotifications < ActionMailer::Base
 
   def reviewer_invitation(reviewer, sent_at = Time.now)
     @reviewer = reviewer
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     I18n.with_locale(@reviewer.user.try(:default_locale)) do
       mail subject: "[#{host}] #{I18n.t('email.reviewer_invitation.subject', conference_name: @conference_name)}",
            to: EmailNotifications.format_email(reviewer.user),
@@ -76,7 +75,7 @@ class EmailNotifications < ActionMailer::Base
     accepted = decision.accepted?
     template_name = decision.outcome.title.gsub(/^outcomes\.([^.]+)\.title$/, 'notification_of_\1').to_sym
     @session = session
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     I18n.with_locale(@session.author.try(:default_locale)) do
       subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", conference_name: @conference_name)
       mail subject: "[#{host}] #{subject}",
@@ -87,7 +86,7 @@ class EmailNotifications < ActionMailer::Base
   end
 
   def review_feedback_request(author, sent_at = Time.now)
-    @conference_name = current_conference.name
+    @conference_name = conference.name
     @author = author
     I18n.with_locale(author.try(:default_locale)) do
       subject = I18n.t('email.review_feedback.subject', conference_name: @conference_name)
@@ -114,7 +113,7 @@ class EmailNotifications < ActionMailer::Base
     ActionMailer::Base.default_url_options[:host]
   end
 
-  def current_conference
+  def conference
     @conference ||= Conference.current
   end
 end

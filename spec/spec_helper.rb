@@ -13,7 +13,7 @@ end
 # make it possible to merge reports under spring
 SimpleCov.command_name 'RSpec'
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'rspec/collection_matchers'
 require 'cancan/matchers'

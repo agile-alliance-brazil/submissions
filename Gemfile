@@ -29,7 +29,7 @@ gem 'jquery-rails', '~> 4.0'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'localized_country_select', '0.9.11'
 gem 'modernizr-rails'
-gem 'mysql2', '~> 0.4'
+gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem 'paperclip', '~> 5.0'
 gem 'rails', '~> 4.2' # TODO: Upgrade

@@ -95,7 +95,10 @@ class ApplicationController < ActionController::Base
       session_types: [:translated_contents]
     )
                             .find_by(year: params[:year])
-    @conference ||= Conference.current
+    return @conference if @conference
+
+    @conference = Conference.current
+    @conference
   end
 
   def authorize_action
@@ -127,7 +130,7 @@ class ApplicationController < ActionController::Base
   def record_not_found
     respond_to do |format|
       format.html { render file: Rails.root.join('public', '404'), layout: false, status: 404 }
-      format.js { render plain: '404 Not Found', status: 404 }
+      format.js { render plain: '404 Not Found', status: :not_found }
     end
   end
 end

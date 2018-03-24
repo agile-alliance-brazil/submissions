@@ -50,8 +50,8 @@ def post_json(uri, body)
   http.request(request)
 end
 
-def link_files(ip, file_name)
-  "rm -f #{ip}_#{file_name} && ln -s #{TYPE}_#{file_name} #{ip}_#{file_name}"
+def link_files(ip_address, file_name)
+  "rm -f #{ip_address}_#{file_name} && ln -s #{TYPE}_#{file_name} #{ip_address}_#{file_name}"
 end
 
 droplets = get_json('https://api.digitalocean.com/v2/droplets')

@@ -12,7 +12,7 @@ class AcceptReviewersController < ApplicationController
   end
 
   def update
-    if accept_params && @reviewer.update_attributes(accept_params)
+    if accept_params && @reviewer.update(accept_params)
       flash[:notice] = t('flash.reviewer.accept.success')
       redirect_to reviewer_sessions_path(@conference)
     else
@@ -24,7 +24,7 @@ class AcceptReviewersController < ApplicationController
   private
 
   def load_audience_levels
-    @audience_levels ||= @conference.audience_levels
+    @audience_levels = @conference.audience_levels
   end
 
   def load_reviewer

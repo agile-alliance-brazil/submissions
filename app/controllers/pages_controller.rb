@@ -31,9 +31,9 @@ class PagesController < ApplicationController
     attrs = attrs.merge(path: 'home') if @page.path == '/' || @page.path.blank? # TODO: Legacy, remove
     respond_with @page do |format|
       format.html do
-        handle_html_response { @page.update_attributes(attrs) }
+        handle_html_response { @page.update(attrs) }
       end
-      format.json { handle_json_response { @page.update_attributes(attrs) } }
+      format.json { handle_json_response { @page.update(attrs) } }
     end
   end
 

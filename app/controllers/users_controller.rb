@@ -57,19 +57,19 @@ class UsersController < ApplicationController
   end
 
   def proposals_for(user)
-    user.sessions.map do |s|
+    user.sessions.map do |session|
       {
-        session_id: s.id,
-        session_uri: session_url(s.conference, s),
-        name: s.title,
-        status: status_for(s)
+        session_id: session.id,
+        session_uri: session_url(session.conference, session),
+        name: session.title,
+        status: status_for(session)
       }
     end
   end
 
-  def status_for(s)
-    if s.conference.author_confirmation < Time.zone.now
-      I18n.t("session.state.#{s.state}")
+  def status_for(session)
+    if session.conference.author_confirmation < Time.zone.now
+      I18n.t("session.state.#{session.state}")
     else
       I18n.t('session.state.created')
     end

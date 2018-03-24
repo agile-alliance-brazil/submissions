@@ -22,9 +22,9 @@ class SessionTypesController < ApplicationController
     @session_type = resource_class.where(id: params[:id]).first
     respond_with @session_type do |format|
       format.html do
-        handle_html_response(t('flash.session_type.update.success')) { @session_type.update_attributes(session_type_params) }
+        handle_html_response(t('flash.session_type.update.success')) { @session_type.update(session_type_params) }
       end
-      format.json { handle_json_response { @session_type.update_attributes(session_type_params) } }
+      format.json { handle_json_response { @session_type.update(session_type_params) } }
     end
   end
 

@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = resource
-    if @comment.update_attributes(comment_attributes)
+    if @comment.update(comment_attributes)
       redirect_to session_path(@conference, @comment.commentable, anchor: 'comments')
     else
       flash.now[:error] = t('flash.failure')

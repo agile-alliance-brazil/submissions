@@ -32,7 +32,7 @@ class OrganizersController < ApplicationController
 
   def update
     @organizer = resource
-    if @organizer.update_attributes(organizer_params)
+    if @organizer.update(organizer_params)
       flash[:notice] = t('flash.organizer.update.success')
       redirect_to organizers_path(@conference)
     else
@@ -65,6 +65,6 @@ class OrganizersController < ApplicationController
   end
 
   def load_tracks
-    @tracks ||= @conference.tracks
+    @tracks = @conference.tracks
   end
 end

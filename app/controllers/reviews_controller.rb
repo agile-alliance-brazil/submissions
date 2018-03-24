@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
   protected
 
   def load_session
-    @session ||= Session.find(params[:session_id])
+    @session = Session.find(params[:session_id])
   end
 
   def review_params

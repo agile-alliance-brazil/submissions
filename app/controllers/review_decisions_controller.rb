@@ -36,7 +36,7 @@ class ReviewDecisionsController < ApplicationController
 
   def update
     @review_decision = resource
-    if @review_decision.update_attributes(decision_params)
+    if @review_decision.update(decision_params)
       flash[:notice] = t('flash.review_decision.update.success')
       redirect_to organizer_sessions_path(@conference)
     else

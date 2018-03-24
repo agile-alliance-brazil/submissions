@@ -12,7 +12,7 @@ class AcceptedSessionsController < ApplicationController
                             .includes(:session_type, :author, :second_author)
           render text: SessionAuthorsCSVExporter.new(sessions).to_csv
         else
-          render text: 'Unauthorized', status: 403
+          render text: 'Unauthorized', status: :forbidden
         end
       end
     end

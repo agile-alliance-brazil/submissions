@@ -8,7 +8,7 @@ class WithdrawSessionsController < ApplicationController
   def update
     attributes = session_params
     attributes[:state_event] = 'reject'
-    if @session.update_attributes(attributes)
+    if @session.update(attributes)
       flash[:notice] = t('flash.session.withdraw.success')
       redirect_to user_sessions_path(@conference, current_user)
     else

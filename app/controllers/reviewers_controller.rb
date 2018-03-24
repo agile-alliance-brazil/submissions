@@ -33,13 +33,13 @@ class ReviewersController < ApplicationController
           render json: {
             message: message,
             reviewer: reviewer
-          }.to_json, status: 201
+          }.to_json, status: :created
         end
       end
     else
       message = t('flash.reviewer.create.failure', username: reviewer.try(:user_username))
       respond_to do |format|
-        format.json { render json: message, status: 400 }
+        format.json { render json: message, status: :bad_request }
       end
     end
   end
@@ -49,7 +49,7 @@ class ReviewersController < ApplicationController
     batch.save
 
     respond_to do |format|
-      format.json { render json: batch.to_json, status: 200 }
+      format.json { render json: batch.to_json, status: :ok }
     end
   end
 
@@ -74,13 +74,13 @@ class ReviewersController < ApplicationController
     reviewer = resource_class.where(id: params[:id]).includes(:user).first
     if reviewer.nil?
       respond_to do |format|
-        format.json { render json: 'not-found', status: 404 }
+        format.json { render json: 'not-found', status: :not_found }
       end
     else
       reviewer.destroy
       message = t('flash.reviewer.destroy.success', full_name: reviewer.user.full_name)
       respond_to do |format|
-        format.json { render json: { message: message }.to_json, status: 200 }
+        format.json { render json: { message: message }.to_json, status: :ok }
       end
     end
   end

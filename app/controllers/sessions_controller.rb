@@ -54,7 +54,7 @@ class SessionsController < ApplicationController
 
   def update
     @session = resource
-    if @session.update_attributes(session_params)
+    if @session.update(session_params)
       flash[:notice] = t('flash.session.update.success')
       redirect_to session_path(@conference, @session)
     else
@@ -106,15 +106,15 @@ class SessionsController < ApplicationController
   end
 
   def load_tracks
-    @tracks ||= @conference.tracks.includes(:translated_contents).order(title: :asc)
+    @tracks = @conference.tracks.includes(:translated_contents).order(title: :asc)
   end
 
   def load_audience_levels
-    @audience_levels ||= @conference.audience_levels.includes(:translated_contents)
+    @audience_levels = @conference.audience_levels.includes(:translated_contents)
   end
 
   def load_session_types
-    @session_types ||= @conference.session_types.includes(:translated_contents)
+    @session_types = @conference.session_types.includes(:translated_contents)
   end
 
   def filter_params

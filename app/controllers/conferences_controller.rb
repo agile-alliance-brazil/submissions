@@ -67,7 +67,7 @@ class ConferencesController < ApplicationController
 
   def update
     @conference = resource
-    if @conference.update_attributes(conference_params)
+    if @conference.update(conference_params)
       flash[:notice] = I18n.t('flash.conference.update.success')
       redirect_to conference_root_path(@conference.year)
     else

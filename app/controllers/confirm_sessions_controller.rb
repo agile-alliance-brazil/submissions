@@ -8,7 +8,7 @@ class ConfirmSessionsController < ApplicationController
   def update
     attributes = session_params
     attributes[:state_event] = 'accept'
-    if @session.update_attributes(attributes)
+    if @session.update(attributes)
       flash[:notice] = t('flash.session.confirm.success')
       redirect_to user_sessions_path(@conference, current_user)
     else
