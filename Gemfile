@@ -31,7 +31,7 @@ gem 'localized_country_select', '0.9.11'
 gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
-gem 'paperclip', '~> 5.0'
+gem 'paperclip', '~> 6.0'
 gem 'rails', '~> 4.2' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0'
 gem 'seed-fu', '~> 2.3'
