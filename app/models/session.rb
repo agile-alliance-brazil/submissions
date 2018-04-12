@@ -42,7 +42,7 @@ class Session < ApplicationRecord
   validates :session_type_id, presence: true, existence: true, same_conference: true
   validates :audience_level_id, presence: true, existence: true, same_conference: true
   validates :second_author_username, second_author: true, allow_blank: true
-  validate :authors_submission_limit, if: :session_conference_has_limits?
+  validate :authors_submission_limit, if: :session_conference_has_limits?, on: :create
   validate :conference_keyword_list_limit
 
   scope(:for_conference, ->(conference) { where(conference_id: conference.id) })
