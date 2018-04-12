@@ -12,9 +12,13 @@ class ReviewersController < ApplicationController
                                  .order('first_name, last_name')
                                  .includes(user: [:reviews], accepted_preferences: [], conference: [])
     @reviewer_batch = ReviewerBatch.new(conference: @conference)
-    @previous_reviewers = resource_class
-                          .where('conference_id != ? and user_id not in (?) and state = ?',
-                                 @conference.id, @reviewers.map(&:user_id), :accepted)
+    query = resource_class
+            .where('conference_id != ? and state = ?',
+                   @conference.id, :accepted)
+    unless @reviewers.empty?
+      query = query.where('user_id not in (?)', @reviewers.map(&:user_id))
+    end
+    @previous_reviewers = query
                           .includes(user: [:reviews], conference: []).group_by(&:user)
     @reviewer = resource_class.new(conference: @conference)
     respond_to do |format|
