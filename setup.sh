@@ -44,5 +44,16 @@ if [[ -z `which identify` ]]; then
   fi
 fi
 
+if [[ -z $(command -v mysql) ]]; then
+  echo "Installing mysql..."
+   if [[ ${OSX} == "true" ]]; then
+    (brew --version &> /dev/null && brew install mysql &> /dev/null)
+  fi
+  if [[ ${OSX} == "false" ]]; then
+    (apt-get --version &> /dev/null && apt-get install -y mysql-client mysql-server libmysqlclient-dev &> /dev/null)
+  fi
+
+fi
+
 echo "Installing gem dependencies..."
 bundle install
