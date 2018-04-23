@@ -16,7 +16,7 @@ class AcceptedSessions
       $(this).children(".details").css("margin-top", -(innerHeight / 2) + 'px')
     $("table td.keynote", @container).each ->
       $(this).closest("tr").height($(this).height() * 3)
-    $(".fancybox", @container).fancybox()
+    $(".fancybox", @container).fancybox() if $(".fancybox").length > 0;
 
 jQuery ->
   new AcceptedSessions("#accepted_sessions").load()

@@ -10,6 +10,7 @@ AgileBrazil::Application.routes.draw do
         post :make_voter, on: :collection
       end
       resources :sessions, only: %i[show]
+      resources :submissions, only: %i[index]
       scope '(:year)', constraints: { year: /\d{4}/ } do
         resources :sessions, only: %i[index] do
           collection do

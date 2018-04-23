@@ -1,6 +1,9 @@
 - title t('actions.organizer_sessions')
 - show_actions!
 
+- if Session.for_conference(@conference).count.positive?
+  #submissions_curve_chart{style: "width: 700px; height: 400px"}
+
 = semantic_form_for @session_filter, url: organizer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
     = f.input :track_id, as: :select, collection: options_for_select(@tracks.map{|tr| [t(tr.title), tr.id]}, @session_filter.track_id), input_html: {tabindex: autotab}, include_blank: t("generic.all")
@@ -62,3 +65,12 @@
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)
+
+= javascript_include_tag :organizer_sessions
+
+:javascript
+  $(document).ready(function() {
+    $.ajax('/api/submissions.json').done(function(data) {
+      jQuery.submissions.initializeSubmissionsCharts(data);
+    });
+  });

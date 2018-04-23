@@ -59,8 +59,12 @@
         } catch(err) {}
     :javascript
       $(document).ready(function() {
-        $('textarea').TextAreaResizer();
-        $('[placeholder]').placeholder();
+        if ($('textarea').length > 0) {
+          $('textarea').TextAreaResizer();
+        }
+        if ($('[placeholder]').length > 0) {
+          $('[placeholder]').placeholder();
+        }
         var error = $('li.error :visible:first');
         var errorInput = $('li.error :input:visible:enabled:first');
         if (error.length > 0 && errorInput.length > 0 && error.parent('li.error').get(0) === errorInput.parent('li.error').get(0)) {

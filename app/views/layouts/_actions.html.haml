@@ -44,12 +44,14 @@
           progressImages[yellow] = '#{asset_path('progressbg_yellow.gif')}';
           progressImages[green] = '#{asset_path('progressbg_green.gif')}';
 
-          $("#review_progress_count .progress").progressBar(data.total_reviews, {
-            boxImage : '#{asset_path('progressbar.gif')}',
-            max : data.required_reviews,
-            textFormat : 'fraction',
-            barImage : progressImages
-          });
+          if ($("#review_progress_count .progress").length > 0) {
+            $("#review_progress_count .progress").progressBar(data.total_reviews, {
+              boxImage : '#{asset_path('progressbar.gif')}',
+              max : data.required_reviews,
+              textFormat : 'fraction',
+              barImage : progressImages
+            });
+          }
         })
       })
   - elsif current_user.organizer? && (next_deadline = @conference.next_deadline(:organizer)) && (next_deadline.last == :author_notification || next_deadline.last == :author_confirmation)
@@ -67,12 +69,14 @@
           progressImages[yellow] = '#{asset_path('progressbg_yellow.gif')}';
           progressImages[green] = '#{asset_path('progressbg_green.gif')}';
 
-          $("#review_decisions_progress_count .progress").progressBar(#{progress}, {
-            boxImage : '#{asset_path('progressbar.gif')}',
-            max : #{goal},
-            textFormat : 'fraction',
-            barImage : progressImages
-          });
+          if ($("#review_progress_count .progress").length > 0) {
+            $("#review_decisions_progress_count .progress").progressBar(#{progress}, {
+              boxImage : '#{asset_path('progressbar.gif')}',
+              max : #{goal},
+              textFormat : 'fraction',
+              barImage : progressImages
+            });
+          }
         })
       })
 
