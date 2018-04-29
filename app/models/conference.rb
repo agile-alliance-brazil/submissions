@@ -177,6 +177,10 @@ class Conference < ApplicationRecord
     actual_remaining
   end
 
+  def single_track?
+    tracks.size == 1
+  end
+
   private
 
   def weeks_to_work_in_reviews

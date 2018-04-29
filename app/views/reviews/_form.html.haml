@@ -16,11 +16,14 @@
 
   = form.input :proposal_abstract, as: :radio, input_html: {tabindex: autotab}
 
-  .session_info
-    %p
-      %strong #{t('formtastic.labels.session.track_id')}:
-      #{t(@review.session.track.title)}
-  = form.input :proposal_track, as: :radio, input_html: {tabindex: autotab}
+  - if @conference.single_track?
+    = form.input :proposal_track, as: :hidden
+  - else
+    .session_info
+      %p
+        %strong #{t('formtastic.labels.session.track_id')}:
+        #{t(@review.session.track.title)}
+    = form.input :proposal_track, as: :radio, input_html: {tabindex: autotab}
 
   .session_info
     %p

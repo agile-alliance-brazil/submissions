@@ -163,10 +163,9 @@ form.formtastic fieldset ol ul.tags {
     text-align: center;
 }
 
-form.formtastic fieldset ol li fieldset {
+form.formtastic.reviewer fieldset {
   width: 100%;
 }
-
-form.formtastic fieldset ol li fieldset legend {
-  width: 100%;
+form.formtastic.reviewer fieldset.actions ol li::after {
+  display: none;
 }

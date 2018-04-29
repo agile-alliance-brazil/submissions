@@ -478,7 +478,7 @@ p#review_decision {
   width: 90%;
 }
 
-form.early_review.formtastic, form.final_review.formtastic {
+form.review.formtastic {
   fieldset.inputs {
     legend {
       font-size: 14pt;
@@ -488,10 +488,20 @@ form.early_review.formtastic, form.final_review.formtastic {
     }
     ol {
       float: none;
-      li fieldset legend.label {
-        border-bottom: 0;
-        label {
-          font-size: 10pt;
+      width: 100%;
+      li {
+        width: 100%;
+        fieldset {
+          width: 100%;
+          legend.label {
+            border-bottom: 0;
+            label {
+              font-size: 10pt;
+            }
+          }
+        }
+        textarea {
+          width: 100%;
         }
       }
       li.hidden {

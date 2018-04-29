@@ -77,10 +77,12 @@ class ReviewsController < ApplicationController
   end
 
   def inferred_params
-    {
+    p = {
       reviewer_id: current_user.id,
       session_id: params[:session_id]
     }
+    p[:proposal_track] = true if @conference.single_track?
+    p
   end
 
   def resource

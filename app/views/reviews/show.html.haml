@@ -27,8 +27,9 @@
   %dt= t('formtastic.labels.final_review.author_proposal_xp_rating_id')
   %dd&= t(@review.author_proposal_xp_rating.title)
 
-  %dt= t('formtastic.labels.final_review.proposal_track')
-  %dd&= Formtastic::I18n::t(@review.try(:proposal_track) ? :yes : :no)
+  - unless @conference.single_track?
+    %dt= t('formtastic.labels.final_review.proposal_track')
+    %dd&= Formtastic::I18n::t(@review.try(:proposal_track) ? :yes : :no)
   %dt= t('formtastic.labels.final_review.proposal_level')
   %dd&= Formtastic::I18n::t(@review.try(:proposal_level) ? :yes : :no)
   %dt= t('formtastic.labels.final_review.proposal_type')

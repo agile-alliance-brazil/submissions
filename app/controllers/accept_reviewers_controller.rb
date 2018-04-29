@@ -7,7 +7,7 @@ class AcceptReviewersController < ApplicationController
     return unless @reviewer.preferences.empty?
 
     @conference.tracks.each do |track|
-      @reviewer.preferences.build(track_id: track.id)
+      @reviewer.preferences.build(track_id: track.id, accepted: @conference.single_track?)
     end
   end
 
