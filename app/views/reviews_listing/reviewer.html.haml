@@ -25,8 +25,9 @@
           - if review.session.second_author
             = ' & '
             = link_to h(review.session.second_author.full_name), user_path(review.session.second_author)
-          = t('generic.in')
-          = t(review.session.track.title)
+          - unless @conference.single_track?
+            = t('generic.in')
+            = t(review.session.track.title)
         %td.review
           - if review.is_a?(FinalReview)
             = image_tag("#{review.recommendation.try(:name)}.png", alt: t(review.recommendation.try(:title)))

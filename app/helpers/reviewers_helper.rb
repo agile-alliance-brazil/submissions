@@ -21,7 +21,7 @@ module ReviewersHelper
     [reviewers, comments]
   end
 
-  def reviewer_summary_review_row(reviews, conference)
+  def reviewer_summary_review_row(reviews, conference, include_feedback: true)
     row = Recommendation.all_names
                         .map { |r| Recommendation.where(name: r).select(:id).map(&:id) }
                         .map { |ids| reviews.select { |r| ids.include?(r.recommendation_id) }.count }
@@ -31,7 +31,7 @@ module ReviewersHelper
       feedback_summary = evaluations.select(&:helpful_review).size.to_s + image_tag('helpful.png', alt: '👍') + ' ' +
                          evaluations.reject(&:helpful_review).size.to_s + image_tag('not-helpful.png', alt: '👎')
     end
-    row << feedback_summary
+    row << feedback_summary if include_feedback
     row
   end
 

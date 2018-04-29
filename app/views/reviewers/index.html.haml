@@ -7,7 +7,8 @@
 = semantic_form_for @reviewer_filter, url: reviewers_path(@conference), method: :get do |f|
   = f.inputs do
     = f.input :state, as: :select, collection: @states, member_label: Proc.new { |s| t("reviewer.state.#{s}") }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
-    = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    - unless @conference.single_track?
+      = f.input :track_id, as: :select, collection: @tracks, member_label: Proc.new { |tr| t(tr.title) }, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
     = f.action :submit, label: :filter_reviewer, button_html: {tabindex: autotab}
 
@@ -24,7 +25,7 @@
     %tr#mock_reviewer_row.reviewer.hidden
       %td.reviewer
       %td.state
-      - reviewer_summary_review_row([], @conference).each do |cell|
+      - reviewer_summary_review_row([], @conference, include_feedback: false).each do |cell|
         %td.count= cell.to_s.html_safe
       %td.actions
         - if can? :destroy, Reviewer
@@ -34,7 +35,7 @@
       = content_tag_for(:tr, reviewer, class: cycle(:odd, :even), :'data-username' => reviewer.user.username) do
         %td.reviewer= link_to reviewer.user.full_name, reviewer_path(@conference, reviewer)
         %td.state&= t("reviewer.state.#{reviewer.state}")
-        - reviewer_summary_review_row(reviewer.reviews, @conference).each do |cell|
+        - reviewer_summary_review_row(reviewer.reviews, @conference, include_feedback: false).each do |cell|
           %td.count= cell.to_s.html_safe
         %td.actions
           - if can? :destroy, reviewer

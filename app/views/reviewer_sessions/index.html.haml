@@ -3,7 +3,8 @@
 
 = semantic_form_for @session_filter, url: reviewer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
-    = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    - unless @conference.single_track?
+      = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
     = f.input :session_type_id, as: :select, collection: @session_types.map{|st| [t(st.title), st.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
     = f.input :audience_level_id, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
@@ -14,7 +15,8 @@
     %tr
       %th.session_id ID
       %th.title= t('formtastic.labels.session.title')
-      %th.track= t('formtastic.labels.session.track_id')
+      - unless @conference.single_track?
+        %th.track= t('formtastic.labels.session.track_id')
       %th.type= t('formtastic.labels.session.session_type_id')
       %th.audience_level= t('formtastic.labels.session.audience_level_id')
       - if @conference.has_early_review?
@@ -30,8 +32,9 @@
           = link_to session.try(:title), session_path(@conference, session)
           - if session.comments.size > 0
             .commentCount= session.comments.size
-        %td.track
-          = t(session.track.title)
+        - unless @conference.single_track?
+          %td.track
+            = t(session.track.title)
         %td.type
           = t(session.session_type.title)
         %td.audience_level
