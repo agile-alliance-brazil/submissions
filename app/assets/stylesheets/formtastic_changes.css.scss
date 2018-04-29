@@ -162,3 +162,11 @@ form.formtastic fieldset ol ul.tags {
     width: 90%;
     text-align: center;
 }
+
+form.formtastic fieldset ol li fieldset {
+  width: 100%;
+}
+
+form.formtastic fieldset ol li fieldset legend {
+  width: 100%;
+}
