@@ -3,6 +3,7 @@
 
 = semantic_form_for @session_filter, url: reviewer_sessions_path(@conference), method: :get do |f|
   = f.inputs do
+    = f.input :tags, input_html: { tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json, year: @conference.year, locale: I18n.locale) }
     - unless @conference.single_track?
       = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
     = f.input :session_type_id, as: :select, collection: @session_types.map{|st| [t(st.title), st.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")

@@ -26,7 +26,7 @@ class ReviewerSessionsController < ApplicationController
 
   def filter_params
     params.permit(session_filter: %i[
-                    track_id session_type_id audience_level_id
+                    tags track_id session_type_id audience_level_id
                   ])[:session_filter] || {}
   end
 end
