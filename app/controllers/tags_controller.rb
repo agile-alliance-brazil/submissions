@@ -32,6 +32,6 @@ class TagsController < ApplicationController
   end
 
   def sanitize(search_term)
-    search_term.gsub(/[^a-zA-Z0-9,.\s]*/, '').gsub(/\./, '\\.')
+    search_term.gsub(/[^a-zA-Z0-9áàâãéèêíìîïóòõöôúùüû,.\s]*/i, '').gsub(/\./, '\\.')
   end
 end
