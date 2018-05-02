@@ -39,4 +39,10 @@ module ReviewersHelper
     helpful, not_helpful = review.review_evaluations.partition(&:helpful_review)
     (not_helpful.size * 10) + helpful.size
   end
+
+  def as_comma_separated_emails(reviewers)
+    reviewers.map(&:user).map do |user|
+      "\"#{user.full_name}\" <#{user.email}>"
+    end.join(', ')
+  end
 end

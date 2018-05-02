@@ -885,3 +885,11 @@ en:
         conference_out_of_range: "Not allowed change, review time has passed."
     update:
       success: "Review updated."
+  reviewers:
+
+  reviewers:
+    emails:
+      title: "Listed reviewers' emails"
+      display: "Show"
+      hide: "Hide"
+      copy: "Copy"

@@ -630,7 +630,7 @@ form.review.formtastic {
   }
 }
 
-form.session_filter.formtastic fieldset, form.reviewer_filter.formtastic fieldset {
+form.session_filter.formtastic fieldset {
   &.inputs {
     float: left;
     width: 84%;
@@ -658,6 +658,31 @@ form.session_filter.formtastic fieldset, form.reviewer_filter.formtastic fieldse
       padding-right: 0;
     }
   }
+}
+
+#reviewers_emails {
+  ul {
+    display: inline-block;
+    list-style-type: none;
+    li.inline {
+      padding-left: 1em;
+    }
+  }
+}
+.inline {
+  display: inline-block;
+  &.hidden {
+    display: none;
+  }
+}
+.copy_value {
+  background: #efefff;
+  border: 1px solid black;
+  padding: 1em;
+  font-size: 75%;
+}
+.clickable {
+  cursor: pointer;
 }
 
 #review_progress_count, #review_decisions_progress_count {

@@ -83,6 +83,40 @@
       $(this).find(":submit").prop "disabled", false
     )
 
+  $.submissions.reviewers.initializeEmailInteraction = (parentSelector) ->
+    displayerItems = $(parentSelector).find('.display')
+    hiderItems = $(parentSelector).find('.hide')
+    copierItems = $(parentSelector).find('.copy')
+    copyValue = $(parentSelector).find('.copy_value')
+
+    displayerItems.click(() ->
+      displayerItems.addClass('hidden')
+      hiderItems.removeClass('hidden')
+      copyValue.removeClass('hidden')
+    )
+    displayerItems.addClass('clickable')
+    displayerItems.removeClass('hidden')
+
+    hiderItems.click(() ->
+      displayerItems.removeClass('hidden')
+      hiderItems.addClass('hidden')
+      copyValue.addClass('hidden')
+    )
+    hiderItems.addClass('clickable')
+
+    copierItems.click(() ->
+      temp = $("<input>")
+      $("body").append(temp)
+      temp.val($(copyValue).text()).select()
+      document.execCommand("copy")
+      temp.remove()
+    )
+    copierItems.addClass('clickable')
+    copierItems.removeClass('hidden')
+
+    copyValue.addClass('hidden')
+
+
   appendNewRowWithData = (mockSelector, appendableSelector, reviewer) ->
     className = (if ($(appendableSelector).children("tr:visible").size() % 2) is 0 then "odd" else "even")
     clone = newRowWithData $(mockSelector), reviewer, className

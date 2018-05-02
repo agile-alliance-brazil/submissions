@@ -890,3 +890,9 @@ pt-BR:
         conference_out_of_range: "Alteração não permitida, conferência fora do período de revisão."
     update:
       success: "Revisão atualizada."
+  reviewers:
+    emails:
+      title: "Emails dos revisores listados"
+      display: "Exibir"
+      hide: "Esconder"
+      copy: "Copiar"

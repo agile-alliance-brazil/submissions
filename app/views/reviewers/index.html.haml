@@ -12,6 +12,18 @@
   = f.actions do
     = f.action :submit, label: :filter_reviewer, button_html: {tabindex: autotab}
 
+- unless @reviewers.empty?
+  #reviewers_emails
+    %span.inline{style: "font-weight: 800;"}= t('reviewers.emails.title') + ':'
+    %ul
+      %li.inline.display.hidden
+        %button.inline= t('reviewers.emails.display')
+      %li.inline.hide.hidden
+        %button.inline= t('reviewers.emails.hide')
+      %li.inline.copy.hidden
+        %button.inline= t('reviewers.emails.copy')
+    %pre.copy.copy_value.hidden= as_comma_separated_emails(@reviewers)
+
 %table.reviewers
   %thead
     %tr
@@ -92,5 +104,6 @@
         $.submissions.reviewers.initializeAddMultipleFormFeedback(
           "#new_reviewer_batch", "#mock_reviewer_row", "table.reviewers tbody"
         );
+        $.submissions.reviewers.initializeEmailInteraction("#reviewers_emails");
       });
     });
