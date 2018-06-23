@@ -10,16 +10,6 @@ describe UsersController, type: :controller do
     FactoryBot.create(:conference)
   end
 
-  context 'with views' do
-    before do
-      controller.view.stubs(:previous_sessions).returns([])
-    end
-    render_views
-    it 'show should work' do
-      get :show, id: user.id
-    end
-  end
-
   describe '#index' do
     describe 'with json format' do
       before do
