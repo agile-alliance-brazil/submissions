@@ -12,7 +12,7 @@ describe UsersController, type: :controller do
 
   context 'with views' do
     before do
-      controller.stubs(:previous_sessions).returns([])
+      controller.view.stubs(:previous_sessions).returns([])
     end
     render_views
     it 'show should work' do
