@@ -7,7 +7,7 @@ module UsersHelper
     end
     old_sessions.map do |s|
       text = s.title
-      if current_user == user && current_user.organizer_for_conference(latest_conference)
+      if current_user == user || current_user.organizer_for_conference(latest_conference)
         reviews = s.final_reviews.map { |r| r.recommendation.to_utf_chars }.join(', ')
         text += " (#{I18n.t("session.state.#{s.state}")} - #{reviews})".html_safe
       end
