@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module UsersHelper
-  def previous_sessions(lastest_conference, user, current_user)
+  def previous_sessions(latest_conference, user, current_user)
     old_sessions = user.sessions.includes(:final_reviews).reject do |s|
-      s.conference == lastest_conference
+      s.conference == latest_conference
     end
     old_sessions.map do |s|
       text = s.title
