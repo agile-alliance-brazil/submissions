@@ -11,6 +11,7 @@ describe UsersController, type: :controller do
   end
 
   context 'with views' do
+    include UsersHelper
     render_views
     it 'show should work' do
       get :show, id: user.id
