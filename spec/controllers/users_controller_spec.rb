@@ -11,7 +11,9 @@ describe UsersController, type: :controller do
   end
 
   context 'with views' do
-    include UsersHelper
+    before do
+      controller.stubs(:previous_sessions).returns([])
+    end
     render_views
     it 'show should work' do
       get :show, id: user.id
