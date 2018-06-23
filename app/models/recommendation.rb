@@ -17,6 +17,21 @@ class Recommendation < ApplicationRecord
     Recommendation.title_for(name)
   end
 
+  def to_utf_chars
+    case name
+    when 'strong_accept'
+      '✔✔'
+    when 'weak_accept'
+      '✓'
+    when 'weak_reject'
+      '✗'
+    when 'strong_reject'
+      '✘✘'
+    else
+      '?'
+    end
+  end
+
   def respond_to_missing?(method_sym, include_private = false)
     is_name_check_method?(method_sym) || super
   end

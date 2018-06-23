@@ -65,6 +65,10 @@ class User < ApplicationRecord
     Session.for_user(id).for_conference(conference)
   end
 
+  def organizer_for_conference(conference)
+    organizers.for_conference(conference).first
+  end
+
   # TODO: Stop using Conference.current
   # Overriding role check to take current conference into account
   def reviewer_with_conference?
