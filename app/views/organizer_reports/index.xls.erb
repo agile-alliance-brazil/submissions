@@ -35,6 +35,7 @@
       <Row>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String">ID</Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.title') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.keyword_list') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.author_id') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.second_author_id') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.strong_accept.title') %></Data></Cell>
@@ -68,6 +69,7 @@
         <Row>
           <Cell><Data ss:Type="Number"><%= session.id %></Data></Cell>
           <Cell><Data ss:Type="String"><%= session.title %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= session.keyword_list.map{|keyword| t(keyword)}.join(', ') %></Data></Cell>
           <Cell><Data ss:Type="String"><%= session.author.full_name %></Data></Cell>
           <Cell><Data ss:Type="String"><%= session.second_author.try(:full_name) %></Data></Cell>
           <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:strong_accept?) %></Data></Cell>
