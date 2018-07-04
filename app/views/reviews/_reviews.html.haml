@@ -9,7 +9,8 @@
 
 %ul.spaced
   %li.first #{t('session.parameters')}:
-  %li= link_to t(@session.track.title), conference_tracks_path(@conference)
+  - if @conference.tracks.size > 1
+    %li= link_to t(@session.track.title), conference_tracks_path(@conference)
   %li= link_to t(@session.audience_level.title), conference_audience_levels_path(@conference)
   %li= link_to t(@session.session_type.title), conference_session_types_path(@conference)
   %li
