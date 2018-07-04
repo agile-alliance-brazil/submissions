@@ -5,7 +5,7 @@
   %strong a entrada da sua sessão '#{h(@session.title)}' no programa
   da #{@conference_name}!
 
-%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
 
 %p
   Agora, você precisa tomar algumas ações
@@ -15,7 +15,7 @@
 %ol
   %li
     %strong Consulte as críticas e sugestões
-    feitas pelos avaliadores acessando o endereço:
+    feitas pelos avaliadores e avaliadoras acessando o endereço:
     = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR') + '.', session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
     É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
   %li
@@ -26,7 +26,7 @@
     = link_to session_confirm_url(@conference, @session, locale: 'pt-BR'), session_confirm_url(@conference, @session, locale: 'pt-BR')
   %li
     %strong Caso você não possa comparecer ao evento, confirme sua desistência
-    através do formulário:
+    para liberar sua vaga através do formulário:
     = link_to session_withdraw_url(@conference, @session, locale: 'pt-BR') + '.', session_withdraw_url(@conference, @session, locale: 'pt-BR')
     Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
 
@@ -51,7 +51,7 @@
 %p
   Mais uma vez, parabéns!
   %br
-  Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém em setembro!
+  Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Campinas em outubro!
 
 %p Um grande abraço,
 

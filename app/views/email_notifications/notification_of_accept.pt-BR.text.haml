@@ -4,7 +4,7 @@ Olá, #{@session.authors.map(&:full_name).join(" & ")}!
 É com grande satisfação que comunicamos a entrada da sua sessão '#{h(@session.title)}' no programa da #{@conference_name}!
 
 
-Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
 
 
 Agora, você precisa tomar algumas ações até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')} para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
@@ -16,7 +16,7 @@ Agora, você precisa tomar algumas ações até as #{@conference.author_confirma
 2) Confirme sua presença na conferência e efetue quaisquer mudanças sugeridas pelos avaliadores. Para isso, acesse este formulário: #{session_confirm_url(@conference, @session, locale: 'pt-BR')}
 
 
-3) Caso você não possa comparecer ao evento, confirme sua desistência através do formulário: #{session_withdraw_url(@conference, @session, locale: 'pt-BR')}. Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
+3) Caso você não possa comparecer ao evento, confirme sua desistência para liberar sua vaga através do formulário: #{session_withdraw_url(@conference, @session, locale: 'pt-BR')}. Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
 
 
 Sessões que não forem confirmadas serão removidas do programa e substituídas por outras propostas selecionadas que estão em backup.
@@ -39,7 +39,7 @@ Em caso de dúvidas, pedidos ou comentários, entre em contato com o Comitê de 
 
 Mais uma vez, parabéns!
 
-Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém em setembro!
+Esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Campinas em outubro!
 
 
 Um grande abraço,

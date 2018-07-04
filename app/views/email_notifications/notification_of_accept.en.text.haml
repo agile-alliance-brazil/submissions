@@ -4,9 +4,9 @@ Hello, #{h(@session.authors.map(&:full_name).join(" & "))}!
 We are thrilled to announce that your session '#{h(@session.title)}' was approved for #{@conference_name}'s program!
 
 
-We received a great number of submissions and it was a challenge to select the 62 (sixty two) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
+We received a large number of submissions and it was a challenge to select the ones that are going to be part of our program during our three conference days. So, congratulations! :-)
 
-Now, you must take some actions until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')} to confirm or withdraw your participation as a speaker this year. Let's check those:
+Now, you must take some actions until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')} to confirm or withdraw your participation as a speaker this year. Here they are:
 
 
 1) Review critics and suggestions made by the reviewers at:
@@ -16,7 +16,7 @@ Now, you must take some actions until #{@conference.author_confirmation.strftime
 It is possible that something needs to be changed and, if that is the case, this will be done on action (2).
 
 
-2) Confirm your attendance on the conference and perform any suggested changes made by the reviewers. To do so, access this form:
+2) Confirm your attendance at the conference and make the changes to the title and abstract your reviewers might have suggested. To do so, access this form:
 
 = session_confirm_url(@conference, @session, locale: 'en')
 
@@ -25,7 +25,7 @@ It is possible that something needs to be changed and, if that is the case, this
 
 = session_withdraw_url(@conference, @session, locale: 'en')
 
-Note that, once you confirm your withdrawal, this is a final decision that cannot be changed.
+so that your slot is freed. Note that, once you confirm your withdrawal, this is a final decision that cannot be changed.
 
 
 Unconfirmed sessions will be removed from the program and replaced by other selected proposals that are now on the waiting list.
@@ -35,7 +35,7 @@ Unconfirmed sessions will be removed from the program and replaced by other sele
 
 If you completed steps (1) and (2) and had your session confirmed for the conference, celebrate it \o/
 
-#{@conference_name}'s organizers will contact you soon to start your registration process.
+#{@conference_name}'s organizers will contact you in the next few months to start your registration process.
 
 
 - if @session.authors.size > 1 && @session.duration_mins < 50
@@ -47,7 +47,7 @@ In case you have any doubts, requests or comments, you can contact the Program C
 
 Once again, congratulations!
 
-We hope to see you in Belem in September!
+We hope to see you in Campinas in October!
 
 
 Our best regards,

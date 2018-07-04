@@ -7,18 +7,18 @@
   %strong não foi selecionada
   para compor o programa da #{@conference_name}.
 
-%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência.
+%p Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos três dias de conferência.
 
-%p Nesse processo, tivemos que abrir mão de muitas sessões com excelentes feedbacks dos revisores, considerando nossa necessidade de manter um conjunto de alta qualidade e com um bom equilíbrio entre as trilhas, os níveis de audiência, os tipos de sessão e a diversidade que valorizamos em nosso programa ano após ano.
+%p Nesse processo, tivemos que abrir mão de muitas sessões com bons feedbacks dos revisores, considerando nossa necessidade de manter um conjunto de alta qualidade e com um bom equilíbrio de conteúdo, níveis de audiência, os tipos de sessão e a diversidade que valorizamos em nosso programa, ano após ano.
 
 %p
-  Você#{@session.authors.size > 1 ? "s":""} pode#{@session.authors.size > 1 ? "m":""} ver o feedback sobre sua sessão por aqui:
+  Não deixe#{@session.authors.size > 1 ? "m":""} de ler o feedback que os revisores da comunidade deixaram especificamente para sua sessão aqui:
   %br
   = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR'), session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
 
 %p Em caso de dúvidas, pedidos ou comentários, não hesite#{@session.authors.size > 1 ? "m":""} em procurar o Comitê de Programa através do email #{mail_to 'programa@agilebrazil.com'}.
 
-%p Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais um ano na história da #{@conference_name} :) Esperamos recepcioná-lo#{@session.authors.size > 1 ? "s":""} em Belém para a conferência deste ano, e também receber novas propostas de submissão suas em #{@conference.year + 1}!
+%p Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais um ano na história da #{@conference_name} :) Esperamos você#{@session.authors.size > 1 ? "s":""} em Campinas para a conferência deste ano, e também receber novas propostas de submissão suas em #{@conference.year + 1}!
 
 %p Um grande abraço,
 

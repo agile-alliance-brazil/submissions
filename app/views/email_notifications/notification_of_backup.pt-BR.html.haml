@@ -2,7 +2,7 @@
 
 %p Temos uma boa e uma má notícia sobre a sua proposta '#{h(@session.title)}', submetida para a #{@conference_name}.
 
-%p A má notícia é que, neste momento, sua sessão não foi selecionada para compor o programa. Tivemos um número grande número de submissões e foi realmente um desafio selecionar as 62 (sessenta e duas) que integrarão nossa grade ao longo dos três dias de conferência.
+%p A má notícia é que, neste momento, sua sessão não foi selecionada para compor o programa. Tivemos um número grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos três dias de conferência.
 
 %p
   Porém, a boa notícia é que sua sessão foi muito bem avaliada e
@@ -12,13 +12,13 @@
 %p Fique atento(a) e não perca as esperanças, pois havendo desistência de autores aprovados as sessões em backup serão chamadas gradualmente. Caso sua proposta seja selecionada, a organização da #{@conference_name} entrará em contato.
 
 %p
-  Veja as revisões específicas sobre sua sessão aqui:
+  De toda forma, não deixe de ver as revisões específicas sobre sua sessão aqui:
   %br
   = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR'), session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
 
 %p Em caso de dúvidas, pedidos ou comentários, não hesite#{@session.authors.size > 1 ? "m":""} em procurar o Comitê de Programa através do email #{mail_to 'programa@agilebrazil.com'}.
 
-%p Esperamos ter boas notícias em breve e, independentemente disso, esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Belém este ano!
+%p Esperamos ter boas notícias em breve e, independentemente disso, esperamos vê-lo#{@session.authors.size > 1 ? "s":""} em Campinas este ano!
 
 %p Um grande abraço,
 

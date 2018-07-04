@@ -5,12 +5,12 @@
   %strong your session '#{h(@session.title)}' was approved
   for #{@conference_name}'s program!
 
-%p We received a great number of submissions and it was a challenge to select the 62 (sixty two) ones that are going to be part of our program during the three conference days. So, congratulations! :-)
+%p We received a large number of submissions and it was very challenging to select the ones that are going to be part of our program during our three conference days. Thus congratulations! :-)
 
 %p
   Now, you must take some actions
   %strong until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')}
-  to confirm or withdraw your participation as a speaker this year. Let's check those:
+  to confirm or withdraw your participation as a speaker this year. Here they are:
 
 %ol
   %li
@@ -20,12 +20,13 @@
     It is possible that something needs to be changed and, if that is the case, this will be done on action (2).
   %li
     %strong Confirm your attendance
-    on the conference and perform any suggested changes made by the reviewers. To do so, access this form:
+    at the conference and make the changes to the title and abstract your reviewers might have suggested. To do so, access this form:
     = link_to session_confirm_url(@conference, @session, locale: 'en'), session_confirm_url(@conference, @session, locale: 'en')
   %li
     %strong In case you won't be able to attend the conference, confirm your withdrawal
     through the form:
     = link_to session_withdraw_url(@conference, @session, locale: 'en'), session_withdraw_url(@conference, @session, locale: 'en')
+    so that your slot is freed.
     Note that, once you confirm your withdrawal, this is a final decision that cannot be changed.
 
 %p
@@ -36,7 +37,7 @@
 %p
   If you completed steps (1) and (2) and had your session confirmed for the conference, celebrate it \o/
   %br
-  #{@conference_name}'s organizers will contact you soon to start your registration process.
+  #{@conference_name}'s organizers will contact you in the next few months to start your registration process.
 
 - if @session.authors.size > 1 && @session.duration_mins < 50
   %p
@@ -50,7 +51,7 @@
 %p
   Once again, congratulations!
   %br
-  We hope to see you in Belem in September!
+  We hope to see you in Campinas in October!
 
 %p Our best regards,
 
