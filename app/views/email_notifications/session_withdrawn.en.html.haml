@@ -1,6 +1,6 @@
 %p
   The author(s) of session
-  = link_to session_url(@session.conference, @session, locale: 'en'), "\"#{@session.title}\" (ID #{@session.id})"
+  = link_to "\"#{@session.title}\" (ID #{@session.id})", session_url(@session.conference, @session, locale: 'en')
   declined to present it at #{@conference_name}.
 
 %p Please provide a backup.
