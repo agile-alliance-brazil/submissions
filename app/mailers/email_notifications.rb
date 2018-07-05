@@ -36,10 +36,10 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
-  def session_rejected(session, sent_at = Time.now)
+  def session_withdrawn(session, sent_at = Time.now)
     @session = session
     @conference_name = session.conference.name
-    mail subject: "[#{host}] #{I18n.t('email.session_rejected.subject', session_name: @session.title)}",
+    mail subject: "[#{host}] #{I18n.t('email.session_withdrawn.subject', session_name: @session.title)}",
           to: PROGRAM_COMMITTEE_EMAIL,
           date: sent_at
   end

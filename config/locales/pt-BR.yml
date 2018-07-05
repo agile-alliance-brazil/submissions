@@ -639,8 +639,8 @@ pt-BR:
       subject: "Recuperação de senha"
     session_submitted:
       subject: "Proposta de sessão submetida para %{conference_name}"
-    session_rejected:
-      subject: "Autor rejeitou a proposta %{session_name}"
+    session_withdrawn:
+      subject: "Autor rejeitou a proposta '%{session_name}'"
     comment_submitted:
       subject: "Novo comentário para a sessão '%{session_name}'"
     early_review_submitted:
