@@ -1,0 +1,10 @@
+%p
+  The author(s) of session
+  = link_to session_url(@session.conference, @session, locale: 'en'), "\"#{@session.name}\" (ID #{@session.id})"
+  declined to present it at #{@conference_name}.
+
+%p Please provide a backup.
+
+%p Yours truly,
+
+%p Submission system

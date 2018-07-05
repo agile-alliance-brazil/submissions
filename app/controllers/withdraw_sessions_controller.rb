@@ -9,6 +9,7 @@ class WithdrawSessionsController < ApplicationController
     attributes = session_params
     attributes[:state_event] = 'reject'
     if @session.update(attributes)
+      EmailNotifications.session_rejected(@session).deliver_now
       flash[:notice] = t('flash.session.withdraw.success')
       redirect_to user_sessions_path(@conference, current_user)
     else

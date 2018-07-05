@@ -634,6 +634,8 @@ en:
       subject: "Password reset"
     session_submitted:
       subject: "%{conference_name} session proposal submitted"
+    session_rejected:
+      subject: "Author rejected %{session_name}"
     comment_submitted:
       subject: "New comment for session '%{session_name}'"
     early_review_submitted:

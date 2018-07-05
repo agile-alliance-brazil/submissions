@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class EmailNotifications < ActionMailer::Base
+  PROGRAM_COMMITTEE_EMAIL = 'programa@agilebrazil.com'.freeze
   default from:     proc { "\"#{conference.name}\" <#{from_address}>" },
           reply_to: proc { "\"#{conference.name}\" <#{from_address}>" }
 
@@ -33,6 +34,14 @@ class EmailNotifications < ActionMailer::Base
            to: session.authors.map { |author| EmailNotifications.format_email(author) },
            date: sent_at
     end
+  end
+
+  def session_rejected(session, sent_at = Time.now)
+    @session = session
+    @conference_name = session.conference.name
+    mail subject: "[#{host}] #{I18n.t('email.session_rejected.subject', session_name: @session.title)}",
+          to: PROGRAM_COMMITTEE_EMAIL,
+          date: sent_at
   end
 
   def comment_submitted(session, comment, sent_at = Time.now)
