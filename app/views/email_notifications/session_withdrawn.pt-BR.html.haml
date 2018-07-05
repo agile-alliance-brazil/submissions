@@ -1,6 +1,6 @@
 %p
   O(s) autor(es) da sessão
-  = link_to session_url(@session.conference, @session, locale: 'en'), "\"#{@session.name}\" (ID #{@session.id})"
+  = link_to session_url(@session.conference, @session, locale: 'pt-BR'), "\"#{@session.title}\" (ID #{@session.id})"
   negaram sua participação na #{@conference_name}.
 
 %p Precisamos de uma proposta reserva.
