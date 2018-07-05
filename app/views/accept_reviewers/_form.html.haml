@@ -15,7 +15,7 @@
   - unless @reviewer.errors.blank? || @reviewer.preferences.any?(&:errors)
     = form.inputs do
       = form.semantic_errors :base
-  %pre#reviewer_agreement= yield(:agreement)
+  %pre#reviewer_agreement.agreement= yield(:agreement)
   = form.inputs class: 'inputs accept' do
     = form.input :reviewer_agreement, as: :boolean, required: true, input_html: {tabindex: autotab}
     = form.input :sign_reviews, as: :boolean, required: true, input_html: {tabindex: autotab}

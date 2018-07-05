@@ -166,6 +166,21 @@ form.formtastic fieldset ol ul.tags {
 form.formtastic.reviewer fieldset {
   width: 100%;
 }
-form.formtastic.reviewer fieldset.actions ol li::after {
-  display: none;
+
+form.formtastic.reviewer,form.formtastic.review_decision_confirm,form.formtastic.review_decision_withdraw {
+  fieldset.actions ol li::after {
+    display: none;
+  }
+  fieldset ol {
+    li {
+      .inline-hints {
+        width: 100%;
+      }
+    }
+    li.string,li.text,li.numeric {
+      input,textarea {
+        width: 100%;
+      }
+    }
+  }
 }

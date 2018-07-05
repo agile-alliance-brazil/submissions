@@ -113,30 +113,13 @@
       - @reviews.each do |review|
         %th.reviewer&= reviewers[review]
   %tbody
-    %tr.odd
-      %th= t('formtastic.labels.final_review.proposal_abstract')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_abstract ? 'yes.png' : 'no.png')
-    %tr.even
-      %th= t('formtastic.labels.final_review.proposal_track')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_track ? 'yes.png' : 'no.png')
-    %tr.odd
-      %th= t('formtastic.labels.final_review.proposal_level')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_level ? 'yes.png' : 'no.png')
-    %tr.even
-      %th= t('formtastic.labels.final_review.proposal_type')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_type ? 'yes.png' : 'no.png')
-    %tr.odd
-      %th= t('formtastic.labels.final_review.proposal_duration')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_duration ? 'yes.png' : 'no.png')
-    %tr.even
-      %th= t('formtastic.labels.final_review.proposal_limit')
-      - @reviews.each do |review|
-        %td= image_tag(review.proposal_limit ? 'yes.png' : 'no.png')
+    - contents = %i[proposal_abstract proposal_track proposal_level proposal_type proposal_duration proposal_limit]
+    - contents.delete(:proposal_track) if @conference.tracks.size == 1
+    - contents.each_with_index do |row, index|
+      %tr{class: ((index + 1) % 2) == 0 ? 'even' : 'odd'}
+        %th= t("formtastic.labels.final_review.#{row.to_s}")
+        - @reviews.each do |review|
+          %td= image_tag(review.send(row) ? 'yes.png' : 'no.png')
 
 %h3= t('formtastic.titles.work')
 
