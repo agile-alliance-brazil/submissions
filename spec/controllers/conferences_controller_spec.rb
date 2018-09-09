@@ -43,7 +43,7 @@ describe ConferencesController, type: :controller do
 
       get :index
 
-      expect(assigns(:conferences)).to eq(Conference.all.sort_by(&:created_at).reverse)
+      expect(assigns(:conferences).to_a).to eq(Conference.all.sort_by(&:created_at).reverse)
     end
   end
 

@@ -8,7 +8,7 @@ module Api
       DEFAULT_LIMIT = 5
 
       def index
-        commenters = User.by_comments(filters).limit(valid_limit).select do |u|
+        commenters = User.by_comments(filters).limit(valid_limit).order('users.id DESC').select do |u|
           u.comments.count.positive?
         end
         top_commenters = commenters.map do |user|

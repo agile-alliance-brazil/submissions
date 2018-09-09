@@ -267,7 +267,7 @@ RSpec.describe SessionsController, type: :controller do
 
           it 'assigns the instance variables and renders the template' do
             expect(assigns(:conference)).to eq conference
-            expect(assigns(:sessions)).to eq [other_session, session]
+            expect(assigns(:sessions).to_a).to eq [other_session, session]
             expect(assigns(:tracks).to_a).to eq [other_track, track]
             expect(assigns(:session_types).to_a).to match_array [other_type, type]
             expect(response).to render_template(:index)

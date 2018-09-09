@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
                                  .for_conference(@conference)
                                  .without_state(:cancelled)
                                  .page(params[:page])
-                                 .order('sessions.created_at DESC')
+                                 .order('sessions.created_at DESC, sessions.id DESC')
                                  .includes(:author, :second_author, :review_decision,
                                            session_type: [:translated_contents],
                                            track: [:translated_contents],

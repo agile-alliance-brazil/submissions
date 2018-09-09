@@ -2,7 +2,7 @@
 
 class ConferencesController < ApplicationController
   def index
-    @conferences = Conference.order('conferences.created_at DESC').all
+    @conferences = Conference.order('conferences.created_at DESC, conferences.id DESC').all
   end
 
   def new
