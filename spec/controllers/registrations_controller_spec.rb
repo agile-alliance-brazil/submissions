@@ -6,7 +6,7 @@ describe RegistrationsController, type: :controller do
   render_views
   it_should_behave_like_a_devise_controller
 
-  before(:each) do
+  before do
     @user ||= FactoryBot.create(:user)
     # TODO: Remove conference dependency
     FactoryBot.create(:conference)
@@ -40,7 +40,7 @@ describe RegistrationsController, type: :controller do
   it 'create action should login new user' do
     User.any_instance.stubs(:valid?).returns(true)
     post :create
-    expect(controller.current_user).to_not be_nil
+    expect(controller.current_user).not_to be_nil
   end
 
   it 'create action should send welcome e-mail' do
@@ -50,7 +50,7 @@ describe RegistrationsController, type: :controller do
   end
 
   context 'logged in' do
-    before(:each) do
+    before do
       sign_in @user
       disable_authorization
     end

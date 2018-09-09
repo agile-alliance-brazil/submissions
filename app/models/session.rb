@@ -64,6 +64,7 @@ class Session < ApplicationRecord
   })
   scope(:for_preferences, lambda { |*preferences|
     return none if preferences.empty?
+
     clause = preferences.map { |_p| '(track_id = ? AND audience_level_id <= ?)' }.join(' OR ')
     args = preferences.map { |p| [p.track_id, p.audience_level_id] }.flatten
     where(clause, *args)

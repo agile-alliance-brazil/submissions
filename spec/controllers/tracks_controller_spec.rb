@@ -13,20 +13,20 @@ describe TracksController, type: :controller do
     end
   end
 
-  before(:each) do
+  before do
     Conference.stubs(:current).returns(conference)
   end
 
   context 'index action' do
     let(:track) { FactoryBot.create(:track, conference: conference) }
 
-    it 'should render index template' do
+    it 'renders index template' do
       get :index, year: track.conference.year
 
       expect(response).to render_template(:index)
     end
 
-    it 'should assign tracks for current conference' do
+    it 'assigns tracks for current conference' do
       get :index, year: track.conference.year
 
       expect(assigns(:tracks)).to eq([track])
@@ -36,12 +36,12 @@ describe TracksController, type: :controller do
   context 'create action' do
     let(:track) { FactoryBot.build(:track, conference: conference) }
 
-    before(:each) do
+    before do
       sign_in admin
       disable_authorization
     end
 
-    it 'should save new track with content' do
+    it 'saves new track with content' do
       attributes = track.translated_contents.each_with_object({}) do |t, acc|
         acc[acc.size.to_s] = t.attributes
         acc
@@ -57,7 +57,7 @@ describe TracksController, type: :controller do
     end
 
     context 'with html format' do
-      it 'should redirect to track index' do
+      it 'redirects to track index' do
         attributes = track.translated_contents.each_with_object({}) do |t, acc|
           acc[acc.size.to_s] = t.attributes
           acc
@@ -71,7 +71,7 @@ describe TracksController, type: :controller do
     end
 
     context 'incomplete data' do
-      it 'should flash a failure message' do
+      it 'flashes a failure message' do
         post :create, year: conference.year, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
@@ -81,7 +81,7 @@ describe TracksController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'should render conference edit page' do
+      it 'renders conference edit page' do
         post :create, year: conference.year, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
@@ -90,13 +90,13 @@ describe TracksController, type: :controller do
 
         expect(assigns(:conference).id).to eq(conference.id)
         expect(assigns(:new_track)).to be_a(Track)
-        expect(assigns(:new_track).translated_contents).to_not be_empty
+        expect(assigns(:new_track).translated_contents).not_to be_empty
         expect(assigns(:new_audience_level)).to be_a(AudienceLevel)
-        expect(assigns(:new_audience_level).translated_contents).to_not be_empty
+        expect(assigns(:new_audience_level).translated_contents).not_to be_empty
         expect(assigns(:new_session_type)).to be_a(SessionType)
-        expect(assigns(:new_session_type).translated_contents).to_not be_empty
+        expect(assigns(:new_session_type).translated_contents).not_to be_empty
         expect(assigns(:new_page)).to be_a(Page)
-        expect(assigns(:new_page).translated_contents).to_not be_empty
+        expect(assigns(:new_page).translated_contents).not_to be_empty
       end
     end
   end
@@ -105,12 +105,12 @@ describe TracksController, type: :controller do
     let(:track) { FactoryBot.create(:track, conference: conference) }
     let(:new_content) { '*New* content!' }
 
-    before(:each) do
+    before do
       sign_in admin
       disable_authorization
     end
 
-    it 'should change content' do
+    it 'changes content' do
       language = conference.supported_languages.first
 
       patch :update, year: conference.year, id: track.id, track: {
@@ -126,7 +126,7 @@ describe TracksController, type: :controller do
     end
 
     context 'with html format' do
-      it 'should redirect to show page' do
+      it 'redirects to show page' do
         language = conference.supported_languages.first
 
         patch :update, year: conference.year, id: track.id, track: {
@@ -141,7 +141,7 @@ describe TracksController, type: :controller do
     end
 
     context 'incomplete data' do
-      it 'should flash a failure message' do
+      it 'flashes a failure message' do
         patch :update, year: conference.year, id: track.id, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
@@ -151,7 +151,7 @@ describe TracksController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'should render conference edit page' do
+      it 'renders conference edit page' do
         patch :update, year: conference.year, id: track.id, track: {
           translated_contents_attributes: {
             '0' => { id: track.translated_contents.first.id, language: 'pt-BR' }
@@ -160,13 +160,13 @@ describe TracksController, type: :controller do
 
         expect(assigns(:conference).id).to eq(conference.id)
         expect(assigns(:new_track)).to be_a(Track)
-        expect(assigns(:new_track).translated_contents).to_not be_empty
+        expect(assigns(:new_track).translated_contents).not_to be_empty
         expect(assigns(:new_audience_level)).to be_a(AudienceLevel)
-        expect(assigns(:new_audience_level).translated_contents).to_not be_empty
+        expect(assigns(:new_audience_level).translated_contents).not_to be_empty
         expect(assigns(:new_session_type)).to be_a(SessionType)
-        expect(assigns(:new_session_type).translated_contents).to_not be_empty
+        expect(assigns(:new_session_type).translated_contents).not_to be_empty
         expect(assigns(:new_page)).to be_a(Page)
-        expect(assigns(:new_page).translated_contents).to_not be_empty
+        expect(assigns(:new_page).translated_contents).not_to be_empty
       end
     end
   end

@@ -7,7 +7,7 @@ describe RejectReviewersController, type: :controller do
 
   it_should_require_login_for_actions :show, :update
 
-  before(:each) do
+  before do
     @user ||= FactoryBot.create(:user)
     @reviewer ||= FactoryBot.create(:reviewer, user: @user)
     Reviewer.stubs(:find).returns(@reviewer)

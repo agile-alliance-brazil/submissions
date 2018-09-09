@@ -11,7 +11,7 @@ if ARGV.count < 2
     <target_machine>:\t The public DNS or public IP address of the machine to be deployed
     <machine_type>:\t\t Optional. Either 'production' or 'staging'. Anything other than 'production' is considered staging. Used for deploy configurations.
     <optional_ssh_key>:\t Optional. The path to the ssh key to be used to log in with the specified user on the specified machine
-USAGE
+  USAGE
   exit(1)
 end
 

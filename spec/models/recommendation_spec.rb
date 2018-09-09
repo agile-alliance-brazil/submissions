@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe Recommendation, type: :model do
-  context 'validations' do
-    it { should validate_presence_of :name }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :name }
   end
 
   Recommendation.all_names.each do |title|
@@ -16,24 +16,23 @@ describe Recommendation, type: :model do
     end
   end
 
-  context 'title_for' do
-    it 'should prepend recommendation. to title' do
+  describe 'title_for' do
+    it 'prepends recommendation. to title' do
       expect(Recommendation.title_for('example')).to start_with('recommendation.')
     end
-    it 'should postpend title. to title' do
+    it 'postpends title. to title' do
       expect(Recommendation.title_for('example')).to end_with('.title')
     end
-    it 'should include title between preset text' do
+    it 'includes title between preset text' do
       expect(Recommendation.title_for('example')).to eq('recommendation.example.title')
     end
   end
 
-  context 'title' do
-    before(:each) do
-      @recommendation = FactoryBot.build(:recommendation)
-    end
-    it 'should return the translation text' do
-      expect(@recommendation.title).to eq(Recommendation.title_for(@recommendation.name))
+  describe 'title' do
+    subject(:recommendation) { FactoryBot.build(:recommendation) }
+
+    it 'returns the translation text' do
+      expect(recommendation.title).to eq(Recommendation.title_for(recommendation.name))
     end
   end
 end

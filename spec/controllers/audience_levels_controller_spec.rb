@@ -14,15 +14,15 @@ describe AudienceLevelsController, type: :controller do
   end
 
   context 'index action' do
-    before(:each) { audience.save }
+    before { audience.save }
 
-    it 'should render index template' do
+    it 'renders index template' do
       get :index, year: conference.year
 
       expect(response).to render_template(:index)
     end
 
-    it 'should assign audience levels for given conference' do
+    it 'assigns audience levels for given conference' do
       get :index, year: conference.year
 
       expect(assigns(:audience_levels)).to eq([audience])
@@ -30,12 +30,12 @@ describe AudienceLevelsController, type: :controller do
   end
 
   context 'create action' do
-    before(:each) do
+    before do
       sign_in admin
       disable_authorization
     end
 
-    it 'should save new audience level with content' do
+    it 'saves new audience level with content' do
       attributes = audience.translated_contents.each_with_object({}) do |a, acc|
         acc[acc.size.to_s] = a.attributes
         acc
@@ -51,7 +51,7 @@ describe AudienceLevelsController, type: :controller do
     end
 
     context 'with html format' do
-      it 'should redirect to audience levels index' do
+      it 'redirects to audience levels index' do
         attributes = audience.translated_contents.each_with_object({}) do |a, acc|
           acc[acc.size.to_s] = a.attributes
           acc
@@ -65,7 +65,7 @@ describe AudienceLevelsController, type: :controller do
     end
 
     context 'incomplete data' do
-      it 'should flash a failure message' do
+      it 'flashes a failure message' do
         post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
@@ -75,7 +75,7 @@ describe AudienceLevelsController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'should render conference edit page' do
+      it 'renders conference edit page' do
         post :create, year: conference.year, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
@@ -84,13 +84,13 @@ describe AudienceLevelsController, type: :controller do
 
         expect(assigns(:conference).id).to eq(conference.id)
         expect(assigns(:new_track)).to be_a(Track)
-        expect(assigns(:new_track).translated_contents).to_not be_empty
+        expect(assigns(:new_track).translated_contents).not_to be_empty
         expect(assigns(:new_audience_level)).to be_a(AudienceLevel)
-        expect(assigns(:new_audience_level).translated_contents).to_not be_empty
+        expect(assigns(:new_audience_level).translated_contents).not_to be_empty
         expect(assigns(:new_session_type)).to be_a(SessionType)
-        expect(assigns(:new_session_type).translated_contents).to_not be_empty
+        expect(assigns(:new_session_type).translated_contents).not_to be_empty
         expect(assigns(:new_page)).to be_a(Page)
-        expect(assigns(:new_page).translated_contents).to_not be_empty
+        expect(assigns(:new_page).translated_contents).not_to be_empty
       end
     end
   end
@@ -98,14 +98,14 @@ describe AudienceLevelsController, type: :controller do
   context 'update' do
     let(:new_content) { '*New* content!' }
 
-    before(:each) do
+    before do
       sign_in admin
       disable_authorization
 
       audience.save
     end
 
-    it 'should change content' do
+    it 'changes content' do
       language = conference.supported_languages.first
 
       patch :update, year: conference.year, id: audience.id, audience_level: {
@@ -121,7 +121,7 @@ describe AudienceLevelsController, type: :controller do
     end
 
     context 'with html format' do
-      it 'should redirect to show page' do
+      it 'redirects to show page' do
         language = conference.supported_languages.first
 
         patch :update, year: conference.year, id: audience.id, audience_level: {
@@ -136,7 +136,7 @@ describe AudienceLevelsController, type: :controller do
     end
 
     context 'incomplete data' do
-      it 'should flash a failure message' do
+      it 'flashes a failure message' do
         patch :update, year: conference.year, id: audience.id, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
@@ -146,7 +146,7 @@ describe AudienceLevelsController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'should render conference edit page' do
+      it 'renders conference edit page' do
         patch :update, year: conference.year, id: audience.id, audience_level: {
           translated_contents_attributes: {
             '0' => { id: audience.translated_contents.first.id, language: 'pt-BR' }
@@ -155,13 +155,13 @@ describe AudienceLevelsController, type: :controller do
 
         expect(assigns(:conference).id).to eq(conference.id)
         expect(assigns(:new_track)).to be_a(Track)
-        expect(assigns(:new_track).translated_contents).to_not be_empty
+        expect(assigns(:new_track).translated_contents).not_to be_empty
         expect(assigns(:new_audience_level)).to be_a(AudienceLevel)
-        expect(assigns(:new_audience_level).translated_contents).to_not be_empty
+        expect(assigns(:new_audience_level).translated_contents).not_to be_empty
         expect(assigns(:new_session_type)).to be_a(SessionType)
-        expect(assigns(:new_session_type).translated_contents).to_not be_empty
+        expect(assigns(:new_session_type).translated_contents).not_to be_empty
         expect(assigns(:new_page)).to be_a(Page)
-        expect(assigns(:new_page).translated_contents).to_not be_empty
+        expect(assigns(:new_page).translated_contents).not_to be_empty
       end
     end
   end

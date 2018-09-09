@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe ReviewerSessionsController, type: :controller do
-  before(:each) do
+  before do
     @reviewer ||= FactoryBot.create(:reviewer)
     sign_in @reviewer.user
     controller.stubs(:current_user).returns(@reviewer.user)
@@ -21,7 +21,7 @@ describe ReviewerSessionsController, type: :controller do
   it_should_require_login_for_actions :index
 
   describe '#index' do
-    before(:each) do
+    before do
       @conference = @reviewer.conference
       @conference.presubmissions_deadline = Time.now + 1.day
       Conference.stubs(:current).returns(@conference)
@@ -29,22 +29,22 @@ describe ReviewerSessionsController, type: :controller do
       SessionFilter.any_instance.stubs(:apply).returns([@session])
     end
 
-    it 'should assign tracks for current conference' do
+    it 'assigns tracks for current conference' do
       get :index
       expect(assigns(:tracks) - @conference.tracks).to be_empty
     end
 
-    it 'should assign audience levels for current conference' do
+    it 'assigns audience levels for current conference' do
       get :index
       expect(assigns(:audience_levels) - @conference.audience_levels).to be_empty
     end
 
-    it 'should assign session types for current conference' do
+    it 'assigns session types for current conference' do
       get :index
       expect(assigns(:session_types) - @conference.session_types).to be_empty
     end
 
-    it 'should filter sessions' do
+    it 'filters sessions' do
       filter_params = { 'audience_level_id' => '1', 'session_type_id' => '2', 'conference' => @conference }
       filter = SessionFilter.new(filter_params, @reviewer.user)
       SessionFilter.expects(:new).with(filter_params).returns(filter)

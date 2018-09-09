@@ -5,6 +5,7 @@ require 'spec_helper'
 describe Api::V1::UsersController, type: :controller do
   let(:user)  { FactoryBot.create(:user) }
   let(:token) { stub(acceptable?: true, resource_owner_id: user.id) }
+
   before      { controller.stubs(:doorkeeper_token).returns(token) }
 
   describe 'show' do
@@ -12,9 +13,9 @@ describe Api::V1::UsersController, type: :controller do
       get :show, format: :json
     end
 
-    it { should respond_with(:success) }
+    it { is_expected.to respond_with(:success) }
 
-    it 'should return user JSON representation' do
+    it 'returns user JSON representation' do
       expect(JSON.parse(response.body)).to eq('id' => user.id,
                                               'first_name' => user.first_name,
                                               'last_name' => user.last_name,
@@ -37,13 +38,13 @@ describe Api::V1::UsersController, type: :controller do
       post :make_voter, format: :json
     end
 
-    it { should respond_with(:success) }
+    it { is_expected.to respond_with(:success) }
 
-    it 'should make user a voter' do
+    it 'makes user a voter' do
       expect(user.reload).to be_voter
     end
 
-    it 'should return success JSON' do
+    it 'returns success JSON' do
       expect(JSON.parse(response.body)).to eq('success' => true, 'vote_url' => sessions_url)
     end
   end

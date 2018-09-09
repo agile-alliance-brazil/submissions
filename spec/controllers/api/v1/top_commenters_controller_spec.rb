@@ -4,6 +4,7 @@ require 'spec_helper'
 
 describe Api::V1::TopCommentersController, type: :controller do
   let(:session) { FactoryBot.create(:session) }
+
   describe 'index' do
     def simplify(user)
       gravatar_id = Digest::MD5.hexdigest(user.email).downcase
@@ -25,11 +26,11 @@ describe Api::V1::TopCommentersController, type: :controller do
         get :index, format: 'json'
       end
 
-      it 'should respond with success' do
+      it 'responds with success' do
         expect(response.status).to eq(200)
       end
 
-      it 'should return nobody' do
+      it 'returns nobody' do
         expect(response.body).to eq('[]')
       end
     end
@@ -43,7 +44,7 @@ describe Api::V1::TopCommentersController, type: :controller do
         get :index, format: 'json'
       end
 
-      it 'should return top 3' do
+      it 'returns top 3' do
         expected_result = [@winner, @second, @third].map { |u| simplify(u) }.to_json
         expect(response.body).to eq(expected_result)
       end
@@ -59,7 +60,7 @@ describe Api::V1::TopCommentersController, type: :controller do
         get :index, format: 'json'
       end
 
-      it 'should return top 5' do
+      it 'returns top 5' do
         expected_result = @top_commenters.map { |u| simplify(u) }.to_json
         expect(response.body).to eq(expected_result)
       end
@@ -75,7 +76,7 @@ describe Api::V1::TopCommentersController, type: :controller do
         get :index, format: 'json'
       end
 
-      it 'should return top 5 with most recent user to untie' do
+      it 'returns top 5 with most recent user to untie' do
         expected_result = @top_commenters.map { |u| simplify(u) }.to_json
         expect(response.body).to eq(expected_result)
       end
@@ -90,21 +91,21 @@ describe Api::V1::TopCommentersController, type: :controller do
           @top_commenters = commenters.take(5)
         end
 
-        it 'should ignore negative limit' do
+        it 'ignores negative limit' do
           get :index, format: 'json', limit: -1
 
           expected_result = @top_commenters.map { |u| simplify(u) }.to_json
           expect(response.body).to eq(expected_result)
         end
 
-        it 'should ignore zero limit' do
+        it 'ignores zero limit' do
           get :index, format: 'json', limit: 0
 
           expected_result = @top_commenters.map { |u| simplify(u) }.to_json
           expect(response.body).to eq(expected_result)
         end
 
-        it 'should ignore nil limit' do
+        it 'ignores nil limit' do
           get :index, format: 'json', limit: nil
 
           expected_result = @top_commenters.map { |u| simplify(u) }.to_json
@@ -113,7 +114,7 @@ describe Api::V1::TopCommentersController, type: :controller do
       end
 
       context 'with provided limit' do
-        it 'should return that many commenters' do
+        it 'returns that many commenters' do
           commenters = (1..10).to_a.reverse.map do |number_of_comments|
             create_commenter_with_number_of_comments_as(number_of_comments)
           end
@@ -127,7 +128,7 @@ describe Api::V1::TopCommentersController, type: :controller do
       end
 
       context 'with above maximum limit' do
-        it 'should cap limit to 20' do
+        it 'caps limit to 20' do
           commenters = (1..30).to_a.reverse.map do |number_of_comments|
             create_commenter_with_number_of_comments_as(number_of_comments)
           end
@@ -149,13 +150,13 @@ describe Api::V1::TopCommentersController, type: :controller do
           create_commenter_with_number_of_comments_as(1)
         end
 
-        it 'should ignore comments from other conferences' do
+        it 'ignores comments from other conferences' do
           get :index, format: 'json', filter: { year: [new_conference.year.to_s] }
 
           expect(response.body).to eq('[]')
         end
 
-        it 'should show commenters from specified conference' do
+        it 'shows commenters from specified conference' do
           new_session = FactoryBot.create(:session, conference: new_conference)
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
 
@@ -166,7 +167,7 @@ describe Api::V1::TopCommentersController, type: :controller do
           expect(response.body).to eq(expected_result)
         end
 
-        it 'should show comments from specified conference' do
+        it 'shows comments from specified conference' do
           new_session = FactoryBot.create(:session, conference: new_conference)
           top_commenters = [create_commenter_with_number_of_comments_as(5, new_session)]
           top_commenter = top_commenters.first

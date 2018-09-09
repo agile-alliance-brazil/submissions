@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe ReviewPublisher do
-  before(:each) do
+  before do
     Session.stubs(:count).returns(0)
     EmailNotifications.stubs(:notification_of_acceptance).returns(stub(deliver_now: true))
     ::Rails.logger.stubs(:info)
@@ -18,23 +18,23 @@ describe ReviewPublisher do
     @backup_outcome = Outcome.find_by(title: 'outcomes.backup.title') || FactoryBot.create(:backup_outcome)
     @accept_outcome = Outcome.find_by(title: 'outcomes.accept.title') || FactoryBot.create(:accepted_outcome)
 
-    @publisher = ReviewPublisher.new
+    @publisher = described_class.new
   end
 
-  it 'should raise error if there are sessions not reviewed' do
+  it 'raises error if there are sessions not reviewed' do
     sessions = [FactoryBot.build(:session), FactoryBot.build(:session)]
     Session.expects(:not_reviewed_for).with(@conference).returns(sessions)
     expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions not reviewed: #{sessions.map(&:id)}")
   end
 
   context 'validating sessions without decision' do
-    it 'should raise error if sessions in_review' do
+    it 'raises error if sessions in_review' do
       sessions = [FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session)]
       Session.expects(:not_decided_for).with(@conference).returns(sessions)
       expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions without decision: #{sessions.map(&:id)}")
     end
 
-    it "should raise error if reviewed sessions don't have decisions" do
+    it "raises error if reviewed sessions don't have decisions" do
       sessions = [FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session), FactoryBot.build(:session)]
       Session.expects(:without_decision_for).with(@conference).returns(sessions)
       expect(-> { @publisher.publish }).to raise_error("There are #{sessions.size} sessions without decision: #{sessions.map(&:id)}")
@@ -42,7 +42,7 @@ describe ReviewPublisher do
   end
 
   context 'Sessions are all reviewed' do
-    before(:each) do
+    before do
       @publisher.stubs(:ensure_all_sessions_reviewed)
       @publisher.stubs(:ensure_all_decisions_made)
       @sessions = [in_review_session_for(@conference), in_review_session_for(@conference)]
@@ -59,7 +59,7 @@ describe ReviewPublisher do
       mock.expects(:with_outcome).with(@reject_outcome).returns(accept_or_reject == :reject ? @sessions : [])
     end
 
-    it 'should send reject e-mails' do
+    it 'sends reject e-mails' do
       expect_acceptance(:reject)
 
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
@@ -67,7 +67,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should send backup e-mails' do
+    it 'sends backup e-mails' do
       expect_acceptance(:backup)
 
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
@@ -75,7 +75,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should send acceptance e-mails' do
+    it 'sends acceptance e-mails' do
       expect_acceptance(:accept)
 
       EmailNotifications.expects(:notification_of_acceptance).with(@sessions[0]).with(@sessions[1]).returns(mock(deliver_now: true))
@@ -83,12 +83,12 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should mark review decisions as published' do
+    it 'marks review decisions as published' do
       @publisher.publish
       expect(@sessions.map(&:review_decision).all?(&:published?)).to be true
     end
 
-    it 'should send reject e-mails before acceptance e-mails' do
+    it 'sends reject e-mails before acceptance e-mails' do
       notifications = sequence('notification')
 
       EmailNotifications.expects(:notification_of_acceptance)
@@ -102,7 +102,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should log rejected e-mails sent' do
+    it 'logs rejected e-mails sent' do
       expect_acceptance(:reject)
 
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
@@ -112,7 +112,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should log backup e-mails sent' do
+    it 'logs backup e-mails sent' do
       expect_acceptance(:backup)
 
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
@@ -122,7 +122,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should log accepted e-mails sent' do
+    it 'logs accepted e-mails sent' do
       expect_acceptance(:accept)
 
       ::Rails.logger.expects(:info).with("[SESSION] #{@sessions[0].to_param}")
@@ -132,7 +132,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should capture error when notifying acceptance and move on' do
+    it 'captures error when notifying acceptance and move on' do
       expect_acceptance(:accept)
 
       error = StandardError.new('error')
@@ -146,7 +146,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should capture error when notifying backup and move on' do
+    it 'captures error when notifying backup and move on' do
       expect_acceptance(:backup)
 
       error = StandardError.new('error')
@@ -160,7 +160,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should capture error when notifying rejection and move on' do
+    it 'captures error when notifying rejection and move on' do
       expect_acceptance(:reject)
 
       error = StandardError.new('error')
@@ -174,7 +174,7 @@ describe ReviewPublisher do
       @publisher.publish
     end
 
-    it 'should flush log at the end' do
+    it 'flushes log at the end' do
       ::Rails.logger.expects(:flush)
 
       @publisher.publish

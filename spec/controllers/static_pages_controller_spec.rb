@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe StaticPagesController, type: :controller do
-  it 'should render template from page param' do
+  it 'renders template from page param' do
     Conference.where(year: 2011).first || FactoryBot.create(:conference, year: 2011)
     controller.stubs(:render)
     controller.expects(:render).with(action: '2011_syntax_help')

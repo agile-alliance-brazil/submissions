@@ -90,4 +90,5 @@ group :development, :test do
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
   gem 'timecop'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
 end

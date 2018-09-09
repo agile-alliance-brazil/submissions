@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe Outcome, type: :model do
-  context 'validations' do
-    it { should validate_presence_of :title }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :title }
   end
 
-  context 'associations' do
-    it { should have_many :review_decisions }
+  describe 'associations' do
+    it { is_expected.to have_many :review_decisions }
   end
 end

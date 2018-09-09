@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmailNotifications < ActionMailer::Base
-  PROGRAM_COMMITTEE_EMAIL = 'programa@agilebrazil.com'.freeze
+  PROGRAM_COMMITTEE_EMAIL = 'programa@agilebrazil.com'
   default from:     proc { "\"#{conference.name}\" <#{from_address}>" },
           reply_to: proc { "\"#{conference.name}\" <#{from_address}>" }
 
@@ -40,8 +40,8 @@ class EmailNotifications < ActionMailer::Base
     @session = session
     @conference_name = session.conference.name
     mail subject: "[#{host}] #{I18n.t('email.session_withdrawn.subject', session_name: @session.title)}",
-          to: PROGRAM_COMMITTEE_EMAIL,
-          date: sent_at
+         to: PROGRAM_COMMITTEE_EMAIL,
+         date: sent_at
   end
 
   def comment_submitted(session, comment, sent_at = Time.now)
@@ -81,6 +81,7 @@ class EmailNotifications < ActionMailer::Base
   def notification_of_acceptance(session, sent_at = Time.now)
     decision = session.review_decision
     raise "Notification can't be sent before decision has been made" unless decision
+
     accepted = decision.accepted?
     template_name = decision.outcome.title.gsub(/^outcomes\.([^.]+)\.title$/, 'notification_of_\1').to_sym
     @session = session
@@ -105,8 +106,6 @@ class EmailNotifications < ActionMailer::Base
            template_name: :review_feedback_request
     end
   end
-
-  private_class_method
 
   def self.format_email(user)
     "\"#{user.full_name}\" <#{user.email}>"

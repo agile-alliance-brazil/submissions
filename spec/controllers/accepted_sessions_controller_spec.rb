@@ -6,29 +6,32 @@ describe AcceptedSessionsController, type: :controller do
   describe '#index' do
     context 'csv' do
       let(:conference) { FactoryBot.create(:conference) }
+
       context 'unauthorized user' do
-        before(:each) do
+        before do
           @user = FactoryBot.build(:user)
           @user.add_role('organizer')
           controller.stubs(:current_user).returns(@user)
         end
 
-        it 'should return 403 status' do
+        it 'returns 403 status' do
           get :index, year: conference.year, format: :csv
 
           expect(response.status).to eq(403)
         end
-        it 'should say unauthorized' do
+        it 'says unauthorized' do
           get :index, year: conference.year, format: :csv
 
           expect(response.body).to eq('Unauthorized')
         end
       end
+
       context 'authorized user' do
-        before(:each) do
+        before do
           controller.stubs(:current_ability).returns(stub(can?: true))
         end
-        it 'should generate CSV from accepted sessions' do
+
+        it 'generates CSV from accepted sessions' do
           session = FactoryBot.create(:session, state: 'accepted', conference: conference)
 
           get :index, year: conference.year, format: :csv

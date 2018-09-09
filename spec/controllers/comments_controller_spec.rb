@@ -6,12 +6,14 @@ describe CommentsController, type: :controller do
   render_views
 
   it_should_require_login_for_actions :index, :show, :create, :edit, :update, :destroy
+  subject { FactoryBot.create(:comment, commentable: session) }
+
   let(:session) { FactoryBot.create(:session) }
   let(:valid_comment_params) do
     { comment: 'Super comment!' }
   end
-  subject { FactoryBot.create(:comment, commentable: session) }
-  before(:each) do
+
+  before do
     sign_in subject.user
     disable_authorization
     EmailNotifications.stubs(:comment_submitted).returns(stub(deliver_now: true))

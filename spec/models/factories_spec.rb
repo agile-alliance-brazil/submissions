@@ -6,7 +6,8 @@ describe 'Factories' do
   FactoryBot.factories.each do |factory|
     describe ":#{factory.name}" do
       subject { FactoryBot.build(factory.name) }
-      it { should be_valid }
+
+      it { is_expected.to be_valid }
     end
   end
 end

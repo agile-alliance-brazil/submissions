@@ -4,11 +4,13 @@ RSpec.describe SessionsHelper, type: :helper do
   describe '#all_durations_for' do
     context 'empty session types' do
       subject { helper.all_durations_for([]) }
+
       it { is_expected.to be_empty }
     end
 
     context 'single session types' do
       subject { helper.all_durations_for([FactoryBot.build(:session_type, valid_durations: [10, 20])]) }
+
       it { is_expected.to eq [10, 20] }
     end
 
@@ -100,11 +102,12 @@ RSpec.describe SessionsHelper, type: :helper do
     end
 
     describe '#options_for_session_types' do
+      subject { helper.options_for_session_types(type_array) }
+
       let!(:type) { FactoryBot.build :session_type, conference: conference, translated_contents: [palestra] }
       let!(:other_type) { FactoryBot.build :session_type, conference: conference, translated_contents: [palestra.clone] }
       let(:type_array) { [other_type, type] }
 
-      subject { helper.options_for_session_types(type_array) }
       it { I18n.with_locale('pt-BR') { is_expected.to eq [['Palestra', other_type.id], ['Palestra', type.id]] } }
     end
   end

@@ -5,104 +5,111 @@ require 'spec_helper'
 describe Organizer, type: :model do
   it_should_trim_attributes Organizer, :user_username
 
-  context 'validations' do
-    it { should validate_presence_of :track_id }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :track_id }
 
-    context 'uniqueness' do
+    describe 'uniqueness' do
       before { FactoryBot.create(:organizer) }
-      it { should validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message(I18n.t('activerecord.errors.models.organizer.attributes.track_id.taken')) }
+
+      it { is_expected.to validate_uniqueness_of(:track_id).scoped_to(:conference_id, :user_id).with_message(I18n.t('activerecord.errors.models.organizer.attributes.track_id.taken')) }
     end
 
     should_validate_existence_of :user, :conference
     should_validate_existence_of :track
 
-    context 'user' do
-      it 'should be a valid user' do
+    describe 'user' do
+      it 'is a valid user' do
         organizer = FactoryBot.build(:organizer)
         organizer.user_username = 'invalid_username'
-        expect(organizer).to_not be_valid
+        expect(organizer).not_to be_valid
         expect(organizer.errors[:user_username]).to include(I18n.t('activerecord.errors.messages.existence'))
       end
     end
 
-    context 'track' do
-      it 'should match the conference' do
+    describe 'track' do
+      it 'matches the conference' do
         track = FactoryBot.create(:track)
         other_conference = FactoryBot.create(:conference)
         organizer = FactoryBot.build(:organizer, track: track, conference: other_conference)
-        expect(organizer).to_not be_valid
+        expect(organizer).not_to be_valid
         expect(organizer.errors[:track_id]).to include(I18n.t('errors.messages.same_conference'))
       end
     end
   end
 
-  context 'associations' do
-    it { should belong_to :user }
-    it { should belong_to :track }
-    it { should belong_to :conference }
+  describe 'associations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :track }
+    it { is_expected.to belong_to :conference }
 
-    context 'organizer username' do
+    describe 'organizer username' do
       subject { FactoryBot.build(:organizer) }
-      it_should_behave_like 'virtual username attribute', :user
+
+      it_behaves_like 'virtual username attribute', :user
     end
   end
 
+  # TODO: Fix example lengths
+  # rubocop:disable RSpec/ExampleLength
   shared_examples_for 'organizer role' do
-    it 'should make given user organizer role after created' do
-      expect(subject).to_not be_organizer
+    it 'makes given user organizer role after created' do
+      expect(user).not_to be_organizer
 
-      FactoryBot.create(:organizer, user: subject)
+      FactoryBot.create(:organizer, user: user)
 
-      expect(subject).to be_organizer
-      expect(subject.reload).to be_organizer
+      expect(user).to be_organizer
+      expect(user.reload).to be_organizer
     end
 
-    it 'should remove organizer role after destroyed' do
-      organizer = FactoryBot.create(:organizer, user: subject)
-      expect(subject).to be_organizer
+    it 'removes organizer role after destroyed' do
+      organizer = FactoryBot.create(:organizer, user: user)
+      expect(user).to be_organizer
       organizer.destroy
-      expect(subject).to_not be_organizer
-      expect(subject.reload).to_not be_organizer
+      expect(user).not_to be_organizer
+      expect(user.reload).not_to be_organizer
     end
 
-    it 'should keep organizer role after destroyed if user organizes other tracks' do
-      other_organizer = FactoryBot.create(:organizer, user: subject)
+    it 'keeps organizer role after destroyed if user organizes other tracks' do
+      other_organizer = FactoryBot.create(:organizer, user: user)
       track = FactoryBot.create(:track, conference: other_organizer.conference)
-      organizer = FactoryBot.create(:organizer, user: subject, track: track, conference: other_organizer.conference)
-      expect(subject).to be_organizer
+      organizer = FactoryBot.create(:organizer, user: user, track: track, conference: other_organizer.conference)
+      expect(user).to be_organizer
       organizer.destroy
-      expect(subject).to be_organizer
-      expect(subject.reload).to be_organizer
+      expect(user).to be_organizer
+      expect(user.reload).to be_organizer
     end
 
-    it 'should remove organizer role after update' do
-      organizer = FactoryBot.create(:organizer, user: subject)
+    it 'removes organizer role after update' do
+      organizer = FactoryBot.create(:organizer, user: user)
       another_user = FactoryBot.create(:user)
       organizer.user = another_user
       organizer.save
-      expect(subject.reload).to_not be_organizer
+      expect(user.reload).not_to be_organizer
       expect(another_user).to be_organizer
     end
 
-    it 'should keep organizer role after update if user organizes other tracks' do
-      other_organizer = FactoryBot.create(:organizer, user: subject)
+    it 'keeps organizer role after update if user organizes other tracks' do
+      other_organizer = FactoryBot.create(:organizer, user: user)
       track = FactoryBot.create(:track, conference: other_organizer.conference)
-      organizer = FactoryBot.create(:organizer, user: subject, track: track, conference: other_organizer.conference)
+      organizer = FactoryBot.create(:organizer, user: user, track: track, conference: other_organizer.conference)
       another_user = FactoryBot.create(:user)
       organizer.user = another_user
       organizer.save
-      expect(subject.reload).to be_organizer
+      expect(user.reload).to be_organizer
       expect(another_user).to be_organizer
     end
   end
+  # rubocop:enable RSpec/ExampleLength
 
-  context 'managing organizer role for normal user' do
-    subject { FactoryBot.create(:user) }
-    it_should_behave_like 'organizer role'
+  describe 'managing organizer role for normal user' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it_behaves_like 'organizer role'
   end
 
-  context 'managing organizer role for simple user' do
-    subject { FactoryBot.create(:simple_user) }
-    it_should_behave_like 'organizer role'
+  describe 'managing organizer role for simple user' do
+    let(:user) { FactoryBot.create(:simple_user) }
+
+    it_behaves_like 'organizer role'
   end
 end

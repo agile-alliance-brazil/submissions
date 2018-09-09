@@ -5,7 +5,7 @@ require 'spec_helper'
 describe 'ApplicationController' do
   describe '#authorize_action' do
     context 'controller with a model class' do
-      it 'should pass the class type to autorize! method' do
+      it 'passes the class type to autorize! method' do
         controller = CommentsController.new
         controller.stubs(:params).returns(action: 'create')
         controller.expects(:authorize!).with(:create, Comment)
@@ -14,7 +14,7 @@ describe 'ApplicationController' do
     end
 
     context 'controller without a model class' do
-      it 'should pass the class type to autorize! method' do
+      it 'passes the class type to autorize! method' do
         controller = OrganizerSessionsController.new
         controller.stubs(:params).returns(action: 'index')
         controller.expects(:authorize!).with(:index, 'organizer_sessions')

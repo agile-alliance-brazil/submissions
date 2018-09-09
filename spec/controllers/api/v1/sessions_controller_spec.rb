@@ -12,9 +12,9 @@ describe Api::V1::SessionsController, type: :controller do
         get :show, id: session.id.to_s, format: :json, locale: 'pt-BR'
       end
 
-      it { should respond_with(:success) }
+      it { is_expected.to respond_with(:success) }
 
-      it 'should return session JSON parseable representation' do
+      it 'returns session JSON parseable representation' do
         gravatar_id = Digest::MD5.hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq('id' => session.id,
                                                 'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=pt-BR",
@@ -40,7 +40,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                 'created_at' => session.created_at.iso8601)
       end
 
-      it 'should return session raw JSON with 2 authors' do
+      it 'returns session raw JSON with 2 authors' do
         session.second_author = FactoryBot.create(:author, email: 'dtsato@dtsato.com')
         session.save
 
@@ -90,7 +90,8 @@ describe Api::V1::SessionsController, type: :controller do
       before do
         get :show, id: session.id.to_s, format: :json, locale: 'en'
       end
-      it 'should respect locale on session type, audience level, track and tags if possible' do
+
+      it 'respects locale on session type, audience level, track and tags if possible' do
         gravatar_id = Digest::MD5.hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq('id' => session.id,
                                                 'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=en",
@@ -117,14 +118,14 @@ describe Api::V1::SessionsController, type: :controller do
       end
     end
 
-    it 'should respond with 404 for unexisting session' do
+    it 'responds with 404 for unexisting session' do
       get :show, id: ((Session.last.try(:id) || 0) + 1), format: :json
 
       expect(response.code).to eq('404')
       expect(response.body).to eq('{"error":"not-found"}')
     end
 
-    it 'should respond to js as JS object as well' do
+    it 'responds to js as JS object as well' do
       xhr :get, :show, format: :js, id: session.id.to_s,
                        locale: 'pt-BR'
 
@@ -153,7 +154,7 @@ describe Api::V1::SessionsController, type: :controller do
                                               'created_at' => session.created_at.iso8601)
     end
 
-    it 'should respond to js with callback as JSONP if callback is provided' do
+    it 'responds to js with callback as JSONP if callback is provided' do
       xhr :get, :show, format: :js, id: session.id.to_s,
                        locale: 'pt-BR', callback: 'test'
 
@@ -183,7 +184,7 @@ describe Api::V1::SessionsController, type: :controller do
                                                                         'created_at' => session.created_at.iso8601)
     end
 
-    it 'should respond to js with audience limit' do
+    it 'responds to js with audience limit' do
       session.audience_limit = 100
       session.save
 
@@ -224,7 +225,7 @@ describe Api::V1::SessionsController, type: :controller do
         get :show, id: session.id.to_s, format: :json, locale: 'en'
       end
 
-      it 'should respect locale on session type, audience level, track and tags if possible' do
+      it 'respects locale on session type, audience level, track and tags if possible' do
         gravatar_id = Digest::MD5.hexdigest(session.author.email).downcase
         expect(JSON.parse(response.body)).to eq('id' => session.id,
                                                 'session_uri' => "http://test.host/#{session.conference.year}/sessions/#{session.to_param}?locale=en",
@@ -259,13 +260,15 @@ describe Api::V1::SessionsController, type: :controller do
         create_accepted_session_for(conference)
       ]
     end
+
     context 'with pt-BR locale' do
       before do
         get :accepted, format: :json, locale: 'pt-BR', year: conference.year
       end
-      it { should respond_with(:success) }
 
-      it 'should return accepted_sessions in a parseable JSON representation' do
+      it { is_expected.to respond_with(:success) }
+
+      it 'returns accepted_sessions in a parseable JSON representation' do
         sessions = @accepted_sessions.map { |s| pt_br_hash_for(s) }
 
         expect(JSON.parse(response.body)).to eq(sessions)
@@ -276,9 +279,10 @@ describe Api::V1::SessionsController, type: :controller do
       before do
         get :accepted, format: :json, locale: 'en', year: conference.year
       end
-      it { should respond_with(:success) }
 
-      it 'should return accepted_sessions in a parseable JSON representation' do
+      it { is_expected.to respond_with(:success) }
+
+      it 'returns accepted_sessions in a parseable JSON representation' do
         sessions = @accepted_sessions.map { |s| en_hash_for(s) }
 
         expect(JSON.parse(response.body)).to eq(sessions)
@@ -294,9 +298,9 @@ describe Api::V1::SessionsController, type: :controller do
         get :accepted, format: :json, locale: 'pt-BR', year: conference.year
       end
 
-      it { should respond_with(:success) }
+      it { is_expected.to respond_with(:success) }
 
-      it 'should return an empty array' do
+      it 'returns an empty array' do
         expect(JSON.parse(response.body)).to eq([])
       end
     end

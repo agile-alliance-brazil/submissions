@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Rating, type: :model do
-  context 'validations' do
-    it { should validate_presence_of :title }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :title }
   end
 end

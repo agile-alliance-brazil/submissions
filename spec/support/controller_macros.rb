@@ -23,7 +23,7 @@ module ControllerMacros
     end
 
     def it_should_behave_like_a_devise_controller
-      before(:each) do
+      before do
         request.env['devise.mapping'] = Devise.mappings[:user]
       end
     end

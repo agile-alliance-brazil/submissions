@@ -31,7 +31,8 @@ RSpec.describe SessionsController, type: :controller do
         language: 'pt-BR'
       }
     end
-    before(:each) do
+
+    before do
       # Need session types to suggest durations in the form
       @session_types = [session_type]
       ActsAsTaggableOn::Tag.create(name: 'tags.tdd')
@@ -43,7 +44,7 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'show action' do
-      it 'should render show template with comment' do
+      it 'renders show template with comment' do
         get :show, year: conference.year, id: session.id
 
         expect(response).to render_template(:show)
@@ -51,7 +52,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(assigns(:comment).commentable_id).to eq(session.id)
       end
 
-      it 'should display flash news if session from previous conference' do
+      it 'displays flash news if session from previous conference' do
         old_conference = FactoryBot.create(:conference, year: 1)
         old_session = FactoryBot.create(:session,
                                         session_type: FactoryBot.create(:session_type, conference: old_conference),
@@ -74,25 +75,26 @@ RSpec.describe SessionsController, type: :controller do
         @tracks = [track]
         @audience_levels = [audience_level]
       end
-      it 'should render new template' do
+
+      it 'renders new template' do
         get :new, year: conference.year
 
         expect(response).to render_template(:new)
       end
 
-      it 'should only assign tracks for current conference' do
+      it 'onlies assign tracks for current conference' do
         get :new, year: conference.year
 
         expect(assigns(:tracks)).to eq(@tracks)
       end
 
-      it 'should only assign audience levels for current conference' do
+      it 'onlies assign audience levels for current conference' do
         get :new, year: conference.year
 
         expect(assigns(:audience_levels)).to eq(@audience_levels)
       end
 
-      it 'should only assign session types for current conference' do
+      it 'onlies assign session types for current conference' do
         get :new, year: conference.year
 
         expect(assigns(:session_types)).to eq(@session_types)
@@ -100,25 +102,25 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'create action' do
-      it 'should render new template when model is invalid' do
+      it 'renders new template when model is invalid' do
         post :create, year: conference.year, session: { title: 'Test' }
 
         expect(response).to render_template(:new)
       end
 
-      it 'should redirect when model is valid' do
+      it 'redirects when model is valid' do
         post :create, year: conference.year, session: valid_params
 
         expect(response).to redirect_to(session_url(conference, assigns(:session)))
       end
 
-      it 'should ignore unknown tags' do
+      it 'ignores unknown tags' do
         post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
 
-      it 'should send an email when model is valid' do
+      it 'sends an email when model is valid' do
         EmailNotifications.expects(:session_submitted).returns(mock(deliver_now: true))
 
         post :create, year: conference.year, session: valid_params
@@ -126,25 +128,25 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'edit action' do
-      it 'should render edit template' do
+      it 'renders edit template' do
         get :edit, year: conference.year, id: session.id
 
         expect(response).to render_template(:edit)
       end
 
-      it 'should only assign tracks for current conference' do
+      it 'onlies assign tracks for current conference' do
         get :edit, year: conference.year, id: session.id
 
         expect(assigns(:tracks) - conference.tracks).to be_empty
       end
 
-      it 'should only assign audience levels for current conference' do
+      it 'onlies assign audience levels for current conference' do
         get :edit, year: conference.year, id: session.id
 
         expect(assigns(:audience_levels) - conference.audience_levels).to be_empty
       end
 
-      it 'should only assign session types for current conference' do
+      it 'onlies assign session types for current conference' do
         get :edit, year: conference.year, id: session.id
 
         expect(assigns(:session_types) - conference.session_types).to be_empty
@@ -152,25 +154,25 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'update action' do
-      it 'should render edit template when model is invalid' do
+      it 'renders edit template when model is invalid' do
         patch :update, year: conference.year, id: session.id, session: { title: nil }
 
         expect(response).to render_template(:edit)
       end
 
-      it 'should redirect when model is valid' do
+      it 'redirects when model is valid' do
         patch :update, year: conference.year, id: session.id, session: valid_params
 
         expect(response).to redirect_to(session_path(conference, assigns(:session)))
       end
 
-      it 'should ignore unknown tags' do
+      it 'ignores unknown tags' do
         post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
 
-      it 'should maintain author and second_author if editing as second_author' do
+      it 'maintains author and second_author if editing as second_author' do
         other_author = FactoryBot.create(:author)
         session.author = other_author
         session.second_author = author
@@ -185,13 +187,13 @@ RSpec.describe SessionsController, type: :controller do
 
     context 'cancel action' do
       context 'for author' do
-        it 'should cancel and redirect to sessions index' do
+        it 'cancels and redirect to sessions index' do
           delete :cancel, year: conference.year, id: session.id
 
           expect(response).to redirect_to(sessions_path(conference))
         end
 
-        it 'should redirect to sessions index with error' do
+        it 'redirects to sessions index with error' do
           session.cancel
 
           delete :cancel, year: conference.year, id: session.id
@@ -206,17 +208,18 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'for organizer' do
         let(:organizer) { FactoryBot.create(:organizer, conference: session.conference, track: session.track) }
-        before(:each) do
+
+        before do
           sign_in organizer.user
         end
 
-        it 'should cancel and redirect to organizer sessions' do
+        it 'cancels and redirect to organizer sessions' do
           delete :cancel, year: conference.year, id: session.id
 
           expect(response).to redirect_to(organizer_sessions_path(conference))
         end
 
-        it 'should redirect to organizer sessions with error' do
+        it 'redirects to organizer sessions with error' do
           session.cancel
 
           delete :cancel, year: conference.year, id: session.id
@@ -236,6 +239,7 @@ RSpec.describe SessionsController, type: :controller do
       describe 'GET #index' do
         context 'with valid sessions' do
           before { get :index, year: 1 }
+
           it { is_expected.to redirect_to new_user_session_path }
         end
       end
@@ -243,6 +247,7 @@ RSpec.describe SessionsController, type: :controller do
 
     context 'authenticated as normal user' do
       let(:user) { FactoryBot.create :user }
+
       before { sign_in user }
 
       describe 'GET #index' do
@@ -276,6 +281,7 @@ RSpec.describe SessionsController, type: :controller do
 
         context 'with no sessions' do
           before { get :index, year: conference.year }
+
           it { expect(assigns(:sessions)).to eq [] }
         end
       end

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe OrganizersController, type: :controller do
-  before(:each) do
+  before do
     @user ||= FactoryBot.create(:user)
     # TODO: Improve conference usage
     @conference = FactoryBot.create(:conference)

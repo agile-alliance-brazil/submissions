@@ -97,6 +97,7 @@ class ReviewersController < ApplicationController
 
   def new_reviewer
     return unless params[:reviewer]
+
     resource_class.new(new_reviewer_params).tap do |r|
       r.conference = @conference
     end

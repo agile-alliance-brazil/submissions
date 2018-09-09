@@ -7,11 +7,29 @@ describe AcceptReviewersController, type: :controller do
   let(:reviewer) { FactoryBot.create(:reviewer, conference: conference) }
   let(:track) { FactoryBot.create(:track, conference: conference) }
   let(:audience_level) { FactoryBot.create(:audience_level, conference: conference) }
-  before(:each) do
+  before do
     @track = track
     @audience_level = audience_level
     sign_in reviewer.user
     disable_authorization
+  end
+
+  let(:other_track) { FactoryBot.create(:track, conference: conference) }
+  let(:valid_params) do
+    {
+      reviewer_agreement: '1',
+      sign_reviews: '0',
+      preferences_attributes: { '0' =>
+        {
+          accepted: '1',
+          audience_level_id: @audience_level.id,
+          track_id: @track.id
+        }, '1' =>
+        {
+          accepted: '0',
+          track_id: other_track.id
+        } }
+    }
   end
 
   describe 'with view rendering', render_views: true do
@@ -59,23 +77,7 @@ describe AcceptReviewersController, type: :controller do
 
     expect(response).to render_template('accept_reviewers/show')
   end
-  let(:other_track) { FactoryBot.create(:track, conference: conference) }
-  let(:valid_params) do
-    {
-      reviewer_agreement: '1',
-      sign_reviews: '0',
-      preferences_attributes: { '0' =>
-        {
-          accepted: '1',
-          audience_level_id: @audience_level.id,
-          track_id: @track.id
-        }, '1' =>
-        {
-          accepted: '0',
-          track_id: other_track.id
-        } }
-    }
-  end
+
   it 'update action should redirect when model is valid' do
     patch :update, year: conference.year, reviewer_id: reviewer.id, reviewer: valid_params
 

@@ -26,6 +26,7 @@ class SessionFilter
 
   def username=(username)
     return if username.blank?
+
     @user_id = User.find_by(username: username.strip).try(:id)
   end
 

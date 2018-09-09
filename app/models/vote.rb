@@ -22,6 +22,7 @@ class Vote < ApplicationRecord
 
   def self.within_limit?(user, conference)
     return false unless user.present? && conference.present?
+
     for_conference(conference).for_user(user).count < VOTE_LIMIT
   end
 end

@@ -41,6 +41,7 @@ class SessionsController < ApplicationController
     @session = resource
     @comment = Comment.new(user_id: current_user.id, commentable_id: @session.id)
     return if @session.conference == @conference
+
     flash.now[:news] = t(
       'flash.news.session_different_conference',
       conference_name: @session.conference.name,

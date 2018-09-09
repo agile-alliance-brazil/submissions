@@ -5,24 +5,24 @@ require 'spec_helper'
 describe TranslatedContent, type: :model do
   subject { FactoryBot.build :translated_content }
 
-  context 'validations' do
-    it { should validate_presence_of :title }
-    it { should validate_presence_of :content }
-    it { should validate_presence_of :language }
-    it { should validate_uniqueness_of(:language).scoped_to(%i[model_id model_type]) }
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :title }
+    it { is_expected.to validate_presence_of :content }
+    it { is_expected.to validate_presence_of :language }
+    it { is_expected.to validate_uniqueness_of(:language).scoped_to(%i[model_id model_type]) }
   end
 
-  context 'associations' do
-    it { should belong_to(:model) }
+  describe 'associations' do
+    it { is_expected.to belong_to(:model) }
   end
 
   context 'deprecated methods' do
-    it 'should assign description to content' do
+    it 'assigns description to content' do
       subject.description = 'Just testing'
 
       expect(subject.content).to eq('Just testing')
     end
-    it 'should return content if asking for description' do
+    it 'returns content if asking for description' do
       subject.content = 'Just testing'
 
       expect(subject.description).to eq('Just testing')

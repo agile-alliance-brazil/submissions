@@ -216,6 +216,7 @@ class Conference < ApplicationRecord
       date1 = send(d1)
       date2 = send(d2)
       next unless date1 >= date2
+
       next_date = I18n.t("conference.dates.#{d2}")
       error_message = I18n.t('errors.messages.cant_be_after', date: next_date)
       errors.add(d1, error_message)

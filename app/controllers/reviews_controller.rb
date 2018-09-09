@@ -105,6 +105,7 @@ class ReviewsController < ApplicationController
 
   def in_early_review_phase?
     return params[:type] == 'early' if params[:type].present?
+
     @conference.in_early_review_phase?
   end
 
@@ -114,6 +115,7 @@ class ReviewsController < ApplicationController
 
   def check_review_period
     return if @conference.in_early_review_phase? || @conference.in_final_review_phase?
+
     redirect_to root_path, alert: t('reviews.edit.errors.conference_out_of_range')
   end
 end

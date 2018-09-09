@@ -6,7 +6,8 @@ describe ReviewersController, type: :controller do
   it_should_require_login_for_actions :index, :destroy, :create
   let(:user) { FactoryBot.create(:user) }
   let(:conference) { FactoryBot.create(:conference) }
-  before(:each) do
+
+  before do
     # TODO: Improve use of conference
     Conference.stubs(:current).returns(conference)
     sign_in user
@@ -16,13 +17,15 @@ describe ReviewersController, type: :controller do
 
   context 'index' do
     let(:track) { FactoryBot.create(:track, conference: conference) }
-    before(:each) do
+
+    before do
       FactoryBot.create(:track, conference: FactoryBot.create(:conference))
       @reviewers = [
         FactoryBot.create(:reviewer, conference: conference),
         FactoryBot.create(:reviewer, conference: conference)
       ]
     end
+
     it 'index action should render index template' do
       get :index, year: conference.year
 
@@ -59,13 +62,13 @@ describe ReviewersController, type: :controller do
     end
 
     context 'filtering' do
-      it 'should filter the index by state' do
+      it 'filters the index by state' do
         reviewer = @reviewers.first
         reviewer.reject
 
         get :index, year: conference.year, reviewer_filter: { state: :rejected }
 
-        expect(assigns(:reviewers)).to_not be_nil
+        expect(assigns(:reviewers)).not_to be_nil
         expect(assigns(:reviewers).size).to eq(1)
         expect(assigns(:reviewers)).to include(reviewer)
       end
@@ -76,7 +79,7 @@ describe ReviewersController, type: :controller do
     let(:valid_params) { { user_username: user.username } }
 
     context 'valid creation' do
-      it 'should allow only reviewer username' do
+      it 'allows only reviewer username' do
         params = valid_params
         params[:state] = 'accepted'
 
@@ -85,7 +88,7 @@ describe ReviewersController, type: :controller do
         expect(response.status).to eq(201)
         expect(JSON.parse(response.body)['reviewer']['status']).to eq(I18n.t('reviewer.state.invited'))
       end
-      it 'should return success message upon creation' do
+      it 'returns success message upon creation' do
         post :create, year: conference.year, format: 'json', reviewer: valid_params
 
         expect(response.status).to eq(201)
@@ -97,32 +100,33 @@ describe ReviewersController, type: :controller do
           JSON.parse(response.body)['reviewer']
         end
 
-        it { should have_key('id') }
-        it { should include('full_name' => user.full_name) }
-        it { should include('username' => user.username) }
-        it { should include('status' => I18n.t('reviewer.state.invited')) }
-        it { should include('url' => reviewer_path(conference, id: subject['id'])) }
+        it { is_expected.to have_key('id') }
+        it { is_expected.to include('full_name' => user.full_name) }
+        it { is_expected.to include('username' => user.username) }
+        it { is_expected.to include('status' => I18n.t('reviewer.state.invited')) }
+        it { is_expected.to include('url' => reviewer_path(conference, id: subject['id'])) }
       end
     end
+
     context 'invalid creation' do
-      it 'should return 400 for invalid creation' do
+      it 'returns 400 for invalid creation' do
         post :create, format: 'json'
 
         expect(response.status).to eq(400)
       end
-      it 'should show error message for invalid user' do
+      it 'shows error message for invalid user' do
         post :create, format: 'json', reviewer: { user_username: 'a' }
 
         expect(response.body).to eq(
           I18n.t('flash.reviewer.create.failure', username: 'a')
         )
       end
-      it 'should show text message for no reviewer' do
+      it 'shows text message for no reviewer' do
         post :create, format: 'json'
 
         expect(response.body).to eq(I18n.t('flash.reviewer.create.failure', username: ''))
       end
-      it 'should show error message for user that is already a reviewer' do
+      it 'shows error message for user that is already a reviewer' do
         FactoryBot.create(:reviewer, conference: conference, user_username: user.username)
 
         post :create, format: 'json', reviewer: { user_username: user.username }
@@ -136,7 +140,8 @@ describe ReviewersController, type: :controller do
 
   context 'show' do
     subject { FactoryBot.create(:reviewer, user_id: user.id) }
-    it 'should assign the reviewer according to the id' do
+
+    it 'assigns the reviewer according to the id' do
       get :show, id: subject.id
 
       expect(assigns(:reviewer)).to eq(subject)
@@ -146,29 +151,32 @@ describe ReviewersController, type: :controller do
   context 'destroy' do
     context 'valid reviewer' do
       subject { FactoryBot.create(:reviewer, user_id: user.id) }
-      it 'should render message' do
+
+      it 'renders message' do
         delete :destroy, id: subject.id, year: conference.year, format: 'json'
 
         expect(JSON.parse(response.body)['message']).to eq(
           I18n.t('flash.reviewer.destroy.success', full_name: user.full_name)
         )
       end
-      it 'should return 200' do
+      it 'returns 200' do
         delete :destroy, id: subject.id, year: conference.year, format: 'json'
 
         expect(response.status).to eq(200)
       end
     end
+
     context 'invalid reviewer' do
-      before(:each) do
+      before do
         @id = (Reviewer.last.try(:id) || 0) + 1
       end
-      it 'should render not found message' do
+
+      it 'renders not found message' do
         delete :destroy, id: @id, year: conference.year, format: 'json'
 
         expect(response.body).to eq('not-found')
       end
-      it 'should return 404' do
+      it 'returns 404' do
         delete :destroy, id: @id, year: conference.year, format: 'json'
 
         expect(response.status).to eq(404)

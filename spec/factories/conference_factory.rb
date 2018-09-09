@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence(:year)
     name { |c| "Conference #{c.year}" }
 
-    location('Somewhere ST')
+    location { 'Somewhere ST' }
     call_for_papers { 1.day.from_now }
     submissions_open { 2.days.from_now }
     presubmissions_deadline { 3.days.from_now }
@@ -18,9 +18,9 @@ FactoryBot.define do
     start_date { 2.months.from_now }
     end_date { 3.months.from_now }
     logo { File.new(Rails.root.join('spec', 'resources', 'logo-trans.png')) }
-    supported_languages ['en']
-    visible true
-    tag_limit 10
+    supported_languages { ['en'] }
+    visible { true }
+    tag_limit { 10 }
 
     factory :conference_in_review_time do
       call_for_papers { 7.weeks.ago }

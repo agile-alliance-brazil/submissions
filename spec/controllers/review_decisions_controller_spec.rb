@@ -7,7 +7,7 @@ describe ReviewDecisionsController, type: :controller do
 
   it_should_require_login_for_actions :new, :create, :edit, :update, :index
 
-  before(:each) do
+  before do
     conference = FactoryBot.create(:conference)
     Conference.stubs(:current).returns(conference)
     @session ||= FactoryBot.create(:session, conference: conference)
@@ -50,7 +50,7 @@ describe ReviewDecisionsController, type: :controller do
   end
 
   context 'existing review decision' do
-    before(:each) do
+    before do
       @decision ||= FactoryBot.create(:review_decision, session: @session, organizer: @organizer.user)
     end
 

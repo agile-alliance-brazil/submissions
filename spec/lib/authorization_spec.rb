@@ -12,7 +12,7 @@ class SampleUser
 end
 
 describe Authorization do
-  before(:each) do
+  before do
     @user = SampleUser.new
   end
 
@@ -106,55 +106,55 @@ describe Authorization do
       expect(@user.roles).to include('admin')
       expect(@user.roles).to include('author')
       expect(@user.roles).to include('reviewer')
-      expect(@user.roles).to_not include('organizer')
+      expect(@user.roles).not_to include('organizer')
     end
   end
 
   context 'defining boolean methods for roles' do
     it '- admin' do
-      expect(@user).to_not be_admin
+      expect(@user).not_to be_admin
       @user.roles = 'admin'
       expect(@user).to be_admin
     end
 
     it '- author' do
-      expect(@user).to_not be_author
+      expect(@user).not_to be_author
       @user.roles = 'author'
       expect(@user).to be_author
     end
 
     it '- reviewer' do
-      expect(@user).to_not be_reviewer
+      expect(@user).not_to be_reviewer
       @user.roles = 'reviewer'
       expect(@user).to be_reviewer
     end
 
     it '- organizer' do
-      expect(@user).to_not be_organizer
+      expect(@user).not_to be_organizer
       @user.roles = 'organizer'
       expect(@user).to be_organizer
     end
 
     it '- voter' do
-      expect(@user).to_not be_voter
+      expect(@user).not_to be_voter
       @user.roles = 'voter'
       expect(@user).to be_voter
     end
 
     it '- multiple' do
       @user.roles = %w[admin reviewer]
-      expect(@user).to_not be_guest
+      expect(@user).not_to be_guest
       expect(@user).to be_admin
-      expect(@user).to_not be_author
+      expect(@user).not_to be_author
       expect(@user).to be_reviewer
     end
 
     it '- none (guest)' do
       @user.roles = []
       expect(@user).to be_guest
-      expect(@user).to_not be_admin
-      expect(@user).to_not be_author
-      expect(@user).to_not be_reviewer
+      expect(@user).not_to be_admin
+      expect(@user).not_to be_author
+      expect(@user).not_to be_reviewer
     end
   end
 
@@ -184,18 +184,18 @@ describe Authorization do
   end
 
   context 'removing a role' do
-    before(:each) do
+    before do
       @user.add_role 'admin'
     end
 
     it '- string' do
       @user.remove_role 'admin'
-      expect(@user).to_not be_admin
+      expect(@user).not_to be_admin
     end
 
     it '- symbol' do
       @user.remove_role :admin
-      expect(@user).to_not be_admin
+      expect(@user).not_to be_admin
     end
 
     it '- invalid' do
@@ -210,8 +210,8 @@ describe Authorization do
 
       @user.remove_role 'reviewer'
       @user.remove_role :admin
-      expect(@user).to_not be_admin
-      expect(@user).to_not be_reviewer
+      expect(@user).not_to be_admin
+      expect(@user).not_to be_reviewer
     end
   end
 end

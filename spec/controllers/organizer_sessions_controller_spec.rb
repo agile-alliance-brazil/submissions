@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe OrganizerSessionsController, type: :controller do
-  before(:each) do
+  before do
     @conference = FactoryBot.create(:conference)
     # TODO: Improve conference usage
     Conference.stubs(:current).returns(@conference)
@@ -24,24 +24,24 @@ describe OrganizerSessionsController, type: :controller do
   it_should_require_login_for_actions :index
 
   describe '#index' do
-    before(:each) do
+    before do
       @session = FactoryBot.build(:session)
       SessionFilter.any_instance.stubs(:apply).returns([@session])
     end
 
-    it 'should assign tracks for current conference' do
+    it 'assigns tracks for current conference' do
       get :index
       expect((assigns(:tracks) - Track.for_conference(@conference))).to be_empty
     end
 
-    it 'should assign session states' do
+    it 'assigns session states' do
       get :index
       expect(assigns(:states)).to eq(Session.state_machine.states.map(&:name))
     end
 
     it 'should filter sessions based on filter'
 
-    it "should find sessions on organizer's tracks" do
+    it "finds sessions on organizer's tracks" do
       Session.expects(:for_tracks).with([@organizer.track.id]).returns(Session)
 
       get :index

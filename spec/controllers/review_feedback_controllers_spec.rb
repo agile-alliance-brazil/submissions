@@ -5,7 +5,7 @@ require 'spec_helper'
 describe ReviewFeedbacksController, type: :controller do
   it_should_require_login_for_actions :new, :create, :show
 
-  before :each do
+  before do
     @conference = FactoryBot.create(:conference)
     @author = FactoryBot.create(:author)
     Conference.stubs(:current).returns(@conference)
@@ -25,29 +25,31 @@ describe ReviewFeedbacksController, type: :controller do
 
   context '#new' do
     context 'once feedback was already submitted' do
-      before(:each) do
+      before do
         ReviewFeedback.create!(
           valid_params.merge(conference_id: @conference.id, author_id: @author.id)
         )
       end
-      it 'should redirect to root' do
+
+      it 'redirects to root' do
         get :new
 
         expect(response).to redirect_to(root_url(@conference))
       end
-      it 'should show flash error warning feedback was already given' do
+      it 'shows flash error warning feedback was already given' do
         get :new
 
         expect(flash[:error]).to eq(I18n.t('flash.review_feedback.new.failure'))
       end
     end
-    it 'should render new template' do
+
+    it 'renders new template' do
       get :new
 
       expect(response).to render_template(:new)
     end
 
-    it 'should assign review feedback based on current user and conference' do
+    it 'assigns review feedback based on current user and conference' do
       get :new
 
       review_feedback = assigns(:review_feedback)
@@ -55,7 +57,7 @@ describe ReviewFeedbacksController, type: :controller do
       expect(review_feedback.author).to eq(@author)
     end
 
-    it 'should have review evaluations for each review of that authors sessions' do
+    it 'has review evaluations for each review of that authors sessions' do
       get :new
 
       review_feedback = assigns(:review_feedback)
@@ -66,57 +68,61 @@ describe ReviewFeedbacksController, type: :controller do
 
   context '#create' do
     context 'once feedback was already submitted' do
-      before(:each) do
+      before do
         ReviewFeedback.create!(
           valid_params.merge(conference_id: @conference.id, author_id: @author.id)
         )
       end
-      it 'should redirect to root' do
+
+      it 'redirects to root' do
         post :create, review_feedback: valid_params
 
         expect(response).to redirect_to(root_url(@conference))
       end
-      it 'should show flash error warning feedback was already given' do
+      it 'shows flash error warning feedback was already given' do
         post :create, review_feedback: valid_params
 
         expect(flash[:error]).to eq(I18n.t('flash.review_feedback.new.failure'))
       end
     end
+
     context 'success' do
-      before(:each) do
+      before do
         params = valid_params
         @valid_creation = -> { post :create, review_feedback: params }
       end
-      it 'should flash success message' do
+
+      it 'flashes success message' do
         @valid_creation.call
 
         expect(flash[:notice]).to eq(I18n.t('flash.review_feedback.create.success'))
       end
 
-      it 'should redirect to home' do
+      it 'redirects to home' do
         @valid_creation.call
 
         expect(response).to redirect_to(root_url(@conference))
       end
 
-      it 'should save the review feedback' do
-        expect(@valid_creation).to change { ReviewFeedback.count }.by(1)
+      it 'saves the review feedback' do
+        expect(@valid_creation).to change(ReviewFeedback, :count).by(1)
       end
     end
+
     context 'on validation error' do
-      it 'should flash failure message' do
+      it 'flashes failure message' do
         post :create, review_feedback: { general_comments: '' }
 
         expect(flash[:error]).to eq(I18n.t('flash.failure'))
       end
 
-      it 'should render new template' do
+      it 'renders new template' do
         post :create, review_feedback: { general_comments: '' }
 
         expect(response).to render_template(:new)
       end
 
-      it 'should assign review feedback with error' do
+      it 'assigns review feedback with error' do
         post :create, review_feedback: { general_comments: '' }
 
         review_feedback = assigns(:review_feedback)
@@ -124,7 +130,7 @@ describe ReviewFeedbacksController, type: :controller do
         expect(review_feedback.author).to eq(@author)
       end
 
-      it 'should have review evaluations for each review of that authors sessions' do
+      it 'has review evaluations for each review of that authors sessions' do
         post :create, review_feedback: { general_comments: '' }
 
         review_feedback = assigns(:review_feedback)
@@ -132,7 +138,7 @@ describe ReviewFeedbacksController, type: :controller do
         expect(review_feedback.review_evaluations.map(&:review)).to eq(@reviews)
       end
 
-      it 'should have review evaluations for each review of that authors sessions but not more' do
+      it 'has review evaluations for each review of that authors sessions but not more' do
         post :create, review_feedback: {
           general_comments: '',
           review_evaluations_attributes: [
@@ -145,7 +151,7 @@ describe ReviewFeedbacksController, type: :controller do
         expect(review_feedback.review_evaluations.map(&:review)).to eq(@reviews)
       end
 
-      it 'should have errors in the feedback' do
+      it 'has errors in the feedback' do
         post :create, review_feedback: {
           general_comments: '',
           review_evaluations_attributes: [
@@ -157,7 +163,8 @@ describe ReviewFeedbacksController, type: :controller do
         expect(review_feedback.errors[:review_evaluations]).to include(I18n.t('activerecord.errors.models.review_feedback.evaluations_missing'))
       end
     end
-    it 'should filter parameters' do
+
+    it 'filters parameters' do
       feedback = ReviewFeedback.new(valid_params)
 
       params_with_invalids = valid_params
@@ -171,6 +178,7 @@ describe ReviewFeedbacksController, type: :controller do
       post :create, review_feedback: params_with_invalids
     end
   end
+
   def valid_params
     {
       general_comments: '',

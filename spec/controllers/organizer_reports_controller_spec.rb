@@ -5,7 +5,8 @@ require 'spec_helper'
 describe OrganizerReportsController, type: :controller do
   let(:conference) { FactoryBot.create(:conference) }
   let(:organizer) { FactoryBot.create(:organizer, conference: conference) }
-  before(:each) do
+
+  before do
     sign_in organizer.user
     disable_authorization
   end
@@ -22,13 +23,14 @@ describe OrganizerReportsController, type: :controller do
 
   describe '#index' do
     let(:session) { FactoryBot.build(:session, conference: conference, track: organizer.track) }
-    before(:each) do
+
+    before do
       Session.stubs(:for_conference).returns(Session)
       Session.stubs(:for_tracks).returns(Session)
       Session.stubs(:includes).returns([session])
     end
 
-    it "should report sessions on organizer's tracks" do
+    it "reports sessions on organizer's tracks" do
       Session.expects(:for_tracks).with([organizer.track.id]).returns(Session)
 
       get :index, format: :xls, year: conference.year

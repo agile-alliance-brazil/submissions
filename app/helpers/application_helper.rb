@@ -48,6 +48,7 @@ module ApplicationHelper
 
   def translated_country(country_code)
     return '' if country_code.blank?
+
     I18n.translate('countries')[country_code.to_s.upcase.to_sym]
   end
 

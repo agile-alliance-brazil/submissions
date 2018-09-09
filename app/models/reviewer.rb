@@ -73,6 +73,7 @@ class Reviewer < ApplicationRecord
 
   def display_name(index = nil)
     return user.full_name if sign_reviews
+
     "#{I18n.t('formtastic.labels.reviewer.user_id')} #{index}".strip
   end
 

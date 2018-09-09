@@ -8,7 +8,7 @@ describe ReviewsListingController, type: :controller do
   it_should_require_login_for_actions :index, :reviewer
 
   describe '#index' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:user)
       sign_in user
       disable_authorization
@@ -47,7 +47,7 @@ describe ReviewsListingController, type: :controller do
   end
 
   context 'as a reviewer' do
-    before(:each) do
+    before do
       @reviewer = FactoryBot.create(:reviewer)
       @conference = @reviewer.conference
       sign_in @reviewer.user

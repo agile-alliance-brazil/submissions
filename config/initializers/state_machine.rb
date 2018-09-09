@@ -10,6 +10,7 @@ unless StateMachine::VERSION == '1.2.0'
   Rails.logger.warn 'Please remove me, StateMachine version has changed'
 end
 
+# rubocop:disable Style/AccessModifierDeclarations
 module StateMachine
   module Integrations
     module ActiveModel
@@ -17,6 +18,7 @@ module StateMachine
     end
   end
 end
+# rubocop:enable Style/AccessModifierDeclarations
 
 module ActiveRecord
   # HACK: to set state_machine initial states as default attributes with Rails 4

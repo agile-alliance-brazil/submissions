@@ -5,7 +5,7 @@ AllCops:
     - '**/Rakefile'
     - '**/config.ru'
     - '**/application.rb'
-    - '**/Rakefile'
+    - '**/*.rb'
   Exclude:
     # You could specify set of files or dirs while you want to be ignored by rubocop
     - 'vendor/**/*'
@@ -74,3 +74,15 @@ Naming/FileName:
     - 'Vagrantfile'
     - 'Procfile'
     - 'puppet/Puppetfile'
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExpectInHook:
+  Enabled: false
+
+Lint/UnneededCopDisableDirective:
+  Enabled: false # Used to gradually fix the rubocop rspec cops while not enabling it in the build
