@@ -1,0 +1,5 @@
+test:
+  adapter: mysql2
+  database: circleci
+  username: root
+  host: 127.0.0.1

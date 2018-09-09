@@ -1,0 +1,83 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+    - image: circleci/ruby:2.4.3
+      command: /sbin/init
+    - image: mysql:5.5
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_DATABASE: circleci
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      RAILS_ENV: test
+      RACK_ENV: test
+    steps:
+    - checkout
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - restore_cache:
+        keys:
+        # This branch if available
+        - v1-dep-{{ .Branch }}-
+        # Default branch if not
+        - v1-dep-master-
+        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+        - v1-dep-
+    - run: gem update --system
+    - run: gem install bundler -v '1.16.1'
+    - run: mv config/config.example config/config.yml
+    - run: mv config/database.circle config/database.yml
+    - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - save_cache:
+        key: v1-dep-{{ .Branch }}-{{ epoch }}
+        paths:
+        - vendor/bundle
+        - ~/.bundle
+        - ~/.cache/bower
+    - run:
+        name: Wait for DB
+        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+    - run:
+        command: bundle exec rake db:create db:schema:load --trace
+    - run: bundle exec rake ci
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
+  deploy:
+    docker:
+    - image: circleci/ruby:2.4.3
+      command: /sbin/init
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        # This branch if available
+        - v1-dep-{{ .Branch }}-
+        # Default branch if not
+        - v1-dep-master-
+        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+        - v1-dep-
+    - run: gem update --system
+    - run: gem install bundler -v '1.16.1'
+    - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - run:
+        name: Deploy Master to Staging
+        command: bundle exec cap staging deploy
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - test
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test
