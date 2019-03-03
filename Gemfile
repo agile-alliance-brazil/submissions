@@ -86,7 +86,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.13'
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
   gem 'timecop'
   gem 'rubocop', require: false
