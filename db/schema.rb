@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180317161449) do
+ActiveRecord::Schema.define(version: 20190303223930) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -120,13 +120,14 @@ ActiveRecord::Schema.define(version: 20180317161449) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
 
   create_table "oauth_applications", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.string   "uid",                       null: false
-    t.string   "secret",                    null: false
-    t.string   "redirect_uri",              null: false
+    t.string   "name",                        null: false
+    t.string   "uid",                         null: false
+    t.string   "secret",                      null: false
+    t.string   "redirect_uri",                null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "scopes",       default: "", null: false
+    t.string   "scopes",       default: "",   null: false
+    t.boolean  "confidential", default: true, null: false
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
@@ -293,7 +294,7 @@ ActiveRecord::Schema.define(version: 20180317161449) do
     t.text     "mechanics"
     t.text     "benefits"
     t.string   "target_audience"
-    t.integer  "audience_limit",      limit: 2
+    t.integer  "audience_limit",             limit: 2
     t.integer  "author_id"
     t.text     "experience"
     t.integer  "track_id"
@@ -302,16 +303,20 @@ ActiveRecord::Schema.define(version: 20180317161449) do
     t.integer  "audience_level_id"
     t.integer  "second_author_id"
     t.string   "state"
-    t.integer  "final_reviews_count",           default: 0
+    t.integer  "final_reviews_count",                  default: 0
     t.boolean  "author_agreement"
     t.boolean  "image_agreement"
     t.integer  "conference_id"
-    t.integer  "early_reviews_count",           default: 0
+    t.integer  "early_reviews_count",                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "language"
-    t.integer  "comments_count",                default: 0
+    t.integer  "comments_count",                       default: 0
     t.string   "prerequisites"
+    t.string   "video_link"
+    t.text     "additional_links"
+    t.boolean  "first_presentation",                   default: false, null: false
+    t.text     "presentation_justification"
   end
 
   add_index "sessions", ["audience_level_id"], name: "index_sessions_on_audience_level_id"

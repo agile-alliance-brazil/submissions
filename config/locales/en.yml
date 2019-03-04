@@ -188,6 +188,10 @@ en:
         author_confirmed: "Author confirmation"
         author_image_agreement: "Image rights"
         language: "Will be presented in"
+        video_link: "Video link"
+        first_presentation: "Is it the first time you're presenting this session in a conference?"
+        presentation_justification: "In which other conferences have you presented this session? Why do you wish to submit it to this Agile Brazil as well?"
+        additional_links: "Additional links"
       session_filter:
         tags: "Tags"
         username: "Author (username)"
@@ -286,6 +290,7 @@ en:
         audience_limit: "As you have chosen the 'Hands On' session type, we would like to know how many people can be part of your session. Also, for that kind of session, it might be interesting to add to your experience on the previous tries of this session and how many people attended."
         title: "The title of your session is the item with the highest visibility of your submission, both for reviewers and participants, it should be brief, clear, consistent with your talk and preferably thought-provoking. Be creative, but not so much to the point of losing the connection with reality or the subject of the talk."
         tag_list: "Attendees will use this information on the schedule app to find sessions that interests them most, orthogonally to tracks. Choose wisely up to %{count} tags in order to help your targeted audience find your session. A good match between right attendees and the right session turns into good feedback."
+        no_limit_tag_list: "Attendees will use this information on the schedule app to find sessions that interests them most, orthogonally to tracks. Choose wisely up to your tags in order to help your targeted audience find your session. A good match between right attendees and the right session turns into good feedback."
         second_author_username: "The second author must be registered to submit proposals. During the submission period you can go back and edit / fill in this field. Reviewers will evaluate authors as equals, there are no preference or advantage for being 1st and 2nd speaker. We also remind you that \"25 minute presentations\" can be presented in pair, but only one receives a free registration. Being a 2nd author also counts towards your 3 proposals limit."
         target_audience: "Who are your target audience? Briefly describe who you believe your target audience should be, who else would be interested in what you have to say, for example: developers, analysts, architects, project managers, executives, etc. This field is used especially by reviewers to assess the consistency of its content."
         prerequisites: "What prior knowledge a person should have to participate and take advantage of this talk is used by reviewers to assess consistency between content, level and duration, and will be visible in the details of your session in the program schedule."
@@ -296,6 +301,8 @@ en:
         experience: "We are not looking for any particular kind of credentials, but rather the motives you believe your circumstances, story, knowledge, past presentations, research fronts, or inspirations qualify you. This field is not about your resumé: we will assess your mini-bio separately! This field is about <b>this proposal, specifically</b>. Attendees won't see this information. And remember: if you have a 2nd author, mention both here."
         keyword_list: "Keyword list"
         comment: "In this field, a limited markup syntax is allowed. See the <a href='%{year}/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        video_link: "Add in a link to a video of up to 30 seconds explaining briefly your session. Don't forget to ensure the video is open to access so we can watch it!"
+        additional_links: "If you have a draft of the structure/presentation in any format, or some resource that adds (visually or not) to your description, add the links here. Don't forget to ensure the links are open so we can access them!"
       reviewer:
         user_username: "Please provide the reviewer's username in this field."
       early_review:

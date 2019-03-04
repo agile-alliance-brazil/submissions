@@ -51,6 +51,14 @@
   %dd= textilize(@session.try(:benefits))
   %dt= t('formtastic.labels.session.experience')
   %dd= textilize(@session.try(:experience))
+  %dt= t('formtastic.labels.session.video_link')
+  %dd= textilize(@session.try(:video_link))
+  - if @session.try(:first_presentation)
+    %dt= t('formtastic.labels.session.first_presentation')
+    %dt= t('formtastic.labels.session.presentation_justification')
+    %dd= textilize(@session.try(:presentation_justification))
+  %dt= t('formtastic.labels.session.additional_links')
+  %dd= textilize(@session.try(:additional_links))
 
 %hr
 

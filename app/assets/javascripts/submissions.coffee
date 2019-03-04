@@ -21,13 +21,20 @@
       $('#session_mechanics_input').find('label abbr').toggle(needsMechanics)
       true
 
+  generateRequiredPresentationJustificationUpdateFunction = () ->
+    (e) ->
+      needsJustification = $(this).prop("checked")
+      $('#session_presentation_justification_input').toggle(needsJustification)
+      true
+
   loadAlreadySelectedTags = (tagLimit) ->
     commaSeparatedTags = if $('#session_keyword_list').size() > 0 then $('#session_keyword_list').get(0).value else ''
     tags = if commaSeparatedTags.length == 0 then [] else commaSeparatedTags.split(',')
     for tag in tags
       tagItem = $('li[data-tag="'+tag+'"]').get(0)
       $(tagItem).addClass('selectedTag')
-    $('#tagCounter').text(tagLimit - tags.length)
+    if tagLimit > 0
+      $('#tagCounter').text(tagLimit - tags.length)
 
   filterSessionTypeBasedOnTrack = (trackToSessionTypesLimitations) ->
     $('#session_session_type_id').filterOn('#session_track_id', trackToSessionTypesLimitations)
@@ -49,8 +56,10 @@
     $('#session_session_type_id').bind('updated', generateAudienceLimitUpdateFunction(config.audienceLimitSessions))
     $('#session_session_type_id').bind('updated', generateRequiredMechanicsUpdateFunction(config.requiredMechanicsSessions))
     $('#session_session_type_id').bindSelectUpdated()
+    $('#session_first_presentation').change(generateRequiredPresentationJustificationUpdateFunction());
 
     $('#session_session_type_id, #session_track_id').trigger('updated')
+    $('#session_first_presentation').trigger('change')
 
     $('#session_title').charCount({allowed: 100})
     loadAlreadySelectedTags(config.tagLimit)
@@ -61,12 +70,13 @@
     $('#session_mechanics').charCount({allowed: 2400})
     $('#session_benefits').charCount({allowed: 400})
     $('#session_experience').charCount({allowed: 400})
+    $('#session_video_link').charCount({allowed: 255})
 
     $('form.session .tags li').click (e) ->
       newTag = $(e.currentTarget).data('tag')
       index = tags.indexOf(newTag)
       if (index == -1)
-        if tags.length >= config.tagLimit
+        if config.tagLimit > 0 && tags.length >= config.tagLimit
           $('#tagList .warning').addClass('show')
           return
         tags.push(newTag)
@@ -76,7 +86,8 @@
       $(e.currentTarget).toggleClass('selectedTag', index == -1)
 
       $('#session_keyword_list').val tags.join(',')
-      $('#tagCounter').text(config.tagLimit - tags.length)
+      if config.tagLimit > 0
+        $('#tagCounter').text(config.tagLimit - tags.length)
 
     $('select, input').on 'focus', (e) ->
       $('.inline-hints').hide()

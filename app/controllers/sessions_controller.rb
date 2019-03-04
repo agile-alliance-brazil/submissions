@@ -81,7 +81,8 @@ class SessionsController < ApplicationController
                                                      target_audience prerequisites audience_level_id audience_limit
                                                      second_author_username track_id
                                                      session_type_id duration_mins experience
-                                                     keyword_list language
+                                                     keyword_list language video_link first_presentation
+                                                     presentation_justification additional_links
                                                    ]).merge(conference_id: @conference.id)
     if valid_params[:keyword_list]
       valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject { |name| @tags.detect { |tag| tag.name == name }.nil? }
