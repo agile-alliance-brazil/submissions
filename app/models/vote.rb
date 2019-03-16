@@ -12,9 +12,8 @@ class Vote < ApplicationRecord
   validates :conference_id, existence: true
 
   validate do |record|
-    unless Vote.within_limit?(record.user, record.conference)
+    Vote.within_limit?(record.user, record.conference) ||
       record.errors.add(:base, :limit_reached, count: VOTE_LIMIT)
-    end
   end
 
   scope(:for_conference, ->(c) { where(conference_id: c.id) })

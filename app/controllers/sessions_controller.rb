@@ -84,9 +84,10 @@ class SessionsController < ApplicationController
                                                      keyword_list language video_link first_presentation
                                                      presentation_justification additional_links
                                                    ]).merge(conference_id: @conference.id)
-    if valid_params[:keyword_list]
-      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject { |name| @tags.detect { |tag| tag.name == name }.nil? }
-    end
+    valid_params[:keyword_list].nil? ||
+      valid_params[:keyword_list] = valid_params[:keyword_list].split(',').reject do |name|
+        @tags.detect { |tag| tag.name == name }.nil?
+      end
     valid_params[:author_id] = current_user.id unless @session
     valid_params
   end

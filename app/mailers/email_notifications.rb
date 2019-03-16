@@ -2,7 +2,7 @@
 
 class EmailNotifications < ActionMailer::Base
   PROGRAM_COMMITTEE_EMAIL = 'programa@agilebrazil.com'
-  default from:     proc { "\"#{conference.name}\" <#{from_address}>" },
+  default from: proc { "\"#{conference.name}\" <#{from_address}>" },
           reply_to: proc { "\"#{conference.name}\" <#{from_address}>" }
 
   def welcome(user, sent_at = Time.now)

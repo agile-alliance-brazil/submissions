@@ -48,9 +48,8 @@ class Reviewer < ApplicationRecord
 
     state :accepted do
       validate do |reviewer|
-        if reviewer.preferences.select(&:accepted?).empty?
+        reviewer.preferences.select(&:accepted?).empty? &&
           reviewer.errors.add(:base, :preferences)
-        end
       end
       validates :reviewer_agreement, acceptance: true
     end

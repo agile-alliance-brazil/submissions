@@ -15,9 +15,8 @@ class ReviewersController < ApplicationController
     query = resource_class
             .where('conference_id != ? and state = ?',
                    @conference.id, :accepted)
-    unless @reviewers.empty?
+    @reviewers.empty? ||
       query = query.where('user_id not in (?)', @reviewers.map(&:user_id))
-    end
     @previous_reviewers = query
                           .includes(user: [:reviews], conference: []).group_by(&:user)
     @reviewer = resource_class.new(conference: @conference)

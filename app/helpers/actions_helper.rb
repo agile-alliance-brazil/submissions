@@ -20,12 +20,8 @@ module ActionsHelper
     sections = []
 
     sections << session_section_for(user, conference) if user_signed_in?
-    if user.reviewer? || user.admin?
-      sections << reviewer_section_for(user, conference, safe_filter_params)
-    end
-    if user.organizer? || user.admin?
-      sections << organizer_section_for(user, conference)
-    end
+    sections << reviewer_section_for(user, conference, safe_filter_params) if user.reviewer? || user.admin?
+    sections << organizer_section_for(user, conference) if user.organizer? || user.admin?
     sections << user_section_for(user) if user_signed_in?
 
     sections
@@ -47,19 +43,13 @@ module ActionsHelper
   def session_section_for(user, conference)
     section = Section.new t('actions.section.session')
 
-    if can? :create, Session
-      section.add t('actions.submit_session'), new_session_path(conference)
-    end
+    section.add t('actions.submit_session'), new_session_path(conference) if can? :create, Session
     if can? :read, Session
       sessions_count = Session.for_conference(conference).without_state(:cancelled).count
       section.add t('actions.browse_sessions', count: sessions_count), sessions_path(conference)
-      if user.sessions_for_conference(conference).count.positive?
-        section.add t('actions.my_sessions'), user_sessions_path(conference, user)
-      end
+      section.add t('actions.my_sessions'), user_sessions_path(conference, user) if user.sessions_for_conference(conference).count.positive?
     end
-    if can? :read, Vote
-      section.add t('actions.my_votes'), votes_path(conference)
-    end
+    section.add t('actions.my_votes'), votes_path(conference) if can? :read, Vote
 
     section
   end
@@ -76,9 +66,7 @@ module ActionsHelper
       reviews_count = user.reviews.for_conference(conference).count
       section.add t('actions.reviewer_reviews', count: reviews_count), reviewer_reviews_path(conference)
     end
-    if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
-      section.add t('actions.review_session'), new_session_review_path(conference, @session)
-    end
+    section.add t('actions.review_session'), new_session_review_path(conference, @session) if @session.present? && (can?(:create, EarlyReview, @session) || can?(:create, FinalReview, @session))
 
     section
   end
@@ -91,24 +79,12 @@ module ActionsHelper
   def organizer_section_for(_user, _conference)
     section = Section.new t('actions.section.organize')
 
-    if can? :read, Conference
-      section.add t('actions.manage_conferences'), conferences_path
-    end
-    if can? :read, Organizer
-      section.add t('actions.manage_organizers'), organizers_path(@conference)
-    end
-    if can? :read, Reviewer
-      section.add t('actions.manage_reviewers'), reviewers_path(@conference)
-    end
-    if can? :read, 'organizer_sessions'
-      section.add t('actions.organizer_sessions'), organizer_sessions_path(@conference)
-    end
-    if can? :read, 'organizer_reports'
-      section.add t('actions.organizer_reports'), organizer_reports_path(@conference, format: :xls)
-    end
-    if can? :read, 'accepted_sessions'
-      section.add t('actions.accepted_sessions'), accepted_sessions_path(@conference, format: :csv)
-    end
+    section.add t('actions.manage_conferences'), conferences_path if can? :read, Conference
+    section.add t('actions.manage_organizers'), organizers_path(@conference) if can? :read, Organizer
+    section.add t('actions.manage_reviewers'), reviewers_path(@conference) if can? :read, Reviewer
+    section.add t('actions.organizer_sessions'), organizer_sessions_path(@conference) if can? :read, 'organizer_sessions'
+    section.add t('actions.organizer_reports'), organizer_reports_path(@conference, format: :xls) if can? :read, 'organizer_reports'
+    section.add t('actions.accepted_sessions'), accepted_sessions_path(@conference, format: :csv) if can? :read, 'accepted_sessions'
 
     section
   end

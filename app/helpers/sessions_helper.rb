@@ -41,8 +41,8 @@ module SessionsHelper
     session_type_ids_with_audience_limit = conference.session_types.select(&:needs_audience_limit?).map(&:id).map(&:to_s)
     session_type_ids_with_required_mechanics = conference.session_types.select(&:needs_mechanics?).map(&:id).map(&:to_s)
     track_ids_with_restricted_session_types = {
-      '4':  ['', '1', '2'],
-      '8':  ['', '4', '5'],
+      '4': ['', '1', '2'],
+      '8': ['', '4', '5'],
       '13': ['', '9']
     }
     {

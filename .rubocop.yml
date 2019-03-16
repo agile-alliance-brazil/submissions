@@ -75,14 +75,5 @@ Naming/FileName:
     - 'Procfile'
     - 'puppet/Puppetfile'
 
-RSpec/NestedGroups:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: false
-
-RSpec/ExpectInHook:
-  Enabled: false
-
 Lint/UnneededCopDisableDirective:
   Enabled: false # Used to gradually fix the rubocop rspec cops while not enabling it in the build

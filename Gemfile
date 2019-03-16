@@ -71,7 +71,7 @@ end
 
 group :development, :test do
   gem 'brakeman'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 4.0' # 5 doesn't support rails 4.2
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'

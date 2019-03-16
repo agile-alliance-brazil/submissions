@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddSubmissionFieldsFor2019 < ActiveRecord::Migration
   def change
     change_table :sessions do |t|
