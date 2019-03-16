@@ -104,3 +104,15 @@ ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.pmo' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.transformation' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.hypothesis' }
 ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.code' }
+# 2019 new tags
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.autonomy' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.career' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.contracts' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.data' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.future' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.change_management' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.inception' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.management_30' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.maturity' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.objectives' }
+ActsAsTaggableOn::Tag.seed(:name) { |tag| tag.name = 'tags.roles_responsibilities' }

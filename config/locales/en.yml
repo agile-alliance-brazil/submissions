@@ -189,7 +189,7 @@ en:
         author_image_agreement: "Image rights"
         language: "Will be presented in"
         video_link: "Video link"
-        first_presentation: "Is it the first time you're presenting this session in a conference?"
+        first_presentation: "Did you already present this session in another conference?"
         presentation_justification: "In which other conferences have you presented this session? Why do you wish to submit it to this Agile Brazil as well?"
         additional_links: "Additional links"
       session_filter:
@@ -786,7 +786,7 @@ en:
     architecture: "Architecture"
     automation: "Automation"
     self_organizing: "Self-organization"
-    big_data: "Big data"
+    big_data: "Big Data"
     coaching: "Coaching"
     legacy: "Legacy"
     continuous: "Continuous"
@@ -807,7 +807,7 @@ en:
     evolution: "Evolution"
     facilitation: "Facilitation"
     failure: "Failure"
-    front: "Front end"
+    front: "Front End"
     management: "Management"
     incremental: "Incremental"
     information: "Information"
@@ -854,7 +854,7 @@ en:
     hypothesis_validation: "Hypothesis validation"
     value: "Value"
     visualization: "Visualization"
-    xp: "XP"
+    xp: "Extreme Programming"
 
     commitment: "Commitment"
     creation: "Creation"
@@ -886,6 +886,17 @@ en:
     hypothesis: "Hypothesis"
     code: "Code"
 
+    autonomy: "Autonomia"
+    career: "Career"
+    contracts: "Contracts"
+    data: "Data"
+    future: "Future"
+    change_management: "Change Management"
+    inception: "Inception"
+    management_30: "Management 3.0"
+    maturity: "Maturity"
+    objectives: "Objectives"
+    roles_responsibilities: "Roles and Responsibilities"
   general:
     actions: "Actions"
   reviews:
