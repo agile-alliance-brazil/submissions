@@ -57,7 +57,7 @@
   = form.input :benefits, required: true, input_html: {rows: 10, tabindex: autotab}, hint: t('formtastic.hints.session.benefits', year: "/#{@conference.year}")
   = form.input :experience, required: true, input_html: {rows: 10, tabindex: autotab}, hint: t('formtastic.hints.session.experience', year: "/#{@conference.year}")
   = form.input :video_link, required: false, input_html: {tabindex: autotab}, hint: t('formtastic.hints.session.video_link', year: "/#{@conference.year}")
-  = form.input :first_presentation, required: true, input_html: {tabindex: autotab}
+  = form.input :first_presentation, required: false, input_html: {tabindex: autotab}
   = form.input :presentation_justification, required: true, input_html: {tabindex: autotab}
   = form.input :additional_links, required: false, input_html: {rows: 5, tabindex: autotab}, hint: t('formtastic.hints.session.additional_links', year: "/#{@conference.year}")
 
