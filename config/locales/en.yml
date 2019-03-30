@@ -171,6 +171,7 @@ en:
         benefits: "Benefits"
         experience: "Experience in the subject"
         author_id: "Author"
+        authors: "Author(s)"
         second_author_id: "Second author"
         second_author_username: "Second author's username"
         keyword_list: "Keywords"

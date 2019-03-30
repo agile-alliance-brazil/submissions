@@ -3,8 +3,7 @@
     %tr
       %th.session_id ID
       %th.title= t('formtastic.labels.session.title')
-      %th.author= t('formtastic.labels.session.author_id')
-      %th.author= t('formtastic.labels.session.second_author_id')
+      %th.author{colspan: 2}= t('formtastic.labels.session.authors')
       - if @user == current_user
         %th.reviews= t('formtastic.labels.session.reviews')
         - if @conference.in_author_confirmation_phase?
