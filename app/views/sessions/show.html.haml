@@ -52,7 +52,8 @@
   %dt= t('formtastic.labels.session.experience')
   %dd= textilize(@session.try(:experience))
   %dt= t('formtastic.labels.session.video_link')
-  %dd= textilize(@session.try(:video_link))
+  - video_link = @session.try(:video_link)
+  %dd= video_link? link_to(video_link, video_link) : ""
   - if @session.try(:first_presentation)
     %dt= t('formtastic.labels.session.first_presentation')
     %dt= t('formtastic.labels.session.presentation_justification')

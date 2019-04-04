@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Session < ApplicationRecord
-  HARDCODED_KEYWORD_LIST_MAX_LIMIT = 10
-
   attr_trimmed    :title, :summary, :description, :mechanics, :benefits,
                   :target_audience, :prerequisites, :experience
 
@@ -202,8 +200,8 @@ class Session < ApplicationRecord
   end
 
   def conference_keyword_list_limit
-    max_tag_count = session_conference_has_tag_limit? ? conference.tag_limit : HARDCODED_KEYWORD_LIST_MAX_LIMIT
-    return if keyword_list.size <= max_tag_count
+    return unless session_conference_has_tag_limit?
+    return if keyword_list.size <= conference.tag_limit
 
     errors.add(:keyword_list, I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: max_tag_count))
   end
