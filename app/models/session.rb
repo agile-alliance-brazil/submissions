@@ -203,6 +203,6 @@ class Session < ApplicationRecord
     return unless session_conference_has_tag_limit?
     return if keyword_list.size <= conference.tag_limit
 
-    errors.add(:keyword_list, I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: max_tag_count))
+    errors.add(:keyword_list, I18n.t('activerecord.errors.models.session.attributes.keyword_list.too_long', count: conference.tag_limit))
   end
 end
