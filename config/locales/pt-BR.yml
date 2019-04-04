@@ -344,7 +344,7 @@ pt-BR:
 
   # Mensagens customizadas
   title:
-    home: "Página inicial"
+    home: "Início"
     pages: "Conference pages"
     guidelines: "Regras de submissão"
     signup: "Novo usuário"
@@ -355,7 +355,7 @@ pt-BR:
     edit_conference: "Editar conferência"
     user_sessions: "Sessões submetidas por %{name}"
     new_session: "Proposta de sessão"
-    tracks: "Trilhas de interesse"
+    tracks: "Trilhas"
     track:
       default: "Trilha Padrão"
     session_types: "Tipos de sessão"

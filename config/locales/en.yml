@@ -350,7 +350,7 @@ en:
     edit_conference: "Edit conference"
     user_sessions: "%{name}'s session proposals"
     new_session: "Propose a session"
-    tracks: "Session Tracks"
+    tracks: "Tracks"
     track:
       default: "Default Track"
     session_types: "Session Types"
