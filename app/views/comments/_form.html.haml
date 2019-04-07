@@ -2,3 +2,8 @@
   = form.input :user_id, as: :hidden
   = form.input :commentable_id, as: :hidden
   = form.input :comment, required: true, input_html: {rows: 3, tabindex: autotab}, hint: t('formtastic.hints.comment.comment', year: "/#{@conference.year}")
+
+:javascript
+  $(document).ready(function() {
+    $('#comment_comment').charCount({allowed: 1000})
+  });

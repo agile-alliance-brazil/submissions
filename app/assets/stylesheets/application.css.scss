@@ -117,7 +117,9 @@ a:hover {
   h1 {
     color: $color5;
     border-bottom: 1px solid $color5;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   h3 {
     margin-top: 15px; }
   h5 {
@@ -908,4 +910,12 @@ button::disabled {
       text-transform: uppercase;
     }
   }
+}
+
+form.formtastic.user,form.formtastic.comment fieldset.inputs {
+  width: 100%;
+}
+
+form.formtastic.user fieldset.actions {
+  display: block;
 }

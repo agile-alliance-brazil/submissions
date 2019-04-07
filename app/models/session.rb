@@ -32,7 +32,8 @@ class Session < ApplicationRecord
   validates :duration_mins, presence: true, session_duration: true
   validates :keyword_list, length: { minimum: 1 }, if: :session_conference_has_tag_limit?
   validates :language, presence: true, inclusion: { in: ['en', 'pt-BR'] } # TODO: Base on conference languages
-  validates :mechanics, presence: true, length: { maximum: 2400 }, if: :requires_mechanics?
+  validates :mechanics, length: { maximum: 2400 }
+  validates :mechanics, presence: true, if: :requires_mechanics?
   validates :audience_limit, numericality: { greater_than: 0 }, allow_nil: true
   validates :conference_id, existence: true
   validates :author_id, existence: true, constant: { on: :update }
@@ -176,7 +177,8 @@ class Session < ApplicationRecord
 
   def requires_mechanics?
     (respond_to?(:workshop?) && workshop?) ||
-      (respond_to?(:hands_on?) && hands_on?)
+      (respond_to?(:hands_on?) && hands_on?) ||
+        session_type.try(:needs_mechanics)
   end
 
   def session_conference_has_limits?

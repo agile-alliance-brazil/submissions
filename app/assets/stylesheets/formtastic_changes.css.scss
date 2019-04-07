@@ -14,6 +14,10 @@ form.formtastic legend {
   margin: 10px 0;
 }
 
+form.formtastic fieldset ol li {
+  width: 100%;
+}
+
 form.formtastic fieldset ol li label {
   width: 100%;
   font-weight: bold;
@@ -24,19 +28,16 @@ form.formtastic fieldset ol li.boolean label {
   padding: 0;
 }
 
-form.formtastic fieldset ol li.email input, form.formtastic fieldset ol li.url input {
-  width:74%;
-}
-
-form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.password input, form.formtastic fieldset ol li.text textarea,form.formtastic fieldset ol li.numeric input,form.formtastic fieldset ol li.phone input,form.formtastic fieldset ol li.email input {
+form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.password input, form.formtastic fieldset ol li.url input, form.formtastic fieldset ol li.text textarea,form.formtastic fieldset ol li.numeric input,form.formtastic fieldset ol li.phone input,form.formtastic fieldset ol li.email input {
   background-color: #ffffff;
   border: 1px solid #bbbbbb;
   padding: 2px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 form.formtastic fieldset ol li span.counter {
   float: right;
-  margin-right: 26%;
   margin-top: -3ex;
   color: #666666;
 
@@ -75,7 +76,6 @@ form.formtastic abbr::before, form.formtastic acronym::before {
 form.formtastic fieldset ol li p.inline-hints {
   color: #666666;
   font-style: italic;
-  width: 74%;
 }
 
 form.formtastic fieldset.submission ol span.possibleDurations {
@@ -118,7 +118,6 @@ form.formtastic fieldset ol li ul.errors {
   background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
   float: right;
-  width: 23%;
   list-style: none;
   margin: 0;
   padding-left: 19px;
@@ -128,7 +127,6 @@ form.reviewer.formtastic fieldset ol ul.errors, form.early_review.formtastic fie
   background: url(image-path('error_bg.png')) no-repeat;
   color: #d20000;
   float: left;
-  width: 74%;
   list-style: none;
   margin: 0;
   padding-left: 19px;
@@ -148,6 +146,7 @@ form.formtastic fieldset ol ul.tags li {
   font-size: 0.8em;
   padding: 0.3em;
   margin: 0.2em 0;
+  width: initial;
 }
 
 form.formtastic fieldset ol ul.tags li:after {
@@ -159,7 +158,6 @@ form.formtastic fieldset ol ul.tags li.selectedTag {
 }
 
 form.formtastic fieldset ol ul.tags {
-    width: 90%;
     text-align: center;
 }
 
