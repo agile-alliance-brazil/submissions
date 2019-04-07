@@ -178,7 +178,7 @@ class Session < ApplicationRecord
   def requires_mechanics?
     (respond_to?(:workshop?) && workshop?) ||
       (respond_to?(:hands_on?) && hands_on?) ||
-        session_type.try(:needs_mechanics)
+      session_type.try(:needs_mechanics)
   end
 
   def session_conference_has_limits?

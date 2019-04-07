@@ -10,9 +10,11 @@
 %ul.spaced
   %li.first #{t('session.parameters')}:
   - if @conference.tracks.size > 1
-    %li= link_to t(@session.track.title), conference_tracks_path(@conference)
-  %li= link_to t(@session.audience_level.title), conference_audience_levels_path(@conference)
-  %li= link_to t(@session.session_type.title), conference_session_types_path(@conference)
+    %li= link_to t(@session.track.title, default: @session.track.title), conference_tracks_path(@conference)
+  - if @conference.audience_levels.size > 1
+    %li= link_to t(@session.audience_level.title, default: @session.audience_level.title), conference_audience_levels_path(@conference)
+  - if @conference.session_types.size > 1
+    %li= link_to t(@session.session_type.title, default: @session.session_type.title), conference_session_types_path(@conference)
   %li
     &= @session.try(:duration_mins)
     = t('generic.minutes')
