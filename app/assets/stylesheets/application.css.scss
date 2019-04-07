@@ -158,6 +158,8 @@ a:hover {
     td {
       border-bottom: 1px solid $color5;
       padding: 6px 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
       &.outcome {
         font-size: 2em;
         text-align: center;
@@ -170,14 +172,6 @@ table.sessions {
     font-size: 80%;
     &.title {
       width: 50%;
-    }
-  }
-  tr {
-    td {
-      &.title {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
     }
   }
 }
