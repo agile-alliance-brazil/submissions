@@ -22,11 +22,11 @@
             = image_tag("lightning-talk.png", alt: t('session_types.lightning_talk.title'))
           - if session.comments_count > 0
             .commentCount= session.comments_count
-        %td.author
+        %td.author{colspan: session.second_author ? 1 : 2}
           = render_avatar(session.author, size: :mini)
           = link_to h(session.author.full_name), user_path(session.author)
-        %td.author
-          - if session.second_author
+        - if session.second_author
+          %td.author
             = render_avatar(session.second_author, size: :mini)
             = link_to h(session.second_author.full_name), user_path(session.second_author)
         - if @user == current_user
