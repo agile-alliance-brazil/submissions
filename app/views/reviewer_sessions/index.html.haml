@@ -1,17 +1,19 @@
 - title t('actions.reviewer_sessions', count: @sessions.total_entries)
 - show_actions!
 
-= semantic_form_for @session_filter, url: reviewer_sessions_path(@conference), method: :get do |f|
+= semantic_form_for @session_filter, url: reviewer_sessions_path(@conference), method: :get, html: { class: 'reviews' } do |f|
   = f.inputs do
     = f.input :tags, input_html: { tabindex: autotab, :'data-autocomplete-url' => tags_path(format: :json, year: @conference.year, locale: I18n.locale) }
-    - unless @conference.single_track?
-      = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
-    = f.input :session_type_id, as: :select, collection: @session_types.map{|st| [t(st.title), st.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
-    = f.input :audience_level_id, as: :select, collection: @audience_levels.map{|al| [t(al.title), al.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    - if @conference.tracks.size > 1
+      = f.input :track_id, as: :select, collection: @tracks.map{|tr| [t(tr.title, default: tr.title), tr.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    - if @conference.session_types.size > 1
+      = f.input :session_type_id, as: :select, collection: @session_types.map{|st| [t(st.title, default: st.title), st.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
+    - if @conference.audience_levels.size > 1
+      = f.input :audience_level_id, as: :select, collection: @audience_levels.map{|al| [t(al.title, default: al.title), al.id]}, input_html: {tabindex: autotab}, include_blank: t("generic.all")
   = f.actions do
     = f.action :submit, label: :filter_session, button_html: {tabindex: autotab}
 
-%table.sessions
+%table.sessions.reviews
   %thead
     %tr
       %th.session_id ID
@@ -35,11 +37,11 @@
             .commentCount= session.comments.size
         - unless @conference.single_track?
           %td.track
-            = t(session.track.title)
+            = t(session.track.title, default: session.track.title)
         %td.type
-          = t(session.session_type.title)
+          = t(session.session_type.title, default: session.session_type.title)
         %td.audience_level
-          = t(session.audience_level.title)
+          = t(session.audience_level.title, default: session.audience_level.title)
         - if @conference.has_early_review?
           %td.reviews
             = session.early_reviews_count

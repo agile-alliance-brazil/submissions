@@ -78,6 +78,7 @@ group :development, :test do
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'byebug'
   gem 'pry-rails'
+  gem 'rb-readline'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')
   gem 'rspec-rails'
