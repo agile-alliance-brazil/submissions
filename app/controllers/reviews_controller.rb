@@ -22,6 +22,7 @@ class ReviewsController < ApplicationController
   def create
     @review = resource_class.new(review_params)
     if @review.save
+      create_third_reject(@review)
       flash[:notice] = t('flash.review.create.success')
       redirect_to session_review_path(@conference, @session, @review)
     else
@@ -117,5 +118,40 @@ class ReviewsController < ApplicationController
     return if @conference.in_early_review_phase? || @conference.in_final_review_phase?
 
     redirect_to root_path, alert: t('reviews.edit.errors.conference_out_of_range')
+  end
+
+  def create_third_reject(review)
+    return if in_early_review_phase?
+
+    return unless review.weak_reject? || review.strong_reject?
+
+    session_reviews = review.session.early_reviews + review.session.final_reviews
+    other_reviews = session_reviews.reject { |r| r == review }
+
+    return if other_reviews.count != 1
+
+    other_review = other_reviews.first
+
+    return unless other_review.weak_reject? || other_review.strong_reject?
+
+    low_rating = Rating.find_by(title: 'rating.low.title')
+    resource_class.create!(
+      session: review.session,
+      recommendation: Recommendation.find_by(name: 'strong_reject'),
+      reviewer_id: 742,
+      author_agile_xp_rating: low_rating,
+      author_proposal_xp_rating: low_rating,
+      proposal_quality_rating: low_rating,
+      proposal_relevance_rating: low_rating,
+      reviewer_confidence_rating: low_rating,
+      proposal_track: false,
+      proposal_level: false,
+      proposal_type: false,
+      proposal_duration: false,
+      proposal_limit: false,
+      proposal_abstract: false,
+      comments_to_authors: '.' * 150,
+      justification: '.'
+    )
   end
 end

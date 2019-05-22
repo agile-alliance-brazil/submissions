@@ -136,6 +136,40 @@ describe ReviewsController, type: :controller do
       path = session_review_path(conference, assigns(:session), assigns(:review))
       expect(response).to redirect_to(path)
     end
+
+    context 'create action should create a third reject' do
+      let(:reject_recommendation) { Recommendation.create(name: 'strong_reject') }
+      let(:approve_recommendation) { Recommendation.create(name: 'strong_accept') }
+      before { Rating.create(title: 'rating.low.title') }
+
+      it 'when there are other two other rejections' do
+        session.final_reviews.new(recommendation: reject_recommendation).save(validate: false)
+
+        post :create, session_id: session.id, final_review: valid_final_review_params
+
+        session.reload
+
+        expect(session).to have(3).final_reviews
+        expect(session.final_reviews.map(&:recommendation)).to all(be_strong_reject)
+      end
+
+      it 'not when this is the first review' do
+        post :create, session_id: session.id, final_review: valid_final_review_params
+
+        session.reload
+
+        expect(session).to have(1).final_reviews
+      end
+
+      it 'not when this is an approve review and there are one rejection' do
+        session.final_reviews.new(recommendation: reject_recommendation).save(validate: false)
+        post :create, session_id: session.id, final_review: valid_final_review_params.merge(recommendation_id: approve_recommendation)
+
+        session.reload
+
+        expect(session).to have(2).final_reviews
+      end
+    end
   end
 
   context 'enabled authorization' do
