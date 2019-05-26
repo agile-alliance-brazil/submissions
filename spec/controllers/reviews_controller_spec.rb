@@ -169,6 +169,24 @@ describe ReviewsController, type: :controller do
 
         expect(session).to have(2).final_reviews
       end
+
+      it 'not when this is an approve review and there is one approve' do
+        session.final_reviews.new(recommendation: reject_recommendation).save(validate: false)
+        post :create, session_id: session.id, final_review: valid_final_review_params.merge(recommendation_id: approve_recommendation)
+
+        session.reload
+
+        expect(session).to have(2).final_reviews
+      end
+
+      it 'not when this is a rejection review and there is one approve' do
+        session.final_reviews.new(recommendation: approve_recommendation).save(validate: false)
+        post :create, session_id: session.id, final_review: valid_final_review_params.merge(recommendation_id: reject_recommendation)
+
+        session.reload
+
+        expect(session).to have(2).final_reviews
+      end
     end
   end
 
