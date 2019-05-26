@@ -125,8 +125,8 @@ class ReviewsController < ApplicationController
 
     return unless review.weak_reject? || review.strong_reject?
 
-    session_reviews = review.session.early_reviews + review.session.final_reviews
     other_reviews = session_reviews.reject { |r| r == review }
+    session_reviews = review.session.final_reviews
 
     return if other_reviews.count != 1
 
