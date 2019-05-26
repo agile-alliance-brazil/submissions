@@ -8,4 +8,8 @@ class Rating < ApplicationRecord
   has_many :quality_reviews, foreign_key: 'proposal_quality_rating_id', dependent: :restrict_with_exception, inverse_of: :proposal_quality_rating
   has_many :relevance_reviews, foreign_key: 'proposal_relevance_rating_id', dependent: :restrict_with_exception, inverse_of: :proposal_relevance_rating
   has_many :confidence_reviews, foreign_key: 'reviewer_confidence_rating_id', dependent: :restrict_with_exception, inverse_of: :reviewer_confidence_rating
+
+  def self.find_low_instance
+    find_by(title: 'rating.low.title')
+  end
 end

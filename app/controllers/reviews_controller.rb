@@ -134,16 +134,15 @@ class ReviewsController < ApplicationController
 
     return unless other_review.weak_reject? || other_review.strong_reject?
 
-    low_rating = Rating.find_by(title: 'rating.low.title')
     resource_class.create!(
       session: review.session,
       recommendation: Recommendation.find_by(name: 'strong_reject'),
       reviewer_id: 742,
-      author_agile_xp_rating: low_rating,
-      author_proposal_xp_rating: low_rating,
-      proposal_quality_rating: low_rating,
-      proposal_relevance_rating: low_rating,
-      reviewer_confidence_rating: low_rating,
+      author_agile_xp_rating: Rating.find_low_instance,
+      author_proposal_xp_rating: Rating.find_low_instance,
+      proposal_quality_rating: Rating.find_low_instance,
+      proposal_relevance_rating: Rating.find_low_instance,
+      reviewer_confidence_rating: Rating.find_low_instance,
       proposal_track: false,
       proposal_level: false,
       proposal_type: false,
