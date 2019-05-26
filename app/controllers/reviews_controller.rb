@@ -125,18 +125,15 @@ class ReviewsController < ApplicationController
 
     return unless review.weak_reject? || review.strong_reject?
 
-    other_reviews = session_reviews.reject { |r| r == review }
     session_reviews = review.session.final_reviews
+    return if session_reviews.count + 1 != 3
 
-    return if other_reviews.count != 1
-
-    other_review = other_reviews.first
-
-    return unless other_review.weak_reject? || other_review.strong_reject?
+    first_review = session_reviews.reject { |r| r == review }.first
+    return unless first_review.weak_reject? || first_review.strong_reject?
 
     resource_class.create!(
       session: review.session,
-      recommendation: Recommendation.find_by(name: 'strong_reject'),
+      recommendation: Recommendation.find_by(name: 'weak_reject'),
       reviewer_id: 742,
       author_agile_xp_rating: Rating.find_low_instance,
       author_proposal_xp_rating: Rating.find_low_instance,
