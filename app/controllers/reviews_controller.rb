@@ -131,6 +131,8 @@ class ReviewsController < ApplicationController
     first_review = session_reviews.reject { |r| r == review }.first
     return unless first_review.weak_reject? || first_review.strong_reject?
 
+    justification = I18n.t('review.third_reject_auto_justification', conference_name: review.session.conference.name)
+
     resource_class.create!(
       session: review.session,
       recommendation: Recommendation.find_by(name: 'weak_reject'),
@@ -146,8 +148,8 @@ class ReviewsController < ApplicationController
       proposal_duration: false,
       proposal_limit: false,
       proposal_abstract: false,
-      comments_to_authors: '.' * 150,
-      justification: '.'
+      comments_to_authors: justification,
+      justification: justification
     )
   end
 end

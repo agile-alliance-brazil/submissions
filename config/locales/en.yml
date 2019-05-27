@@ -697,6 +697,7 @@ en:
     early_review: "Early Review"
     final_review: "Final Review"
     feedback: "Feedback"
+    third_reject_auto_justification: "Thank you for submitting your proposal to %{conference_name}. Due to more than 400 submissions, session proposals that received 2 rejections from reviewers cannot be approved this time. Read the other reviewers' comments, and then resubmit in the next event. We hope to see you at the event so we can exchange ideas and talk to you in person. Hugs!"
 
   rating:
     high:
