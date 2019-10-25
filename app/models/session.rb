@@ -31,7 +31,7 @@ class Session < ApplicationRecord
   validates :experience, presence: true, length: { maximum: 400 }
   validates :duration_mins, presence: true, session_duration: true
   validates :keyword_list, length: { minimum: 1 }, if: :session_conference_has_tag_limit?
-  validates :language, presence: true, inclusion: { in: ['en', 'pt-BR'] } # TODO: Base on conference languages
+  validates :language, presence: true, inclusion: { in: %w[en pt-BR] } # TODO: Base on conference languages
   validates :mechanics, length: { maximum: 2400 }
   validates :mechanics, presence: true, if: :requires_mechanics?
   validates :audience_limit, numericality: { greater_than: 0 }, allow_nil: true

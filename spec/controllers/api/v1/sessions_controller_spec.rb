@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Api::V1::SessionsController, type: :controller do
-  let(:conference) { FactoryBot.create(:conference, supported_languages: ['en', 'pt-BR']) }
+  let(:conference) { FactoryBot.create(:conference, supported_languages: %w[en pt-BR]) }
   let(:session) { FactoryBot.create(:session, keyword_list: %w[fake tags tags.success], conference: conference) }
 
   describe 'show' do

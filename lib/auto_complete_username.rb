@@ -34,4 +34,4 @@ module AutoCompleteUsername
   end
 end
 
-ActiveRecord::Base.send(:include, AutoCompleteUsername)
+ActiveRecord::Base.include AutoCompleteUsername
