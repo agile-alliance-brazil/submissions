@@ -17,7 +17,7 @@ gem 'aws-ses', '0.6.0', require: 'aws/ses'
 gem 'brhelper', '3.3.0'
 gem 'cancancan', '~> 2.0'
 gem 'coffee-rails', '~> 4.1'
-gem 'devise', '~> 4.0'
+gem 'devise', '~> 4.7'
 gem 'devise-encryptable', '0.2.0'
 gem 'devise-i18n', '~> 1.0'
 gem 'doorkeeper', '~> 4.0' # TODO: Remove in favor of oauth in another app
