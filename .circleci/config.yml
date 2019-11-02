@@ -4,7 +4,6 @@ jobs:
   test:
     docker:
     - image: circleci/ruby:2.4.3
-      command: /sbin/init
     - image: mysql:5.5
       environment:
         MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -52,7 +51,6 @@ jobs:
   deploy:
     docker:
     - image: circleci/ruby:2.4.3
-      command: /sbin/init
     steps:
     - checkout
     - restore_cache:
