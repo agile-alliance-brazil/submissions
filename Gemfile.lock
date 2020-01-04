@@ -256,7 +256,7 @@ GEM
       pry (>= 0.10.4)
     psych (3.1.0)
     public_suffix (3.0.3)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-livereload (0.3.17)
       rack
     rack-test (0.6.3)
