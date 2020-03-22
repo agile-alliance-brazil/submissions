@@ -62,7 +62,11 @@ describe Conference, type: :model do
     end
 
     context 'date orders' do
-      subject { FactoryBot.build(:conference) }
+      subject do
+        FactoryBot.build(:conference).tap do |c|
+          c.submissions_edition_deadline = c.submissions_deadline + 1.hour
+        end
+      end
 
       Conference::DATE_ORDERS.each_cons(2) do |date1, date2|
         it "should validate that #{date1} comes before #{date2} if both are set" do
@@ -162,12 +166,14 @@ describe Conference, type: :model do
       end
 
       it 'includes pre-submission and pre-review deadlines when available' do
+        subject.submissions_edition_deadline = subject.submissions_deadline + 1.hour
         expect(subject.dates).to eq([
                                       [subject.call_for_papers, :call_for_papers],
                                       [subject.submissions_open, :submissions_open],
                                       [subject.presubmissions_deadline, :presubmissions_deadline],
                                       [subject.prereview_deadline, :prereview_deadline],
                                       [subject.submissions_deadline, :submissions_deadline],
+                                      [subject.submissions_edition_deadline, :submissions_edition_deadline],
                                       [subject.author_notification, :author_notification],
                                       [subject.author_confirmation, :author_confirmation]
                                     ])
@@ -293,6 +299,87 @@ describe Conference, type: :model do
       end
     end
 
+    describe 'in_submission_edition_phase?' do
+      before do
+        @conference = FactoryBot.build(:conference,
+                                       submissions_open: Time.now + 6.days,
+                                       submissions_deadline: Time.now + 10.days,
+                                       submissions_edition_deadline: Time.now + 15.days)
+        @start = @conference.submissions_open
+        @middle = @conference.submissions_deadline
+        @end = @conference.submissions_edition_deadline
+      end
+
+      it 'returns true if date is on start deadline' do
+        Time.expects(:now).returns(@start)
+
+        expect(@conference).to be_in_submission_edition_phase
+      end
+
+      it 'returns false if date is before start deadline' do
+        Time.expects(:now).returns(@start - 1.second)
+
+        expect(@conference).not_to be_in_submission_edition_phase
+      end
+
+      it 'returns true if date is after start deadline' do
+        Time.expects(:now).returns(@start + 1.second)
+
+        expect(@conference).to be_in_submission_edition_phase
+      end
+
+      it 'returns true if date is after to middle deadline' do
+        Time.expects(:now).returns(@middle + 1.second)
+
+        expect(@conference).to be_in_submission_edition_phase
+      end
+
+      it 'returns true if date is prior to end deadline' do
+        Time.expects(:now).returns(@end - 1.second)
+
+        expect(@conference).to be_in_submission_edition_phase
+      end
+
+      it 'returns true if date is on end deadline' do
+        Time.expects(:now).returns(@end)
+
+        expect(@conference).to be_in_submission_edition_phase
+      end
+
+      it 'returns false if date is after end deadline' do
+        Time.expects(:now).returns(@end + 1.second)
+
+        expect(@conference).not_to be_in_submission_edition_phase
+      end
+
+      it 'returns false if start is nil' do
+        @conference.submissions_open = nil
+
+        expect(@conference).not_to be_in_submission_edition_phase
+      end
+
+      it 'returns false if middle is nil' do
+        @conference.submissions_deadline = nil
+
+        expect(@conference).not_to be_in_submission_edition_phase
+      end
+
+      it 'uses submissions deadline if end is nil' do
+        @conference.submissions_edition_deadline = nil
+        Time.expects(:now).returns(@middle - 1.second)
+
+        expect(@conference).to be_in_submission_edition_phase
+
+        Time.expects(:now).returns(@middle)
+
+        expect(@conference).to be_in_submission_edition_phase
+
+        Time.expects(:now).returns(@middle + 1.second)
+
+        expect(@conference).to_not be_in_submission_edition_phase
+      end
+    end
+
     describe 'in_early_review_phase?' do
       before do
         @conference = FactoryBot.build(:conference)
@@ -350,58 +437,102 @@ describe Conference, type: :model do
     end
 
     describe 'in_final_review_phase?' do
+      subject { FactoryBot.build(:conference) }
+
       before do
-        @conference = FactoryBot.build(:conference)
-        @start = @conference.submissions_deadline
-        @end = @conference.review_deadline
+        @start = subject.submissions_deadline
+        @end = subject.review_deadline
+      end
+
+      context 'with edition deadline' do
+        before do
+          subject.submissions_edition_deadline = subject.submissions_deadline + 1.hour
+          @middle = subject.submissions_edition_deadline
+        end
+
+        it 'returns false if date is on start deadline' do
+          Time.expects(:now).returns(@start)
+
+          expect(subject).to_not be_in_final_review_phase
+        end
+
+        it 'returns false if date is before middle deadline' do
+          Time.expects(:now).returns(@middle - 1.second)
+
+          expect(subject).not_to be_in_final_review_phase
+        end
+
+        it 'returns true if date is after middle deadline' do
+          Time.expects(:now).returns(@middle + 1.second)
+
+          expect(subject).to be_in_final_review_phase
+        end
+
+        it 'returns true if date is prior to end deadline' do
+          Time.expects(:now).returns(@end - 1.second)
+
+          expect(subject).to be_in_final_review_phase
+        end
+
+        it 'returns true if date is on end deadline' do
+          Time.expects(:now).returns(@end)
+
+          expect(subject).to be_in_final_review_phase
+        end
+
+        it 'returns false if date is after end deadline' do
+          Time.expects(:now).returns(@end + 1.second)
+
+          expect(subject).not_to be_in_final_review_phase
+        end
       end
 
       it 'returns true if date is on start deadline' do
         Time.expects(:now).returns(@start)
 
-        expect(@conference).to be_in_final_review_phase
+        expect(subject).to be_in_final_review_phase
       end
 
       it 'returns false if date is before start deadline' do
         Time.expects(:now).returns(@start - 1.second)
 
-        expect(@conference).not_to be_in_final_review_phase
+        expect(subject).not_to be_in_final_review_phase
       end
 
       it 'returns true if date is after start deadline' do
         Time.expects(:now).returns(@start + 1.second)
 
-        expect(@conference).to be_in_final_review_phase
+        expect(subject).to be_in_final_review_phase
       end
 
       it 'returns true if date is prior to end deadline' do
         Time.expects(:now).returns(@end - 1.second)
 
-        expect(@conference).to be_in_final_review_phase
+        expect(subject).to be_in_final_review_phase
       end
 
       it 'returns true if date is on end deadline' do
         Time.expects(:now).returns(@end)
 
-        expect(@conference).to be_in_final_review_phase
+        expect(subject).to be_in_final_review_phase
       end
 
       it 'returns false if date is after end deadline' do
         Time.expects(:now).returns(@end + 1.second)
 
-        expect(@conference).not_to be_in_final_review_phase
+        expect(subject).not_to be_in_final_review_phase
       end
 
       it 'returns false if start is nil' do
-        @conference.submissions_deadline = nil
+        subject.submissions_deadline = nil
 
-        expect(@conference).not_to be_in_final_review_phase
+        expect(subject).not_to be_in_final_review_phase
       end
 
       it 'returns false if end is nil' do
-        @conference.review_deadline = nil
+        subject.review_deadline = nil
 
-        expect(@conference).not_to be_in_final_review_phase
+        expect(subject).not_to be_in_final_review_phase
       end
     end
 
@@ -531,6 +662,7 @@ describe Conference, type: :model do
         let(:conference) do
           FactoryBot.create :conference_in_review_time,
                             submissions_deadline: 1.day.ago,
+                            submissions_edition_deadline: nil,
                             voting_deadline: nil,
                             review_deadline: 1.day.from_now
         end

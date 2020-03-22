@@ -304,7 +304,7 @@ describe Ability, type: :model do
       let(:session) { FactoryBot.build(:session, conference: conference) }
 
       before do
-        conference.stubs(:in_submission_phase?).returns(true)
+        conference.stubs(:in_submission_edition_phase?).returns(true)
       end
 
       it '- user is first author' do
@@ -321,13 +321,19 @@ describe Ability, type: :model do
 
       it '- in submissions phase' do
         session.author = user
-        conference.expects(:in_submission_phase?).returns(true)
+        conference.expects(:in_submission_edition_phase?).returns(true)
+        expect(ability).to be_able_to(:update, session)
+      end
+
+      it '- in submissions edition phase' do
+        session.author = user
+        conference.expects(:in_submission_edition_phase?).returns(true)
         expect(ability).to be_able_to(:update, session)
       end
 
       it '- out of submissions phase cant update' do
         session.author = user
-        conference.expects(:in_submission_phase?).returns(false)
+        conference.expects(:in_submission_edition_phase?).returns(false)
         expect(ability).not_to be_able_to(:update, session)
       end
 

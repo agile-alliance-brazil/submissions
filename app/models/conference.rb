@@ -106,6 +106,15 @@ class Conference < ApplicationRecord
     submissions_open <= now && now <= submissions_deadline
   end
 
+  def in_submission_edition_phase?
+    edition_deadline = submissions_deadline
+    edition_deadline = submissions_edition_deadline if submissions_edition_deadline
+    return false if submissions_open.nil? || edition_deadline.nil?
+
+    now = Time.now
+    submissions_open <= now && now <= edition_deadline
+  end
+
   def has_early_review?
     presubmissions_deadline.present? && prereview_deadline.present?
   end
@@ -118,10 +127,12 @@ class Conference < ApplicationRecord
   end
 
   def in_final_review_phase?
-    return false if submissions_deadline.nil? || review_deadline.nil?
+    deadline = submissions_deadline
+    deadline = submissions_edition_deadline if submissions_edition_deadline
+    return false if deadline.nil? || review_deadline.nil?
 
     now = Time.now
-    submissions_deadline <= now && now <= review_deadline
+    deadline <= now && now <= review_deadline
   end
 
   def in_author_confirmation_phase?
@@ -143,6 +154,7 @@ class Conference < ApplicationRecord
     presubmissions_deadline
     prereview_deadline
     submissions_deadline
+    submissions_edition_deadline
     author_notification
     author_confirmation
   ].freeze # review_deadline is out because it's an internal deadline
@@ -194,7 +206,7 @@ class Conference < ApplicationRecord
   def deadlines_for(role)
     deadlines = case role.to_sym
                 when :author
-                  %i[presubmissions_deadline submissions_deadline author_notification author_confirmation]
+                  %i[presubmissions_deadline submissions_deadline submissions_edition_deadline author_notification author_confirmation]
                 when :reviewer
                   %i[prereview_deadline review_deadline]
                 when :organizer, :all
@@ -208,7 +220,7 @@ class Conference < ApplicationRecord
   end
 
   DATE_ORDERS = %i[call_for_papers submissions_open presubmissions_deadline prereview_deadline
-                   submissions_deadline voting_deadline review_deadline author_notification author_confirmation
+                   submissions_deadline submissions_edition_deadline voting_deadline review_deadline author_notification author_confirmation
                    start_date end_date].freeze
 
   def date_orders

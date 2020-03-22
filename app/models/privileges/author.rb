@@ -8,7 +8,7 @@ module Privileges
           (@conference.submission_limit.zero? || @user.sessions_for_conference(@conference).active.count < @conference.submission_limit)
       end
       can(:update, Session) do |session|
-        session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submission_phase?
+        session.try(:conference) == @conference && session.try(:is_author?, @user) && @conference.in_submission_edition_phase?
       end
       can(:cancel, Session) do |session|
         session.try(:is_author?, @user) && session.can_cancel?

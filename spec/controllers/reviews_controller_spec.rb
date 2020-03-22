@@ -325,7 +325,8 @@ describe ReviewsController, type: :controller do
           before do
             conference.prereview_deadline = 1.day.from_now
             conference.submissions_deadline = 2.days.from_now
-            conference.voting_deadline = 3.days.from_now
+            conference.submissions_edition_deadline = 3.days.from_now
+            conference.voting_deadline = 4.days.from_now
             conference.save!
           end
 

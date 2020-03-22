@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190303223930) do
+ActiveRecord::Schema.define(version: 20200322142728) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20190303223930) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "voting_deadline"
-    t.boolean  "visible",                 default: false
+    t.boolean  "visible",                      default: false
     t.string   "location"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -65,10 +65,11 @@ ActiveRecord::Schema.define(version: 20190303223930) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.string   "supported_languages",     default: "en,pt-BR", null: false
-    t.boolean  "allow_free_form_tags",    default: true,       null: false
-    t.integer  "submission_limit",        default: 0,          null: false
-    t.integer  "tag_limit",               default: 0,          null: false
+    t.string   "supported_languages",          default: "en,pt-BR", null: false
+    t.boolean  "allow_free_form_tags",         default: true,       null: false
+    t.integer  "submission_limit",             default: 0,          null: false
+    t.integer  "tag_limit",                    default: 0,          null: false
+    t.datetime "submissions_edition_deadline"
   end
 
   add_index "conferences", ["year"], name: "index_conferences_on_year", unique: true

@@ -17,6 +17,7 @@
     = form.input :presubmissions_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 2, value: @conference.presubmissions_deadline.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :prereview_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 3, value: @conference.prereview_deadline.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :submissions_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 4, value: @conference.submissions_deadline.try(:strftime, '%F'), class: 'conference_date'}
+    = form.input :submissions_edition_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 4, value: @conference.submissions_deadline.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :voting_deadline, as: :date_picker, input_html: {tabindex: autotab, dateindex: 5, value: @conference.voting_deadline.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :review_deadline, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 6, value: @conference.review_deadline.try(:strftime, '%F'), class: 'conference_date'}
     = form.input :author_notification, required: true, as: :date_picker, input_html: {tabindex: autotab, dateindex: 7, value: @conference.author_notification.try(:strftime, '%F'), class: 'conference_date'}

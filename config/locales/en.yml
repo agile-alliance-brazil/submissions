@@ -103,6 +103,7 @@ en:
         call_for_papers: "Call for paper marketing"
         submissions_open: "Proposal submission opens"
         submissions_deadline: "Proposal submission ends"
+        submissions_edition_deadline: "Proposal edittion ends"
         presubmissions_deadline: "Early review proposal submission opens"
         prereview_deadline: "Early review deadline"
         review_deadline: "Final review deadline"
