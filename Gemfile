@@ -32,7 +32,7 @@ gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem 'paperclip', '~> 6.0'
-gem 'rails', '~> 4.2', '< 5.0' # TODO: Upgrade
+gem 'rails', '~> 5.0', '>= 5.0.0' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'seed-fu', '~> 2.3'
 gem 'state_machine', '1.2.0'
@@ -56,7 +56,7 @@ group :development do
   gem 'dotenv-rails', '>= 2.7.1', require: false
   gem 'foreman'
   gem 'lol_dba', '>= 2.1.5'
-  gem 'rack-livereload'
+  gem 'rack-livereload', '>= 0.3.17'
   gem 'travis-lint', '>= 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
@@ -75,7 +75,7 @@ group :development, :test do
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'poltergeist', '>= 1.18.1', require: 'capybara/poltergeist'
   gem 'byebug'
   gem 'pry-rails'
   gem 'rb-readline'
