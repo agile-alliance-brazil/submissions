@@ -10,7 +10,7 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'acts-as-taggable-on', '~> 5.0'
+gem 'acts-as-taggable-on', '~> 5.0', '>= 5.0.0'
 gem 'acts_as_commentable', '4.0.2'
 gem 'airbrake', '~> 7.0'
 gem 'aws-ses', '0.6.0', require: 'aws/ses'
@@ -31,10 +31,10 @@ gem 'localized_country_select', '0.9.11'
 gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
-gem 'paperclip', '~> 6.0'
-gem 'rails', '~> 4.2', '< 5.0' # TODO: Upgrade
+gem 'paperclip', '~> 6.1', '>= 6.1.0'
+gem 'rails', '~> 5.2', '>= 5.2.4.3' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
-gem 'seed-fu', '~> 2.3'
+gem 'seed-fu', '~> 2.3', '>= 2.3.9'
 gem 'state_machine', '1.2.0'
 gem 'therubyracer', '0.12.3'
 gem 'uglifier', '~> 4.0'
@@ -47,7 +47,7 @@ platforms :ruby do
 end
 
 group :development do
-  gem 'bullet'
+  gem 'bullet', '>= 5.9.0'
   gem 'capistrano', '3.10.1', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-git-with-submodules', require: false
@@ -66,7 +66,7 @@ group :test do
   gem 'email_spec'
   gem 'mocha'
   gem 'simplecov', '>= 0.13.0'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '>= 4.0.1'
 end
 
 group :development, :test do
@@ -85,8 +85,8 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
-  gem 'spring'
-  gem 'spring-commands-rspec'
+  gem 'spring', '>= 2.0.2'
+  gem 'spring-commands-rspec', '>= 1.0.4'
   gem 'sqlite3', '~> 1.3.13'
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
   gem 'timecop'
