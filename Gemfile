@@ -75,7 +75,7 @@ group :development, :test do
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'poltergeist', '>= 1.18.1', require: 'capybara/poltergeist'
   gem 'byebug'
   gem 'pry-rails'
   gem 'rb-readline'
