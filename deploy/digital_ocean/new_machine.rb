@@ -61,7 +61,7 @@ end + 1)
 
 bootstrap_info = File.read(File.join(ROOT, 'puppet/script/server_bootstrap.sh'))
 body = {
-  names: ["#{APP_NAME}-#{format('%02d', machine_id)}#{POSTFIX}.agilebrazil.com"],
+  names: ["#{APP_NAME}-#{format('%<machine_id>02d', machine_id: machine_id)}#{POSTFIX}.agilebrazil.com"],
   region: 'nyc3',
   size: '1gb',
   image: 'ubuntu-14-04-x64',

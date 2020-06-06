@@ -5,7 +5,7 @@ class ReviewerJsonBuilder
     @reviewer = reviewer
   end
 
-  def to_json
+  def to_json(*_args)
     {
       id: @reviewer.id,
       full_name: @reviewer.user.full_name,

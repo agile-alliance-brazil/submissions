@@ -24,7 +24,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }
   with_options if: :author? do
-    validates :phone, presence: true, length: { maximum: 100 }, format: { with: /\A[0-9\(\) .\-\+]+\Z/i }
+    validates :phone, presence: true, length: { maximum: 100 }, format: { with: /\A[0-9() .\-+]+\Z/i }
     validates :country, presence: true
     validates :city, presence: true, length: { maximum: 100 }
     validates :bio, presence: true, length: { maximum: 1600 }
@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
   validates :organization, length: { maximum: 100 }, allow_blank: true
   validates :website_url, length: { maximum: 100 }, allow_blank: true
-  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w\.+\-_@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
+  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w.+\-_@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
   validates :email, length: { within: 6..100 }, allow_blank: true
 
   before_validation do |user|

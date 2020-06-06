@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Conference < ApplicationRecord
+  include AutoCompleteUsername
+
   has_attached_file :logo, styles: { medium: '300x80>', thumb: '75x20>' }
   validates_attachment :logo,
                        presence: true,

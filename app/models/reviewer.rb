@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Reviewer < ApplicationRecord
+  include AutoCompleteUsername
+
   attr_trimmed :user_username
 
   attr_autocomplete_username_as :user

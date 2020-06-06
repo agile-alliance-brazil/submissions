@@ -28,8 +28,7 @@ describe PagesController, type: :controller do
         get :show, path: page.path, year: page.conference.year
 
         expect(response.body).to(
-          match(%r{<p>This is a page under path <ins>#{page.path}</ins> for conference \
-<strong>#{page.conference.name}</strong> that renders with <code>Textile</code>.</p>}m)
+          match(%r{<p>This is a page under path <ins>#{page.path}</ins> for conference <strong>#{page.conference.name}</strong> that renders with <code>Textile</code>.</p>}m)
         )
       end
     end
