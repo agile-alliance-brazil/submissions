@@ -81,7 +81,7 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')
-  gem 'rspec-rails', '>= 3.8.2'
+  gem 'rspec-rails', '>= 3.8.2', '< 4.0'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
