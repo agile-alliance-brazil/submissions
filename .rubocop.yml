@@ -17,9 +17,6 @@ AllCops:
     - 'config/add_vagrant_config.rb'
     - 'puppet/**/*'
 
-# Rails:
-#   Enabled: true
-
 Layout/LineLength:
   Enabled: false
 
@@ -54,19 +51,6 @@ Naming/PredicateName:
 
 Naming/AccessorMethodName:
   Enabled: false
-
-# Rails/TimeZone:
-#   Enabled: false
-
-# Rails/HttpPositionalArguments:
-#   Enabled: false # Can only be enabled once we're on Rails 5
-
-# Rails/SkipsModelValidations:
-#   Exclude:
-#     - 'db/migrate/**/*.rb'
-
-# Rails/OutputSafety:
-#   Enabled: false # Having weird errors with safe_join
 
 Naming/FileName:
   Exclude:
