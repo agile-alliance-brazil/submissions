@@ -411,13 +411,13 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.3)
-  acts-as-taggable-on (~> 5.0)
+  acts-as-taggable-on (~> 5.0, >= 5.0.0)
   acts_as_commentable (= 4.0.2)
   airbrake (~> 7.0)
   aws-ses (= 0.6.0)
   brakeman
   brhelper (= 3.3.0)
-  bullet
+  bullet (>= 5.9.0)
   byebug
   cancancan (~> 2.0)
   capistrano (= 3.10.1)
@@ -450,7 +450,7 @@ DEPENDENCIES
   modernizr-rails
   mysql2 (< 0.5)
   newrelic_rpm
-  paperclip (~> 6.0)
+  paperclip (~> 6.1, >= 6.1.0)
   poltergeist (>= 1.18.1)
   pry-rails
   rack-livereload (>= 0.3.17)
@@ -464,12 +464,12 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   sass-rails (~> 5.0, >= 5.0.7)
-  seed-fu (~> 2.3)
+  seed-fu (~> 2.3, >= 2.3.9)
   selenium-webdriver
-  shoulda-matchers
+  shoulda-matchers (>= 4.0.1)
   simplecov (>= 0.13.0)
-  spring
-  spring-commands-rspec
+  spring (>= 2.0.2)
+  spring-commands-rspec (>= 1.0.4)
   sqlite3 (~> 1.3.13)
   state_machine (= 1.2.0)
   terminal-notifier-guard
