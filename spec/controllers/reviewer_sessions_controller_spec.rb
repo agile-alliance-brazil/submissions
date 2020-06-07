@@ -21,31 +21,37 @@ describe ReviewerSessionsController, type: :controller do
   it_should_require_login_for_actions :index
 
   describe '#index' do
+    let(:conference) do
+      conference = @reviewer.conference
+      conference.presubmissions_deadline = Time.now + 1.day
+      conference
+    end
+    let!(:session_filter) { SessionFilter.new } # Mocha stubs before evaluating the param
+    let(:session) { FactoryBot.build(:session, conference: conference) }
+
     before do
-      @conference = @reviewer.conference
-      @conference.presubmissions_deadline = Time.now + 1.day
-      Conference.stubs(:current).returns(@conference)
-      @session = FactoryBot.build(:session, conference: @conference)
-      SessionFilter.any_instance.stubs(:apply).returns([@session])
+      Conference.stubs(:current).returns(conference)
+      SessionFilter.stubs(:new).returns(session_filter)
+      session_filter.stubs(:apply).returns([session])
     end
 
     it 'assigns tracks for current conference' do
       get :index
-      expect(assigns(:tracks) - @conference.tracks).to be_empty
+      expect(assigns(:tracks) - conference.tracks).to be_empty
     end
 
     it 'assigns audience levels for current conference' do
       get :index
-      expect(assigns(:audience_levels) - @conference.audience_levels).to be_empty
+      expect(assigns(:audience_levels) - conference.audience_levels).to be_empty
     end
 
     it 'assigns session types for current conference' do
       get :index
-      expect(assigns(:session_types) - @conference.session_types).to be_empty
+      expect(assigns(:session_types) - conference.session_types).to be_empty
     end
 
     it 'filters sessions' do
-      filter_params = { 'audience_level_id' => '1', 'session_type_id' => '2', 'conference' => @conference }
+      filter_params = { 'audience_level_id' => '1', 'session_type_id' => '2', 'conference' => conference }
       filter = SessionFilter.new(filter_params, @reviewer.user)
       SessionFilter.expects(:new).with(filter_params).returns(filter)
 

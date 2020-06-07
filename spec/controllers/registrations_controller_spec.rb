@@ -6,10 +6,12 @@ describe RegistrationsController, type: :controller do
   render_views
   it_should_behave_like_a_devise_controller
 
+  let!(:invalid_user) { User.new } # Need to make before stubbing User.new
+  let!(:user) { FactoryBot.create(:user) } # Mocha won't actually call this until after the new stub
+  let!(:conference) { FactoryBot.create(:conference) } # TODO: Remove conference dependency
+
   before do
-    @user ||= FactoryBot.create(:user)
-    # TODO: Remove conference dependency
-    FactoryBot.create(:conference)
+    User.stubs(:new).returns(user)
     EmailNotifications.stubs(:welcome).returns(stub(deliver_now: true))
   end
 
@@ -24,34 +26,33 @@ describe RegistrationsController, type: :controller do
   end
 
   it 'create action should render new template when model is invalid' do
-    # +stubs(:valid?).returns(false)+ doesn't work here because
-    # inherited_resources does +obj.errors.empty?+ to determine
-    # if validation failed
+    User.stubs(:new).returns(invalid_user)
     post :create, user: {}
     expect(response).to render_template(:new)
   end
 
   it 'create action should redirect when model is valid' do
-    User.any_instance.stubs(:valid?).returns(true)
+    user.stubs(:valid?).returns(true)
     post :create
     expect(response).to redirect_to(root_url)
   end
 
   it 'create action should login new user' do
-    User.any_instance.stubs(:valid?).returns(true)
+    user.stubs(:valid?).returns(true)
     post :create
     expect(controller.current_user).not_to be_nil
   end
 
   it 'create action should send welcome e-mail' do
     EmailNotifications.expects(:welcome).returns(mock(deliver_now: true))
-    User.any_instance.stubs(:valid?).returns(true)
+    User.stubs(:new).returns(user)
+    user.stubs(:valid?).returns(true)
     post :create
   end
 
   context 'logged in' do
     before do
-      sign_in @user
+      sign_in user
       disable_authorization
     end
 
