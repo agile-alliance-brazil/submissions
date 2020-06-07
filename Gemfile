@@ -56,7 +56,7 @@ group :development do
   gem 'dotenv-rails', '>= 2.7.1', require: false
   gem 'foreman'
   gem 'lol_dba', '>= 2.1.5'
-  gem 'rack-livereload'
+  gem 'rack-livereload', '>= 0.3.17'
   gem 'travis-lint', '>= 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
@@ -75,13 +75,13 @@ group :development, :test do
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'
-  gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'poltergeist', '>= 1.18.1', require: 'capybara/poltergeist'
   gem 'byebug'
   gem 'pry-rails'
   gem 'rb-readline'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')
-  gem 'rspec-rails', '>= 3.8.2'
+  gem 'rspec-rails', '>= 3.8.2', '< 4.0'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'

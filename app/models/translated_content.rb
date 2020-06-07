@@ -14,15 +14,15 @@ class TranslatedContent < ApplicationRecord
   end
 
   def description=(desc)
-    STDERR.puts 'Deprecated usage. Please use #content= instead. Called from: '
-    STDERR.puts caller
+    warn 'Deprecated usage. Please use #content= instead. Called from: '
+    warn caller
     self[:content] = desc
     self[:description] = 'Deprecated. This value has been migrated to content.'
   end
 
   def description
-    STDERR.puts 'Deprecated usage. Please use #content= instead. Called from: '
-    STDERR.puts caller
+    warn 'Deprecated usage. Please use #content= instead. Called from: '
+    warn caller
     self[:content] || self[:description]
   end
 end

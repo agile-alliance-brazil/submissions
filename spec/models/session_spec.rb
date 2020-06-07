@@ -41,7 +41,7 @@ describe Session, type: :model do
     it { is_expected.to validate_presence_of :session_type_id }
     it { is_expected.to validate_presence_of :audience_level_id }
 
-    it { is_expected.to validate_inclusion_of(:language).in_array(['en', 'pt-BR']) }
+    it { is_expected.to validate_inclusion_of(:language).in_array(%w[en pt-BR]) }
 
     should_validate_existence_of :conference, :author, :track, :session_type, :audience_level
 

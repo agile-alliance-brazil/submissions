@@ -70,7 +70,7 @@ RSpec.describe SessionsHelper, type: :helper do
   end
 
   context 'type titles with language set' do
-    let(:conference) { FactoryBot.build :conference, supported_languages: ['en', 'pt-BR'] }
+    let(:conference) { FactoryBot.build :conference, supported_languages: %w[en pt-BR] }
     let(:palestra) { FactoryBot.build :translated_content, language: 'pt-BR', title: 'Palestra' }
 
     describe '#duration_mins_hint' do

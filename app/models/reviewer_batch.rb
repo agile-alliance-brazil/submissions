@@ -17,7 +17,7 @@ class ReviewerBatch
     self
   end
 
-  def to_json
+  def to_json(*_args)
     hash = {
       new_reviewers: @valid.map { |r| ReviewerJsonBuilder.new(r).to_json },
       failed_invites: @invalid.map { |r| I18n.t('flash.reviewer.create.failure', username: r.user_username) }

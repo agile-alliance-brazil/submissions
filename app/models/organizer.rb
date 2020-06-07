@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Organizer < ApplicationRecord
-  attr_trimmed    :user_username
+  include AutoCompleteUsername
+
+  attr_trimmed :user_username
 
   attr_autocomplete_username_as :user
 

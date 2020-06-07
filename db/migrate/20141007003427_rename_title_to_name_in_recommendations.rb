@@ -4,7 +4,7 @@ class RenameTitleToNameInRecommendations < ActiveRecord::Migration
   def change
     rename_column :recommendations, :title, :name
     Recommendation.all.each do |recommendation|
-      if recommendation.name =~ /recommendation\.([^\.]*)\.title/
+      if recommendation.name =~ /recommendation\.([^.]*)\.title/
         recommendation.name = Regexp.last_match(1)
         recommendation.save
       end

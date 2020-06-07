@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   DisplayCopNames: true
   Include:
     - '**/Rakefile'
@@ -17,10 +17,7 @@ AllCops:
     - 'config/add_vagrant_config.rb'
     - 'puppet/**/*'
 
-Rails:
-  Enabled: true
-
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Metrics/MethodLength:
@@ -55,19 +52,6 @@ Naming/PredicateName:
 Naming/AccessorMethodName:
   Enabled: false
 
-Rails/TimeZone:
-  Enabled: false
-
-Rails/HttpPositionalArguments:
-  Enabled: false # Can only be enabled once we're on Rails 5
-
-Rails/SkipsModelValidations:
-  Exclude:
-    - 'db/migrate/**/*.rb'
-
-Rails/OutputSafety:
-  Enabled: false # Having weird errors with safe_join
-
 Naming/FileName:
   Exclude:
     - 'Guardfile'
@@ -75,5 +59,44 @@ Naming/FileName:
     - 'Procfile'
     - 'puppet/Puppetfile'
 
-Lint/UnneededCopDisableDirective:
+Lint/RedundantCopDisableDirective:
   Enabled: false # Used to gradually fix the rubocop rspec cops while not enabling it in the build
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
