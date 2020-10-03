@@ -5,10 +5,10 @@
 This is an open-source conference submission system, built in Rails and has been used for the [Agile Brazil](http://www.agilebrazil.com) conference since 2010. Some of the features supported are:
 
 * User registration
-* User profiles
+* User Profiles
 * Support for I18N (currently supports: en, pt-br)
 * Conference tracks, audience levels, and different session types
-* Session submission
+* Session Submission
 * Comments on sessions
 * Phases and deadlines (submission, early review, review, program compilation)
 * E-mail notifications
@@ -52,7 +52,7 @@ cp config/config.example config/config.yml
 brew install imagemagick
 bundle exec rspec
 
-### Deploying to a cloud
+### Deploying to a Cloud
 
 If you're deploying to any cloud, after you've created your virtual machine, add `config/<vms_ip>_config.yml`, `config/<vms_ip>_database.yml`, `config/<vms_ip>_newrelic.yml`. You can, optionally, also add `certs/<vms_ip>_server.crt`, `certs/<vms_ip>_server_key.pem` and `certs/<vms_ip>_server_key.pem` to set up apache to work with SSL. Then run:
 ```sh
