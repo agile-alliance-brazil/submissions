@@ -19,20 +19,20 @@ gem 'cancancan', '~> 2.0'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'devise-encryptable', '0.2.0'
-gem 'devise-i18n', '~> 1.8', '>= 1.8.0'
+gem 'devise-i18n', '~> 1.9', '>= 1.9.1'
 gem 'doorkeeper', '~> 4.4', '>= 4.4.3' # TODO: Remove in favor of oauth in another app
 gem 'fancybox-rails', '~> 0.3', '>= 0.3.1'
 gem 'formtastic', '3.1.5'
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
 gem 'haml', '~> 5.0'
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'jquery-rails', '~> 4.4', '>= 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'localized_country_select', '0.9.11'
 gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem 'paperclip', '~> 6.1', '>= 6.1.0'
-gem 'rails', '~> 4.2', '< 5.0' # TODO: Upgrade
+gem 'rails', '~> 4.2', '>= 4.2.11.3' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'seed-fu', '~> 2.3', '>= 2.3.9'
 gem 'state_machine', '1.2.0'
@@ -53,9 +53,9 @@ group :development do
   gem 'capistrano-git-with-submodules', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
-  gem 'dotenv-rails', '>= 2.7.1', require: false
+  gem 'dotenv-rails', '>= 2.7.5', require: false
   gem 'foreman'
-  gem 'lol_dba', '>= 2.1.5'
+  gem 'lol_dba', '>= 2.2.0'
   gem 'rack-livereload', '>= 0.3.17'
   gem 'travis-lint', '>= 2.0.0'
   gem 'web-console', '>= 3.3.0'
@@ -81,7 +81,7 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')
-  gem 'rspec-rails', '>= 3.8.2', '< 4.0'
+  gem 'rspec-rails', '>= 3.9.1', '< 4.0'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
