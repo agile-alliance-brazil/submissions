@@ -13,7 +13,7 @@ end
 gem 'acts-as-taggable-on', '~> 5.0', '>= 5.0.0'
 gem 'acts_as_commentable', '4.0.2'
 gem 'airbrake', '~> 7.0'
-gem 'aws-ses', '=0.7.0', require: 'aws/ses'
+gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "65e1ff1c3c2031b243f773cb9e61df6e49db71dd"
 gem 'brhelper', '3.3.0'
 gem 'cancancan', '~> 2.0'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'

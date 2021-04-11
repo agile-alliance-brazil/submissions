@@ -6,6 +6,17 @@ GIT
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
 
+GIT
+  remote: https://github.com/zebitex/aws-ses.git
+  revision: 65e1ff1c3c2031b243f773cb9e61df6e49db71dd
+  ref: 65e1ff1c3c2031b243f773cb9e61df6e49db71dd
+  specs:
+    aws-ses (0.7.1)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -56,11 +67,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.4)
     ast (2.4.0)
-    aws-ses (0.7.0)
-      builder
-      mail (> 2.2.5)
-      mime-types
-      xml-simple
     bcrypt (3.1.13)
     brakeman (4.8.2)
     brhelper (3.3.0)
@@ -416,7 +422,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 5.0, >= 5.0.0)
   acts_as_commentable (= 4.0.2)
   airbrake (~> 7.0)
-  aws-ses (= 0.7.0)
+  aws-ses!
   brakeman
   brhelper (= 3.3.0)
   bullet (>= 5.9.0)
