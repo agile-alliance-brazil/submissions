@@ -56,7 +56,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.4)
     ast (2.4.0)
-    aws-ses (0.7.1)
+    aws-ses (0.7.0)
       builder
       mail (> 2.2.5)
       mime-types
@@ -416,7 +416,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 5.0, >= 5.0.0)
   acts_as_commentable (= 4.0.2)
   airbrake (~> 7.0)
-  aws-ses (~> 0.7.0)
+  aws-ses (= 0.7.0)
   brakeman
   brhelper (= 3.3.0)
   bullet (>= 5.9.0)
