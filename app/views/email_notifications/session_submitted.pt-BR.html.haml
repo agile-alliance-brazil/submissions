@@ -1,6 +1,6 @@
 %p Olá #{h(@session.authors.map(&:full_name).join(' & ').html_safe)},
 
-%p Obrigado por submeter a proposta de sessão <strong>'#{h(@session.title)}'</strong> para a #{@conference_name}. Você pode acessar e alterar os detalhes de sua proposta até o fim do prazo de submissão no dia #{l(@conference.submissions_deadline.to_date, format: :long)}, acessando o link:
+%p Obrigado por submeter a proposta de sessão <strong>'#{h(@session.title)}'</strong> para a #{@conference_name}. Você pode acessar e alterar os detalhes de sua proposta até o fim do prazo de submissão no dia #{l(@conference.submissions_edition_deadline.to_date, format: :long)}, acessando o link:
 
 %p= link_to session_url(@conference, @session, locale: 'pt-BR'), session_url(@conference, @session, locale: 'pt-BR')
 
