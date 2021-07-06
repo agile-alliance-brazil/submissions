@@ -15,14 +15,14 @@
 %ol
   %li
     %strong Consulte as críticas e sugestões
-    feitas pelos avaliadores e avaliadoras acessando o endereço:
+    feitas nas revisões acessando o endereço:
     = link_to session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR') + '.', session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
     É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
   %li
     %strong Confirme sua presença
     na conferência e
     %strong efetue quaisquer mudanças
-    sugeridas pelos avaliadores. Para isso, acesse este formulário:
+    sugeridas pelas pessoas revisoras. Para isso, acesse este formulário:
     = link_to session_confirm_url(@conference, @session, locale: 'pt-BR'), session_confirm_url(@conference, @session, locale: 'pt-BR')
   %li
     %strong Caso você não possa comparecer ao evento, confirme sua desistência

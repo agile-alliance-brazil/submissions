@@ -9,10 +9,10 @@ Sua proposta '#{h(@session.title)}' não foi selecionada para compor o programa 
 Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos dias de conferência.
 
 
-Nesse processo, tivemos que abrir mão de muitas sessões com bons feedbacks dos revisores, considerando nossa necessidade de manter um conjunto de alta qualidade e com um bom equilíbrio de conteúdo, níveis de audiência, os tipos de sessão e a diversidade que valorizamos em nosso programa, ano após ano.
+Nesse processo, tivemos que abrir mão de muitas sessões com bons feedbacks de revisores, considerando nossa necessidade de manter um conjunto de alta qualidade e com um bom equilíbrio de conteúdo, níveis de audiência, os tipos de sessão e a diversidade que valorizamos em nosso programa, ano após ano.
 
 
-Não deixe#{@session.authors.size > 1 ? "m":""} de ler o feedback que os revisores da comunidade deixaram especificamente para sua sessão aqui:
+Não deixe#{@session.authors.size > 1 ? "m":""} de ler o feedback que revisoras e revisores da comunidade deixaram especificamente para sua sessão aqui:
 
 = session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')
 
@@ -20,7 +20,7 @@ Não deixe#{@session.authors.size > 1 ? "m":""} de ler o feedback que os revisor
 Em caso de dúvidas, pedidos ou comentários, não hesite#{@session.authors.size > 1 ? "m":""} em procurar o Comitê de Programa através do email programa@agilebrazil.com.
 
 
-Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais um ano na história da #{@conference_name} :) Esperamos você#{@session.authors.size > 1 ? "s":""} em Campinas para a conferência deste ano, e também receber novas propostas de submissão suas em #{@conference.year + 1}!
+Nós agradecemos muito pelo envio da sua proposta e por fazer parte de mais um ano na história da #{@conference_name} :) Esperamos você#{@session.authors.size > 1 ? "s":""} para a conferência deste ano, e também receber novas propostas de submissão suas em #{@conference.year + 1}!
 
 
 Um grande abraço,
