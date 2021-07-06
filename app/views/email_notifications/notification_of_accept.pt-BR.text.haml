@@ -10,7 +10,7 @@ Tivemos um grande número de submissões e foi realmente um desafio selecionar a
 Agora, você precisa tomar algumas ações até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')} para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
 
 
-1) Consulte as críticas e sugestões feitas nas revisões acessando o endereço: #{session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')}. É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
+1) Consulte as críticas e sugestões feitas nas revisões acessando o endereço: #{session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')}. É possível que seja necessário fazer alguma alteração no título ou resumo. Se esse for o caso, isso será feito na ação (2).
 
 
 2) Confirme sua presença na conferência e efetue quaisquer mudanças sugeridas pelas pessoas revisoras. Para isso, acesse este formulário: #{session_confirm_url(@conference, @session, locale: 'pt-BR')}
