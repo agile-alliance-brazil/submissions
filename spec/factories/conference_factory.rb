@@ -11,7 +11,7 @@ FactoryBot.define do
     presubmissions_deadline { 3.days.from_now }
     prereview_deadline { 4.days.from_now }
     submissions_deadline { 5.days.from_now }
-    # submissions_edition_deadline { 6.days.from_now }
+    submissions_edition_deadline { 6.days.from_now }
     voting_deadline { 7.days.from_now }
     review_deadline { 8.days.from_now }
     author_notification { 9.days.from_now }
@@ -29,7 +29,7 @@ FactoryBot.define do
       presubmissions_deadline { 5.weeks.ago }
       prereview_deadline { 4.weeks.ago }
       submissions_deadline { 3.weeks.ago }
-      # submissions_edition_deadline { 2.weeks.ago }
+      submissions_edition_deadline { nil }
       voting_deadline { 1.week.ago }
       review_deadline { 51.days.from_now }
       author_notification { 52.days.from_now }
