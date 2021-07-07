@@ -160,6 +160,7 @@ describe Conference, type: :model do
                                       [subject.call_for_papers, :call_for_papers],
                                       [subject.submissions_open, :submissions_open],
                                       [subject.submissions_deadline, :submissions_deadline],
+                                      [subject.submissions_edition_deadline, :submissions_edition_deadline],
                                       [subject.author_notification, :author_notification],
                                       [subject.author_confirmation, :author_confirmation]
                                     ])
@@ -440,6 +441,7 @@ describe Conference, type: :model do
       subject { FactoryBot.build(:conference) }
 
       before do
+        subject.submissions_edition_deadline = nil
         @start = subject.submissions_deadline
         @end = subject.review_deadline
       end
