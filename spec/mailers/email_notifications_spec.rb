@@ -97,14 +97,14 @@ describe EmailNotifications, type: :mailer do
       before { user.default_locale = 'pt-BR' }
 
       it { is_expected.to have_subject("[localhost:3000] Proposta de sessão submetida para #{conference.name}") }
-      it { is_expected.to have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :'pt-BR')}/) }
+      it { is_expected.to have_body_text(/#{I18n.l((conference.submissions_edition_deadline || conference.submissions_deadline).to_date, format: :long, locale: :'pt-BR')}/) }
     end
 
     context 'with language in en' do
       before { user.default_locale = 'en' }
 
       it { is_expected.to have_subject("[localhost:3000] #{conference.name} session proposal submitted") }
-      it { is_expected.to have_body_text(/#{I18n.l(conference.submissions_deadline.to_date, format: :long, locale: :en)}/) }
+      it { is_expected.to have_body_text(/#{I18n.l((conference.submissions_edition_deadline || conference.submissions_deadline).to_date, format: :long, locale: :en)}/) }
     end
 
     context 'with single author' do

@@ -23,6 +23,7 @@ describe ConferencesController, type: :controller do
       presubmissions_deadline: '9998-07-31',
       prereview_deadline: '9998-08-30',
       submissions_deadline: '9998-09-31',
+      submissions_edition_deadline: '9998-10-07',
       voting_deadline: '9998-10-15',
       review_deadline: '9998-10-30',
       author_notification: '9998-11-31',

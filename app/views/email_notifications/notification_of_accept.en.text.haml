@@ -4,16 +4,16 @@ Hello, #{h(@session.authors.map(&:full_name).join(" & "))}!
 We are thrilled to announce that your session '#{h(@session.title)}' was approved for #{@conference_name}'s program!
 
 
-We received a large number of submissions and it was a challenge to select the ones that are going to be part of our program during our three conference days. So, congratulations! :-)
+We received a large number of submissions, and it was a challenge to select the ones that are going to be part of our program during the days of the conference. Thus, congratulations! :-)
 
 Now, you must take some actions until #{@conference.author_confirmation.strftime('%H:%M %Z of %B %dth, %Y')} to confirm or withdraw your participation as a speaker this year. Here they are:
 
 
-1) Review critics and suggestions made by the reviewers at:
+1) Review comments and suggestions made by the reviewers at:
 
 = session_reviews_url(@conference, @session, type: :final, locale: 'en')
 
-It is possible that something needs to be changed and, if that is the case, this will be done on action (2).
+It is possible that some changes need to be made in the title or abstract. If that is the case, this can be done on action (2).
 
 
 2) Confirm your attendance at the conference and make the changes to the title and abstract your reviewers might have suggested. To do so, access this form:
@@ -38,11 +38,7 @@ If you completed steps (1) and (2) and had your session confirmed for the confer
 #{@conference_name}'s organizers will contact you in the next few months to start your registration process.
 
 
-- if @session.authors.size > 1 && @session.duration_mins < 50
-  Note that, although you have two presenters for your proposal, there is *only one complementary registration per 25 minutes proposal*. When the organization contacts you, you will have to chose which presenter will use the registration. The other one will have to register as a regular attendee.
-
-
-In case you have any doubts, requests or comments, you can contact the Program Committee at programa@agilebrazil.com.
+In case you have any questions, requests or comments, you can contact the Program Committee at programa@agilebrazil.com.
 
 
 Once again, congratulations!

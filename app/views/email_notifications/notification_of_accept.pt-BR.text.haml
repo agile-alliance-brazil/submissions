@@ -4,16 +4,16 @@ Olá, #{@session.authors.map(&:full_name).join(" & ")}!
 É com grande satisfação que comunicamos a entrada da sua sessão '#{h(@session.title)}' no programa da #{@conference_name}!
 
 
-Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos três dias de conferência. Então, parabéns! :)
+Tivemos um grande número de submissões e foi realmente um desafio selecionar as propostas que integrarão nossa grade ao longo dos dias de conferência. Então, parabéns! :)
 
 
 Agora, você precisa tomar algumas ações até as #{@conference.author_confirmation.strftime('%Hh%Mmin %Z do dia %d/%m/%Y')} para confirmar ou rejeitar sua participação como palestrante deste ano. Vamos a elas:
 
 
-1) Consulte as críticas e sugestões feitas pelos avaliadores acessando o endereço: #{session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')}. É possível que algo necessite ser alterado e, se for o caso, isso será feito na ação (2).
+1) Consulte as críticas e sugestões feitas nas revisões acessando o endereço: #{session_reviews_url(@conference, @session, type: :final, locale: 'pt-BR')}. É possível que seja necessário fazer alguma alteração no título ou resumo. Se esse for o caso, isso será feito na ação (2).
 
 
-2) Confirme sua presença na conferência e efetue quaisquer mudanças sugeridas pelos avaliadores. Para isso, acesse este formulário: #{session_confirm_url(@conference, @session, locale: 'pt-BR')}
+2) Confirme sua presença na conferência e efetue quaisquer mudanças sugeridas pelas pessoas revisoras. Para isso, acesse este formulário: #{session_confirm_url(@conference, @session, locale: 'pt-BR')}
 
 
 3) Caso você não possa comparecer ao evento, confirme sua desistência para liberar sua vaga através do formulário: #{session_withdraw_url(@conference, @session, locale: 'pt-BR')}. Vale dizer que, uma vez que você confirmar sua desistência, essa decisão é final e não pode ser mudada.
@@ -26,12 +26,7 @@ Sessões que não forem confirmadas serão removidas do programa e substituídas
 
 Se você completou os passos (1) e (2) e confirmou sua sessão na conferência, comemore! \o/
 
-A organização da #{@conference_name} entrará em contato em breve para dar início ao seu processo de inscrição.
-
-
-- if @session.authors.size > 1 && @session.duration_mins < 50
-  Notem que, apesar de sua proposta ter dois autores, sessões de 25 minutos têm direito a *apenas uma inscrição gratuita*.
-  Quando a organização entrar em contato, vocês deverão escolher qual autor usará a inscrição gratuita. A outra inscrição deverá ser feita pelas vias normais.
+A organização da #{@conference_name} entrará em contato nos próximos meses para dar início ao processo de inscrição.
 
 
 Em caso de dúvidas, pedidos ou comentários, entre em contato com o Comitê de Programa através do e-mail programa@agilebrazil.com.
