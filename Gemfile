@@ -63,7 +63,7 @@ end
 
 group :test do
   gem 'codeclimate-test-reporter', '~> 1.0.9'
-  gem 'email_spec'
+  gem 'email_spec', '>= 2.2.0'
   gem 'mocha'
   gem 'simplecov', '>= 0.13.0'
   gem 'shoulda-matchers', '>= 4.0.1'
