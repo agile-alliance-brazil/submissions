@@ -34,9 +34,10 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def current_ability
+    return @current_ability if @current_ability
     session = Session.find(params[:session_id]) if params[:session_id].present?
     reviewer = Reviewer.find(params[:reviewer_id]) if params[:reviewer_id].present?
-    @current_ability ||= Ability.new(current_user, @conference, session, reviewer)
+    @current_ability = Ability.new(current_user, @conference, session, reviewer)
   end
 
   def default_url_options(_options = {})
