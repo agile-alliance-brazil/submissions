@@ -37,8 +37,8 @@ describe AcceptedSessionsController, type: :controller do
           get :index, year: conference.year, format: :csv
 
           csv = <<~CSV
-            Session id,Session title,Session Type,Author,Email
-            #{session.id},#{session.title},#{I18n.t(session.session_type.title)},#{session.author.full_name},#{session.author.email}
+            Session id,Session title,Session Type,Author,Email,Phone
+            #{session.id},#{session.title},#{I18n.t(session.session_type.title)},#{session.author.full_name},#{session.author.email},#{session.author.phone}
           CSV
           expect(response.body).to eq(csv)
         end
