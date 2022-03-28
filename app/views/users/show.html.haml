@@ -13,49 +13,49 @@
   %dt= t('formtastic.labels.user.username')
   %dd&= @user_profile.username
 
-  - if current_user == @user_profile
+  - if current_user == @user_profile || current_user.try(:organizer_with_conference?) 
     %dt
       = t('formtastic.labels.user.email')
       = image_tag('icon-private.png', alt: t('text.private_field'))
-    %dd&= @user_profile.email
+    %dd&= mail_to @user_profile.email
 
-    - unless @user_profile.phone.blank?
+    - if @user_profile.phone.present?
       %dt
         = t('formtastic.labels.user.phone')
         = image_tag('icon-private.png', alt: t('text.private_field'))
-      %dd&= @user_profile.phone
+      %dd&= link_to @user_profile.phone, "tel:#{@user_profile.phone}"
 
-    - unless @user_profile.country.blank?
+    - if @user_profile.country.present?
       %dt
         = t('formtastic.labels.user.country')
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_country(@user_profile.country)
 
-    - unless @user_profile.state.blank?
+    - if @user_profile.state.present?
       %dt
         = t('formtastic.labels.user.state')
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_state(@user_profile.state)
 
-    - unless @user_profile.city.blank?
+    - if @user_profile.city.present?
       %dt
         = t('formtastic.labels.user.city')
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= @user_profile.city
     
-  - unless @user_profile.organization.blank?
+  - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization
   
-  - unless @user_profile.website_url.blank?
+  - if @user_profile.website_url.present?
     %dt= t('formtastic.labels.user.website_url')
     %dd= link_to(h(prepend_http(@user_profile.website_url)), h(prepend_http(@user_profile.website_url)), target: '_blank')
 
-  - unless @user_profile.twitter_username.blank?
+  - if @user_profile.twitter_username.present?
     %dt= t('formtastic.labels.user.twitter_username')
     %dd= link_to("@#{@user_profile.twitter_username}", "http://www.twitter.com/#{h(@user_profile.twitter_username)}", target: '_blank')
 
-  - unless @user_profile.bio.blank?
+  - if @user_profile.bio.present?
     %dt= t('formtastic.labels.user.bio')
     %dd= textilize(@user_profile.bio)
 

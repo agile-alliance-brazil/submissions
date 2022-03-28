@@ -5,13 +5,15 @@ require 'spec_helper'
 # TODO: Fix example lengths
 # rubocop:disable RSpec/ExampleLength
 describe SessionAuthorsCSVExporter do
+  HEADERS = 'Session id,Session title,Session Type,Author,Email,Phone'
+
   it 'generates CSV for single session' do
     session = FactoryBot.build(:session)
 
     exporter = described_class.new([session])
 
     csv = <<~CSV
-      Session id,Session title,Session Type,Author,Email
+      #{HEADERS}
       #{csv_row_for(session, session.author)}
     CSV
     expect(exporter.to_csv).to eq(csv)
@@ -24,7 +26,7 @@ describe SessionAuthorsCSVExporter do
     exporter = described_class.new([session])
 
     csv = <<~CSV
-      Session id,Session title,Session Type,Author,Email
+      #{HEADERS}
       #{csv_row_for(session, session.author)}
       #{csv_row_for(session, session.second_author)}
     CSV
@@ -39,7 +41,7 @@ describe SessionAuthorsCSVExporter do
     exporter = described_class.new([single_author_session, two_authors_session])
 
     csv = <<~CSV
-      Session id,Session title,Session Type,Author,Email
+      #{HEADERS}
       #{csv_row_for(single_author_session, single_author_session.author)}
       #{csv_row_for(two_authors_session, two_authors_session.author)}
       #{csv_row_for(two_authors_session, two_authors_session.second_author)}
@@ -59,7 +61,7 @@ describe SessionAuthorsCSVExporter do
     exporter = described_class.new([first_session, second_session])
 
     csv = <<~CSV
-      Session id,Session title,Session Type,Author,Email
+      #{HEADERS}
       #{csv_row_for(second_session, second_session.author)}
       #{csv_row_for(first_session, first_session.author)}
     CSV
@@ -74,7 +76,7 @@ describe SessionAuthorsCSVExporter do
     exporter = described_class.new([first_session, second_session])
 
     csv = <<~CSV
-      Session id,Session title,Session Type,Author,Email
+      #{HEADERS}
       #{csv_row_for(second_session, second_session.author)}
       #{csv_row_for(first_session, first_session.author)}
       #{csv_row_for(first_session, first_session.second_author)}
@@ -83,7 +85,7 @@ describe SessionAuthorsCSVExporter do
   end
 
   def csv_row_for(session, author)
-    "#{session.id},#{session.title},#{I18n.t(session.session_type.title)},#{author.full_name},#{author.email}"
+    "#{session.id},#{session.title},#{I18n.t(session.session_type.title)},#{author.full_name},#{author.email},#{author.phone}"
   end
 end
 # rubocop:enable RSpec/ExampleLength

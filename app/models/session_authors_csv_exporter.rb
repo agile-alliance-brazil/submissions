@@ -2,7 +2,7 @@
 
 require 'csv'
 class SessionAuthorsCSVExporter
-  COLUMNS = ['Session id', 'Session title', 'Session Type', 'Author', 'Email'].freeze
+  COLUMNS = ['Session id', 'Session title', 'Session Type', 'Author', 'Email', 'Phone'].freeze
 
   def initialize(sessions)
     @sessions = sessions
@@ -31,7 +31,8 @@ class SessionAuthorsCSVExporter
       session.title,
       I18n.t(session.session_type.title),
       author.full_name,
-      author.email
+      author.email,
+      author.phone
     ]
   end
 end

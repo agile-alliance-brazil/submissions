@@ -29,6 +29,11 @@ jobs:
     - run: gem install bundler -v '1.16.1'
     - run: mv config/config.example config/config.yml
     - run: mv config/database.circle config/database.yml
+    - run:
+        name: Setup Code Climate test-reporter
+        command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
     - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
     - save_cache:
         key: v1-dep-{{ .Branch }}-{{ epoch }}
@@ -41,7 +46,12 @@ jobs:
         command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
     - run:
         command: bundle exec rake db:create db:schema:load --trace
-    - run: bundle exec rake ci
+    - run:
+        name: Run tests
+        command: |
+            ./cc-test-reporter before-build
+            bundle exec rake ci
+            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
     - store_test_results:
         path: /tmp/circleci-test-results
     - store_artifacts:
