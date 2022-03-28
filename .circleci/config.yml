@@ -33,7 +33,6 @@ jobs:
     - run:
       name: Setup Code Climate test-reporter
       command: |
-        download test reporter as a static binary
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
         chmod +x ./cc-test-reporter
     - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
