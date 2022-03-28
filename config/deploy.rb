@@ -13,7 +13,7 @@ set :application,         'submissions'
 SSHKit.config.command_map[:rake]  = 'bundle exec rake' # 8
 SSHKit.config.command_map[:rails] = 'bundle exec rails'
 
-set :repo_url,            'https://github.com/agile-alliance-brazil/submissions.git HEAD'
+set :repo_url,            'https://github.com/agile-alliance-brazil/submissions.git'
 set :scm_verbose,         true
 
 set :deploy_to,           '/srv/apps/submissions'
