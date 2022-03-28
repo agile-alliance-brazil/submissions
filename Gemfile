@@ -62,10 +62,9 @@ group :development do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', '~> 1.0.9'
   gem 'email_spec'
   gem 'mocha'
-  gem 'simplecov', '>= 0.13.0'
+  gem 'simplecov', '< 0.18.0' # Or >= 0.20.0 but that needs Ruby 2.5+
   gem 'shoulda-matchers', '>= 4.0.1'
 end
 
