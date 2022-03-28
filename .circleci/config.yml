@@ -12,7 +12,6 @@ jobs:
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-      CC_TEST_REPORTER_ID: $CODECLIMATE_REPO_TOKEN # This is defined IN CircleCI and in codeclimate
       RAILS_ENV: test
       RACK_ENV: test
     steps:
