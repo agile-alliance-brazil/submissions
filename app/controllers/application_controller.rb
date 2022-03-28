@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     return @current_ability if @current_ability
+
     session = Session.find(params[:session_id]) if params[:session_id].present?
     reviewer = Reviewer.find(params[:reviewer_id]) if params[:reviewer_id].present?
     @current_ability = Ability.new(current_user, @conference, session, reviewer)

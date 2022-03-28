@@ -5,7 +5,7 @@ require 'spec_helper'
 # TODO: Fix example lengths
 # rubocop:disable RSpec/ExampleLength
 describe SessionAuthorsCSVExporter do
-  HEADERS = "Session id,Session title,Session Type,Author,Email,Phone".freeze
+  HEADERS = 'Session id,Session title,Session Type,Author,Email,Phone'
 
   it 'generates CSV for single session' do
     session = FactoryBot.build(:session)
