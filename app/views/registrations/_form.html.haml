@@ -14,6 +14,7 @@
   = form.input :city, required: true, input_html: {tabindex: autotab}
 
   = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
+  = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
@@ -50,6 +51,8 @@
       $("#user_city_input").show();
       $("#user_gender").removeAttr('disabled');
       $("#user_gender_input").show();
+      $("#user_race").removeAttr('disabled');
+      $("#user_race_input").show();
       $("#user_phone").removeAttr('disabled');
       $("#user_phone_input").show();
       $("#user_bio").removeAttr('disabled');
@@ -63,6 +66,8 @@
       $("#user_city_input").hide();
       $("#user_gender").attr('disabled', 'disabled');
       $("#user_gender_input").hide();
+      $("#user_race").attr('disabled', 'disabled');
+      $("#user_race_input").hide();
       $("#user_phone").attr('disabled', 'disabled');
       $("#user_phone_input").hide();
       $("#user_bio").attr('disabled', 'disabled');

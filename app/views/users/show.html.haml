@@ -49,6 +49,12 @@
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_gender(@user_profile.gender)
 
+    - if @user_profile.race.present?
+      %dt
+        = t('formtastic.labels.user.race')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_race(@user_profile.race)
+
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization

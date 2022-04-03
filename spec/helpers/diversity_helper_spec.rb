@@ -43,4 +43,45 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_gender('SS')).to be_empty }
     end
   end
+
+  describe '#race_options' do
+    let(:values) { helper.race_options.map(&:last) }
+    let(:texts) { helper.race_options.map(&:first) }
+
+    it { expect(helper.race_options).to all(have(2).items) }
+    it { expect(values).to eq(%i[rather_not_answer yellow white indian brown black i_dont_know]) }
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(texts).to eq(['Prefiro não informar', 'Amarela', 'Branca', 'Indígena', 'Parda', 'Preta', 'Não sei responder']) }
+      end
+    end
+  end
+
+  describe '#transalte_race' do
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_race(:yellow)).to eq('Amarela') }
+        it { expect(helper.translated_race('yellow')).to eq('Amarela') }
+        it { expect(helper.translated_race(:white)).to eq('Branca') }
+        it { expect(helper.translated_race('white')).to eq('Branca') }
+        it { expect(helper.translated_race(:indian)).to eq('Indígena') }
+        it { expect(helper.translated_race('indian')).to eq('Indígena') }
+        it { expect(helper.translated_race(:brown)).to eq('Parda') }
+        it { expect(helper.translated_race('brown')).to eq('Parda') }
+        it { expect(helper.translated_race(:black)).to eq('Preta') }
+        it { expect(helper.translated_race('black')).to eq('Preta') }
+        it { expect(helper.translated_race(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_race('rather_not_answer')).to eq('Prefiro não informar') }
+        it { expect(helper.translated_race(:i_dont_know)).to eq('Não sei responder') }
+        it { expect(helper.translated_race('i_dont_know')).to eq('Não sei responder') }
+      end
+    end
+
+    context 'when invalid argument' do
+      it { expect(helper.translated_race('')).to be_empty }
+      it { expect(helper.translated_race(nil)).to be_empty }
+      it { expect(helper.translated_race(' ')).to be_empty }
+      it { expect(helper.translated_race('SS')).to be_empty }
+    end
+  end
 end
