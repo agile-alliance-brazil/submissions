@@ -136,7 +136,7 @@ en:
         country: "Country"
         state: "State"
         city: "City"
-        gender: "Gender"
+        gender: "What gender do you identify with?"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"

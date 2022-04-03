@@ -138,7 +138,7 @@ pt-BR:
         country: "País"
         state: "Estado"
         city: "Cidade"
-        gender: "Gênero"
+        gender: "Você se identifica com qual gênero?"
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
