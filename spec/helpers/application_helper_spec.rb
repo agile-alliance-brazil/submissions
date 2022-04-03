@@ -90,43 +90,6 @@ describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe 'translated_gender' do
-    it 'returns translated state from code' do
-      I18n.with_locale('pt-BR') do
-        expect(helper.translated_gender(:cis_man)).to eq('Homem cisgênero')
-        expect(helper.translated_gender('cis_man')).to eq('Homem cisgênero')
-        expect(helper.translated_gender(:trans_man)).to eq('Homem transgênero')
-        expect(helper.translated_gender('trans_man')).to eq('Homem transgênero')
-        expect(helper.translated_gender(:cis_woman)).to eq('Mulher cisgênera')
-        expect(helper.translated_gender('cis_woman')).to eq('Mulher cisgênera')
-        expect(helper.translated_gender(:trans_woman)).to eq('Mulher transgênera')
-        expect(helper.translated_gender('trans_woman')).to eq('Mulher transgênera')
-        expect(helper.translated_gender(:non_binary)).to eq('Pessoa de gênero não-binário')
-        expect(helper.translated_gender('non_binary')).to eq('Pessoa de gênero não-binário')
-      end
-    end
-
-    it 'reanslate prefer to not respond option' do
-      I18n.with_locale('pt-BR') do
-        expect(helper.translated_gender(:rather_not_answer)).to eq('Prefiro não informar')
-        expect(helper.translated_gender('rather_not_answer')).to eq('Prefiro não informar')
-      end
-    end
-
-    it 'reanslate prefer to not respond option' do
-      I18n.with_locale('pt-BR') do
-        expect(helper.translated_gender(:i_dont_know)).to eq('Não sei responder')
-      end
-    end
-
-    it 'returns empty if state is invalid' do
-      expect(helper.translated_gender('')).to be_empty
-      expect(helper.translated_gender(nil)).to be_empty
-      expect(helper.translated_gender(' ')).to be_empty
-      expect(helper.translated_gender('SS')).to be_empty
-    end
-  end
-
   describe 'present_date' do
     before do
       @date = Time.zone.now

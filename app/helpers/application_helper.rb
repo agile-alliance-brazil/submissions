@@ -59,15 +59,6 @@ module ApplicationHelper
     state_map[state_code.to_s.upcase] || ''
   end
 
-  def translated_gender(gender)
-    return '' if gender.blank?
-
-    result = I18n.translate('gender')[gender.to_sym] || ''
-    return result if result.present?
-
-    return I18n.translate('generic')[gender.to_sym] || ''
-  end
-
   def present_date(conference, date_map)
     content = "#{l(date_map.first.to_date)}: #{t("conference.dates.#{date_map.last}")}".html_safe
     content = content_tag('strong') { content } if date_map.first == conference.next_deadline(:all).try(:first)
