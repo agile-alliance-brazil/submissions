@@ -13,7 +13,7 @@
   = form.input :state, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, input_html: {tabindex: autotab}
   = form.input :city, required: true, input_html: {tabindex: autotab}
 
-  = form.input :gender, as: :select, collection: gender_options
+  = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}

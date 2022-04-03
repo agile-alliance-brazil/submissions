@@ -277,6 +277,7 @@ en:
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
+        gender: "#TODO"
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
