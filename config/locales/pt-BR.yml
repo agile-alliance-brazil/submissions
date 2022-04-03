@@ -138,6 +138,7 @@ pt-BR:
         country: "País"
         state: "Estado"
         city: "Cidade"
+        gender: "Gênero"
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
@@ -744,8 +745,11 @@ pt-BR:
       title: "Inscrição e Credenciamento"
 
   gender:
-    male: "Masculino"
-    female: "Feminino"
+    cis_man: "Homem cisgênero"
+    trans_man: "Homem transgênero"
+    cis_woman: "Mulher cisgênera"
+    trans_woman: "Mulher transgênera"
+    non_binary: "Pessoa de gênero não-binário"
 
   generic:
     or: "ou"
@@ -771,6 +775,8 @@ pt-BR:
     by: 'por'
     in: 'em'
     you: 'Você'
+    rather_not_answer: 'Prefiro não informar'
+    i_dont_know: 'Não sei responder'
 
   date:
     formats:

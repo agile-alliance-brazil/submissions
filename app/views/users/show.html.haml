@@ -42,7 +42,14 @@
         = t('formtastic.labels.user.city')
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= @user_profile.city
-    
+
+  - if current_user == @user_profile
+    - if @user_profile.gender.present?
+      %dt
+        = t('formtastic.labels.user.gender')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_gender(@user_profile.gender)
+
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization

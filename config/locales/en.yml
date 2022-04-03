@@ -136,6 +136,7 @@ en:
         country: "Country"
         state: "State"
         city: "City"
+        gender: "Gender"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -741,8 +742,11 @@ en:
       title: "Registration"
 
   gender:
-    male: "Male"
-    female: "Female"
+    cis_man: "Cisgender man"
+    trans_man: "Transgender man"
+    cis_woman: "Cisgender woman"
+    trans_woman: "Transgender woman"
+    non_binary: "Non binary gender person"
 
   generic:
     or: "or"
@@ -768,6 +772,8 @@ en:
     by: 'by'
     in: 'in'
     you: 'You'
+    rather_not_answer: 'Rather not answer'
+    i_dont_know: "I don't know"
 
   date:
     formats:
