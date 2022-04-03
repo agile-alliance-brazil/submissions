@@ -60,12 +60,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    permitted_attrs = [:first_name, :last_name, :username,
-                       :email, :password, :password_confirmation,
-                       :phone, :country, :state, :city, :organization,
-                       :website_url, :bio, :wants_to_submit,
-                       :default_locale, :twitter_username,
-                       :gender]
+    permitted_attrs = %i[first_name last_name username
+                         email password password_confirmation
+                         phone country state city organization
+                         website_url bio wants_to_submit
+                         default_locale twitter_username
+                         gender].freeze
     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(*permitted_attrs) }
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(*permitted_attrs, :current_password) }
   end
