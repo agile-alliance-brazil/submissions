@@ -138,6 +138,7 @@ en:
         city: "City"
         gender: "What gender do you identify with?"
         race: "What color of skin/race do you identify with?"
+        disabilities: "Do you have some disability?"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -280,6 +281,7 @@ en:
         city: "City of residence, collected for statistical purpose."
         gender: "#TODO"
         race: "#TODO"
+        disabilities: "#TODO"
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
@@ -757,6 +759,13 @@ en:
     indian: "Indian"
     brown: "Brown"
     black: "Black"
+
+  disabilities:
+    no_disabilities: "I don't have any disability"
+    visual: 'Yes, visual disability'
+    hearing: 'Yes, hearing disability'
+    physical_or_motor: 'Yes, physic or motor disability'
+    mental_or_intellectual: 'Sim, mental or intellectual disability'
 
   generic:
     or: "or"

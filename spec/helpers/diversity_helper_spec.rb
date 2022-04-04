@@ -84,4 +84,45 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_race('SS')).to be_empty }
     end
   end
+
+  describe '#disabilities_options' do
+    let(:values) { helper.disabilities_options.map(&:last) }
+    let(:texts) { helper.disabilities_options.map(&:first) }
+
+    it { expect(helper.disabilities_options).to all(have(2).items) }
+    it { expect(values).to eq(%i[rather_not_answer no_disabilities visual hearing physical_or_motor mental_or_intellectual i_dont_know]) }
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(texts).to eq(['Prefiro não informar', 'Não tenho deficiência', 'Sim, deficiência visual', 'Sim, deficiência auditiva', 'Sim, deficiência física ou motora', 'Sim, deficiência mental ou intelectual', 'Não sei responder']) }
+      end
+    end
+  end
+
+  describe '#transalte_disabilities' do
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_disabilities(:no_disabilities)).to eq('Não tenho deficiência') }
+        it { expect(helper.translated_disabilities('no_disabilities')).to eq('Não tenho deficiência') }
+        it { expect(helper.translated_disabilities(:visual)).to eq('Sim, deficiência visual') }
+        it { expect(helper.translated_disabilities('visual')).to eq('Sim, deficiência visual') }
+        it { expect(helper.translated_disabilities(:hearing)).to eq('Sim, deficiência auditiva') }
+        it { expect(helper.translated_disabilities('hearing')).to eq('Sim, deficiência auditiva') }
+        it { expect(helper.translated_disabilities(:physical_or_motor)).to eq('Sim, deficiência física ou motora') }
+        it { expect(helper.translated_disabilities('physical_or_motor')).to eq('Sim, deficiência física ou motora') }
+        it { expect(helper.translated_disabilities(:mental_or_intellectual)).to eq('Sim, deficiência mental ou intelectual') }
+        it { expect(helper.translated_disabilities('mental_or_intellectual')).to eq('Sim, deficiência mental ou intelectual') }
+        it { expect(helper.translated_disabilities(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_disabilities('rather_not_answer')).to eq('Prefiro não informar') }
+        it { expect(helper.translated_disabilities(:i_dont_know)).to eq('Não sei responder') }
+        it { expect(helper.translated_disabilities('i_dont_know')).to eq('Não sei responder') }
+      end
+    end
+
+    context 'when invalid argument' do
+      it { expect(helper.translated_disabilities('')).to be_empty }
+      it { expect(helper.translated_disabilities(nil)).to be_empty }
+      it { expect(helper.translated_disabilities(' ')).to be_empty }
+      it { expect(helper.translated_disabilities('SS')).to be_empty }
+    end
+  end
 end
