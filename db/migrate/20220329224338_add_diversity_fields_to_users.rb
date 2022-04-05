@@ -5,10 +5,10 @@ class AddDiversityFieldsToUsers < ActiveRecord::Migration
     change_table :users do |t|
       t.string 'gender'
       t.string 'race'
-      t.string 'disabilities'
-      t.datetime 'date_of_birth'
-      t.string 'parenting_type'
-      t.string 'geographical_area'
+      t.string 'disability'
+      t.datetime 'birth_date'
+      t.string 'is_parent'
+      t.string 'home_geographical_area'
     end
   end
 end
