@@ -66,7 +66,7 @@ class RegistrationsController < Devise::RegistrationsController
                          website_url bio wants_to_submit
                          default_locale twitter_username
                          gender race disability birth_date
-                         is_parent].freeze
+                         is_parent home_geographical_area].freeze
     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(*permitted_attrs) }
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(*permitted_attrs, :current_password) }
   end

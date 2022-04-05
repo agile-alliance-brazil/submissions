@@ -19,6 +19,8 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_gender' do
     context 'when pt-BR locale' do
       I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_gender(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_gender('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_gender(:cis_man)).to eq('Homem cisgênero') }
         it { expect(helper.translated_gender('cis_man')).to eq('Homem cisgênero') }
         it { expect(helper.translated_gender(:trans_man)).to eq('Homem transgênero') }
@@ -29,8 +31,6 @@ describe DiversityHelper, type: :helper do
         it { expect(helper.translated_gender('trans_woman')).to eq('Mulher transgênera') }
         it { expect(helper.translated_gender(:non_binary)).to eq('Pessoa de gênero não-binário') }
         it { expect(helper.translated_gender('non_binary')).to eq('Pessoa de gênero não-binário') }
-        it { expect(helper.translated_gender(:rather_not_answer)).to eq('Prefiro não informar') }
-        it { expect(helper.translated_gender('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_gender(:i_dont_know)).to eq('Não sei responder') }
         it { expect(helper.translated_gender('i_dont_know')).to eq('Não sei responder') }
       end
@@ -60,6 +60,8 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_race' do
     context 'when pt-BR locale' do
       I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_race(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_race('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_race(:yellow)).to eq('Amarela') }
         it { expect(helper.translated_race('yellow')).to eq('Amarela') }
         it { expect(helper.translated_race(:white)).to eq('Branca') }
@@ -70,8 +72,6 @@ describe DiversityHelper, type: :helper do
         it { expect(helper.translated_race('brown')).to eq('Parda') }
         it { expect(helper.translated_race(:black)).to eq('Preta') }
         it { expect(helper.translated_race('black')).to eq('Preta') }
-        it { expect(helper.translated_race(:rather_not_answer)).to eq('Prefiro não informar') }
-        it { expect(helper.translated_race('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_race(:i_dont_know)).to eq('Não sei responder') }
         it { expect(helper.translated_race('i_dont_know')).to eq('Não sei responder') }
       end
@@ -101,6 +101,8 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_disability' do
     context 'when pt-BR locale' do
       I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_disability(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_disability('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_disability(:no_disability)).to eq('Não tenho deficiência') }
         it { expect(helper.translated_disability('no_disability')).to eq('Não tenho deficiência') }
         it { expect(helper.translated_disability(:visual)).to eq('Sim, deficiência visual') }
@@ -111,8 +113,6 @@ describe DiversityHelper, type: :helper do
         it { expect(helper.translated_disability('physical_or_motor')).to eq('Sim, deficiência física ou motora') }
         it { expect(helper.translated_disability(:mental_or_intellectual)).to eq('Sim, deficiência mental ou intelectual') }
         it { expect(helper.translated_disability('mental_or_intellectual')).to eq('Sim, deficiência mental ou intelectual') }
-        it { expect(helper.translated_disability(:rather_not_answer)).to eq('Prefiro não informar') }
-        it { expect(helper.translated_disability('rather_not_answer')).to eq('Prefiro não informar') }
         it { expect(helper.translated_disability(:i_dont_know)).to eq('Não sei responder') }
         it { expect(helper.translated_disability('i_dont_know')).to eq('Não sei responder') }
       end
@@ -169,6 +169,9 @@ describe DiversityHelper, type: :helper do
   describe '#translated_is_parent' do
     context 'when pt-BR locale' do
       I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_is_parent(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_is_parent('rather_not_answer')).to eq('Prefiro não informar') }
+        it { expect(helper.translated_is_parent('yes')).to eq('Sim') }
         it { expect(helper.translated_is_parent(:yes)).to eq('Sim') }
         it { expect(helper.translated_is_parent('yes')).to eq('Sim') }
         it { expect(helper.translated_is_parent(:no)).to eq('Não') }
@@ -181,6 +184,45 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_is_parent(nil)).to be_empty }
       it { expect(helper.translated_is_parent(' ')).to be_empty }
       it { expect(helper.translated_is_parent('SS')).to be_empty }
+    end
+  end
+
+  describe '#home_geographical_area_options' do
+    let(:values) { helper.home_geographical_area_options.map(&:last) }
+    let(:texts) { helper.home_geographical_area_options.map(&:first) }
+
+    it { expect(helper.home_geographical_area_options).to all(have(2).items) }
+    it { expect(values).to eq(%i[rather_not_answer metropolitan periferic rural indigenous quilombola]) }
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(texts).to eq(['Prefiro não informar', 'Zona urbana central/metropolitana', 'Zona urbana periférica', 'Zona Rural', 'Comunidade indígena', 'Comunidade quilombola']) }
+      end
+    end
+  end
+
+  describe '#translated_home_geographical_area' do
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_home_geographical_area(:rather_not_answer)).to eq('Prefiro não informar') }
+        it { expect(helper.translated_home_geographical_area('rather_not_answer')).to eq('Prefiro não informar') }
+        it { expect(helper.translated_home_geographical_area(:metropolitan)).to eq('Zona urbana central/metropolitana') }
+        it { expect(helper.translated_home_geographical_area('metropolitan')).to eq('Zona urbana central/metropolitana') }
+        it { expect(helper.translated_home_geographical_area(:periferic)).to eq('Zona urbana periférica') }
+        it { expect(helper.translated_home_geographical_area('periferic')).to eq('Zona urbana periférica') }
+        it { expect(helper.translated_home_geographical_area(:rural)).to eq('Zona Rural') }
+        it { expect(helper.translated_home_geographical_area('rural')).to eq('Zona Rural') }
+        it { expect(helper.translated_home_geographical_area(:indigenous)).to eq('Comunidade indígena') }
+        it { expect(helper.translated_home_geographical_area('indigenous')).to eq('Comunidade indígena') }
+        it { expect(helper.translated_home_geographical_area(:quilombola)).to eq('Comunidade quilombola') }
+        it { expect(helper.translated_home_geographical_area('quilombola')).to eq('Comunidade quilombola') }
+      end
+    end
+
+    context 'when invalid argument' do
+      it { expect(helper.translated_home_geographical_area('')).to be_empty }
+      it { expect(helper.translated_home_geographical_area(nil)).to be_empty }
+      it { expect(helper.translated_home_geographical_area(' ')).to be_empty }
+      it { expect(helper.translated_home_geographical_area('SS')).to be_empty }
     end
   end
 end

@@ -18,6 +18,7 @@
   = form.input :disability, as: :select, collection: disability_options, input_html: {tabindex: autotab}
   = form.input :birth_date, as: :date_picker, input_html: { tabindex: autotab, value: @user.birth_date.try(:strftime, '%F') }
   = form.input :is_parent, as: :select, collection: is_parent_options, input_html: {tabindex: autotab}
+  = form.input :home_geographical_area, as: :select, collection: home_geographical_area_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
@@ -62,6 +63,8 @@
       $("#user_birth_date_input").show();
       $("#user_is_parent").removeAttr('disabled');
       $("#user_is_parent_input").show();
+      $("#user_home_geographical_area").removeAttr('disabled');
+      $("#user_home_geographical_area_input").show();
       $("#user_phone").removeAttr('disabled');
       $("#user_phone_input").show();
       $("#user_bio").removeAttr('disabled');
@@ -83,6 +86,8 @@
       $("#user_birth_date_input").hide();
       $("#user_is_parent").attr('disabled', 'disabled');
       $("#user_is_parent_input").hide();
+      $("#user_home_geographical_area").attr('disabled', 'disabled');
+      $("#user_home_geographical_area_input").hide();
       $("#user_phone").attr('disabled', 'disabled');
       $("#user_phone_input").hide();
       $("#user_bio").attr('disabled', 'disabled');

@@ -5,6 +5,7 @@ module DiversityHelper
   RACE_VALUES = %i[rather_not_answer yellow white indian brown black i_dont_know].freeze
   DISABILITY_VALUES = %i[rather_not_answer no_disability visual hearing physical_or_motor mental_or_intellectual i_dont_know].freeze
   IS_PARENT_VALUES = %i[rather_not_answer yes no].freeze
+  HOME_GEOGRAPHICAL_AREA_VALUES = %i[rather_not_answer metropolitan periferic rural indigenous quilombola].freeze
 
   def gender_options
     options_for(GENDER_VALUES, :gender)
@@ -55,6 +56,14 @@ module DiversityHelper
 
   def translated_is_parent(value)
     translate_option(value, IS_PARENT_VALUES, :is_parent)
+  end
+
+  def home_geographical_area_options
+    options_for(HOME_GEOGRAPHICAL_AREA_VALUES, :home_geographical_area)
+  end
+
+  def translated_home_geographical_area(value)
+    translate_option(value, HOME_GEOGRAPHICAL_AREA_VALUES, :home_geographical_area)
   end
 
   private

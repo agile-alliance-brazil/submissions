@@ -141,6 +141,7 @@ en:
         disability: "Do you have some disability?"
         birth_date: "Date of birth?"
         is_parent: "Are you parent or legal responsible?"
+        home_geographical_area: "You live on:"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -286,6 +287,7 @@ en:
         disability: "#TODO"
         birth_date: "#TODO"
         is_parent: "#TODO"
+        home_geographical_area: "#TODO"
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
@@ -792,6 +794,14 @@ en:
     rather_not_answer: 'Rather not answer'
     'yes': "Yes"
     'no': "No"
+
+  home_geographical_area:
+    rather_not_answer: 'Rather not answer'
+    metropolitan: 'Urban central/metropolitan area'
+    periferic: 'Peripheral area'
+    rural: 'Rural area'
+    indigenous: 'Indigenous community'
+    quilombola: 'Quilombola community'
 
   generic:
     or: "or"
