@@ -15,9 +15,9 @@
 
   = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
   = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
-  = form.input :disabilities, as: :select, collection: disabilities_options, input_html: {tabindex: autotab}
-  = form.input :date_of_birth, as: :date_picker, input_html: { tabindex: autotab, value: @user.date_of_birth.try(:strftime, '%F') }
-  = form.input :parenting_type, as: :select, collection: parenting_type_options, input_html: {tabindex: autotab}
+  = form.input :disability, as: :select, collection: disability_options, input_html: {tabindex: autotab}
+  = form.input :birth_date, as: :date_picker, input_html: { tabindex: autotab, value: @user.birth_date.try(:strftime, '%F') }
+  = form.input :is_parent, as: :select, collection: is_parent_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
@@ -56,10 +56,12 @@
       $("#user_gender_input").show();
       $("#user_race").removeAttr('disabled');
       $("#user_race_input").show();
-      $("#user_disabilities").removeAttr('disabled');
-      $("#user_disabilities_input").show();
-      $("#user_date_of_birth").removeAttr('disabled');
-      $("#user_date_of_birth_input").show();
+      $("#user_disability").removeAttr('disabled');
+      $("#user_disability_input").show();
+      $("#user_birth_date").removeAttr('disabled');
+      $("#user_birth_date_input").show();
+      $("#user_is_parent").removeAttr('disabled');
+      $("#user_is_parent_input").show();
       $("#user_phone").removeAttr('disabled');
       $("#user_phone_input").show();
       $("#user_bio").removeAttr('disabled');
@@ -75,10 +77,12 @@
       $("#user_gender_input").hide();
       $("#user_race").attr('disabled', 'disabled');
       $("#user_race_input").hide();
-      $("#user_disabilities").attr('disabled', 'disabled');
-      $("#user_disabilities_input").hide();
-      $("#user_date_of_birth").attr('disabled', 'disabled');
-      $("#user_date_of_birth_input").hide();
+      $("#user_disability").attr('disabled', 'disabled');
+      $("#user_disability_input").hide();
+      $("#user_birth_date").attr('disabled', 'disabled');
+      $("#user_birth_date_input").hide();
+      $("#user_is_parent").attr('disabled', 'disabled');
+      $("#user_is_parent_input").hide();
       $("#user_phone").attr('disabled', 'disabled');
       $("#user_phone_input").hide();
       $("#user_bio").attr('disabled', 'disabled');

@@ -55,23 +55,23 @@
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_race(@user_profile.race)
 
-    - if @user_profile.disabilities.present?
+    - if @user_profile.disability.present?
       %dt
-        = t('formtastic.labels.user.disabilities')
+        = t('formtastic.labels.user.disability')
         = image_tag('icon-private.png', alt: t('text.private_field'))
-      %dd&= translated_disabilities(@user_profile.disabilities)
+      %dd&= translated_disability(@user_profile.disability)
 
-    - if @user_profile.date_of_birth.present?
+    - if @user_profile.birth_date.present?
       %dt
         = t('generic.age_range')
         = image_tag('icon-private.png', alt: t('text.private_field'))
-      %dd&= translated_age_range(@user_profile.date_of_birth)
+      %dd&= translated_age_range(@user_profile.birth_date)
 
-    - if @user_profile.parenting_type.present?
+    - if @user_profile.is_parent.present?
       %dt
-        = t('formtastic.labels.user.parenting_type')
+        = t('formtastic.labels.user.is_parent')
         = image_tag('icon-private.png', alt: t('text.private_field'))
-      %dd&= translated_parenting_type(@user_profile.parenting_type)
+      %dd&= translated_is_parent(@user_profile.is_parent)
 
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
