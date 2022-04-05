@@ -30,6 +30,25 @@ module DiversityHelper
     translate_option(value, DISABILITIES_VALUES, :disabilities)
   end
 
+  def translated_age_range(a_date)
+    return '' unless a_date.respond_to?(:beginning_of_day)
+
+    date = a_date.beginning_of_day
+    now = DateTime.current.beginning_of_day
+
+    return 'Até 18 anos' if date.advance(years: 19) > now
+    return '19 a 24 anos' if date.advance(years: 25) > now
+    return '25 a 29 anos' if date.advance(years: 30) > now
+    return '30 a 34 anos' if date.advance(years: 35) > now
+    return '35 a 39 anos' if date.advance(years: 40) > now
+    return '40 a 44 anos' if date.advance(years: 45) > now
+    return '45 a 49 anos' if date.advance(years: 50) > now
+    return '50 a 54 anos' if date.advance(years: 55) > now
+    return '55 a 59 anos' if date.advance(years: 60) > now
+
+    '60 anos ou mais'
+  end
+
   private
 
   def options_for(values, scope)

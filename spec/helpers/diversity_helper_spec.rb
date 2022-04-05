@@ -125,4 +125,31 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_disabilities('SS')).to be_empty }
     end
   end
+
+  describe '#translated_age_range' do
+    context 'when pt-BR locale' do
+      it { expect(helper.translated_age_range(DateTime.current)).to eq('Até 18 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -18))).to eq('Até 18 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -18, days: -364))).to eq('Até 18 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -19))).to eq('19 a 24 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -24))).to eq('19 a 24 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -25))).to eq('25 a 29 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -29))).to eq('25 a 29 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -30))).to eq('30 a 34 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -34))).to eq('30 a 34 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -35))).to eq('35 a 39 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -39))).to eq('35 a 39 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -40))).to eq('40 a 44 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -44))).to eq('40 a 44 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -45))).to eq('45 a 49 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -49))).to eq('45 a 49 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -50))).to eq('50 a 54 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -54))).to eq('50 a 54 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -55))).to eq('55 a 59 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -59))).to eq('55 a 59 anos') }
+      it { expect(helper.translated_age_range(DateTime.current.advance(years: -60))).to eq('60 anos ou mais') }
+
+      it { expect(helper.translated_age_range('invalid')).to eq('') }
+    end
+  end
 end
