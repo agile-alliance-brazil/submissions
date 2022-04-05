@@ -67,6 +67,12 @@
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_age_range(@user_profile.date_of_birth)
 
+    - if @user_profile.parenting_type.present?
+      %dt
+        = t('formtastic.labels.user.parenting_type')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_parenting_type(@user_profile.parenting_type)
+
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization

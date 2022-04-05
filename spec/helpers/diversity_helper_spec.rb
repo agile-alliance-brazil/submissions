@@ -152,4 +152,35 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_age_range('invalid')).to eq('') }
     end
   end
+
+  describe '#parenting_type_options' do
+    let(:values) { helper.parenting_type_options.map(&:last) }
+    let(:texts) { helper.parenting_type_options.map(&:first) }
+
+    it { expect(helper.parenting_type_options).to all(have(2).items) }
+    it { expect(values).to eq(%i[rather_not_answer yes no]) }
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(texts).to eq(['Prefiro não informar', 'Sim', 'Não']) }
+      end
+    end
+  end
+
+  describe '#translated_parenting_type' do
+    context 'when pt-BR locale' do
+      I18n.with_locale('pt-BR') do
+        it { expect(helper.translated_parenting_type(:yes)).to eq('Sim') }
+        it { expect(helper.translated_parenting_type('yes')).to eq('Sim') }
+        it { expect(helper.translated_parenting_type(:no)).to eq('Não') }
+        it { expect(helper.translated_parenting_type('no')).to eq('Não') }
+      end
+    end
+
+    context 'when invalid argument' do
+      it { expect(helper.translated_parenting_type('')).to be_empty }
+      it { expect(helper.translated_parenting_type(nil)).to be_empty }
+      it { expect(helper.translated_parenting_type(' ')).to be_empty }
+      it { expect(helper.translated_parenting_type('SS')).to be_empty }
+    end
+  end
 end

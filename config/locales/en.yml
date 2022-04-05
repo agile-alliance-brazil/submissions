@@ -140,6 +140,7 @@ en:
         race: "What color of skin/race do you identify with?"
         disabilities: "Do you have some disability?"
         date_of_birth: "Date of birth?"
+        parenting_type: "Are you parent or legal responsible?"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -284,6 +285,7 @@ en:
         race: "#TODO"
         disabilities: "#TODO"
         date_of_birth: "#TODO"
+        parenting_type: "#TODO"
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
@@ -779,7 +781,10 @@ en:
     between_45_and_49: '45 and 49 years old'
     between_50_and_54: '50 and 54 years old'
     between_55_and_59: '55 and 59 years old'
-    above_60: '60 years old or above'
+
+  parenting_type:
+    'yes': "Yes"
+    'no': "No"
 
   generic:
     or: "or"

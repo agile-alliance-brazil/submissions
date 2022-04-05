@@ -5,9 +5,10 @@ module DiversityHelper
   GENDER_VALUES = %i[cis_man trans_man cis_woman trans_woman non_binary].freeze
   RACE_VALUES = %i[yellow white indian brown black].freeze
   DISABILITIES_VALUES = %i[no_disabilities visual hearing physical_or_motor mental_or_intellectual].freeze
+  PARENTING_TYPE_VALUES = %i[yes no].freeze
 
   def gender_options
-    options_for(GENDER_VALUES, :gender)
+    options_for(GENDER_VALUES, :gender, include_i_dont_know: true)
   end
 
   def translated_gender(value)
@@ -15,7 +16,7 @@ module DiversityHelper
   end
 
   def race_options
-    options_for(RACE_VALUES, :race)
+    options_for(RACE_VALUES, :race, include_i_dont_know: true)
   end
 
   def translated_race(value)
@@ -23,7 +24,7 @@ module DiversityHelper
   end
 
   def disabilities_options
-    options_for(DISABILITIES_VALUES, :disabilities)
+    options_for(DISABILITIES_VALUES, :disabilities, include_i_dont_know: true)
   end
 
   def translated_disabilities(value)
@@ -49,12 +50,22 @@ module DiversityHelper
     '60 anos ou mais'
   end
 
+  def parenting_type_options
+    options_for(PARENTING_TYPE_VALUES, :parenting_type, include_i_dont_know: false)
+  end
+
+  def translated_parenting_type(value)
+    translate_option(value, PARENTING_TYPE_VALUES, :parenting_type)
+  end
+
   private
 
-  def options_for(values, scope)
-    [[t(:rather_not_answer, scope: :generic), :rather_not_answer]] +
-      values.map { |item| [t(item, scope: scope), item] } +
-      [[t(:i_dont_know, scope: :generic), :i_dont_know]]
+  def options_for(values, scope, options)
+    result = [[t(:rather_not_answer, scope: :generic), :rather_not_answer]] + values.map { |item| [t(item, scope: scope), item] }
+
+    return result + [[t(:i_dont_know, scope: :generic), :i_dont_know]] if options[:include_i_dont_know]
+
+    result
   end
 
   def translate_option(option, valid_values, scope)

@@ -142,6 +142,7 @@ pt-BR:
         race: "Segundo a classificação do IBGE, qual cor/raça melhor te define?"
         disabilities: "Você possui alguma deficiência?"
         date_of_birth: "Data de nascimento"
+        parenting_type: "Você é pai/mãe/responsável legal?"
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
@@ -287,6 +288,7 @@ pt-BR:
         race: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento</p>"
         disabilities: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento</p>"
         date_of_birth: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento</p>"
+        parenting_type: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento</p>"
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
@@ -783,6 +785,10 @@ pt-BR:
     between_50_and_54: '50 e 54 anos'
     between_55_and_59: '55 e 59 anos'
     above_60: '60 anos ou mais'
+
+  parenting_type:
+    'yes': "Sim"
+    'no': "Não"
 
   generic:
     or: "ou"

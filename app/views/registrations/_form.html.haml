@@ -17,6 +17,7 @@
   = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
   = form.input :disabilities, as: :select, collection: disabilities_options, input_html: {tabindex: autotab}
   = form.input :date_of_birth, as: :date_picker, input_html: { tabindex: autotab, value: @user.date_of_birth.try(:strftime, '%F') }
+  = form.input :parenting_type, as: :select, collection: parenting_type_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
