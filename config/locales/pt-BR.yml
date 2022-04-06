@@ -784,15 +784,15 @@ pt-BR:
 
   age_range:
     until_18: 'Até 18 anos'
-    between_19_and_24: '19 a 24 anos'
-    between_25_and_29: '25 a 29 anos'
-    between_30_and_34: '30 a 34 anos'
-    between_35_and_39: '35 a 39 anos'
-    between_40_and_44: '40 a 44 anos'
-    between_45_and_49: '45 a 49 anos'
-    between_50_and_54: '50 a 54 anos'
-    between_55_and_59: '55 a 59 anos'
-    above_60: '60 anos ou mais'
+    19_to_24: '19 a 24 anos'
+    25_to_29: '25 a 29 anos'
+    30_to_34: '30 a 34 anos'
+    35_to_39: '35 a 39 anos'
+    40_to_44: '40 a 44 anos'
+    45_to_49: '45 a 49 anos'
+    50_to_54: '50 a 54 anos'
+    55_to_59: '55 a 59 anos'
+    60_or_above: '60 anos ou mais'
 
   is_parent:
     rather_not_answer: 'Prefiro não informar'

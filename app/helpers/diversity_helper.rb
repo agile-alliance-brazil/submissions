@@ -31,23 +31,23 @@ module DiversityHelper
     translate_option(value, DISABILITY_VALUES, :disability)
   end
 
-  def translated_age_range(a_date)
-    return '' unless a_date.respond_to?(:beginning_of_day)
+  def translated_age_range(a_birth_date)
+    return '' unless a_birth_date.respond_to?(:beginning_of_day)
 
-    date = a_date.beginning_of_day
-    now = DateTime.current.beginning_of_day
+    date = a_birth_date.beginning_of_day
+    today = DateTime.current.beginning_of_day
 
-    return t('age_range.until_18') if date.advance(years: 19) > now
-    return t('age_range.between_19_and_24') if date.advance(years: 25) > now
-    return t('age_range.between_25_and_29') if date.advance(years: 30) > now
-    return t('age_range.between_30_and_34') if date.advance(years: 35) > now
-    return t('age_range.between_35_and_39') if date.advance(years: 40) > now
-    return t('age_range.between_40_and_44') if date.advance(years: 45) > now
-    return t('age_range.between_45_and_49') if date.advance(years: 50) > now
-    return t('age_range.between_50_and_54') if date.advance(years: 55) > now
-    return t('age_range.between_55_and_59') if date.advance(years: 60) > now
+    return t('age_range.until_18') if today.advance(years: -19) < date
+    return t('age_range.19_to_24') if today.advance(years: -25) < date
+    return t('age_range.25_to_29') if today.advance(years: -30) < date
+    return t('age_range.30_to_34') if today.advance(years: -35) < date
+    return t('age_range.35_to_39') if today.advance(years: -40) < date
+    return t('age_range.40_to_44') if today.advance(years: -45) < date
+    return t('age_range.45_to_49') if today.advance(years: -50) < date
+    return t('age_range.50_to_54') if today.advance(years: -55) < date
+    return t('age_range.55_to_59') if today.advance(years: -60) < date
 
-    '60 anos ou mais'
+    t('age_range.60_or_above')
   end
 
   def is_parent_options

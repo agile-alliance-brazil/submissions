@@ -781,14 +781,15 @@ en:
 
   age_range:
     until_18: 'Until 18 years old'
-    between_19_and_24: '19 and 24 years old'
-    between_25_and_29: '25 and 29 years old'
-    between_30_and_34: '30 and 34 years old'
-    between_35_and_39: '35 and 39 years old'
-    between_40_and_44: '40 and 44 years old'
-    between_45_and_49: '45 and 49 years old'
-    between_50_and_54: '50 and 54 years old'
-    between_55_and_59: '55 and 59 years old'
+    19_to_24: '19 to 24 years old'
+    25_to_29: '25 to 29 years old'
+    30_to_34: '30 to 34 years old'
+    35_to_39: '35 to 39 years old'
+    40_to_44: '40 to 44 years old'
+    45_to_49: '45 to 49 years old'
+    50_to_54: '50 to 54 years old'
+    55_to_59: '55 to 59 years old'
+    60_or_above: '60 years old or above'
 
   is_parent:
     rather_not_answer: 'Rather not answer'
