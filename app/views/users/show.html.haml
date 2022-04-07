@@ -42,7 +42,43 @@
         = t('formtastic.labels.user.city')
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= @user_profile.city
-    
+
+    - if @user_profile.gender.present?
+      %dt
+        = t('formtastic.labels.user.gender')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_gender(@user_profile.gender)
+
+    - if @user_profile.race.present?
+      %dt
+        = t('formtastic.labels.user.race')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_race(@user_profile.race)
+
+    - if @user_profile.disability.present?
+      %dt
+        = t('formtastic.labels.user.disability')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_disability(@user_profile.disability)
+
+    - if @user_profile.birth_date.present?
+      %dt
+        = t('generic.age_range')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_age_range(@user_profile.birth_date)
+
+    - if @user_profile.is_parent.present?
+      %dt
+        = t('formtastic.labels.user.is_parent')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_is_parent(@user_profile.is_parent)
+
+    - if @user_profile.home_geographical_area.present?
+      %dt
+        = t('formtastic.labels.user.home_geographical_area')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_home_geographical_area(@user_profile.home_geographical_area)
+
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization

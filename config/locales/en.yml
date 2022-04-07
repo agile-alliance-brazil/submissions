@@ -136,6 +136,12 @@ en:
         country: "Country"
         state: "State"
         city: "City"
+        gender: "What gender do you identify with?"
+        race: "What color of skin/race do you identify with?"
+        disability: "Do you have some disability?"
+        birth_date: "Date of birth?"
+        is_parent: "Are you parent or legal responsible?"
+        home_geographical_area: "You live on:"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -276,6 +282,12 @@ en:
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
+        gender: "<ul><li>Cisgender: Who identifies with gender assigned on birth</li><li>Transgender: Who has other different gender than one assigned on birth</li></ul><p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        race: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        disability: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        birth_date: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        is_parent: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        home_geographical_area: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
@@ -741,8 +753,56 @@ en:
       title: "Registration"
 
   gender:
-    male: "Male"
-    female: "Female"
+    rather_not_answer: 'Rather not answer'
+    cis_man: "Cisgender man"
+    trans_man: "Transgender man"
+    cis_woman: "Cisgender woman"
+    trans_woman: "Transgender woman"
+    non_binary: "Non binary gender person"
+    i_dont_know: "I don't know"
+
+  race:
+    rather_not_answer: 'Rather not answer'
+    yellow: "Yellow"
+    white: "White"
+    indian: "Indian"
+    brown: "Brown"
+    black: "Black"
+    i_dont_know: "I don't know"
+
+  disability:
+    rather_not_answer: 'Rather not answer'
+    no_disability: "I don't have any disability"
+    visual: 'Yes, visual disability'
+    hearing: 'Yes, hearing disability'
+    physical_or_motor: 'Yes, physic or motor disability'
+    mental_or_intellectual: 'Sim, mental or intellectual disability'
+    i_dont_know: "I don't know"
+
+  age_range:
+    until_18: 'Until 18 years old'
+    19_to_24: '19 to 24 years old'
+    25_to_29: '25 to 29 years old'
+    30_to_34: '30 to 34 years old'
+    35_to_39: '35 to 39 years old'
+    40_to_44: '40 to 44 years old'
+    45_to_49: '45 to 49 years old'
+    50_to_54: '50 to 54 years old'
+    55_to_59: '55 to 59 years old'
+    60_or_above: '60 years old or above'
+
+  is_parent:
+    rather_not_answer: 'Rather not answer'
+    'yes': "Yes"
+    'no': "No"
+
+  home_geographical_area:
+    rather_not_answer: 'Rather not answer'
+    metropolitan: 'Urban central/metropolitan area'
+    periferic: 'Peripheral area'
+    rural: 'Rural area'
+    indigenous: 'Indigenous community'
+    quilombola: 'Quilombola community'
 
   generic:
     or: "or"
@@ -768,6 +828,9 @@ en:
     by: 'by'
     in: 'in'
     you: 'You'
+    rather_not_answer: 'Rather not answer'
+    i_dont_know: "I don't know"
+    age_range: "Age Range"
 
   date:
     formats:

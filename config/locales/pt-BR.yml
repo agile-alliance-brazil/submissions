@@ -138,6 +138,12 @@ pt-BR:
         country: "País"
         state: "Estado"
         city: "Cidade"
+        gender: "Você se identifica com qual gênero?"
+        race: "Segundo a classificação do IBGE, qual cor/raça melhor te define?"
+        disability: "Você possui alguma deficiência?"
+        birth_date: "Data de nascimento"
+        is_parent: "Você é pai/mãe/responsável legal?"
+        home_geographical_area: "Você mora em:"
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
@@ -279,6 +285,12 @@ pt-BR:
         country: "País de residência, para fins estatísticos."
         state: "Estado de residência, para fins estatísticos."
         city: "Cidade de residência, para fins estatísticos."
+        gender: "<ul><li>Cisgênero: Que se identifica com o sexo que lhe foi designado ao nascer</li><li>Transgênero: Possui outra identidade de gênero, diferente da que lhe foi designada ao nascer</li></ul><p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        race: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        disability: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        birth_date: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        is_parent: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        home_geographical_area: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
@@ -744,8 +756,56 @@ pt-BR:
       title: "Inscrição e Credenciamento"
 
   gender:
-    male: "Masculino"
-    female: "Feminino"
+    rather_not_answer: 'Prefiro não informar'
+    cis_man: "Homem cisgênero"
+    trans_man: "Homem transgênero"
+    cis_woman: "Mulher cisgênera"
+    trans_woman: "Mulher transgênera"
+    non_binary: "Pessoa de gênero não-binário"
+    i_dont_know: 'Não sei responder'
+
+  race:
+    rather_not_answer: 'Prefiro não informar'
+    yellow: "Amarela"
+    white: "Branca"
+    indian: "Indígena"
+    brown: "Parda"
+    black: "Preta"
+    i_dont_know: 'Não sei responder'
+
+  disability:
+    rather_not_answer: 'Prefiro não informar'
+    no_disability: 'Não tenho deficiência'
+    visual: 'Sim, deficiência visual'
+    hearing: 'Sim, deficiência auditiva'
+    physical_or_motor: 'Sim, deficiência física ou motora'
+    mental_or_intellectual: 'Sim, deficiência mental ou intelectual'
+    i_dont_know: 'Não sei responder'
+
+  age_range:
+    until_18: 'Até 18 anos'
+    19_to_24: '19 a 24 anos'
+    25_to_29: '25 a 29 anos'
+    30_to_34: '30 a 34 anos'
+    35_to_39: '35 a 39 anos'
+    40_to_44: '40 a 44 anos'
+    45_to_49: '45 a 49 anos'
+    50_to_54: '50 a 54 anos'
+    55_to_59: '55 a 59 anos'
+    60_or_above: '60 anos ou mais'
+
+  is_parent:
+    rather_not_answer: 'Prefiro não informar'
+    'yes': "Sim"
+    'no': "Não"
+
+  home_geographical_area:
+    rather_not_answer: 'Prefiro não informar'
+    metropolitan: 'Zona urbana central/metropolitana'
+    periferic: 'Zona urbana periférica'
+    rural: 'Zona Rural'
+    indigenous: 'Comunidade indígena'
+    quilombola: 'Comunidade quilombola'
 
   generic:
     or: "ou"
@@ -771,6 +831,9 @@ pt-BR:
     by: 'por'
     in: 'em'
     you: 'Você'
+    rather_not_answer: 'Prefiro não informar'
+    i_dont_know: 'Não sei responder'
+    age_range: "Faixa etária"
 
   date:
     formats:
