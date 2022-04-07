@@ -3,6 +3,14 @@
 require 'spec_helper'
 
 describe DiversityHelper, type: :helper do
+  before :all do
+    @locale = I18n.locale
+  end
+
+  after :all do
+    I18n.locale = @locale
+  end
+
   describe '#gender_options' do
     let(:values) { helper.gender_options.map(&:last) }
     let(:texts) { helper.gender_options.map(&:first) }
@@ -12,7 +20,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(texts).to eq(['Prefiro não informar', 'Homem cisgênero', 'Homem transgênero', 'Mulher cisgênera', 'Mulher transgênera', 'Pessoa de gênero não-binário', 'Não sei responder']) }
@@ -20,7 +28,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(texts).to eq(['Rather not answer', 'Cisgender man', 'Transgender man', 'Cisgender woman', 'Transgender woman', 'Non binary gender person', "I don't know"]) }
@@ -30,7 +38,7 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_gender' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_gender(:rather_not_answer)).to eq('Prefiro não informar') }
@@ -44,7 +52,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_gender('rather_not_answer')).to eq('Rather not answer') }
@@ -73,7 +81,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(texts).to eq(['Prefiro não informar', 'Amarela', 'Branca', 'Indígena', 'Parda', 'Preta', 'Não sei responder']) }
@@ -81,7 +89,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(texts).to eq(['Rather not answer', 'Yellow', 'White', 'Indian', 'Brown', 'Black', "I don't know"]) }
@@ -91,7 +99,7 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_race' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_race(:rather_not_answer)).to eq('Prefiro não informar') }
@@ -105,7 +113,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_race('rather_not_answer')).to eq('Rather not answer') }
@@ -134,7 +142,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(texts).to eq(['Prefiro não informar', 'Não tenho deficiência', 'Sim, deficiência visual', 'Sim, deficiência auditiva', 'Sim, deficiência física ou motora', 'Sim, deficiência mental ou intelectual', 'Não sei responder']) }
@@ -142,7 +150,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(texts).to eq(['Rather not answer', "I don't have any disability", 'Yes, visual disability', 'Yes, hearing disability', 'Yes, physic or motor disability', 'Sim, mental or intellectual disability', "I don't know"]) }
@@ -152,7 +160,7 @@ describe DiversityHelper, type: :helper do
   describe '#transalte_disability' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_disability(:rather_not_answer)).to eq('Prefiro não informar') }
@@ -166,7 +174,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_disability('rather_not_answer')).to eq('Rather not answer') }
@@ -189,7 +197,7 @@ describe DiversityHelper, type: :helper do
   describe '#translated_age_range' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_age_range(DateTime.current)).to eq('Até 18 anos') }
@@ -216,7 +224,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_age_range(DateTime.current)).to eq('Until 18 years old') }
@@ -258,7 +266,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(texts).to eq(['Prefiro não informar', 'Sim', 'Não']) }
@@ -266,7 +274,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(texts).to eq(['Rather not answer', 'Yes', 'No']) }
@@ -276,7 +284,7 @@ describe DiversityHelper, type: :helper do
   describe '#translated_is_parent' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_is_parent(:rather_not_answer)).to eq('Prefiro não informar') }
@@ -286,7 +294,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_is_parent('rather_not_answer')).to eq('Rather not answer') }
@@ -311,7 +319,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(texts).to eq(['Prefiro não informar', 'Zona urbana central/metropolitana', 'Zona urbana periférica', 'Zona Rural', 'Comunidade indígena', 'Comunidade quilombola']) }
@@ -319,7 +327,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(texts).to eq(['Rather not answer', 'Urban central/metropolitan area', 'Peripheral area', 'Rural area', 'Indigenous community', 'Quilombola community']) }
@@ -329,7 +337,7 @@ describe DiversityHelper, type: :helper do
   describe '#translated_home_geographical_area' do
     context 'when pt-BR locale' do
       before :all do
-        I18n.locale = 'pt-BR'
+        I18n.locale = :'pt-BR'
       end
 
       it { expect(helper.translated_home_geographical_area(:rather_not_answer)).to eq('Prefiro não informar') }
@@ -342,7 +350,7 @@ describe DiversityHelper, type: :helper do
 
     context 'when en locale' do
       before :all do
-        I18n.locale = 'en'
+        I18n.locale = :en
       end
 
       it { expect(helper.translated_home_geographical_area('rather_not_answer')).to eq('Rather not answer') }
