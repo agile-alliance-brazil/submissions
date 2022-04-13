@@ -16,14 +16,14 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.gender_options.map(&:first) }
 
     it { expect(helper.gender_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[rather_not_answer cis_man trans_man cis_woman trans_woman non_binary i_dont_know]) }
+    it { expect(values).to eq(%i[cis_man trans_man cis_woman trans_woman transvestite i_dont_know non_binary rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(texts).to eq(['Prefiro não informar', 'Homem cisgênero', 'Homem transgênero', 'Mulher cisgênera', 'Mulher transgênera', 'Pessoa de gênero não-binário', 'Não sei responder']) }
+      it { expect(texts).to eq(['Homem cisgênero', 'Homem transgênero', 'Mulher cisgênera', 'Mulher transgênera', 'Travesti', 'Não sei responder', 'Pessoa de gênero não-binário', 'Prefiro não informar']) }
     end
 
     context 'when en locale' do
@@ -31,7 +31,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Rather not answer', 'Cisgender man', 'Transgender man', 'Cisgender woman', 'Transgender woman', 'Non binary gender person', "I don't know"]) }
+      it { expect(texts).to eq(['Cisgender man', 'Transgender man', 'Cisgender woman', 'Transgender woman', 'Transvestite', "I don't know", 'Non binary gender person', 'Rather not answer']) }
     end
   end
 
@@ -41,13 +41,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :'pt-BR'
       end
 
+      it { expect(helper.translated_gender(:cis_man)).to eq('Homem cisgênero') }
+      it { expect(helper.translated_gender('trans_man')).to eq('Homem transgênero') }
+      it { expect(helper.translated_gender(:cis_woman)).to eq('Mulher cisgênera') }
+      it { expect(helper.translated_gender('trans_woman')).to eq('Mulher transgênera') }
+      it { expect(helper.translated_gender(:non_binary)).to eq('Pessoa de gênero não-binário') }
+      it { expect(helper.translated_gender('i_dont_know')).to eq('Não sei responder') }
       it { expect(helper.translated_gender(:rather_not_answer)).to eq('Prefiro não informar') }
-      it { expect(helper.translated_gender('cis_man')).to eq('Homem cisgênero') }
-      it { expect(helper.translated_gender(:trans_man)).to eq('Homem transgênero') }
-      it { expect(helper.translated_gender('cis_woman')).to eq('Mulher cisgênera') }
-      it { expect(helper.translated_gender(:trans_woman)).to eq('Mulher transgênera') }
-      it { expect(helper.translated_gender('non_binary')).to eq('Pessoa de gênero não-binário') }
-      it { expect(helper.translated_gender(:i_dont_know)).to eq('Não sei responder') }
     end
 
     context 'when en locale' do
@@ -55,13 +55,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
+      it { expect(helper.translated_gender('cis_man')).to eq('Cisgender man') }
+      it { expect(helper.translated_gender(:trans_man)).to eq('Transgender man') }
+      it { expect(helper.translated_gender('cis_woman')).to eq('Cisgender woman') }
+      it { expect(helper.translated_gender(:trans_woman)).to eq('Transgender woman') }
+      it { expect(helper.translated_gender('non_binary')).to eq('Non binary gender person') }
+      it { expect(helper.translated_gender(:i_dont_know)).to eq("I don't know") }
       it { expect(helper.translated_gender('rather_not_answer')).to eq('Rather not answer') }
-      it { expect(helper.translated_gender(:cis_man)).to eq('Cisgender man') }
-      it { expect(helper.translated_gender('trans_man')).to eq('Transgender man') }
-      it { expect(helper.translated_gender(:cis_woman)).to eq('Cisgender woman') }
-      it { expect(helper.translated_gender('trans_woman')).to eq('Transgender woman') }
-      it { expect(helper.translated_gender(:non_binary)).to eq('Non binary gender person') }
-      it { expect(helper.translated_gender('i_dont_know')).to eq("I don't know") }
     end
 
     context 'when invalid argument' do
@@ -77,14 +77,14 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.race_options.map(&:first) }
 
     it { expect(helper.race_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[rather_not_answer yellow white indian brown black i_dont_know]) }
+    it { expect(values).to eq(%i[asian white indian brown black i_dont_know rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(texts).to eq(['Prefiro não informar', 'Amarela', 'Branca', 'Indígena', 'Parda', 'Preta', 'Não sei responder']) }
+      it { expect(texts).to eq(['Pessoa asiática', 'Pessoa branca', 'Pessoa indígena', 'Pessoa parda', 'Pessoa preta', 'Não sei', 'Prefiro não informar']) }
     end
 
     context 'when en locale' do
@@ -92,7 +92,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Rather not answer', 'Yellow', 'White', 'Indian', 'Brown', 'Black', "I don't know"]) }
+      it { expect(texts).to eq(['Asian person', 'White person', 'Indian person', 'Brown person', 'Black person', "I don't know", 'Rather not answer']) }
     end
   end
 
@@ -102,13 +102,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :'pt-BR'
       end
 
+      it { expect(helper.translated_race(:asian)).to eq('Pessoa asiática') }
+      it { expect(helper.translated_race('white')).to eq('Pessoa branca') }
+      it { expect(helper.translated_race(:indian)).to eq('Pessoa indígena') }
+      it { expect(helper.translated_race('brown')).to eq('Pessoa parda') }
+      it { expect(helper.translated_race(:black)).to eq('Pessoa preta') }
+      it { expect(helper.translated_race('i_dont_know')).to eq('Não sei') }
       it { expect(helper.translated_race(:rather_not_answer)).to eq('Prefiro não informar') }
-      it { expect(helper.translated_race('yellow')).to eq('Amarela') }
-      it { expect(helper.translated_race(:white)).to eq('Branca') }
-      it { expect(helper.translated_race('indian')).to eq('Indígena') }
-      it { expect(helper.translated_race(:brown)).to eq('Parda') }
-      it { expect(helper.translated_race('black')).to eq('Preta') }
-      it { expect(helper.translated_race(:i_dont_know)).to eq('Não sei responder') }
     end
 
     context 'when en locale' do
@@ -116,13 +116,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
+      it { expect(helper.translated_race('asian')).to eq('Asian person') }
+      it { expect(helper.translated_race(:white)).to eq('White person') }
+      it { expect(helper.translated_race('indian')).to eq('Indian person') }
+      it { expect(helper.translated_race(:brown)).to eq('Brown person') }
+      it { expect(helper.translated_race('black')).to eq('Black person') }
+      it { expect(helper.translated_race(:i_dont_know)).to eq("I don't know") }
       it { expect(helper.translated_race('rather_not_answer')).to eq('Rather not answer') }
-      it { expect(helper.translated_race(:yellow)).to eq('Yellow') }
-      it { expect(helper.translated_race('white')).to eq('White') }
-      it { expect(helper.translated_race(:indian)).to eq('Indian') }
-      it { expect(helper.translated_race('brown')).to eq('Brown') }
-      it { expect(helper.translated_race(:black)).to eq('Black') }
-      it { expect(helper.translated_race('i_dont_know')).to eq("I don't know") }
     end
 
     context 'when invalid argument' do
@@ -138,14 +138,14 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.disability_options.map(&:first) }
 
     it { expect(helper.disability_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[rather_not_answer no_disability visual hearing physical_or_motor mental_or_intellectual i_dont_know]) }
+    it { expect(values).to eq(%i[no_disability visual hearing physical_or_motor mental_or_intellectual deafblindness multiple_disability rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(texts).to eq(['Prefiro não informar', 'Não tenho deficiência', 'Sim, deficiência visual', 'Sim, deficiência auditiva', 'Sim, deficiência física ou motora', 'Sim, deficiência mental ou intelectual', 'Não sei responder']) }
+      it { expect(texts).to eq(['Não tenho deficiência', 'Sim, deficiência visual', 'Sim, deficiência auditiva', 'Sim, deficiência física ou motora', 'Sim, deficiência mental ou intelectual', 'Sim, surdocegueira', 'Sim, deficiência múltipla', 'Prefiro não informar']) }
     end
 
     context 'when en locale' do
@@ -153,7 +153,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Rather not answer', "I don't have any disability", 'Yes, visual disability', 'Yes, hearing disability', 'Yes, physic or motor disability', 'Sim, mental or intellectual disability', "I don't know"]) }
+      it { expect(texts).to eq(["I don't have any disability", 'Yes, visual disability', 'Yes, hearing disability', 'Yes, physic or motor disability', 'Yes, mental or intellectual disability', 'Yes, deafblindness', 'Yes, multiple disability', 'Rather not answer']) }
     end
   end
 
@@ -163,13 +163,14 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(helper.translated_disability(:rather_not_answer)).to eq('Prefiro não informar') }
-      it { expect(helper.translated_disability('no_disability')).to eq('Não tenho deficiência') }
-      it { expect(helper.translated_disability(:visual)).to eq('Sim, deficiência visual') }
-      it { expect(helper.translated_disability('hearing')).to eq('Sim, deficiência auditiva') }
-      it { expect(helper.translated_disability(:physical_or_motor)).to eq('Sim, deficiência física ou motora') }
-      it { expect(helper.translated_disability('mental_or_intellectual')).to eq('Sim, deficiência mental ou intelectual') }
-      it { expect(helper.translated_disability(:i_dont_know)).to eq('Não sei responder') }
+      it { expect(helper.translated_disability(:no_disability)).to eq('Não tenho deficiência') }
+      it { expect(helper.translated_disability('visual')).to eq('Sim, deficiência visual') }
+      it { expect(helper.translated_disability(:hearing)).to eq('Sim, deficiência auditiva') }
+      it { expect(helper.translated_disability('physical_or_motor')).to eq('Sim, deficiência física ou motora') }
+      it { expect(helper.translated_disability(:mental_or_intellectual)).to eq('Sim, deficiência mental ou intelectual') }
+      it { expect(helper.translated_disability('deafblindness')).to eq('Sim, surdocegueira') }
+      it { expect(helper.translated_disability(:multiple_disability)).to eq('Sim, deficiência múltipla') }
+      it { expect(helper.translated_disability('rather_not_answer')).to eq('Prefiro não informar') }
     end
 
     context 'when en locale' do
@@ -177,13 +178,14 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(helper.translated_disability('rather_not_answer')).to eq('Rather not answer') }
-      it { expect(helper.translated_disability(:no_disability)).to eq("I don't have any disability") }
-      it { expect(helper.translated_disability('visual')).to eq('Yes, visual disability') }
-      it { expect(helper.translated_disability(:hearing)).to eq('Yes, hearing disability') }
-      it { expect(helper.translated_disability('physical_or_motor')).to eq('Yes, physic or motor disability') }
-      it { expect(helper.translated_disability(:mental_or_intellectual)).to eq('Sim, mental or intellectual disability') }
-      it { expect(helper.translated_disability('i_dont_know')).to eq("I don't know") }
+      it { expect(helper.translated_disability('no_disability')).to eq("I don't have any disability") }
+      it { expect(helper.translated_disability(:visual)).to eq('Yes, visual disability') }
+      it { expect(helper.translated_disability('hearing')).to eq('Yes, hearing disability') }
+      it { expect(helper.translated_disability(:physical_or_motor)).to eq('Yes, physic or motor disability') }
+      it { expect(helper.translated_disability('mental_or_intellectual')).to eq('Yes, mental or intellectual disability') }
+      it { expect(helper.translated_disability(:deafblindness)).to eq('Yes, deafblindness') }
+      it { expect(helper.translated_disability('multiple_disability')).to eq('Yes, multiple disability') }
+      it { expect(helper.translated_disability(:rather_not_answer)).to eq('Rather not answer') }
     end
 
     context 'when invalid argument' do
@@ -262,14 +264,14 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.is_parent_options.map(&:first) }
 
     it { expect(helper.is_parent_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[rather_not_answer yes no]) }
+    it { expect(values).to eq(%i[yes no rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(texts).to eq(['Prefiro não informar', 'Sim', 'Não']) }
+      it { expect(texts).to eq(['Sim', 'Não', 'Prefiro não informar']) }
     end
 
     context 'when en locale' do
@@ -277,7 +279,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Rather not answer', 'Yes', 'No']) }
+      it { expect(texts).to eq(['Yes', 'No', 'Rather not answer']) }
     end
   end
 
@@ -287,9 +289,9 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :'pt-BR'
       end
 
+      it { expect(helper.translated_is_parent(:yes)).to eq('Sim') }
+      it { expect(helper.translated_is_parent('no')).to eq('Não') }
       it { expect(helper.translated_is_parent(:rather_not_answer)).to eq('Prefiro não informar') }
-      it { expect(helper.translated_is_parent('yes')).to eq('Sim') }
-      it { expect(helper.translated_is_parent(:no)).to eq('Não') }
     end
 
     context 'when en locale' do
@@ -297,9 +299,9 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
+      it { expect(helper.translated_is_parent('yes')).to eq('Yes') }
+      it { expect(helper.translated_is_parent(:no)).to eq('No') }
       it { expect(helper.translated_is_parent('rather_not_answer')).to eq('Rather not answer') }
-      it { expect(helper.translated_is_parent(:yes)).to eq('Yes') }
-      it { expect(helper.translated_is_parent('no')).to eq('No') }
     end
 
     context 'when invalid argument' do
@@ -315,14 +317,14 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.home_geographical_area_options.map(&:first) }
 
     it { expect(helper.home_geographical_area_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[rather_not_answer metropolitan periferic rural indigenous quilombola]) }
+    it { expect(values).to eq(%i[metropolitan periferic rural indigenous quilombola riverside rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
         I18n.locale = :'pt-BR'
       end
 
-      it { expect(texts).to eq(['Prefiro não informar', 'Zona urbana central/metropolitana', 'Zona urbana periférica', 'Zona Rural', 'Comunidade indígena', 'Comunidade quilombola']) }
+      it { expect(texts).to eq(['Zona urbana central/metropolitana', 'Zona urbana periférica', 'Zona Rural', 'Comunidade indígena', 'Comunidade quilombola', 'Comunidade ribeirinha', 'Prefiro não informar']) }
     end
 
     context 'when en locale' do
@@ -330,7 +332,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Rather not answer', 'Urban central/metropolitan area', 'Peripheral area', 'Rural area', 'Indigenous community', 'Quilombola community']) }
+      it { expect(texts).to eq(['Urban central/metropolitan area', 'Peripheral area', 'Rural area', 'Indigenous community', 'Quilombola community', 'Riverside community', 'Rather not answer']) }
     end
   end
 
@@ -340,12 +342,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :'pt-BR'
       end
 
+      it { expect(helper.translated_home_geographical_area(:metropolitan)).to eq('Zona urbana central/metropolitana') }
+      it { expect(helper.translated_home_geographical_area('periferic')).to eq('Zona urbana periférica') }
+      it { expect(helper.translated_home_geographical_area(:rural)).to eq('Zona Rural') }
+      it { expect(helper.translated_home_geographical_area('indigenous')).to eq('Comunidade indígena') }
+      it { expect(helper.translated_home_geographical_area(:quilombola)).to eq('Comunidade quilombola') }
+      it { expect(helper.translated_home_geographical_area('riverside')).to eq('Comunidade ribeirinha') }
       it { expect(helper.translated_home_geographical_area(:rather_not_answer)).to eq('Prefiro não informar') }
-      it { expect(helper.translated_home_geographical_area('metropolitan')).to eq('Zona urbana central/metropolitana') }
-      it { expect(helper.translated_home_geographical_area(:periferic)).to eq('Zona urbana periférica') }
-      it { expect(helper.translated_home_geographical_area('rural')).to eq('Zona Rural') }
-      it { expect(helper.translated_home_geographical_area(:indigenous)).to eq('Comunidade indígena') }
-      it { expect(helper.translated_home_geographical_area('quilombola')).to eq('Comunidade quilombola') }
     end
 
     context 'when en locale' do
@@ -353,12 +356,13 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
+      it { expect(helper.translated_home_geographical_area('metropolitan')).to eq('Urban central/metropolitan area') }
+      it { expect(helper.translated_home_geographical_area(:periferic)).to eq('Peripheral area') }
+      it { expect(helper.translated_home_geographical_area('rural')).to eq('Rural area') }
+      it { expect(helper.translated_home_geographical_area(:indigenous)).to eq('Indigenous community') }
+      it { expect(helper.translated_home_geographical_area('quilombola')).to eq('Quilombola community') }
+      it { expect(helper.translated_home_geographical_area(:riverside)).to eq('Riverside community') }
       it { expect(helper.translated_home_geographical_area('rather_not_answer')).to eq('Rather not answer') }
-      it { expect(helper.translated_home_geographical_area(:metropolitan)).to eq('Urban central/metropolitan area') }
-      it { expect(helper.translated_home_geographical_area('periferic')).to eq('Peripheral area') }
-      it { expect(helper.translated_home_geographical_area(:rural)).to eq('Rural area') }
-      it { expect(helper.translated_home_geographical_area('indigenous')).to eq('Indigenous community') }
-      it { expect(helper.translated_home_geographical_area(:quilombola)).to eq('Quilombola community') }
     end
 
     context 'when invalid argument' do
@@ -366,6 +370,67 @@ describe DiversityHelper, type: :helper do
       it { expect(helper.translated_home_geographical_area(nil)).to be_empty }
       it { expect(helper.translated_home_geographical_area(' ')).to be_empty }
       it { expect(helper.translated_home_geographical_area('SS')).to be_empty }
+    end
+  end
+
+  describe '#agility_experience_options' do
+    let(:values) { helper.agility_experience_options.map(&:last) }
+    let(:texts) { helper.agility_experience_options.map(&:first) }
+
+    it { expect(helper.agility_experience_options).to all(have(2).items) }
+    it { expect(values).to eq(%i[until_1 1_to_2 2_to_3 3_to_4 more_than_4 no_but_transitioning no]) }
+
+    context 'when pt-BR locale' do
+      before :all do
+        I18n.locale = :'pt-BR'
+      end
+
+      it { expect(texts).to eq(['Sim, até 1 ano', 'Sim, de 1 até 2 anos', 'Sim, de 2 até 3 anos', 'Sim, de 3 até 4 anos', 'Sim, mais que 4 anos', 'Não, mas estou em busca de transição de carreira', 'Não']) }
+    end
+
+    context 'when en locale' do
+      before :all do
+        I18n.locale = :en
+      end
+
+      it { expect(texts).to eq(['Yes, until 1 year', 'Yes, between 1 and 2 years', 'Yes, between 2 and 3 years', 'Yes, between 3 and 4 years', 'Yes, more than 4 years', 'No, but I want transitate to it', 'No']) }
+    end
+  end
+
+  describe '#translated_agility_experience' do
+    context 'when pt-BR locale' do
+      before :all do
+        I18n.locale = :'pt-BR'
+      end
+
+      it { expect(helper.translated_agility_experience(:until_1)).to eq('Sim, até 1 ano') }
+      it { expect(helper.translated_agility_experience('1_to_2')).to eq('Sim, de 1 até 2 anos') }
+      it { expect(helper.translated_agility_experience(:'2_to_3')).to eq('Sim, de 2 até 3 anos') }
+      it { expect(helper.translated_agility_experience('3_to_4')).to eq('Sim, de 3 até 4 anos') }
+      it { expect(helper.translated_agility_experience(:more_than_4)).to eq('Sim, mais que 4 anos') }
+      it { expect(helper.translated_agility_experience('no_but_transitioning')).to eq('Não, mas estou em busca de transição de carreira') }
+      it { expect(helper.translated_agility_experience(:no)).to eq('Não') }
+    end
+
+    context 'when en locale' do
+      before :all do
+        I18n.locale = :en
+      end
+
+      it { expect(helper.translated_agility_experience('until_1')).to eq('Yes, until 1 year') }
+      it { expect(helper.translated_agility_experience(:'1_to_2')).to eq('Yes, between 1 and 2 years') }
+      it { expect(helper.translated_agility_experience('2_to_3')).to eq('Yes, between 2 and 3 years') }
+      it { expect(helper.translated_agility_experience(:'3_to_4')).to eq('Yes, between 3 and 4 years') }
+      it { expect(helper.translated_agility_experience('more_than_4')).to eq('Yes, more than 4 years') }
+      it { expect(helper.translated_agility_experience(:no_but_transitioning)).to eq('No, but I want transitate to it') }
+      it { expect(helper.translated_agility_experience('no')).to eq('No') }
+    end
+
+    context 'when invalid argument' do
+      it { expect(helper.translated_agility_experience('')).to be_empty }
+      it { expect(helper.translated_agility_experience(nil)).to be_empty }
+      it { expect(helper.translated_agility_experience(' ')).to be_empty }
+      it { expect(helper.translated_agility_experience('SS')).to be_empty }
     end
   end
 end
