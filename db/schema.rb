@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220329224338) do
+ActiveRecord::Schema.define(version: 20220412011810) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -409,6 +409,7 @@ ActiveRecord::Schema.define(version: 20220329224338) do
     t.datetime "birth_date"
     t.string   "is_parent"
     t.string   "home_geographical_area"
+    t.string   "agility_experience"
   end
 
   create_table "votes", force: :cascade do |t|

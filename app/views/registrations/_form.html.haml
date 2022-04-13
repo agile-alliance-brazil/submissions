@@ -13,12 +13,15 @@
   = form.input :state, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, input_html: {tabindex: autotab}
   = form.input :city, required: true, input_html: {tabindex: autotab}
 
+  %p.syntax_help= t('formtastic.hints.diversity_optional_fields').html_safe
+
   = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
   = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
   = form.input :disability, as: :select, collection: disability_options, input_html: {tabindex: autotab}
   = form.input :birth_date, as: :date_picker, input_html: { tabindex: autotab, value: @user.birth_date.try(:strftime, '%F') }
   = form.input :is_parent, as: :select, collection: is_parent_options, input_html: {tabindex: autotab}
   = form.input :home_geographical_area, as: :select, collection: home_geographical_area_options, input_html: {tabindex: autotab}
+  = form.input :agility_experience, as: :select, collection: agility_experience_options, input_html: {tabindex: autotab}
 
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
@@ -53,6 +56,7 @@
       $("#user_state_input").show();
       $("#user_city").removeAttr('disabled');
       $("#user_city_input").show();
+
       $("#user_gender").removeAttr('disabled');
       $("#user_gender_input").show();
       $("#user_race").removeAttr('disabled');
@@ -65,6 +69,9 @@
       $("#user_is_parent_input").show();
       $("#user_home_geographical_area").removeAttr('disabled');
       $("#user_home_geographical_area_input").show();
+      $("#user_agility_experience").removeAttr('disabled');
+      $("#user_agility_experience_input").show();
+
       $("#user_phone").removeAttr('disabled');
       $("#user_phone_input").show();
       $("#user_bio").removeAttr('disabled');
@@ -76,6 +83,7 @@
       $("#user_state_input").hide();
       $("#user_city").attr('disabled', 'disabled');
       $("#user_city_input").hide();
+
       $("#user_gender").attr('disabled', 'disabled');
       $("#user_gender_input").hide();
       $("#user_race").attr('disabled', 'disabled');
@@ -88,6 +96,9 @@
       $("#user_is_parent_input").hide();
       $("#user_home_geographical_area").attr('disabled', 'disabled');
       $("#user_home_geographical_area_input").hide();
+      $("#user_agility_experience").attr('disabled', 'disabled');
+      $("#user_agility_experience_input").hide();
+
       $("#user_phone").attr('disabled', 'disabled');
       $("#user_phone_input").hide();
       $("#user_bio").attr('disabled', 'disabled');

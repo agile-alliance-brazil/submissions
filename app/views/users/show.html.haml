@@ -79,6 +79,12 @@
         = image_tag('icon-private.png', alt: t('text.private_field'))
       %dd&= translated_home_geographical_area(@user_profile.home_geographical_area)
 
+    - if @user_profile.agility_experience.present?
+      %dt
+        = t('formtastic.labels.user.agility_experience')
+        = image_tag('icon-private.png', alt: t('text.private_field'))
+      %dd&= translated_agility_experience(@user_profile.agility_experience)
+
   - if @user_profile.organization.present?
     %dt= t('formtastic.labels.user.organization')
     %dd&= @user_profile.organization

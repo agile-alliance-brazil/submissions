@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 module DiversityHelper
-  GENDER_VALUES = %i[rather_not_answer cis_man trans_man cis_woman trans_woman non_binary i_dont_know].freeze
-  RACE_VALUES = %i[rather_not_answer yellow white indian brown black i_dont_know].freeze
-  DISABILITY_VALUES = %i[rather_not_answer no_disability visual hearing physical_or_motor mental_or_intellectual i_dont_know].freeze
-  IS_PARENT_VALUES = %i[rather_not_answer yes no].freeze
-  HOME_GEOGRAPHICAL_AREA_VALUES = %i[rather_not_answer metropolitan periferic rural indigenous quilombola].freeze
+  GENDER_VALUES = %i[cis_man trans_man cis_woman trans_woman transvestite i_dont_know non_binary rather_not_answer].freeze
+  RACE_VALUES = %i[asian white indian brown black i_dont_know rather_not_answer].freeze
+  DISABILITY_VALUES = %i[no_disability visual hearing physical_or_motor mental_or_intellectual deafblindness multiple_disability rather_not_answer].freeze
+  IS_PARENT_VALUES = %i[yes no rather_not_answer].freeze
+  HOME_GEOGRAPHICAL_AREA_VALUES = %i[metropolitan periferic rural indigenous quilombola riverside rather_not_answer].freeze
+  AGILITY_EXPERIENCE = %i[until_1 1_to_2 2_to_3 3_to_4 more_than_4 no_but_transitioning no].freeze
 
   def gender_options
     options_for(GENDER_VALUES, :gender)
@@ -64,6 +65,14 @@ module DiversityHelper
 
   def translated_home_geographical_area(value)
     translate_option(value, HOME_GEOGRAPHICAL_AREA_VALUES, :home_geographical_area)
+  end
+
+  def agility_experience_options
+    options_for(AGILITY_EXPERIENCE, :agility_experience)
+  end
+
+  def translated_agility_experience(value)
+    translate_option(value, AGILITY_EXPERIENCE, :agility_experience)
   end
 
   private

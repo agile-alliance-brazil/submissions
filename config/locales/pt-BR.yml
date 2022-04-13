@@ -141,9 +141,10 @@ pt-BR:
         gender: "Você se identifica com qual gênero?"
         race: "Segundo a classificação do IBGE, qual cor/raça melhor te define?"
         disability: "Você possui alguma deficiência?"
-        birth_date: "Data de nascimento"
+        birth_date: "Qual é a sua data de nascimento?"
         is_parent: "Você é pai/mãe/responsável legal?"
         home_geographical_area: "Você mora em:"
+        agility_experience: "Você já atua na área de agilidade?"
         organization: "Organização"
         website_url: "Website"
         bio: "Mini-currículo"
@@ -278,6 +279,7 @@ pt-BR:
         general_comments: "Comentários gerais"
     hints:
       textile: "Os próximos campos aceitam <a href='http://redcloth.org/hobix.com/textile/'>a sintaxe textile</a> como markup para adicionar estilos à sua proposta."
+      diversity_optional_fields: "O preenchimento dos dados abaixo dados é opcional e eles são coletados para entendermos melhor o perfil de quem participa da conferência. A visualização destes dados é restrita para as pessoas da organização do evento."
       user:
         email: "Principal email de contato. Nós também usamos seu email para exibir a foto no seu perfil. Para criar ou alterar sua foto, <a href='http://en.gravatar.com/site/signup/' target='_blank'>acesse o Gravatar</a>."
         password: "Pelo menos 3 caracteres."
@@ -285,12 +287,13 @@ pt-BR:
         country: "País de residência, para fins estatísticos."
         state: "Estado de residência, para fins estatísticos."
         city: "Cidade de residência, para fins estatísticos."
-        gender: "<ul><li>Cisgênero: Que se identifica com o sexo que lhe foi designado ao nascer</li><li>Transgênero: Possui outra identidade de gênero, diferente da que lhe foi designada ao nascer</li></ul><p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
-        race: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
-        disability: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
-        birth_date: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
-        is_parent: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
-        home_geographical_area: "<p>Esse dado é coletado para entendermos melhor o perfil das pessoas que irão palestrar na conferência.</p><p>A visualização deste dado é restrita aos chairs e organizadores das trilhas do evento.</p>"
+        gender: >
+          <ul>
+          <li>Cisgênero: Que se identifica com o sexo que lhe foi designado ao nascer.</li>
+          <li>Transgênero: Possui outra identidade de gênero, diferente da que lhe foi designada ao nascer.</li>
+          <li>Travesti: É uma pessoa que foi designada homem no nascimento, mas se entende como uma figura feminina.</li>
+          <li>Não binariedade: Pessoas que não se percebem como pertencentes a um gênero exclusivamente. Isso significa que sua identidade de gênero e expressão de gênero não são limitadas ao masculino e feminino.</li>
+          </ul>
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
         website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
         bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
@@ -756,31 +759,33 @@ pt-BR:
       title: "Inscrição e Credenciamento"
 
   gender:
-    rather_not_answer: 'Prefiro não informar'
     cis_man: "Homem cisgênero"
     trans_man: "Homem transgênero"
     cis_woman: "Mulher cisgênera"
     trans_woman: "Mulher transgênera"
-    non_binary: "Pessoa de gênero não-binário"
+    transvestite: "Travesti"
     i_dont_know: 'Não sei responder'
+    non_binary: "Pessoa de gênero não-binário"
+    rather_not_answer: 'Prefiro não informar'
 
   race:
+    asian: "Pessoa asiática"
+    white: "Pessoa branca"
+    indian: "Pessoa indígena"
+    brown: "Pessoa parda"
+    black: "Pessoa preta"
+    i_dont_know: 'Não sei'
     rather_not_answer: 'Prefiro não informar'
-    yellow: "Amarela"
-    white: "Branca"
-    indian: "Indígena"
-    brown: "Parda"
-    black: "Preta"
-    i_dont_know: 'Não sei responder'
 
   disability:
-    rather_not_answer: 'Prefiro não informar'
     no_disability: 'Não tenho deficiência'
     visual: 'Sim, deficiência visual'
     hearing: 'Sim, deficiência auditiva'
     physical_or_motor: 'Sim, deficiência física ou motora'
     mental_or_intellectual: 'Sim, deficiência mental ou intelectual'
-    i_dont_know: 'Não sei responder'
+    deafblindness: 'Sim, surdocegueira'
+    multiple_disability: 'Sim, deficiência múltipla'
+    rather_not_answer: 'Prefiro não informar'
 
   age_range:
     until_18: 'Até 18 anos'
@@ -795,17 +800,27 @@ pt-BR:
     60_or_above: '60 anos ou mais'
 
   is_parent:
-    rather_not_answer: 'Prefiro não informar'
     'yes': "Sim"
     'no': "Não"
+    rather_not_answer: 'Prefiro não informar'
 
   home_geographical_area:
-    rather_not_answer: 'Prefiro não informar'
     metropolitan: 'Zona urbana central/metropolitana'
     periferic: 'Zona urbana periférica'
     rural: 'Zona Rural'
     indigenous: 'Comunidade indígena'
     quilombola: 'Comunidade quilombola'
+    riverside: 'Comunidade ribeirinha'
+    rather_not_answer: 'Prefiro não informar'
+
+  agility_experience:
+    until_1: 'Sim, até 1 ano'
+    1_to_2: 'Sim, de 1 até 2 anos'
+    2_to_3: 'Sim, de 2 até 3 anos'
+    3_to_4: 'Sim, de 3 até 4 anos'
+    more_than_4: 'Sim, mais que 4 anos'
+    no_but_transitioning: 'Não, mas estou em busca de transição de carreira'
+    'no': 'Não'
 
   generic:
     or: "ou"

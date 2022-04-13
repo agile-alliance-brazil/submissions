@@ -139,9 +139,10 @@ en:
         gender: "What gender do you identify with?"
         race: "What color of skin/race do you identify with?"
         disability: "Do you have some disability?"
-        birth_date: "Date of birth?"
+        birth_date: "What is your birth date?"
         is_parent: "Are you parent or legal responsible?"
         home_geographical_area: "You live on:"
+        agility_experience: "Do you work with agility?"
         organization: "Organization"
         website_url: "Website"
         bio: "Bio"
@@ -275,6 +276,7 @@ en:
         general_comments: "General Comments"
     hints:
       textile: "The following fields accept <a href='http://redcloth.org/hobix.com/textile/'>textile syntax</a> to format your proposal."
+      diversity_optional_fields: "The fields below are optional and they are collected to understand the profile of people who will participate of conference. Only conference organizers can see it."
       user:
         email: "Main e-mail address for contact purposes. We also use your e-mail to fetch your profile image from Gravatar. If you want to change your profile picture, <a href='http://en.gravatar.com/site/signup/' target='_blank'>get your gravatar</a>."
         phone: "Preferably your mobile cellphone number."
@@ -282,12 +284,13 @@ en:
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
-        gender: "<ul><li>Cisgender: Who identifies with gender assigned on birth</li><li>Transgender: Who has other different gender than one assigned on birth</li></ul><p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
-        race: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
-        disability: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
-        birth_date: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
-        is_parent: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
-        home_geographical_area: "<p>This is collected to better understand the profile of people who will speak at conference.</p><p>Only chairs and track leads can see this.</p>"
+        gender: >
+          <ul>
+          <li>Cisgender: Who identifies with gender assigned on birth.</li>
+          <li>Transgender: Who has other different gender than one assigned on birth.</li>
+          <li>Transvestite: It's a person assigned as man on birth, but it identifies itself as a woman person.</li>
+          <li>Non-binary: People who don't identify as member of a gender exclusively. It means that gender expression and gender identity are not limited to male and female.</li>
+          </ul>
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
         website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
         bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
@@ -753,31 +756,33 @@ en:
       title: "Registration"
 
   gender:
-    rather_not_answer: 'Rather not answer'
     cis_man: "Cisgender man"
     trans_man: "Transgender man"
     cis_woman: "Cisgender woman"
     trans_woman: "Transgender woman"
-    non_binary: "Non binary gender person"
+    transvestite: "Transvestite"
     i_dont_know: "I don't know"
+    non_binary: "Non binary gender person"
+    rather_not_answer: 'Rather not answer'
 
   race:
-    rather_not_answer: 'Rather not answer'
-    yellow: "Yellow"
-    white: "White"
-    indian: "Indian"
-    brown: "Brown"
-    black: "Black"
+    asian: "Asian person"
+    white: "White person"
+    indian: "Indian person"
+    brown: "Brown person"
+    black: "Black person"
     i_dont_know: "I don't know"
+    rather_not_answer: 'Rather not answer'
 
   disability:
-    rather_not_answer: 'Rather not answer'
     no_disability: "I don't have any disability"
     visual: 'Yes, visual disability'
     hearing: 'Yes, hearing disability'
     physical_or_motor: 'Yes, physic or motor disability'
-    mental_or_intellectual: 'Sim, mental or intellectual disability'
-    i_dont_know: "I don't know"
+    mental_or_intellectual: 'Yes, mental or intellectual disability'
+    deafblindness: 'Yes, deafblindness'
+    multiple_disability: 'Yes, multiple disability'
+    rather_not_answer: 'Rather not answer'
 
   age_range:
     until_18: 'Until 18 years old'
@@ -792,17 +797,27 @@ en:
     60_or_above: '60 years old or above'
 
   is_parent:
-    rather_not_answer: 'Rather not answer'
     'yes': "Yes"
     'no': "No"
+    rather_not_answer: 'Rather not answer'
 
   home_geographical_area:
-    rather_not_answer: 'Rather not answer'
     metropolitan: 'Urban central/metropolitan area'
     periferic: 'Peripheral area'
     rural: 'Rural area'
     indigenous: 'Indigenous community'
     quilombola: 'Quilombola community'
+    riverside: 'Riverside community'
+    rather_not_answer: 'Rather not answer'
+
+  agility_experience:
+    until_1: 'Yes, until 1 year'
+    1_to_2: 'Yes, between 1 and 2 years'
+    2_to_3: 'Yes, between 2 and 3 years'
+    3_to_4: 'Yes, between 3 and 4 years'
+    more_than_4: 'Yes, more than 4 years'
+    no_but_transitioning: 'No, but I want transitate to it'
+    'no': 'No'
 
   generic:
     or: "or"
