@@ -41,8 +41,6 @@ class User < ApplicationRecord
     user.state = '' unless in_brazil?
   end
 
-  after_save :register_profile_review
-
   scope(:search, ->(q) { where('username LIKE ?', "%#{q}%") })
   scope(:by_comments, ->(comment_filters) { joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) })
 
@@ -110,13 +108,10 @@ class User < ApplicationRecord
     Session.for_user(id).for_conference(conference).with_state(:accepted).count.positive?
   end
 
-  private
+  def register_profile_review(conference)
+    return unless conference
 
-  def register_profile_review
-    current_conference = Conference.current
-    return unless current_conference
-
-    user_conference = user_conferences.find_or_initialize_by(conference: current_conference)
+    user_conference = user_conferences.find_or_initialize_by(conference: conference)
     user_conference.profile_reviewed = true
     user_conference.save
   end

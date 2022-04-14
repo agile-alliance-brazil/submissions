@@ -284,41 +284,36 @@ describe User, type: :model do
     expect(user.default_locale).to eq('pt-BR')
   end
 
-  describe 'after_save' do
-    context 'when there is no current conference' do
-      context 'on create' do
-        subject(:user) { FactoryBot.create(:user) }
-        it { expect(user.user_conferences).to be_empty }
-      end
+  describe '#register_profile_review' do
+    let(:conference) { FactoryBot.create(:conference) }
+    let(:user) { FactoryBot.create(:user) }
+    subject(:user_conference) { user.user_conferences.first }
 
-      context 'on update' do
-        subject(:user) { FactoryBot.create(:user) }
-        before { user.update first_name: 'John Doe' }
-        it { expect(user.user_conferences).to be_empty }
+    context 'when no conference' do
+      before { user.register_profile_review(nil) }
+      it { expect(user.user_conferences).to be_empty }
+    end
+
+    context 'when profile review for given conference is not registered yet' do
+      before { user.register_profile_review(conference) }
+
+      it 'registers user profile for given conference' do
+        expect(user.user_conferences).to have(1).items
+        expect(user_conference.conference_id).to eq(conference.id)
+        expect(user_conference.profile_reviewed).to be(true)
       end
     end
 
-    context 'when there is no current conference' do
-      let!(:conference) { FactoryBot.create(:conference) }
-
-      context 'on create' do
-        subject(:user) { FactoryBot.create(:user) }
-
-        it 'registers profile as reviewed for current conference' do
-          expect(user.user_conferences).to have(1).items
-          expect(user.user_conferences.first.conference_id).to eq(conference.id)
-          expect(user.user_conferences.first.profile_reviewed).to be(true)
-        end
+    context 'when profile review is already registered' do
+      before do
+        user.user_conferences.create(conference: conference, profile_reviewed: false)
+        user.register_profile_review(conference)
       end
 
-      context 'on update' do
-        subject(:user) { FactoryBot.create(:user) }
-        before { user.update first_name: 'John Doe' }
-        it 'registers profile as reviewed for current conference' do
-          expect(user.user_conferences).to have(1).items
-          expect(user.user_conferences.first.conference_id).to eq(conference.id)
-          expect(user.user_conferences.first.profile_reviewed).to be(true)
-        end
+      it 'updates existing profile review' do
+        expect(user.user_conferences).to have(1).items
+        expect(user_conference.conference_id).to eq(conference.id)
+        expect(user_conference.profile_reviewed).to be(true)
       end
     end
   end

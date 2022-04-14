@@ -78,7 +78,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'when user profile is reviewed' do
         before do
-          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: true)
+          author.register_profile_review(conference)
           get :new, year: conference.year
         end
 
@@ -91,7 +91,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'when user profile is not reviewed' do
         before do
-          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: false)
+          author.user_conferences.update_all(profile_reviewed: false)
           get :new, year: conference.year
         end
 
@@ -101,6 +101,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'when user profile review is missing' do
         before do
+          author.user_conferences = []
           get :new, year: conference.year
         end
 
@@ -111,9 +112,7 @@ RSpec.describe SessionsController, type: :controller do
 
     describe 'create action' do
       context 'when user profile is reviewed' do
-        before do
-          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: true)
-        end
+        before { author.register_profile_review(conference) }
 
         it 'renders new template when model is invalid' do
           post :create, year: conference.year, session: { title: 'Test' }
@@ -142,7 +141,16 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'when user profile is not reviewed' do
         before do
-          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: false)
+          author.user_conferences.update_all(profile_reviewed: false)
+          post :create, year: conference.year, session: valid_params
+        end
+
+        it { expect(response.status).to eq(400) }
+      end
+
+      context 'when user profile is missing' do
+        before do
+          author.user_conferences = []
           post :create, year: conference.year, session: valid_params
         end
 
