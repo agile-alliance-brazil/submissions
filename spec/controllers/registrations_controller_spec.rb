@@ -5,88 +5,70 @@ require 'spec_helper'
 describe RegistrationsController, type: :controller do
   render_views
   it_should_behave_like_a_devise_controller
-
-  let!(:invalid_user) { User.new } # Need to make before stubbing User.new
-  let!(:user) { FactoryBot.create(:user) } # Mocha won't actually call this until after the new stub
   let!(:conference) { FactoryBot.create(:conference) } # TODO: Remove conference dependency
 
-  before do
-    User.stubs(:new).returns(user)
-    EmailNotifications.stubs(:welcome).returns(stub(deliver_now: true))
+  describe 'GET #new' do
+    before { get :new, locale: 'en' }
+
+    it { expect(response).to render_template(:new) }
+    it { expect(assigns(:user).default_locale.to_sym).to eq(:en) }
   end
 
-  it 'new action should render new template' do
-    get :new
-    expect(response).to render_template(:new)
+  describe 'POST #create' do
+    context 'when invalid' do
+      before { post :create, user: User.new }
+
+      it { expect(response).to render_template(:new) }
+    end
+
+    context 'when valid' do
+      let!(:new_user) { FactoryBot.build(:user) }
+      before do
+        EmailNotifications.expects(:welcome).returns(mock(deliver_now: true))
+        User.stubs(:new).returns(new_user)
+        post :create, user: new_user
+      end
+
+      it { expect(response).to redirect_to(root_url) }
+      it { expect(controller.current_user).not_to be_nil }
+      it { expect(controller.current_user.reload.user_conferences).to have(1).items }
+    end
   end
 
-  it 'new action should build user with default locale' do
-    get :new, locale: 'en'
-    expect(assigns(:user).default_locale.to_sym).to eq(:en)
-  end
-
-  it 'create action should render new template when model is invalid' do
-    User.stubs(:new).returns(invalid_user)
-    post :create, user: {}
-    expect(response).to render_template(:new)
-  end
-
-  it 'create action should redirect when model is valid' do
-    user.stubs(:valid?).returns(true)
-    post :create
-    expect(response).to redirect_to(root_url)
-  end
-
-  it 'create action should login new user' do
-    user.stubs(:valid?).returns(true)
-    post :create
-    expect(controller.current_user).not_to be_nil
-  end
-
-  it 'create action should send welcome e-mail' do
-    EmailNotifications.expects(:welcome).returns(mock(deliver_now: true))
-    User.stubs(:new).returns(user)
-    user.stubs(:valid?).returns(true)
-    post :create
-  end
-
-  context 'logged in' do
+  context 'when logged in' do
+    let(:user) { FactoryBot.create(:user) }
     before do
+      user.user_conferences = []
       sign_in user
       disable_authorization
     end
 
-    it 'edit action should render edit template' do
-      get :edit
-      expect(response).to render_template(:edit)
+    describe 'GET #edit' do
+      before { get :edit, locale: 'en' }
+
+      it { expect(response).to render_template(:edit) }
+      it { expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR') }
     end
 
-    it 'edit action should set default locale regardless of params' do
-      get :edit, locale: 'en'
-      expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR')
-    end
+    describe 'PATCH #update' do
+      context 'when invalid' do
+        before { patch :update, id: user.id, user: { username: nil } }
+        it { expect(response).to render_template(:edit) }
+        it { expect(user.user_conferences).to have(0).item }
+      end
 
-    it 'update action should render edit template when model is invalid' do
-      # +stubs(:valid?).returns(false)+ doesn't work here because
-      # inherited_resources does +obj.errors.empty?+ to determine
-      # if validation failed
-      patch :update, user: { username: nil }
-      expect(response).to render_template(:edit)
-    end
+      context 'when valid' do
+        before do
+          patch :update, user: {
+            current_password: 'secret',
+            password: 'newsecret',
+            password_confirmation: 'newsecret'
+          }
+        end
 
-    # it "update action should render change password" do
-    #   patch :update, user: {password: nil}
-    #   expect(response).to render_template(:edit)
-    #   expect(assigns(:update_password)).to eq("true")
-    # end
-
-    it 'update action should redirect when model is valid' do
-      patch :update, user: {
-        current_password: 'secret',
-        password: 'new',
-        password_confirmation: 'new'
-      }
-      expect(response).to redirect_to(user_path(assigns(:user)))
+        it { expect(response).to redirect_to(user_path(assigns(:user))) }
+        it { expect(user.reload.user_conferences).to have(1).item }
+      end
     end
   end
 end

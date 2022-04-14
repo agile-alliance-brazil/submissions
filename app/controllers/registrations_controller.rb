@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RegistrationsController < Devise::RegistrationsController
+  after_action :register_user_profile_review, only: %i[create update]
+
   # POST /resource
   def create
     build_resource(sign_up_params)
@@ -88,5 +90,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   def needs_password?
     account_update_params.key?(:password)
+  end
+
+  def register_user_profile_review
+    return unless resource.persisted? && resource.valid?
+
+    resource.register_profile_review Conference.current
   end
 end
