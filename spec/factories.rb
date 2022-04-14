@@ -36,6 +36,12 @@ FactoryBot.define do
     password_confirmation { 'secret' }
   end
 
+  factory :user_conference do
+    user { FactoryBot.create :user }
+    conference { Conference.current || FactoryBot.create(:conference) }
+    profile_reviewed { true }
+  end
+
   factory :session_type do
     conference { Conference.current || FactoryBot.create(:conference) }
     valid_durations { [50] }

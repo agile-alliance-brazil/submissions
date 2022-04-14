@@ -23,9 +23,12 @@ class SessionsController < ApplicationController
 
   def new
     @session = Session.new(conference_id: @conference.id, author_id: current_user.id)
+    @profile_review_required = !user_profile_reviewed
   end
 
   def create
+    return render nothing: true, status: :bad_request unless user_profile_reviewed
+
     @session = Session.new(session_params)
     if @session.save
       EmailNotifications.session_submitted(@session).deliver_now
@@ -134,5 +137,11 @@ class SessionsController < ApplicationController
       )
     end
     @tags.tap(&:to_a)
+  end
+
+  private
+
+  def user_profile_reviewed
+    UserConference.find_by(user: current_user, conference: @conference).try(:profile_reviewed)
   end
 end

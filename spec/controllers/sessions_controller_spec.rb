@@ -43,7 +43,7 @@ RSpec.describe SessionsController, type: :controller do
       EmailNotifications.stubs(:session_submitted).returns(stub(deliver_now: true))
     end
 
-    context 'show action' do
+    describe 'show action' do
       it 'renders show template with comment' do
         get :show, year: conference.year, id: session.id
 
@@ -70,64 +70,87 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
-    context 'new action' do
+    describe 'new action' do
       before do
         @tracks = [track]
         @audience_levels = [audience_level]
       end
 
-      it 'renders new template' do
-        get :new, year: conference.year
+      context 'when user profile is reviewed' do
+        before do
+          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: true)
+          get :new, year: conference.year
+        end
 
-        expect(response).to render_template(:new)
+        it { expect(response).to render_template(:new) }
+        it { expect(assigns(:profile_review_required)).to eq(false) }
+        it { expect(assigns(:tracks)).to eq(@tracks) }
+        it { expect(assigns(:audience_levels)).to eq(@audience_levels) }
+        it { expect(assigns(:session_types)).to eq(@session_types) }
       end
 
-      it 'onlies assign tracks for current conference' do
-        get :new, year: conference.year
+      context 'when user profile is not reviewed' do
+        before do
+          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: false)
+          get :new, year: conference.year
+        end
 
-        expect(assigns(:tracks)).to eq(@tracks)
+        it { expect(response).to render_template(:new) }
+        it { expect(assigns(:profile_review_required)).to eq(true) }
       end
 
-      it 'onlies assign audience levels for current conference' do
-        get :new, year: conference.year
+      context 'when user profile review is missing' do
+        before do
+          get :new, year: conference.year
+        end
 
-        expect(assigns(:audience_levels)).to eq(@audience_levels)
-      end
-
-      it 'onlies assign session types for current conference' do
-        get :new, year: conference.year
-
-        expect(assigns(:session_types)).to eq(@session_types)
-      end
-    end
-
-    context 'create action' do
-      it 'renders new template when model is invalid' do
-        post :create, year: conference.year, session: { title: 'Test' }
-
-        expect(response).to render_template(:new)
-      end
-
-      it 'redirects when model is valid' do
-        post :create, year: conference.year, session: valid_params
-
-        expect(response).to redirect_to(session_url(conference, assigns(:session)))
-      end
-
-      it 'ignores unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
-
-        expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
-      end
-
-      it 'sends an email when model is valid' do
-        EmailNotifications.expects(:session_submitted).returns(mock(deliver_now: true))
-
-        post :create, year: conference.year, session: valid_params
+        it { expect(response).to render_template(:new) }
+        it { expect(assigns(:profile_review_required)).to eq(true) }
       end
     end
 
-    context 'edit action' do
+    describe 'create action' do
+      context 'when user profile is reviewed' do
+        before do
+          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: true)
+        end
+
+        it 'renders new template when model is invalid' do
+          post :create, year: conference.year, session: { title: 'Test' }
+
+          expect(response).to render_template(:new)
+        end
+
+        it 'redirects when model is valid' do
+          post :create, year: conference.year, session: valid_params
+
+          expect(response).to redirect_to(session_url(conference, assigns(:session)))
+        end
+
+        it 'ignores unknown tags' do
+          post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
+
+          expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
+        end
+
+        it 'sends an email when model is valid' do
+          EmailNotifications.expects(:session_submitted).returns(mock(deliver_now: true))
+
+          post :create, year: conference.year, session: valid_params
+        end
+      end
+
+      context 'when user profile is not reviewed' do
+        before do
+          FactoryBot.create(:user_conference, user: author, conference: conference, profile_reviewed: false)
+          post :create, year: conference.year, session: valid_params
+        end
+
+        it { expect(response.status).to eq(400) }
+      end
+    end
+
+    describe 'edit action' do
       it 'renders edit template' do
         get :edit, year: conference.year, id: session.id
 
@@ -153,7 +176,7 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
-    context 'update action' do
+    describe 'update action' do
       it 'renders edit template when model is invalid' do
         patch :update, year: conference.year, id: session.id, session: { title: nil }
 
@@ -167,7 +190,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'ignores unknown tags' do
-        post :create, year: conference.year, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
+        patch :update, year: conference.year, id: session.id, session: valid_params.merge(keyword_list: 'tags.tdd,tags.tecniques,unknown')
 
         expect(assigns(:session).keyword_list).to eq(['tags.tdd', 'tags.tecniques'])
       end
@@ -185,7 +208,7 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
-    context 'cancel action' do
+    describe 'cancel action' do
       context 'for author' do
         it 'cancels and redirect to sessions index' do
           delete :cancel, year: conference.year, id: session.id
