@@ -283,4 +283,43 @@ describe User, type: :model do
     user = FactoryBot.build(:user)
     expect(user.default_locale).to eq('pt-BR')
   end
+
+  describe 'after_save' do
+    context 'when there is no current conference' do
+      context 'on create' do
+        subject(:user) { FactoryBot.create(:user) }
+        it { expect(user.user_conferences).to be_empty }
+      end
+
+      context 'on update' do
+        subject(:user) { FactoryBot.create(:user) }
+        before { user.update first_name: 'John Doe' }
+        it { expect(user.user_conferences).to be_empty }
+      end
+    end
+
+    context 'when there is no current conference' do
+      let!(:conference) { FactoryBot.create(:conference) }
+
+      context 'on create' do
+        subject(:user) { FactoryBot.create(:user) }
+
+        it 'registers profile as reviewed for current conference' do
+          expect(user.user_conferences).to have(1).items
+          expect(user.user_conferences.first.conference_id).to eq(conference.id)
+          expect(user.user_conferences.first.profile_reviewed).to be(true)
+        end
+      end
+
+      context 'on update' do
+        subject(:user) { FactoryBot.create(:user) }
+        before { user.update first_name: 'John Doe' }
+        it 'registers profile as reviewed for current conference' do
+          expect(user.user_conferences).to have(1).items
+          expect(user.user_conferences.first.conference_id).to eq(conference.id)
+          expect(user.user_conferences.first.profile_reviewed).to be(true)
+        end
+      end
+    end
+  end
 end

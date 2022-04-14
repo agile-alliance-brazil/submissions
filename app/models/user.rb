@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :nullify
   has_many :review_decisions, dependent: :restrict_with_exception, inverse_of: :organizer
   has_many :review_feedbacks, dependent: :restrict_with_exception, inverse_of: :author
+  has_many :user_conferences, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }
@@ -32,13 +33,15 @@ class User < ApplicationRecord
   end
   validates :organization, length: { maximum: 100 }, allow_blank: true
   validates :website_url, length: { maximum: 100 }, allow_blank: true
-  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w.+\-_@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
+  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w.+\-@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
   validates :email, length: { within: 6..100 }, allow_blank: true
 
   before_validation do |user|
     user.twitter_username = user.twitter_username[1..-1] if user.twitter_username =~ /\A@/
     user.state = '' unless in_brazil?
   end
+
+  after_save :register_profile_review
 
   scope(:search, ->(q) { where('username LIKE ?', "%#{q}%") })
   scope(:by_comments, ->(comment_filters) { joins(:comments).includes(:comments).where(comments: comment_filters).group('comments.user_id').order('COUNT(comments.user_id) DESC').order(created_at: :desc) })
@@ -105,5 +108,16 @@ class User < ApplicationRecord
 
   def has_approved_session?(conference)
     Session.for_user(id).for_conference(conference).with_state(:accepted).count.positive?
+  end
+
+  private
+
+  def register_profile_review
+    current_conference = Conference.current
+    return unless current_conference
+
+    user_conference = user_conferences.find_or_initialize_by(conference: current_conference)
+    user_conference.profile_reviewed = true
+    user_conference.save
   end
 end
