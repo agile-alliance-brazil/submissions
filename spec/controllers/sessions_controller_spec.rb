@@ -83,7 +83,7 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it { expect(response).to render_template(:new) }
-        it { expect(assigns(:profile_review_required)).to eq(false) }
+        it { expect(assigns(:user_profile_outdated)).to eq(false) }
         it { expect(assigns(:tracks)).to eq(@tracks) }
         it { expect(assigns(:audience_levels)).to eq(@audience_levels) }
         it { expect(assigns(:session_types)).to eq(@session_types) }
@@ -96,7 +96,7 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it { expect(response).to render_template(:new) }
-        it { expect(assigns(:profile_review_required)).to eq(true) }
+        it { expect(assigns(:user_profile_outdated)).to eq(true) }
       end
 
       context 'when user profile review is missing' do
@@ -106,7 +106,7 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it { expect(response).to render_template(:new) }
-        it { expect(assigns(:profile_review_required)).to eq(true) }
+        it { expect(assigns(:user_profile_outdated)).to eq(true) }
       end
     end
 

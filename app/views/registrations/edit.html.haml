@@ -2,6 +2,10 @@
 - show_actions!
 .auto_focus
 
+- if @user_profile_outdated
+  .form_tip
+    = t('text.users.update_profile_to_submit_session').html_safe
+
 = semantic_form_for resource, as: resource_name, url: registration_path(resource_name), html: {method: :put} do |form|
   - if !!params[:update_password]
     = render 'change_password', form: form

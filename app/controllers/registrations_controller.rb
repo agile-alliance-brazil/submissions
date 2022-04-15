@@ -2,6 +2,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
   after_action :register_user_profile_review, only: %i[create update]
+  before_action :load_user_profile_outdated, only: :edit
 
   # POST /resource
   def create
@@ -96,5 +97,9 @@ class RegistrationsController < Devise::RegistrationsController
     return unless resource.persisted? && resource.valid?
 
     resource.register_profile_review Conference.current
+  end
+
+  def load_user_profile_outdated
+    @user_profile_outdated = !current_user.try(:profile_reviewed_for_conference, Conference.current)
   end
 end

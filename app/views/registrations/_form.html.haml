@@ -13,8 +13,7 @@
   = form.input :state, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, input_html: {tabindex: autotab}
   = form.input :city, required: true, input_html: {tabindex: autotab}
 
-  %p.syntax_help= t('formtastic.hints.diversity_optional_fields').html_safe
-
+  #diversity_fields_tip.form_tip= t('formtastic.hints.diversity_optional_fields').html_safe
   = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
   = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
   = form.input :disability, as: :select, collection: disability_options, input_html: {tabindex: autotab}
@@ -50,6 +49,7 @@
 
   function wantsToSubmitTriggered() {
     if ($(this).is(":checked")) {
+      $("#diversity_fields_tip").show()
       $("#user_country").removeAttr('disabled').trigger('updated');
       $("#user_country_input").show();
       $("#user_state").removeAttr('disabled');
@@ -77,6 +77,7 @@
       $("#user_bio").removeAttr('disabled');
       $("#user_bio_input").show();
     } else {
+      $("#diversity_fields_tip").hide()
       $("#user_country").attr('disabled', 'disabled').trigger('updated');
       $("#user_country_input").hide();
       $("#user_state").attr('disabled', 'disabled');

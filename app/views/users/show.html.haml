@@ -13,7 +13,7 @@
   %dt= t('formtastic.labels.user.username')
   %dd&= @user_profile.username
 
-  - if current_user == @user_profile || current_user.try(:organizer_with_conference?) 
+  - if current_user == @user_profile || current_user.try(:organizer?) 
     %dt
       = t('formtastic.labels.user.email')
       = image_tag('icon-private.png', alt: t('text.private_field'))

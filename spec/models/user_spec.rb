@@ -317,4 +317,19 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#profile_reviewed_for_conference' do
+    let(:conference) { FactoryBot.create(:conference) }
+    let(:user) { FactoryBot.create(:user) }
+    subject { user.profile_reviewed_for_conference(conference) }
+
+    context 'when profile is not reviewed' do
+      it { is_expected.to be_falsy }
+    end
+
+    context 'when profile is reviewed' do
+      before { user.register_profile_review(conference) }
+      it { is_expected.to be(true) }
+    end
+  end
 end

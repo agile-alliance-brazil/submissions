@@ -419,6 +419,14 @@ li#user_wants_to_submit_input {
   padding: 10px;
   width: 74%; }
 
+.form_tip {
+  background-color: #d8ffdc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: 1px dashed #1c8c1c;
+  padding: 10px; }
+
 form {
   .agreement {
     width: 100%;

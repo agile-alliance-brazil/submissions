@@ -44,10 +44,21 @@ describe RegistrationsController, type: :controller do
     end
 
     describe 'GET #edit' do
-      before { get :edit, locale: 'en' }
+      context 'when profile review is not registered' do
+        before { get :edit, locale: 'en' }
 
-      it { expect(response).to render_template(:edit) }
-      it { expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR') }
+        it { expect(response).to render_template(:edit) }
+        it { expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR') }
+        it { expect(assigns(:user_profile_outdated)).to eq(true) }
+      end
+      describe 'when profile review is registered' do
+        before do
+          user.register_profile_review(conference)
+          get :edit, locale: 'en'
+        end
+
+        it { expect(assigns(:user_profile_outdated)).to eq(false) }
+      end
     end
 
     describe 'PATCH #update' do

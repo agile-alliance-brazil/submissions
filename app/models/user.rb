@@ -84,6 +84,10 @@ class User < ApplicationRecord
   end
   alias_method_chain :organizer?, :conference
 
+  def profile_reviewed_for_conference(conference)
+    user_conferences.find_by(conference: conference).try(:profile_reviewed)
+  end
+
   def full_name
     [first_name, last_name].join(' ')
   end
