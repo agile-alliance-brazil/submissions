@@ -78,7 +78,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context 'when user profile is reviewed' do
         before do
-          author.register_profile_review(conference)
+          author.register_profile_review(Conference.current)
           get :new, year: conference.year
         end
 
@@ -112,7 +112,7 @@ RSpec.describe SessionsController, type: :controller do
 
     describe 'create action' do
       context 'when user profile is reviewed' do
-        before { author.register_profile_review(conference) }
+        before { author.register_profile_review(Conference.current) }
 
         it 'renders new template when model is invalid' do
           post :create, year: conference.year, session: { title: 'Test' }

@@ -45,7 +45,7 @@ describe RegistrationsController, type: :controller do
 
     describe 'GET #edit' do
       context 'when profile review is not registered' do
-        before { get :edit, locale: 'en' }
+        before { get :edit }
 
         it { expect(response).to render_template(:edit) }
         it { expect(assigns(:user).default_locale.to_sym).to eq(:'pt-BR') }
@@ -53,8 +53,8 @@ describe RegistrationsController, type: :controller do
       end
       describe 'when profile review is registered' do
         before do
-          user.register_profile_review(conference)
-          get :edit, locale: 'en'
+          user.register_profile_review(Conference.current)
+          get :edit
         end
 
         it { expect(assigns(:user_profile_outdated)).to eq(false) }
