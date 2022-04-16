@@ -144,9 +144,9 @@ pt-BR:
         birth_date: "Qual é a sua data de nascimento?"
         is_parent: "Você é pai/mãe/responsável legal?"
         home_geographical_area: "Você mora em:"
-        agility_experience: "Você já atua na área de agilidade?"
+        agility_experience: "Você já atua com agilidade?"
         organization: "Organização"
-        website_url: "Website"
+        website_url: "Linkedin"
         bio: "Mini-currículo"
         past_proposals: "Propostas anteriores"
         roles: "Permissões"
@@ -279,7 +279,7 @@ pt-BR:
         general_comments: "Comentários gerais"
     hints:
       textile: "Os próximos campos aceitam <a href='http://redcloth.org/hobix.com/textile/'>a sintaxe textile</a> como markup para adicionar estilos à sua proposta."
-      diversity_optional_fields: "O preenchimento dos dados abaixo dados é opcional e eles são coletados para entendermos melhor o perfil de quem participa da conferência. A visualização destes dados é restrita para as pessoas da organização do evento."
+      diversity_optional_fields: "O preenchimento dos dados abaixo é opcional e eles são coletados para entendermos melhor o perfil de quem participa da conferência. A visualização destes dados é restrita para as pessoas da organização do evento."
       user:
         email: "Principal email de contato. Nós também usamos seu email para exibir a foto no seu perfil. Para criar ou alterar sua foto, <a href='http://en.gravatar.com/site/signup/' target='_blank'>acesse o Gravatar</a>."
         password: "Pelo menos 3 caracteres."
@@ -287,16 +287,10 @@ pt-BR:
         country: "País de residência, para fins estatísticos."
         state: "Estado de residência, para fins estatísticos."
         city: "Cidade de residência, para fins estatísticos."
-        gender: >
-          <ul>
-          <li>Cisgênero: Que se identifica com o sexo que lhe foi designado ao nascer.</li>
-          <li>Transgênero: Possui outra identidade de gênero, diferente da que lhe foi designada ao nascer.</li>
-          <li>Travesti: É uma pessoa que foi designada homem no nascimento, mas se entende como uma figura feminina.</li>
-          <li>Não binariedade: Pessoas que não se percebem como pertencentes a um gênero exclusivamente. Isso significa que sua identidade de gênero e expressão de gênero não são limitadas ao masculino e feminino.</li>
-          </ul>
+        gender: "- Cisgênero: Que se identifica com o sexo que lhe foi designado ao nascer.<br />- Transgênero: Possui outra identidade de gênero, diferente da que lhe foi designada ao nascer.<br />- Travesti: É uma pessoa que foi designada homem no nascimento, mas se entende como uma figura feminina.<br />- Não binariedade: Pessoas que não se percebem como pertencentes a um gênero exclusivamente. Isso significa que sua identidade de gênero e expressão de gênero não são limitadas ao masculino e feminino."
         organization: "Nome da empresa ou organização que representa, para fins estatísticos."
-        website_url: "Pessoal ou da empresa para referência da comissão de programa. Caso você submeta uma proposta, este website pode ser consultado para avaliá-la."
-        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis. Este campo será usado para avaliar sua proposta.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
+        website_url: "Caso sua palestra seja selecionada, seu Linkedin será usado para consulta pela organização do evento."
+        bio: "Escreva um pouco sobre sua formação acadêmica, experiência profissional e atuação na comunidade, com foco na sua experiência com métodos ágeis.<br />Este campo será usado para avaliar sua proposta e caso ela seja selecionada também será usado para divulgação no site oficial do evento e redes sociais.<br/>Neste campo, uma sintaxe de marcação limitada é permitida. Veja detalhes no <a href='/syntax_help?locale=pt-BR' target='_blank'>guia de referência</a>."
         wants_to_submit: "Deixe este campo desmarcado caso você queira apenas deixar comentários nas sessões propostas por outros usuários. Você pode mudar de idéia mais tarde, editando seu perfil."
         current_password: "Para trocar de senha, é preciso confirmar sua senha atual."
         twitter_username: "Seu nome de usuário no twitter, sem o prefixo '@' (por exemplo: 'twitter_user' ao invés de '@twitter_user')"
@@ -446,7 +440,10 @@ pt-BR:
     reviewer:
       signs: '%{name} assina suas revisões!'
       anonymous: '%{name} optou por NÃO assinar suas revisões'
-    
+    users:
+      update_profile_to_submit_session: "<p>Se você está revisando o seu perfil para submeter uma palestra, por favor salve o seu perfil mesmo que nenhuma alteração seja necessária para que nós possamos saber que está tudo correto.</p>"
+    sessions:
+      update_profile_to_submit_session: "<p>Verificamos que seu perfil está desatualizado. Contamos com a sua disponibilidade para atualizar o cadastro com algumas informações. Não leva nem 2 minutinhos!</p>"
 
   footer:
     help: "Se tiver dúvidas, críticas ou sugestões entre em contato através do email <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"

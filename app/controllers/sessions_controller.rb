@@ -23,9 +23,12 @@ class SessionsController < ApplicationController
 
   def new
     @session = Session.new(conference_id: @conference.id, author_id: current_user.id)
+    @user_profile_outdated = !current_user.try(:profile_reviewed_for_conference, Conference.current)
   end
 
   def create
+    return render nothing: true, status: :bad_request unless current_user.try(:profile_reviewed_for_conference, Conference.current)
+
     @session = Session.new(session_params)
     if @session.save
       EmailNotifications.session_submitted(@session).deliver_now

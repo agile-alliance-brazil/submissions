@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :nullify
   has_many :review_decisions, dependent: :restrict_with_exception, inverse_of: :organizer
   has_many :review_feedbacks, dependent: :restrict_with_exception, inverse_of: :author
+  has_many :user_conferences, dependent: :destroy
 
   validates :first_name, presence: true, length: { maximum: 100 }
   validates :last_name, presence: true, length: { maximum: 100 }
@@ -32,7 +33,7 @@ class User < ApplicationRecord
   end
   validates :organization, length: { maximum: 100 }, allow_blank: true
   validates :website_url, length: { maximum: 100 }, allow_blank: true
-  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w.+\-_@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
+  validates :username, length: { within: 3..30 }, format: { with: /\A\w[\w.+\-@ ]+\z/, message: :username_format }, uniqueness: { case_sensitive: false }, constant: { on: :update }
   validates :email, length: { within: 6..100 }, allow_blank: true
 
   before_validation do |user|
@@ -83,6 +84,10 @@ class User < ApplicationRecord
   end
   alias_method_chain :organizer?, :conference
 
+  def profile_reviewed_for_conference(conference)
+    user_conferences.find_by(conference: conference).try(:profile_reviewed)
+  end
+
   def full_name
     [first_name, last_name].join(' ')
   end
@@ -105,5 +110,13 @@ class User < ApplicationRecord
 
   def has_approved_session?(conference)
     Session.for_user(id).for_conference(conference).with_state(:accepted).count.positive?
+  end
+
+  def register_profile_review(conference)
+    return unless conference
+
+    user_conference = user_conferences.find_or_initialize_by(conference: conference)
+    user_conference.profile_reviewed = true
+    user_conference.save
   end
 end

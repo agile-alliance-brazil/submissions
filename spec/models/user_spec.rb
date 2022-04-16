@@ -283,4 +283,53 @@ describe User, type: :model do
     user = FactoryBot.build(:user)
     expect(user.default_locale).to eq('pt-BR')
   end
+
+  describe '#register_profile_review' do
+    let(:conference) { FactoryBot.create(:conference) }
+    let(:user) { FactoryBot.create(:user) }
+    subject(:user_conference) { user.user_conferences.first }
+
+    context 'when no conference' do
+      before { user.register_profile_review(nil) }
+      it { expect(user.user_conferences).to be_empty }
+    end
+
+    context 'when profile review for given conference is not registered yet' do
+      before { user.register_profile_review(conference) }
+
+      it 'registers user profile for given conference' do
+        expect(user.user_conferences).to have(1).items
+        expect(user_conference.conference_id).to eq(conference.id)
+        expect(user_conference.profile_reviewed).to be(true)
+      end
+    end
+
+    context 'when profile review is already registered' do
+      before do
+        user.user_conferences.create(conference: conference, profile_reviewed: false)
+        user.register_profile_review(conference)
+      end
+
+      it 'updates existing profile review' do
+        expect(user.user_conferences).to have(1).items
+        expect(user_conference.conference_id).to eq(conference.id)
+        expect(user_conference.profile_reviewed).to be(true)
+      end
+    end
+  end
+
+  describe '#profile_reviewed_for_conference' do
+    let(:conference) { FactoryBot.create(:conference) }
+    let(:user) { FactoryBot.create(:user) }
+    subject { user.profile_reviewed_for_conference(conference) }
+
+    context 'when profile is not reviewed' do
+      it { is_expected.to be_falsy }
+    end
+
+    context 'when profile is reviewed' do
+      before { user.register_profile_review(conference) }
+      it { is_expected.to be(true) }
+    end
+  end
 end

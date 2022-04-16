@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220412011810) do
+ActiveRecord::Schema.define(version: 20220413220834) do
 
   create_table "all_hands", force: :cascade do |t|
     t.string   "title"
@@ -375,6 +375,15 @@ ActiveRecord::Schema.define(version: 20220412011810) do
     t.datetime "updated_at"
     t.text     "content"
   end
+
+  create_table "user_conferences", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "conference_id"
+    t.boolean "profile_reviewed"
+  end
+
+  add_index "user_conferences", ["conference_id"], name: "index_user_conferences_on_conference_id"
+  add_index "user_conferences", ["user_id"], name: "index_user_conferences_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

@@ -144,7 +144,7 @@ en:
         home_geographical_area: "You live on:"
         agility_experience: "Do you work with agility?"
         organization: "Organization"
-        website_url: "Website"
+        website_url: "Linkedin"
         bio: "Bio"
         past_proposals: "Past proposals"
         roles: "Roles"
@@ -276,7 +276,7 @@ en:
         general_comments: "General Comments"
     hints:
       textile: "The following fields accept <a href='http://redcloth.org/hobix.com/textile/'>textile syntax</a> to format your proposal."
-      diversity_optional_fields: "The fields below are optional and they are collected to understand the profile of people who will participate of conference. Only conference organizers can see it."
+      diversity_optional_fields: "The fields below are optional and we collect them to understand the people profile who will participate of conference. Only conference organizers can see it."
       user:
         email: "Main e-mail address for contact purposes. We also use your e-mail to fetch your profile image from Gravatar. If you want to change your profile picture, <a href='http://en.gravatar.com/site/signup/' target='_blank'>get your gravatar</a>."
         phone: "Preferably your mobile cellphone number."
@@ -284,16 +284,10 @@ en:
         country: "Country of residence, collected for statistical purpose."
         state: "State of residence, collected for statistical purpose."
         city: "City of residence, collected for statistical purpose."
-        gender: >
-          <ul>
-          <li>Cisgender: Who identifies with gender assigned on birth.</li>
-          <li>Transgender: Who has other different gender than one assigned on birth.</li>
-          <li>Transvestite: It's a person assigned as man on birth, but it identifies itself as a woman person.</li>
-          <li>Non-binary: People who don't identify as member of a gender exclusively. It means that gender expression and gender identity are not limited to male and female.</li>
-          </ul>
+        gender: "- Cisgender: Who identifies with gender assigned on birth.<br />Transgender: Who has other different gender than one assigned on birth.<br />Transvestite: It's a person assigned as man on birth, but it identifies itself as a woman person.<br />Non-binary: People who don't identify as member of a gender exclusively. It means that gender expression and gender identity are not limited to male and female."
         organization: "Name of company or organization that you will represent, collected for statistical purpose."
-        website_url: "Personal or organization's website to be used as reference by the program committee. If you submit a session proposal, this website might be visited when evaluating your session."
-        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile. This will be used to evaluate your session.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
+        website_url: "If your session is selected, your Linkedin profile will be consulted by program committee."
+        bio: "Tell us about your academic experience, professional experience, and participation in the community, focusing on Agile.<br />This will be used to evaluate your session and if selected it will also be also used for publicity at official event website and social medias.<br/>In this field, a limited markup syntax is allowed. See the <a href='/syntax_help?locale=en' target='_blank'>reference guide</a> for details."
         wants_to_submit: "Leave this blank if you only want to leave comments on other users' sessions. You can change your mind later, by editing your profile."
         current_password: "To change the password, please confirm your current password."
         twitter_username: "Your twitter username, without the '@' prefix (e.g. 'twitter_user' instead of '@twitter_user')"
@@ -435,7 +429,6 @@ en:
     submissionByTrack: "Submissions by track"
     submissionByType: "Submissions by type"
 
-
   text:
     lost_password:
       instructions: "Please fill out the e-mail address used when you registered and your username and instructions to reset your password will be emailed to you:"
@@ -444,6 +437,10 @@ en:
     reviewer:
       signs: '%{name} signs his/her reviews!'
       anonymous: '%{name} chose to NOT sign his/her reviews'    
+    users:
+      update_profile_to_submit_session: "<p>If you are reviewing your profile to submit a session, please save your profile even if no update is needed to make we know that everything is right.</p>"
+    sessions:
+      update_profile_to_submit_session: "<p>We notice that your profile is outdated. We count on your availability to update your profile with some information. It doesn't even take 2 minutes!</p>"
 
   footer:
     help: "If you have questions, issues, or suggestions, send us an email to <a href='mailto:programa@agilebrazil.com'>programa@agilebrazil.com</a>"
