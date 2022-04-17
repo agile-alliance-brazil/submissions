@@ -77,7 +77,7 @@ describe DiversityHelper, type: :helper do
     let(:texts) { helper.race_options.map(&:first) }
 
     it { expect(helper.race_options).to all(have(2).items) }
-    it { expect(values).to eq(%i[asian white indian brown black i_dont_know rather_not_answer]) }
+    it { expect(values).to eq(%i[asian white indigenous brown black i_dont_know rather_not_answer]) }
 
     context 'when pt-BR locale' do
       before :all do
@@ -92,7 +92,7 @@ describe DiversityHelper, type: :helper do
         I18n.locale = :en
       end
 
-      it { expect(texts).to eq(['Asian person', 'White person', 'Indian person', 'Brown person', 'Black person', "I don't know", 'Rather not answer']) }
+      it { expect(texts).to eq(['Asian person', 'White person', 'Indigenous person', 'Brown person', 'Black person', "I don't know", 'Rather not answer']) }
     end
   end
 
@@ -104,7 +104,7 @@ describe DiversityHelper, type: :helper do
 
       it { expect(helper.translated_race(:asian)).to eq('Pessoa asiática') }
       it { expect(helper.translated_race('white')).to eq('Pessoa branca') }
-      it { expect(helper.translated_race(:indian)).to eq('Pessoa indígena') }
+      it { expect(helper.translated_race(:indigenous)).to eq('Pessoa indígena') }
       it { expect(helper.translated_race('brown')).to eq('Pessoa parda') }
       it { expect(helper.translated_race(:black)).to eq('Pessoa preta') }
       it { expect(helper.translated_race('i_dont_know')).to eq('Não sei') }
@@ -118,7 +118,7 @@ describe DiversityHelper, type: :helper do
 
       it { expect(helper.translated_race('asian')).to eq('Asian person') }
       it { expect(helper.translated_race(:white)).to eq('White person') }
-      it { expect(helper.translated_race('indian')).to eq('Indian person') }
+      it { expect(helper.translated_race('indigenous')).to eq('Indigenous person') }
       it { expect(helper.translated_race(:brown)).to eq('Brown person') }
       it { expect(helper.translated_race('black')).to eq('Black person') }
       it { expect(helper.translated_race(:i_dont_know)).to eq("I don't know") }

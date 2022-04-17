@@ -765,7 +765,7 @@ en:
   race:
     asian: "Asian person"
     white: "White person"
-    indian: "Indian person"
+    indigenous: "Indigenous person"
     brown: "Brown person"
     black: "Black person"
     i_dont_know: "I don't know"

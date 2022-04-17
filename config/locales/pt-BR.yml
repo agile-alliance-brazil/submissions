@@ -768,7 +768,7 @@ pt-BR:
   race:
     asian: "Pessoa asiática"
     white: "Pessoa branca"
-    indian: "Pessoa indígena"
+    indigenous: "Pessoa indígena"
     brown: "Pessoa parda"
     black: "Pessoa preta"
     i_dont_know: 'Não sei'

@@ -2,7 +2,7 @@
 
 module DiversityHelper
   GENDER_VALUES = %i[cis_man trans_man cis_woman trans_woman transvestite i_dont_know non_binary rather_not_answer].freeze
-  RACE_VALUES = %i[asian white indian brown black i_dont_know rather_not_answer].freeze
+  RACE_VALUES = %i[asian white indigenous brown black i_dont_know rather_not_answer].freeze
   DISABILITY_VALUES = %i[no_disability visual hearing physical_or_motor mental_or_intellectual deafblindness multiple_disability rather_not_answer].freeze
   IS_PARENT_VALUES = %i[yes no rather_not_answer].freeze
   HOME_GEOGRAPHICAL_AREA_VALUES = %i[metropolitan periferic rural indigenous quilombola riverside rather_not_answer].freeze
