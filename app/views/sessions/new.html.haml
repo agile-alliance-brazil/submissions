@@ -2,7 +2,7 @@
 - show_actions!
 .auto_focus
 
-= if @user_profile_outdated
+- if @user_profile_outdated
   .form_tip
     = t('text.sessions.update_profile_to_submit_session').html_safe
     = link_to t('actions.edit_profile'), edit_registration_path(current_user)
