@@ -13,7 +13,9 @@
   = form.input :state, required: true, as: :select, collection: ActionView::Helpers::FormOptionsHelper::ESTADOS_BRASILEIROS, input_html: {tabindex: autotab}
   = form.input :city, required: true, input_html: {tabindex: autotab}
 
-  #diversity_fields_tip.form_tip= t('formtastic.hints.diversity_optional_fields').html_safe
+#diversity_fields_tip.form_tip.diversity=t('formtastic.hints.diversity_optional_fields').html_safe
+
+= form.inputs do
   = form.input :gender, as: :select, collection: gender_options, input_html: {tabindex: autotab}
   = form.input :race, as: :select, collection: race_options, input_html: {tabindex: autotab}
   = form.input :disability, as: :select, collection: disability_options, input_html: {tabindex: autotab}
@@ -22,6 +24,7 @@
   = form.input :home_geographical_area, as: :select, collection: home_geographical_area_options, input_html: {tabindex: autotab}
   = form.input :agility_experience, as: :select, collection: agility_experience_options, input_html: {tabindex: autotab}
 
+= form.inputs do
   = form.input :organization, input_html: {tabindex: autotab}
   = form.input :website_url, input_html: {tabindex: autotab}
   = form.input :twitter_username, input_html: {tabindex: autotab}

@@ -425,7 +425,10 @@ li#user_wants_to_submit_input {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border: 1px dashed #1c8c1c;
-  padding: 10px; }
+  padding: 10px;
+  &.diversity {
+    margin-bottom: 1.5em; }
+}
 
 form {
   .agreement {
