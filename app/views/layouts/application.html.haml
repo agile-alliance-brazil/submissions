@@ -15,22 +15,19 @@
     = yield(:head)
 
   %body
-    #container{'data-conference-year': "#{@conference.year}"}
-      #header
-        = link_to image_tag(@conference.logo.blank? ? image_path("#{@conference.year}_logo.png") : @conference.logo.url(:medium)), conference_page_by_path_path(@conference, path: @conference.default_page.try(:path) || 'home')
-        .logo
-          %h1= @conference.name
-          %strong= @conference.location_and_date
-        - if @conference.languages.size > 1
-          %ul#languages
-            - @conference.languages.each do |language|
-              %li
-                - if language[:code].to_sym == I18n.locale
-                  %span.selected= language[:name]
-                - else
-                  = link_to language[:name], "?locale=#{language[:code]}"
-
-        = render partial: 'layouts/menu'
+    #page-container{'data-conference-year': "#{@conference.year}"}
+      %header.layout_header
+        #header_wrapper
+          = link_to image_tag(@conference.logo.blank? ? image_path("#{@conference.year}_logo.png") : @conference.logo.url(:medium)), conference_page_by_path_path(@conference, path: @conference.default_page.try(:path) || 'home')
+          - if @conference.languages.size > 1
+            = render partial: 'layouts/menu'
+            %ul#languages
+              - @conference.languages.each do |language|
+                %li
+                  - if language[:code].to_sym == I18n.locale
+                    %span.selected= language[:name]
+                  - else
+                    = link_to language[:name], "?locale=#{language[:code]}"
 
       - if show_actions?
         #actions.grid_3
