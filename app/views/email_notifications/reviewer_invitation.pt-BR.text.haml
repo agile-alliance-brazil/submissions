@@ -1,27 +1,27 @@
 Olá #{h(@reviewer.user.full_name)}!
 
 
-O Comitê de Programa da #{@conference_name} (http://www.agilebrazil.com/#{@conference.year}) gostaria de convidar você para integrar o seu Comitê de Revisão das submissões. Sabemos que você possui um forte envolvimento com Métodos Ágeis, empreendedorismo digital ou uso de agilidade na prática que são focos da nossa conferência. Assim, gostaríamos de contar com o seu conhecimento para a seleção de sessões que comporão a grade deste ano. O trabalho realizado pelo Comitê de Revisão é totalmente voluntário, assim como toda a organização do evento. Fazer parte deste Comitê é uma forma de apoiar a conferência e contribuir para o desenvolvimento da comunidade ágil brasileira.
+O Comitê de Programa da #{@conference_name} (http://www.agilebrazil.com/#{@conference.year}) gostaria de convidar você para integrar o Comitê de Revisão das submissões. Como você já revisou sessões em anos passados e gostaríamos de contar com o seu conhecimento e senso crítico para a seleção de sessões que comporão a grade deste ano.
+
+O trabalho realizado pelo Comitê de Revisão é totalmente voluntário, assim como toda a organização do evento. Fazer parte deste Comitê é uma forma de apoiar a conferência e contribuir para o desenvolvimento da comunidade ágil brasileira.
 
 Antes de aceitar o convite, é importante saber da responsabilidade e do compromisso que você está assumindo. Participar do processo de avaliação requer tempo e imparcialidade para que possamos montar um evento com palestras da melhor qualidade. Para maiores informações acesse o manual do revisor (https://docs.google.com/document/d/1Ey-LYidWJsOc7CkC6I7Yt3liuBb11KpFCwawpNDAGfc/edit).
 
-* Durante o período de submissões, leia as propostas submetidas e comente nelas! Esses comentários servem como uma fase de pré-revisão e ajuda os(as) autores(as) a melhorarem suas submissões.
-
-* Na etapa de revisão, que deve ir até #{l(@conference.review_deadline, format: :short)}, cada proposta deverá receber 3 revisões independentes.
+Durante a etapa de revisão, que deve ir até #{l(@conference.review_deadline, format: :short)}, cada proposta deverá receber de 2 a 3 revisões independentes.
 
 
-Importante lembrar que é impossível prever quantas propostas receberemos, mas esperamos que cada revisor acesse diariamente o sistema comentando as propostas durante o período de submissão e prepare-se para analisar em torno de 20 submissões na etapa de revisão. As revisões não precisam ser feitas de uma vez - elas estarão online e fica a seu critério definir como o tempo será alocado.
+É impossível prever quantas propostas receberemos, mas esperamos que cada revisor analise em torno de 20 submissões no período. As revisões não precisam ser feitas de uma vez - elas estarão online e fica a seu critério definir como o tempo será alocado.
 
 
-Vale ressaltar que fazer parte do comitê não o(a) impede de enviar propostas também. As submissões estão abertas e podem ser feitas em #{root_url(year: @conference.year)}.
+Vale ressaltar que ter submetido sessões não impede fazer parte do comitê de revisão - você só não poderá revisar sessões com os mesmos temas da sua submissão.
 
 
-Para aceitar este convite, vá para o seguinte endereço:
+QUERO SER REVISOR(A) DA AGILE BRAZIL:
 
 = reviewer_accept_url(@conference, @reviewer, locale: 'pt-BR')
 
 
-Para rejeitar o convite, vá para o seguinte endereço:
+Infelizmente vou rejeitar o convite:
 
 = reviewer_reject_url(@conference, @reviewer, locale: 'pt-BR')
 
@@ -29,8 +29,9 @@ Para rejeitar o convite, vá para o seguinte endereço:
 Se alguma das URLs acima não funcionar tente copiar e colar o endereço completo no seu navegador.
 
 
-Por favor, responda a esse convite o quanto antes. Contamos com sua colaboração para montar uma programação excelente para a #{@conference_name}. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço 'programa@agilebrazil.com'.
+Por favor, responda a esse convite, através dos links acima, o quanto antes. Contamos com sua colaboração para montar uma programação excelente para a #{@conference_name}. Se você tiver alguma dúvida, por favor entre em contato conosco através do endereço 'programa@agilebrazil.com'.
 
+Enquanto as revisões não começam, você já pode fazer comentários nas submissões! Comentários feitos durante esse período servem como uma fase de pré-revisão, ajudando quem submeteu a melhorar suas submissões antes das revisões.
 
 Gratos,
 
