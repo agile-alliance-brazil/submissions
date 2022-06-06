@@ -715,7 +715,7 @@ pt-BR:
     early_review: "Pré-Avaliação"
     final_review: "Avaliação Final"
     feedback: "Feedback"
-    third_reject_auto_justification: "Obrigado pela sua submissão de proposta para %{conference_name}. Devido as mais de 400 submissões, propostas de sessões que receberam 2 rejeições de revisores não poderão ser aprovadas dessa vez. Leia os comentários dos outros avaliadores e, por favor, submeta novamente no próximo evento. Esperamos te ver no evento para que possamos trocar ideias e nos falar pessoalmente. Abraço!"
+    third_reject_auto_justification: "Obrigado pela sua submissão de proposta para %{conference_name}. Infelizmente propostas que já receberam 2 rejeições da equipe revisora ficam de fora da nossa grade, como forma de priorizar as mais de 300 submissões que recebemos. Esta é uma mensagem automática do sistema que conta como a 3a revisão. Esperamos que leia com carinho os comentários das pessoas avaliadoras e submeta novamente no próximo evento. Estamos torcendo por você! Nos vemos no evento para trocar ideias e nos falar pessoalmente. Abraço!"
 
   rating:
     high:
