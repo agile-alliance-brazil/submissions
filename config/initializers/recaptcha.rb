@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Recaptcha.configure do |config|
-  config.site_key = '6LdrRIwgAAAAAAgiuPNYvSL-kEtTyeQa8N2mekqV'
-  config.secret_key = '6LdrRIwgAAAAABUa63LGx4kgGmgBuPe8O7McSCmb'
+  config.site_key = '6LdZh7QgAAAAAJrM_gLQVLzLQpR2gpSgz7T1vvhU'
+  config.secret_key = '6LdZh7QgAAAAAFJqCQjFt5Ak16yVh2V_mx_Dlrr7'
 
   # Uncomment the following line if you are using a proxy server:
   # config.proxy = 'http://myproxy.com.au:8080'
