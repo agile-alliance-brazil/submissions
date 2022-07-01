@@ -41,6 +41,7 @@ gem 'uglifier', '~> 4.0'
 gem 'validates_existence', '0.9.2'
 gem 'will_paginate', '~> 3.1'
 gem 'yui-compressor', '~> 0.12'
+gem "recaptcha", "~> 5.9"
 
 platforms :ruby do
   gem 'RedCloth', '~> 4.3', require: 'redcloth'

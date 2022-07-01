@@ -3,5 +3,6 @@
 
 = semantic_form_for resource, as: resource_name, url: registration_path(resource_name) do |form|
   = render 'form', form: form
+  = recaptcha_tags
   = form.actions do
     = form.action :submit, label: :signup, button_html: {tabindex: autotab}

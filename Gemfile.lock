@@ -289,6 +289,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rb-readline (0.5.5)
+    recaptcha (5.9.0)
+      json
     ref (2.0.0)
     regexp_parser (1.7.0)
     responders (2.4.1)
@@ -463,6 +465,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   rb-readline
+  recaptcha (~> 5.9)
   rspec-collection_matchers
   rspec-its
   rspec-rails (>= 3.9.1, < 4.0)
