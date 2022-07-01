@@ -9,6 +9,9 @@
  devise:
    secret_key: cd8960c2cf59235252ed56d75e354598729e4eecfdd7fce80e22b88e5b79a630f2a65cb67465411079931adad1fd416ed82d69fa1d941f9f4ad4f905e47a1ef
    pepper: cd8960c2cf59235252ed56d75e354598729e4eecfdd7fce80e22b88e5b79a630f2a65cb67465411079931adad1fd416ed82d69fa1d941f9f4ad4f905e47a1ef
+ recaptcha:
+   site_key: 6LeyXLcgAAAAAXxxxxxxxxxxxxxxxxxxxxxxxxxx
+   secret_key: 6LeyXLcgAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
  # Host used to configure ActionMailer::Base.default_url_options[:host] as described in:
  # http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
