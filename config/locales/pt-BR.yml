@@ -353,6 +353,25 @@ pt-BR:
       filter_reviewer: "Filtrar avaliadores"
       create_vote: "Votar"
       destroy_vote: "Cancelar voto"
+    views:
+      organizer_reports:
+        author:
+          gender: "Gênero"
+          race: "Cor/Raça"
+          disability: "Deficiência"
+          age_range: "Faixa etária"
+          is_parent: "Pai/Mãe/Responsável legal"
+          home_geographical_area: "Área geográfica"
+          agility_experience: "Experiência c/ agilidade"
+
+        second_author:
+          gender: "(2) Gênero"
+          race: "(2) Cor/Raça"
+          disability: "(2) Deficiência"
+          age_range: "(2) Faixa etária"
+          is_parent: "(2) Pai/Mãe/Responsável legal"
+          home_geographical_area: "(2) Área geográfica"
+          agility_experience: "(2) Experiência c/ agilidade"
 
   # Mensagens customizadas
   title:

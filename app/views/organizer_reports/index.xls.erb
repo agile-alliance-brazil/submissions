@@ -37,7 +37,25 @@
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.title') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.keyword_list') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.author_id') %></Data></Cell>
+
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.gender') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.race') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.disability') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.age_range') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.is_parent') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.home_geographical_area') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.author.agility_experience') %></Data></Cell>
+
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.labels.session.second_author_id') %></Data></Cell>
+
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.gender') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.race') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.disability') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.age_range') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.is_parent') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.home_geographical_area') %></Data></Cell>
+        <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('formtastic.views.organizer_reports.second_author.agility_experience') %></Data></Cell>
+
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.strong_accept.title') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.weak_accept.title') %></Data></Cell>
         <Cell ss:StyleID="sTitle"><Data ss:Type="String"><%= t('recommendation.weak_reject.title') %></Data></Cell>
@@ -71,7 +89,25 @@
           <Cell><Data ss:Type="String"><%= session.title %></Data></Cell>
           <Cell><Data ss:Type="String"><%= session.keyword_list.map{|keyword| t(keyword)}.join(', ') %></Data></Cell>
           <Cell><Data ss:Type="String"><%= session.author.full_name %></Data></Cell>
+
+          <Cell><Data ss:Type="String"><%= translated_gender(session.author.gender) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_race(session.author.race) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_disability(session.author.disability) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_age_range(session.author.birth_date) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_is_parent(session.author.is_parent) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_home_geographical_area(session.author.home_geographical_area) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_agility_experience(session.author.agility_experience) %></Data></Cell>
+
           <Cell><Data ss:Type="String"><%= session.second_author.try(:full_name) %></Data></Cell>
+
+          <Cell><Data ss:Type="String"><%= translated_gender(session.second_author.try(:gender)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_race(session.second_author.try(:race)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_disability(session.second_author.try(:disability)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_age_range(session.second_author.try(:birth_date)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_is_parent(session.second_author.try(:is_parent)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_home_geographical_area(session.second_author.try(:home_geographical_area)) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= translated_agility_experience(session.second_author.try(:agility_experience)) %></Data></Cell>
+
           <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:strong_accept?) %></Data></Cell>
           <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:weak_accept?) %></Data></Cell>
           <Cell><Data ss:Type="Number"><%= session.final_reviews.to_a.count(&:weak_reject?) %></Data></Cell>

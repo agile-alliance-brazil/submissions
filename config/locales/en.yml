@@ -351,6 +351,28 @@ en:
       filter_reviewer: "Filter reviewers"
       create_vote: "Vote"
       destroy_vote: "Cancel vote"
+    views:
+      organizer_reports:
+        author:
+          gender: "Gender"
+          race: "Skin/Race"
+          disability: "Disability"
+          age_range: "Age range"
+          is_parent: "Parent/Legal responsible"
+          home_geographical_area: "Geographic area"
+          agility_experience: "Agility experience"
+
+        second_author:
+          gender: "(2) Gender"
+          race: "(2) Skin/Race"
+          disability: "(2) Disability"
+          age_range: "(2) Age range"
+          is_parent: "(2) Parent/Legal responsible"
+          home_geographical_area: "(2) Geographic area"
+          agility_experience: "(2) Agility experience"
+
+
+
 
   # Custom messages
   title:
