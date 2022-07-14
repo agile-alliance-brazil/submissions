@@ -12,14 +12,18 @@ describe ApplicationHelper, type: :helper do
       expect(helper.prepend_http('http://dtsato.com')).to eq('http://dtsato.com')
     end
 
+    it "does not change URL if starts with 'https://'" do
+      expect(helper.prepend_http('https://dtsato.com')).to eq('https://dtsato.com')
+    end
+
     it 'ignores case when fixing' do
       expect(helper.prepend_http('HTTP://dtsato.com/some/path-01')).to eq('HTTP://dtsato.com/some/path-01')
     end
 
     it 'does not prepend on empty string' do
-      expect(helper.prepend_http('')).to eq('')
+      expect(helper.prepend_http('')).to be_nil
       expect(helper.prepend_http(nil)).to be_nil
-      expect(helper.prepend_http('   ')).to eq('   ')
+      expect(helper.prepend_http('   ')).to be_nil
     end
   end
 
