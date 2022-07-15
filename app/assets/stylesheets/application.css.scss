@@ -932,3 +932,52 @@ form.formtastic.user,form.formtastic.comment fieldset.inputs {
 form.formtastic.user fieldset.actions {
   display: block;
 }
+
+.organizer_sessions {
+  .sort {
+    clear: both;
+  }
+
+  li {
+    display: inline-block;
+    &:not(:last-child) {
+      margin-right: 1em;
+    }
+  }
+
+  .session {
+    border-top: 1px solid lightgray;
+    margin-top: 1em;
+    padding-top: .5em;
+
+    .session-header, .session-details, .session-review, .session-actions {
+      display: flex;
+    }
+
+    .session-details {
+      .author:last-child:before { content: '\00a0/\00a0'; }
+    }
+
+    .session-review {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+
+    .session-actions {
+      justify-content: flex-end;
+      gap: 1em;
+    }
+
+    .session_id, .title, .author, .track {
+       & > span:first-child { display: none; }
+    } 
+
+    .session_id > span:last-child {
+      &:before { content: '#'; }
+      &:after { content: ':\00a0'; }
+    }
+
+    .track { margin-left: auto; }
+  }
+}

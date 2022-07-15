@@ -17,51 +17,77 @@
     \:
     = link_to image_tag('xls_icon.png'), organizer_reports_path(@conference, format: "xls")
 
-%table.sessions
-  %thead
-    %tr
-      %th.session_id= sortable_column('ID', :id)
-      %th.title= sortable_column(t('formtastic.labels.session.title'), :title)
-      %th.author= sortable_column(t('formtastic.labels.session.author_id'), :author_id)
-      %th.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author_id)
-      %th.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
+.organizer_sessions
+  .sort
+    %span= t('generic.sort_by')
+    %ul.headers
+      %li.session_id= sortable_column('ID', :id)
+      %li.title= sortable_column(t('formtastic.labels.session.title'), :title)
+      %li.author= sortable_column(t('formtastic.labels.session.author_id'), :author_id)
+      %li.author= sortable_column(t('formtastic.labels.session.second_author_id'), :second_author_id)
+      %li.track= sortable_column(t('formtastic.labels.session.track_id'), :track_id)
       - if @conference.has_early_review?
-        %th.early_reviews= sortable_column(t('review.early_review'), :early_reviews_count)
-      %th.final_reviews= sortable_column(t('review.final_review'), :final_reviews_count)
-      %th.status= sortable_column(t('formtastic.labels.session.state'), :state)
-      %th.author_confirmed= t('formtastic.labels.session.author_confirmed')
-      %th.author_image_agreement= t('formtastic.labels.session.author_image_agreement')
-      %th.action
-  %tbody
+        %li.early_reviews= sortable_column(t('review.early_review'), :early_reviews_count)
+      %li.final_reviews= sortable_column(t('review.final_review'), :final_reviews_count)
+      %li.status= sortable_column(t('formtastic.labels.session.state'), :state)
+  .sessions
     - @sessions.each do |session|
-      = content_tag_for(:tr, session, class: cycle(:odd, :even)) do
-        %td.session_id= session.id
-        %td.title
-          = link_to h(session.try(:title)), session_path(@conference, session)
-          - if session.comments.size > 0
-            .commentCount= session.comments.size
-        %td.author= link_to h(session.author.full_name), user_path(session.author)
-        %td.author
+      = content_tag_for(:div, session, class: cycle(:odd, :even)) do
+        .session-header
+          .session_id
+            %span= 'ID:'
+            %span= session.id
+          .title
+            %span= t('formtastic.labels.session.title') + ':'
+            %span
+              = link_to h(session.try(:title)), session_path(@conference, session)
+              - if session.comments.size > 0
+                .commentCount= session.comments.size
+
+        .session-details
+          .author
+            %span= t('formtastic.labels.session.author_id') + ':'
+            %span= link_to h(session.author.full_name), user_path(session.author)
+
           - if session.second_author
-            = link_to h(session.second_author.full_name), user_path(session.second_author)
-        %td.track
-          = t(session.track.title)
-        - if @conference.has_early_review?
-          %td.early_reviews= link_to_unless(session.early_reviews_count == 0, session.early_reviews_count, organizer_session_reviews_path(@conference, session, type: :early))
-        %td.final_reviews= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session, type: :final))
-        %td.status
-          = t("session.state.#{session.state}")
-        %td.author_confirmed
-          = session.author_agreement ? t("generic.confirmed") : ""
-        %td.author_image_agreement
-          = session.image_agreement ? t("generic.confirmed") : ""
-        %td.action
+            .author
+              %span= t('formtastic.labels.session.second_author_id') + ':'
+              %span= link_to h(session.second_author.full_name), user_path(session.second_author)
+
+          .track
+            %span= t('formtastic.labels.session.track_id') + ':'
+            %span= t(session.track.title)
+
+        .session-review
+          - if @conference.has_early_review?
+            .early_reviews
+              %span= t('review.early_review') + ':'
+              %span= link_to_unless(session.early_reviews_count == 0, session.early_reviews_count, organizer_session_reviews_path(@conference, session, type: :early))
+
+          .final_reviews
+            %span= t('review.final_review') + ':'
+            %span= link_to_unless(session.final_reviews_count == 0, session.final_reviews_count, organizer_session_reviews_path(@conference, session, type: :final))
+
+          .status
+            %span= t('.session.state') + ':'
+            %span= t(session.state, scope: 'formtastic.labels')
+
+          .author_confirmed
+            %span= t('formtastic.labels.session.author_confirmed') + ':'
+            %span= session.author_agreement ? t("generic.confirmed") : ""
+
+          .author_image_agreement
+            %span= t('formtastic.labels.session.author_image_agreement') + ':'
+            %span= session.image_agreement ? t("generic.confirmed") : ""
+
+        .session-actions
           - if can?(:create, ReviewDecision, session)
-            = link_to t('actions.create_review_decision'), new_session_review_decision_path(@conference, session)
+            %span= link_to t('actions.create_review_decision'), new_session_review_decision_path(@conference, session)
           - if can?(:edit, ReviewDecision, session)
-            = link_to t('actions.edit_review_decision'), edit_session_review_decision_path(@conference, session, session.review_decision)
+            %span= link_to t('actions.edit_review_decision'), edit_session_review_decision_path(@conference, session, session.review_decision)
           - if can?(:cancel, session) && session.can_cancel?
-            = link_to t('actions.cancel'), cancel_session_path(@conference, session), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.cancel'))
+            %span= link_to t('actions.cancel'), cancel_session_path(@conference, session), method: :delete, confirm: t('generic.are_you_sure', action: t('actions.cancel'))
+
 
 - if @sessions.total_pages > 1
   #pagination= will_paginate(@sessions)
