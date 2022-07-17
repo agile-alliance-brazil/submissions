@@ -95,6 +95,23 @@ class EmailNotifications < ActionMailer::Base
     end
   end
 
+  def notification_of_acceptance_errata(session, sent_at = Time.now)
+    decision = session.review_decision
+    raise "Notification can't be sent before decision has been made" unless decision
+
+    accepted = decision.accepted?
+    template_name = decision.outcome.title.gsub(/^outcomes\.([^.]+)\.title$/, 'notification_of_\1_errata').to_sym
+    @session = session
+    @conference_name = conference.name
+    I18n.with_locale(@session.author.try(:default_locale)) do
+      subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", conference_name: @conference_name)
+      mail subject: "[ERRATA][#{host}] #{subject}",
+           to: session.authors.map { |author| EmailNotifications.format_email(author) },
+           date: sent_at,
+           template_name: template_name
+    end
+  end
+
   def review_feedback_request(author, sent_at = Time.now)
     @conference_name = conference.name
     @author = author
