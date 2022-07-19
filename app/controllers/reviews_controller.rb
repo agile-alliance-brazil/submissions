@@ -136,7 +136,7 @@ class ReviewsController < ApplicationController
     resource_class.create!(
       session: review.session,
       recommendation: Recommendation.find_by(name: 'weak_reject'),
-      reviewer_id: 1199,
+      reviewer_id: 3202,
       author_agile_xp_rating: Rating.find_low_instance,
       author_proposal_xp_rating: Rating.find_low_instance,
       proposal_quality_rating: Rating.find_low_instance,
