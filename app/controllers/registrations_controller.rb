@@ -6,6 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    return render nothing: true, status: 503 if Rails.env == 'production'
+
     build_resource(sign_up_params)
 
     if verify_recaptcha && resource.save
