@@ -86,6 +86,7 @@ class EmailNotifications < ActionMailer::Base
     template_name = decision.outcome.title.gsub(/^outcomes\.([^.]+)\.title$/, 'notification_of_\1').to_sym
     @session = session
     @conference_name = conference.name
+    @conference_location = conference.location
     I18n.with_locale(@session.author.try(:default_locale)) do
       subject = I18n.t("email.session_#{accepted ? 'accepted' : 'rejected'}.subject", conference_name: @conference_name)
       mail subject: "[#{host}] #{subject}",
