@@ -32,8 +32,8 @@ gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
-gem 'rails', '~> 4.2', '>= 4.2.11.3' # TODO: Upgrade
-gem 'sass-rails', '~> 5.0', '>= 5.0.7'
+gem 'rails', '~> 6.1', '>= 6.1.7.3' # TODO: Upgrade
+gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'seed-fu', '~> 2.3', '>= 2.3.9'
 gem 'state_machine', '1.2.0'
 gem 'therubyracer', '0.12.3'
@@ -48,13 +48,13 @@ platforms :ruby do
 end
 
 group :development do
-  gem 'bullet', '>= 5.9.0'
+  gem 'bullet', '>= 6.1.0'
   gem 'capistrano', '3.10.1', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-git-with-submodules', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
-  gem 'dotenv-rails', '>= 2.7.5', require: false
+  gem 'dotenv-rails', '>= 2.7.6', require: false
   gem 'foreman'
   gem 'lol_dba', '>= 2.2.0'
   gem 'rack-livereload', '>= 0.3.17'
@@ -66,7 +66,7 @@ group :test do
   gem 'email_spec'
   gem 'mocha'
   gem 'simplecov', '< 0.18.0' # Or >= 0.20.0 but that needs Ruby 2.5+
-  gem 'shoulda-matchers', '>= 4.0.1'
+  gem 'shoulda-matchers', '>= 4.3.0'
 end
 
 group :development, :test do
