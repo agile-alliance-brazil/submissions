@@ -10,30 +10,30 @@ def darwin_only(require_as)
   RbConfig::CONFIG['host_os'] =~ /darwin/ ? require_as : false
 end
 
-gem 'acts-as-taggable-on', '~> 5.0', '>= 5.0.0'
+gem 'acts-as-taggable-on', '~> 6.0', '>= 6.0.0'
 gem 'acts_as_commentable', '4.0.2'
 gem 'airbrake', '~> 7.0'
 gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "65e1ff1c3c2031b243f773cb9e61df6e49db71dd"
 gem 'brhelper', '3.3.0'
 gem 'cancancan', '~> 2.0'
-gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
-gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'coffee-rails', '~> 5.0', '>= 5.0.0'
+gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'devise-encryptable', '0.2.0'
-gem 'devise-i18n', '~> 1.9', '>= 1.9.1'
-gem 'doorkeeper', '~> 4.4', '>= 4.4.3' # TODO: Remove in favor of oauth in another app
+gem 'devise-i18n', '~> 1.9', '>= 1.9.2'
+gem 'doorkeeper', '~> 5.0', '>= 5.0.0' # TODO: Remove in favor of oauth in another app
 gem 'fancybox-rails', '~> 0.3', '>= 0.3.1'
-gem 'formtastic', '3.1.5'
+gem 'formtastic', '4.0.0'
 gem 'goalie', git: 'https://github.com/hugocorbucci/goalie.git'
 gem 'haml', '~> 5.0'
-gem 'jquery-rails', '~> 4.4', '>= 4.4.0'
+gem 'jquery-rails', '~> 4.5', '>= 4.5.0'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
-gem 'localized_country_select', '0.9.11'
+gem 'localized_country_select', '0.10.0'
 gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
-gem 'rails', '~> 4.2', '>= 4.2.11.3' # TODO: Upgrade
-gem 'sass-rails', '~> 5.0', '>= 5.0.7'
+gem 'rails', '~> 7.1', '>= 7.1.0' # TODO: Upgrade
+gem 'sass-rails', '~> 5.0', '>= 5.0.8'
 gem 'seed-fu', '~> 2.3', '>= 2.3.9'
 gem 'state_machine', '1.2.0'
 gem 'therubyracer', '0.12.3'
@@ -54,12 +54,12 @@ group :development do
   gem 'capistrano-git-with-submodules', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
-  gem 'dotenv-rails', '>= 2.7.5', require: false
+  gem 'dotenv-rails', '>= 2.7.6', require: false
   gem 'foreman'
-  gem 'lol_dba', '>= 2.2.0'
+  gem 'lol_dba', '>= 2.4.0'
   gem 'rack-livereload', '>= 0.3.17'
   gem 'travis-lint', '>= 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '>= 3.3.1'
 end
 
 group :test do
@@ -71,7 +71,7 @@ end
 
 group :development, :test do
   gem 'brakeman'
-  gem 'factory_bot_rails', '~> 4.11', '>= 4.11.1' # 5 doesn't support rails 4.2
+  gem 'factory_bot_rails', '~> 5.0', '>= 5.0.0' # 5 doesn't support rails 4.2
   gem 'faker'
   gem 'guard-livereload'
   gem 'guard-rspec'
@@ -81,7 +81,7 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rb-fsevent', require: darwin_only('rb-fsevent')
   gem 'rb-inotify', require: linux_only('rb-inotify')
-  gem 'rspec-rails', '>= 3.9.1', '< 4.0'
+  gem 'rspec-rails', '~> 4.0'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
