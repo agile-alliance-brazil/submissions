@@ -44,7 +44,7 @@ gem 'yui-compressor', '~> 0.12'
 gem "recaptcha", "~> 5.9"
 
 platforms :ruby do
-  gem 'RedCloth', '~> 4.3', require: 'redcloth'
+  gem 'RedCloth', '~> 4.3', '>= 4.3.3', require: 'redcloth'
 end
 
 group :development do
