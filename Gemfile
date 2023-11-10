@@ -32,7 +32,7 @@ gem 'modernizr-rails'
 gem 'mysql2', '< 0.5' # remove restriction once rails supports mysql 0.5+
 gem 'newrelic_rpm'
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
-gem 'rails', '~> 4.2', '>= 4.2.11.3' # TODO: Upgrade
+gem 'rails', '~> 5.2', '>= 5.2.7.1' # TODO: Upgrade
 gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 gem 'seed-fu', '~> 2.3', '>= 2.3.9'
 gem 'state_machine', '1.2.0'
