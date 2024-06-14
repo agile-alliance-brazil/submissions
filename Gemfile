@@ -48,7 +48,7 @@ platforms :ruby do
 end
 
 group :development do
-  gem 'bullet', '>= 5.9.0'
+  gem 'bullet', '>= 6.1.0'
   gem 'capistrano', '3.10.1', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-git-with-submodules', require: false
@@ -66,7 +66,7 @@ group :test do
   gem 'email_spec'
   gem 'mocha'
   gem 'simplecov', '< 0.18.0' # Or >= 0.20.0 but that needs Ruby 2.5+
-  gem 'shoulda-matchers', '>= 4.0.1'
+  gem 'shoulda-matchers', '>= 4.3.0'
 end
 
 group :development, :test do
