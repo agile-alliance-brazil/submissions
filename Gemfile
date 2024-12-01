@@ -90,6 +90,6 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
   gem 'terminal-notifier-guard', require: darwin_only('terminal-notifier-guard')
   gem 'timecop'
-  gem 'rubocop', require: false
-  gem 'rubocop-rspec'
+  gem 'rubocop', '>= 0.85.0', require: false
+  gem 'rubocop-rspec', '>= 1.39.0'
 end
